@@ -1,0 +1,18 @@
+<h2>Data export</h2>
+
+<p>
+	<?php echo count($this->questions); ?> vragen ingelezen
+</p>
+
+<p>
+	Export formats:
+	<ul>
+		<?php foreach ($this->supportedFormats as $format): ?>
+			<li>
+				<a href="<?php echo $this->url(array('action' => $format)); ?>">
+					<?php echo $format; ?>
+				</a>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+</p>

@@ -1,11 +1,3 @@
-<h2>Ondersteunde formaten voor import van data:</h2>
+<h2>Data import</h2>
 
-<?php foreach ($this->methods as $method): ?>
-	<?php if (substr($method, -6) === 'Action' && $method !== 'indexAction'): ?>
-		<?php $action = substr($method, 0, -6); ?>
-		<a href="<?php echo $this->url(array('action' => $action)); ?>">
-			<?php echo $action; ?>
-		</a>
-		<br />
-	<?php endif; ?>
-<?php endforeach; ?>
+<?php echo $this->form->render(); ?>

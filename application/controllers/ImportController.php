@@ -3,15 +3,35 @@
 class ImportController extends Zend_Controller_Action
 {
 	/**
+	 * Name of the file to process
+	 */
+	protected $_filename;
+	
+	
+	/**
+	 * Supported input formats
+	 */
+	protected $_supportedFormats = array();
+	
+	
+	/**
 	 * Initialisation
 	 * 
 	 * @return unknown_type
 	 */
     public function init()
     {
-    	// file to read the data from
-//    	$this->filename = "data.csv";
-    	$this->filename = "data.ods";
+    	/* get supported input formats (based on existing actions) */
+    	$methods = get_class_methods($this);
+    	
+    	foreach ($methods as $i => $method) {
+    		if (substr($method, -6) === 'Action' && $method !== 'indexAction') {
+				$methods[$i] = substr($method, 0, -6);
+    		} else {
+    			unset($methods[$i]);
+    		}
+    	}
+    	$this->_supportedFormats = $methods;
     }
     
     
@@ -20,7 +40,22 @@ class ImportController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-    	$this->view->methods = get_class_methods($this);
+    	$form = new HVA_Form_Import($this->_supportedFormats);
+    	
+    	if ($this->getRequest()->isPost()) {
+    		if ($form->isValid($this->getRequest()->getPost())) {
+    			if (!$form->file->receive()) {
+    				$form->addError('Error receiving the file');
+    			} else {
+    				$this->_filename = $form->file->getFileName();
+    				$extension = array_pop(split('\.', $this->_filename));
+    				$this->{$extension . 'Action'}();
+    				$this->_redirect('export');
+    			}    			
+    		}
+    	}
+    	
+    	$this->view->form = $form;
     }
     
     
@@ -34,12 +69,9 @@ class ImportController extends Zend_Controller_Action
     	/* disable view renderer */
     	$this->_helper->viewRenderer->setNoRender();
     	
-    	/* open file, store data, and close file */    	
-    	$file = new HVA_Model_Input_File_Ods($this->filename);
+    	/* open file, store data, and close file */
+    	$file = new HVA_Model_Input_File_Ods($this->_filename);
     	$file->storeData();
-    	
-    	/* redirect */
-//    	$this->_redirect('export/odf');
     }
     
     
@@ -54,10 +86,7 @@ class ImportController extends Zend_Controller_Action
     	$this->_helper->viewRenderer->setNoRender();
     	
     	/* open file, store data, and close file */    	
-    	$file = new HVA_Model_Input_File_Csv($this->filename);
+    	$file = new HVA_Model_Input_File_Csv($this->_filename);
     	$file->storeData();
-    	
-    	/* redirect */
-//    	$this->_redirect('export/odf');
     }
 }
