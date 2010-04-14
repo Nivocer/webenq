@@ -89,4 +89,26 @@ class ImportController extends Zend_Controller_Action
     	$file = new HVA_Model_Input_File_Csv($this->_filename);
     	$file->storeData();
     }
+    
+    
+    /**
+     * Returns the supported input formats
+     * 
+     * @return array Supported input formats
+     */    
+    public function getSupportedFormats()
+    {
+    	return $this->_supportedFormats;
+    }
+    
+    
+    /**
+     * Sets the data file
+     * 
+     * @param string $filename Name of datafile
+     */
+    public function setDataFile($filename)
+    {
+    	$this->_filename = $filename;
+    }
 }
