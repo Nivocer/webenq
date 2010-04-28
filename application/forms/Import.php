@@ -33,11 +33,11 @@ class HVA_Form_Import extends Zend_Form
         	'min' => 1,
         	'max' => 1));
 		$extension = new Zend_Validate_File_Extension($this->_supportedFormats);
-		
+
 		$file = $this->createElement('file', 'file');
 		$file
 			->setRequired(true)
-			->setLabel('Please, select a file to import: ')
+			->setLabel('Please, select the data-file to import: ')
 			->setDescription('The following formats are supported: ' . implode(', ', $this->_supportedFormats))
 			->addValidators(array(
 				$notEmpty,

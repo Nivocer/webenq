@@ -17,11 +17,26 @@ class ImportController extends Zend_Controller_Action
 	/**
 	 * Initialisation
 	 * 
-	 * @return unknown_type
+	 * @return void
 	 */
     public function init()
     {
-    	/* get supported input formats (based on existing actions) */
+    	/* start session and get session id */
+    	$this->_session = new Zend_Session_Namespace("webenq");
+    	$this->_sessionId = Zend_Session::getId();
+    	
+    	/* get supported import formats */    	
+    	$this->_supportedFormats = $this->_getSupportedFormats();    	
+    }
+    
+    
+    /**
+     * Gets all supported import formats (based on defined controller actions)
+     * 
+     * @return array
+     */
+    protected function _getSupportedFormats()
+    {
     	$methods = get_class_methods($this);
     	
     	foreach ($methods as $i => $method) {
@@ -31,7 +46,8 @@ class ImportController extends Zend_Controller_Action
     			unset($methods[$i]);
     		}
     	}
-    	$this->_supportedFormats = $methods;
+    	
+    	return $methods;
     }
     
     
@@ -41,20 +57,29 @@ class ImportController extends Zend_Controller_Action
     public function indexAction()
     {
     	$form = new HVA_Form_Import($this->_supportedFormats);
+    	$errors = array();
     	
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
     			if (!$form->file->receive()) {
-    				$form->addError('Error receiving the file');
+    				$errors[] = 'Error receiving the file';
     			} else {
     				$this->_filename = $form->file->getFileName();
     				$extension = array_pop(split('\.', $this->_filename));
-    				$this->{$extension . 'Action'}();
-    				$this->_redirect('export');
+    			}
+    			if (!$errors) {
+    				try {
+    					$action = $extension . 'Action';
+    					$this->{$action}();
+    				} catch (Exception $e) {
+    					$errors[] = 'Error processing the files';
+    				}
+    				$this->_redirect('index');
     			}    			
     		}
     	}
     	
+    	$this->view->errors = $errors;    	
     	$this->view->form = $form;
     }
     
@@ -85,7 +110,7 @@ class ImportController extends Zend_Controller_Action
     	/* disable view renderer */
     	$this->_helper->viewRenderer->setNoRender();
     	
-    	/* open file, store data, and close file */    	
+    	/* open file, store data, and close file */
     	$file = new HVA_Model_Input_File_Csv($this->_filename);
     	$file->storeData();
     }

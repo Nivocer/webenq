@@ -1,3 +1,11 @@
 <h2>Data import</h2>
 
 <?php echo $this->form->render(); ?>
+
+<?php if ($this->errors): ?>
+	<ul class="errors">
+		<?php foreach ($this->errors as $error): ?>
+			<li><?php echo $error; ?></li>
+		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>

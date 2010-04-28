@@ -5,11 +5,22 @@
 </p>
 
 <p>
+	<?php echo $this->form->render(); ?>
+</p>
+
+<?php if ($this->groupId): ?>
+	<p>
+		<?php $q = $this->form->question->getMultiOptions(); ?>
+		Current group: <?php echo $q[$this->groupId]; ?>
+	</p>
+<?php endif; ?>
+
+<p>
 	Export formats:
 	<ul>
 		<?php foreach ($this->supportedFormats as $format): ?>
 			<li>
-				<a href="<?php echo $this->url(array('action' => $format)); ?>">
+				<a href="<?php echo $this->url(array('action' => $format, 'q' => $this->groupId)); ?>">
 					<?php echo $format; ?>
 				</a>
 			</li>
