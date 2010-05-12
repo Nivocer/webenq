@@ -8,30 +8,36 @@ class ManagementController extends Zend_Controller_Action
 	protected $_questions = array();
 	
 	
-    /**
+	/**
+	 * Initialisation
+	 * 
+	 * @return void
+	 */
+    public function init()
+    {
+    	/* start session and get session id */
+    	$this->_session = new Zend_Session_Namespace("webenq");
+    	$this->_sessionId = Zend_Session::getId();
+    }
+	
+	
+	/**
      * Renders the overview of export options
      */
     public function indexAction()
     {
-    	/* get db-table name from session */
-    	$session = new Zend_Session_Namespace("webenq");
-    	$dbTableName = $session->dbTableName;
-    	
     	/* get table and its columns */
-    	$meta = new HVA_Model_DbTable_Meta();
-    	$questionsMeta = $meta->fetchAll(
-    		"parent = 0 AND tablename = '" . $dbTableName . "'",
-    		"id");
-    	$data = new HVA_Model_DbTable_Data($dbTableName);
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_sessionId);
+    	$questionsMeta = $meta->fetchAll("parent_id = 0", "id");
+    	$data = new HVA_Model_DbTable_Data("data_" . $this->_sessionId);
     	
     	/* factor question objects */
+    	$q = array();
     	foreach ($questionsMeta as $key => $questionMeta) {
-    		
-    		$q[$key]["question"] = $questionMeta->question;
-    		$q[$key]["type"] = $questionMeta->type;
-    		
+    		$q[$key]["question"]	= $questionMeta->question_id;
+    		$q[$key]["type"]		= $questionMeta->type;
     		$q[$key]["validTypes"] = array();
-    		$validTypes = $meta->fetchAll("parent = " . $questionMeta->id);
+    		$validTypes = $meta->fetchAll("parent_id = " . $questionMeta->id, "id");
     		foreach ($validTypes as $validType) {
     			$q[$key]["validTypes"][] = $validType->type;
     		}
@@ -43,11 +49,88 @@ class ManagementController extends Zend_Controller_Action
     	/* process posted values */
     	if ($this->getRequest()->isPost()) {
     		$this->_processManagement($this->getRequest()->getPost());
+    		$this->_convertLabelsToValues();
     		$this->_redirect("index");
     	}
     	
     	/* assign vars to view */
     	$this->view->form = $form;
+    }
+    
+    
+    /**
+     * Converts labels to values, based on question types
+     */
+    protected function _convertLabelsToValues()
+    {
+    	/* get table models */
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_sessionId);
+    	
+    	/* query for building table */
+    	$table = "values_" . $this->_sessionId;
+    	$q = "CREATE TABLE " . $table . " (
+    		id INT NOT NULL, PRIMARY KEY (id), ";
+    	
+    	/* query for question types */
+    	$questionTypes = $meta->fetchAll("parent_id = 0", "id");
+    	foreach ($questionTypes as $questionType) {
+    		switch ($questionType->type) {
+    			case "HVA_Model_Data_Question_Open_Date":
+    				$q .= $questionType->question_id . " DATETIME NOT NULL, ";
+    				break;
+    			case "HVA_Model_Data_Question_Closed_Scale_Two":
+    			case "HVA_Model_Data_Question_Closed_Scale_Three":
+    			case "HVA_Model_Data_Question_Closed_Scale_Four":
+    			case "HVA_Model_Data_Question_Closed_Scale_Five":
+    			case "HVA_Model_Data_Question_Closed_Scale_Six":
+    			case "HVA_Model_Data_Question_Closed_Scale_Seven":
+    				$q .= $questionType->question_id . " INT NOT NULL, ";
+    				break;
+    			default:
+    				$q .= $questionType->question_id . " VARCHAR(256) NOT NULL, ";
+    				break;
+    		}
+    	}
+    	$q = substr($q, 0, -2) . ");";
+    	
+		/* get db connection */
+    	$db = Zend_Db_Table::getDefaultAdapter();
+    	$dbConnection = $db->getConnection();
+    	$dbConnection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+		
+    	/* create table */
+    	$dbConnection->exec("DROP TABLE IF EXISTS " . $table . ";");
+    	$dbConnection->exec($q);
+    	
+    	/* get labels and store values */    	
+    	$labels = new HVA_Model_DbTable_Data("data_" . $this->_sessionId);
+    	$values = new HVA_Model_DbTable_Data("values_" . $this->_sessionId);
+    	
+    	foreach ($labels->fetchAll() as $row) {
+    		$data = $row->toArray();
+    		foreach ($data as $questionId => $answer) {
+    			$type = $meta->fetchRow("question_id = '$questionId'");
+    			if ($type) {
+    				if (substr($type->type, 0, 35) === "HVA_Model_Data_Question_Open_Date") {
+						foreach (HVA_Model_Data_Question_Open_Date::getValidFormats() as $format) {
+							$validator = new Zend_Validate_Date($format);
+							if ($validator->isValid($answer)) {
+								$date = new Zend_Date($answer, $format);
+								break;
+							}
+						}
+						$data[$questionId] = $date->toString("Y-M-d H:m:s");
+    				}
+    				if (substr($type->type, 0, 37) === "HVA_Model_Data_Question_Closed_Scale_") {
+    					$scaleValues = HVA_Model_Data_Question_Closed_Scale::getScaleValues();
+    					@$value = $scaleValues[$type->type][strtolower($answer)];
+    					if (!$value) $value = -1;
+    					$data[$questionId] = $value;
+    				}
+    			}
+    		}
+    		$values->insert($data);
+    	}
     }
     
     
@@ -58,13 +141,13 @@ class ManagementController extends Zend_Controller_Action
      */
     protected function _processManagement(array $post = array())
     {
-    	$meta = new HVA_Model_DbTable_Meta();
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_sessionId);
     	
     	foreach ($post as $k => $v) {
     		/* get values that have been changed */
-    		$rowOne = $meta->fetchRow("parent = 0 AND question = '$k' AND type != '$v'");
+    		$rowOne = $meta->fetchRow("parent_id = 0 AND question_id = '$k' AND type != '$v'");
     		if ($rowOne) {
-    			$rowTwo = $meta->fetchRow("parent = $rowOne->id AND question = '$k' AND type = '$v'");
+    			$rowTwo = $meta->fetchRow("parent_id = $rowOne->id AND question_id = '$k' AND type = '$v'");
     			$meta->update(
     				array("type" => $v),
     				"id = " . $rowOne->id

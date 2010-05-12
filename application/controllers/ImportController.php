@@ -65,7 +65,7 @@ class ImportController extends Zend_Controller_Action
     				$errors[] = 'Error receiving the file';
     			} else {
     				$this->_filename = $form->file->getFileName();
-    				$extension = array_pop(split('\.', $this->_filename));
+    				$extension = array_pop(preg_split('#\.#', $this->_filename));
     			}
     			if (!$errors) {
     				try {
@@ -96,7 +96,7 @@ class ImportController extends Zend_Controller_Action
     	
     	/* open file, store data, and close file */
     	$file = new HVA_Model_Input_File_Ods($this->_filename);
-    	$file->storeData();
+    	$file->store();
     }
     
     
