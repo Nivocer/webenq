@@ -29,8 +29,9 @@ class InterpretationController extends Zend_Controller_Action
     	/* get table and its columns */
     	$table = new HVA_Model_DbTable_Data("data_" . $this->_sessionId);
     	$columns = $table->getColumns();
-
-//    	$k = 2;
+    	
+    	/* test with one question (for debugging) */
+//    	$k = 3;
 //    	$values = $table->fetchColumn($columns[$k]);
 //    	$this->_questions[$k] = HVA_Model_Data_Question::factory($values);
 //    	var_dump($this->_questions[$k], $values);
