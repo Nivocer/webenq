@@ -31,7 +31,7 @@ class InterpretationController extends Zend_Controller_Action
     	$columns = $table->getColumns();
     	
     	/* test with one question (for debugging) */
-//    	$k = 3;
+//    	$k = 16;
 //    	$values = $table->fetchColumn($columns[$k]);
 //    	$this->_questions[$k] = HVA_Model_Data_Question::factory($values);
 //    	var_dump($this->_questions[$k], $values);
