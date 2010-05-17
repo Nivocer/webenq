@@ -15,7 +15,8 @@ defined('APPLICATION_ENV')
 set_include_path(implode(PATH_SEPARATOR, array(
 	realpath(APPLICATION_PATH . '/../libraries'),
 	realpath(APPLICATION_PATH . '/../../nivocer-thirdparty/odtphp'),
-    realpath(APPLICATION_PATH . '/../classes'),
+	realpath(APPLICATION_PATH . '/../../nivocer-thirdparty'),
+	realpath(APPLICATION_PATH . '/../classes'),
     get_include_path(),
 )));
 
