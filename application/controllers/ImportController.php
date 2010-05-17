@@ -101,6 +101,22 @@ class ImportController extends Zend_Controller_Action
     
     
     /**
+     * Imports XLS file and builds db table based on headers
+     * 
+     * @return void
+     */
+    public function xlsAction()
+    {
+    	/* disable view renderer */
+    	$this->_helper->viewRenderer->setNoRender();
+    	
+    	/* open file, store data, and close file */
+    	$file = new HVA_Model_Input_File_Xls($this->_filename);
+    	$file->store();
+    }
+    
+    
+    /**
      * Imports CVS file and builds db table based on headers
      * 
      * @return void
