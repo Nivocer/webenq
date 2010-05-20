@@ -1,0 +1,11 @@
+table,
+th,
+td
+{
+	border: 1px solid black;
+}
+
+.import-link
+{
+	margin: 20px 0;
+}
