@@ -1,0 +1,28 @@
+<h1>Rapport definitie</h1>
+
+<?php if ($this->reportDefinitions->count() > 0): ?>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>groepeer-vraag</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->reportDefinitions as $repDef): ?>
+				<tr>
+					<td>
+						<?php echo $repDef->id; ?>
+					</td>
+					<td>
+						<?php echo $repDef->group_question_id; ?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php else: ?>
+	Er zijn nog geen rapport-definities voor deze data-set.			
+<?php endif; ?>
+
+<?php echo $this->form; ?>
