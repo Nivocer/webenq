@@ -3,6 +3,12 @@
 class InterpretationController extends Zend_Controller_Action
 {
 	/**
+	 * Id of imported dataset
+	 */
+	protected $_id;
+	
+	
+	/**
 	 * Array of question objects
 	 */
 	protected $_questions = array();
@@ -15,9 +21,11 @@ class InterpretationController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	/* start session and get session id */
-    	$this->_session = new Zend_Session_Namespace("webenq");
-    	$this->_sessionId = Zend_Session::getId();
+    	$this->_id = $this->getRequest()->getParam("id");
+    	
+    	if (!$this->_id) {
+    		throw new Exception("No id given!");
+    	}
     }
 	
 	
@@ -27,7 +35,7 @@ class InterpretationController extends Zend_Controller_Action
     public function indexAction()
     {
     	/* get table and its columns */
-    	$table = new HVA_Model_DbTable_Data("data_" . $this->_sessionId);
+    	$table = new HVA_Model_DbTable_Data("data_" . $this->_id);
     	$columns = $table->getColumns();
     	
     	/* test with one question (for debugging) */
@@ -49,7 +57,7 @@ class InterpretationController extends Zend_Controller_Action
     	$dbConnection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
     	
     	/* build query for creating table */
-    	$t = "meta_" . $this->_sessionId;
+    	$t = "meta_" . $this->_id;
     	$q = "CREATE TABLE " . $t . " (
     			id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
     			parent_id INT NOT NULL,
@@ -62,7 +70,7 @@ class InterpretationController extends Zend_Controller_Action
     	$dbConnection->exec($q);
     	
     	/* store meta information */
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_sessionId);
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
     	foreach ($this->_questions as $k => $question) {
     		if (!is_object($question)) {
     			throw new Exception("Questions with index $k could not be detected!");

@@ -21,10 +21,6 @@ class ImportController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	/* start session and get session id */
-    	$this->_session = new Zend_Session_Namespace("webenq");
-    	$this->_sessionId = Zend_Session::getId();
-    	
     	/* get supported import formats */    	
     	$this->_supportedFormats = $this->_getSupportedFormats();    	
     }
@@ -68,12 +64,12 @@ class ImportController extends Zend_Controller_Action
     				$extension = array_pop(preg_split('#\.#', $this->_filename));
     			}
     			if (!$errors) {
-    				try {
+//    				try {
     					$action = $extension . 'Action';
     					$this->{$action}();
-    				} catch (Exception $e) {
-    					$errors[] = 'Error processing the files';
-    				}
+//    				} catch (Exception $e) {
+//    					$errors[] = 'Error processing the files';
+//    				}
     				$this->_redirect('index');
     			}    			
     		}

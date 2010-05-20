@@ -9,9 +9,6 @@ class IndexController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	/* start session and get session id */
-    	$this->_session = new Zend_Session_Namespace("webenq");
-    	$this->_sessionId = Zend_Session::getId();
     }
 	
 	/**
@@ -19,6 +16,9 @@ class IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-    	$this->view->sessionId = $this->_sessionId;
+    	$imports = new HVA_Model_DbTable_Imports();
+    	try {
+    		$this->view->imports = $imports->fetchAll();
+    	} catch (Exception $e) {}
     }
 }

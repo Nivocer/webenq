@@ -3,6 +3,12 @@
 class ManagementController extends Zend_Controller_Action
 {
 	/**
+	 * Id of imported dataset
+	 */
+	protected $_id;
+	
+	
+	/**
 	 * Array of question objects
 	 */
 	protected $_questions = array();
@@ -15,9 +21,11 @@ class ManagementController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	/* start session and get session id */
-    	$this->_session = new Zend_Session_Namespace("webenq");
-    	$this->_sessionId = Zend_Session::getId();
+    	$this->_id = $this->getRequest()->getParam("id");
+    	
+    	if (!$this->_id) {
+    		throw new Exception("No id given!");
+    	}
     }
 	
 	
@@ -27,9 +35,9 @@ class ManagementController extends Zend_Controller_Action
     public function indexAction()
     {
     	/* get table and its columns */
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_sessionId);
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
     	$questionsMeta = $meta->fetchAll("parent_id = 0", "id");
-    	$data = new HVA_Model_DbTable_Data("data_" . $this->_sessionId);
+    	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
     	
     	/* factor question objects */
     	$q = array();
@@ -64,10 +72,10 @@ class ManagementController extends Zend_Controller_Action
     protected function _convertLabelsToValues()
     {
     	/* get table models */
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_sessionId);
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
     	
     	/* query for building table */
-    	$table = "values_" . $this->_sessionId;
+    	$table = "values_" . $this->_id;
     	$q = "CREATE TABLE " . $table . " (
     		id INT NOT NULL, PRIMARY KEY (id), ";
     	
@@ -103,8 +111,8 @@ class ManagementController extends Zend_Controller_Action
     	$dbConnection->exec($q);
     	
     	/* get labels and store values */    	
-    	$labels = new HVA_Model_DbTable_Data("data_" . $this->_sessionId);
-    	$values = new HVA_Model_DbTable_Data("values_" . $this->_sessionId);
+    	$labels = new HVA_Model_DbTable_Data("data_" . $this->_id);
+    	$values = new HVA_Model_DbTable_Data("values_" . $this->_id);
     	
     	foreach ($labels->fetchAll() as $row) {
     		$data = $row->toArray();
@@ -141,7 +149,7 @@ class ManagementController extends Zend_Controller_Action
      */
     protected function _processManagement(array $post = array())
     {
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_sessionId);
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
     	
     	foreach ($post as $k => $v) {
     		/* get values that have been changed */
