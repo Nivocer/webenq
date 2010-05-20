@@ -14,7 +14,6 @@ defined('APPLICATION_ENV')
 /* Ensure library/ is on include_path */
 set_include_path(implode(PATH_SEPARATOR, array(
 	realpath(APPLICATION_PATH . '/../libraries'),
-	realpath(APPLICATION_PATH . '/../../nivocer-thirdparty/odtphp'),
 	realpath(APPLICATION_PATH . '/../../nivocer-thirdparty'),
 	realpath(APPLICATION_PATH . '/../classes'),
     get_include_path(),
