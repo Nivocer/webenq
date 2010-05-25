@@ -5,7 +5,12 @@ td
 	border: 1px solid black;
 }
 
-.import-link
+.nav-link
 {
 	margin: 20px 0;
+}
+
+.errors
+{
+	color: red;
 }

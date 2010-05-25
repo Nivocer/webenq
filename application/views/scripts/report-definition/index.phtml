@@ -1,11 +1,27 @@
 <h1>Rapport definitie</h1>
 
-<?php if ($this->reportDefinitions->count() > 0): ?>
+<div class="nav-link">
+	<a href="<?php echo $this->baseUrl("/"); ?>">
+		Front page
+	</a>
+</div>
+
+<div class="nav-link">
+	<a href="<?php echo $this->baseUrl("report-definition/add/id/" . $this->id); ?>">
+		Rapportdefinitie toevoegen
+	</a>
+</div>
+
+<?php if ($this->reportDefinitions instanceof Zend_Db_Table_Rowset && $this->reportDefinitions->count() > 0): ?>
 	<table>
 		<thead>
 			<tr>
 				<th>id</th>
 				<th>groepeer-vraag</th>
+				<th>bestandsnaam</th>
+				<th>formaat</th>
+				<th>rapport-type</th>
+				<th>verwijderen</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -17,6 +33,20 @@
 					<td>
 						<?php echo $repDef->group_question_id; ?>
 					</td>
+					<td>
+						<?php echo $repDef->output_filename; ?>.<?php echo $repDef->output_format; ?>
+					</td>
+					<td>
+						<?php echo $repDef->output_format; ?>
+					</td>
+					<td>
+						<?php echo $repDef->report_type; ?>
+					</td>
+					<td>
+						<a href="<?php echo $this->baseUrl("report-definition/del/id/$this->id/report-definition-id/" . $repDef->id); ?>">
+							verwijderen
+						</a>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -24,5 +54,3 @@
 <?php else: ?>
 	Er zijn nog geen rapport-definities voor deze data-set.			
 <?php endif; ?>
-
-<?php echo $this->form; ?>

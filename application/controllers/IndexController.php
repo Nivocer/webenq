@@ -18,7 +18,9 @@ class IndexController extends Zend_Controller_Action
     {
     	$imports = new HVA_Model_DbTable_Imports();
     	try {
-    		$this->view->imports = $imports->fetchAll();
+    		$this->view->imports = $imports->fetchAll(
+    			$imports->select()->order('date DESC')
+    		);
     	} catch (Exception $e) {}
     }
 }
