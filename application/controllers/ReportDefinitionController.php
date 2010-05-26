@@ -67,9 +67,6 @@ class ReportDefinitionController extends Zend_Controller_Action
     
     public function delAction()
     {
-    	/* get model */
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
-    	
     	/* get form */
     	$form = new Zend_Form();
     	$confirm = new Zend_Form_Element_Submit('confirm');
