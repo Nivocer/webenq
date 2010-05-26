@@ -34,9 +34,22 @@ class ManagementController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-    	/* get table and its columns */
+    	/* get model, and query for meta-data */
     	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
-    	$questionsMeta = $meta->fetchAll("parent_id = 0", "id");
+    	
+    	try {
+    		$questionsMeta = $meta->fetchAll("parent_id = 0", "id");
+    	}
+    	
+    	catch (Zend_Db_Statement_Exception $e) {
+    		if ($e->getCode() === "42S02") {
+	    		die("De vragenlijst is nog niet geinterpreteerd.");
+    		} else {    		
+    			throw $e;
+    		}    		
+    	}
+    	
+    	/* get model for data-table */
     	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
     	
     	/* factor question objects */

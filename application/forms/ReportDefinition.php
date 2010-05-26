@@ -67,7 +67,7 @@ class HVA_Form_ReportDefinition extends Zend_Form
     		->setMultiOptions($this->_reportTypes)
     		->setRequired(true);
     		
-    	$select = new Zend_Form_Element_Radio('group_question_id');
+    	$select = new Zend_Form_Element_Select('group_question_id');
     	$select
     		->setLabel('Selecteer een vraag om de data te groeperen:')
     		->setRequired(false)
