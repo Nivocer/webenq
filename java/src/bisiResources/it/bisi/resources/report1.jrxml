@@ -6,7 +6,7 @@
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="IDENTIFIER" class="java.lang.String"/>
+	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -85,14 +85,14 @@ Morbi bibendum tincidunt vestibulum. Nam in sollicitudin nibh. Cras ultrices, ni
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
 					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
 					<printWhenExpression><![CDATA["PERC".equals($F{type})]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2.jasper")]]></subreportExpression>
 			</subreport>
 		</band>

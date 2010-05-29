@@ -14,12 +14,12 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class QuestionJRDataSource {
 	private Connection conn;
-	private String identifier;
+	private String report_identifier;
 	private String group;
 	private String type;
-	public QuestionJRDataSource(Connection conn,String identifier,String group,String type){
+	public QuestionJRDataSource(Connection conn,String report_identifier,String group,String type){
 		this.conn=conn;
-		this.identifier=identifier;
+		this.report_identifier=report_identifier;
 		this.group=group;
 		this.type=type;
 	}
@@ -28,12 +28,19 @@ public class QuestionJRDataSource {
 		Collection<Record> reportRows=new ArrayList<Record>();
 		
 		try{
-			//try to find out the group on rows
+			
 			Statement stmt_rows=conn.createStatement();
-			stmt_rows.execute("select * from values_"+identifier+" where 1=0");
-			ResultSetMetaData rsmd =stmt_rows.getResultSet().getMetaData();
-			String group_rows=rsmd.getColumnName(4);
-			stmt_rows.close();
+			stmt_rows.execute("select * from report_definitions where id='"+report_identifier+"'");
+
+			ResultSet rs_repdef =stmt_rows.getResultSet();
+			rs_repdef.next();
+			String identifier=rs_repdef.getString("data_set_id");
+			String group_rows=rs_repdef.getString("group_question_id");
+			String output_file_name=rs_repdef.getString("output_filename");
+			String output_format=rs_repdef.getString("output_format");
+			String report_type=rs_repdef.getString("report_type");
+						
+			
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
 			stmt_titlerows.execute("select title from questions_"+identifier+" where id='"+group_rows+"'");

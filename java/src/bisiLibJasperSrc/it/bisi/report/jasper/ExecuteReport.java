@@ -5,8 +5,10 @@ import it.bisi.Utils;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,19 +41,28 @@ public class ExecuteReport {
 	      return jdbcConnection;
 	   }
 	
-	public static void runReport(String databaseName, String userName, String password,String identifier) {
+	public static void runReport(String databaseName, String userName, String password,String report_identifier) {
 	      try{
 	         Connection conn = connectDB(databaseName, userName, password);
 	         InputStream inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
 	         Map prms = new HashMap();
-	         prms.put("IDENTIFIER", identifier);
+	         //prms.put("IDENTIFIER", identifier);
 	         //minus group...
-	       //try to find out the group on rows
+	       //find out the group on rows and other report options
 				Statement stmt_rows=conn.createStatement();
-				stmt_rows.execute("select * from values_"+identifier+" where 1=0");
-				ResultSetMetaData rsmd =stmt_rows.getResultSet().getMetaData();
-				String group_rows=rsmd.getColumnName(4);
-				
+				stmt_rows.execute("select * from report_definitions where id='"+report_identifier+"'");
+
+				ResultSet rs_repdef =stmt_rows.getResultSet();
+				rs_repdef.next();
+				String identifier=rs_repdef.getString("data_set_id");
+				String group_rows=rs_repdef.getString("group_question_id");
+				String output_file_name=rs_repdef.getString("output_filename");
+				String output_format=rs_repdef.getString("output_format");
+				String report_type=rs_repdef.getString("report_type");
+								
+				System.out.println(identifier);
+				prms.put("IDENTIFIER", identifier);
+				prms.put("REPORT_IDENTIFIER", report_identifier);
 				stmt_rows.close();
 	         //
 	         
