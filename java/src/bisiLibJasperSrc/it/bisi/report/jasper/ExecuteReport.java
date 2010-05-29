@@ -60,8 +60,8 @@ public class ExecuteReport {
 				String output_format=rs_repdef.getString("output_format");
 				String report_type=rs_repdef.getString("report_type");
 								
-				System.out.println(identifier);
-				prms.put("IDENTIFIER", identifier);
+//				System.out.println(identifier);
+//				prms.put("IDENTIFIER", identifier);
 				prms.put("REPORT_IDENTIFIER", report_identifier);
 				stmt_rows.close();
 	         //
