@@ -44,7 +44,7 @@
 			</textField>
 			<crosstab ignoreWidth="false">
 				<reportElement x="0" y="30" width="555" height="70" backcolor="#FFFFFF"/>
-				<rowGroup name="row" width="127" totalPosition="End">
+				<rowGroup name="row" width="157" totalPosition="End">
 					<bucket>
 						<bucketExpression class="java.lang.String"><![CDATA[$F{row}]]></bucketExpression>
 					</bucket>
@@ -56,14 +56,14 @@
 								<bottomPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="127" height="15"/>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="157" height="15"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="8" isStrikeThrough="false"/>
 								</textElement>
 								<textFieldExpression class="java.lang.String"><![CDATA[$V{row}]]></textFieldExpression>
 							</textField>
 							<staticText>
-								<reportElement positionType="Float" mode="Opaque" x="0" y="15" width="127" height="15" backcolor="#BFE1FF"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="15" width="157" height="15" backcolor="#BFE1FF"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font size="8"/>
 								</textElement>
