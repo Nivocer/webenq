@@ -87,7 +87,7 @@ public class QuestionJRDataSource {
 					
 				}else{
 					Statement stmt_valuea=conn.createStatement();
-					System.out.println("Query:"+"select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0");
+//					System.out.println("Query:"+"select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0");
 					stmt_valuea.execute("select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0");
 					ResultSet rsh_valuea=stmt_valuea.getResultSet();
 					while (rsh_valuea.next()){
