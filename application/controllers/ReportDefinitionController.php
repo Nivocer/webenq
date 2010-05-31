@@ -45,6 +45,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     {
     	/* get models */
     	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
+    	$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
     	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
     	
     	/* get enum options */
@@ -52,7 +53,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     	$reportTypes = $reportDefinitions->getEnumValues('report_type');
     	
     	/* get form */
-    	$form = new HVA_Form_ReportDefinition($data->getColumns(), $outputFormats, $reportTypes);
+    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes);
 
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {

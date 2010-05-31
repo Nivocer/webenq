@@ -29,8 +29,8 @@ class HVA_Form_ReportDefinition extends Zend_Form
 	 * @param array $options Zend_Form options
 	 * @return void
 	 */
-	public function __construct(array $questions, $outputFormats, $reportTypes, $options = null) {
-		
+	public function __construct(array $questions, $outputFormats, $reportTypes, $options = null)
+	{		
 		parent::__construct($options);
 		
 		$this->_questions = $questions;
