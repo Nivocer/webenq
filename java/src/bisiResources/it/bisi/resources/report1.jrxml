@@ -66,7 +66,9 @@
 Morbi bibendum tincidunt vestibulum. Nam in sollicitudin nibh. Cras ultrices, nisi in consectetur blandit, mauris est tincidunt lacus, eget aliquam metus lacus eu nibh.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="113" width="433" height="27"/>
+				<reportElement x="0" y="113" width="433" height="27">
+				<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Aantal respondenten:"+$F{response}+"\n"+
 "Respons:"+$F{percentage}]]></textFieldExpression>
@@ -107,7 +109,7 @@ Morbi bibendum tincidunt vestibulum. Nam in sollicitudin nibh. Cras ultrices, ni
 			<staticText>
 				<reportElement x="520" y="8" width="10" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<text><![CDATA[-]]></text>
+				<text><![CDATA[/]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="495" y="8" width="25" height="20"/>
