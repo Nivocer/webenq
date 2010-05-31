@@ -62,8 +62,7 @@
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement/>
-				<text><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nibh mi, pharetra vel sagittis ac, pulvinar non nulla. Donec ac orci lacus. Aenean urna libero, condimentum vel gravida vel, convallis eget mi. Mauris facilisis laoreet enim, ac convallis ligula ornare in.
-Morbi bibendum tincidunt vestibulum. Nam in sollicitudin nibh. Cras ultrices, nisi in consectetur blandit, mauris est tincidunt lacus, eget aliquam metus lacus eu nibh.]]></text>
+				<text><![CDATA[Onderstaande evaluatieresulaten worden, samen met alle evaluatieresultaten van het afgelopen blok, geanalyseerd door de kwaliteitszorgmedewerker en vervolgens besproken met het afdelingsmanagement en de opleidingsteams. Mocht je naar aanleiding van de resultaten vragen hebben, stel deze dan aan de opleidingsmanager.]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="113" width="433" height="27">
