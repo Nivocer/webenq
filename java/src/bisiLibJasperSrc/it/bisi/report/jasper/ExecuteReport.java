@@ -15,6 +15,9 @@ import java.util.Map;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.JasperExportManager;
+
+
 
 public class ExecuteReport {
 
@@ -60,7 +63,7 @@ public class ExecuteReport {
 				String output_format=rs_repdef.getString("output_format");
 				String report_type=rs_repdef.getString("report_type");
 								
-//				System.out.println(identifier);
+	
 //				prms.put("IDENTIFIER", identifier);
 				prms.put("REPORT_IDENTIFIER", report_identifier);
 				stmt_rows.close();
@@ -84,7 +87,13 @@ public class ExecuteReport {
 	         
 	         prms.put("QUERY", query);
 	         JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
-	         JasperViewer.viewReport(print);
+	         // if output format is pdf: create the pdf (current dir for now), else lanch the viewer, so you can save it in other formats
+	         if("pdf".equals(output_format)){
+	        	 System.out.println("to pdf");
+	        	 JasperExportManager.exportReportToPdfFile(print, output_file_name+"."+output_format);
+	         }else{
+	        	JasperViewer.viewReport(print);
+	         }
 	      }catch(Exception ex) {
 	         String connectMsg = "Could not create the report " + ex.getMessage() + " " + ex.getLocalizedMessage();
 	         
