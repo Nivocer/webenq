@@ -71,7 +71,8 @@ class HVA_Form_ReportDefinition extends Zend_Form
     	$select
     		->setLabel('Selecteer een vraag om de data te groeperen:')
     		->setRequired(false)
-    		->setMultiOptions($this->_questions);
+    		->setMultiOptions(array('' => '--- geen groepering ---'))
+    		->addMultiOptions($this->_questions);
     	
     	$submit = new Zend_Form_Element_Submit('submit');
     	$submit->setLabel('Verzenden');
