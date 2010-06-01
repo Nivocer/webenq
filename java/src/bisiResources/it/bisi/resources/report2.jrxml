@@ -37,7 +37,6 @@
 		<band height="120" splitType="Stretch">
 			<crosstab>
 				<reportElement x="0" y="30" width="555" height="90"/>
-				<!-- width of first column? -->
 				<rowGroup name="row" width="156" totalPosition="End">
 					<bucket>
 						<bucketExpression class="java.lang.String"><![CDATA[$F{row}]]></bucketExpression>
@@ -77,7 +76,6 @@
 					<bucket>
 						<bucketExpression class="java.lang.String"><![CDATA[$F{col}]]></bucketExpression>
 					</bucket>
-					<!-- column headers:groups? -->
 					<crosstabColumnHeader>
 						<cellContents backcolor="#F0F8FF" mode="Opaque">
 							<box>
@@ -92,7 +90,6 @@
 							</textField>
 						</cellContents>
 					</crosstabColumnHeader>
-					<!-- column headers:total -->
 					<crosstabTotalColumnHeader>
 						<cellContents backcolor="#BFE1FF" mode="Opaque">
 							<box>

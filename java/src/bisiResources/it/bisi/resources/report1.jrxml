@@ -2,11 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="47"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
+	<parameter name="GROUP_ROWS" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -17,6 +18,9 @@
 	<field name="percentage" class="java.lang.String"/>
 	<field name="type" class="java.lang.String"/>
 	<field name="group_id" class="java.lang.Integer"/>
+	<variable name="GROUP_ROWS" class="java.lang.String">
+		<variableExpression><![CDATA[$P{GROUP_ROWS}]]></variableExpression>
+	</variable>
 	<group name="group">
 		<groupExpression><![CDATA[$F{group_id}]]></groupExpression>
 		<groupHeader>
@@ -55,7 +59,7 @@
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling:"+$F{srtdt}+"-"+$F{enddt}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}+"-"+$F{enddt}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="63" width="555" height="50" isRemoveLineWhenBlank="true">
@@ -66,11 +70,11 @@
 			</staticText>
 			<textField>
 				<reportElement x="0" y="113" width="433" height="27">
-				<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Aantal respondenten:"+$F{response}+"\n"+
-"Respons:"+$F{percentage}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["Aantal respondenten: "+$F{response}+"\n"+
+"Respons: "+$F{percentage}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="0" width="555" height="1"/>
@@ -84,29 +88,43 @@
 		<band height="21" splitType="Immediate">
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
-					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA["AVG".equals($F{type}) && !$V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
-					<printWhenExpression><![CDATA["PERC".equals($F{type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA["AVG".equals($F{type}) && $V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3b.jasper")]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
+					<printWhenExpression><![CDATA["PERC".equals($F{type}) && !$V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2.jasper")]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
+					<printWhenExpression><![CDATA["PERC".equals($F{type}) && $V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2b.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
 		<band height="30" splitType="Stretch">
 			<textField evaluationTime="Report">
-				<reportElement x="530" y="8" width="25" height="20"/>
+				<reportElement x="526" y="8" width="25" height="20"/>
 				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="520" y="8" width="10" height="20"/>
+				<reportElement x="520" y="8" width="6" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<text><![CDATA[/]]></text>
 			</staticText>
@@ -132,7 +150,7 @@
 	</pageFooter>
 	<summary>
 		<band height="49">
-			<textField pattern="MM/dd/yyyy HH.mm.ss">
+			<textField pattern="dd/MM/yyyy">
 				<reportElement x="393" y="32" width="162" height="15"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
