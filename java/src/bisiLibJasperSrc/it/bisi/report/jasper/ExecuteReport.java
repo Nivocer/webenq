@@ -80,17 +80,30 @@ public class ExecuteReport {
 	         		"FROM info_"+identifier+" a,info_"+identifier+" b," +
 	         				"info_"+identifier+" c, info_"+identifier+" d," +
 	         				"info_"+identifier+" e," +
-	         				"(SELECT distinct q.group_id,case when instr(type,'Closed_Percentage')=0 then " +
-	         				"case when instr(type,'Closed_Scale')=0 then 'N' else 'AVG' end " +
-	         				"else 'PERC' end type FROM questions_"+identifier+" q,meta_"+identifier+" m " +
+	         				"(SELECT distinct q.group_id," +
+	         				"	case type " +
+	         				"		when 'HVA_Model_Data_Question_Closed_Scale_Four' then 'AVG'" +	         				
+	         				"		when 'HVA_Model_Data_Question_Closed_Scale_Five' then 'AVG'" +
+	         				"		when 'HVA_Model_Data_Question_Closed_Scale_Six' then 'AVG'" +
+	         				"		when 'HVA_Model_Data_Question_Closed_Scale_Seven' then 'AVG'" +
+	         				"		when 'HVA_Model_Data_Question_Closed_Scale_Eight' then 'AVG'" +
+	         				"		when 'HVA_Model_Data_Question_Closed_Scale_Nine' then 'AVG'" +
+	         				"		when 'HVA_Model_Data_Question_Closed_Scale_Ten' then 'AVG'" +
+	         				"		when 'HVA_Model_Data_Question_Closed_Percentage' then 'PERC'" +
+	         				"       when 'HVA_Model_Data_Question_Open_Text' then 'OPEN'" +
+	         				"		when 'HVA_Model_Data_Question_Open_Email' then 'SKIP'" +
+	         				"		when 'HVA_Model_Data_Question_Open' then 'SKIP' " +
+	         				"		ELSE 'NOTYETIMPLEMENTED'" +
+	         				"	end type " +
+	         				"FROM questions_"+identifier+" q,meta_"+identifier+" m "+ 
 	         				"where m.question_id=q.id and parent_id=0 and q.id!='"+group_rows+"' and " +
-	         				"(type like '%Closed_Percentage%' or type like '%Closed_Scale%')) t "+
+	         				"(type like '%Closed_Percentage%' or type like '%Closed_Scale%' or type like '%open%')) t "+
 	         		"where a.id='Titel vragenlijst' " +
 	         		"and b.id='Startdatum' " +
 	         		"and c.id='Einddatum' " +
 	         		"and d.id='unieke respondenten' " +
 	         		"and e.id='Respons percentage' ";
-	         
+//			 System.out.println(query);
 	         prms.put("QUERY", query);
 	         JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
