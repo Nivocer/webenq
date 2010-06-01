@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="48"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -36,7 +36,7 @@
 		</band>
 	</background>
 	<title>
-		<band height="60" splitType="Stretch">
+		<band height="80" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="555" height="60"/>
 				<imageExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/logo.png")]]></imageExpression>
@@ -46,7 +46,19 @@
 	<pageHeader>
 		<band height="140" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
+				<reportElement x="0" y="95" width="555" height="45" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}+"-"+$F{enddt}+"\n"+
+"Aantal respondenten: "+$F{response}+"\n"+
+"Respons: "+$F{percentage}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="6" width="555" height="19" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -54,31 +66,13 @@
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="25" width="555" height="38" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
-				</reportElement>
-				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}+"-"+$F{enddt}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="0" y="63" width="555" height="50" isRemoveLineWhenBlank="true">
+				<reportElement x="0" y="35" width="555" height="50" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement/>
 				<text><![CDATA[Onderstaande evaluatieresulaten worden, samen met alle evaluatieresultaten van het afgelopen blok, geanalyseerd door de kwaliteitszorgmedewerker en vervolgens besproken met het afdelingsmanagement en de opleidingsteams. Mocht je naar aanleiding van de resultaten vragen hebben, stel deze dan aan de opleidingsmanager.]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="113" width="433" height="27">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
-				</reportElement>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Aantal respondenten: "+$F{response}+"\n"+
-"Respons: "+$F{percentage}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="0" y="0" width="555" height="1"/>
-			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -113,6 +107,13 @@
 				</reportElement>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2b.jasper")]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
+					<printWhenExpression><![CDATA["OPEN".equals($F{type})]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report4.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
