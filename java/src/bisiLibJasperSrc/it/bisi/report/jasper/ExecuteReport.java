@@ -63,12 +63,18 @@ public class ExecuteReport {
 				String output_format=rs_repdef.getString("output_format");
 				String report_type=rs_repdef.getString("report_type");
 								
-	
+				prms.put("GROUP_ROWS", group_rows);
 //				prms.put("IDENTIFIER", identifier);
 				prms.put("REPORT_IDENTIFIER", report_identifier);
 				stmt_rows.close();
 	         //
-	         
+	         //returns result:
+				//title 	srtdt 	enddt 	response 	percentage 	type 	group_id
+				//MER jaar 2 - Vt blok 3 0910 	40276 	40306 	15 	0.1239669421487603 	AVG 	1
+				//MER jaar 2 - Vt blok 3 0910 	40276 	40306 	15 	0.1239669421487603 	AVG 	3
+				//MER jaar 2 - Vt blok 3 0910 	40276 	40306 	15 	0.1239669421487603 	AVG 	5
+				// where group_id=theme_id
+				// and type is type of crosstab needed.
 	         String query="SELECT a.value title,b.value srtdt, " +
 	         		"c.value enddt,d.value response,e.value percentage,type,group_id  " +
 	         		"FROM info_"+identifier+" a,info_"+identifier+" b," +
@@ -87,9 +93,9 @@ public class ExecuteReport {
 	         
 	         prms.put("QUERY", query);
 	         JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
+
 	         // if output format is pdf: create the pdf (current dir for now), else lanch the viewer, so you can save it in other formats
 	         if("pdf".equals(output_format)){
-	        	 System.out.println("to pdf");
 	        	 JasperExportManager.exportReportToPdfFile(print, output_file_name+"."+output_format);
 	         }else{
 	        	JasperViewer.viewReport(print);
