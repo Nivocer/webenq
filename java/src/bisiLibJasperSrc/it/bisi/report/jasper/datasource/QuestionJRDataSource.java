@@ -90,7 +90,7 @@ public class QuestionJRDataSource {
 				String question_title=rsh_questions.getString(2);
 				
 				//if perc crosstab....
-				if ("PERC".equals(type)){
+				if ("PERC".equals(type) && "tables".equals(report_type)){
 					
 					Statement stmt_valuep=conn.createStatement();
 					//group_rows may be empty
@@ -107,7 +107,7 @@ public class QuestionJRDataSource {
 					rsh_valuep.close();
 					stmt_valuep.close();
 					
-				}else{
+				}else if("AVG".equals(type) && "tables".equals(report_type)){
 					Statement stmt_valuea=conn.createStatement();
 //					System.out.println("Query:"+"select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0");
 					if ( group_rows.length() == 0 ){
@@ -124,6 +124,25 @@ public class QuestionJRDataSource {
 					rsh_valuea.close();
 					stmt_valuea.close();
 					
+				}else if("OPEN".equals(type) && "open".equals(report_type)){
+					//open;
+					Statement stmt_valueo=conn.createStatement();
+					System.out.println("Query: select id, "+question_field+" from values_"+identifier+"" +
+							"where "+question_field+" is not null and length("+question_field+")>0");
+					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
+							"where "+question_field+" is not null and length("+question_field+")>0");
+					
+					ResultSet rsh_valueo=stmt_valueo.getResultSet();
+					while (rsh_valueo.next()){
+						//@todo order of variables in next line...
+						Record ro=new Record(group_question_title,titlerows,question_title,rsh_valueo.getString(1),rsh_valueo.getString(2));
+
+										//Record(String title_row,String title_col,String row,String col,String val){
+						reportRows.add(ro);
+					}
+					rsh_valueo.close();
+					stmt_valueo.close();
+				
 				}
 			
 		}
