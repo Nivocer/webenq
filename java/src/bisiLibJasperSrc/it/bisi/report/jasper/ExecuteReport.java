@@ -111,16 +111,12 @@ public class ExecuteReport {
 			/* Create output (pdf or html) in directory public/reports */ 
 			if(output_format.equals("pdf")) {
 				JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + ".pdf");
-			} else {
-				if(output_format.equals("html")) {
-					JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name + ".html");
-				} else {
-					if(output_format.equals("xml")) {
-						JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name + ".xml", false);
-					} else { 
-						JasperViewer.viewReport(print);
-					}
-				}
+			} else if(output_format.equals("html")) {
+				JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name + ".html");
+			} else if(output_format.equals("xml")) {
+				JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name + ".xml", false);
+			} else { 
+				JasperViewer.viewReport(print);
 			}
 		}
 		
