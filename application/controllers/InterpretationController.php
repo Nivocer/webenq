@@ -105,6 +105,28 @@ class InterpretationController extends Zend_Controller_Action
     		}
     	}
     	
+    	/* herschrijf waarden ivm volgorde rapportage */
+    	$this->_rewriteValues();
+    	
     	$this->_redirect('index');
+    }
+    
+    
+    protected function _rewriteValues()
+    {
+    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
+    	$data = new HVA_Model_DbTable_Meta("data_" . $this->_id);
+    	
+    	$percetageQuestions = $meta->fetchAll("type LIKE 'HVA_Model_Data_Question_Closed_Percentage'");
+    	foreach ($percetageQuestions as $percentageQuestion) {
+    		$answers = $data->fetchAll($percentageQuestion->question_id . " LIKE '<%'");
+    		if ($answers->count() > 0) {
+    			foreach ($answers as $answer) {
+    				$key = $percentageQuestion->question_id;
+    				$val = str_replace("<", "0 - ", $answer->{$percentageQuestion->question_id});
+    				$data->update(array($key => $val), "id = " . $answer->id);
+    			}
+    		}
+    	}
     }
 }
