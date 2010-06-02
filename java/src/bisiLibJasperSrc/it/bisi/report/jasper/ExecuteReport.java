@@ -108,13 +108,23 @@ public class ExecuteReport {
 			prms.put("QUERY", query);
 			JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
-			// if output format is pdf: create the pdf (in ../public/reports), else lanch the viewer, so you can save it in other formats
-			if("pdf".equals(output_format)){
-				JasperExportManager.exportReportToPdfFile(print, "../public/reports/"+output_file_name+"."+output_format);
-			}else{
-				JasperViewer.viewReport(print);
+			/* Create output (pdf or html) in directory public/reports */ 
+			if(output_format.equals("pdf")) {
+				JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + ".pdf");
+			} else {
+				if(output_format.equals("html")) {
+					JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name + ".html");
+				} else {
+					if(output_format.equals("xml")) {
+						JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name + ".xml", false);
+					} else { 
+						JasperViewer.viewReport(print);
+					}
+				}
 			}
-		}catch(Exception ex) {
+		}
+		
+		catch(Exception ex) {
 			String connectMsg = "Could not create the report " + ex.getMessage() + " " + ex.getLocalizedMessage();
 			ex.printStackTrace();
 		}

@@ -104,6 +104,11 @@ class ReportDefinitionController extends Zend_Controller_Action
     	/* get posted data */
     	$post = $this->getRequest()->getPost();
     	
+    	/* set default file name */
+    	if (!$post["output_filename"]) {
+    		$post["output_filename"] = md5(time());
+    	}
+    	
     	/* insert report definition */
     	$reportDefinitions->insert(array(
     		"data_set_id"		=> $this->_id,

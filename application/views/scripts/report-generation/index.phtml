@@ -1,0 +1,14 @@
+<h1>Rapport</h1>
+
+<div class="nav-link">
+	<a href="<?php echo $this->baseUrl("/"); ?>">
+		Front page
+	</a>
+</div>
+
+<div>
+	<p>Het rapport is gegenereerd en opgeslagen. Klik op onderstaande link om het rapport te bekijken.</p>
+	<a href="<?php echo $this->baseUrl("reports/" . $this->file); ?>">
+		<?php echo $this->file; ?>
+	</a>
+</div>
