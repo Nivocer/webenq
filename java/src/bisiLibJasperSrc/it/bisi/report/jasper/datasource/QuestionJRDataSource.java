@@ -67,7 +67,8 @@ public class QuestionJRDataSource {
 			}
 			//find out the questions for a theme.
 			Statement stmt_questions = conn.createStatement();
-			stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"'");
+			stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' " +
+					" and q.id not in ('0_respondent', '1_datum')");
 			ResultSet rsh_questions=stmt_questions.getResultSet();
 			String group_question_title="";
 			//determin text of the theme.
@@ -127,10 +128,12 @@ public class QuestionJRDataSource {
 				}else if("OPEN".equals(type) && "open".equals(report_type)){
 					//open;
 					Statement stmt_valueo=conn.createStatement();
-					System.out.println("Query: select id, "+question_field+" from values_"+identifier+"" +
-							"where "+question_field+" is not null and length("+question_field+")>0");
+					//System.out.println("Query: select id, "+question_field+" from values_"+identifier+"" +
+					//		"where "+question_field+" is not null and length("+question_field+")>0");
 					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
-							"where "+question_field+" is not null and length("+question_field+")>0");
+							"where "+question_field+" is not null " +
+							"and length("+question_field+")>0 and " +
+							question_field+" not in ('0', '-') ");
 					
 					ResultSet rsh_valueo=stmt_valueo.getResultSet();
 					while (rsh_valueo.next()){
