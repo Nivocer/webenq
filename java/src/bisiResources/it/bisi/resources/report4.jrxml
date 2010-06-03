@@ -33,21 +33,21 @@
 	<detail>
 		<band height="12" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="16" height="12"/>
-				<textElement>
+				<reportElement x="0" y="0" width="18" height="12"/>
+				<textElement textAlignment="Right">
 					<font size="9" isBold="false" pdfFontName="Times-Bold"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{col}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="0" width="8" height="12"/>
+				<reportElement x="20" y="0" width="8" height="12"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="24" y="0" width="531" height="12"/>
+				<reportElement x="28" y="0" width="527" height="12"/>
 				<textElement>
 					<font size="9" isBold="false" pdfFontName="Times-Bold"/>
 				</textElement>
