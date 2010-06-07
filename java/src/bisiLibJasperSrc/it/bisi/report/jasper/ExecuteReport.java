@@ -16,7 +16,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperExportManager;
-
+import net.sf.jasperreports.engine.export.*;
 
 
 public class ExecuteReport {
@@ -108,9 +108,14 @@ public class ExecuteReport {
 			prms.put("QUERY", query);
 			JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
-			/* Create output (pdf or html) in directory public/reports */ 
+			/* Create output in directory public/reports */ 
 			if(output_format.equals("pdf")) {
 				JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + ".pdf");
+			} else if(output_format.equals("odt")) {
+				net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
+				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + ".odt");
+				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+				exporter.exportReport();
 			} else if(output_format.equals("html")) {
 				JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name + ".html");
 			} else if(output_format.equals("xml")) {
