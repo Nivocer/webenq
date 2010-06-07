@@ -74,9 +74,15 @@ class HVA_Form_ReportDefinition extends Zend_Form
     		->setMultiOptions(array('' => '--- geen groepering ---'))
     		->addMultiOptions($this->_questions);
     	
+    	$ignore = new Zend_Form_Element_MultiCheckbox('ignore_question_ids');
+    	$ignore
+    		->setLabel('Selecteer de vragen die niet de rapportage moeten worden opgenomen:')
+    		->setRequired(false)
+    		->addMultiOptions($this->_questions);
+    	
     	$submit = new Zend_Form_Element_Submit('submit');
     	$submit->setLabel('Verzenden');
     	
-    	$this->addElements(array($filename, $output, $report, $select, $submit));
+    	$this->addElements(array($filename, $output, $report, $select, $ignore, $submit));
 	}
 }

@@ -40,9 +40,11 @@ class ReportDefinitionController extends Zend_Controller_Action
     	}
     	
     	/* get title of data set */
-    	$dataSetId = $repDefs->current()->data_set_id;
-    	$info = new HVA_Model_DbTable_Info('info_' . $dataSetId);
-    	$this->view->title = $info->getTitle();
+    	$dataSetId = @$repDefs->current()->data_set_id;
+    	if ($dataSetId) {
+	    	$info = new HVA_Model_DbTable_Info('info_' . $dataSetId);
+	    	$this->view->title = $info->getTitle();
+    	}
     }
     
     
@@ -85,7 +87,9 @@ class ReportDefinitionController extends Zend_Controller_Action
     	
     	/* get form */
     	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes);
-    	$form->populate($repDef->toArray());
+    	$values = $repDef->toArray();
+    	$values['ignore_question_ids'] = json_decode('[' . $values['ignore_question_ids'] . ']');
+    	$form->populate($values);
 
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
@@ -149,25 +153,31 @@ class ReportDefinitionController extends Zend_Controller_Action
     		$post["output_filename"] = md5(time());
     	}
     	
+    	$cdlIgnoreQuestionIds = json_encode($post['ignore_question_ids']);
+    	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 1);
+    	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 0, -1);
+    	
     	/* insert report definition */
     	if ($repDefId = $this->_request->getParam('report-definition-id')) {
 	    	$reportDefinitions->update(
 		    	array(
-		    		"data_set_id"		=> $this->_id,
-		    		"group_question_id"	=> $post["group_question_id"],
-		    		"output_filename"	=> $post["output_filename"],
-		    		"output_format"		=> $post["output_format"],
-		    		"report_type"		=> $post["report_type"],
+		    		"data_set_id"			=> $this->_id,
+		    		"group_question_id"		=> $post["group_question_id"],
+		    		"output_filename"		=> $post["output_filename"],
+		    		"output_format"			=> $post["output_format"],
+		    		"report_type"			=> $post["report_type"],
+		    		"ignore_question_ids"	=> $cdlIgnoreQuestionIds,
 		    	),
 		    	"id = '" . $repDefId . "'");
     	} else {
 	    	$reportDefinitions->insert(
 		    	array(
-		    		"data_set_id"		=> $this->_id,
-		    		"group_question_id"	=> $post["group_question_id"],
-		    		"output_filename"	=> $post["output_filename"],
-		    		"output_format"		=> $post["output_format"],
-		    		"report_type"		=> $post["report_type"],
+		    		"data_set_id"			=> $this->_id,
+		    		"group_question_id"		=> $post["group_question_id"],
+		    		"output_filename"		=> $post["output_filename"],
+		    		"output_format"			=> $post["output_format"],
+		    		"report_type"			=> $post["report_type"],
+		    		"ignore_question_ids"	=> json_encode($post['ignore_question_ids']),
 		    	)
 		    );
     	}
