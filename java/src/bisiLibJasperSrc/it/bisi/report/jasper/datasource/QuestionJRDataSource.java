@@ -20,12 +20,14 @@ public class QuestionJRDataSource {
 	private String report_identifier;
 	private String group;
 	private String type;
-	public QuestionJRDataSource(Connection conn,String report_identifier,String group,String type){
+	private String group_rows_value;
+	public QuestionJRDataSource(Connection conn,String report_identifier,String group,String type, String group_rows_value){
 		//group=theme_id
 		this.conn=conn;
 		this.report_identifier=report_identifier;
 		this.group=group;
 		this.type=type;
+		this.group_rows_value=group_rows_value;
 	}
 	public JRDataSource getRecords(){
 		JRBeanCollectionDataSource dataSource;
@@ -133,16 +135,19 @@ public class QuestionJRDataSource {
 					//System.out.println("Query: select id, "+question_field+" from values_"+identifier+"" +
 					//		"where "+question_field+" is not null and length("+question_field+")>0");
 					
-					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
-							"where "+question_field+" is not null " +
-							"and length("+question_field+")>0 and " +
-							question_field+" not in ('0', '-') ");
 /*					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
 							"where "+question_field+" is not null " +
 							"and length("+question_field+")>0 and " +
+							question_field+" not in ('0', '-') ");
+*/					
+					//todo what if group_rows_value is empty
+					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
+							"where "+question_field+" is not null " +
+							"and length("+question_field+")>0 and " +
 							question_field+" not in ('0', '-') " +
-							"and "+group_rows+" like 'CE'");
-					System.out.println("select id, "+question_field+" from values_"+identifier+"  " +
+							"and "+group_rows+" like '"+group_rows_value+"'");
+							
+/*					System.out.println("select id, "+question_field+" from values_"+identifier+"  " +
 							"where "+question_field+" is not null " +
 							"and length("+question_field+")>0 and " +
 							question_field+" not in ('0', '-') " +
