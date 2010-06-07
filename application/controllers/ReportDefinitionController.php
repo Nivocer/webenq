@@ -30,7 +30,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     	
     	/* try to get existing report definitions */
     	try {
-    		$this->view->reportDefinitions = $reportDefinitions->fetchAll(
+    		$repDefs = $this->view->reportDefinitions = $reportDefinitions->fetchAll(
     			$reportDefinitions->select()
     				->where("data_set_id = ?", $this->_id)
     				->order("id DESC")
@@ -38,6 +38,11 @@ class ReportDefinitionController extends Zend_Controller_Action
     	} catch (Zend_Db_Statement_Exception $e) {
     		$reportDefinitions->createTable();
     	}
+    	
+    	/* get title of data set */
+    	$dataSetId = $repDefs->current()->data_set_id;
+    	$info = new HVA_Model_DbTable_Info('info_' . $dataSetId);
+    	$this->view->title = $info->getTitle();
     }
     
     
@@ -89,7 +94,11 @@ class ReportDefinitionController extends Zend_Controller_Action
     		}
     	}
     	
-    	$this->view->form = $form;    	
+    	$this->view->form = $form;
+    	
+    	/* get title of data set */
+    	$info = new HVA_Model_DbTable_Info('info_' . $repDef->data_set_id);
+    	$this->view->title = $info->getTitle();
     }
     
     
@@ -108,7 +117,11 @@ class ReportDefinitionController extends Zend_Controller_Action
     		}
     	}
     	
-    	$this->view->form = $form;    	
+    	$this->view->form = $form;
+    	
+    	/* get title of data set */
+    	$info = new HVA_Model_DbTable_Info('info_' . $this->_request->getParam('id'));
+    	$this->view->title = $info->getTitle();
     }
     
     
