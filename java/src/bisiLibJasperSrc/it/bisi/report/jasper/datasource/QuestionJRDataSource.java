@@ -14,6 +14,7 @@ import java.util.Collection;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+
 public class QuestionJRDataSource {
 	private Connection conn;
 	private String report_identifier;
@@ -42,6 +43,7 @@ public class QuestionJRDataSource {
 			String output_file_name=rs_repdef.getString("output_filename");
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
+			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
 			
 /*
 			if ( group_rows == null ) System.out.println ( "was null" );
@@ -68,7 +70,7 @@ public class QuestionJRDataSource {
 			//find out the questions for a theme.
 			Statement stmt_questions = conn.createStatement();
 			stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' " +
-					" and q.id not in ('0_respondent', '1_datum')");
+					" and q.id not in (" + ignore_question_ids + ")");
 			ResultSet rsh_questions=stmt_questions.getResultSet();
 			String group_question_title="";
 			//determin text of the theme.
