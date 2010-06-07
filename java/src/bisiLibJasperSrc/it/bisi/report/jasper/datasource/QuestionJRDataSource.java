@@ -130,11 +130,22 @@ public class QuestionJRDataSource {
 					Statement stmt_valueo=conn.createStatement();
 					//System.out.println("Query: select id, "+question_field+" from values_"+identifier+"" +
 					//		"where "+question_field+" is not null and length("+question_field+")>0");
+					
 					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
 							"where "+question_field+" is not null " +
 							"and length("+question_field+")>0 and " +
 							question_field+" not in ('0', '-') ");
-					
+/*					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
+							"where "+question_field+" is not null " +
+							"and length("+question_field+")>0 and " +
+							question_field+" not in ('0', '-') " +
+							"and "+group_rows+" like 'CE'");
+					System.out.println("select id, "+question_field+" from values_"+identifier+"  " +
+							"where "+question_field+" is not null " +
+							"and length("+question_field+")>0 and " +
+							question_field+" not in ('0', '-') " +
+							"and "+group_rows+" like 'CE'");
+*/
 					ResultSet rsh_valueo=stmt_valueo.getResultSet();
 					while (rsh_valueo.next()){
 						//@todo order of variables in next line...
