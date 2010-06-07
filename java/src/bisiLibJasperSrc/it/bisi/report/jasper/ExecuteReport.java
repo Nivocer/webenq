@@ -102,11 +102,11 @@ public class ExecuteReport {
          		"and c.id='Einddatum' " +
          		"and d.id='unieke respondenten' " +
          		"and e.id='Respons percentage' ";
-
 			prms.put("QUERY", query);
+			
 			//looping through possible group_rows_value for open report
 			//todo add test of grouping variable gevuld is
-			if(report_type.equals("open")){
+			if (report_type.equals("open")) {
 				//get group_rows_values
 				Statement stmt_rows_values=conn.createStatement();
 				stmt_rows_values.execute("select distinct "+group_rows+" as group_rows_values FROM values_"+identifier);
@@ -118,11 +118,12 @@ public class ExecuteReport {
 					
 					prms.put("GROUP_ROWS_VALUE", group_rows_value);
 					
+					inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
 					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
-					// Create output (pdf or html) in directory public/reports  
+					// Create output in directory public/reports  
 					if(output_format.equals("pdf")) {
-						JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name +"_"+group_rows_value+ ".pdf");
+						JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + "_" + group_rows_value + ".pdf");
 					} else if(output_format.equals("odt")) {
 						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
 						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + ".odt");
@@ -135,11 +136,10 @@ public class ExecuteReport {
 					} else { 
 						JasperViewer.viewReport(print);
 					}
-
 				}
 			}else{
 				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
-				/* Create output (pdf or html) in directory public/reports */ 
+				/* Create output in directory public/reports */ 
 				if(output_format.equals("pdf")) {
 					JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + ".pdf");
 				} else if(output_format.equals("odt")) {
