@@ -22,6 +22,7 @@
 				<th>formaat</th>
 				<th>rapport-type</th>
 				<th>genereren</th>
+				<th>bewerken</th>
 				<th>verwijderen</th>
 			</tr>
 		</thead>
@@ -46,6 +47,11 @@
 					<td>
 						<a href="<?php echo $this->baseUrl("report-generation/index/id/" . $repDef->id); ?>">
 							genereren
+						</a>
+					</td>
+					<td>
+						<a href="<?php echo $this->baseUrl("report-definition/edit/id/$this->id/report-definition-id/" . $repDef->id); ?>">
+							bewerken
 						</a>
 					</td>
 					<td>

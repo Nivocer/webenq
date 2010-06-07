@@ -57,7 +57,34 @@ class ReportDefinitionController extends Zend_Controller_Action
 
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
-	    		$this->_processAdd();
+	    		$this->_processEdit();
+	    		$this->_redirect("/report-definition/index/id/" . $this->_id);
+    		}
+    	}
+    	
+    	$this->view->form = $form;    	
+    }
+    
+    
+    public function editAction()
+    {
+    	/* get models */
+    	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
+    	$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
+    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+    	$repDef = $reportDefinitions->find($this->_request->getParam('report-definition-id'))->current();
+    	
+    	/* get enum options */
+    	$outputFormats = $reportDefinitions->getEnumValues('output_format');
+    	$reportTypes = $reportDefinitions->getEnumValues('report_type');
+    	
+    	/* get form */
+    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes);
+    	$form->populate($repDef->toArray());
+
+    	if ($this->getRequest()->isPost()) {
+    		if ($form->isValid($this->getRequest()->getPost())) {
+	    		$this->_processEdit();
 	    		$this->_redirect("/report-definition/index/id/" . $this->_id);
     		}
     	}
@@ -85,7 +112,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     }
     
     
-    protected function _processAdd()
+    protected function _processEdit()
     {
     	/* get model */
     	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
@@ -104,19 +131,33 @@ class ReportDefinitionController extends Zend_Controller_Action
     	/* get posted data */
     	$post = $this->getRequest()->getPost();
     	
-    	/* set default file name */
+    	/* set default file name if none set */
     	if (!$post["output_filename"]) {
     		$post["output_filename"] = md5(time());
     	}
     	
     	/* insert report definition */
-    	$reportDefinitions->insert(array(
-    		"data_set_id"		=> $this->_id,
-    		"group_question_id"	=> $post["group_question_id"],
-    		"output_filename"	=> $post["output_filename"],
-    		"output_format"		=> $post["output_format"],
-    		"report_type"		=> $post["report_type"],
-    	));
+    	if ($repDefId = $this->_request->getParam('report-definition-id')) {
+	    	$reportDefinitions->update(
+		    	array(
+		    		"data_set_id"		=> $this->_id,
+		    		"group_question_id"	=> $post["group_question_id"],
+		    		"output_filename"	=> $post["output_filename"],
+		    		"output_format"		=> $post["output_format"],
+		    		"report_type"		=> $post["report_type"],
+		    	),
+		    	"id = '" . $repDefId . "'");
+    	} else {
+	    	$reportDefinitions->insert(
+		    	array(
+		    		"data_set_id"		=> $this->_id,
+		    		"group_question_id"	=> $post["group_question_id"],
+		    		"output_filename"	=> $post["output_filename"],
+		    		"output_format"		=> $post["output_format"],
+		    		"report_type"		=> $post["report_type"],
+		    	)
+		    );
+    	}
     }
 
 
