@@ -21,7 +21,8 @@ public class QuestionJRDataSource {
 	private String group;
 	private String type;
 	private String group_rows_value;
-	public QuestionJRDataSource(Connection conn,String report_identifier,String group,String type, String group_rows_value){
+	
+	public QuestionJRDataSource(Connection conn, String report_identifier, String group, String type, String group_rows_value) {
 		//group=theme_id
 		this.conn=conn;
 		this.report_identifier=report_identifier;
@@ -29,7 +30,8 @@ public class QuestionJRDataSource {
 		this.type=type;
 		this.group_rows_value=group_rows_value;
 	}
-	public JRDataSource getRecords(){
+	
+	public JRDataSource getRecords() {
 		JRBeanCollectionDataSource dataSource;
 		Collection<Record> reportRows=new ArrayList<Record>();
 		String titlerows;
@@ -56,7 +58,7 @@ public class QuestionJRDataSource {
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
 			//group_rows may be empty, we don't have a title.
-			if ( group_rows.length() != 0 ){
+			if ( group_rows.length() != 0 ) {
 //				System.out.println("not empty rows");
 //				System.out.println("---"+group_rows+"+++");
 				stmt_titlerows.execute("select title from questions_"+identifier+" where id='"+group_rows+"'");
@@ -65,14 +67,18 @@ public class QuestionJRDataSource {
 				titlerows=rs_titlerows.getString(1);
 				rs_titlerows.close();
 				stmt_titlerows.close();
-			}else{
+			} else {
 //				System.out.println("empty rows");
 				titlerows="";
 			}
 			//find out the questions for a theme.
 			Statement stmt_questions = conn.createStatement();
-			stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' " +
-					" and q.id not in (" + ignore_question_ids + ")");
+			if (ignore_question_ids.lenth() > 0) {
+				stmt_questions.execute("select q.id, q.title from questions_"+identifier+" q where group_id='"+group+"' " +
+						" and q.id not in (" + ignore_question_ids + ")");
+			} else {
+				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='" + group + "'");
+			}
 			ResultSet rsh_questions=stmt_questions.getResultSet();
 			String group_question_title="";
 			//determin text of the theme.
