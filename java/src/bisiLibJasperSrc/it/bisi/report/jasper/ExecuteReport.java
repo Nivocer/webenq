@@ -50,7 +50,6 @@ public class ExecuteReport {
 			Connection conn = connectDB(databaseName, userName, password);
 			InputStream inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
 			Map prms = new HashMap();
-			//prms.put("IDENTIFIER", identifier);
 	        //minus group...
 			//find out the group on rows and other report options
 			Statement stmt_rows=conn.createStatement();
@@ -65,7 +64,6 @@ public class ExecuteReport {
 			String report_type=rs_repdef.getString("report_type");
 			
 			prms.put("GROUP_ROWS", group_rows);
-//			prms.put("IDENTIFIER", identifier);
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			stmt_rows.close();
 			//
@@ -104,24 +102,58 @@ public class ExecuteReport {
          		"and c.id='Einddatum' " +
          		"and d.id='unieke respondenten' " +
          		"and e.id='Respons percentage' ";
-//		 	System.out.println(query);
-			prms.put("QUERY", query);
-			JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
-			/* Create output in directory public/reports */ 
-			if(output_format.equals("pdf")) {
-				JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + ".pdf");
-			} else if(output_format.equals("odt")) {
-				net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + ".odt");
-				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
-				exporter.exportReport();
-			} else if(output_format.equals("html")) {
-				JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name + ".html");
-			} else if(output_format.equals("xml")) {
-				JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name + ".xml", false);
-			} else { 
-				JasperViewer.viewReport(print);
+			prms.put("QUERY", query);
+			//looping through possible group_rows_value for open report
+			//todo add test of grouping variable gevuld is
+			if(report_type.equals("open")){
+				//get group_rows_values
+				Statement stmt_rows_values=conn.createStatement();
+				stmt_rows_values.execute("select distinct "+group_rows+" as group_rows_values FROM values_"+identifier);
+				System.out.println("select distinct "+group_rows+" as group_rows_values FROM values_"+identifier);
+				ResultSet rs_rows_values = stmt_rows_values.getResultSet();
+				while (rs_rows_values.next()) {
+					String group_rows_value=rs_rows_values.getString("group_rows_values");
+					System.out.println("group rows values: "+group_rows_value);
+					
+					prms.put("GROUP_ROWS_VALUE", group_rows_value);
+					
+					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
+
+					// Create output (pdf or html) in directory public/reports  
+					if(output_format.equals("pdf")) {
+						JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name +"_"+group_rows_value+ ".pdf");
+					} else if(output_format.equals("odt")) {
+						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + ".odt");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+						exporter.exportReport();
+					} else if(output_format.equals("html")) {
+						JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name +"_"+group_rows_value+ ".html");
+					} else if(output_format.equals("xml")) {
+						JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name +"_"+group_rows_value+ ".xml", false);
+					} else { 
+						JasperViewer.viewReport(print);
+					}
+
+				}
+			}else{
+				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
+				/* Create output (pdf or html) in directory public/reports */ 
+				if(output_format.equals("pdf")) {
+					JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + ".pdf");
+				} else if(output_format.equals("odt")) {
+					net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
+					exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + ".odt");
+					exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+					exporter.exportReport();
+				} else if(output_format.equals("html")) {
+					JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name + ".html");
+				} else if(output_format.equals("xml")) {
+					JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name + ".xml", false);
+				} else { 
+					JasperViewer.viewReport(print);
+				}
 			}
 		}
 		
