@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="65"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -46,12 +46,18 @@
 	<pageHeader>
 		<band height="140" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="95" width="555" height="45" isRemoveLineWhenBlank="true">
+				<reportElement x="0" y="95" width="555" height="15" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}+"-"+$F{enddt}+"\n"+
-"Aantal respondenten: "+$F{response}+"\n"+
+				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}+"-"+$F{enddt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="110" width="555" height="30" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Aantal respondenten: "+$F{response}+"\n"+
 "Respons: "+$F{percentage}]]></textFieldExpression>
 			</textField>
 			<line>
@@ -157,28 +163,40 @@
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="32" y="32" width="216" height="15"/>
+				<reportElement x="32" y="32" width="216" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<text><![CDATA[= een verbeterpunt, score<3]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="32" y="16" width="216" height="15"/>
+				<reportElement x="32" y="16" width="216" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[= score tussen 3.0 en 3.1]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="32" y="0" width="216" height="15"/>
+				<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[= positief volgens de HES norm, score > 3.9]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="5" y="32" width="24" height="13" backcolor="#C80000"/>
+				<reportElement x="5" y="32" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#C80000">
+					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+				</reportElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="5" y="16" width="24" height="13" backcolor="#FFA500"/>
+				<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFA500">
+					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+				</reportElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="5" y="0" width="24" height="13" backcolor="#00C800"/>
+				<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00C800">
+					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+				</reportElement>
 			</rectangle>
 		</band>
 	</summary>
