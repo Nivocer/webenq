@@ -8,6 +8,7 @@
 	</parameter>
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
 	<parameter name="GROUP_ROWS" class="java.lang.String"/>
+	<parameter name="GROUP_ROWS_VALUE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -90,35 +91,35 @@
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
 					<printWhenExpression><![CDATA["AVG".equals($F{type}) && !$V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, null).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
 					<printWhenExpression><![CDATA["AVG".equals($F{type}) && $V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},null).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3b.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
 					<printWhenExpression><![CDATA["PERC".equals($F{type}) && !$V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},null).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
 					<printWhenExpression><![CDATA["PERC".equals($F{type}) && $V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},null).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2b.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20">
 					<printWhenExpression><![CDATA["OPEN".equals($F{type})]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, $P{GROUP_ROWS_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report4.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
