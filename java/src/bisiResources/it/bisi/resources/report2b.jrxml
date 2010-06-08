@@ -42,7 +42,7 @@
 						<bucketExpression class="java.lang.String"><![CDATA[$F{row}]]></bucketExpression>
 					</bucket>
 					<crosstabRowHeader>
-						<cellContents backcolor="#F0F8FF" mode="Opaque">
+						<cellContents mode="Opaque">
 							<box leftPadding="0">
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 								<topPen lineWidth="0.0"/>
@@ -58,7 +58,7 @@
 						</cellContents>
 					</crosstabRowHeader>
 					<crosstabTotalRowHeader>
-						<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<cellContents mode="Opaque">
 							<box rightPadding="0">
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
@@ -77,7 +77,7 @@
 						<bucketExpression class="java.lang.String"><![CDATA[$F{col}]]></bucketExpression>
 					</bucket>
 					<crosstabColumnHeader>
-						<cellContents backcolor="#F0F8FF" mode="Opaque">
+						<cellContents mode="Opaque">
 							<box>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
@@ -91,7 +91,7 @@
 						</cellContents>
 					</crosstabColumnHeader>
 					<crosstabTotalColumnHeader>
-						<cellContents backcolor="#FFFFFF" mode="Opaque">
+						<cellContents mode="Opaque">
 							<box>
 								<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<topPen lineWidth="0.0"/>
@@ -141,7 +141,7 @@
 					</cellContents>
 				</crosstabCell>
 				<crosstabCell width="40" height="16" rowTotalGroup="row">
-					<cellContents backcolor="#BFE1FF" mode="Opaque">
+					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
@@ -155,7 +155,7 @@
 					</cellContents>
 				</crosstabCell>
 				<crosstabCell width="40" height="15" columnTotalGroup="col">
-					<cellContents backcolor="#FFFFFF" mode="Opaque">
+					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
@@ -166,7 +166,7 @@
 					</cellContents>
 				</crosstabCell>
 				<crosstabCell width="40" height="16" rowTotalGroup="row" columnTotalGroup="col">
-					<cellContents backcolor="#FFFFFF" mode="Transparent">
+					<cellContents mode="Transparent">
 						<box>
 							<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
