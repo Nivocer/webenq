@@ -131,7 +131,7 @@
 							</graphicElement>
 						</rectangle>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="40" height="15" backcolor="#C80000">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="40" height="15" forecolor="#FFFFFF" backcolor="#C80000">
 								<printWhenExpression><![CDATA[$V{valMeasure}>=1 && $V{valMeasure}<=3]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -139,7 +139,7 @@
 							</graphicElement>
 						</rectangle>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="40" height="15" backcolor="#FFA500">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="40" height="15" backcolor="#FFFF00">
 								<printWhenExpression><![CDATA[$V{valMeasure}>=3 && $V{valMeasure}<=3.1]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
