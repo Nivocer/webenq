@@ -126,7 +126,7 @@ public class ExecuteReport {
 						JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + "_" + group_rows_value + ".pdf");
 					} else if(output_format.equals("odt")) {
 						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + ".odt");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + "_" + group_rows_value+ ".odt");
 						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 						exporter.exportReport();
 					} else if(output_format.equals("html")) {
