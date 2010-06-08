@@ -73,7 +73,7 @@ public class QuestionJRDataSource {
 			}
 			//find out the questions for a theme.
 			Statement stmt_questions = conn.createStatement();
-			if (ignore_question_ids.lenth() > 0) {
+			if (ignore_question_ids.length() > 0) {
 				stmt_questions.execute("select q.id, q.title from questions_"+identifier+" q where group_id='"+group+"' " +
 						" and q.id not in (" + ignore_question_ids + ")");
 			} else {
