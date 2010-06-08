@@ -47,7 +47,7 @@
 			</textField>
 			<textField>
 				<reportElement x="0" y="110" width="555" height="30" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && "AVG".equals($F{type})]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
 				<textFieldExpression class="java.lang.String"><![CDATA["Aantal respondenten: "+$F{response}+"\n"+
@@ -66,7 +66,25 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="35" width="555" height="50" isRemoveLineWhenBlank="true">
+				<reportElement x="0" y="18" width="555" height="19" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && "OPEN".equals($F{type})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA["Groep:"]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="18" width="510" height="19" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && "OPEN".equals($F{type})]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{GROUP_ROWS_VALUE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="555" height="50" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement/>
@@ -182,7 +200,7 @@
 				</reportElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFA500">
+				<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFF00">
 					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
 				</reportElement>
 			</rectangle>
