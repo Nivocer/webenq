@@ -50,9 +50,7 @@ class HVA_Form_ReportDefinition extends Zend_Form
 		$this->setAttrib("autocomplete", "off");
 		
     	$filename = new Zend_Form_Element_Text('output_filename');
-    	$filename
-    		->setLabel('Geef de bestandsnaam voor het rapport op (zonder extensie):')
-    		->addFilter(new Zend_Filter_Alnum());
+    	$filename->setLabel('Geef de bestandsnaam voor het rapport op (zonder extensie):');
 		
 		$output = new Zend_Form_Element_Radio('output_format');
     	$output
