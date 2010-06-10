@@ -62,7 +62,7 @@ class InterpretationController extends Zend_Controller_Action
     			id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
     			parent_id INT NOT NULL,
     			question_id VARCHAR(64) NOT NULL,
-    			type VARCHAR(256) NOT NULL
+    			type TEXT NOT NULL
     		);";
     	
     	/* create table */
