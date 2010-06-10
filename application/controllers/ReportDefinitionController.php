@@ -15,11 +15,16 @@ class ReportDefinitionController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	$this->view->id = $this->_id = $this->getRequest()->getParam("id");
+    	/* get data-set id */
+    	$this->_id = $this->view->id = $this->getRequest()->getParam("id");
     	
     	if (!$this->_id) {
     		throw new Exception("No id given!");
     	}
+    	
+    	/* get title of data set */
+    	$info = new HVA_Model_DbTable_Info('info_' . $this->_id);
+    	$this->view->title = $info->getTitle();
     }
 	
     public function indexAction()
@@ -37,13 +42,6 @@ class ReportDefinitionController extends Zend_Controller_Action
     		);
     	} catch (Zend_Db_Statement_Exception $e) {
     		$reportDefinitions->createTable();
-    	}
-    	
-    	/* get title of data set */
-    	$dataSetId = @$repDefs->current()->data_set_id;
-    	if ($dataSetId) {
-	    	$info = new HVA_Model_DbTable_Info('info_' . $dataSetId);
-	    	$this->view->title = $info->getTitle();
     	}
     }
     
@@ -99,10 +97,6 @@ class ReportDefinitionController extends Zend_Controller_Action
     	}
     	
     	$this->view->form = $form;
-    	
-    	/* get title of data set */
-    	$info = new HVA_Model_DbTable_Info('info_' . $repDef->data_set_id);
-    	$this->view->title = $info->getTitle();
     }
     
     
@@ -122,10 +116,6 @@ class ReportDefinitionController extends Zend_Controller_Action
     	}
     	
     	$this->view->form = $form;
-    	
-    	/* get title of data set */
-    	$info = new HVA_Model_DbTable_Info('info_' . $this->_request->getParam('id'));
-    	$this->view->title = $info->getTitle();
     }
     
     
