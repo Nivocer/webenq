@@ -43,7 +43,7 @@ class ManagementController extends Zend_Controller_Action
     		$questionsMeta = $meta->fetchAll(
     			$meta->select()->setIntegrityCheck(false)
     				->from($mtn)
-    				->joinInner($qtn, "$qtn.id = $mtn.question_id", array('question' => 'title'))
+    				->joinLeft($qtn, "$qtn.id = $mtn.question_id", array('question' => 'title'))
     				->where("parent_id = 0")
     				->order("$mtn.id")
     			);
@@ -62,6 +62,7 @@ class ManagementController extends Zend_Controller_Action
     	/* factor question objects */
     	$q = array();
     	foreach ($questionsMeta as $key => $questionMeta) {
+    		$q[$key]["question_id"] = $questionMeta->question_id;
     		$q[$key]["question"] = utf8_encode($questionMeta->question);
     		$q[$key]["type"] = $questionMeta->type;
     		$q[$key]["validTypes"] = array();
