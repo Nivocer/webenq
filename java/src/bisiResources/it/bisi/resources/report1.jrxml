@@ -44,10 +44,10 @@
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}+"-"+$F{enddt}+"\n"+
+				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}.substring(0,10)+" tot "+$F{enddt}.substring(0,10)+"\n"+
 "Datum rapport: "]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="yyyy-MM-dd">
 				<reportElement x="69" y="106" width="485" height="15" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
