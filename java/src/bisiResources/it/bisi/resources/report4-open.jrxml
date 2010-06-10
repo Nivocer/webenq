@@ -20,9 +20,9 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="22" splitType="Stretch">
+		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="555" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="0" y="0" width="555" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 				<textElement verticalAlignment="Bottom">
 					<font isBold="true"/>
 				</textElement>
@@ -40,14 +40,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{col}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="0" width="8" height="12"/>
+				<reportElement x="20" y="0" width="8" height="12" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="9"/>
 				</textElement>
 				<text><![CDATA[-]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="28" y="0" width="527" height="12"/>
+				<reportElement x="28" y="0" width="527" height="12" isRemoveLineWhenBlank="true"/>
 				<textElement>
 					<font size="9"/>
 				</textElement>
