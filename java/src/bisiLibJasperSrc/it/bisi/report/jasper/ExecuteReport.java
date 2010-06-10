@@ -65,6 +65,7 @@ public class ExecuteReport {
 			
 			prms.put("GROUP_ROWS", group_rows);
 			prms.put("REPORT_IDENTIFIER", report_identifier);
+			prms.put("REPORT_TYPE", report_type);
 			stmt_rows.close();
 			//
 			//returns result:

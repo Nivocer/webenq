@@ -9,6 +9,7 @@
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
 	<parameter name="GROUP_ROWS" class="java.lang.String"/>
 	<parameter name="GROUP_ROWS_VALUE" class="java.lang.String"/>
+	<parameter name="REPORT_TYPE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -67,16 +68,16 @@
 			</textField>
 			<staticText>
 				<reportElement x="0" y="18" width="555" height="19" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && "OPEN".equals($F{type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{REPORT_TYPE}.equals("open") && $P{GROUP_ROWS_VALUE}.length()>0]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA["Groep:"]]></text>
+				<text><![CDATA[Groep:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="45" y="18" width="510" height="19" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && "OPEN".equals($F{type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{REPORT_TYPE}.equals("open") && $P{GROUP_ROWS_VALUE}.length()>0]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
