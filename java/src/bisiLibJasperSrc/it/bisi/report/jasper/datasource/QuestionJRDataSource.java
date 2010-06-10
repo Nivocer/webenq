@@ -146,22 +146,19 @@ public class QuestionJRDataSource {
 							"and length("+question_field+")>0 and " +
 							question_field+" not in ('0', '-') ");
 */					
-					//todo what if group_rows_value is empty
-					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
+
+					String query= "select id, "+question_field+" from values_"+identifier+"  " +
 							"where "+question_field+" is not null " +
 							"and length("+question_field+")>0 and " +
-							question_field+" not in ('0', '-') " +
-							"and "+group_rows+" like '"+group_rows_value+"'");
-							
-/*					System.out.println("select id, "+question_field+" from values_"+identifier+"  " +
-							"where "+question_field+" is not null " +
-							"and length("+question_field+")>0 and " +
-							question_field+" not in ('0', '-') " +
-							"and "+group_rows+" like 'CE'");
-*/
+							question_field+" not in ('0', '-') ";
+					// add group_rows statement if not null.
+					if  ((! (group_rows.equals(null))) && (group_rows.length()>0)   ) {
+						query=query+"and "+group_rows+" like '"+group_rows_value+"'";
+					}
+					stmt_valueo.execute(query);
 					ResultSet rsh_valueo=stmt_valueo.getResultSet();
 					while (rsh_valueo.next()){
-						//@todo order of variables in next line...
+						//@todo order of variables in next line...?
 						Record ro=new Record(group_question_title,titlerows,question_title,rsh_valueo.getString(1),rsh_valueo.getString(2));
 
 										//Record(String title_row,String title_col,String row,String col,String val){

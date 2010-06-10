@@ -105,8 +105,7 @@ public class ExecuteReport {
 			prms.put("QUERY", query);
 			
 			//looping through possible group_rows_value for open report
-			//todo add test of grouping variable gevuld is
-			if (report_type.equals("open")) {
+			if (report_type.equals("open") && group_rows.length()>0 ) {
 				//get group_rows_values
 				Statement stmt_rows_values=conn.createStatement();
 				stmt_rows_values.execute("select distinct "+group_rows+" as group_rows_values FROM values_"+identifier);
