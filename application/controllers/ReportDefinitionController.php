@@ -143,6 +143,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     		$post["output_filename"] = md5(time());
     	}
     	
+    	/* create list of ignore-questions */    	
     	$cdlIgnoreQuestionIds = json_encode($post['ignore_question_ids']);
     	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 1);
     	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 0, -1);
@@ -167,7 +168,7 @@ class ReportDefinitionController extends Zend_Controller_Action
 		    		"output_filename"		=> $post["output_filename"],
 		    		"output_format"			=> $post["output_format"],
 		    		"report_type"			=> $post["report_type"],
-		    		"ignore_question_ids"	=> json_encode($post['ignore_question_ids']),
+		    		"ignore_question_ids"	=> $cdlIgnoreQuestionIds,
 		    	)
 		    );
     	}
