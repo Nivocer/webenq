@@ -35,18 +35,25 @@ class ManagementController extends Zend_Controller_Action
     public function indexAction()
     {
     	/* get model, and query for meta-data */
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
+    	$mtn = "meta_" . $this->_id;
+    	$qtn = "questions_" . $this->_id;
+    	$meta = new HVA_Model_DbTable_Meta($mtn);
     	
     	try {
-    		$questionsMeta = $meta->fetchAll("parent_id = 0", "id");
+    		$questionsMeta = $meta->fetchAll(
+    			$meta->select()->setIntegrityCheck(false)
+    				->from($mtn)
+    				->joinInner($qtn, "$qtn.id = $mtn.question_id", array('question' => 'title'))
+    				->where("parent_id = 0")
+    				->order("$mtn.id")
+    			);
     	}
-    	
     	catch (Zend_Db_Statement_Exception $e) {
     		if ($e->getCode() === "42S02") {
 	    		die("De vragenlijst is nog niet geinterpreteerd.");
     		} else {    		
     			throw $e;
-    		}    		
+    		}
     	}
     	
     	/* get model for data-table */
@@ -55,8 +62,8 @@ class ManagementController extends Zend_Controller_Action
     	/* factor question objects */
     	$q = array();
     	foreach ($questionsMeta as $key => $questionMeta) {
-    		$q[$key]["question"]	= $questionMeta->question_id;
-    		$q[$key]["type"]		= $questionMeta->type;
+    		$q[$key]["question"] = utf8_encode($questionMeta->question);
+    		$q[$key]["type"] = $questionMeta->type;
     		$q[$key]["validTypes"] = array();
     		$validTypes = $meta->fetchAll("parent_id = " . $questionMeta->id, "id");
     		foreach ($validTypes as $validType) {
