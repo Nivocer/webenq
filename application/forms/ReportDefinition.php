@@ -52,8 +52,7 @@ class HVA_Form_ReportDefinition extends Zend_Form
     	$filename = new Zend_Form_Element_Text('output_filename');
     	$filename
     		->setLabel('Geef de bestandsnaam voor het rapport op (zonder extensie):')
-    		->addFilter(new Zend_Filter_Alnum())
-    		->addFilter(new Zend_Filter_StringToLower());
+    		->addFilter(new Zend_Filter_Alnum());
 		
 		$output = new Zend_Form_Element_Radio('output_format');
     	$output
