@@ -119,7 +119,7 @@ class ManagementController extends Zend_Controller_Action
     				break;
     		}
     	}
-    	$q = substr($q, 0, -2) . ");";
+    	$q = substr($q, 0, -2) . ") DEFAULT CHARSET=utf8;";
     	
 		/* get db connection */
     	$db = Zend_Db_Table::getDefaultAdapter();

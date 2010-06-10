@@ -63,7 +63,7 @@ class InterpretationController extends Zend_Controller_Action
     			parent_id INT NOT NULL,
     			question_id VARCHAR(64) NOT NULL,
     			type TEXT NOT NULL
-    		);";
+    		) DEFAULT CHARSET=utf8;";
     	
     	/* create table */
     	$dbConnection->exec("DROP TABLE IF EXISTS " . $t . ";");
