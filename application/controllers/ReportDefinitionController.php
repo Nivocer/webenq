@@ -24,7 +24,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     	
     	/* get title of data set */
     	$info = new HVA_Model_DbTable_Info('info_' . $this->_id);
-    	$this->view->title = $info->getTitle();
+    	$this->_title = $this->view->title = $info->getTitle();
     }
 	
     public function indexAction()
@@ -42,6 +42,42 @@ class ReportDefinitionController extends Zend_Controller_Action
     		);
     	} catch (Zend_Db_Statement_Exception $e) {
     		$reportDefinitions->createTable();
+    	}
+    	
+    	/* make two default report definitions if none present */
+    	if ($repDefs->count() === 0) {
+    		$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
+    		$groupRow = $questions->fetchAll("title = 'basisgroep'");
+    		if ($groupRow->count() === 1) {
+    			$groupTitle = $groupRow->current()->id;
+    		} else {
+    			$groupTitle = '';
+    		}
+	    	$reportDefinitions->insert(
+		    	array(
+		    		"data_set_id"			=> $this->_id,
+		    		"group_question_id"		=> $groupTitle,
+		    		"output_filename"		=> str_replace(' ', '_', $this->_title) . '_open',
+		    		"output_format"			=> 'pdf',
+		    		"report_type"			=> 'open',
+		    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
+		    	)
+		    );
+	    	$reportDefinitions->insert(
+		    	array(
+		    		"data_set_id"			=> $this->_id,
+		    		"group_question_id"		=> $groupTitle,
+		    		"output_filename"		=> str_replace(' ', '_', $this->_title) . '_tables',
+		    		"output_format"			=> 'pdf',
+		    		"report_type"			=> 'tables',
+		    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
+		    	)
+		    );
+    		$repDefs = $this->view->reportDefinitions = $reportDefinitions->fetchAll(
+    			$reportDefinitions->select()
+    				->where("data_set_id = ?", $this->_id)
+    				->order("id DESC")
+    		);
     	}
     }
     
@@ -140,7 +176,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     	
     	/* set default file name if none set */
     	if (!$post["output_filename"]) {
-    		$post["output_filename"] = md5(time());
+    		$post["output_filename"] = str_replace(' ', '_', $this->_title) . '_' . $post["report_type"];
     	}
     	
     	/* create list of ignore-questions */    	

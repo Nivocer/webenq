@@ -64,12 +64,13 @@ class ImportController extends Zend_Controller_Action
     				$extension = array_pop(preg_split('#\.#', $this->_filename));
     			}
     			if (!$errors) {
-//    				try {
+    				try {
     					$action = $extension . 'Action';
     					$this->{$action}();
-//    				} catch (Exception $e) {
-//    					$errors[] = 'Error processing the files';
-//    				}
+    				} catch (Exception $e) {
+    					$errors[] = 'Error processing the files';
+    				}
+
     				$this->_redirect('index');
     			}    			
     		}
