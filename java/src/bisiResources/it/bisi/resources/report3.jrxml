@@ -130,7 +130,7 @@
 							<bottomPen lineWidth="0.0"/>
 						</box>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="40" height="15" backcolor="#00C800">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="40" height="15" backcolor="#00FF00">
 								<printWhenExpression><![CDATA[$V{valMeasure}>3.9]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -154,7 +154,18 @@
 							</graphicElement>
 						</rectangle>
 						<textField pattern="###0.0">
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="15"/>
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="15">
+								<printWhenExpression><![CDATA[$V{valMeasure}>=3]]></printWhenExpression>
+							</reportElement>
+							<textElement verticalAlignment="Middle">
+								<font size="8"/>
+							</textElement>
+							<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
+						</textField>
+						<textField pattern="###0.0">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="15" forecolor="#FFFFFF" backcolor="#000000">
+								<printWhenExpression><![CDATA[$V{valMeasure}<3 && $V{valMeasure}>=1]]></printWhenExpression>
+							</reportElement>
 							<textElement verticalAlignment="Middle">
 								<font size="8"/>
 							</textElement>

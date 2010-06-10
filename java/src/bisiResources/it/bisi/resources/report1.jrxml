@@ -179,7 +179,7 @@
 				<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFF00"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00C800"/>
+				<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00FF00"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true"/>
