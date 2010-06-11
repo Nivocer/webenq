@@ -116,7 +116,7 @@ class ManagementController extends Zend_Controller_Action
     				$q .= $questionType->question_id . " INT NOT NULL, ";
     				break;
     			default:
-    				$q .= $questionType->question_id . " VARCHAR(256) NOT NULL, ";
+    				$q .= $questionType->question_id . " TEXT NOT NULL, ";
     				break;
     		}
     	}
