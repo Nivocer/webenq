@@ -109,7 +109,7 @@
 									<bottomPen lineWidth="0.0"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
+									<font size="8" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Totaal]]></text>
 							</staticText>
@@ -174,7 +174,7 @@
 						<textField pattern="###0">
 							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="15" width="40" height="15"/>
 							<textElement verticalAlignment="Middle">
-								<font size="8"/>
+								<font size="8" isBold="false"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countMeasure}]]></textFieldExpression>
 						</textField>
@@ -227,7 +227,7 @@
 								<printWhenExpression><![CDATA[$V{valMeasure}>=3]]></printWhenExpression>
 							</reportElement>
 							<textElement verticalAlignment="Middle">
-								<font size="8"/>
+								<font size="8" isBold="true"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
 						</textField>
@@ -236,14 +236,14 @@
 								<printWhenExpression><![CDATA[$V{valMeasure}<3 && $V{valMeasure}>=1]]></printWhenExpression>
 							</reportElement>
 							<textElement verticalAlignment="Middle">
-								<font size="8"/>
+								<font size="8" isBold="true"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
 						</textField>
 						<textField pattern="###0">
 							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="15" width="40" height="15"/>
 							<textElement verticalAlignment="Middle">
-								<font size="8" isStrikeThrough="false"/>
+								<font size="8" isBold="false" isStrikeThrough="false"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{countMeasure}]]></textFieldExpression>
 						</textField>
