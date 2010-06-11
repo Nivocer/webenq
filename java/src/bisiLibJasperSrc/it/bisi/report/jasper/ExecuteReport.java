@@ -110,11 +110,11 @@ public class ExecuteReport {
 				//get group_rows_values
 				Statement stmt_rows_values=conn.createStatement();
 				stmt_rows_values.execute("select distinct "+group_rows+" as group_rows_values FROM values_"+identifier);
-				System.out.println("select distinct "+group_rows+" as group_rows_values FROM values_"+identifier);
+				//System.out.println("select distinct "+group_rows+" as group_rows_values FROM values_"+identifier);
 				ResultSet rs_rows_values = stmt_rows_values.getResultSet();
 				while (rs_rows_values.next()) {
 					String group_rows_value=rs_rows_values.getString("group_rows_values");
-					System.out.println("group rows values: "+group_rows_value);
+					//System.out.println("group rows values: "+group_rows_value);
 					
 					prms.put("GROUP_ROWS_VALUE", group_rows_value);
 					
