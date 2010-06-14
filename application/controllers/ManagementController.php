@@ -63,7 +63,7 @@ class ManagementController extends Zend_Controller_Action
     	$q = array();
     	foreach ($questionsMeta as $key => $questionMeta) {
     		$q[$key]["question_id"] = $questionMeta->question_id;
-    		$q[$key]["question"] = utf8_encode($questionMeta->question);
+    		$q[$key]["question"] = $questionMeta->question;
     		$q[$key]["type"] = $questionMeta->type;
     		$q[$key]["validTypes"] = array();
     		$validTypes = $meta->fetchAll("parent_id = " . $questionMeta->id, "id");

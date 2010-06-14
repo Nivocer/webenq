@@ -21,7 +21,12 @@ class IndexController extends Zend_Controller_Action
     		$this->view->imports = $imports->fetchAll(
     			$imports->select()->order('date DESC')
     		);
-    	} catch (Exception $e) {}
+    	} catch (Exception $e) {
+    		/* 42S02 = table doesnt exist */
+    		if ($e->getCode() !== "42S02") {
+    			throw $e;
+    		}
+    	}
     }
 
 
