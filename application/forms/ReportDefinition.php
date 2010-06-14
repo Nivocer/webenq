@@ -49,8 +49,11 @@ class HVA_Form_ReportDefinition extends Zend_Form
 		/* needed to show the default checked radio button in FireFox */
 		$this->setAttrib("autocomplete", "off");
 		
-    	$filename = new Zend_Form_Element_Text('output_filename');
-    	$filename->setLabel('Geef de bestandsnaam voor het rapport op (zonder extensie):');
+    	$filenameFilter = new Zend_Filter_PregReplace("#[^A-Za-z0-9_-]#", "_");
+		
+		$filename = new Zend_Form_Element_Text('output_filename');
+    	$filename->setLabel('Geef de bestandsnaam voor het rapport op (zonder extensie):')
+    		->addFilter($filenameFilter);
 		
 		$output = new Zend_Form_Element_Radio('output_format');
     	$output

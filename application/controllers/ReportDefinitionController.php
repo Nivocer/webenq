@@ -176,8 +176,9 @@ class ReportDefinitionController extends Zend_Controller_Action
     	
     	/* set default file name if none set */
     	if (!$post["output_filename"]) {
-    		$post["output_filename"] = preg_replace("#[^A-Za-z0-9_-]#", "_", $this->_title) . '_' . $post["report_type"];
+    		$post["output_filename"] = $this->_title . '_' . $post["report_type"];
     	}
+    	$post["output_filename"] = preg_replace("#[^A-Za-z0-9_-]#", "_", $post["output_filename"] );
     	
     	/* create list of ignore-questions */    	
     	$cdlIgnoreQuestionIds = json_encode($post['ignore_question_ids']);
