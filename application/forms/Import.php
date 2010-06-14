@@ -37,15 +37,15 @@ class HVA_Form_Import extends Zend_Form
 		$file = $this->createElement('file', 'file');
 		$file
 			->setRequired(true)
-			->setLabel('Please, select the data-file to import: ')
-			->setDescription('The following formats are supported: ' . implode(', ', $this->_supportedFormats))
+			->setLabel('Selecteer het te importeren databestand: ')
+			->setDescription('De volgende bestandsindelingen worden ondersteund: ' . implode(', ', $this->_supportedFormats))
 			->addValidators(array(
 				$notEmpty,
 				$count,
 				$extension
 			));
 		 
-		$submit = $this->createElement('submit', 'submit');
+		$submit = $this->createElement('submit', 'Importeren');
 		 
 		$this->addElements(array($file, $submit));
 	}

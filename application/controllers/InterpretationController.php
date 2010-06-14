@@ -108,6 +108,9 @@ class InterpretationController extends Zend_Controller_Action
     	/* herschrijf waarden ivm volgorde rapportage */
     	$this->_rewriteValues();
     	
+    	/* update status in imports table */
+    	HVA_Model_DbTable_Imports::updateStatus($this->_id, HVA_Model_DbTable_Imports::INTERPRETED);
+    	
     	$this->_redirect('index');
     }
     

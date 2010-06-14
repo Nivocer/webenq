@@ -77,8 +77,15 @@ class ManagementController extends Zend_Controller_Action
     	
     	/* process posted values */
     	if ($this->getRequest()->isPost()) {
+    		
+    		/* process */
     		$this->_processManagement($this->getRequest()->getPost());
     		$this->_convertLabelsToValues();
+    		
+	    	/* update status in imports table */
+	    	HVA_Model_DbTable_Imports::updateStatus($this->_id, HVA_Model_DbTable_Imports::MANAGED);
+	    	
+	    	/* to home page */
     		$this->_redirect("index");
     	}
     	

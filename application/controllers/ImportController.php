@@ -118,15 +118,15 @@ class ImportController extends Zend_Controller_Action
      * 
      * @return void
      */
-    public function csvAction()
-    {
-    	/* disable view renderer */
-    	$this->_helper->viewRenderer->setNoRender();
-    	
-    	/* open file, store data, and close file */
-    	$file = new HVA_Model_Input_File_Csv($this->_filename);
-    	$file->storeData();
-    }
+//	public function csvAction()
+//	{
+//		/* disable view renderer */
+//		$this->_helper->viewRenderer->setNoRender();
+//    	
+//		/* open file, store data, and close file */
+//		$file = new HVA_Model_Input_File_Csv($this->_filename);
+//		$file->storeData();
+//	}
     
     
     /**

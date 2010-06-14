@@ -64,15 +64,21 @@ class IndexController extends Zend_Controller_Action
     		"meta_$id", "questions_$id", "values_$id",
     	);
     	
-    	foreach ($tables as $table) {
-    		$sql = "DROP TABLE IF EXISTS $table";
-    		$db->query($sql);    		
+    	try {
+	    	foreach ($tables as $table) {
+	    		$sql = "DROP TABLE IF EXISTS $table";
+	    		$db->query($sql);    		
+	    	}
+	    	
+	    	$imports = new HVA_Model_DbTable_Imports();
+	    	$imports->delete("id = $id");
+	    	
+	    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+	    	$reportDefinitions->delete("data_set_id = $id");
     	}
     	
-    	$imports = new HVA_Model_DbTable_Imports();
-    	$imports->delete("id = $id");
-    	
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
-    	$reportDefinitions->delete("data_set_id = $id");
+    	catch (Exception $e) {
+    		//
+    	}
     }
 }
