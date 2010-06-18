@@ -20,15 +20,15 @@ public class QuestionJRDataSource {
 	private String report_identifier;
 	private String group;
 	private String type;
-	private String group_rows_value;
+	private String split_by_value;
 	
-	public QuestionJRDataSource(Connection conn, String report_identifier, String group, String type, String group_rows_value) {
+	public QuestionJRDataSource(Connection conn, String report_identifier, String group, String type, String split_by_value) {
 		//group=theme_id
 		this.conn=conn;
 		this.report_identifier=report_identifier;
 		this.group=group;
 		this.type=type;
-		this.group_rows_value=group_rows_value;
+		this.split_by_value=split_by_value;
 	}
 	
 	public JRDataSource getRecords() {
@@ -44,23 +44,17 @@ public class QuestionJRDataSource {
 			String identifier=rs_repdef.getString("data_set_id");
 			//group_rows is variable to group the data with (columns in crosstab)
 			String group_rows=rs_repdef.getString("group_question_id");
+			String split_by_question_id=rs_repdef.getString("split_by_question_id");
 			String output_file_name=rs_repdef.getString("output_filename");
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
 			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
 			
-/*
-			if ( group_rows == null ) System.out.println ( "was null" );
-			if ( group_rows.length() == 0 ) System.out.println ( "was empty" );
-			if ( group_rows.trim().length () == 0 ) System.out.println ( "was blank or other whitespace" );
-*/			
 			
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
 			//group_rows may be empty, we don't have a title.
 			if ( group_rows.length() != 0 ) {
-//				System.out.println("not empty rows");
-//				System.out.println("---"+group_rows+"+++");
 				stmt_titlerows.execute("select title from questions_"+identifier+" where id='"+group_rows+"'");
 				ResultSet rs_titlerows=stmt_titlerows.getResultSet();
 				rs_titlerows.next();
@@ -68,20 +62,11 @@ public class QuestionJRDataSource {
 				rs_titlerows.close();
 				stmt_titlerows.close();
 			} else {
-//				System.out.println("empty rows");
 				titlerows="";
 			}
-			//find out the questions for a theme.
-			Statement stmt_questions = conn.createStatement();
-			if (ignore_question_ids.length() > 0) {
-				stmt_questions.execute("select q.id, q.title from questions_"+identifier+" q where group_id='"+group+"' " +
-						" and q.id not in (" + ignore_question_ids + ")");
-			} else {
-				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='" + group + "'");
-			}
-			ResultSet rsh_questions=stmt_questions.getResultSet();
-			String group_question_title="";
+			
 			//determin text of the theme.
+			String group_question_title="";
 			if ("AVG".equals(type)){
 				Statement stmt_title=conn.createStatement();
 				stmt_title.execute("select g.title from groups_"+identifier+" g where g.id='"+group+"'");
@@ -95,21 +80,35 @@ public class QuestionJRDataSource {
 				rsh_title.close();
 				stmt_title.close();
 			}
+
+			//find out the questions for a theme.
+			Statement stmt_questions = conn.createStatement();
+			if (ignore_question_ids.length() > 0) {
+				stmt_questions.execute("select q.id, q.title from questions_"+identifier+" q where group_id='"+group+"' " +
+						" and q.id not in (" + ignore_question_ids + ")");
+			} else {
+				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='" + group + "'");
+			}
+			ResultSet rsh_questions=stmt_questions.getResultSet();
 			
+			//get the answers
 			while (rsh_questions.next()){
-				String question_field=rsh_questions.getString(1);
-				String question_title=rsh_questions.getString(2);
-				
+				String question_field=rsh_questions.getString(1); //question_id
+				String question_title=rsh_questions.getString(2); //question_text
 				//if perc crosstab....
 				if ("PERC".equals(type) && "tables".equals(report_type)){
-					
 					Statement stmt_valuep=conn.createStatement();
 					//group_rows may be empty
+					String query="";
 					if ( group_rows.length() == 0 ){
-						stmt_valuep.execute("select "+question_field+" ,\"Totaal\" from values_"+identifier);
+						query="select "+question_field+" ,\"Totaal\" from values_"+identifier;
 					}else{
-						stmt_valuep.execute("select "+question_field+","+group_rows+" from values_"+identifier);
+						query="select "+question_field+","+group_rows+" from values_"+identifier;
 					}
+					if  ((! (split_by_question_id.equals(null))) && (split_by_question_id.length()>0)   ) {
+						query=query+"where "+split_by_question_id+" like '"+split_by_value+"'";
+					}
+					stmt_valuep.execute(query);
 					ResultSet rsh_valuep=stmt_valuep.getResultSet();
 					while (rsh_valuep.next()){
 						Record rp=new Record(question_title,titlerows,rsh_valuep.getString(1),rsh_valuep.getString(2),"1");
@@ -117,15 +116,18 @@ public class QuestionJRDataSource {
 					}
 					rsh_valuep.close();
 					stmt_valuep.close();
-					
 				}else if("AVG".equals(type) && "tables".equals(report_type)){
 					Statement stmt_valuea=conn.createStatement();
-//					System.out.println("Query:"+"select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0");
+					String query="";
 					if ( group_rows.length() == 0 ){
-						stmt_valuea.execute("select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0");
+						query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
 					}else{
-						stmt_valuea.execute("select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0");
+						query="select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0";
 					}
+					if  ((! (split_by_question_id.equals(null))) && (split_by_question_id.length()>0)   ) {
+						query=query+" and "+split_by_question_id+" like '"+split_by_value+"'";
+					}
+					stmt_valuea.execute(query);
 					ResultSet rsh_valuea=stmt_valuea.getResultSet();
 					while (rsh_valuea.next()){
 						//@todo this record differs in order of variables with previous record
@@ -138,37 +140,24 @@ public class QuestionJRDataSource {
 				}else if("OPEN".equals(type) && "open".equals(report_type)){
 					//open;
 					Statement stmt_valueo=conn.createStatement();
-					//System.out.println("Query: select id, "+question_field+" from values_"+identifier+"" +
-					//		"where "+question_field+" is not null and length("+question_field+")>0");
-					
-/*					stmt_valueo.execute("select id, "+question_field+" from values_"+identifier+"  " +
-							"where "+question_field+" is not null " +
-							"and length("+question_field+")>0 and " +
-							question_field+" not in ('0', '-') ");
-*/					
-
 					String query= "select id, "+question_field+" from values_"+identifier+"  " +
 							"where "+question_field+" is not null " +
 							"and length("+question_field+")>0 and " +
 							question_field+" not in ('0', '-') ";
-					// add group_rows statement if not null.
-					if  ((! (group_rows.equals(null))) && (group_rows.length()>0)   ) {
-						query=query+"and "+group_rows+" like '"+group_rows_value+"'";
+					// add split by statement if not null.
+					if  ((! (split_by_question_id.equals(null))) && (split_by_question_id.length()>0)   ) {
+						query=query+"and "+split_by_question_id+" like '"+split_by_value+"'";
 					}
 					stmt_valueo.execute(query);
 					ResultSet rsh_valueo=stmt_valueo.getResultSet();
 					while (rsh_valueo.next()){
 						//@todo order of variables in next line...?
 						Record ro=new Record(group_question_title,titlerows,question_title,rsh_valueo.getString(1),rsh_valueo.getString(2));
-
-										//Record(String title_row,String title_col,String row,String col,String val){
 						reportRows.add(ro);
 					}
 					rsh_valueo.close();
 					stmt_valueo.close();
-				
 				}
-			
 		}
 		rsh_questions.close();
 		stmt_questions.close();
@@ -178,5 +167,4 @@ public class QuestionJRDataSource {
 		dataSource = new JRBeanCollectionDataSource(reportRows);
 		return dataSource;
 	}
-
 }
