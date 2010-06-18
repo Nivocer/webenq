@@ -9,6 +9,7 @@
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
 	<parameter name="GROUP_ROWS" class="java.lang.String"/>
 	<parameter name="GROUP_ROWS_VALUE" class="java.lang.String"/>
+	<parameter name="SPLIT_BY_VALUE" class="java.lang.String"/>
 	<parameter name="REPORT_TYPE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
@@ -76,12 +77,12 @@
 			</textField>
 			<textField>
 				<reportElement x="0" y="20" width="555" height="19" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{REPORT_TYPE}.equals("open") && $P{GROUP_ROWS_VALUE}.length()>0]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{SPLIT_BY_VALUE}.length()>0]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Groep: "+ $P{GROUP_ROWS_VALUE}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["Groep: "+ $P{SPLIT_BY_VALUE}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="40" width="555" height="50" isRemoveLineWhenBlank="true">
@@ -101,35 +102,35 @@
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA["AVG".equals($F{type}) && !$V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, null).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, $P{SPLIT_BY_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA["AVG".equals($F{type}) && $V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},null).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_BY_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3b.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA["PERC".equals($F{type}) && !$V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},null).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_BY_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA["PERC".equals($F{type}) && $V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},null).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_BY_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2b.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA["OPEN".equals($F{type})]]></printWhenExpression>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, $P{GROUP_ROWS_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, $P{SPLIT_BY_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report4.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
