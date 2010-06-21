@@ -112,7 +112,7 @@ class ManagementController extends Zend_Controller_Action
     	foreach ($questionTypes as $questionType) {
     		switch ($questionType->type) {
     			case "HVA_Model_Data_Question_Open_Date":
-    				$q .= $questionType->question_id . " DATETIME NOT NULL, ";
+    				$q .= $questionType->question_id . " DATETIME DEFAULT NULL, ";
     				break;
     			case "HVA_Model_Data_Question_Closed_Scale_Two":
     			case "HVA_Model_Data_Question_Closed_Scale_Three":
@@ -120,10 +120,10 @@ class ManagementController extends Zend_Controller_Action
     			case "HVA_Model_Data_Question_Closed_Scale_Five":
     			case "HVA_Model_Data_Question_Closed_Scale_Six":
     			case "HVA_Model_Data_Question_Closed_Scale_Seven":
-    				$q .= $questionType->question_id . " INT NOT NULL, ";
+    				$q .= $questionType->question_id . " INT DEFAULT NULL, ";
     				break;
     			default:
-    				$q .= $questionType->question_id . " TEXT NOT NULL, ";
+    				$q .= $questionType->question_id . " TEXT DEFAULT NULL, ";
     				break;
     		}
     	}
