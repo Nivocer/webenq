@@ -67,11 +67,18 @@ class HVA_Form_ReportDefinition extends Zend_Form
     		->setMultiOptions($this->_reportTypes)
     		->setRequired(true);
     		
-    	$select = new Zend_Form_Element_Select('group_question_id');
-    	$select
+    	$group = new Zend_Form_Element_Select('group_question_id');
+    	$group
     		->setLabel('Selecteer een vraag om de data te groeperen:')
     		->setRequired(false)
     		->setMultiOptions(array('' => '--- geen groepering ---'))
+    		->addMultiOptions($this->_questions);
+    	
+    	$split = new Zend_Form_Element_Select('split_question_id');
+    	$split
+    		->setLabel('Selecteer een vraag om de data te splitsen:')
+    		->setRequired(false)
+    		->setMultiOptions(array('' => '--- geen splitsing ---'))
     		->addMultiOptions($this->_questions);
     	
     	$ignore = new Zend_Form_Element_MultiCheckbox('ignore_question_ids');
@@ -83,6 +90,6 @@ class HVA_Form_ReportDefinition extends Zend_Form
     	$submit = new Zend_Form_Element_Submit('submit');
     	$submit->setLabel('Verzenden');
     	
-    	$this->addElements(array($filename, $output, $report, $select, $ignore, $submit));
+    	$this->addElements(array($filename, $output, $report, $group, $split, $ignore, $submit));
 	}
 }

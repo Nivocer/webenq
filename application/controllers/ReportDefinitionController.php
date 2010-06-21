@@ -191,6 +191,7 @@ class ReportDefinitionController extends Zend_Controller_Action
 		    	array(
 		    		"data_set_id"			=> $this->_id,
 		    		"group_question_id"		=> $post["group_question_id"],
+		    		"split_question_id"		=> $post["split_question_id"],
 		    		"output_filename"		=> $post["output_filename"],
 		    		"output_format"			=> $post["output_format"],
 		    		"report_type"			=> $post["report_type"],
