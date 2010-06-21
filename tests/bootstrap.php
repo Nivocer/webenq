@@ -1,32 +1,23 @@
 <?php
 
-error_reporting( E_ALL | E_STRICT );
-ini_set('display_startup_errors', 1);
-ini_set('display_errors', 1);
+/* Set time zone */
 date_default_timezone_set('Europe/Amsterdam');
 
-// Define test path
-define('TESTS_PATH', realpath(dirname(__FILE__)));
-
-// Define path to application directory
+/* Define path to application directory */
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
-// Define application environment
+/* Define application environment */
 defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-
-// Define path to library directory
-defined('LIBRARY_PATH')
-    || define('LIBRARY_PATH', '/usr/share/php/libzend-framework-php');
-
-// Ensure library/ is on include_path
+    || define('APPLICATION_ENV', 'unit-testing');
+    
+/* Ensure library/ is on include_path */
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(LIBRARY_PATH),
-    realpath(APPLICATION_PATH . '/../../nivocer-thirdparty/odtphp'),
+	realpath(APPLICATION_PATH . '/../libraries'),
+	realpath(APPLICATION_PATH . '/../../nivocer-thirdparty'),
+	realpath(APPLICATION_PATH . '/../classes'),
     get_include_path(),
 )));
-
 
 /* set up auto-loading */
 require_once "Zend/Loader/Autoloader.php";
@@ -41,11 +32,10 @@ $resourceLoader->addResourceType('form', 'forms', 'Form');
 $resourceLoader->addResourceType('test', '../tests/application', 'Test');
 $resourceLoader->addResourceType('test_model', '../tests/application/models', 'Test_Model');
 
-
 Zend_Session::$_unitTestEnabled = true;
 Zend_Session::start();
 
-
+/* Bootstrap application */
 $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
