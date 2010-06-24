@@ -11,11 +11,28 @@
 		<p>Er is een probleem opgetreden bij het genereren van het rapport. Zie onderstaande melding voor details.</p>
 		<pre><?php echo $this->output; ?></pre>
 	</div>
-<?php else: ?>
+<?php endif; ?>
+
+<?php if (is_string($this->file)): ?>
 	<div>
 		<p>Het rapport is gegenereerd en opgeslagen. Klik op onderstaande link om het rapport te bekijken.</p>
 		<a href="<?php echo $this->baseUrl("reports/" . $this->file); ?>">
 			<?php echo $this->file; ?>
 		</a>
+	</div>
+<?php endif; ?>
+
+<?php if (is_array($this->file)): ?>
+	<div>
+		<p>De rapporten zijn gegenereerd en opgeslagen. Klik op onderstaande links om de rapporten te bekijken.</p>
+		<ul>
+		<?php foreach ($this->file as $file): ?>
+			<li>
+				<a href="<?php echo $this->baseUrl("reports/" . $file); ?>">
+					<?php echo $file; ?>
+				</a>
+			</li>
+		<?php endforeach; ?>
+		</ul>
 	</div>
 <?php endif; ?>

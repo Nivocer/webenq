@@ -53,16 +53,30 @@ class ReportGenerationController extends Zend_Controller_Action
     		return;
     	}
     	
-    	/* has file been created? */
+    	/* has file (or multiple files) been created? */
     	$file = $row->output_filename . "." . $row->output_format;
-    	$fileExists = file_exists('reports/' . $file);
-    	$fileInfo = stat('reports/' . $file);
-    	$timeDiff = $fileInfo['mtime'] - time();
-    	
-    	if ($fileExists && $timeDiff < 2) {
-	    	$this->view->file = $row->output_filename . "." . $row->output_format;
+    	if (file_exists('reports/' . $file)) {
+	    	$fileInfo = stat('reports/' . $file);
+	    	$timeDiff = $fileInfo['mtime'] - time();
+	    	if ($timeDiff < 2) {
+		    	$this->view->file = $row->output_filename . "." . $row->output_format;
+		    	return;
+	    	}
     	} else {
-    		$this->view->output = "Onbekende fout opgetreden.";
+    		$files = scandir('reports/');
+    		$reports = array();
+    		foreach ($files as $f) {
+    			$fileName = substr($f, 0, strlen($row->output_filename));
+    			$fileExt = substr($f, -1 * strlen($row->output_format));
+    			if ($fileName === $row->output_filename && $fileExt === $row->output_format) {
+    				$reports[] = $f; 
+    			}
+    		}
+    		if (count($reports) > 0) {
+	    		$this->view->file = $reports;
+	    		return;
+    		}
     	}
+   		$this->view->output = "Onbekende fout opgetreden.";
     }
 }
