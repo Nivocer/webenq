@@ -74,7 +74,7 @@ class HVA_Form_ReportDefinition extends Zend_Form
     		->setMultiOptions(array('' => '--- geen groepering ---'))
     		->addMultiOptions($this->_questions);
     	
-    	$split = new Zend_Form_Element_Select('split_question_id');
+    	$split = new Zend_Form_Element_Select('split_by_question_id');
     	$split
     		->setLabel('Selecteer een vraag om de data te splitsen:')
     		->setRequired(false)
