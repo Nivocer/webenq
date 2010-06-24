@@ -23,6 +23,9 @@
 				<th>bestandsnaam</th>
 				<th>formaat</th>
 				<th>rapport-type</th>
+				<th>taal</th>
+				<th>klant</th>
+				<th>pagina</th>
 				<th>genereren</th>
 				<th>bewerken</th>
 				<th>verwijderen</th>
@@ -38,7 +41,7 @@
 						<?php echo (strlen($repDef->group_question_id) > 25) ? substr($repDef->group_question_id, 0, 22) . "..." : $repDef->group_question_id; ?>
 					</td>
 					<td>
-						<?php echo (strlen($repDef->split_by_question_id) > 25) ? substr($repDef->split_by_question_id, 0, 22) . "..." : $repDef->split_by_question_id; ?>
+						<?php echo (strlen($repDef->split_question_id) > 25) ? substr($repDef->split_question_id, 0, 22) . "..." : $repDef->split_question_id; ?>
 					</td>
 					<td>
 						<?php echo $repDef->output_filename; ?>.<?php echo $repDef->output_format; ?>
@@ -48,6 +51,15 @@
 					</td>
 					<td>
 						<?php echo $repDef->report_type; ?>
+					</td>
+					<td>
+						<?php echo $repDef->language; ?>
+					</td>
+					<td>
+						<?php echo $repDef->customer; ?>
+					</td>
+					<td>
+						<?php echo $repDef->page; ?>
 					</td>
 					<td>
 						<a href="<?php echo $this->baseUrl("report-generation/index/id/" . $repDef->id); ?>">

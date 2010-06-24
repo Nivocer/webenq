@@ -92,9 +92,12 @@ class ReportDefinitionController extends Zend_Controller_Action
     	/* get enum options */
     	$outputFormats = $reportDefinitions->getEnumValues('output_format');
     	$reportTypes = $reportDefinitions->getEnumValues('report_type');
+    	$languages = $reportDefinitions->getEnumValues('language');
+    	$customers = $reportDefinitions->getEnumValues('customer');
+    	$pages = $reportDefinitions->getEnumValues('page');
     	
     	/* get form */
-    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes);
+    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages, $customers, $pages);
 
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
@@ -118,9 +121,12 @@ class ReportDefinitionController extends Zend_Controller_Action
     	/* get enum options */
     	$outputFormats = $reportDefinitions->getEnumValues('output_format');
     	$reportTypes = $reportDefinitions->getEnumValues('report_type');
+    	$languages = $reportDefinitions->getEnumValues('language');
+    	$customers = $reportDefinitions->getEnumValues('customer');
+    	$pages = $reportDefinitions->getEnumValues('page');
     	
     	/* get form */
-    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes);
+    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages, $customers, $pages);
     	$values = $repDef->toArray();
     	$values['ignore_question_ids'] = json_decode('[' . $values['ignore_question_ids'] . ']');
     	$form->populate($values);
@@ -191,11 +197,14 @@ class ReportDefinitionController extends Zend_Controller_Action
 		    	array(
 		    		"data_set_id"			=> $this->_id,
 		    		"group_question_id"		=> $post["group_question_id"],
-		    		"split_by_question_id"	=> $post["split_by_question_id"],
+		    		"split_question_id"		=> $post["split_question_id"],
 		    		"output_filename"		=> $post["output_filename"],
 		    		"output_format"			=> $post["output_format"],
 		    		"report_type"			=> $post["report_type"],
 		    		"ignore_question_ids"	=> $cdlIgnoreQuestionIds,
+		    		"language"				=> $post["language"],
+		    		"customer"				=> $post["customer"],
+		    		"page"					=> $post["page"],
 		    	),
 		    	"id = '" . $repDefId . "'");
     	} else {
@@ -203,11 +212,14 @@ class ReportDefinitionController extends Zend_Controller_Action
 		    	array(
 		    		"data_set_id"			=> $this->_id,
 		    		"group_question_id"		=> $post["group_question_id"],
-		    		"split_by_question_id"	=> $post["split_by_question_id"],
+		    		"split_question_id"		=> $post["split_question_id"],
 		    		"output_filename"		=> $post["output_filename"],
 		    		"output_format"			=> $post["output_format"],
 		    		"report_type"			=> $post["report_type"],
 		    		"ignore_question_ids"	=> $cdlIgnoreQuestionIds,
+		    		"language"				=> $post["language"],
+		    		"customer"				=> $post["customer"],
+		    		"page"					=> $post["page"],
 		    	)
 		    );
     	}
