@@ -59,12 +59,12 @@ public class ExecuteReport {
 			rs_repdef.next();
 			String identifier=rs_repdef.getString("data_set_id");
 			String group_rows=rs_repdef.getString("group_question_id");
-			String split_by_question_id=rs_repdef.getString("split_by_question_id");
+			String split_question_id=rs_repdef.getString("split_question_id");
 			String output_file_name=rs_repdef.getString("output_filename");
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
 			
-			//todo check if jrxml need split_by_question_id (don't think so)
+			//todo check if jrxml need split_question_id (don't think so)
 			prms.put("GROUP_ROWS", group_rows);
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
@@ -98,7 +98,7 @@ public class ExecuteReport {
          				"		ELSE 'NOTYETIMPLEMENTED'" +
          				"	end type " +
          				"FROM questions_"+identifier+" q,meta_"+identifier+" m "+ 
-         				"where m.question_id=q.id and parent_id=0 and q.id!='"+group_rows+"' and q.id!='"+split_by_question_id+"' and " +
+         				"where m.question_id=q.id and parent_id=0 and q.id!='"+group_rows+"' and q.id!='"+split_question_id+"' and " +
          				"(type like '%Closed_Percentage%' or type like '%Closed_Scale%' or type like '%open%')) t "+
          		"where a.id='Titel vragenlijst' " +
          		"and b.id='Startdatum' " +
@@ -108,31 +108,31 @@ public class ExecuteReport {
 			prms.put("QUERY", query);
 			
 			//looping through possible split by values (multiple reports for subset of respondents)
-			if (split_by_question_id.length()>0 ) {
-				//get split_by_values
+			if (split_question_id !=null && split_question_id.length()>0 ) {
+				//get split_values
 				Statement stmt_rows_values=conn.createStatement();
-				stmt_rows_values.execute("select distinct "+split_by_question_id+" as split_by_values FROM values_"+identifier);
+				stmt_rows_values.execute("select distinct "+split_question_id+" as split_values FROM values_"+identifier);
 				ResultSet rs_rows_values = stmt_rows_values.getResultSet();
 				while (rs_rows_values.next()) {
-					String split_by_value=rs_rows_values.getString("split_by_values");
+					String split_value=rs_rows_values.getString("split_values");
 					//needed for displaying content
-					prms.put("SPLIT_BY_VALUE", split_by_value);
+					prms.put("SPLIT_VALUE", split_value);
 					
 					inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
 					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
 					// Create output in directory public/reports  
 					if(output_format.equals("pdf")) {
-						JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + "_" + split_by_value + ".pdf");
+						JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + "_" + split_value + ".pdf");
 					} else if(output_format.equals("odt")) {
 						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + "_" + split_by_value+ ".odt");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + "_" + split_value+ ".odt");
 						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 						exporter.exportReport();
 					} else if(output_format.equals("html")) {
-						JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name +"_"+split_by_value+ ".html");
+						JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name +"_"+split_value+ ".html");
 					} else if(output_format.equals("xml")) {
-						JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name +"_"+split_by_value+ ".xml", false);
+						JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name +"_"+split_value+ ".xml", false);
 					} else { 
 						JasperViewer.viewReport(print);
 					}

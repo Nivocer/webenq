@@ -20,15 +20,15 @@ public class QuestionJRDataSource {
 	private String report_identifier;
 	private String group;
 	private String type;
-	private String split_by_value;
+	private String split_value;
 	
-	public QuestionJRDataSource(Connection conn, String report_identifier, String group, String type, String split_by_value) {
+	public QuestionJRDataSource(Connection conn, String report_identifier, String group, String type, String split_value) {
 		//group=theme_id
 		this.conn=conn;
 		this.report_identifier=report_identifier;
 		this.group=group;
 		this.type=type;
-		this.split_by_value=split_by_value;
+		this.split_value=split_value;
 	}
 	
 	public JRDataSource getRecords() {
@@ -44,7 +44,7 @@ public class QuestionJRDataSource {
 			String identifier=rs_repdef.getString("data_set_id");
 			//group_rows is variable to group the data with (columns in crosstab)
 			String group_rows=rs_repdef.getString("group_question_id");
-			String split_by_question_id=rs_repdef.getString("split_by_question_id");
+			String split_question_id=rs_repdef.getString("split_question_id");
 			String output_file_name=rs_repdef.getString("output_filename");
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
@@ -105,8 +105,8 @@ public class QuestionJRDataSource {
 					}else{
 						query="select "+question_field+","+group_rows+" from values_"+identifier;
 					}
-					if  ((! (split_by_question_id.equals(null))) && (split_by_question_id.length()>0)   ) {
-						query=query+"where "+split_by_question_id+" like '"+split_by_value+"'";
+					if  ((split_question_id!=null) && (split_question_id.length()>0)   ) {
+						query=query+"where "+split_question_id+" like '"+split_value+"'";
 					}
 					stmt_valuep.execute(query);
 					ResultSet rsh_valuep=stmt_valuep.getResultSet();
@@ -124,8 +124,8 @@ public class QuestionJRDataSource {
 					}else{
 						query="select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0";
 					}
-					if  ((! (split_by_question_id.equals(null))) && (split_by_question_id.length()>0)   ) {
-						query=query+" and "+split_by_question_id+" like '"+split_by_value+"'";
+					if  ( (split_question_id !=null) && (split_question_id.length()>0)   ) {
+						query=query+" and "+split_question_id+" like '"+split_value+"'";
 					}
 					stmt_valuea.execute(query);
 					ResultSet rsh_valuea=stmt_valuea.getResultSet();
@@ -145,8 +145,8 @@ public class QuestionJRDataSource {
 							"and length("+question_field+")>0 and " +
 							question_field+" not in ('0', '-') ";
 					// add split by statement if not null.
-					if  ((! (split_by_question_id.equals(null))) && (split_by_question_id.length()>0)   ) {
-						query=query+"and "+split_by_question_id+" like '"+split_by_value+"'";
+					if  ((split_question_id!=null) && (split_question_id.length()>0)   ) {
+						query=query+"and "+split_question_id+" like '"+split_value+"'";
 					}
 					stmt_valueo.execute(query);
 					ResultSet rsh_valueo=stmt_valueo.getResultSet();
