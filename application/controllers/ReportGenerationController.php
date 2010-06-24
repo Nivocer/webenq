@@ -47,12 +47,22 @@ class ReportGenerationController extends Zend_Controller_Action
 		ob_end_clean();
     	chdir($cwd);
     	
+    	/* error output? */
     	if ($returnVar > 0) {
-	    	/* assign output to view */    	
     		$this->view->output = $output;
-    	} else {
-	    	/* assign filename to view */    	
+    		return;
+    	}
+    	
+    	/* has file been created? */
+    	$file = $row->output_filename . "." . $row->output_format;
+    	$fileExists = file_exists('reports/' . $file);
+    	$fileInfo = stat('reports/' . $file);
+    	$timeDiff = $fileInfo['mtime'] - time();
+    	
+    	if ($fileExists && $timeDiff < 2) {
 	    	$this->view->file = $row->output_filename . "." . $row->output_format;
+    	} else {
+    		$this->view->output = "Onbekende fout opgetreden.";
     	}
     }
 }
