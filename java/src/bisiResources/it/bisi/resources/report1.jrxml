@@ -11,6 +11,7 @@
 	<parameter name="GROUP_ROWS_VALUE" class="java.lang.String"/>
 	<parameter name="SPLIT_BY_VALUE" class="java.lang.String"/>
 	<parameter name="REPORT_TYPE" class="java.lang.String"/>
+	<parameter name="TEXTS" class="java.util.HashMap"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -45,8 +46,8 @@
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Dataverzameling: "+$F{srtdt}.substring(0,10)+" tot "+$F{enddt}.substring(0,10)+"\n"+
-"Datum rapport: "]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_data_collection")+$F{srtdt}.substring(0,10)+$P{TEXTS}.get("label_data_collection_to")+$F{enddt}.substring(0,10)+"\n"+
+$P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 			</textField>
 			<textField pattern="yyyy-MM-dd">
 				<reportElement x="69" y="106" width="485" height="15" isRemoveLineWhenBlank="true">
@@ -60,8 +61,8 @@
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{REPORT_TYPE}.equals("tables" )]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Aantal respondenten: "+$F{response}+"\n"+
-"Respons: "+$F{percentage}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$F{response}+"\n"+
+$P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="0" width="555" height="1"/>
@@ -82,15 +83,15 @@
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Groep: "+ $P{SPLIT_BY_VALUE}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_group") + $P{SPLIT_BY_VALUE}]]></textFieldExpression>
 			</textField>
-			<staticText>
+			<textField>
 				<reportElement x="0" y="40" width="555" height="50" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
-				<textElement/>
-				<text><![CDATA[Onderstaande evaluatieresulaten worden, samen met alle evaluatieresultaten van het afgelopen blok, geanalyseerd door de kwaliteitszorgmedewerker en vervolgens besproken met het afdelingsmanagement en de opleidingsteams. Mocht je naar aanleiding van de resultaten vragen hebben, stel deze dan aan de opleidingsmanager.]]></text>
-			</staticText>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("text_report_introduction")]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -110,7 +111,7 @@
 					<printWhenExpression><![CDATA["AVG".equals($F{type}) && $V{GROUP_ROWS}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_BY_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3.jasper")]]></subreportExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3b.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
@@ -165,16 +166,16 @@
 	<summary>
 		<band height="50">
 			<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals("tables" )]]></printWhenExpression>
-			<staticText>
+			<textField>
 				<reportElement x="32" y="32" width="216" height="15" isRemoveLineWhenBlank="true"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<text><![CDATA[= een verbeterpunt, score<3]]></text>
-			</staticText>
-			<staticText>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_negative")]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="32" y="16" width="216" height="15" isRemoveLineWhenBlank="true"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[= score tussen 3.0 en 3.1]]></text>
-			</staticText>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_middle")]]></textFieldExpression>
+			</textField>
 			<rectangle>
 				<reportElement x="5" y="32" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#C80000"/>
 			</rectangle>
@@ -184,11 +185,11 @@
 			<rectangle>
 				<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00FF00"/>
 			</rectangle>
-			<staticText>
+			<textField>
 				<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[= positief volgens de HES norm, score > 3.9]]></text>
-			</staticText>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_positive")]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

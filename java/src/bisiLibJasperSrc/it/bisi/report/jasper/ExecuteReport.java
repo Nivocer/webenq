@@ -63,12 +63,31 @@ public class ExecuteReport {
 			String output_file_name=rs_repdef.getString("output_filename");
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
+			String language = rs_repdef.getString("language");
+			String customer = rs_repdef.getString("customer");
+			String page = rs_repdef.getString("page");
 			
 			//todo check if jrxml need split_question_id (don't think so)
 			prms.put("GROUP_ROWS", group_rows);
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
 			stmt_rows.close();
+			
+			/* get key/value pairs for current language/customer-combination */
+			String key = "";
+			String val = "";
+			Map texts = new HashMap();
+			Statement stmt_texts = conn.createStatement();
+			stmt_texts.execute("SELECT `key`, `value` FROM `text` WHERE `language` = '" + language + "' AND `customer` = '" + customer + "';");
+			ResultSet rs_keyValPairs = stmt_texts.getResultSet();
+			while (rs_keyValPairs.next()) {
+				key = rs_keyValPairs.getString("key");
+				val = rs_keyValPairs.getString("value");
+				texts.put(key, val);
+			}
+			stmt_texts.close();
+			prms.put("TEXTS", texts);
+			
 			//
 			//returns result:
 			//title 	srtdt 	enddt 	response 	percentage 	type 	group_id
