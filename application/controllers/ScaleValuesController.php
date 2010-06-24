@@ -29,7 +29,10 @@ class ScaleValuesController extends Zend_Controller_Action
     	$scale = new HVA_Model_DbTable_ScaleValues();
     	
     	try {
-    		$this->view->scaleValues = $scale->fetchAll("language = '$this->_language'");
+    		$this->view->scaleValues = $scale->fetchAll($scale->select()
+    			->order("question_type")
+    			->order("value")
+    			->where("language = ?", $this->_language));
     	}
     	catch (Zend_Db_Statement_Exception $e) {
    			throw $e;
