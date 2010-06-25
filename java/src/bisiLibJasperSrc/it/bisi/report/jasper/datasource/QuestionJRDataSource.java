@@ -83,11 +83,11 @@ public class QuestionJRDataSource {
 
 			//find out the questions for a theme.
 			Statement stmt_questions = conn.createStatement();
-			if (ignore_question_ids.length() > 0) {
+			if (ignore_question_ids != null && ignore_question_ids.length() > 0) {
 				stmt_questions.execute("select q.id, q.title from questions_"+identifier+" q where group_id='"+group+"' " +
 						" and q.id not in (" + ignore_question_ids + ")");
 			} else {
-				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='" + group + "'");
+				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' ");
 			}
 			ResultSet rsh_questions=stmt_questions.getResultSet();
 			
@@ -105,8 +105,8 @@ public class QuestionJRDataSource {
 					}else{
 						query="select "+question_field+","+group_rows+" from values_"+identifier;
 					}
-					if  ((split_question_id!=null) && (split_question_id.length()>0)   ) {
-						query=query+"where "+split_question_id+" like '"+split_value+"'";
+					if  ((split_question_id!=null) && (split_question_id.length()>0)  ) {
+						query=query+" where "+split_question_id+" like '"+split_value+"'";
 					}
 					stmt_valuep.execute(query);
 					ResultSet rsh_valuep=stmt_valuep.getResultSet();
