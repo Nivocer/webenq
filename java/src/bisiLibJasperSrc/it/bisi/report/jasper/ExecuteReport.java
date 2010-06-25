@@ -65,14 +65,14 @@ public class ExecuteReport {
 			String report_type=rs_repdef.getString("report_type");
 			String language = rs_repdef.getString("language");
 			String customer = rs_repdef.getString("customer");
-			String page = rs_repdef.getString("page");
+			String page_orientation = rs_repdef.getString("page"); 
 			
-			//todo check if jrxml need split_question_id (don't think so)
 			prms.put("GROUP_ROWS", group_rows);
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
+			prms.put("CUSTOMER", customer);
 			stmt_rows.close();
-			
+		
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";
@@ -87,6 +87,8 @@ public class ExecuteReport {
 			}
 			stmt_texts.close();
 			prms.put("TEXTS", texts);
+			
+			
 			
 			//
 			//returns result:
@@ -136,6 +138,29 @@ public class ExecuteReport {
 					String split_value=rs_rows_values.getString("split_values");
 					//needed for displaying content
 					prms.put("SPLIT_VALUE", split_value);
+
+					//ugly hack voor fraijlemaborg om groepinformatie in rapport te krijgen.
+					if (customer !=null && customer.length()>0 && customer.equals("fraijlemaborg")){
+						Statement stmt_fmb_group_info=conn.createStatement();
+						stmt_fmb_group_info.execute("select 25_groep as group_name, 26_boecode as boecode," +
+								"37_docent as docent, 36_ownaam as module_name " +
+								" from values_"+identifier+" " +
+								" where "+split_question_id+" like '"+split_value+"';" );
+						ResultSet rs_fmb_group_info=stmt_fmb_group_info.getResultSet();
+						rs_fmb_group_info.next();
+						String group_name=rs_fmb_group_info.getString("group_name");
+						String boecode=rs_fmb_group_info.getString("boecode");
+						String docent=rs_fmb_group_info.getString("docent");
+						String module_name=rs_fmb_group_info.getString("module_name");
+						prms.put("GROUP_NAME",group_name);
+						prms.put("BOECODE",boecode);
+						prms.put("DOCENT",docent);
+						prms.put("MODULE_NAME",module_name);
+						stmt_fmb_group_info.close();
+					}
+
+					
+					
 					
 					inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
 					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
