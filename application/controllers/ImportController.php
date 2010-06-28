@@ -61,7 +61,8 @@ class ImportController extends Zend_Controller_Action
     				$errors[] = 'Error receiving the file';
     			} else {
     				$this->_filename = $form->file->getFileName();
-    				$extension = array_pop(preg_split('#\.#', $this->_filename));
+    				$filenameParts = preg_split('#\.#', $this->_filename);
+    				$extension = array_pop($filenameParts);
     			}
     			if (!$errors) {
     				try {

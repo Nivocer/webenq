@@ -46,39 +46,73 @@ class ReportDefinitionController extends Zend_Controller_Action
     	
     	/* make two default report definitions if none present */
     	if ($repDefs->count() === 0) {
-    		$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
-    		$groupRow = $questions->fetchAll("title = 'basisgroep'");
-    		if ($groupRow->count() === 1) {
-    			$groupTitle = $groupRow->current()->id;
-    		} else {
-    			$groupTitle = '';
-    		}
-	    	$reportDefinitions->insert(
-		    	array(
-		    		"data_set_id"			=> $this->_id,
-		    		"group_question_id"		=> $groupTitle,
-		    		"output_filename"		=> str_replace(' ', '_', $this->_title) . '_open',
-		    		"output_format"			=> 'pdf',
-		    		"report_type"			=> 'open',
-		    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
-		    	)
-		    );
-	    	$reportDefinitions->insert(
-		    	array(
-		    		"data_set_id"			=> $this->_id,
-		    		"group_question_id"		=> $groupTitle,
-		    		"output_filename"		=> str_replace(' ', '_', $this->_title) . '_tables',
-		    		"output_format"			=> 'pdf',
-		    		"report_type"			=> 'tables',
-		    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
-		    	)
-		    );
-    		$repDefs = $this->view->reportDefinitions = $reportDefinitions->fetchAll(
-    			$reportDefinitions->select()
-    				->where("data_set_id = ?", $this->_id)
-    				->order("id DESC")
-    		);
+    		$this->_createDefaultReportDefinitions();
+	    	$this->view->reportDefinitions = $reportDefinitions->fetchAll(
+	    		$reportDefinitions->select()
+	    			->where("data_set_id = ?", $this->_id)
+	    			->order("id DESC")
+	    	);
     	}
+    }
+    
+    protected function _createDefaultReportDefinitions()
+    {
+    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+    	$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
+    	
+    	$leewenburgDefaultGroupRow = $questions->fetchAll("title = 'basisgroep'");
+    	if ($leewenburgDefaultGroupRow->count() === 1) {
+    		$leewenburgDefaultGroupTitle = $leewenburgDefaultGroupRow->current()->id;
+    	} else {
+    		$leewenburgDefaultGroupTitle = '';
+    	}
+    	
+    	$fraijlemaborgDefaultSplitRow = $questions->fetchAll("title = 'docent'");
+    	if ($fraijlemaborgDefaultSplitRow->count() === 1) {
+    		$fraijlemaborgDefaultSplitTitle = $fraijlemaborgDefaultSplitRow->current()->id;
+    	} else {
+    		$fraijlemaborgDefaultSplitTitle = '';
+    	}
+    	
+    	$reportDefinitions->insert(
+	    	array(
+	    		"data_set_id"			=> $this->_id,
+	    		"group_question_id"		=> $leewenburgDefaultGroupTitle,
+	    		"output_filename"		=> str_replace(' ', '_', $this->_title) . '_open',
+	    		"output_format"			=> 'pdf',
+	    		"report_type"			=> 'open',
+	    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
+	    		"language"				=> 'nl',
+	    		"customer"				=> 'leeuwenburg',
+	    		"page"					=> 'portrait',
+	    	)
+	    );
+    	$reportDefinitions->insert(
+	    	array(
+	    		"data_set_id"			=> $this->_id,
+	    		"group_question_id"		=> $leewenburgDefaultGroupTitle,
+	    		"output_filename"		=> str_replace(' ', '_', $this->_title) . '_tables',
+	    		"output_format"			=> 'pdf',
+	    		"report_type"			=> 'tables',
+	    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
+	    		"language"				=> 'nl',
+	    		"customer"				=> 'leeuwenburg',
+	    		"page"					=> 'portrait',
+	    	)
+	    );
+    	$reportDefinitions->insert(
+	    	array(
+	    		"data_set_id"			=> $this->_id,
+	    		"split_question_id"		=> $fraijlemaborgDefaultSplitTitle,
+	    		"output_filename"		=> 'fraijlemaborg-open-docent-',
+	    		"output_format"			=> 'pdf',
+	    		"report_type"			=> 'open',
+	    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
+	    		"language"				=> 'nl',
+	    		"customer"				=> 'fraijlemaborg',
+	    		"page"					=> 'portrait',
+	    	)
+	    );
     }
     
     
