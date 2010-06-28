@@ -38,7 +38,7 @@
 						<?php echo ($report->sent === '0') ? 'nee' : 'ja'; ?>
 					</td>
 					<td>
-						<?php if ($report->sent === '0'): ?>
+						<?php if ($report->email && $report->sent === '0'): ?>
 							<a href="<?php echo $this->baseUrl("/email/send/id/" . $report->id); ?>">
 								email verzenden
 							</a>
