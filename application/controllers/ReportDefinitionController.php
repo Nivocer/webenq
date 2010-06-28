@@ -186,10 +186,14 @@ class ReportDefinitionController extends Zend_Controller_Action
     	}
     	$post["output_filename"] = preg_replace("#[^A-Za-z0-9_-]#", "_", $post["output_filename"] );
     	
-    	/* create list of ignore-questions */    	
-    	$cdlIgnoreQuestionIds = json_encode($post['ignore_question_ids']);
-    	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 1);
-    	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 0, -1);
+    	/* create list of ignore-questions */
+    	if (isset($post['ignore_question_ids'])) {    	
+	    	$cdlIgnoreQuestionIds = json_encode($post['ignore_question_ids']);
+	    	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 1);
+	    	$cdlIgnoreQuestionIds = substr($cdlIgnoreQuestionIds, 0, -1);
+    	} else {
+    		$cdlIgnoreQuestionIds = '';
+    	}
     	
     	/* insert report definition */
     	if ($repDefId = $this->_request->getParam('report-definition-id')) {
