@@ -143,7 +143,7 @@ public class ExecuteReport {
 					if (customer !=null && customer.length()>0 && customer.equals("fraijlemaborg")){
 						Statement stmt_fmb_group_info=conn.createStatement();
 						stmt_fmb_group_info.execute("select 25_groep as group_name, 26_boecode as boecode," +
-								"37_docent as docent, 36_ownaam as module_name " +
+								"35_docent as docent, 34_ownaam as module_name " +
 								" from values_"+identifier+" " +
 								" where "+split_question_id+" like '"+split_value+"';" );
 						ResultSet rs_fmb_group_info=stmt_fmb_group_info.getResultSet();
@@ -160,9 +160,11 @@ public class ExecuteReport {
 					}
 
 					
-					
-					
-					inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
+					if (page_orientation != null && page_orientation.equals("landscape")) {
+						inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1l.jasper");
+					}else{
+						inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
+					}
 					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
 					// Create output in directory public/reports  
@@ -182,6 +184,11 @@ public class ExecuteReport {
 					}
 				}
 			}else{
+				if (page_orientation != null && page_orientation.equals("landscape")) {
+					inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1l.jasper");
+				}else{
+					inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
+				}	
 				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 				/* Create output in directory public/reports */ 
 				if(output_format.equals("pdf")) {
