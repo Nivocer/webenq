@@ -23,7 +23,9 @@
 			<?php foreach ($this->reports as $report): ?>
 				<tr>
 					<td>
-						<?php echo $report->filename; ?>
+						<a href="<?php echo $this->baseUrl("/reports/". $report->filename); ?>">
+							<?php echo $report->filename; ?>
+						</a>						
 					</td>
 					<td>
 						<?php echo $report->customer; ?>
