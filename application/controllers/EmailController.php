@@ -312,12 +312,12 @@ class EmailController extends Zend_Controller_Action
     	$messageHtml = $this->view->render('email/' . $report->customer . '/message-html.phtml');
     	
     	/* build attachment */
-    	$filename = getcwd() . '/reports/' . $report->filename;
-    	$content = file_get_contents($filename);
+    	$content = file_get_contents('reports/' . $report->filename);
     	$attachment = new Zend_Mime_Part($content);
     	$attachment->type = "application/pdf";
     	$attachment->encoding = Zend_Mime::ENCODING_BASE64;
     	$attachment->filename = $report->filename;
+    	$attachment->disposition = "attachment; filename=\"" . $report->filename . "\"";
     	
     	/* instantiate mail object */
     	$mail = new Zend_Mail();
