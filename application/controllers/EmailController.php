@@ -13,7 +13,7 @@ class EmailController extends Zend_Controller_Action
 		$this->_email = new HVA_Model_DbTable_Email();
 	}
 	
-    public function _scan()
+    protected function _scan()
     {
     	$files = scandir('reports');
     	$foundReports = array();
@@ -210,7 +210,7 @@ class EmailController extends Zend_Controller_Action
     	$this->_redirect("email");
     }
     
-    protected function mergeCourseAction()
+    public function mergeCourseAction()
     {
     	$courses = array();
     	$foundReports = array();
