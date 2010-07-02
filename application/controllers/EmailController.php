@@ -5,7 +5,7 @@ class EmailController extends Zend_Controller_Action
 	protected $_email;
 	
 	protected $_filePatterns = array(
-		'fraijlemaborg' => '#^fraijlemaborg-open-docent-#',
+		'fraijlemaborg' => '#^fraijlemaborg-open-(docent|opleiding)-#',
 	);
 	
 	public function init()
@@ -13,7 +13,7 @@ class EmailController extends Zend_Controller_Action
 		$this->_email = new HVA_Model_DbTable_Email();
 	}
 	
-    public function scanAction()
+    public function _scan()
     {
     	$files = scandir('reports');
     	$foundReports = array();
@@ -42,18 +42,18 @@ class EmailController extends Zend_Controller_Action
     		}
     	}
     	
-    	/* remove old add reports from db */
+    	/* remove old reports from db */
     	foreach ($this->_email->fetchAll() as $report) {
     		if (!in_array($report->filename, $files)) {
     			$this->_email->delete("filename = '" . $report->filename . "'");
     		}
     	}
-    	
-    	$this->_redirect('/email');
     }
     
     public function indexAction()
     {
+    	$this->_scan();
+    	
     	try {
 	    	$this->view->reports = $this->_email->fetchAll($this->_email->select()
 	    		->order(array("customer", "filename"))
@@ -67,9 +67,9 @@ class EmailController extends Zend_Controller_Action
     	}
     }
     
-    public function addAction()
+    public function mergeAction()
     {
-    	$form = $this->view->form = new HVA_Form_Email_Add(array('csv'));
+    	$form = $this->view->form = new HVA_Form_Email_Merge(array('csv'));
     	$errors = array();
     	
     	if ($this->getRequest()->isPost()) {
@@ -84,20 +84,57 @@ class EmailController extends Zend_Controller_Action
     			if (!$errors) {
     				try {
     					$action = "_process" . ucfirst($extension);
-    					$this->{$action}();
+    					$this->{$action}('firstTeacher');
     				} catch (Exception $e) {
+    					throw $e;
     					$errors[] = 'Error processing the files';
     				}
     				
     				if (!$errors) {
     					$this->_redirect('email');
+    				} else {
+    					$this->view->errors = $errors;
     				}
     			}    			
     		}
     	}
     }
     
-    protected function _processCsv()
+    public function mergeExtraAction()
+    {
+    	$form = $this->view->form = new HVA_Form_Email_Merge(array('csv'));
+    	$form->file->setLabel('Selecteer het bestand met email-adressen van dubbele docenten:');
+    	$errors = array();
+    	
+    	if ($this->getRequest()->isPost()) {
+    		if ($form->isValid($this->getRequest()->getPost())) {
+    			if (!$form->file->receive()) {
+    				$errors[] = 'Error receiving the file';
+    			} else {
+    				$this->_filename = $form->file->getFileName();
+    				$filenameParts = preg_split('#\.#', $this->_filename);
+    				$extension = array_pop($filenameParts);
+    			}
+    			if (!$errors) {
+    				try {
+    					$action = "_process" . ucfirst($extension);
+    					$this->{$action}('extraTeachers');
+    				} catch (Exception $e) {
+    					throw $e;
+    					$errors[] = 'Error processing the files';
+    				}
+    				
+    				if (!$errors) {
+    					$this->_redirect('email');
+    				} else {
+    					$this->view->errors = $errors;
+    				}
+    			}    			
+    		}
+    	}
+    }
+    
+    protected function _processCsv($mode=null)
     {
     	$delimiter = ',';
     	$enclosure = '"';
@@ -105,33 +142,117 @@ class EmailController extends Zend_Controller_Action
     	/* open file */
     	$fp = fopen($this->_filename, "r");
     	
+    	/* ignore first line (headers) */
+    	fgetcsv($fp, 0, $delimiter, $enclosure);
+    	
     	/* read line from file */
     	while ($data = fgetcsv($fp, 0, $delimiter, $enclosure)) {
-    		/* fetch matching row from db */
-    		$rowset = $this->_email->fetchAll("filename LIKE '%" . trim($data[0]) . ".%'");
-    		if ($rowset instanceof Zend_Db_Table_Rowset) {
-    			/* loop through rows */
-    			foreach ($rowset as $row) {
-    				/* any changes? update and reset "sent" */
-	    			if ($row->teacher !== trim($data[0]) || $row->email !== trim($data[1])) {
-		    			$this->_email->update(
-		    				array(
-		    					"teacher"	=> trim($data[0]),
-		    					"email"		=> trim($data[1]),
-		    					"sent"		=> 0, 
-		    				),
-		    				"id = $row->id"
-		    			);
+    		
+	    	/* search for relevant files */
+    		$files = scandir('reports');
+	    	$foundReports = array();
+	    	
+	    	/* set pattern depending on mode */
+	    	switch ($mode) {
+	    		case 'firstTeacher':
+	    			$filePattern = "#^fraijlemaborg_open_.*-" . $data[0] . "\.pdf$#";
+	    			$output = "fraijlemaborg-open-docent-";
+	    			break;
+	    		case 'extraTeachers':
+	    			$filePattern = "#^fraijlemaborg_open_.*-" . $data[2] . "-" . $data[1] . "-.*\.pdf$#";
+	    			$output = "fraijlemaborg-open-docent-extra-";
+	    			break;
+	    		default:
+	    			throw new Exception("Invalid mode!");
+	    	}
+	    	
+	    	foreach ($files as $file) {
+	    		if (preg_match($filePattern, $file)) {
+	    			$foundReports[] = $file;
+	    		}
+	    	}
+	    	
+	    	/* merge files */
+	    	if (count($foundReports) > 0) {
+	    		$cmd = "pdftk ";
+	    		foreach ($foundReports as $report) {
+	    			$cmd .= "reports/" . $report . " ";
+	    		}
+	    		$cmd .= "cat output reports/" . $output . $data[0] . ".pdf";
+	    		system($cmd);
+	    	}
+	    	
+	    	if ($mode === 'firstTeacher') {
+	    		/* fetch matching row from db */
+	    		$rowset = $this->_email->fetchAll("filename LIKE '%" . trim($data[0]) . ".%'");
+	    		if ($rowset instanceof Zend_Db_Table_Rowset && $rowset->count() > 0) {
+	    			/* loop through rows */
+	    			foreach ($rowset as $row) {
+	    				/* any changes? update and reset "sent" */
+		    			if ($row->teacher !== trim($data[0]) || $row->email !== trim($data[1])) {
+			    			$this->_email->update(
+			    				array(
+			    					"teacher"	=> trim($data[0]),
+			    					"email"		=> trim($data[1]),
+			    					"sent"		=> 0, 
+			    				),
+			    				"id = $row->id"
+			    			);
+		    			}
 	    			}
-    			}
-    		}
+	    		}
+	    	}
     	}
-    	
+    		
     	/* close file */
     	fclose($fp);
+    	
+    	$this->_redirect("email");
     }
-
-
+    
+    protected function mergeCourseAction()
+    {
+    	$courses = array();
+    	$foundReports = array();
+    	$output = "fraijlemaborg-open-opleiding-";
+    	
+    	/* get all files */
+    	$files = scandir('reports');
+    	
+    	/* get courses from file names */
+    	$filePattern = "#^fraijlemaborg_open_(.*)-.*-.*-.*\.pdf$#";
+    	foreach ($files as $file) {
+    		if (preg_match($filePattern, $file, $matches)) {
+    			$courses[] = $matches[1];
+    		}
+    	}
+    	$courses = array_unique($courses);
+    	
+    	/* get reports for courses */
+    	foreach ($courses as $course) {
+    		$filePattern = "#^fraijlemaborg_open_" . $course . "-.*-.*-.*\.pdf$#";
+    		foreach ($files as $file) {
+	    		if (preg_match($filePattern, $file)) {
+	    			$foundReports[$course][] = $file;
+	    		}
+	    	}
+    	}
+    	
+    	/* merge reports */
+    	if (count($foundReports) > 0) {
+    		foreach ($foundReports as $course => $reports) {
+	    		$cmd = "pdftk ";
+	    		foreach ($reports as $report) {
+	    			$cmd .= "reports/" . $report . " ";
+	    		}
+	    		$cmd .= "cat output reports/" . $output . $course . ".pdf";
+	    		system($cmd);
+    		}
+    	}
+    		
+    	$this->_redirect("email");
+    }
+    
     public function delAction()
     {
     	/* get form */
@@ -143,7 +264,7 @@ class EmailController extends Zend_Controller_Action
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
 	    		$this->_processDel();
-	    		$this->_redirect("/email/scan");
+	    		$this->_redirect("email");
     		}
     	}
     	

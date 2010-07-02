@@ -1,7 +1,7 @@
 <div class="nav-link">
-	<a href="<?php echo $this->baseUrl("/"); ?>">Front page</a>
-	<a href="<?php echo $this->baseUrl("/email/scan"); ?>">Lijst vernieuwen</a>
-	<a href="<?php echo $this->baseUrl("/email/add"); ?>">Email-adressen importeren</a>
+	<a href="<?php echo $this->baseUrl("/email/merge"); ?>">Rapporten samenvoegen voor hoofddocenten</a>
+	<a href="<?php echo $this->baseUrl("/email/merge-extra"); ?>">Rapporten samenvoegen voor extra docenten</a>
+	<a href="<?php echo $this->baseUrl("/email/merge-course"); ?>">Rapporten samenvoegen voor opleidingen</a>
 </div>
 
 <?php if (count($this->reports) === 0): ?>

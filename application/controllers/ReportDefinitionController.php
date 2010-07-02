@@ -100,19 +100,6 @@ class ReportDefinitionController extends Zend_Controller_Action
 	    		"page"					=> 'portrait',
 	    	)
 	    );
-    	$reportDefinitions->insert(
-	    	array(
-	    		"data_set_id"			=> $this->_id,
-	    		"split_question_id"		=> $fraijlemaborgDefaultSplitTitle,
-	    		"output_filename"		=> 'fraijlemaborg-open-docent-',
-	    		"output_format"			=> 'pdf',
-	    		"report_type"			=> 'open',
-	    		"ignore_question_ids"	=> '"0_respondent","1_datum"',
-	    		"language"				=> 'nl',
-	    		"customer"				=> 'fraijlemaborg',
-	    		"page"					=> 'portrait',
-	    	)
-	    );
     }
     
     
