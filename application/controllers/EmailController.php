@@ -352,11 +352,13 @@ class EmailController extends Zend_Controller_Action
     		->addAttachment($attachment);
     		
     	/* add test address or real address, and send mail */
-    	if ($test->use === "1") {
-    		$mail->addTo($test->address, $test->address)->send();
+    	if ($test->use == "1") {
+    		$mail->addTo($test->address, $test->address);
     	} else {
-			$mail->addTo($report->email, $report->teacher)->send();
+			$mail->addTo($report->email, $report->teacher)
+				->addBcc($test->address, $test->address);
     	}
+    	$mail->send();
     	
     	/* update db */
     	$this->_email->update(
