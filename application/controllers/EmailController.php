@@ -67,6 +67,20 @@ class EmailController extends Zend_Controller_Action
     	}
     }
     
+    public function sendAllAction()
+    {
+    	$reports = $this->_email->fetchAll($this->_email->select()
+    		->order(array("customer", "filename"))
+    		->where("sent = 0 AND email IS NOT NULL")
+    	);
+    	
+    	foreach ($reports as $report) {
+    		$this->_send($report);
+    	}
+    	
+    	$this->_redirect("email");
+    }
+    
     public function mergeAction()
     {
     	$form = $this->view->form = new HVA_Form_Email_Merge(array('csv'));
@@ -293,6 +307,16 @@ class EmailController extends Zend_Controller_Action
     	(int) $id = $this->_request->getParam('id');
     	$report = $this->view->report = $this->_email->fetchRow("id = $id");
     	
+    	/* send it */
+    	$this->_send($report);
+    	
+    	/* go to email overview page */
+    	$this->_redirect("email");
+    }
+    
+    
+    protected function _send(Zend_Db_Table_Row $report)
+    {
     	/* get mail config options */
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
     	$test = $config->{APPLICATION_ENV}->email->test;
@@ -337,9 +361,7 @@ class EmailController extends Zend_Controller_Action
     	/* update db */
     	$this->_email->update(
     		array("sent" => "1"),
-    		"id = $id"
+    		"id = $report->id"
     	);
-
-    	$this->_redirect("email");
     }
 }

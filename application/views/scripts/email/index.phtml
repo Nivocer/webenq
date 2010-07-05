@@ -4,6 +4,11 @@
 	<a href="<?php echo $this->baseUrl("/email/merge-course"); ?>">Rapporten samenvoegen voor opleidingen</a>
 </div>
 
+<div class="nav-link">
+	<a href="<?php echo $this->baseUrl("/email/send-all"); ?>">Email alle onderstaande rapporten</a>
+	<small>(reeds verzonden rapporten worden niet nogmaals verzonden, en rapporten zonder email-adres worden genegeerd)</small>
+</div>
+
 <?php if (count($this->reports) === 0): ?>
 	Er zijn nog geen rapporten gegenereerd.			
 <?php else: ?>
