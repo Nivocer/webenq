@@ -105,13 +105,12 @@ public class ExecuteReport {
          				"info_"+identifier+" e," +
          				"(SELECT distinct q.group_id," +
          				"	case type " +
+         				"		when 'HVA_Model_Data_Question_Closed_Scale_Two' then 'AVG'" +	         				
+         				"		when 'HVA_Model_Data_Question_Closed_Scale_Three' then 'AVG'" +	         				
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Four' then 'AVG'" +	         				
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Five' then 'AVG'" +
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Six' then 'AVG'" +
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Seven' then 'AVG'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Eight' then 'AVG'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Nine' then 'AVG'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Ten' then 'AVG'" +
          				"		when 'HVA_Model_Data_Question_Closed_Percentage' then 'PERC'" +
          				"       when 'HVA_Model_Data_Question_Open_Text' then 'OPEN'" +
          				"		when 'HVA_Model_Data_Question_Open_Email' then 'SKIP'" +
