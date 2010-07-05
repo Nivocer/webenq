@@ -220,7 +220,7 @@ class EmailController extends Zend_Controller_Action
     	$files = scandir('reports');
     	
     	/* get courses from file names */
-    	$filePattern = "#^fraijlemaborg_open_(.*)-.*-.*-.*\.pdf$#";
+    	$filePattern = "#^fraijlemaborg_open_(.*)-.*-.*-.*-.*\.pdf$#";
     	foreach ($files as $file) {
     		if (preg_match($filePattern, $file, $matches)) {
     			$courses[] = $matches[1];
@@ -241,7 +241,8 @@ class EmailController extends Zend_Controller_Action
     	/* merge reports */
     	if (count($foundReports) > 0) {
     		foreach ($foundReports as $course => $reports) {
-	    		$cmd = "pdftk ";
+    			sort($reports);
+    			$cmd = "pdftk ";
 	    		foreach ($reports as $report) {
 	    			$cmd .= "reports/" . $report . " ";
 	    		}
