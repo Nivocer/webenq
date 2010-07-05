@@ -305,7 +305,7 @@ class EmailController extends Zend_Controller_Action
     {
     	/* get report by id */
     	(int) $id = $this->_request->getParam('id');
-    	$report = $this->view->report = $this->_email->fetchRow("id = $id");
+    	$report = $this->_email->fetchRow("id = $id");
     	
     	/* send it */
     	$this->_send($report);
@@ -317,6 +317,8 @@ class EmailController extends Zend_Controller_Action
     
     protected function _send(Zend_Db_Table_Row $report)
     {
+    	$this->view->report = $report;
+    	
     	/* get mail config options */
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
     	$test = $config->{APPLICATION_ENV}->email->test;
