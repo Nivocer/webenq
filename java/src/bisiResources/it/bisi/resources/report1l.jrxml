@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="38"/>
-	<property name="ireport.y" value="91"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -183,11 +183,19 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 		<band height="21" splitType="Immediate">
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA["AVG".equals($F{type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables")) || "Number".equals($F{type})]]></printWhenExpression>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3l.jasper")]]></subreportExpression>
 			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA["AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("barcharts")]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report_bc.jasper")]]></subreportExpression>
+			</subreport>
+
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA["PERC".equals($F{type})]]></printWhenExpression>
