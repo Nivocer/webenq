@@ -112,6 +112,7 @@ public class ExecuteReport {
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Six' then 'AVG'" +
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Seven' then 'AVG'" +
          				"		when 'HVA_Model_Data_Question_Closed_Percentage' then 'PERC'" +
+         				"		when 'HVA_Model_Data_Question_Closed_Number' then 'Number'" +
          				"       when 'HVA_Model_Data_Question_Open_Text' then 'OPEN'" +
          				"		when 'HVA_Model_Data_Question_Open_Email' then 'SKIP'" +
          				"		when 'HVA_Model_Data_Question_Open' then 'SKIP' " +
@@ -125,6 +126,7 @@ public class ExecuteReport {
          		"and c.id='Einddatum' " +
          		"and d.id='unieke respondenten' " +
          		"and e.id='Respons percentage' ";
+			System.out.println(query);
 			prms.put("QUERY", query);
 			
 			//looping through possible split by values (multiple reports for subset of respondents)

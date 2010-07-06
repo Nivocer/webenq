@@ -49,7 +49,7 @@ public class QuestionJRDataSource {
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
 			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
-			
+
 			
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
@@ -90,7 +90,7 @@ public class QuestionJRDataSource {
 				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' ");
 			}
 			ResultSet rsh_questions=stmt_questions.getResultSet();
-			
+
 			//get the answers
 			while (rsh_questions.next()){
 				String question_field=rsh_questions.getString(1); //question_id
@@ -136,7 +136,26 @@ public class QuestionJRDataSource {
 					}
 					rsh_valuea.close();
 					stmt_valuea.close();
+				}else if (("AVG".equals(type)) && ("barcharts".equals(report_type))){
+					Statement stmt_valuebc=conn.createStatement();
+					String query= "select "+question_field+" as question_value, "+question_field+" AS answer_count " +
+							"from data_"+identifier ;
+					// add split by statement if not null.
+					//todo test does it work
 					
+					if  ((split_question_id!=null) && (split_question_id.length()>0)   ) {
+						query=query+" where "+split_question_id+" like '"+split_value+"'";
+					}
+					
+					stmt_valuebc.execute(query);
+					ResultSet rsh_valuebc=stmt_valuebc.getResultSet();
+					while (rsh_valuebc.next()){
+						//@todo order of variables in next line...?
+						Record ro=new Record(group_question_title,titlerows,question_title,rsh_valuebc.getString(1),rsh_valuebc.getString(2));
+						reportRows.add(ro);
+					}
+					rsh_valuebc.close();
+					stmt_valuebc.close();
 				}else if("OPEN".equals(type) && "open".equals(report_type)){
 					//open;
 					Statement stmt_valueo=conn.createStatement();

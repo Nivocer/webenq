@@ -3,37 +3,20 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<queryString>
-		<![CDATA[select `data_48`.`2_ik_ben_tevreden_over_de_inhoud_van_dit_studieonderdeel` as question_label,
-`values_48`.`2_ik_ben_tevreden_over_de_inhoud_van_dit_studieonderdeel` as question_value,
-count(`data_48`.`2_ik_ben_tevreden_over_de_inhoud_van_dit_studieonderdeel`) AS answer_count
-from data_48
-inner join values_48 using (`id`)
-group by `data_48`.`2_ik_ben_tevreden_over_de_inhoud_van_dit_studieonderdeel`
-order by `values_48`.`2_ik_ben_tevreden_over_de_inhoud_van_dit_studieonderdeel`]]>
-	</queryString>
-	<field name="question_label" class="java.lang.String"/>
-	<field name="question_value" class="java.lang.Integer"/>
-	<field name="answer_count" class="java.lang.Long"/>
+	<field name="col" class="java.lang.String"/>
+	<field name="row" class="java.lang.String"/>
+	<field name="title_row" class="java.lang.String"/>
+	<field name="title_col" class="java.lang.String"/>
+	<field name="val" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="50">
+		<band height="15" splitType="Stretch">
 			<textField>
-				<reportElement x="40" y="24" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{question_label}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="199" y="29" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{question_value}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="391" y="30" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.Long"><![CDATA[$F{answer_count}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="555" height="15" isPrintWhenDetailOverflows="true"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -49,9 +32,9 @@ order by `values_48`.`2_ik_ben_tevreden_over_de_inhoud_van_dit_studieonderdeel`]
 					</chart>
 					<categoryDataset>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{question_value}]]></seriesExpression>
-							<categoryExpression><![CDATA[$F{question_value}]]></categoryExpression>
-							<valueExpression><![CDATA[$F{answer_count}]]></valueExpression>
+							<seriesExpression><![CDATA[$F{col}]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{col}]]></categoryExpression>
+							<valueExpression><![CDATA[$F{row}]]></valueExpression>
 						</categorySeries>
 					</categoryDataset>
 					<barPlot>
