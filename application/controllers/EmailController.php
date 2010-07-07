@@ -2,6 +2,9 @@
 
 class EmailController extends Zend_Controller_Action
 {
+	const CSV_DELIMITER = ',';
+	const CSV_ENCLOSURE = '"';
+	
 	protected $_email;
 	
 	protected $_filePatterns = array(
@@ -81,9 +84,10 @@ class EmailController extends Zend_Controller_Action
     	$this->_redirect("email");
     }
     
-    public function mergeAction()
+    public function mergeTeacherAction()
     {
     	$form = $this->view->form = new HVA_Form_Email_Merge(array('csv'));
+    	$form->file->setLabel('Selecteer het docenten-groep-boecode-bestand:');
     	$errors = array();
     	
     	if ($this->getRequest()->isPost()) {
@@ -94,125 +98,61 @@ class EmailController extends Zend_Controller_Action
     				$this->_filename = $form->file->getFileName();
     				$filenameParts = preg_split('#\.#', $this->_filename);
     				$extension = array_pop($filenameParts);
-    			}
-    			if (!$errors) {
     				try {
     					$action = "_process" . ucfirst($extension);
-    					$this->{$action}('firstTeacher');
+    					$this->{$action}();
     				} catch (Exception $e) {
-    					throw $e;
     					$errors[] = 'Error processing the files';
     				}
-    				
-    				if (!$errors) {
-    					$this->_redirect('email');
-    				} else {
-    					$this->view->errors = $errors;
-    				}
-    			}    			
-    		}
-    	}
-    }
-    
-    public function mergeExtraAction()
-    {
-    	$form = $this->view->form = new HVA_Form_Email_Merge(array('csv'));
-    	$form->file->setLabel('Selecteer het bestand met email-adressen van dubbele docenten:');
-    	$errors = array();
-    	
-    	if ($this->getRequest()->isPost()) {
-    		if ($form->isValid($this->getRequest()->getPost())) {
-    			if (!$form->file->receive()) {
-    				$errors[] = 'Error receiving the file';
+    			}
+    			if ($errors) {
+    				$this->view->errors = $errors;
     			} else {
-    				$this->_filename = $form->file->getFileName();
-    				$filenameParts = preg_split('#\.#', $this->_filename);
-    				$extension = array_pop($filenameParts);
+    				$this->_redirect('email');
     			}
-    			if (!$errors) {
-    				try {
-    					$action = "_process" . ucfirst($extension);
-    					$this->{$action}('extraTeachers');
-    				} catch (Exception $e) {
-    					throw $e;
-    					$errors[] = 'Error processing the files';
-    				}
-    				
-    				if (!$errors) {
-    					$this->_redirect('email');
-    				} else {
-    					$this->view->errors = $errors;
-    				}
-    			}    			
     		}
     	}
     }
     
-    protected function _processCsv($mode=null)
+    protected function _processCsv()
     {
-    	$delimiter = ',';
-    	$enclosure = '"';
-    	
     	/* open file */
     	$fp = fopen($this->_filename, "r");
     	
-    	/* ignore first line (headers) */
-    	fgetcsv($fp, 0, $delimiter, $enclosure);
+    	/* get teachers from file */
+    	$teachers = $this->_getTeachers($fp);
     	
-    	/* read line from file */
-    	while ($data = fgetcsv($fp, 0, $delimiter, $enclosure)) {
-    		
-	    	/* search for relevant files */
-    		$files = scandir('reports');
-	    	$foundReports = array();
-	    	
-	    	/* set pattern depending on mode */
-	    	switch ($mode) {
-	    		case 'firstTeacher':
-	    			$filePattern = "#^fraijlemaborg_open_.*-" . $data[0] . "\.pdf$#";
-	    			$output = "fraijlemaborg-open-docent-";
-	    			break;
-	    		case 'extraTeachers':
-	    			$filePattern = "#^fraijlemaborg_open_.*-" . $data[2] . "-" . $data[1] . "-.*\.pdf$#";
-	    			$output = "fraijlemaborg-open-docent-extra-";
-	    			break;
-	    		default:
-	    			throw new Exception("Invalid mode!");
-	    	}
-	    	
-	    	foreach ($files as $file) {
-	    		if (preg_match($filePattern, $file)) {
-	    			$foundReports[] = $file;
-	    		}
-	    	}
-	    	
-	    	/* merge files */
-	    	if (count($foundReports) > 0) {
-	    		$cmd = "pdftk ";
-	    		foreach ($foundReports as $report) {
-	    			$cmd .= "reports/" . $report . " ";
-	    		}
-	    		$cmd .= "cat output reports/" . $output . $data[0] . ".pdf";
-	    		system($cmd);
-	    	}
-	    	
-	    	if ($mode === 'firstTeacher') {
-	    		/* fetch matching row from db */
-	    		$rowset = $this->_email->fetchAll("filename LIKE '%" . trim($data[0]) . ".%'");
-	    		if ($rowset instanceof Zend_Db_Table_Rowset && $rowset->count() > 0) {
-	    			/* loop through rows */
-	    			foreach ($rowset as $row) {
-	    				/* any changes? update and reset "sent" */
-		    			if ($row->teacher !== trim($data[0]) || $row->email !== trim($data[1])) {
-			    			$this->_email->update(
-			    				array(
-			    					"teacher"	=> trim($data[0]),
-			    					"email"		=> trim($data[1]),
-			    					"sent"		=> 0, 
-			    				),
-			    				"id = $row->id"
-			    			);
-		    			}
+    	/* get groups and codes for teacher */
+    	foreach ($teachers as $teacher => $email) {
+    		$codes = $this->_getGroupsAndCodesForTeacher($fp, $teacher);
+    		$teachers[$teacher]['courses'] = $codes;
+    	}
+    	
+    	/* find and merge reports for teacher */
+    	foreach ($teachers as $teacher) {
+    		$reports = $this->_getReportsForTeacher($teacher['courses']);
+    		if (count($reports) > 0) {
+    			$this->_mergeReportsForTeacher($reports, $teacher['name']);
+    		}
+    	}
+    	
+    	/* update db */
+    	foreach ($teachers as $teacher) {
+	    	/* fetch matching row from db */
+	    	$rowset = $this->_email->fetchAll("filename LIKE '%-open-docent-" . $teacher['name'] . ".%'");
+	    	if ($rowset instanceof Zend_Db_Table_Rowset && $rowset->count() > 0) {
+	    		/* loop through rows */
+	    		foreach ($rowset as $row) {
+	    			/* any changes? update and reset "sent" */
+	    			if ($row->teacher !== $teacher['name'] || $row->email !== $teacher['email']) {
+		    			$this->_email->update(
+		    				array(
+		    					"teacher"	=> $teacher['name'],
+		    					"email"		=> $teacher['email'],
+		    					"sent"		=> 0, 
+		    				),
+		    				"id = $row->id"
+		    			);
 	    			}
 	    		}
 	    	}
@@ -367,5 +307,74 @@ class EmailController extends Zend_Controller_Action
     		array("sent" => "1"),
     		"id = $report->id"
     	);
+    }
+    
+    protected function _getTeachers($fp)
+    {
+    	$teachers = array();
+    	
+    	/* ignore first line (headers) */
+    	fgetcsv($fp, 0, self::CSV_DELIMITER, self::CSV_ENCLOSURE);
+    	
+    	/* get data */
+    	while ($data = fgetcsv($fp, 0, self::CSV_DELIMITER, self::CSV_ENCLOSURE)) {
+    		$teachers[$data[0]]['name'] = $data[0];
+    		$teachers[$data[0]]['email'] = $data[4];
+    	}
+    	
+    	/* reset file pointer */
+    	rewind($fp);
+    	
+    	return $teachers;
+    }
+    
+    protected function _getGroupsAndCodesForTeacher($fp, $teacher)
+    {
+    	$codes = array();
+    	
+    	/* ignore first line (headers) */
+    	fgetcsv($fp, 0, self::CSV_DELIMITER, self::CSV_ENCLOSURE);
+    	
+    	/* get data */
+    	while ($data = fgetcsv($fp, 0, self::CSV_DELIMITER, self::CSV_ENCLOSURE)) {
+    		if ($data[0] === $teacher) {
+    			$tmp = array(
+    				'group'	=> $data[1],
+    				'code'	=> $data[2],
+    			);
+    			$codes[] = $tmp;
+    		}
+    	}
+    	return $codes;
+    }
+    
+    protected function _getReportsForTeacher($courses)
+    {
+    	$files = scandir('reports');
+    	$reports = array();
+    	
+    	/* search for relevant files */
+    	foreach ($courses as $course) {
+    		$pattern = "#^fraijlemaborg_open_.*-" . $course['group'] . "-" . $course['code'] . "-.*\.pdf$#";
+	    	foreach ($files as $file) {
+	    		if (preg_match($pattern, $file)) {
+	    			$reports[] = $file;
+	    		}
+	    	}
+    	}
+    	return $reports;
+    }
+    
+    protected function _mergeReportsForTeacher($reports, $teacher)
+    {
+    	$output = "fraijlemaborg-open-docent-";
+    	$cmd = "pdftk ";
+    	
+    	foreach ($reports as $report) {
+    		$cmd .= "reports/" . $report . " ";
+    	}
+    	$cmd .= "cat output reports/" . $output . $teacher . ".pdf";
+    	
+    	system($cmd);
     }
 }
