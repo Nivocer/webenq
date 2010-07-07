@@ -130,7 +130,7 @@ class EmailController extends Zend_Controller_Action
     	
     	/* find and merge reports for teacher */
     	foreach ($teachers as $teacher) {
-    		$reports = $this->_getReportsForTeacher($teacher['courses']);
+    		$reports = $this->_getReportsForTeacher($teacher);
     		if (count($reports) > 0) {
     			$this->_mergeReportsForTeacher($reports, $teacher['name']);
     		}
@@ -348,13 +348,21 @@ class EmailController extends Zend_Controller_Action
     	return $codes;
     }
     
-    protected function _getReportsForTeacher($courses)
+    protected function _getReportsForTeacher($teacher)
     {
     	$files = scandir('reports');
     	$reports = array();
     	
-    	/* search for relevant files */
-    	foreach ($courses as $course) {
+    	/* search for "own" reports */
+    	$pattern = "#^fraijlemaborg_open_.*-.*-.*-" . $teacher['name'] . "\.pdf$#";
+    	foreach ($files as $file) {
+    		if (preg_match($pattern, $file)) {
+    			$reports[] = $file;
+    		}
+    	}
+    	
+    	/* search for "extra" files */
+    	foreach ($teacher['courses'] as $course) {
     		$pattern = "#^fraijlemaborg_open_.*-" . $course['group'] . "-" . $course['code'] . "-.*\.pdf$#";
 	    	foreach ($files as $file) {
 	    		if (preg_match($pattern, $file)) {
@@ -362,6 +370,7 @@ class EmailController extends Zend_Controller_Action
 	    		}
 	    	}
     	}
+    	
     	return $reports;
     }
     
