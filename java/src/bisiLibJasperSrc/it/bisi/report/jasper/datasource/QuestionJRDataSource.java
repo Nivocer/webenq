@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -49,8 +51,7 @@ public class QuestionJRDataSource {
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
 			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
-
-			
+						
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
 			//group_rows may be empty, we don't have a title.
@@ -90,7 +91,6 @@ public class QuestionJRDataSource {
 				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' ");
 			}
 			ResultSet rsh_questions=stmt_questions.getResultSet();
-
 			//get the answers
 			while (rsh_questions.next()){
 				String question_field=rsh_questions.getString(1); //question_id
@@ -116,7 +116,9 @@ public class QuestionJRDataSource {
 					}
 					rsh_valuep.close();
 					stmt_valuep.close();
-				}else if("AVG".equals(type) && "tables".equals(report_type)){
+				}else if(("AVG".equals(type) && "tables".equals(report_type)) ||  
+						 ("NUMBER".equals(type) && "tables".equals(report_type))){
+				
 					Statement stmt_valuea=conn.createStatement();
 					String query="";
 					if ( group_rows.length() == 0 ){
