@@ -183,7 +183,7 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 		<band height="21" splitType="Immediate">
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables")) || "Number".equals($F{type})]]></printWhenExpression>
+					<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables")) || "NUMBER".equals($F{type})]]></printWhenExpression>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3.jasper")]]></subreportExpression>
