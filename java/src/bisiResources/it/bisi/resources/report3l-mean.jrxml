@@ -38,7 +38,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
 			</textField>
 			<crosstab ignoreWidth="false">
-				<reportElement x="0" y="15" width="800" height="100" backcolor="#FFFFFF">
+				<reportElement x="0" y="15" width="800" height="100" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 				</reportElement>
 				<crosstabParameter name="GROUP_ROWS_C">
@@ -176,7 +176,7 @@
 						</box>
 						<rectangle>
 							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="15" backcolor="#00FF00">
-								<printWhenExpression><![CDATA[$V{valMeasure}>3.9]]></printWhenExpression>
+								<printWhenExpression><![CDATA[$V{valMeasure}>3.9 && $P{REPORT_PARAMETERS_MAP}.get("REPORT_TYPE").equals("tables")]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
 								<pen lineWidth="0.0"/>
