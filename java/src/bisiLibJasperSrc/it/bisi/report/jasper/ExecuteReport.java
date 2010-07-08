@@ -112,7 +112,7 @@ public class ExecuteReport {
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Six' then 'AVG'" +
          				"		when 'HVA_Model_Data_Question_Closed_Scale_Seven' then 'AVG'" +
          				"		when 'HVA_Model_Data_Question_Closed_Percentage' then 'PERC'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Number' then 'Number'" +
+         				"		when 'HVA_Model_Data_Question_Closed_Number' then 'NUMBER'" +
          				"       when 'HVA_Model_Data_Question_Open_Text' then 'OPEN'" +
          				"		when 'HVA_Model_Data_Question_Open_Email' then 'SKIP'" +
          				"		when 'HVA_Model_Data_Question_Open' then 'SKIP' " +
@@ -120,13 +120,12 @@ public class ExecuteReport {
          				"	end type " +
          				"FROM questions_"+identifier+" q,meta_"+identifier+" m "+ 
          				"where m.question_id=q.id and parent_id=0 and q.id!='"+group_rows+"' and q.id!='"+split_question_id+"' and " +
-         				"(type like '%Closed_Percentage%' or type like '%Closed_Scale%' or type like '%open%')) t "+
+         				"(type like '%Closed_Percentage%' or type like '%Closed_Scale%' or type like '%open%' or type like '%number%')) t "+
          		"where a.id='Titel vragenlijst' " +
          		"and b.id='Startdatum' " +
          		"and c.id='Einddatum' " +
          		"and d.id='unieke respondenten' " +
          		"and e.id='Respons percentage' ";
-			System.out.println(query);
 			prms.put("QUERY", query);
 			
 			//looping through possible split by values (multiple reports for subset of respondents)
