@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<parameter name="TEXTS" class="java.util.Map" isForPrompting="false"/>
 	<field name="row" class="java.lang.String"/>
 	<field name="col" class="java.lang.String"/>
 	<field name="title_row" class="java.lang.String"/>
@@ -13,7 +14,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band splitType="Stretch"/>
+		<band height="2" splitType="Stretch"/>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
@@ -33,7 +34,9 @@
 	<summary>
 		<band height="115" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="555" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="0" y="0" width="555" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} <0]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
 			</textField>
@@ -44,6 +47,10 @@
 				<crosstabParameter name="GROUP_ROWS_C">
 					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
 				</crosstabParameter>
+				<crosstabParameter name="TEXTS" class="java.util.HashMap">
+					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
+				</crosstabParameter>
+				<parametersMapExpression><![CDATA[$P{TEXTS}]]></parametersMapExpression>
 				<crosstabHeaderCell>
 					<cellContents>
 						<box>
@@ -54,7 +61,7 @@
 						</box>
 					</cellContents>
 				</crosstabHeaderCell>
-				<rowGroup name="row" width="157" totalPosition="End">
+				<rowGroup name="row" width="179" totalPosition="End">
 					<bucket>
 						<bucketExpression class="java.lang.String"><![CDATA[$F{row}]]></bucketExpression>
 					</bucket>
@@ -68,13 +75,13 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="157" height="15"/>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="179" height="10"/>
 								<box>
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font size="9" isStrikeThrough="false"/>
+									<font size="7" isStrikeThrough="false"/>
 								</textElement>
 								<textFieldExpression class="java.lang.String"><![CDATA[$V{row}]]></textFieldExpression>
 							</textField>
@@ -90,21 +97,21 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="157" height="20"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="179" height="10"/>
 								<box>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font size="9"/>
+									<font size="7"/>
 								</textElement>
 								<text><![CDATA[N ]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="col" height="60" totalPosition="End">
+				<columnGroup name="col" height="100" totalPosition="End">
 					<bucket>
 						<bucketExpression class="java.lang.String"><![CDATA[$F{col}]]></bucketExpression>
 					</bucket>
@@ -118,7 +125,7 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="20" height="60"/>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="15" height="100"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -126,7 +133,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement verticalAlignment="Middle" rotation="Left">
-									<font size="8"/>
+									<font size="7"/>
 								</textElement>
 								<textFieldExpression class="java.lang.String"><![CDATA[$V{col}]]></textFieldExpression>
 							</textField>
@@ -142,7 +149,7 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement x="0" y="0" width="20" height="60" isRemoveLineWhenBlank="true">
+								<reportElement x="0" y="0" width="15" height="100" isRemoveLineWhenBlank="true">
 									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2]]></printWhenExpression>
 								</reportElement>
 								<box>
@@ -152,7 +159,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Left">
-									<font size="8" isBold="true"/>
+									<font size="7" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Totaal]]></text>
 							</staticText>
@@ -165,7 +172,7 @@
 				<measure name="countMeasure" class="java.lang.Integer" calculation="Count">
 					<measureExpression><![CDATA[$F{col}]]></measureExpression>
 				</measure>
-				<crosstabCell width="20" height="15">
+				<crosstabCell width="15" height="10">
 					<cellContents>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -175,7 +182,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="15" backcolor="#00FF00">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" backcolor="#00FF00">
 								<printWhenExpression><![CDATA[$V{valMeasure}>3.9 && $P{REPORT_PARAMETERS_MAP}.get("REPORT_TYPE").equals("tables")]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -183,7 +190,7 @@
 							</graphicElement>
 						</rectangle>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="15" forecolor="#FFFFFF" backcolor="#C80000">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" forecolor="#FFFFFF" backcolor="#C80000">
 								<printWhenExpression><![CDATA[$V{valMeasure}<3]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -191,7 +198,7 @@
 							</graphicElement>
 						</rectangle>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="15" backcolor="#FFFF00">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" backcolor="#FFFF00">
 								<printWhenExpression><![CDATA[$V{valMeasure}>=3 && $V{valMeasure}<=3.1]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -199,7 +206,7 @@
 							</graphicElement>
 						</rectangle>
 						<textField pattern="###0.0">
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="15">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="15" height="10">
 								<printWhenExpression><![CDATA[$V{valMeasure}>=3]]></printWhenExpression>
 							</reportElement>
 							<box>
@@ -207,12 +214,12 @@
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle">
-								<font size="8"/>
+								<font size="7"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
 						</textField>
 						<textField pattern="###0.0">
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="15" forecolor="#FFFFFF" backcolor="#000000">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="15" height="10" forecolor="#FFFFFF" backcolor="#000000">
 								<printWhenExpression><![CDATA[$V{valMeasure}<3 && $V{valMeasure}>=1]]></printWhenExpression>
 							</reportElement>
 							<box>
@@ -223,13 +230,13 @@
 								<rightPen lineWidth="0.5" lineColor="#000000"/>
 							</box>
 							<textElement verticalAlignment="Middle">
-								<font size="8"/>
+								<font size="7"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="20" height="20" rowTotalGroup="row">
+				<crosstabCell width="15" height="20" rowTotalGroup="row">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -239,20 +246,20 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="20" height="20"/>
+							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="15" height="10"/>
 							<box>
 								<leftPen lineWidth="0.5"/>
 								<bottomPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle">
-								<font size="8" isBold="false"/>
+								<font size="7" isBold="false"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{countMeasure}.doubleValue() /$V{ROW_COUNT}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="20" height="15" columnTotalGroup="col">
+				<crosstabCell width="20" height="10" columnTotalGroup="col">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -262,7 +269,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="15" backcolor="#00FF00">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" backcolor="#00FF00">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2 && $V{valMeasure}>=3.9]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -270,7 +277,7 @@
 							</graphicElement>
 						</rectangle>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="15" forecolor="#FFFFFF" backcolor="#C80000">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" forecolor="#FFFFFF" backcolor="#C80000">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2 && $V{valMeasure} < 3]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -278,7 +285,7 @@
 							</graphicElement>
 						</rectangle>
 						<rectangle>
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="20" height="15" backcolor="#FFFF00">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" backcolor="#FFFF00">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2 && $V{valMeasure}>=3 && $V{valMeasure}<=3.1]]></printWhenExpression>
 							</reportElement>
 							<graphicElement>
@@ -286,7 +293,7 @@
 							</graphicElement>
 						</rectangle>
 						<textField pattern="###0.0">
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="15">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="15" height="10">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2 && $V{valMeasure}>=3]]></printWhenExpression>
 							</reportElement>
 							<box>
@@ -294,12 +301,12 @@
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle">
-								<font size="8" isBold="true"/>
+								<font size="7" isBold="true"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
 						</textField>
 						<textField pattern="###0.0">
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="15" forecolor="#FFFFFF" backcolor="#000000">
+							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="15" height="10" forecolor="#FFFFFF" backcolor="#000000">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2 && $V{valMeasure}<3]]></printWhenExpression>
 							</reportElement>
 							<box>
@@ -307,7 +314,7 @@
 								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement verticalAlignment="Middle">
-								<font size="8" isBold="true"/>
+								<font size="7" isBold="true"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
 						</textField>
@@ -323,7 +330,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="20" height="20">
+							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="15" height="10">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2]]></printWhenExpression>
 							</reportElement>
 							<box>
@@ -334,7 +341,7 @@
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle">
-								<font size="8" isBold="false" isStrikeThrough="false"/>
+								<font size="7" isBold="false" isStrikeThrough="false"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{countMeasure}.doubleValue() / $V{ROW_COUNT}]]></textFieldExpression>
 						</textField>

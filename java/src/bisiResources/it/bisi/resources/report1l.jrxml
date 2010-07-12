@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="26"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="153"/>
+	<property name="ireport.y" value="66"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -37,9 +37,9 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="100" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<image hAlign="Right">
-				<reportElement x="555" y="0" width="247" height="84"/>
+				<reportElement x="580" y="0" width="222" height="60"/>
 				<imageExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/logo.png")]]></imageExpression>
 			</image>
 			<textField>
@@ -62,14 +62,14 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("type_report_"+$P{REPORT_TYPE})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="60" width="555" height="20" isRemoveLineWhenBlank="true">
+				<reportElement x="240" y="20" width="560" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 &&  $P{REPORT_TYPE}.equals("tables")]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("opleiding")+": "+ $P{TEXTS}.get("opleiding_"+$P{SPLIT_VALUE}.split("-")[0])]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="0" y="80" width="555" height="20" isRemoveLineWhenBlank="true">
+				<reportElement positionType="Float" x="240" y="40" width="560" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 &&  $P{REPORT_TYPE}.equals("tables")]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
@@ -197,20 +197,17 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 		<band height="21" splitType="Immediate">
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables"))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[("AVG".equals($F{type})
+    && $P{REPORT_TYPE}.equals("tables"))]]></printWhenExpression>
 				</reportElement>
+				<subreportParameter name="TEXTS">
+					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
+				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3l.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[("NUMBER".equals($F{type}) && $P{REPORT_TYPE}.equals("tables"))]]></printWhenExpression>
-				</reportElement>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3lNumber.jasper")]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20">
 					<printWhenExpression><![CDATA["AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("barcharts")]]></printWhenExpression>
 				</reportElement>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
@@ -263,28 +260,47 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 		<band height="50">
 			<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals("tables" )]]></printWhenExpression>
 			<textField>
-				<reportElement x="32" y="32" width="216" height="15" isRemoveLineWhenBlank="true"/>
+				<reportElement x="32" y="32" width="216" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_negative")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="32" y="16" width="216" height="15" isRemoveLineWhenBlank="true"/>
+				<reportElement x="32" y="16" width="216" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_middle")]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="5" y="32" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#C80000"/>
+				<reportElement x="5" y="32" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#C80000">
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
+				</reportElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFF00"/>
+				<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFF00">
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
+				</reportElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00FF00"/>
+				<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00FF00">
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
+				</reportElement>
 			</rectangle>
 			<textField>
-				<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true"/>
+				<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_positive")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="800" height="15"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get( "text_report_conclusion" )]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
