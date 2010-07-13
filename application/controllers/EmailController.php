@@ -354,7 +354,8 @@ class EmailController extends Zend_Controller_Action
     	$reports = array();
     	
     	/* search for "own" reports */
-    	$pattern = "#^fraijlemaborg_open_.*-.*-.*-" . $teacher['name'] . "\.pdf$#";
+     	$pattern = "#^fraijlemaborg_open_.*-.*-.*-.*-" . $teacher['name'] . "\.pdf$#";
+
     	foreach ($files as $file) {
     		if (preg_match($pattern, $file)) {
     			$reports[] = $file;
@@ -363,14 +364,16 @@ class EmailController extends Zend_Controller_Action
     	
     	/* search for "extra" files */
     	foreach ($teacher['courses'] as $course) {
-    		$pattern = "#^fraijlemaborg_open_.*-" . $course['group'] . "-" . $course['code'] . "-.*\.pdf$#";
+     		$pattern = "#^fraijlemaborg_open_.*-.*-" . $course['code'] . "-".$course['group']."-.*\.pdf$#";
+   		
 	    	foreach ($files as $file) {
 	    		if (preg_match($pattern, $file)) {
 	    			$reports[] = $file;
 	    		}
 	    	}
     	}
-    	
+    	$reports=array_unique($reports);
+    	sort($reports);
     	return $reports;
     }
     
