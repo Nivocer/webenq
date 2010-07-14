@@ -174,7 +174,7 @@ class EmailController extends Zend_Controller_Action
     	$files = scandir('reports');
     	
     	/* get courses from file names */
-    	$filePattern = "#^fraijlemaborg_open_(.*)-.*-.*-.*-.*\.pdf$#";
+    	$filePattern = "#^fraijlemaborg_open_.*_(.*)-.*-.*-.*-.*\.pdf$#";
     	foreach ($files as $file) {
     		if (preg_match($filePattern, $file, $matches)) {
     			$courses[] = $matches[1];
@@ -184,7 +184,7 @@ class EmailController extends Zend_Controller_Action
     	
     	/* get reports for courses */
     	foreach ($courses as $course) {
-    		$filePattern = "#^fraijlemaborg_open_" . $course . "-.*-.*-.*\.pdf$#";
+    		$filePattern = "#^fraijlemaborg_open_.*_" . $course . "-.*-.*-.*\.pdf$#";
     		foreach ($files as $file) {
 	    		if (preg_match($filePattern, $file)) {
 	    			$foundReports[$course][] = $file;
@@ -196,8 +196,14 @@ class EmailController extends Zend_Controller_Action
     	if (count($foundReports) > 0) {
     		foreach ($foundReports as $course => $reports) {
     			sort($reports);
+    			/* determin language of report */
+    			$language=$this->_getLanguageFromReports($reports);
+    			
+    			/*todo opleiding voorblad */
+    					    			
     			$cmd = "pdftk ";
 	    		foreach ($reports as $report) {
+	    			
 	    			$cmd .= "reports/" . $report . " ";
 	    		}
 	    		$cmd .= "cat output reports/" . $output . $course . ".pdf";
@@ -251,6 +257,7 @@ class EmailController extends Zend_Controller_Action
     	$this->_send($report);
     	
     	/* go to email overview page */
+    	
     	$this->_redirect("email");
     }
     
@@ -355,7 +362,7 @@ class EmailController extends Zend_Controller_Action
     	$reports = array();
     	
     	/* search for "own" reports */
-     	$pattern = "#^fraijlemaborg_open_.*-.*-.*-.*-" . $teacher['name'] . "\.pdf$#";
+     	$pattern = "#^fraijlemaborg_open_.*_.*-.*-.*-.*-" . $teacher['name'] . "\.pdf$#";
 
     	foreach ($files as $file) {
     		if (preg_match($pattern, $file)) {
@@ -365,7 +372,7 @@ class EmailController extends Zend_Controller_Action
     	
     	/* search for "extra" files */
     	foreach ($teacher['courses'] as $course) {
-     		$pattern = "#^fraijlemaborg_open_.*-.*-" . $course['code'] . "-".$course['group']."-.*\.pdf$#";
+     		$pattern = "#^fraijlemaborg_open_.*_.*-.*-" . $course['code'] . "-".$course['group']."-.*\.pdf$#";
    		
 	    	foreach ($files as $file) {
 	    		if (preg_match($pattern, $file)) {
@@ -381,13 +388,26 @@ class EmailController extends Zend_Controller_Action
     protected function _mergeReportsForTeacher($reports, $teacher)
     {
     	$output = "fraijlemaborg-open-docent-";
+    	$language=$this->_getLanguageFromReports($reports);
+    	echo "language: $language<br/>";
     	$cmd = "pdftk ";
-    	$cmd .= " reports/voorbladOpenNLD.pdf ";
+    	if ($language=='nl'){
+    		$cmd .= " reports/voorbladOpenNLD.pdf ";
+    	}
     	foreach ($reports as $report) {
     		$cmd .= "reports/" . $report . " ";
     	}
     	$cmd .= "cat output reports/" . $output . $teacher . ".pdf";
     	
     	system($cmd);
+    }
+    protected function _getLanguageFromReports($reports)
+    {
+    	/* determin language of report */
+    	$filePattern = "#^fraijlemaborg_open_(.*)_.*-.*-.*-.*-.*\.pdf$#";
+    	if (preg_match($filePattern, $reports[0], $matches)) {
+    		$language= $matches[1];
+    	}
+    	return $language;
     }
 }
