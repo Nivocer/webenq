@@ -381,7 +381,7 @@ class EmailController extends Zend_Controller_Action
     {
     	$output = "fraijlemaborg-open-docent-";
     	$cmd = "pdftk ";
-    	
+    	$cmd .= " reports/voorbladOpenNLD.pdf ";
     	foreach ($reports as $report) {
     		$cmd .= "reports/" . $report . " ";
     	}
