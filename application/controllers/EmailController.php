@@ -288,9 +288,10 @@ class EmailController extends Zend_Controller_Action
     	
     	/* instantiate mail object */
     	$mail = new Zend_Mail();
-    	$mail->setFrom("pietje@example.com", "pietje@example.com")
+    	$mail->setFrom("pietje@example.com", "Pietje Example")
     		->setBodyText($messageText)
     		->setBodyHtml($messageHtml)
+    		->setSubject("rapport onderwijsevaluaties")
     		->addAttachment($attachment);
     		
     	/* add test address or real address, and send mail */
