@@ -43,7 +43,7 @@ public class QuestionJRDataSource {
 			
 			ResultSet rs_repdef =stmt_rows.getResultSet();
 			rs_repdef.next();
-			String identifier=rs_repdef.getString("data_set_id");
+			String identifier=rs_repdef.getString("data_set_id");			
 			//group_rows is variable to group the data with (columns in crosstab)
 			String group_rows=rs_repdef.getString("group_question_id");
 			String split_question_id=rs_repdef.getString("split_question_id");
@@ -51,6 +51,10 @@ public class QuestionJRDataSource {
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
 			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
+			String language = rs_repdef.getString("language");
+			String customer = rs_repdef.getString("customer");
+			String page_orientation = rs_repdef.getString("page"); 
+	
 						
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
@@ -90,6 +94,7 @@ public class QuestionJRDataSource {
 			} else {
 				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' ");
 			}
+			System.out.println(group+type);
 			ResultSet rsh_questions=stmt_questions.getResultSet();
 			//get the answers
 			while (rsh_questions.next()){
@@ -126,9 +131,19 @@ public class QuestionJRDataSource {
 					}else{
 						query="select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0";
 					}
+					//@todo ugly hack response fraijlemaborg
+					if (customer.equals("fraijlemaborg") && question_field.equals("30_respons")){
+						if ( group_rows.length() == 0 ){
+							query="SELECT  30_respons/31_totaalpergroep as 30_respons, \"Totaal\" FROM values_"+identifier+" where 1=1 ";
+						}else{
+							query="SELECT  30_respons/31_totaalpergroep as 30_respons,"+group_rows+" FROM values_"+identifier+" where 1=1 ";
+						}
+					}	
+										
 					if  ( (split_question_id !=null) && (split_question_id.length()>0)   ) {
 						query=query+" and "+split_question_id+" like '"+split_value+"'";
 					}
+					
 					stmt_valuea.execute(query);
 					ResultSet rsh_valuea=stmt_valuea.getResultSet();
 					while (rsh_valuea.next()){

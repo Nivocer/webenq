@@ -63,10 +63,11 @@ public class ExecuteReport {
 			String output_file_name=rs_repdef.getString("output_filename");
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
+			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
 			String language = rs_repdef.getString("language");
 			String customer = rs_repdef.getString("customer");
 			String page_orientation = rs_repdef.getString("page"); 
-			
+				
 			prms.put("GROUP_ROWS", group_rows);
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
