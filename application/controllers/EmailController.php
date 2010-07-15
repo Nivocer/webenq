@@ -202,11 +202,19 @@ class EmailController extends Zend_Controller_Action
     			/*todo opleiding voorblad */
     					    			
     			$cmd = "pdftk ";
+    			if ($language=='nl'){
+    				$cmd .= " reports/fraijlemaborg_open_nl_voorblad_".$course.".pdf ";
+    				//$cmd .= " reports/fraijlemaborg_open_nl_voorblad.pdf ";
+    			}elseif($language=='en'){
+    				$cmd .= " reports/fraijlemaborg_open_en_voorblad_".$course.".pdf ";
+    				//$cmd .= " reports/fraijlemaborg_open_en_voorblad.pdf ";
+    			}
 	    		foreach ($reports as $report) {
 	    			
 	    			$cmd .= "reports/" . $report . " ";
 	    		}
 	    		$cmd .= "cat output reports/" . $output . $course . ".pdf";
+	    		
 	    		system($cmd);
     		}
     	}
@@ -392,7 +400,9 @@ class EmailController extends Zend_Controller_Action
     	echo "language: $language<br/>";
     	$cmd = "pdftk ";
     	if ($language=='nl'){
-    		$cmd .= " reports/voorbladOpenNLD.pdf ";
+    		$cmd .= " reports/fraijlemaborg_open_nl_voorblad.pdf ";
+    	}elseif($language=='en'){
+    		$cmd .= " reports/fraijlemaborg_open_en_voorblad.pdf ";
     	}
     	foreach ($reports as $report) {
     		$cmd .= "reports/" . $report . " ";
