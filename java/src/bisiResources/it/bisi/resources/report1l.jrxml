@@ -200,6 +200,9 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 					<printWhenExpression><![CDATA["AVG".equals($F{type})
     && $P{REPORT_TYPE}.equals("tables")]]></printWhenExpression>
 				</reportElement>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="TEXTS">
 					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>

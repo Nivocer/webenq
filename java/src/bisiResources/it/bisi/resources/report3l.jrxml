@@ -5,6 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
 	<parameter name="TEXTS" class="java.util.Map" isForPrompting="false"/>
+	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
 	<field name="row" class="java.lang.String"/>
 	<field name="col" class="java.lang.String"/>
 	<field name="title_row" class="java.lang.String"/>
@@ -97,7 +98,9 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="179" height="10"/>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="179" height="10" isRemoveLineWhenBlank="true">
+									<printWhenExpression><![CDATA[!$P{REPORT_PARAMETERS_MAP}.get( "CUSTOMER" ).equals("fraijlemaborg")]]></printWhenExpression>
+								</reportElement>
 								<box>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
@@ -283,7 +286,9 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="15" height="10"/>
+							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="15" height="10" isRemoveLineWhenBlank="true">
+								<printWhenExpression><![CDATA[!$P{REPORT_PARAMETERS_MAP}.get( "CUSTOMER" ).equals("fraijlemaborg")]]></printWhenExpression>
+							</reportElement>
 							<box>
 								<leftPen lineWidth="0.5"/>
 								<bottomPen lineWidth="0.5"/>
@@ -401,8 +406,8 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="15" height="10">
-								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2]]></printWhenExpression>
+							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="15" height="10" isRemoveLineWhenBlank="true">
+								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2 && !$P{REPORT_PARAMETERS_MAP}.get( "CUSTOMER" ).equals("fraijlemaborg")]]></printWhenExpression>
 							</reportElement>
 							<box>
 								<pen lineWidth="0.0"/>
