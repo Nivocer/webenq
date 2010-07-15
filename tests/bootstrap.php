@@ -15,6 +15,7 @@ defined('APPLICATION_ENV')
 set_include_path(implode(PATH_SEPARATOR, array(
 	realpath(APPLICATION_PATH . '/../libraries'),
 	realpath(APPLICATION_PATH . '/../../nivocer-thirdparty'),
+	realpath('/var/www/3rdparty'),
 	realpath(APPLICATION_PATH . '/../classes'),
     get_include_path(),
 )));
