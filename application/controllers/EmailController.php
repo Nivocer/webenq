@@ -298,7 +298,7 @@ class EmailController extends Zend_Controller_Action
     	$mail->setFrom("pietje@example.com", "Pietje Example")
     		->setBodyText($messageText)
     		->setBodyHtml($messageHtml)
-    		->setSubject("rapport onderwijsevaluaties")
+    		->setSubject("Open antwoorden Onderwijsevaluaties Semester 2")
     		->addAttachment($attachment);
     		
     	/* add test address or real address, and send mail */
