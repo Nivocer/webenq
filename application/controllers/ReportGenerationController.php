@@ -99,7 +99,7 @@ class ReportGenerationController extends Zend_Controller_Action
     				mkdir("reports/images");
 	    			system("chmod 777 reports/images");
     			}
-    			$filename = "reports/images/bar_dataset_" . $row->data_set_id . "_question_" . $question->id . ".png";
+    			$filename = "reports/images/bar_report_" . $row->id . "_question_" . $question->id . ".png";
     			$answers->generateBarchart($filename);
     			system("chmod 777 " . $filename);
     		}
