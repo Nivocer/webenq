@@ -95,8 +95,13 @@ class ReportGenerationController extends Zend_Controller_Action
     	foreach ($questions as $question) {
     		$answers = $questionsModel->getAnswers($question->id);
     		if ($answers instanceof HVA_Model_Data_Question_Closed_Percentage) {
+    			if (!is_dir("reports/images")) {
+    				mkdir("reports/images");
+	    			system("chmod 777 reports/images");
+    			}
     			$filename = "reports/images/bar_dataset_" . $row->data_set_id . "_question_" . $question->id . ".png";
     			$answers->generateBarchart($filename);
+    			system("chmod 777 " . $filename);
     		}
     	}
     }
