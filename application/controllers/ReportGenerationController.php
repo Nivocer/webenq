@@ -94,7 +94,7 @@ class ReportGenerationController extends Zend_Controller_Action
     	/* get answers */
     	foreach ($questions as $question) {
     		$answers = $questionsModel->getAnswers($question->id);
-    		if ($answers instanceof HVA_Model_Data_Question_Closed_Percentage) {
+    		if ($answers instanceof HVA_Model_Data_Question_Closed_Scale) {
     			if (!is_dir("reports/images")) {
     				mkdir("reports/images");
 	    			system("chmod 777 reports/images");
