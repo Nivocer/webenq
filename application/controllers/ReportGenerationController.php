@@ -33,6 +33,11 @@ class ReportGenerationController extends Zend_Controller_Action
     		unlink($file);
     	}
     	
+    	/* prepare */
+    	if ($row->report_type === 'barcharts') {
+    		$this->_generateBarcharts($row);
+    	}
+    	
     	/* init vars */
     	$cwd = getcwd();
     	$output = array();
@@ -78,5 +83,21 @@ class ReportGenerationController extends Zend_Controller_Action
     		}
     	}
    		$this->view->output = "Onbekende fout opgetreden.";
+    }
+    
+    protected function _generateBarcharts($row)
+    {
+    	/* get questions */
+    	$questionsModel = new HVA_Model_DbTable_Questions("questions_" . $row->data_set_id);
+    	$questions = $questionsModel->fetchAll("group_id > 0");
+    	
+    	/* get answers */
+    	foreach ($questions as $question) {
+    		$answers = $questionsModel->getAnswers($question->id);
+    		if ($answers instanceof HVA_Model_Data_Question_Closed_Percentage) {
+    			$filename = "reports/images/bar_dataset_" . $row->data_set_id . "_question_" . $question->id . ".png";
+    			$answers->generateBarchart($filename);
+    		}
+    	}
     }
 }
