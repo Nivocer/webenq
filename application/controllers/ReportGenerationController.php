@@ -97,11 +97,11 @@ class ReportGenerationController extends Zend_Controller_Action
     		if ($answers instanceof HVA_Model_Data_Question_Closed_Scale) {
     			if (!is_dir("reports/images")) {
     				mkdir("reports/images");
-	    			system("chmod 777 reports/images");
+	    			system("chmod 664 reports/images");
     			}
     			$filename = "reports/images/bar_report_" . $row->id . "_question_" . $question->id . ".png";
     			$answers->generateBarchart($filename);
-    			system("chmod 777 " . $filename);
+    			system("chmod 664 " . $filename);
     		}
     	}
     }
