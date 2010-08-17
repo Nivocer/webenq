@@ -94,7 +94,7 @@ public class QuestionJRDataSource {
 			} else {
 				stmt_questions.execute("select q.id,q.title from questions_"+identifier+" q where group_id='"+group+"' ");
 			}
-			System.out.println(group+type);
+			
 			ResultSet rsh_questions=stmt_questions.getResultSet();
 			//get the answers
 			while (rsh_questions.next()){
@@ -116,7 +116,7 @@ public class QuestionJRDataSource {
 					stmt_valuep.execute(query);
 					ResultSet rsh_valuep=stmt_valuep.getResultSet();
 					while (rsh_valuep.next()){
-						Record rp=new Record(question_title,titlerows,rsh_valuep.getString(1),rsh_valuep.getString(2),"1");
+						Record rp=new Record(question_title,titlerows,question_field,rsh_valuep.getString(1),rsh_valuep.getString(2),"1");
 						reportRows.add(rp);
 					}
 					rsh_valuep.close();
@@ -148,31 +148,46 @@ public class QuestionJRDataSource {
 					ResultSet rsh_valuea=stmt_valuea.getResultSet();
 					while (rsh_valuea.next()){
 						//@todo this record differs in order of variables with previous record
-						Record ra=new Record(group_question_title,titlerows,question_title,rsh_valuea.getString(2),rsh_valuea.getString(1));
+						Record ra=new Record(group_question_title,question_field, titlerows,question_title,rsh_valuea.getString(2),rsh_valuea.getString(1));
 						reportRows.add(ra);
 					}
 					rsh_valuea.close();
 					stmt_valuea.close();
 				}else if (("AVG".equals(type)) && ("barcharts".equals(report_type))){
-					Statement stmt_valuebc=conn.createStatement();
-					String query= "select "+question_field+" as question_value, "+question_field+" AS answer_count " +
-							"from data_"+identifier ;
-					// add split by statement if not null.
-					//todo test does it work
+					//based on identical to avg as type and tables as report_type, except group by (not possible with barchart).
+					Statement stmt_valuea=conn.createStatement();
+					//String query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
+					String query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
 					
-					if  ((split_question_id!=null) && (split_question_id.length()>0)   ) {
-						query=query+" where "+split_question_id+" like '"+split_value+"'";
+					//@todo ugly hack response fraijlemaborg
+					if (customer.equals("fraijlemaborg") && question_field.equals("30_respons")){
+						if ( group_rows.length() == 0 ){
+							query="SELECT  30_respons/31_totaalpergroep as 30_respons, \"Totaal\" FROM values_"+identifier+" where 1=1 ";
+						}else{
+							query="SELECT  30_respons/31_totaalpergroep as 30_respons,"+group_rows+" FROM values_"+identifier+" where 1=1 ";
+						}
+					}	
+										
+					if  ( (split_question_id !=null) && (split_question_id.length()>0)   ) {
+						query=query+" and "+split_question_id+" like '"+split_value+"'";
 					}
 					
-					stmt_valuebc.execute(query);
-					ResultSet rsh_valuebc=stmt_valuebc.getResultSet();
-					while (rsh_valuebc.next()){
-						//@todo order of variables in next line...?
-						Record ro=new Record(group_question_title,titlerows,question_title,rsh_valuebc.getString(1),rsh_valuebc.getString(2));
-						reportRows.add(ro);
+					stmt_valuea.execute(query);
+					ResultSet rsh_valuea=stmt_valuea.getResultSet();
+					while (rsh_valuea.next()){
+						//@todo this record differs in order of variables with previous record
+						System.out.println(query);
+						System.out.println(group_question_title);
+						System.out.println(question_field);
+						System.out.println(titlerows);
+						System.out.println(question_title);
+						System.out.println(rsh_valuea.getString(1));
+						System.out.println(rsh_valuea.getString(2));
+						Record ra=new Record(group_question_title,titlerows,question_field,question_title,rsh_valuea.getString(2),rsh_valuea.getString(1));
+						reportRows.add(ra);
 					}
-					rsh_valuebc.close();
-					stmt_valuebc.close();
+					rsh_valuea.close();
+					stmt_valuea.close();
 				}else if("OPEN".equals(type) && "open".equals(report_type)){
 					//open;
 					Statement stmt_valueo=conn.createStatement();
@@ -188,7 +203,7 @@ public class QuestionJRDataSource {
 					ResultSet rsh_valueo=stmt_valueo.getResultSet();
 					while (rsh_valueo.next()){
 						//@todo order of variables in next line...?
-						Record ro=new Record(group_question_title,titlerows,question_title,rsh_valueo.getString(1),rsh_valueo.getString(2));
+						Record ro=new Record(group_question_title,titlerows,question_field,question_title,rsh_valueo.getString(1),rsh_valueo.getString(2));
 						reportRows.add(ro);
 					}
 					rsh_valueo.close();
