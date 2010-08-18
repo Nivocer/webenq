@@ -108,7 +108,7 @@ class ReportGenerationController extends Zend_Controller_Action
     			system("chmod 664 " . $filename);
     		} elseif (is_array($answers)) {
     			foreach ($answers as $answer => $part) {
-	    			$filename = "reports/images/bar_report_" . $row->id . "_question_" . $question->id . "_splitquestion_" . $splitBy . "_splitanswer_" . $answer . ".png";
+	    			$filename = "reports/images/bar_report_" . $row->id . "_question_" . $question->id . "_splitanswer_" . $answer . ".png";
 	    			$part->generateBarchart($filename);
 	    			system("chmod 664 " . $filename);
     			}
