@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="20"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
+	<parameter name="SPLIT_VALUE" class="java.lang.String"/>
+	<parameter name="REPORT_TYPE" class="java.lang.String"/>
+	<parameter name="TEXTS" class="java.util.HashMap"/>
+	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="IMAGE_PATH" class="java.lang.String" isForPrompting="false"/>
 	<field name="row" class="java.lang.String"/>
 	<field name="col" class="java.lang.String"/>
 	<field name="title_row" class="java.lang.String"/>
@@ -42,7 +48,7 @@
 				<reportElement x="0" y="30" width="595" height="34" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 				</reportElement>
-				<crosstabParameter name="GROUP_ROWS_C">
+				<crosstabParameter name="REPORT_IDENTIFIER">
 					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
 				</crosstabParameter>
 				<crosstabHeaderCell>
@@ -106,7 +112,7 @@
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="250" height="18"/>
 								<box>
 									<topPen lineWidth="0.5"/>
@@ -114,10 +120,7 @@
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression class="java.lang.String"><![CDATA[$V{col}]]></textFieldExpression>
+								<textElement verticalAlignment="Middle"/>
 							</textField>
 						</cellContents>
 					</crosstabColumnHeader>
@@ -152,6 +155,15 @@
 				<measure name="countMeasure" class="java.lang.Integer" calculation="Count">
 					<measureExpression><![CDATA[$F{col}]]></measureExpression>
 				</measure>
+				<measure name="report_identifier" class="java.lang.String" calculation="First">
+					<measureExpression><![CDATA[$P{REPORT_IDENTIFIER}]]></measureExpression>
+				</measure>
+				<measure name="question_fieldMeasure" class="java.lang.Object" calculation="First">
+					<measureExpression><![CDATA[$F{question_field}]]></measureExpression>
+				</measure>
+				<measure name="image_path" class="java.lang.Object">
+					<measureExpression><![CDATA[$P{IMAGE_PATH}]]></measureExpression>
+				</measure>
 				<crosstabCell width="250" height="15">
 					<cellContents>
 						<box>
@@ -161,9 +173,9 @@
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
-						<image isUsingCache="false">
+						<image isUsingCache="false" onErrorType="Blank">
 							<reportElement positionType="Float" x="0" y="0" width="250" height="15"/>
-							<imageExpression class="java.lang.String"><![CDATA["/home/jaapandre/workspace/hva-devel/public/reports/images/bar_report_83_question_3_er_was_voldoende_aandacht_voor_de_beroepspraktijk__voorbeeld.png"]]></imageExpression>
+							<imageExpression class="java.lang.String"><![CDATA[$V{image_path}+"reports/images/bar_report_"+$V{report_identifier}+"_question_"+$V{question_fieldMeasure}+".png"]]></imageExpression>
 						</image>
 					</cellContents>
 				</crosstabCell>
