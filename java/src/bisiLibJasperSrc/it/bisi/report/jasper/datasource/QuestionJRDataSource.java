@@ -176,13 +176,6 @@ public class QuestionJRDataSource {
 					ResultSet rsh_valuea=stmt_valuea.getResultSet();
 					while (rsh_valuea.next()){
 						//@todo this record differs in order of variables with previous record
-						System.out.println(query);
-						System.out.println(group_question_title);
-						System.out.println(question_field);
-						System.out.println(titlerows);
-						System.out.println(question_title);
-						System.out.println(rsh_valuea.getString(1));
-						System.out.println(rsh_valuea.getString(2));
 						Record ra=new Record(group_question_title,titlerows,question_field,question_title,rsh_valuea.getString(2),rsh_valuea.getString(1));
 						reportRows.add(ra);
 					}

@@ -72,6 +72,8 @@ public class ExecuteReport {
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
 			prms.put("CUSTOMER", customer);
+			//@todo ugly hack, semi hard/softcoded path to imageroot of zo
+			prms.put("IMAGE_PATH", "/home/jaapandre/workspace/hva-devel/public/");
 			stmt_rows.close();
 		
 			/* get key/value pairs for current language/customer-combination */
