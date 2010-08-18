@@ -82,26 +82,36 @@ class ReportGenerationController extends Zend_Controller_Action
 	    		return;
     		}
     	}
-   		$this->view->output = "Onbekende fout opgetreden.";
+    	
+   		$this->view->output = "Onbekende fout opgetreden bij het genereren van het rapport.";
     }
     
     protected function _generateBarcharts($row)
     {
+    	/* make directory */
+    	if (!is_dir("reports/images")) {
+    		mkdir("reports/images");
+    		system("chmod 664 reports/images");
+    	}
+    	
     	/* get questions */
     	$questionsModel = new HVA_Model_DbTable_Questions("questions_" . $row->data_set_id);
     	$questions = $questionsModel->fetchAll("group_id > 0");
+    	$splitBy = $row->split_question_id;
     	
     	/* get answers */
     	foreach ($questions as $question) {
-    		$answers = $questionsModel->getAnswers($question->id);
+    		$answers = $questionsModel->getAnswers($question->id, $splitBy);
     		if ($answers instanceof HVA_Model_Data_Question_Closed_Scale) {
-    			if (!is_dir("reports/images")) {
-    				mkdir("reports/images");
-	    			system("chmod 664 reports/images");
-    			}
     			$filename = "reports/images/bar_report_" . $row->id . "_question_" . $question->id . ".png";
     			$answers->generateBarchart($filename);
     			system("chmod 664 " . $filename);
+    		} elseif (is_array($answers)) {
+    			foreach ($answers as $answer => $part) {
+	    			$filename = "reports/images/bar_report_" . $row->id . "_question_" . $question->id . "_splitquestion_" . $splitBy . "_splitanswer_" . $answer . ".png";
+	    			$part->generateBarchart($filename);
+	    			system("chmod 664 " . $filename);
+    			}
     		}
     	}
     }
