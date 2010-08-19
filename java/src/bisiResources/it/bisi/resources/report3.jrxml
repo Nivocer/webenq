@@ -69,7 +69,7 @@
 							</box>
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="157" height="15"/>
-								<box>
+								<box leftPadding="1">
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
@@ -86,12 +86,12 @@
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 								<topPen lineWidth="0.0"/>
 								<leftPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<staticText>
 								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="157" height="15"/>
-								<box>
+								<box rightPadding="4">
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
@@ -117,14 +117,14 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="40" height="18"/>
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="18"/>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement verticalAlignment="Middle">
+								<textElement verticalAlignment="Top">
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression class="java.lang.String"><![CDATA[$V{col}]]></textFieldExpression>
@@ -141,7 +141,7 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement x="0" y="0" width="40" height="18" isRemoveLineWhenBlank="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="18" isRemoveLineWhenBlank="true">
 									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 								</reportElement>
 								<box>
@@ -150,7 +150,7 @@
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Center" verticalAlignment="Top">
 									<font size="8" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Totaal]]></text>
@@ -234,7 +234,7 @@
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
 							<leftPen lineWidth="0.0"/>
-							<bottomPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.5"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
@@ -328,7 +328,7 @@
 								<pen lineWidth="0.0"/>
 								<topPen lineWidth="0.0"/>
 								<leftPen lineWidth="0.5"/>
-								<bottomPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle">
