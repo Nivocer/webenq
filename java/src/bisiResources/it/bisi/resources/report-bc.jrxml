@@ -20,7 +20,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band splitType="Stretch"/>
+		<band height="1" splitType="Stretch"/>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
@@ -38,14 +38,14 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="100" splitType="Stretch">
+		<band height="49" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="15" width="555" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="0" y="0" width="555" height="15" isPrintWhenDetailOverflows="true"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
 			</textField>
 			<crosstab ignoreWidth="false">
-				<reportElement x="0" y="30" width="595" height="34" backcolor="#FFFFFF">
+				<reportElement x="0" y="15" width="595" height="34" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 				</reportElement>
 				<crosstabParameter name="REPORT_IDENTIFIER">
