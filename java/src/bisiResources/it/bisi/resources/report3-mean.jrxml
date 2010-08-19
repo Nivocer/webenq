@@ -98,7 +98,7 @@
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<font size="8"/>
 								</textElement>
-								<text><![CDATA[Totaal]]></text>
+								<text><![CDATA[N ]]></text>
 							</staticText>
 						</cellContents>
 					</crosstabTotalRowHeader>
