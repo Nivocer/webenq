@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="20"/>
+	<property name="ireport.x" value="516"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
@@ -45,7 +45,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
 			</textField>
 			<crosstab ignoreWidth="false">
-				<reportElement x="0" y="15" width="595" height="34" backcolor="#FFFFFF">
+				<reportElement x="0" y="15" width="595" height="15" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 				</reportElement>
 				<crosstabParameter name="REPORT_IDENTIFIER">
@@ -55,9 +55,9 @@
 					<cellContents>
 						<box>
 							<topPen lineWidth="0.5"/>
-							<leftPen lineWidth="0.5"/>
-							<bottomPen lineWidth="0.5"/>
-							<rightPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
 						</box>
 					</cellContents>
 				</crosstabHeaderCell>
@@ -93,13 +93,13 @@
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 								<topPen lineWidth="0.0"/>
 								<leftPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="col" height="18" totalPosition="End">
+				<columnGroup name="col" height="0" totalPosition="End">
 					<bucket>
 						<bucketExpression class="java.lang.String"><![CDATA[$F{col}]]></bucketExpression>
 					</bucket>
@@ -107,45 +107,22 @@
 						<cellContents mode="Opaque">
 							<box>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-								<topPen lineWidth="0.0"/>
+								<topPen lineWidth="0.5"/>
 								<leftPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="250" height="18"/>
-								<box>
-									<topPen lineWidth="0.5"/>
-									<leftPen lineWidth="0.5"/>
-									<bottomPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
-								<textElement verticalAlignment="Middle"/>
-							</textField>
 						</cellContents>
 					</crosstabColumnHeader>
 					<crosstabTotalColumnHeader>
 						<cellContents mode="Opaque">
 							<box>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-								<topPen lineWidth="0.0"/>
+								<topPen lineWidth="0.5"/>
 								<leftPen lineWidth="0.0"/>
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<staticText>
-								<reportElement x="0" y="0" width="40" height="18" isRemoveLineWhenBlank="true"/>
-								<box>
-									<topPen lineWidth="0.5"/>
-									<leftPen lineWidth="0.5"/>
-									<bottomPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Totaal]]></text>
-							</staticText>
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
@@ -185,7 +162,7 @@
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
 							<leftPen lineWidth="0.0"/>
-							<bottomPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.5"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
 					</cellContents>
@@ -257,7 +234,7 @@
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
 							<leftPen lineWidth="0.0"/>
-							<bottomPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.5"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
 					</cellContents>
