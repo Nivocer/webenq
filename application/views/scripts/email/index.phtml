@@ -3,14 +3,15 @@
 	<a href="<?php echo $this->baseUrl("/email/merge-course"); ?>">Rapporten samenvoegen per opleiding</a>
 </div>
 
-<div class="nav-link">
-	<a href="<?php echo $this->baseUrl("/email/send-all"); ?>">Email alle onderstaande rapporten</a>
-	<small>(reeds verzonden rapporten worden niet nogmaals verzonden, en rapporten zonder email-adres worden genegeerd)</small>
-</div>
-
-<?php if (count($this->reports) === 0): ?>
+<?php if ($this->form): ?>
+	<?php echo $this->form; ?>
+<?php elseif (count($this->reports) === 0): ?>
 	Er zijn nog geen rapporten gegenereerd.			
 <?php else: ?>
+	<div class="nav-link">
+		<a href="<?php echo $this->baseUrl("/email/send-all"); ?>">Email alle onderstaande rapporten</a>
+		<small>(reeds verzonden rapporten worden niet nogmaals verzonden, en rapporten zonder email-adres worden genegeerd)</small>
+	</div>
 	<table>
 		<thead>
 			<tr>

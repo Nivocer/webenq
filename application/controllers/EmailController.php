@@ -16,9 +16,23 @@ class EmailController extends Zend_Controller_Action
 		$this->_email = new HVA_Model_DbTable_Email();
 	}
 	
-    protected function _scan()
+	protected function _findDirs($dir)
+	{
+		$dirs = array();
+		$files = scandir($dir);
+		
+		foreach ($files as $file) {
+			if (is_dir($dir . '/' . $file) && $file !== '.' && $file !== '..' && $file !== 'CVS') {
+				$dirs[$file] = $file;
+			}
+		}
+		
+		return $dirs;
+	}
+	
+    protected function _findFiles($dir)
     {
-    	$files = scandir('reports');
+    	$files = scandir($dir);
     	$foundReports = array();
     	
     	foreach ($this->_filePatterns as $filePatternName => $filePattern) {
@@ -32,9 +46,10 @@ class EmailController extends Zend_Controller_Action
     	/* add new reports to db */
     	foreach ($foundReports as $customer => $reports) {
     		foreach ($reports as $report) {
+    			$filename = preg_replace('#^'.realpath('.').'/#', '', $dir.'/'.$report);
     			try {
     				$this->_email->insert(array(
-    					'filename'	=> $report,
+    					'filename'	=> $filename,
     					'customer'	=> $customer,
     				));
     			} catch (Exception $e) {
@@ -46,8 +61,11 @@ class EmailController extends Zend_Controller_Action
     	}
     	
     	/* remove old reports from db */
-    	foreach ($this->_email->fetchAll() as $report) {
-    		if (!in_array($report->filename, $files)) {
+    	$relativeDir = preg_replace('#^'.realpath('.').'/#', '', $dir);
+    	$where = 'filename LIKE "' . $relativeDir . '/%"';
+    	foreach ($this->_email->fetchAll($where) as $report) {
+    		$filename = preg_replace('#^'.$relativeDir.'/#', '', $report->filename);
+    		if (!in_array($filename, $files)) {
     			$this->_email->delete("filename = '" . $report->filename . "'");
     		}
     	}
@@ -55,18 +73,29 @@ class EmailController extends Zend_Controller_Action
     
     public function indexAction()
     {
-    	$this->_scan();
+    	$subDirs = $this->_findDirs(realpath('reports'));
+    	$form = new HVA_Form_Email_Index($subDirs);
     	
-    	try {
-	    	$this->view->reports = $this->_email->fetchAll($this->_email->select()
-	    		->order(array("customer", "filename"))
-	    	);
-    	} catch (Exception $e) {
-    		if ($e->getCode() === "42S02") {
-    			$this->_email->createTable();    			
-    		} else {
-    			throw $e;
-    		}
+    	if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+    		
+	    	$dir = realpath('reports/' . $this->_request->selectDir);
+	    	$relativeDir = preg_replace('#^'.realpath('.').'/#', '', $dir);
+    		$this->_findFiles($dir);
+	    	
+	    	try {
+		    	$this->view->reports = $this->_email->fetchAll($this->_email->select()
+		    		->where('filename LIKE ?', $relativeDir.'/%')
+		    		->order(array("customer", "filename"))
+		    	);
+	    	} catch (Exception $e) {
+	    		if ($e->getCode() === "42S02") {
+	    			$this->_email->createTable();    			
+	    		} else {
+	    			throw $e;
+	    		}
+	    	}
+    	} else {
+    		$this->view->form = $form;
     	}
     }
     

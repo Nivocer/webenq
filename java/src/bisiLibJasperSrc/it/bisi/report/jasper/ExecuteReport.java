@@ -26,7 +26,7 @@ public class ExecuteReport {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		runReport(args[0],args[1],args[2],args[3]);
+		runReport(args[0],args[1],args[2],args[3],args[4]);
 	}
 	
 	public static Connection connectDB(String databaseName, String userName, String password) {
@@ -44,7 +44,7 @@ public class ExecuteReport {
 		return jdbcConnection;
 	}
 	
-	public static void runReport(String databaseName, String userName, String password, String report_identifier)
+	public static void runReport(String databaseName, String userName, String password, String report_identifier, String output_dir)
 	{
 		try {
 			Connection conn = connectDB(databaseName, userName, password);
@@ -60,7 +60,7 @@ public class ExecuteReport {
 			String identifier=rs_repdef.getString("data_set_id");
 			String group_rows=rs_repdef.getString("group_question_id");
 			String split_question_id=rs_repdef.getString("split_question_id");
-			String output_file_name=rs_repdef.getString("output_filename");
+			String output_file_name=output_dir + '/' + rs_repdef.getString("output_filename");
 			String output_format=rs_repdef.getString("output_format");
 			String report_type=rs_repdef.getString("report_type");
 			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
@@ -172,16 +172,16 @@ public class ExecuteReport {
 
 					// Create output in directory public/reports  
 					if(output_format.equals("pdf")) {
-						JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + "_" + split_value + ".pdf");
+						JasperExportManager.exportReportToPdfFile(print, output_file_name + "_" + split_value + ".pdf");
 					} else if(output_format.equals("odt")) {
 						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + "_" + split_value+ ".odt");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "_" + split_value+ ".odt");
 						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 						exporter.exportReport();
 					} else if(output_format.equals("html")) {
-						JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name +"_"+split_value+ ".html");
+						JasperExportManager.exportReportToHtmlFile(print, output_file_name +"_"+split_value+ ".html");
 					} else if(output_format.equals("xml")) {
-						JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name +"_"+split_value+ ".xml", false);
+						JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_value+ ".xml", false);
 					} else { 
 						JasperViewer.viewReport(print);
 					}
@@ -195,16 +195,16 @@ public class ExecuteReport {
 				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 				/* Create output in directory public/reports */ 
 				if(output_format.equals("pdf")) {
-					JasperExportManager.exportReportToPdfFile(print, "../public/reports/" + output_file_name + ".pdf");
+					JasperExportManager.exportReportToPdfFile(print, output_file_name + ".pdf");
 				} else if(output_format.equals("odt")) {
 					net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-					exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, "../public/reports/" + output_file_name + ".odt");
+					exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + ".odt");
 					exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 					exporter.exportReport();
 				} else if(output_format.equals("html")) {
-					JasperExportManager.exportReportToHtmlFile(print, "../public/reports/" + output_file_name + ".html");
+					JasperExportManager.exportReportToHtmlFile(print, output_file_name + ".html");
 				} else if(output_format.equals("xml")) {
-					JasperExportManager.exportReportToXmlFile(print, "../public/reports/" + output_file_name + ".xml", false);
+					JasperExportManager.exportReportToXmlFile(print, output_file_name + ".xml", false);
 				} else { 
 					JasperViewer.viewReport(print);
 				}
