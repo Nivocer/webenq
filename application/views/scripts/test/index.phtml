@@ -1,0 +1,47 @@
+<h2>Quick import test</h2>
+
+<div class="nav-link">
+	<a href="<?php echo $this->baseUrl("/"); ?>">Home-page</a>
+	<a href="<?php echo $this->baseUrl("test"); ?>">Nieuwe test</a>
+</div>
+
+<?php if ($this->question): ?>
+
+	<p>
+		Deze dataset wordt herkend als type:
+		<strong><?php echo get_class($this->question); ?></strong>
+	</p>
+	<p>
+		En zou ook valideren voor de types:
+	</p>
+	<ul>
+		<?php foreach ($this->question->getValidTypes() as $type): ?>
+			<li>
+				<?php echo $type; ?>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+	<p>
+		Testdata:
+	</p>
+	<ul>
+		<?php foreach ($this->question->getRawData() as $data): ?>
+			<li>
+				<?php echo $data; ?>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+
+<?php else: ?>
+
+	<?php echo $this->form->render(); ?>
+	
+	<?php if ($this->errors): ?>
+		<ul class="errors">
+			<?php foreach ($this->errors as $error): ?>
+				<li><?php echo $error; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
+<?php endif; ?>
