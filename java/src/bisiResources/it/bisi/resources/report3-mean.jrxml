@@ -38,9 +38,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
 			</textField>
 			<crosstab ignoreWidth="false">
-				<reportElement x="0" y="15" width="595" height="48" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="0" y="15" width="595" height="48" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
 				<crosstabParameter name="GROUP_ROWS_C">
 					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
 				</crosstabParameter>
