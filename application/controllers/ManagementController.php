@@ -147,17 +147,10 @@ class ManagementController extends Zend_Controller_Action
     		foreach ($data as $questionId => $answer) {
     			$type = $meta->fetchRow("question_id = '$questionId'");
     			if ($type) {
-    				if (substr($type->type, 0, 35) === "HVA_Model_Data_Question_Open_Date") {
-						foreach (HVA_Model_Data_Question_Open_Date::getValidFormats() as $format) {
-							$validator = new Zend_Validate_Date($format);
-							if ($validator->isValid($answer)) {
-								$date = new Zend_Date($answer, $format);
-								break;
-							}
-						}
-						$data[$questionId] = $date->toString("Y-M-d H:m:s");
+    				if (preg_match("#^HVA_Model_Data_Question_Open_Date#", $type->type)) {
+    					$data[$questionId] = HVA_Model_Data_Question_Open_Date::toFormat($answer, "Y-m-d H:i:s");
     				}
-    				if (substr($type->type, 0, 37) === "HVA_Model_Data_Question_Closed_Scale_") {
+    				if (preg_match("#^HVA_Model_Data_Question_Closed_Scale_#", $type->type)) {
     					$scaleValues = HVA_Model_Data_Question_Closed_Scale::getScaleValues();
     					@$value = $scaleValues[$type->type][strtolower($answer)];
     					if (!$value) $value = -1;
