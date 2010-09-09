@@ -138,9 +138,11 @@ class ReportGenerationController extends Zend_Controller_Action
     			system("chmod -R 774 $filename");
     		} elseif (is_array($answers)) {
     			foreach ($answers as $answer => $part) {
-	    			$filename = "$dir/images/bar_report_" . $row->id . "_question_" . $question->id . "_splitanswer_" . $answer . ".png";
-	    			$part->generateBarchart($filename);
-	    			system("chmod -R 774 $filename");
+    				if ($part instanceof HVA_Model_Data_Question_Closed_Scale) {
+	    				$filename = "$dir/images/bar_report_" . $row->id . "_question_" . $question->id . "_splitanswer_" . $answer . ".png";
+		    			$part->generateBarchart($filename);
+		    			system("chmod -R 774 $filename");
+    				}
     			}
     		}
     	}
