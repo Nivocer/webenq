@@ -76,6 +76,20 @@ public class ExecuteReport {
 			prms.put("IMAGE_PATH", "/home/jaapandre/workspace/hva-devel/public/");
 			stmt_rows.close();
 		
+			
+			//hva-fmb: >3.9=groen, 3.0 en 3.1: geel, <3 rood.
+			//coloring of the values in table report.
+			if (report_type.equals("tables")){
+				Map color_range=new HashMap();
+				color_range.put("lowRed",new Double(1.0));
+				color_range.put("highRed",new Double(2.9999));
+				color_range.put("lowYellow",new Double(3.0));
+				color_range.put("highYellow",new Double(3.1));
+				color_range.put("lowGreen",new Double(3.9));
+				color_range.put("highGreen", new Double(5.0));
+				prms.put("COLOR_RANGE", color_range);
+			}
+			
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";
@@ -143,7 +157,8 @@ public class ExecuteReport {
 					prms.put("SPLIT_VALUE", split_value);
 
 					//ugly hack voor fraijlemaborg om groepinformatie in rapport te krijgen.
-					if (customer !=null && customer.length()>0 && customer.equals("fraijlemaborg")){
+					//alleen voor onderwijsevaluatie datasetid/identifier=50
+					if (identifier.equals("50") && customer !=null && customer.length()>0 && customer.equals("fraijlemaborg")){
 						Statement stmt_fmb_group_info=conn.createStatement();
 						stmt_fmb_group_info.execute("select 25_groep as group_name, 26_boecode as boecode," +
 								"35_docent as docent, 34_ownaam as module_name " +

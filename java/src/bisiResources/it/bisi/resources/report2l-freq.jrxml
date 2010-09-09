@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2L" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="20"/>
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<parameter name="CUSTOMER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -34,9 +35,9 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="120" splitType="Stretch">
+		<band height="60" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="30" width="800" height="90"/>
+				<reportElement x="0" y="30" width="830" height="30"/>
 				<crosstabHeaderCell>
 					<cellContents>
 						<box>
@@ -127,7 +128,7 @@
 							</box>
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="40" height="15"/>
-								<box>
+								<box leftPadding="1" rightPadding="1">
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
@@ -153,7 +154,7 @@
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="40" height="15" isRemoveLineWhenBlank="true">
 									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >2]]></printWhenExpression>
 								</reportElement>
-								<box>
+								<box leftPadding="1" rightPadding="1">
 									<pen lineWidth="0.0"/>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -279,12 +280,14 @@
 				</crosstabCell>
 			</crosstab>
 			<textField>
-				<reportElement x="0" y="15" width="555" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="0" y="15" width="555" height="15"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="197" y="0" width="358" height="15" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="197" y="0" width="358" height="15" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[!$P{CUSTOMER}.equals("leeuwenburg" )]]></printWhenExpression>
+				</reportElement>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_col}]]></textFieldExpression>
 			</textField>
