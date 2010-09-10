@@ -83,7 +83,7 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="0" y="95" width="555" height="20" isRemoveLineWhenBlank="true">
+				<reportElement positionType="Float" x="0" y="98" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{REPORT_TYPE}.equals("tables" )
  && $P{SPLIT_VALUE} ==null]]></printWhenExpression>
 				</reportElement>
