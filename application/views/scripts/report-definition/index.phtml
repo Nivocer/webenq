@@ -20,7 +20,7 @@
 				<th>id</th>
 				<th>groepeer-vraag</th>
 				<th>splits-vraag</th>
-				<th>bestandsnaam</th>
+				<th>bestandsnaam-basis</th>
 				<th>formaat</th>
 				<th>rapport-type</th>
 				<th>taal</th>
@@ -44,7 +44,7 @@
 						<?php echo (strlen($repDef->split_question_id) > 25) ? substr($repDef->split_question_id, 0, 22) . "..." : $repDef->split_question_id; ?>
 					</td>
 					<td>
-						<?php echo $repDef->output_filename; ?>.<?php echo $repDef->output_format; ?>
+						<?php echo $repDef->output_filename; ?>
 					</td>
 					<td>
 						<?php echo $repDef->output_format; ?>
