@@ -50,11 +50,12 @@ public class ExecuteReport {
 			Connection conn = connectDB(databaseName, userName, password);
 			InputStream inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
 			Map prms = new HashMap();
-	        //minus group...
+			prms.put("OUTPUT_DIR", output_dir);
+			//minus group...
 			//find out the group on rows and other report options
 			Statement stmt_rows=conn.createStatement();
 			stmt_rows.execute("select * from report_definitions where id='"+report_identifier+"'");
-
+			
 			ResultSet rs_repdef = stmt_rows.getResultSet();
 			rs_repdef.next();
 			String identifier=rs_repdef.getString("data_set_id");
@@ -72,14 +73,12 @@ public class ExecuteReport {
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
 			prms.put("CUSTOMER", customer);
-			//@todo ugly hack, semi hard/softcoded path to imageroot of zo
-			prms.put("IMAGE_PATH", "/home/jaapandre/workspace/hva-devel/public/");
 			stmt_rows.close();
 		
 			
 			//hva-fmb: >3.9=groen, 3.0 en 3.1: geel, <3 rood.
 			//coloring of the values in table report.
-			if (report_type.equals("tables")){
+			if (customer.equals("fraijlemaborg") && !report_type.equals("barcharts")){
 				Map color_range=new HashMap();
 				color_range.put("lowRed",new Double(1.0));
 				color_range.put("highRed",new Double(2.9999));
@@ -88,8 +87,7 @@ public class ExecuteReport {
 				color_range.put("lowGreen",new Double(3.9));
 				color_range.put("highGreen", new Double(5.0));
 				prms.put("COLOR_RANGE", color_range);
-			}
-			
+			}			
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";

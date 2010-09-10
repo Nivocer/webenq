@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="9"/>
-	<property name="ireport.y" value="81"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="145"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -17,8 +17,8 @@
 	<parameter name="MODULE_NAME" class="java.lang.String"/>
 	<parameter name="TEXTS" class="java.util.HashMap"/>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="IMAGE_PATH" class="java.lang.String"/>
 	<parameter name="COLOR_RANGE" class="java.util.HashMap"/>
+	<parameter name="OUTPUT_DIR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -39,13 +39,13 @@
 		</groupHeader>
 	</group>
 	<title>
-		<band height="70" splitType="Stretch">
+		<band height="61" splitType="Stretch">
 			<image hAlign="Right">
 				<reportElement x="355" y="0" width="200" height="60"/>
 				<imageExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/logo.png")]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="0" y="10" width="555" height="20" isRemoveLineWhenBlank="true">
+				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -54,19 +54,19 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="29" width="555" height="20"/>
+				<reportElement x="-1" y="20" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("period_of_research")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="49" width="555" height="20"/>
+				<reportElement x="0" y="40" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("type_report_"+$P{REPORT_TYPE})]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="125" splitType="Stretch">
+		<band height="118" splitType="Stretch">
 			<textField>
 				<reportElement positionType="Float" x="0" y="65" width="555" height="30" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && !$P{CUSTOMER}.equals("fraijlemaborg")]]></printWhenExpression>
@@ -83,33 +83,37 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="0" y="95" width="555" height="30" isRemoveLineWhenBlank="true">
+				<reportElement positionType="Float" x="0" y="95" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{REPORT_TYPE}.equals("tables" )
  && $P{SPLIT_VALUE} ==null]]></printWhenExpression>
 				</reportElement>
-				<textElement verticalAlignment="Top"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$F{response}+"\n"+
 $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="0" width="555" height="1" isRemoveLineWhenBlank="true">
+				<reportElement positionType="Float" x="0" y="0" width="555" height="1" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement positionType="Float" x="0" y="30" width="555" height="19" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{SPLIT_VALUE}.length()>0 && !$P{CUSTOMER}.equals("fraijlemaborg")]]></printWhenExpression>
+				<reportElement positionType="Float" x="0" y="30" width="555" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{SPLIT_VALUE}.length()>0]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="9" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_group") + $P{SPLIT_VALUE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="0" y="50" width="555" height="15" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && ! $P{CUSTOMER}.equals("fraijlemaborg")]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("text_report_introduction_"+$P{REPORT_TYPE})]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -184,9 +188,9 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Immediate">
+		<band height="20" splitType="Immediate">
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
+				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables")) || "NUMBER".equals($F{type})]]></printWhenExpression>
 				</reportElement>
 				<subreportParameter name="CUSTOMER">
@@ -226,31 +230,7 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="30" splitType="Stretch">
-			<textField evaluationTime="Report">
-				<reportElement x="526" y="10" width="29" height="20"/>
-				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="521" y="10" width="5" height="20" isRemoveLineWhenBlank="true"/>
-				<textElement verticalAlignment="Bottom"/>
-				<text><![CDATA[/]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="490" y="10" width="31" height="20"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="0" y="0" width="555" height="1"/>
-			</line>
-			<textField>
-				<reportElement x="193" y="3" width="216" height="20"/>
-				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band height="50">
