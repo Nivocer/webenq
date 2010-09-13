@@ -18,6 +18,7 @@
 	<parameter name="TEXTS" class="java.util.HashMap"/>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE" class="java.util.HashMap"/>
+	<parameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -207,6 +208,12 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 				</reportElement>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COLOR_RANGE_ALTERNATE">
+					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_ALTERNATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="GROUP_ID">
+					<subreportParameterExpression><![CDATA[$F{group_id}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE">
 					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE}]]></subreportParameterExpression>

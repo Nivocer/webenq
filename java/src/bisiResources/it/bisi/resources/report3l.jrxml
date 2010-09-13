@@ -7,6 +7,7 @@
 	<parameter name="TEXTS" class="java.util.Map" isForPrompting="false"/>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE" class="java.util.HashMap" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap"/>
 	<field name="row" class="java.lang.String"/>
 	<field name="col" class="java.lang.String"/>
 	<field name="title_row" class="java.lang.String"/>
@@ -49,11 +50,14 @@
 				<crosstabParameter name="GROUP_ROWS_C">
 					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
 				</crosstabParameter>
-				<crosstabParameter name="CUSTOMER_C">
+				<crosstabParameter name="CUSTOMER">
 					<parameterValueExpression><![CDATA[$P{CUSTOMER}]]></parameterValueExpression>
 				</crosstabParameter>
 				<crosstabParameter name="COLOR_RANGE_C" class="java.util.HashMap">
 					<parameterValueExpression><![CDATA[$P{COLOR_RANGE}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_ALTERNATE}]]></parameterValueExpression>
 				</crosstabParameter>
 				<parametersMapExpression><![CDATA[$P{TEXTS}]]></parametersMapExpression>
 				<crosstabHeaderCell>
@@ -183,24 +187,34 @@
 					<measureExpression><![CDATA[$P{CUSTOMER}]]></measureExpression>
 				</measure>
 				<measure name="lowGreen" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("leeuwenaburg") ? $P{COLOR_RANGE}.get("lowGreen" ):4.0)
-]]></measureExpression>
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ? $P{COLOR_RANGE}.get("lowGreen" ):$P{COLOR_RANGE_ALTERNATE}.get("lowGreen" ) )]]></measureExpression>
 				</measure>
 				<measure name="highGreen" class="java.lang.Double">
-					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highGreen" )]]></measureExpression>
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highGreen" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highGreen" ) )]]></measureExpression>
 				</measure>
 				<measure name="lowYellow" class="java.lang.Double">
-					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("lowYellow" )]]></measureExpression>
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("lowYellow" ) :     $P{COLOR_RANGE_ALTERNATE}.get("lowYellow" ) )]]></measureExpression>
 				</measure>
 				<measure name="highYellow" class="java.lang.Double">
-					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highYellow" )]]></measureExpression>
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highYellow" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highYellow" ) )]]></measureExpression>
 				</measure>
 				<measure name="lowRed" class="java.lang.Double">
-					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("lowRed" )]]></measureExpression>
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("lowRed" ) :     $P{COLOR_RANGE_ALTERNATE}.get("lowRed" ) )]]></measureExpression>
 				</measure>
 				<measure name="highRed" class="java.lang.Double">
-					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highRed" )]]></measureExpression>
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highRed" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highRed" ) )]]></measureExpression>
 				</measure>
+
+<measure name="lowWhite" class="java.lang.Double">
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ? $P{COLOR_RANGE}.get("lowWhite" ):$P{COLOR_RANGE_ALTERNATE}.get("lowWhite" ) )]]></measureExpression>
+				</measure>
+				<measure name="highWhite" class="java.lang.Double">
+					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highWhite" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highWhite" ) )]]></measureExpression>
+				</measure>
+
+
+
+
 				<crosstabCell width="15" height="10">
 					<cellContents>
 						<box>
@@ -211,17 +225,6 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<elementGroup>
-							<textField pattern="###0.0">
-								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
-								<box>
-									<leftPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
-								<textElement verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
-							</textField>
 							<textField pattern="###0.0">
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#FF0000">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowRed} && $V{valMeasure} <=$V{highRed}]]></printWhenExpression>
@@ -238,6 +241,19 @@
 							<textField pattern="###0.0">
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" backcolor="#FFFF00">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowYellow} && $V{valMeasure} <=$V{highYellow}]]></printWhenExpression>
+								</reportElement>
+								<box>
+									<leftPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
+							</textField>
+							<textField pattern="###0.0">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF">
+									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowWhite} && $V{valMeasure} <=$V{highWhite}]]></printWhenExpression>
 								</reportElement>
 								<box>
 									<leftPen lineWidth="0.5"/>
@@ -300,17 +316,6 @@
 						</box>
 						<elementGroup>
 							<textField pattern="###0.0">
-								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
-								<box>
-									<leftPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
-								<textElement verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
-							</textField>
-							<textField pattern="###0.0">
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#FF0000">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowRed} && $V{valMeasure} <=$V{highRed}]]></printWhenExpression>
 								</reportElement>
@@ -327,6 +332,17 @@
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" backcolor="#FFFF00">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowYellow} && $V{valMeasure} <=$V{highYellow}]]></printWhenExpression>
 								</reportElement>
+								<box>
+									<leftPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
+							</textField>
+							<textField pattern="###0.0">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
 								<box>
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
