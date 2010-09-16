@@ -7,7 +7,7 @@
 	<parameter name="TEXTS" class="java.util.Map" isForPrompting="false"/>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE" class="java.util.HashMap" isForPrompting="false"/>
-	<parameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap"/>
+	<parameter name="GROUP_ID" class="java.lang.Integer"/>
 	<field name="row" class="java.lang.String"/>
 	<field name="col" class="java.lang.String"/>
 	<field name="title_row" class="java.lang.String"/>
@@ -52,12 +52,6 @@
 				</crosstabParameter>
 				<crosstabParameter name="CUSTOMER">
 					<parameterValueExpression><![CDATA[$P{CUSTOMER}]]></parameterValueExpression>
-				</crosstabParameter>
-				<crosstabParameter name="COLOR_RANGE_C" class="java.util.HashMap">
-					<parameterValueExpression><![CDATA[$P{COLOR_RANGE}]]></parameterValueExpression>
-				</crosstabParameter>
-				<crosstabParameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap">
-					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_ALTERNATE}]]></parameterValueExpression>
 				</crosstabParameter>
 				<parametersMapExpression><![CDATA[$P{TEXTS}]]></parametersMapExpression>
 				<crosstabHeaderCell>
@@ -187,34 +181,29 @@
 					<measureExpression><![CDATA[$P{CUSTOMER}]]></measureExpression>
 				</measure>
 				<measure name="lowGreen" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ? $P{COLOR_RANGE}.get("lowGreen" ):$P{COLOR_RANGE_ALTERNATE}.get("lowGreen" ) )]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("lowGreen" )]]></measureExpression>
 				</measure>
 				<measure name="highGreen" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highGreen" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highGreen" ) )]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highGreen" )]]></measureExpression>
 				</measure>
 				<measure name="lowYellow" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("lowYellow" ) :     $P{COLOR_RANGE_ALTERNATE}.get("lowYellow" ) )]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("lowYellow" )]]></measureExpression>
 				</measure>
 				<measure name="highYellow" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highYellow" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highYellow" ) )]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highYellow" )]]></measureExpression>
 				</measure>
 				<measure name="lowRed" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("lowRed" ) :     $P{COLOR_RANGE_ALTERNATE}.get("lowRed" ) )]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("lowRed" )]]></measureExpression>
 				</measure>
 				<measure name="highRed" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highRed" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highRed" ) )]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highRed" )]]></measureExpression>
 				</measure>
-
-<measure name="lowWhite" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ? $P{COLOR_RANGE}.get("lowWhite" ):$P{COLOR_RANGE_ALTERNATE}.get("lowWhite" ) )]]></measureExpression>
+				<measure name="lowWhite" class="java.lang.Double">
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("lowWhite" )]]></measureExpression>
 				</measure>
 				<measure name="highWhite" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("aleeuwenburg") ?     $P{COLOR_RANGE}.get("highWhite" ) :     $P{COLOR_RANGE_ALTERNATE}.get("highWhite" ) )]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highWhite" )]]></measureExpression>
 				</measure>
-
-
-
-
 				<crosstabCell width="15" height="10">
 					<cellContents>
 						<box>

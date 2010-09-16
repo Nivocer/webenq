@@ -68,7 +68,8 @@ public class ExecuteReport {
 			String language = rs_repdef.getString("language");
 			String customer = rs_repdef.getString("customer");
 			String page_orientation = rs_repdef.getString("page"); 
-				
+			
+			prms.put("DATA_SET_ID", identifier);
 			prms.put("GROUP_ROWS", group_rows);
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
@@ -78,16 +79,57 @@ public class ExecuteReport {
 			
 			//hva-fmb: >3.9=groen, 3.0 en 3.1: geel, <3 rood.
 			//coloring of the values in table report.
+			Map color_range=new HashMap();
 			if (customer.equals("fraijlemaborg") && !report_type.equals("barcharts")){
-				Map color_range=new HashMap();
 				color_range.put("lowRed",new Double(1.0));
 				color_range.put("highRed",new Double(2.9999));
 				color_range.put("lowYellow",new Double(3.0));
-				color_range.put("highYellow",new Double(3.1));
+				color_range.put("highYellow",new Double(3.0999));
+				color_range.put("lowWhite",new Double(3.1));
+				color_range.put("highWhite", new Double(3.8999));
+				color_range.put("lowGreen",new Double(3.9));
+				color_range.put("highGreen", new Double(5.0));			
+			}else {
+				//default
+				color_range.put("lowRed",new Double(1.0));
+				color_range.put("highRed",new Double(2.9999));
+				color_range.put("lowYellow",new Double(3.0));
+				color_range.put("highYellow",new Double(3.0999));
+				color_range.put("lowWhite",new Double(3.1));
+				color_range.put("highWhite", new Double(3.8999));
 				color_range.put("lowGreen",new Double(3.9));
 				color_range.put("highGreen", new Double(5.0));
-				prms.put("COLOR_RANGE", color_range);
-			}			
+			}
+			prms.put("COLOR_RANGE", color_range);
+			//Alternate color range eg for special table (extremes negative, center green) LWB
+			// determination of use of color_range of color_range alternate is on:
+			// report1l.jrxml -> details -> right jrxml (report3l.jrxml)-> parameters:
+			 //$F{group_id}.equals(5)? $P{COLOR_RANGE_ALTERNATE}: $P{COLOR_RANGE}
+			//we plot red first, above it yellow, above it white, above it green
+			
+			Map color_range_alternate=new HashMap();
+			if (customer.equals("leeuwenburg")){
+				color_range_alternate.put("lowRed",new Double(1.0));
+				color_range_alternate.put("highRed",new Double(5.0));
+				color_range_alternate.put("lowYellow",new Double(1.5));
+				color_range_alternate.put("highYellow",new Double(4.5));
+				color_range_alternate.put("lowWhite",new Double(0.0));
+				color_range_alternate.put("highWhite", new Double(0.0));
+				color_range_alternate.put("lowGreen",new Double(2.5));
+				color_range_alternate.put("highGreen", new Double(3.5));
+			} else {
+				//default
+				color_range_alternate.put("lowRed",new Double(1.0));
+				color_range_alternate.put("highRed",new Double(5.0));
+				color_range_alternate.put("lowYellow",new Double(2.0));
+				color_range_alternate.put("highYellow",new Double(4.0));
+				color_range_alternate.put("lowWhite",new Double(0.0));
+				color_range_alternate.put("highWhite", new Double(0.0));
+				color_range_alternate.put("lowGreen",new Double(2.75));
+				color_range_alternate.put("highGreen", new Double(3.25));
+			}
+			prms.put("COLOR_RANGE_ALTERNATE", color_range_alternate);
+			
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";
