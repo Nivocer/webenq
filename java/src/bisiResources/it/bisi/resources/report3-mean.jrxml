@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="595" pageHeight="100" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="595" pageHeight="80" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="528"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
-	<parameter name="TEXTS" class="java.util.Map" isForPrompting="false"/>
+	<parameter name="TEXTS" class="java.util.HashMap" isForPrompting="false"/>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE" class="java.util.HashMap" isForPrompting="false"/>
 	<field name="row" class="java.lang.String"/>
@@ -48,6 +48,9 @@
 					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
 				</crosstabParameter>
 				<crosstabParameter name="COLOR_RANGE_C" class="java.util.HashMap"/>
+				<crosstabParameter name="TEXTS_C" class="java.util.HashMap">
+					<parameterValueExpression><![CDATA[$P{TEXTS}]]></parameterValueExpression>
+				</crosstabParameter>
 				<crosstabHeaderCell>
 					<cellContents>
 						<box>
@@ -154,7 +157,7 @@
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Top">
+								<textElement textAlignment="Center" verticalAlignment="Top" markup="none">
 									<font size="8" isBold="true"/>
 								</textElement>
 								<text><![CDATA[Totaal]]></text>
