@@ -66,14 +66,14 @@
 				<crosstabHeaderCell>
 					<cellContents>
 						<box>
-							<topPen lineWidth="0.5"/>
+							<topPen lineWidth="0.0"/>
 							<leftPen lineWidth="0.0"/>
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
 					</cellContents>
 				</crosstabHeaderCell>
-				<rowGroup name="row" width="280" totalPosition="End">
+				<rowGroup name="row" width="314" totalPosition="End">
 					<bucket>
 						<bucketExpression class="java.lang.String"><![CDATA[$F{row}]]></bucketExpression>
 					</bucket>
@@ -87,7 +87,7 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="280" height="15"/>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="314" height="15"/>
 								<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -95,7 +95,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font size="8" isStrikeThrough="false"/>
+									<font size="7" isStrikeThrough="false"/>
 								</textElement>
 								<textFieldExpression class="java.lang.String"><![CDATA[$V{row}]]></textFieldExpression>
 							</textField>
@@ -170,24 +170,22 @@
 				<measure name="question_fieldMeasure" class="java.lang.Object" calculation="First">
 					<measureExpression><![CDATA[$F{question_field}]]></measureExpression>
 				</measure>
-				<crosstabCell width="250" height="15">
+				<crosstabCell width="214" height="15">
 					<cellContents>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-							<topPen lineWidth="0.0"/>
-							<leftPen lineWidth="0.0"/>
-							<bottomPen lineWidth="0.0"/>
-							<rightPen lineWidth="0.0"/>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
 						</box>
 						<elementGroup>
 							<image vAlign="Middle" isUsingCache="false" onErrorType="Blank">
-								<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="250" height="15">
+								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="214" height="15">
 									<printWhenExpression><![CDATA[$P{SPLIT_VALUE}.equals(null)]]></printWhenExpression>
 								</reportElement>
-								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5">
-									<topPen lineWidth="0.0"/>
+								<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
 									<leftPen lineWidth="0.0"/>
-									<bottomPen lineWidth="0.0"/>
 									<rightPen lineWidth="0.0"/>
 								</box>
 								<imageExpression class="java.lang.String"><![CDATA[$P{OUTPUT_DIR}+
@@ -198,13 +196,11 @@ $V{question_fieldMeasure}+
 ".png"]]></imageExpression>
 							</image>
 							<image hAlign="Center" vAlign="Middle" isUsingCache="false" onErrorType="Blank">
-								<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="250" height="15">
+								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="214" height="15">
 									<printWhenExpression><![CDATA[!$P{SPLIT_VALUE}.equals(null)]]></printWhenExpression>
 								</reportElement>
 								<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
-									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.0"/>
-									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.0"/>
 								</box>
 								<imageExpression class="java.lang.String"><![CDATA[$P{OUTPUT_DIR}+
@@ -219,7 +215,7 @@ $P{SPLIT_VALUE}.toLowerCase()+
 						</elementGroup>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="250" height="0" rowTotalGroup="row">
+				<crosstabCell width="214" height="0" rowTotalGroup="row">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>

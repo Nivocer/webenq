@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="145"/>
+	<property name="ireport.x" value="681"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -37,6 +37,9 @@
 		<groupHeader>
 			<band/>
 		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
 	</group>
 	<title>
 		<band height="61" splitType="Stretch">
@@ -76,7 +79,7 @@
 $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 			</textField>
 			<textField pattern="yyyy-MM-dd">
-				<reportElement positionType="Float" x="69" y="75" width="485" height="15" isRemoveLineWhenBlank="true">
+				<reportElement positionType="Float" x="69" y="75" width="486" height="15" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && !$P{CUSTOMER}.equals("fraijlemaborg")]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
@@ -188,7 +191,7 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Immediate">
+		<band height="21" splitType="Immediate">
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables")) || "NUMBER".equals($F{type})]]></printWhenExpression>
@@ -229,36 +232,64 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 			</subreport>
 		</band>
 	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch"/>
+		<band height="30" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="9" width="555" height="1" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[!$P{TEXTS}.get("footer_title_"+$P{REPORT_TYPE}).equals(null)]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="10" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("footer_title_"+$P{REPORT_TYPE})]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="50">
 			<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals("tables" )]]></printWhenExpression>
-			<textField>
-				<reportElement x="32" y="32" width="216" height="15" isRemoveLineWhenBlank="true"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_negative")]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="32" y="16" width="216" height="15" isRemoveLineWhenBlank="true"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_middle")]]></textFieldExpression>
-			</textField>
-			<rectangle>
-				<reportElement x="5" y="32" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#C80000"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFF00"/>
-			</rectangle>
-			<rectangle>
-				<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00FF00"/>
-			</rectangle>
-			<textField>
-				<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_positive")]]></textFieldExpression>
-			</textField>
+			<elementGroup>
+				<textField>
+					<reportElement x="32" y="32" width="216" height="15" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals( "tables" )]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_negative")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="32" y="16" width="216" height="15" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals( "tables" )]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_middle")]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement x="5" y="32" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#C80000">
+						<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals( "tables" )]]></printWhenExpression>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="5" y="16" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#FFFF00">
+						<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals( "tables" )]]></printWhenExpression>
+					</reportElement>
+				</rectangle>
+				<rectangle>
+					<reportElement x="5" y="0" width="24" height="13" isRemoveLineWhenBlank="true" backcolor="#00FF00">
+						<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals( "tables" )]]></printWhenExpression>
+					</reportElement>
+				</rectangle>
+				<textField>
+					<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true">
+						<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals( "tables" )]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_positive")]]></textFieldExpression>
+				</textField>
+			</elementGroup>
 		</band>
 	</summary>
 </jasperReport>
