@@ -75,20 +75,28 @@ public class ExecuteReport {
 			prms.put("REPORT_TYPE", report_type);
 			prms.put("CUSTOMER", customer);
 			stmt_rows.close();
-		
-			
+
 			//hva-fmb: >3.9=groen, 3.0 en 3.1: geel, <3 rood.
 			//coloring of the values in table report.
 			Map color_range=new HashMap();
-			if (customer.equals("fraijlemaborg") && !report_type.equals("barcharts")){
+			if (customer.equals("fraijlemaborg") && report_type.equals("barcharts")){
+				color_range.put("lowRed",new Double(0.0));
+				color_range.put("highRed",new Double(0.0));
+				color_range.put("lowYellow",new Double(0.0));
+				color_range.put("highYellow",new Double(0.0));
+				color_range.put("lowWhite",new Double(1.0));
+				color_range.put("highWhite", new Double(5.0));
+				color_range.put("lowGreen",new Double(0.0));
+				color_range.put("highGreen", new Double(0.0));
+			}else if (customer.equals("fraijlemaborg") && report_type.equals("tables")){
 				color_range.put("lowRed",new Double(1.0));
-				color_range.put("highRed",new Double(2.9999));
-				color_range.put("lowYellow",new Double(3.0));
-				color_range.put("highYellow",new Double(3.0999));
-				color_range.put("lowWhite",new Double(3.1));
-				color_range.put("highWhite", new Double(3.8999));
-				color_range.put("lowGreen",new Double(3.9));
-				color_range.put("highGreen", new Double(5.0));			
+				color_range.put("highRed",new Double(2.999));
+				color_range.put("lowYellow",new Double(0.0));
+				color_range.put("highYellow",new Double(0.0));
+				color_range.put("lowWhite",new Double(1.0));
+				color_range.put("highWhite", new Double(5.0));
+				color_range.put("lowGreen",new Double(4.0));
+				color_range.put("highGreen", new Double(5.0));
 			}else {
 				//default
 				color_range.put("lowRed",new Double(1.0));
@@ -195,6 +203,17 @@ public class ExecuteReport {
 					String split_value=rs_rows_values.getString("split_values");
 					//needed for displaying content
 					prms.put("SPLIT_VALUE", split_value);
+					
+					//response (not percentage, but number of respondents in this report)
+					Statement stmt_response=conn.createStatement();
+					String response_query="select count(*) as response from values_"+identifier+" where "+split_question_id+" is like "+split_value;
+					stmt_response.execute(response_query);
+					ResultSet rs_response = stmt_response.getResultSet();
+					rs_response.next();
+					String response=rs_response.getString("response");
+					prms.put("RESPONSE",response);
+					stmt_response.close();
+					
 
 					//ugly hack voor fraijlemaborg om groepinformatie in rapport te krijgen.
 					//alleen voor onderwijsevaluatie datasetid/identifier=50
@@ -242,6 +261,18 @@ public class ExecuteReport {
 					}
 				}
 			}else{
+				//no split value
+				//response (not percentage, but number of respondents in this report)
+				Statement stmt_response=conn.createStatement();
+				String response_query="select count(*) as response from values_"+identifier;
+				stmt_response.execute(response_query);
+				ResultSet rs_response = stmt_response.getResultSet();
+				rs_response.next();
+				String response=rs_response.getString("response");
+				prms.put("RESPONSE",response);
+				stmt_response.close();
+				
+
 				if (page_orientation != null && page_orientation.equals("landscape")) {
 					inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1l.jasper");
 				}else{
