@@ -219,8 +219,8 @@
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowRed} && $V{valMeasure} <=$V{highRed}]]></printWhenExpression>
 								</reportElement>
 								<box>
-									<leftPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5" lineColor="#000000"/>
+									<rightPen lineWidth="0.5" lineColor="#000000"/>
 								</box>
 								<textElement verticalAlignment="Middle">
 									<font size="8"/>
