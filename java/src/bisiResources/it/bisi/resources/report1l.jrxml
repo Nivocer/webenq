@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="45"/>
-	<property name="ireport.y" value="223"/>
+	<property name="ireport.y" value="79"/>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -21,6 +21,7 @@
 	<parameter name="DATA_SET_ID" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap"/>
 	<parameter name="RESPONSE" class="java.lang.String"/>
+	<parameter name="SPLIT_QUESTION_ID" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -105,8 +106,7 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$P{RESPONSE}
-]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$P{RESPONSE}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="Float" x="0" y="0" width="802" height="1">
@@ -120,7 +120,7 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_group") + $P{SPLIT_VALUE}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[(!$P{TEXTS}.get($P{SPLIT_QUESTION_ID}).equals(null)   ?$P{TEXTS}.get($P{SPLIT_QUESTION_ID}) :$P{TEXTS}.get("label_group"))+": "+ $P{SPLIT_VALUE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="50" width="802" height="15" isRemoveLineWhenBlank="true">

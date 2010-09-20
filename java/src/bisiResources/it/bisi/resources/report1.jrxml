@@ -9,6 +9,7 @@
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
 	<parameter name="GROUP_ROWS" class="java.lang.String"/>
 	<parameter name="GROUP_ROWS_VALUE" class="java.lang.String"/>
+	<parameter name="SPLIT_QUESTION_ID" class="java.lang.String"/>
 	<parameter name="SPLIT_VALUE" class="java.lang.String"/>
 	<parameter name="REPORT_TYPE" class="java.lang.String"/>
 	<parameter name="GROUP_NAME" class="java.lang.String"/>
@@ -151,7 +152,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="9" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_group") + $P{SPLIT_VALUE}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[(!$P{TEXTS}.get($P{SPLIT_QUESTION_ID}).equals(null)   ?$P{TEXTS}.get($P{SPLIT_QUESTION_ID}) :$P{TEXTS}.get("label_group"))+": "+ $P{SPLIT_VALUE}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement positionType="Float" x="0" y="36" width="555" height="12" isRemoveLineWhenBlank="true">
@@ -184,12 +185,11 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				<textElement verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$P{RESPONSE}
-]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$P{RESPONSE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="Float" x="0" y="82" width="555" height="10" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==-1 && $P{SPLIT_VALUE}.equals(null) ]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==-1 && $P{SPLIT_VALUE}.equals(null)]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top">
 					<font size="8"/>
