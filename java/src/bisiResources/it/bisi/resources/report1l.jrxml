@@ -20,6 +20,7 @@
 	<parameter name="COLOR_RANGE" class="java.util.HashMap"/>
 	<parameter name="DATA_SET_ID" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap"/>
+	<parameter name="RESPONSE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -100,13 +101,12 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="0" y="95" width="802" height="30" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{REPORT_TYPE}.equals("tables" )
- && $P{SPLIT_VALUE} ==null]]></printWhenExpression>
+				<reportElement positionType="Float" x="0" y="95" width="802" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$F{response}+"\n"+
-$P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_number_of_respondents")+$P{RESPONSE}
+]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement positionType="Float" x="0" y="0" width="802" height="1">
@@ -194,6 +194,14 @@ $P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpres
 				</reportElement>
 				<textElement verticalAlignment="Top"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{DOCENT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="110" width="802" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==-1 && $P{REPORT_TYPE}.equals("tables" )
+ && $P{SPLIT_VALUE} ==null]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
