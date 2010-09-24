@@ -74,6 +74,7 @@ public class ExecuteReport {
 			prms.put("REPORT_IDENTIFIER", report_identifier);
 			prms.put("REPORT_TYPE", report_type);
 			prms.put("CUSTOMER", customer);
+			prms.put("SPLIT_QUESTION_ID", split_question_id );
 			stmt_rows.close();
 
 			//hva-fmb: >3.9=groen, 3.0 en 3.1: geel, <3 rood.
@@ -206,7 +207,7 @@ public class ExecuteReport {
 					
 					//response (not percentage, but number of respondents in this report)
 					Statement stmt_response=conn.createStatement();
-					String response_query="select count(*) as response from values_"+identifier+" where "+split_question_id+" is like "+split_value;
+					String response_query="select count(*) as response from values_"+identifier+" where "+split_question_id+" like '"+split_value+"'";
 					stmt_response.execute(response_query);
 					ResultSet rs_response = stmt_response.getResultSet();
 					rs_response.next();
