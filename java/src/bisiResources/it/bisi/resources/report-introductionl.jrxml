@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report introduction (frontpage+intro)" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="772" leftMargin="35" rightMargin="35" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1"/>
+	<parameter name="QUERY" class="java.lang.String"/>
+	<parameter name="TEXTS" class="java.util.HashMap" isForPrompting="false"/>
+	<parameter name="REPORT_TYPE" class="java.lang.String"/>
+	<parameter name="CUSTOMER" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[$P!{QUERY}]]>
+	</queryString>
+	<field name="split_value" class="java.lang.String"/>
+	<field name="dataset_id" class="java.lang.String"/>
+	<field name="population" class="java.lang.Double"/>
+	<field name="response" class="java.lang.Double"/>
+	<field name="period_id" class="java.lang.String"/>
+	<variable name="responsepercentage" class="java.lang.Double" resetType="Group" resetGroup="Opleiding">
+		<variableExpression><![CDATA[$F{response}/$F{population}]]></variableExpression>
+	</variable>
+	<group name="Opleiding" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{split_value}]]></groupExpression>
+		<groupHeader>
+			<band height="120">
+				<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.equals(1)]]></printWhenExpression>
+				<break>
+					<reportElement positionType="FixRelativeToBottom" x="0" y="119" width="100" height="1"/>
+				</break>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="FixRelativeToBottom" x="0" y="45" width="772" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get( "title_page_text1_"+$P{REPORT_TYPE} )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement mode="Opaque" x="236" y="100" width="300" height="20" forecolor="#FFFFFF" backcolor="#2E1B96"/>
+					<box topPadding="15" leftPadding="15" bottomPadding="15" rightPadding="15">
+						<topPen lineColor="#0000FF"/>
+						<leftPen lineColor="#0000FF"/>
+						<bottomPen lineColor="#0000FF"/>
+						<rightPen lineColor="#0000FF"/>
+					</box>
+					<textElement textAlignment="Center" markup="styled">
+						<font fontName="SansSerif" size="18" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("title_page_title_"+$P{REPORT_TYPE} )+"\n\n"+
+($F{split_value}.indexOf("_")>0?
+    $F{split_value}.split("_")[0]+"\n"+$F{split_value}.split("_")[1]:
+    $F{split_value})]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="40">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="10" width="772" height="15"/>
+					<textElement verticalAlignment="Bottom" markup="html">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get( "introduction_page_text1_"+$P{REPORT_TYPE} )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="0" y="25" width="200" height="15" isPrintWhenDetailOverflows="true"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement markup="none">
+						<font fontName="SansSerif" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("introduction_page_research_title" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="200" y="25" width="75" height="15" isPrintWhenDetailOverflows="true"/>
+					<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("introduction_page_response" )]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement positionType="Float" x="275" y="25" width="75" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+						<printWhenExpression><![CDATA[$F{population}>0]]></printWhenExpression>
+					</reportElement>
+					<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" markup="none">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("introduction_page_response" )+"%"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="15" width="772" height="15" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<textElement markup="html">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get( "introduction_page_text2_"+$P{REPORT_TYPE} )]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="60" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.equals( 1 )]]></printWhenExpression>
+			<image hAlign="Center">
+				<reportElement x="0" y="0" width="772" height="60"/>
+				<imageExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/logo.png")]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="###0">
+				<reportElement x="200" y="0" width="75" height="15"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{response}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.0 %">
+				<reportElement x="275" y="0" width="75" height="15">
+					<printWhenExpression><![CDATA[$F{population}>0]]></printWhenExpression>
+				</reportElement>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[($F{population}>0?$V{responsepercentage}:"")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="200" height="15"/>
+				<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get( "dataset_title_"+$F{dataset_id})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
