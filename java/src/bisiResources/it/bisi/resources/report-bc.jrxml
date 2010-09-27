@@ -182,7 +182,7 @@
 						<elementGroup>
 							<image vAlign="Middle" isUsingCache="false" onErrorType="Blank">
 								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="214" height="15">
-									<printWhenExpression><![CDATA[$P{SPLIT_VALUE}.equals(null)]]></printWhenExpression>
+									<printWhenExpression><![CDATA[$P{SPLIT_VALUE}.equals( "")]]></printWhenExpression>
 								</reportElement>
 								<box topPadding="1" leftPadding="2" bottomPadding="1" rightPadding="2">
 									<leftPen lineWidth="0.0"/>

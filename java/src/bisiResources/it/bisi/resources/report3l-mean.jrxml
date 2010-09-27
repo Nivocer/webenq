@@ -215,6 +215,19 @@
 						</box>
 						<elementGroup>
 							<textField pattern="###0.0">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF">
+									<printWhenExpression><![CDATA[!$V{valMeasure}.equals(null)]]></printWhenExpression>
+								</reportElement>
+								<box>
+									<leftPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
+							</textField>
+							<textField pattern="###0.0">
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#FF0000">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowRed} && $V{valMeasure} <=$V{highRed}]]></printWhenExpression>
 								</reportElement>
@@ -230,19 +243,6 @@
 							<textField pattern="###0.0">
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" backcolor="#FFFF00">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowYellow} && $V{valMeasure} <=$V{highYellow}]]></printWhenExpression>
-								</reportElement>
-								<box>
-									<leftPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
-								<textElement verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
-							</textField>
-							<textField pattern="###0.0">
-								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF">
-									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowWhite} && $V{valMeasure} <=$V{highWhite}]]></printWhenExpression>
 								</reportElement>
 								<box>
 									<leftPen lineWidth="0.5"/>
@@ -305,6 +305,19 @@
 						</box>
 						<elementGroup>
 							<textField pattern="###0.0">
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF">
+									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
+								</reportElement>
+								<box>
+									<leftPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
+							</textField>
+							<textField pattern="###0.0">
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" backcolor="#FF0000">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowRed} && $V{valMeasure} <=$V{highRed}]]></printWhenExpression>
 								</reportElement>
@@ -321,17 +334,6 @@
 								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" backcolor="#FFFF00">
 									<printWhenExpression><![CDATA[$V{valMeasure} >= $V{lowYellow} && $V{valMeasure} <=$V{highYellow}]]></printWhenExpression>
 								</reportElement>
-								<box>
-									<leftPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
-								<textElement verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression class="java.lang.Double"><![CDATA[$V{valMeasure}]]></textFieldExpression>
-							</textField>
-							<textField pattern="###0.0">
-								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="15" height="10" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#FFFFFF"/>
 								<box>
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
