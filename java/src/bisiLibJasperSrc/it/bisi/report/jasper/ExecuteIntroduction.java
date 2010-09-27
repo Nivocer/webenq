@@ -55,7 +55,7 @@ public class ExecuteIntroduction {
 			
 			//hardcoded....
 			String language;
-			if (period_identifier.equals("3") || period_identifier.equals("5")){
+			if (period_identifier.equals("3") || period_identifier.equals("5") || period_identifier.equals("7")){
 					language="en";
 			}else{
 				language = "nl";
@@ -68,9 +68,14 @@ public class ExecuteIntroduction {
 			if (period_identifier.equals("5") || period_identifier.equals("4")){
 				output_file_name+="2";
 			}
+			if (period_identifier.equals("6") || period_identifier.equals("7")){
+				output_file_name+="_"+language;
+			}
 			
 			prms.put("REPORT_TYPE", report_type);
 			prms.put("CUSTOMER", customer);
+			prms.put("PERIOD_IDENTIFIER",period_identifier);
+			prms.put("LANGUAGE", language);
 			
 				
 			/* get key/value pairs for current language/customer-combination */
@@ -132,6 +137,7 @@ public class ExecuteIntroduction {
 			
 			
 			if (split_row_count>0 ) {
+				//we have at least one row.... but for now we want to use this one, the no split value gives an error...
 				while (rs_rows_values.next()) {
 					String split_value=rs_rows_values.getString("split_values");
 					//needed for displaying content
@@ -168,7 +174,9 @@ public class ExecuteIntroduction {
 				}
 			}else{
 				//no split value
+				// throws error unkown 'column name title' by generation of introduction (6,7) 
 				//response (not percentage, but number of respondents in this report)
+			   
 				String query="select * from population" +
 					" where period_id="+period_identifier;
 				prms.put("QUERY", query);
