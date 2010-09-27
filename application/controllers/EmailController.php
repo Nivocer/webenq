@@ -342,7 +342,10 @@ class EmailController extends Zend_Controller_Action
     	if ($test->use == "1") {
     		$mail->addTo($test->address, $test->address);
     	} else {
-			$mail->addTo($report->email, $report->teacher)
+	    	/* cannot send without email address */
+	    	if (!$report->email) return false;
+	    	
+    		$mail->addTo($report->email, $report->teacher)
 				->addBcc($test->address, $test->address);
     	}
     	$mail->send();
