@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="80" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="231"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
 	<parameter name="TEXTS" class="java.util.HashMap" isForPrompting="false"/>
@@ -83,7 +83,7 @@
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="7" isStrikeThrough="false"/>
 								</textElement>
-								<textFieldExpression class="java.lang.String"><![CDATA[$V{row}]]></textFieldExpression>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{ROW_COUNT}+") "+$V{row}]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>

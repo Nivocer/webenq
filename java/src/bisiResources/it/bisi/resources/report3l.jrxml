@@ -86,7 +86,7 @@
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="7" isStrikeThrough="false"/>
 								</textElement>
-								<textFieldExpression class="java.lang.String"><![CDATA[$V{row}]]></textFieldExpression>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{ROW_COUNT}+") "+$V{row}]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>
