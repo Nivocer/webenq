@@ -49,8 +49,8 @@
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("title_page_title_"+$P{REPORT_TYPE} )+"\n\n"+
 ($F{split_value}.indexOf("_")>0?
-    $F{split_value}.split("_")[0]+"\n"+$F{split_value}.split("_")[1]:
-    $F{split_value})+
+    $P{TEXTS}.get(( $F{split_value}.split("_")[0]))+"\n"+$F{split_value}.split("_")[1]:
+    $P{TEXTS}.get( $F{split_value}))+
 $P{TEXTS}.get("title_page_title_subtitle_"+$P{PERIOD_IDENTIFIER})]]></textFieldExpression>
 				</textField>
 			</band>
