@@ -172,7 +172,7 @@
 					<measureExpression><![CDATA[$F{col}]]></measureExpression>
 				</measure>
 				<measure name="lowGreen" class="java.lang.Double">
-					<measureExpression><![CDATA[( $P{CUSTOMER}.equals("leeuwenaburg") ? $P{COLOR_RANGE}.get("lowGreen" ):4.0)]]></measureExpression>
+					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("lowGreen" )]]></measureExpression>
 				</measure>
 				<measure name="highGreen" class="java.lang.Double">
 					<measureExpression><![CDATA[$P{COLOR_RANGE}.get("highGreen" )]]></measureExpression>

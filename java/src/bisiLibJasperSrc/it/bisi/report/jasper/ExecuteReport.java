@@ -79,6 +79,7 @@ public class ExecuteReport {
 
 			//hva-fmb: >3.9=groen, 3.0 en 3.1: geel, <3 rood.
 			//coloring of the values in table report.
+			//test in ireport is >=
 			Map color_range=new HashMap();
 			if (customer.equals("fraijlemaborg") && report_type.equals("barcharts")){
 				color_range.put("lowRed",new Double(0.0));
@@ -91,12 +92,12 @@ public class ExecuteReport {
 				color_range.put("highGreen", new Double(0.0));
 			}else if (customer.equals("fraijlemaborg") && report_type.equals("tables")){
 				color_range.put("lowRed",new Double(1.0));
-				color_range.put("highRed",new Double(2.999));
+				color_range.put("highRed",new Double(3.04999));
 				color_range.put("lowYellow",new Double(0.0));
 				color_range.put("highYellow",new Double(0.0));
 				color_range.put("lowWhite",new Double(1.0));
 				color_range.put("highWhite", new Double(5.0));
-				color_range.put("lowGreen",new Double(4.0));
+				color_range.put("lowGreen",new Double(3.95));
 				color_range.put("highGreen", new Double(5.0));
 			}else {
 				//default
@@ -110,6 +111,7 @@ public class ExecuteReport {
 				color_range.put("highGreen", new Double(5.0));
 			}
 			prms.put("COLOR_RANGE", color_range);
+			System.out.println(color_range);
 			//Alternate color range eg for special table (extremes negative, center green) LWB
 			// determination of use of color_range of color_range alternate is on:
 			// report1l.jrxml -> details -> right jrxml (report3l.jrxml)-> parameters:
@@ -138,7 +140,7 @@ public class ExecuteReport {
 				color_range_alternate.put("highGreen", new Double(3.25));
 			}
 			prms.put("COLOR_RANGE_ALTERNATE", color_range_alternate);
-			
+			System.out.println(color_range_alternate);
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";
