@@ -7,46 +7,14 @@ class ImportController extends Zend_Controller_Action
 	 */
 	protected $_filename;
 	
-	
 	/**
 	 * Supported input formats
-	 */
-	protected $_supportedFormats = array();
-	
-	
-	/**
-	 * Initialisation
 	 * 
-	 * @return void
+	 * For every entry there must be a corresponding action in this controller,
+	 * so if 'ods' is in the list, this controller must have an action 'odsAction'.
 	 */
-    public function init()
-    {
-    	/* get supported import formats */    	
-    	$this->_supportedFormats = $this->_getSupportedFormats();    	
-    }
-    
-    
-    /**
-     * Gets all supported import formats (based on defined controller actions)
-     * 
-     * @return array
-     */
-    protected function _getSupportedFormats()
-    {
-    	$methods = get_class_methods($this);
-    	
-    	foreach ($methods as $i => $method) {
-    		if (substr($method, -6) === 'Action' && $method !== 'indexAction') {
-				$methods[$i] = substr($method, 0, -6);
-    		} else {
-    			unset($methods[$i]);
-    		}
-    	}
-    	
-    	return $methods;
-    }
-    
-    
+	protected $_supportedFormats = array('ods', 'xls');
+	
     /**
      * Index action
      */
@@ -55,8 +23,8 @@ class ImportController extends Zend_Controller_Action
     	$form = new HVA_Form_Import($this->_supportedFormats);
     	$errors = array();
     	
-    	if ($this->getRequest()->isPost()) {
-    		if ($form->isValid($this->getRequest()->getPost())) {
+    	if ($this->_request->isPost()) {
+    		if ($form->isValid($this->_request->getPost())) {
     			if (!$form->file->receive()) {
     				$errors[] = 'Error receiving the file';
     			} else {
@@ -81,7 +49,6 @@ class ImportController extends Zend_Controller_Action
     	$this->view->form = $form;
     }
     
-    
     /**
      * Imports ODS file and builds db table based on headers
      * 
@@ -96,7 +63,6 @@ class ImportController extends Zend_Controller_Action
     	$file = new HVA_Model_Input_File_Ods($this->_filename);
     	$file->store();
     }
-    
     
     /**
      * Imports XLS file and builds db table based on headers
@@ -113,23 +79,6 @@ class ImportController extends Zend_Controller_Action
     	$file->store();
     }
     
-    
-    /**
-     * Imports CVS file and builds db table based on headers
-     * 
-     * @return void
-     */
-//	public function csvAction()
-//	{
-//		/* disable view renderer */
-//		$this->_helper->viewRenderer->setNoRender();
-//    	
-//		/* open file, store data, and close file */
-//		$file = new HVA_Model_Input_File_Csv($this->_filename);
-//		$file->storeData();
-//	}
-    
-    
     /**
      * Returns the supported input formats
      * 
@@ -139,7 +88,6 @@ class ImportController extends Zend_Controller_Action
     {
     	return $this->_supportedFormats;
     }
-    
     
     /**
      * Sets the data file

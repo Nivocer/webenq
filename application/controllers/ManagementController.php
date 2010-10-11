@@ -21,8 +21,7 @@ class ManagementController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	$this->_id = $this->getRequest()->getParam("id");
-    	
+    	$this->_id = $this->_request->id;
     	if (!$this->_id) {
     		throw new Exception("No id given!");
     	}
@@ -37,7 +36,8 @@ class ManagementController extends Zend_Controller_Action
     	/* get model, and query for meta-data */
     	$mtn = "meta_" . $this->_id;
     	$qtn = "questions_" . $this->_id;
-    	$meta = new HVA_Model_DbTable_Meta($mtn);
+    	$meta = new HVA_Model_DbTable_Meta($this->_id);
+    	$data = new HVA_Model_DbTable_Data($this->_id);
     	
     	try {
     		$questionsMeta = $meta->fetchAll(
@@ -55,9 +55,6 @@ class ManagementController extends Zend_Controller_Action
     			throw $e;
     		}
     	}
-    	
-    	/* get model for data-table */
-    	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
     	
     	/* factor question objects */
     	$q = array();
@@ -79,7 +76,7 @@ class ManagementController extends Zend_Controller_Action
     	if ($this->getRequest()->isPost()) {
     		
     		/* process */
-    		$this->_processManagement($this->getRequest()->getPost());
+    		$this->_processManagement($this->_request->getPost());
     		$this->_convertLabelsToValues();
     		
 	    	/* update status in imports table */

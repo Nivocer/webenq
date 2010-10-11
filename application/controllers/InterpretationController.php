@@ -21,29 +21,45 @@ class InterpretationController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	$this->_id = $this->getRequest()->getParam("id");
-    	
+    	$this->_id = $this->_request->id;
     	if (!$this->_id) {
     		throw new Exception("No id given!");
     	}
     }
 	
-	
+    /**
+     * Determines the question type for a given question
+     * 
+     * This actions dumps the result of the firts question,
+     * or the questions with the given key. For debugging only.
+     */
+    public function debugAction()
+    {
+    	/* get table and its columns */
+    	$table = new HVA_Model_DbTable_Data($this->_id);
+    	$columns = $table->getColumns();
+    	
+    	/* test with one question (for debugging) */
+    	$key = ($this->_request->key) ? $this->_request->key : 0;
+    	if (!key_exists($key, $columns)) {
+    		throw new Exception("Invalid key given!");
+    	}
+    	
+    	/* dump question object */
+    	$values = $table->fetchColumn($columns[$key]);
+    	$question = HVA_Model_Data_Question::factory($values);
+    	$this->_response->setBody(var_dump($question));
+    	$this->_helper->viewRenderer->setNoRender();
+    }
+    
     /**
      * Determines question types based on available answers
      */
     public function indexAction()
     {
     	/* get table and its columns */
-    	$table = new HVA_Model_DbTable_Data("data_" . $this->_id);
+    	$table = new HVA_Model_DbTable_Data($this->_id);
     	$columns = $table->getColumns();
-    	
-    	/* test with one question (for debugging) */
-//    	$k = 5;
-//    	$values = $table->fetchColumn($columns[$k]);
-//    	$this->_questions[$k] = HVA_Model_Data_Question::factory($values);
-//    	var_dump($this->_questions[$k], $values);
-//    	die;
     	
     	/* factor question objects */
     	foreach ($columns as $k => $v) {
@@ -51,26 +67,11 @@ class InterpretationController extends Zend_Controller_Action
     		$this->_questions[$k] = HVA_Model_Data_Question::factory($values);
     	}
     	
-    	/* get db connection */
-    	$db = Zend_Db_Table::getDefaultAdapter();
-    	$dbConnection = $db->getConnection();
-    	$dbConnection->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-    	
-    	/* build query for creating table */
-    	$t = "meta_" . $this->_id;
-    	$q = "CREATE TABLE " . $t . " (
-    			id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),
-    			parent_id INT NOT NULL,
-    			question_id VARCHAR(64) NOT NULL,
-    			type TEXT NOT NULL
-    		) DEFAULT CHARSET=utf8;";
-    	
     	/* create table */
-    	$dbConnection->exec("DROP TABLE IF EXISTS " . $t . ";");
-    	$dbConnection->exec($q);
+    	HVA_Model_DbTable_Meta::createTable("meta_" . $this->_id);
     	
     	/* store meta information */
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
+    	$meta = new HVA_Model_DbTable_Meta($this->_id);
     	foreach ($this->_questions as $k => $question) {
     		if (!is_object($question)) {
     			throw new Exception("Questions with index $k could not be detected!");
@@ -83,7 +84,7 @@ class InterpretationController extends Zend_Controller_Action
 	    			)
 		    	);
     		} catch(Zend_Db_Statement_Exception $e) {
-    			// error handling
+    			throw $e;
     		}
     		
     		try {
@@ -101,7 +102,7 @@ class InterpretationController extends Zend_Controller_Action
 		    		}
 		    	}
     		} catch(Zend_Db_Statement_Exception $e) {
-    			// error handling
+    			throw $e;
     		}
     	}
     	
@@ -117,17 +118,20 @@ class InterpretationController extends Zend_Controller_Action
     
     protected function _rewriteValues()
     {
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
-    	$data = new HVA_Model_DbTable_Meta("data_" . $this->_id);
+    	$meta = new HVA_Model_DbTable_Meta($this->_id);
+    	$data = new HVA_Model_DbTable_Data($this->_id);
     	
-    	$percetageQuestions = $meta->fetchAll("type LIKE 'HVA_Model_Data_Question_Closed_Percentage'");
+    	$percetageQuestions = $meta->fetchAll("type = 'HVA_Model_Data_Question_Closed_Percentage'");
     	foreach ($percetageQuestions as $percentageQuestion) {
     		$answers = $data->fetchAll($percentageQuestion->question_id . " LIKE '<%'");
     		if ($answers->count() > 0) {
     			foreach ($answers as $answer) {
     				$key = $percentageQuestion->question_id;
     				$val = str_replace("<", "0 - ", $answer->{$percentageQuestion->question_id});
-    				$data->update(array($key => $val), "id = " . $answer->id);
+    				$data->update(
+    					array($key => $val),
+    					"id = $answer->id"
+    				);
     			}
     		}
     	}
