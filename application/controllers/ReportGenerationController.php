@@ -128,9 +128,15 @@ class ReportGenerationController extends Zend_Controller_Action
     	$questionsModel = new HVA_Model_DbTable_Questions("questions_" . $row->data_set_id);
     	$questions = $questionsModel->fetchAll("group_id > 0");
     	$splitBy = $row->split_question_id;
+    	$ignoreQuestionIds = explode(',', $row->ignore_question_ids);
     	
     	/* get answers */
     	foreach ($questions as $question) {
+    		
+    		if (in_array('"' . $question->id . '"', $ignoreQuestionIds)) {
+    			continue;
+    		}
+    		
     		$answers = $questionsModel->getAnswers($question->id, $splitBy);
     		if ($answers instanceof HVA_Model_Data_Question_Closed_Scale) {
     			$filename = "$dir/images/bar_report_" . $row->id . "_question_" . $question->id . ".png";
