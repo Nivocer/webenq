@@ -17,7 +17,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.export.*;
-
+/**
+ * @todo better use of functions
+ * @author jaapandre
+ *
+ */
 
 public class ExecuteReport {
 
@@ -165,6 +169,9 @@ public class ExecuteReport {
 			//MER jaar 2 - Vt blok 3 0910 	40276 	40306 	15 	0.1239669421487603 	AVG 	5
 			// where group_id=theme_id
 			// and type is type of crosstab needed.
+			/* 
+			 * @todo need to change this for new datamodel
+			 */
 			String query="SELECT a.value title,b.value srtdt, " +
          		"c.value enddt,d.value response,e.value percentage,type,group_id  " +
          		"FROM info_"+identifier+" a,info_"+identifier+" b," +
@@ -196,6 +203,10 @@ public class ExecuteReport {
 			prms.put("QUERY", query);
 			
 			//looping through possible split by values (multiple reports for subset of respondents)
+			/* split question_id is from report_definition*/
+			/*
+			 * @todo need to change this for new datamodel
+			 */
 			if (split_question_id !=null && split_question_id.length()>0 ) {
 				//get split_values
 				Statement stmt_rows_values=conn.createStatement();
@@ -207,6 +218,9 @@ public class ExecuteReport {
 					prms.put("SPLIT_VALUE", split_value);
 					
 					//response (not percentage, but number of respondents in this report)
+					/*
+					 * @todo need to change this for new datamodel
+					 */
 					Statement stmt_response=conn.createStatement();
 					String response_query="select count(*) as response from values_"+identifier+" where "+split_question_id+" like '"+split_value+"'";
 					stmt_response.execute(response_query);
@@ -219,6 +233,9 @@ public class ExecuteReport {
 
 					//ugly hack voor fraijlemaborg om groepinformatie in rapport te krijgen.
 					//alleen voor onderwijsevaluatie datasetid/identifier=50
+					/*
+					 * @todo need to change this for new datamodel
+					 */
 					if (identifier.equals("50") && customer !=null && customer.length()>0 && customer.equals("fraijlemaborg")){
 						Statement stmt_fmb_group_info=conn.createStatement();
 						stmt_fmb_group_info.execute("select 25_groep as group_name, 26_boecode as boecode," +
@@ -238,7 +255,9 @@ public class ExecuteReport {
 						stmt_fmb_group_info.close();
 					}
 
-					
+					/*
+					 * @todo better path handling.
+					 */
 					if (page_orientation != null && page_orientation.equals("landscape")) {
 						inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1l.jasper");
 					}else{
@@ -265,6 +284,9 @@ public class ExecuteReport {
 			}else{
 				//no split value
 				//response (not percentage, but number of respondents in this report)
+				/*
+				 * @todo need to change this for new datamodel
+				 */
 				Statement stmt_response=conn.createStatement();
 				String response_query="select count(*) as response from values_"+identifier;
 				stmt_response.execute(response_query);

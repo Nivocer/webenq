@@ -48,7 +48,6 @@ public class ExecuteIntroduction {
 	{
 		try {
 			Connection conn = connectDB(databaseName, userName, password);
-//todo next line
 			InputStream inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report-introduction.jasper");
 			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", output_dir);
@@ -95,6 +94,10 @@ public class ExecuteIntroduction {
 			
 			//updaten reponse
 			//get all rows for this period_identifier/report_identifier
+			
+			/*
+			 * @todo need to change this for new datamodel
+			 */
 			String update_query1="SELECT * from population where period_id="+period_identifier;
 			Statement stmt_update1 = conn.createStatement();
 			stmt_update1.execute(update_query1);
@@ -106,6 +109,9 @@ public class ExecuteIntroduction {
 				String split_question_id=rs_update1.getString("split_question_id");
 				String split_value=rs_update1.getString("split_value");
 				String update_query2;
+				/*
+				 * @todo need to change this for new datamodel
+				 */
 				if (!split_question_id.equals(null) && !split_question_id.equals("")){
 					update_query2=update_query2="UPDATE population set response=" +
 					"(select count(*) from data_"+dataset_id+" where "+split_question_id+"='"+split_value+"')" +
@@ -128,6 +134,9 @@ public class ExecuteIntroduction {
 			
 			//looping through possible split by values (multiple reports for subset of respondents)
 			//get split_values
+			/*
+			 * @todo need to change this for new datamodel
+			 */
 			Statement stmt_rows_values=conn.createStatement();
 			stmt_rows_values.execute("select distinct split_value as split_values FROM population where period_id="+period_identifier);
 			ResultSet rs_rows_values = stmt_rows_values.getResultSet();
@@ -138,6 +147,9 @@ public class ExecuteIntroduction {
 			
 			if (split_row_count>0 ) {
 				//we have at least one row.... but for now we want to use this one, the no split value gives an error...
+				/*
+				 * @todo need to change this for new datamodel
+				 */
 				while (rs_rows_values.next()) {
 					String split_value=rs_rows_values.getString("split_values");
 					//needed for displaying content
@@ -176,7 +188,9 @@ public class ExecuteIntroduction {
 				//no split value
 				// throws error unkown 'column name title' by generation of introduction (6,7) 
 				//response (not percentage, but number of respondents in this report)
-			   
+				/*
+				 * @todo need to change this for new datamodel
+				 */
 				String query="select * from population" +
 					" where period_id="+period_identifier;
 				prms.put("QUERY", query);
