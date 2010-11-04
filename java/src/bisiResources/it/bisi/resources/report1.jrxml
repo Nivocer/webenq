@@ -193,15 +193,34 @@ new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date()  )]]></textField
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get($P{SPLIT_QUESTION_ID})+": "+ $P{SPLIT_VALUE}]]></textFieldExpression>
 				</textField>
-				<textField isBlankWhenNull="false">
-					<reportElement positionType="Float" x="0" y="24" width="555" height="12" isRemoveLineWhenBlank="true">
-						<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 && $P{SPLIT_VALUE}.length()>0 && $P{CUSTOMER}.equals("leeuwenburg")]]></printWhenExpression>
-					</reportElement>
-					<textElement verticalAlignment="Middle">
-						<font size="9" isBold="true"/>
-					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_group") + ": "+ $P{SPLIT_VALUE}]]></textFieldExpression>
-				</textField>
+				<elementGroup>
+					<textField isBlankWhenNull="false">
+						<reportElement positionType="Float" x="0" y="24" width="555" height="12" isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 &&
+$P{SPLIT_VALUE}.length()>0 &&
+ ($P{CUSTOMER}.equals("fraijlemaborg") &&
+        $P{REPORT_TYPE}.equals("barcharts") ) ]]></printWhenExpression>
+						</reportElement>
+						<textElement verticalAlignment="Middle">
+							<font size="9" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_group_"+$P{SPLIT_QUESTION_ID}) + ": "+
+($P{SPLIT_VALUE}.indexOf("_")>0?
+    $P{TEXTS}.get(( $P{SPLIT_VALUE}.split("_")[0]))+" / "+$P{SPLIT_VALUE}.split("_")[1]:
+    $P{TEXTS}.get( $P{SPLIT_VALUE}))]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="false">
+						<reportElement positionType="Float" x="0" y="24" width="555" height="12" isRemoveLineWhenBlank="true">
+							<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 &&
+$P{SPLIT_VALUE}.length()>0 &&
+ ($P{CUSTOMER}.equals("leeuwenburg")  ) ]]></printWhenExpression>
+						</reportElement>
+						<textElement verticalAlignment="Middle">
+							<font size="9" isBold="true"/>
+						</textElement>
+						<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_group") + ": "+$P{SPLIT_VALUE}]]></textFieldExpression>
+					</textField>
+				</elementGroup>
 			</elementGroup>
 		</band>
 	</pageHeader>
