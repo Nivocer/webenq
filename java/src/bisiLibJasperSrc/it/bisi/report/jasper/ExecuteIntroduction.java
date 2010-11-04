@@ -50,7 +50,7 @@ public class ExecuteIntroduction {
 			Connection conn = connectDB(databaseName, userName, password);
 //todo next line
 			InputStream inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report-introduction.jasper");
-			Map prms = new HashMap();
+			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", output_dir);
 			
 			//hardcoded....
@@ -81,7 +81,7 @@ public class ExecuteIntroduction {
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";
-			Map texts = new HashMap();
+			Map<String,String> texts = new HashMap<String,String>();
 			Statement stmt_texts = conn.createStatement();
 			stmt_texts.execute("SELECT `key`, `value` FROM `text` WHERE `language` = '" + language + "' AND `customer` = '" + customer + "';");
 			ResultSet rs_keyValPairs = stmt_texts.getResultSet();

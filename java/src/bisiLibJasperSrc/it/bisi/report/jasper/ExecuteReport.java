@@ -49,7 +49,7 @@ public class ExecuteReport {
 		try {
 			Connection conn = connectDB(databaseName, userName, password);
 			InputStream inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report1.jasper");
-			Map prms = new HashMap();
+			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", output_dir);
 			//minus group...
 			//find out the group on rows and other report options
@@ -80,7 +80,7 @@ public class ExecuteReport {
 			//hva-fmb: >3.9=groen, 3.0 en 3.1: geel, <3 rood.
 			//coloring of the values in table report.
 			//test in ireport is >=
-			Map color_range=new HashMap();
+			Map<String,Double> color_range=new HashMap<String,Double>();
 			if (customer.equals("fraijlemaborg") && report_type.equals("barcharts")){
 				color_range.put("lowRed",new Double(0.0));
 				color_range.put("highRed",new Double(0.0));
@@ -111,14 +111,13 @@ public class ExecuteReport {
 				color_range.put("highGreen", new Double(5.0));
 			}
 			prms.put("COLOR_RANGE", color_range);
-			System.out.println(color_range);
 			//Alternate color range eg for special table (extremes negative, center green) LWB
 			// determination of use of color_range of color_range alternate is on:
 			// report1l.jrxml -> details -> right jrxml (report3l.jrxml)-> parameters:
 			 //$F{group_id}.equals(5)? $P{COLOR_RANGE_ALTERNATE}: $P{COLOR_RANGE}
 			//we plot red first, above it yellow, above it white, above it green
 			
-			Map color_range_alternate=new HashMap();
+			Map<String,Double> color_range_alternate=new HashMap<String,Double>();
 			if (customer.equals("leeuwenburg")){
 				color_range_alternate.put("lowRed",new Double(1.0));
 				color_range_alternate.put("highRed",new Double(5.0));
@@ -144,7 +143,7 @@ public class ExecuteReport {
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";
-			Map texts = new HashMap();
+			Map<String,String> texts = new HashMap<String,String>();
 			Statement stmt_texts = conn.createStatement();
 			stmt_texts.execute("SELECT `key`, `value` FROM `text` WHERE `language` = '" + language + "' AND `customer` = '" + customer + "';");
 			ResultSet rs_keyValPairs = stmt_texts.getResultSet();
