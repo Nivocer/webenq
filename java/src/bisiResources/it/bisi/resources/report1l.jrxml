@@ -214,7 +214,7 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[("AVG".equals($F{type})
     && $P{REPORT_TYPE}.equals("tables"))
-    || "NUMBER".equals($F{type})    ]]></printWhenExpression>
+    || "NUMBER".equals($F{type})]]></printWhenExpression>
 				</reportElement>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
@@ -229,7 +229,7 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3l.jasper")]]></subreportExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report3l-mean.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
@@ -278,7 +278,7 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2l.jasper")]]></subreportExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report2l-freq.jasper")]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
@@ -294,7 +294,7 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, $P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report4.jasper")]]></subreportExpression>
+				<subreportExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/report4-open.jasper")]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
