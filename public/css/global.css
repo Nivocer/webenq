@@ -25,14 +25,26 @@ a, a:active, a:visited {
 	color: #F25900;
 }
 
+form,
 table {
 	border: 1px solid #B20000;
+	width: 80%;
+	margin: 1em auto;
+}
+
+dt label {
+	margin-left: 1em;
+	font-weight: bold;
+	background-color: #65B2D8;
+	padding: 2px 5px;
 }
 
 th {
+	font-weight: bold;
 	background-color: #65B2D8;
 }
 
+form,
 tr {
 	background-color: #E5E5D8;
 }
