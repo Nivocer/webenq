@@ -1,0 +1,25 @@
+<?php if (!$this->questions || $this->questions->count() == 0): ?>
+	<p>Geen vragen</p>
+<?php else: ?>
+	<table>
+		<thead>
+			<tr>
+				<th>vraag</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->questions as $question): ?>
+				<tr>
+					<td>
+						<?php echo $question->QuestionText[0]->text; ?>
+					</td>
+					<td>
+						<a href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);	?>">bewerken</a>
+						<a href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">verwijderen</a>					
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php endif; ?>

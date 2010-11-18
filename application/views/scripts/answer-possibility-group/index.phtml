@@ -1,0 +1,29 @@
+<a href="<?php echo $this->baseUrl("/answer-possibility-group/add"); ?>">
+	<?php echo _('antwoordmogelijkhedengroep toevoegen'); ?>
+</a>
+
+<?php if (!$this->answerPossibilityGroups || $this->answerPossibilityGroups->count() == 0): ?>
+	<p>Geen antwoordmogelijkheden</p>
+<?php else: ?>
+	<table>
+		<thead>
+			<tr>
+				<th>groep</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->answerPossibilityGroups as $answerPossibilityGroup): ?>
+				<tr>
+					<td>
+						<?php echo $answerPossibilityGroup->name; ?>
+					</td>
+					<td>
+						<a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);	?>">bewerken</a>
+						<a href="<?php echo $this->baseUrl("/answer-possibility-group/delete/id/" . $answerPossibilityGroup->id);	?>">verwijderen</a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php endif; ?>

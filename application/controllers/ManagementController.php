@@ -29,61 +29,48 @@ class ManagementController extends Zend_Controller_Action
 	
 	
 	/**
-     * Renders the overview of export options
+     * Renders the overview of question types
+     * 
+     * @return void
      */
     public function indexAction()
     {
-    	/* get model, and query for meta-data */
-    	$mtn = "meta_" . $this->_id;
-    	$qtn = "questions_" . $this->_id;
-    	$meta = new HVA_Model_DbTable_Meta($this->_id);
-    	$data = new HVA_Model_DbTable_Data($this->_id);
-    	
-    	try {
-    		$questionsMeta = $meta->fetchAll(
-    			$meta->select()->setIntegrityCheck(false)
-    				->from($mtn)
-    				->joinLeft($qtn, "$qtn.id = $mtn.question_id", array('question' => 'title'))
-    				->where("parent_id = 0")
-    				->order("$mtn.id")
-    			);
-    	}
-    	catch (Zend_Db_Statement_Exception $e) {
-    		if ($e->getCode() === "42S02") {
-	    		die("De vragenlijst is nog niet geinterpreteerd.");
-    		} else {    		
-    			throw $e;
-    		}
-    	}
-    	
-    	/* factor question objects */
-    	$q = array();
-    	foreach ($questionsMeta as $key => $questionMeta) {
-    		$q[$key]["question_id"] = $questionMeta->question_id;
-    		$q[$key]["question"] = $questionMeta->question;
-    		$q[$key]["type"] = $questionMeta->type;
-    		$q[$key]["validTypes"] = array();
-    		$validTypes = $meta->fetchAll("parent_id = " . $questionMeta->id, "id");
-    		foreach ($validTypes as $validType) {
-    			$q[$key]["validTypes"][] = $validType->type;
-    		}
-    	}
+    	/* get questionnaire */
+    	$questionnaire = Doctrine_Core::getTable('Questionnaire')->find($this->_id);
+    	$this->view->questionnaire = $questionnaire;
+    }
+    
+    /**
+     * Renders the form to edit question types
+     * 
+     * @return void
+     */
+    public function editAction()
+    {
+    	/* get questionnaireQuestion */
+    	$qq = Doctrine_Core::getTable('QuestionnaireQuestion')->find($this->_id);
     	
     	/* build form */
-    	$form = new HVA_Form_Management($q);
+    	$form = new HVA_Form_Management_Edit($qq);
     	
-    	/* process posted values */
-    	if ($this->getRequest()->isPost()) {
-    		
-    		/* process */
-    		$this->_processManagement($this->_request->getPost());
-    		$this->_convertLabelsToValues();
-    		
-	    	/* update status in imports table */
-	    	HVA_Model_DbTable_Imports::updateStatus($this->_id, HVA_Model_DbTable_Imports::MANAGED);
-	    	
-	    	/* to home page */
-    		$this->_redirect("index");
+    	/* process form */
+    	if ($this->_request->isPost()) {
+    		$data = $this->_request->getPost();
+    		if ($form->isValid($data)) {
+    			
+    			
+	    		/* process */
+    			$meta = ($qq->meta) ? unserialize($qq->meta) : array();
+    			$valid = $meta['valid'];
+    			$meta['class'] = $valid[$data['class']];
+    			$qq->meta = serialize($meta);
+    			$qq->save();
+    			
+//	    		$this->_convertLabelsToValues();
+	    		
+		    	/* to home-page */
+	    		$this->_redirect("/management/index/id/" . $qq->Questionnaire->id);
+    		}
     	}
     	
     	/* assign vars to view */
@@ -156,33 +143,6 @@ class ManagementController extends Zend_Controller_Action
     			}
     		}
     		$values->insert($data);
-    	}
-    }
-    
-    
-    /**
-     * Processes the posted values of the questions management form
-     * 
-     * @param array Posted values
-     */
-    protected function _processManagement(array $post = array())
-    {
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
-    	
-    	foreach ($post as $k => $v) {
-    		/* get values that have been changed */
-    		$rowOne = $meta->fetchRow("parent_id = 0 AND question_id = '$k' AND type != '$v'");
-    		if ($rowOne) {
-    			$rowTwo = $meta->fetchRow("parent_id = $rowOne->id AND question_id = '$k' AND type = '$v'");
-    			$meta->update(
-    				array("type" => $v),
-    				"id = " . $rowOne->id
-    			);
-    			$meta->update(
-    				array("type" => $rowOne->type),
-    				"id = " . $rowTwo->id
-    			);
-    		}
     	}
     }
 }

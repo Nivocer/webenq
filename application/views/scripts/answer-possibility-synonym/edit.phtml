@@ -1,0 +1,36 @@
+<a href="<?= $this->baseUrl('/answer-possibility/edit/id/' . $this->synonym->AnswerPossibilityText->AnswerPossibility->id); ?>">
+	terug naar antwoord "<?= $this->synonym->AnswerPossibilityText->text; ?>"
+</a>
+
+<?php echo $this->form; ?>
+
+<?php if ($this->answerPossibility): ?>
+	<a href="<?php echo $this->baseUrl('/answer-possibility-synonym/add/id/' . $this->answerPossibility->AnswerPossibilityText[0]->id); ?>">
+		<?= _('synoniem toevoegen'); ?>
+	</a>
+	<table>
+		<thead>
+			<tr>
+				<th>synoniem</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->answerPossibility->AnswerPossibilityText[0]->AnswerPossibilityTextSynonym as $answerPossibilityTextSynonym): ?>
+				<tr>
+					<td>
+						<?php echo $synonym->text; ?>
+					</td>
+					<td>
+						<a href="<?= $this->baseUrl('/answer-possibility-synonym/edit/id/' . $synonym->id); ?>">
+							<?= _('bewerken'); ?>
+						</a>
+						<a href="<?= $this->baseUrl('/answer-possibility-synonym/delete/id/' . $synonym->id); ?>">
+							<?= _('verwijderen'); ?>
+						</a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php endif; ?>

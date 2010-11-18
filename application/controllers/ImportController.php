@@ -25,20 +25,26 @@ class ImportController extends Zend_Controller_Action
     	
     	if ($this->_request->isPost()) {
     		if ($form->isValid($this->_request->getPost())) {
+    			
     			if (!$form->file->receive()) {
     				$errors[] = 'Error receiving the file';
     			} else {
     				$this->_filename = $form->file->getFileName();
     				$filenameParts = preg_split('#\.#', $this->_filename);
     				$extension = array_pop($filenameParts);
+    				if (!in_array($extension, $this->_supportedFormats)) {
+    					$errors[] = 'Invalid format';
+    				}
     			}
+    			
     			if (!$errors) {
-    				try {
+//    				try {
     					$action = $extension . 'Action';
     					$this->{$action}();
-    				} catch (Exception $e) {
-    					$errors[] = 'Error processing the files';
-    				}
+//    				} catch (Exception $e) {
+//    					throw new $e;
+//    					$errors[] = 'Error processing the files';
+//    				}
 
     				$this->_redirect('index');
     			}    			
@@ -56,12 +62,12 @@ class ImportController extends Zend_Controller_Action
      */
     public function odsAction()
     {
-    	/* disable view renderer */
-    	$this->_helper->viewRenderer->setNoRender();
-    	
     	/* open file, store data, and close file */
     	$file = new HVA_Model_Input_File_Ods($this->_filename);
     	$file->store();
+    	
+    	/* disable view renderer */
+    	$this->_helper->viewRenderer->setNoRender();
     }
     
     /**

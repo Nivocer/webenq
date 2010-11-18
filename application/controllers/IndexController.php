@@ -13,23 +13,21 @@ class IndexController extends Zend_Controller_Action
 	
 	/**
      * Renders the dashboard
+     * 
+     * @return void
      */
     public function indexAction()
     {
-    	$imports = new HVA_Model_DbTable_Imports();
-    	try {
-    		$this->view->imports = $imports->fetchAll(
-    			$imports->select()->order('date DESC')
-    		);
-    	} catch (Exception $e) {
-    		/* 42S02 = table doesnt exist */
-    		if ($e->getCode() !== "42S02") {
-    			throw $e;
-    		}
-    	}
+    	$this->view->questionnaires =
+    		Doctrine_Core::getTable('Questionnaire')->findAll();
     }
 
 
+    /**
+     * Renders the confirmation form for deleting a questionnaire
+     * 
+     * @return void
+     */
     public function delAction()
     {
     	/* get form */
@@ -38,6 +36,7 @@ class IndexController extends Zend_Controller_Action
     	$confirm->setLabel("ja, verwijderen")->setValue("yes");
     	$form->addElement($confirm);
 
+    	/* process form */
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
 	    		$this->_processDel();
@@ -45,40 +44,23 @@ class IndexController extends Zend_Controller_Action
     		}
     	}
     	
+    	/* display form */
     	$this->view->form = $form;    	
     }
 
 
+    /**
+     * Remove a questionnaire
+     * 
+     * @return void
+     */
     protected function _processDel()
     {
-    	/* get data-set id*/
-    	(int) $id = $this->getRequest()->getParam('id');
+    	/* get questionnaire id*/
+    	(int) $id = $this->_request->id;
     	
-    	/* get db connection */
-    	$db = Zend_Db_Table::getDefaultAdapter()->getConnection();
-    	$db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-    	
-    	/* tables to drop */    	
-    	$tables = array(
-    		"data_$id", "groups_$id", "info_$id",
-    		"meta_$id", "questions_$id", "values_$id",
-    	);
-    	
-    	try {
-	    	foreach ($tables as $table) {
-	    		$sql = "DROP TABLE IF EXISTS $table";
-	    		$db->query($sql);    		
-	    	}
-	    	
-	    	$imports = new HVA_Model_DbTable_Imports();
-	    	$imports->delete("id = $id");
-	    	
-	    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
-	    	$reportDefinitions->delete("data_set_id = $id");
-    	}
-    	
-    	catch (Exception $e) {
-    		//
-    	}
+    	/* get and delete questionnaire */
+    	$questionnaire = Doctrine_Core::getTable('Questionnaire')->find($id);
+    	$questionnaire->delete();
     }
 }

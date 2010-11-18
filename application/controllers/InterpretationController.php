@@ -54,11 +54,17 @@ class InterpretationController extends Zend_Controller_Action
     
     /**
      * Determines question types based on available answers
+     * 
+     * @return void
      */
     public function indexAction()
     {
-    	/* get table and its columns */
-    	$table = new HVA_Model_DbTable_Data($this->_id);
+    	/* get questionnaire */
+    	$questionnaire = Doctrine_Core::getTable('Questionnaire')->find($this->_id);
+    	var_dump($questionnaire); die;
+    	
+    	
+    	
     	$columns = $table->getColumns();
     	
     	/* factor question objects */
