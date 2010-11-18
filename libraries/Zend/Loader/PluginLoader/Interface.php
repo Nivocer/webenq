@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage PluginLoader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php,v 1.1 2010/04/28 15:22:20 bart Exp $
+ * @version    $Id: Interface.php,v 1.2 2010/11/18 15:15:26 bart Exp $
  */
 
 /**
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Loader
  * @subpackage PluginLoader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Loader_PluginLoader_Interface
@@ -39,7 +39,7 @@ interface Zend_Loader_PluginLoader_Interface
      * @return Zend_Loader_PluginLoader
      */
     public function addPrefixPath($prefix, $path);
-    
+
     /**
      * Remove a prefix (or prefixed-path) from the registry
      *
@@ -48,7 +48,7 @@ interface Zend_Loader_PluginLoader_Interface
      * @return Zend_Loader_PluginLoader
      */
     public function removePrefixPath($prefix, $path = null);
-    
+
     /**
      * Whether or not a Helper by a specific name
      *
@@ -64,7 +64,7 @@ interface Zend_Loader_PluginLoader_Interface
      * @return string
      */
     public function getClassName($name);
-    
+
     /**
      * Load a helper via the name provided
      *

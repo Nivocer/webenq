@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ByteEncoding.php,v 1.1 2010/04/28 15:21:37 bart Exp $
+ * @version    $Id: ByteEncoding.php,v 1.2 2010/11/18 15:15:15 bart Exp $
  */
 
 /** Zend_Pdf_Cmap */
@@ -36,7 +36,7 @@ require_once 'Zend/Pdf/Cmap.php';
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
@@ -119,9 +119,9 @@ class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
     /**
      * Returns an array containing the glyphs numbers that have entries in this character map.
      * Keys are Unicode character codes (integers)
-     * 
+     *
      * This functionality is partially covered by glyphNumbersForCharacters(getCoveredCharacters())
-     * call, but this method do it in more effective way (prepare complete list instead of searching 
+     * call, but this method do it in more effective way (prepare complete list instead of searching
      * glyph for each character code).
      *
      * @internal
@@ -150,6 +150,7 @@ class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
          */
         $actualLength = strlen($cmapData);
         if ($actualLength != 262) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Insufficient table data',
                                          Zend_Pdf_Exception::CMAP_TABLE_DATA_TOO_SMALL);
         }
@@ -158,12 +159,14 @@ class Zend_Pdf_Cmap_ByteEncoding extends Zend_Pdf_Cmap
          */
         $type = $this->_extractUInt2($cmapData, 0);
         if ($type != Zend_Pdf_Cmap::TYPE_BYTE_ENCODING) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Wrong cmap table type',
                                          Zend_Pdf_Exception::CMAP_WRONG_TABLE_TYPE);
         }
 
         $length = $this->_extractUInt2($cmapData, 2);
         if ($length != $actualLength) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Table length ($length) does not match actual length ($actualLength)",
                                          Zend_Pdf_Exception::CMAP_WRONG_TABLE_LENGTH);
         }

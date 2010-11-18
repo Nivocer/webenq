@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage PHP
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Return.php,v 1.1 2010/04/28 15:21:42 bart Exp $
+ * @version    $Id: Return.php,v 1.2 2010/11/18 15:13:26 bart Exp $
  */
 
 /**
@@ -28,22 +28,22 @@ require_once 'Zend/CodeGenerator/Php/Docblock/Tag.php';
 /**
  * @category   Zend
  * @package    Zend_CodeGenerator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_Docblock_Tag 
+class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_Docblock_Tag
 {
-    
+
     /**
      * @var string
      */
     protected $_datatype = null;
-    
+
     /**
      * @var string
      */
     protected $_description = null;
-    
+
     /**
      * fromReflection()
      *
@@ -53,14 +53,14 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
     public static function fromReflection(Zend_Reflection_Docblock_Tag $reflectionTagReturn)
     {
         $returnTag = new self();
-        
+
         $returnTag->setName('return');
         $returnTag->setDatatype($reflectionTagReturn->getType()); // @todo rename
         $returnTag->setDescription($reflectionTagReturn->getDescription());
-        
+
         return $returnTag;
     }
-    
+
     /**
      * setDatatype()
      *
@@ -72,7 +72,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
         $this->_datatype = $datatype;
         return $this;
     }
-    
+
     /**
      * getDatatype()
      *
@@ -94,5 +94,5 @@ class Zend_CodeGenerator_Php_Docblock_Tag_Return extends Zend_CodeGenerator_Php_
         $output = '@return ' . $this->_datatype . ' ' . $this->_description;
         return $output;
     }
-    
+
 }

@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Rss.php,v 1.1 2010/04/28 15:22:11 bart Exp $
+ * @version    $Id: Rss.php,v 1.2 2010/11/18 15:15:09 bart Exp $
  */
 
 
@@ -32,7 +32,7 @@ require_once 'Zend/Feed/Entry/Abstract.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
@@ -98,7 +98,7 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
                 return parent::__isset($var);
         }
     }
-    
+
     /**
      * Overwrites parent::_call method to enable read access
      * to content:encoded element.

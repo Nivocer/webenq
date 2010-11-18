@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Navigation
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Container.php,v 1.1 2010/04/28 15:20:43 bart Exp $
+ * @version    $Id: Container.php,v 1.2 2010/11/18 15:14:54 bart Exp $
  */
 
 /**
@@ -26,7 +26,7 @@
  *
  * @category  Zend
  * @package   Zend_Navigation
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
@@ -369,11 +369,13 @@ abstract class Zend_Navigation_Container implements RecursiveIterator, Countable
     public function toArray()
     {
         $pages = array();
-
-        foreach ($this->_pages as $page) {
-            $pages[] = $page->toArray();
+        
+        $this->_dirtyIndex = true;
+        $this->_sort();
+        $indexes = array_keys($this->_index);
+        foreach ($indexes as $hash) {
+            $pages[] = $this->_pages[$hash]->toArray();
         }
-
         return $pages;
     }
 

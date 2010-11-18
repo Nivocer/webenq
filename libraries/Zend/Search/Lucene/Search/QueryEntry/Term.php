@@ -15,25 +15,19 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Term.php,v 1.1 2010/04/28 15:22:22 bart Exp $
+ * @version    $Id: Term.php,v 1.2 2010/11/18 15:15:41 bart Exp $
  */
-
-/** Zend_Search_Lucene_Index_Term */
-require_once 'Zend/Search/Lucene/Index/Term.php';
 
 /** Zend_Search_Lucene_Search_QueryEntry */
 require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
-
-/** Zend_Search_Lucene_Analysis_Analyzer */
-require_once 'Zend/Search/Lucene/Analysis/Analyzer.php';
 
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Search_QueryEntry
@@ -92,6 +86,8 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
         if ($parameter !== null) {
             $this->_similarity = $parameter;
         } else {
+            /** Zend_Search_Lucene_Search_Query_Fuzzy */
+            require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $this->_similarity = Zend_Search_Lucene_Search_Query_Fuzzy::DEFAULT_MIN_SIMILARITY;
         }
     }
@@ -105,26 +101,30 @@ class Zend_Search_Lucene_Search_QueryEntry_Term extends Zend_Search_Lucene_Searc
      */
     public function getQuery($encoding)
     {
-    	if ($this->_fuzzyQuery) {
-    		$query = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_term,
-    		                                                                 $encoding,
-    		                                                                 ($this->_field !== null)?
+        if ($this->_fuzzyQuery) {
+            /** Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy */
+            require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Fuzzy.php';
+            $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_term,
+                                                                             $encoding,
+                                                                             ($this->_field !== null)?
                                                                                   iconv($encoding, 'UTF-8', $this->_field) :
                                                                                   null,
-    		                                                                 $this->_similarity
-    		                                                                 );
+                                                                             $this->_similarity
+                                                                             );
             $query->setBoost($this->_boost);
             return $query;
-    	}
+        }
 
 
-    	$query = new Zend_Search_Lucene_Search_Query_Preprocessing_Term($this->_term,
-    	                                                                $encoding,
-    	                                                                ($this->_field !== null)?
+        /** Zend_Search_Lucene_Search_Query_Preprocessing_Term */
+        require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Term.php';
+        $query = new Zend_Search_Lucene_Search_Query_Preprocessing_Term($this->_term,
+                                                                        $encoding,
+                                                                        ($this->_field !== null)?
                                                                               iconv($encoding, 'UTF-8', $this->_field) :
                                                                               null
                                                                         );
-    	$query->setBoost($this->_boost);
+        $query->setBoost($this->_boost);
         return $query;
     }
 }

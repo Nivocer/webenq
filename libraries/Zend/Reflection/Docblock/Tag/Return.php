@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Return.php,v 1.1 2010/04/28 15:20:40 bart Exp $
+ * @version    $Id: Return.php,v 1.2 2010/11/18 15:15:26 bart Exp $
  */
 
 /** Zend_Reflection_Docblock_Tag */
@@ -25,7 +25,7 @@ require_once 'Zend/Reflection/Docblock/Tag.php';
 /**
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Reflection_Docblock_Tag_Return extends Zend_Reflection_Docblock_Tag
@@ -34,7 +34,7 @@ class Zend_Reflection_Docblock_Tag_Return extends Zend_Reflection_Docblock_Tag
      * @var string
      */
     protected $_type = null;
-    
+
     /**
      * Constructor
      *
@@ -43,23 +43,23 @@ class Zend_Reflection_Docblock_Tag_Return extends Zend_Reflection_Docblock_Tag
      */
     public function __construct($tagDocblockLine)
     {
-        if (!preg_match('#^@(\w+)\s+(\w+)(?:\s+(.*))?#', $tagDocblockLine, $matches)) {
+        if (!preg_match('#^@(\w+)\s+([\w|\\\]+)(?:\s+(.*))?#', $tagDocblockLine, $matches)) {
             require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Provided docblock line is does not contain a valid tag');
         }
-        
+
         if ($matches[1] != 'return') {
             require_once 'Zend/Reflection/Exception.php';
             throw new Zend_Reflection_Exception('Provided docblock line is does not contain a valid @return tag');
         }
-        
+
         $this->_name = 'return';
         $this->_type = $matches[2];
         if (isset($matches[3])) {
             $this->_description = $matches[3];
         }
     }
-    
+
     /**
      * Get return variable type
      *

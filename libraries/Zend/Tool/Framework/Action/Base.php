@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Base.php,v 1.1 2010/04/28 15:21:32 bart Exp $
+ * @version    $Id: Base.php,v 1.2 2010/11/18 15:15:37 bart Exp $
  */
 
 /**
@@ -28,19 +28,19 @@ require_once 'Zend/Tool/Framework/Action/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_Action_Base implements Zend_Tool_Framework_Action_Interface 
+class Zend_Tool_Framework_Action_Base implements Zend_Tool_Framework_Action_Interface
 {
 
     /**
      * @var string
      */
     protected $_name = null;
-    
+
     /**
-     * constructor - 
+     * constructor -
      *
      * @param unknown_type $options
      */
@@ -53,7 +53,7 @@ class Zend_Tool_Framework_Action_Base implements Zend_Tool_Framework_Action_Inte
             // implement $options here in the future if this is needed
         }
     }
-    
+
     /**
      * setName()
      *
@@ -65,7 +65,7 @@ class Zend_Tool_Framework_Action_Base implements Zend_Tool_Framework_Action_Inte
         $this->_name = $name;
         return $this;
     }
-    
+
     /**
      * getName()
      *
@@ -78,7 +78,7 @@ class Zend_Tool_Framework_Action_Base implements Zend_Tool_Framework_Action_Inte
         }
         return $this->_name;
     }
-    
+
     /**
      * _parseName - internal method to determine the name of an action when one is not explicity provided.
      *
@@ -91,5 +91,5 @@ class Zend_Tool_Framework_Action_Base implements Zend_Tool_Framework_Action_Inte
         $actionName = substr($className, strrpos($className, '_')+1);
         return $actionName;
     }
-   
+
 }

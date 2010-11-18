@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php,v 1.1 2010/04/28 15:22:19 bart Exp $
+ * @version    $Id: Feed.php,v 1.2 2010/11/18 15:15:59 bart Exp $
  */
 
 /**
@@ -30,15 +30,20 @@ require_once 'Zend/Feed/Reader/Extension/FeedAbstract.php';
 require_once 'Zend/Date.php';
 
 /**
+ * @see Zend_Feed_Reader_Collection_Author
+ */
+require_once 'Zend/Feed/Reader/Collection/Author.php';
+
+/**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Feed_Reader_Extension_DublinCore_Feed 
+class Zend_Feed_Reader_Extension_DublinCore_Feed
     extends Zend_Feed_Reader_Extension_FeedAbstract
 {
-	/**
+    /**
      * Get a single author
      *
      * @param  int $index
@@ -79,13 +84,18 @@ class Zend_Feed_Reader_Extension_DublinCore_Feed
                 $list = $this->_xpath->query('//dc10:publisher');
             }
         }
-
-        foreach ($list as $authorObj) {
-            $authors[] = $authorObj->nodeValue;
-        }
-
-        if (!empty($authors)) {
-            $authors = array_unique($authors);
+        
+        if ($list->length) {
+            foreach ($list as $author) {
+                $authors[] = array(
+                    'name' => $author->nodeValue
+                );
+            }
+            $authors = new Zend_Feed_Reader_Collection_Author(
+                Zend_Feed_Reader::arrayUnique($authors)
+            );
+        } else {
+            $authors = null;
         }
 
         $this->_data['authors'] = $authors;
@@ -250,6 +260,40 @@ class Zend_Feed_Reader_Extension_DublinCore_Feed
         $this->_data['date'] = $d;
 
         return $this->_data['date'];
+    }
+    
+    /**
+     * Get categories (subjects under DC)
+     *
+     * @return Zend_Feed_Reader_Collection_Category
+     */
+    public function getCategories()
+    {
+        if (array_key_exists('categories', $this->_data)) {
+            return $this->_data['categories'];
+        }
+        
+        $list = $this->_xpath->evaluate($this->getXpathPrefix() . '//dc11:subject');
+
+        if (!$list->length) {
+            $list = $this->_xpath->evaluate($this->getXpathPrefix() . '//dc10:subject');
+        }
+        
+        if ($list->length) {
+            $categoryCollection = new Zend_Feed_Reader_Collection_Category;
+            foreach ($list as $category) {
+                $categoryCollection[] = array(
+                    'term' => $category->nodeValue,
+                    'scheme' => null,
+                    'label' => $category->nodeValue,
+                );
+            }
+        } else {
+            $categoryCollection = new Zend_Feed_Reader_Collection_Category;
+        }
+        
+        $this->_data['categories'] = $categoryCollection;
+        return $this->_data['categories'];  
     }
 
     /**

@@ -13,11 +13,11 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Service
+ * @package    Zend_Service
  * @subpackage Amazon_Sqs
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Sqs.php,v 1.1 2010/04/28 15:21:02 bart Exp $
+ * @version    $Id: Sqs.php,v 1.2 2010/11/18 15:13:32 bart Exp $
  */
 
 /**
@@ -34,9 +34,9 @@ require_once 'Zend/Crypt/Hmac.php';
  * Class for connecting to the Amazon Simple Queue Service (SQS)
  *
  * @category   Zend
- * @package    Service
+ * @package    Zend_Service
  * @subpackage Amazon_Sqs
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @see        http://aws.amazon.com/sqs/ Amazon Simple Queue Service
  */
@@ -298,8 +298,16 @@ class Zend_Service_Amazon_Sqs extends Zend_Service_Amazon_Abstract
             require_once 'Zend/Service/Amazon/Sqs/Exception.php';
             throw new Zend_Service_Amazon_Sqs_Exception($result->Error->Code);
         }
-
-        return (string) $result->GetQueueAttributesResult->Attribute->Value;
+        
+        if(count($result->GetQueueAttributesResult->Attribute) > 1) {
+            $attr_result = array();
+            foreach($result->GetQueueAttributesResult->Attribute as $attribute) {
+                $attr_result[(string)$attribute->Name] = (string)$attribute->Value;
+            }
+            return $attr_result;
+        } else {
+            return (string) $result->GetQueueAttributesResult->Attribute->Value;
+        }
     }
 
     /**

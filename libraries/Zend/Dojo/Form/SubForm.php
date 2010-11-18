@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -24,13 +24,13 @@ require_once 'Zend/Form/SubForm.php';
 
 /**
  * Dijit-enabled SubForm
- * 
+ *
  * @uses       Zend_Form_SubForm
  * @package    Zend_Dojo
  * @subpackage Form
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SubForm.php,v 1.1 2010/04/28 15:21:41 bart Exp $
+ * @version    $Id: SubForm.php,v 1.2 2010/11/18 15:15:33 bart Exp $
  */
 class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
 {
@@ -42,8 +42,8 @@ class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
 
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config|null $options 
+     *
+     * @param  array|Zend_Config|null $options
      * @return void
      */
     public function __construct($options = null)
@@ -58,7 +58,7 @@ class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
 
     /**
      * Load the default decorators
-     * 
+     *
      * @return void
      */
     public function loadDefaultDecorators()
@@ -76,8 +76,8 @@ class Zend_Dojo_Form_SubForm extends Zend_Form_SubForm
     }
 
     /**
-     * Get view 
-     * 
+     * Get view
+     *
      * @return Zend_View_Interface
      */
     public function getView()

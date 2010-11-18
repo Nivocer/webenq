@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Namespace.php,v 1.1 2010/04/28 15:20:43 bart Exp $
+ * @version    $Id: Namespace.php,v 1.2 2010/11/18 15:14:59 bart Exp $
  * @since      Preview Release 0.2
  */
 
@@ -38,7 +38,7 @@ require_once 'Zend/Session/Abstract.php';
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAggregate
@@ -84,11 +84,11 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
             }
             return;
         }
-        
+
         self::$_singleInstances = array();
         return;
     }
-    
+
     /**
      * __construct() - Returns an instance object bound to a particular, isolated section
      * of the session, identified by $namespace name (defaulting to 'Default').
@@ -167,7 +167,7 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
                             self::$_expiringData[$namespace] = $_SESSION[$namespace];
                             unset($_SESSION[$namespace]);
                         }
-                        unset($_SESSION['__ZF'][$namespace]['ENNH']);
+                        unset($_SESSION['__ZF'][$namespace]);
                     }
                 }
 
@@ -183,6 +183,9 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
                             }
                             unset($_SESSION['__ZF'][$namespace]['ENVNH'][$variable]);
                         }
+                    }
+                    if(empty($_SESSION['__ZF'][$namespace]['ENVNH'])) {
+                        unset($_SESSION['__ZF'][$namespace]['ENVNH']);
                     }
                 }
             }
@@ -514,4 +517,13 @@ class Zend_Session_Namespace extends Zend_Session_Abstract implements IteratorAg
         }
     }
 
+    /**
+     * Returns the namespace name
+     *
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->_namespace;
+    }
 }

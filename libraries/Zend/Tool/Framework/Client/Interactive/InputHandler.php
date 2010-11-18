@@ -14,33 +14,33 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: InputHandler.php,v 1.1 2010/04/28 15:21:23 bart Exp $
+ * @version    $Id: InputHandler.php,v 1.2 2010/11/18 15:15:17 bart Exp $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Framework_Client_Interactive_InputHandler
 {
-    
+
     /**
      * @var Zend_Tool_Framework_Client_Interactive_InputInterface
      */
     protected $_client = null;
-    
+
     protected $_inputRequest = null;
-    
+
     public function setClient(Zend_Tool_Framework_Client_Interactive_InputInterface $client)
     {
         $this->_client = $client;
         return $this;
     }
-    
+
     public function setInputRequest($inputRequest)
     {
         if (is_string($inputRequest)) {
@@ -50,25 +50,25 @@ class Zend_Tool_Framework_Client_Interactive_InputHandler
             require_once 'Zend/Tool/Framework/Client/Exception.php';
             throw new Zend_Tool_Framework_Client_Exception('promptInteractive() requires either a string or an instance of Zend_Tool_Framework_Client_Interactive_InputRequest.');
         }
-        
+
         $this->_inputRequest = $inputRequest;
         return $this;
     }
-    
+
     public function handle()
     {
         $inputResponse = $this->_client->handleInteractiveInputRequest($this->_inputRequest);
-        
+
         if (is_string($inputResponse)) {
             require_once 'Zend/Tool/Framework/Client/Interactive/InputResponse.php';
-            $inputResponse = new Zend_Tool_Framework_Client_Interactive_InputResponse($inputResponse); 
+            $inputResponse = new Zend_Tool_Framework_Client_Interactive_InputResponse($inputResponse);
         } elseif (!$inputResponse instanceof Zend_Tool_Framework_Client_Interactive_InputResponse) {
             require_once 'Zend/Tool/Framework/Client/Exception.php';
             throw new Zend_Tool_Framework_Client_Exception('The registered $_interactiveCallback for the client must either return a string or an instance of Zend_Tool_Framework_Client_Interactive_InputResponse.');
         }
-        
+
         return $inputResponse;
     }
-    
-    
+
+
 }

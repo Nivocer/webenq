@@ -14,16 +14,16 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Property.php,v 1.1 2010/04/28 15:21:40 bart Exp $
+ * @version    $Id: Property.php,v 1.2 2010/11/18 15:14:15 bart Exp $
  */
 
 /**
  * @todo       implement line numbers
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Reflection_Property extends ReflectionProperty
@@ -47,8 +47,8 @@ class Zend_Reflection_Property extends ReflectionProperty
 
     /**
      * Get docblock comment
-     * 
-     * @param  string $reflectionClass 
+     *
+     * @param  string $reflectionClass
      * @return Zend_Reflection_Docblock|false False if no docblock defined
      */
     public function getDocComment($reflectionClass = 'Zend_Reflection_Docblock')

@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Attribute.php,v 1.1 2010/04/28 15:20:48 bart Exp $
+ * @version    $Id: Attribute.php,v 1.2 2010/11/18 15:14:21 bart Exp $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Ldap
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Ldap_Attribute
@@ -382,10 +382,13 @@ class Zend_Ldap_Attribute
         if (is_array($values)) {
             for ($i = 0; $i<count($values); $i++) {
                 $newVal = self::_valueFromLdapDateTime($values[$i]);
-                if (!is_null($newVal)) $values[$i] = $newVal;
+                if ($newVal !== null) $values[$i] = $newVal;
             }
         }
-        else $values = self::_valueFromLdapDateTime($values);
+        else {
+			$newVal = self::_valueFromLdapDateTime($values);
+			if ($newVal !== null) $values = $newVal;
+		}
         return $values;
     }
 
@@ -396,7 +399,7 @@ class Zend_Ldap_Attribute
     private static function _valueFromLdapDateTime($value)
     {
         $matches = array();
-        if (preg_match('/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})([+-]\d{4}|Z)$/', $value, $matches)) {
+        if (preg_match('/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(?:\.0)?([+-]\d{4}|Z)$/', $value, $matches)) {
             $year = $matches[1];
             $month = $matches[2];
             $day = $matches[3];

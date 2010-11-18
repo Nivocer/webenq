@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SubmitButton.php,v 1.1 2010/04/28 15:20:31 bart Exp $
+ * @version    $Id: SubmitButton.php,v 1.2 2010/11/18 15:14:20 bart Exp $
  */
 
 /** Zend_Dojo_View_Helper_Button */
@@ -25,11 +25,11 @@ require_once 'Zend/Dojo/View/Helper/Button.php';
 
 /**
  * Dojo Button dijit tied to submit input
- * 
+ *
  * @uses       Zend_Dojo_View_Helper_Button
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
   */
 class Zend_Dojo_View_Helper_SubmitButton extends Zend_Dojo_View_Helper_Button
@@ -41,14 +41,14 @@ class Zend_Dojo_View_Helper_SubmitButton extends Zend_Dojo_View_Helper_Button
 
     /**
      * dijit.form.Button tied to submit input
-     * 
-     * @param  string $id 
-     * @param  string $value 
+     *
+     * @param  string $id
+     * @param  string $value
      * @param  array $params  Parameters to use for dijit creation
      * @param  array $attribs HTML attributes
      * @return string
      */
-    public function submitButton($id, $value = null, array $params = array(), array $attribs = array()) 
+    public function submitButton($id, $value = null, array $params = array(), array $attribs = array())
     {
         if (!array_key_exists('label', $params)) {
             $params['label'] = $value;

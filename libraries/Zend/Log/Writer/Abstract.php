@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1 2010/04/28 15:21:23 bart Exp $
+ * @version    $Id: Abstract.php,v 1.2 2010/11/18 15:13:24 bart Exp $
  */
 
 /** Zend_Log_Filter_Priority */
@@ -27,11 +27,11 @@ require_once 'Zend/Log/Filter/Priority.php';
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1 2010/04/28 15:21:23 bart Exp $
+ * @version    $Id: Abstract.php,v 1.2 2010/11/18 15:13:24 bart Exp $
  */
-abstract class Zend_Log_Writer_Abstract
+abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
 {
     /**
      * @var array of Zend_Log_Filter_Interface
@@ -54,6 +54,12 @@ abstract class Zend_Log_Writer_Abstract
     {
         if (is_integer($filter)) {
             $filter = new Zend_Log_Filter_Priority($filter);
+        }
+
+        if (!$filter instanceof Zend_Log_Filter_Interface) {
+            /** @see Zend_Log_Exception */
+            require_once 'Zend/Log/Exception.php';
+            throw new Zend_Log_Exception('Invalid filter provided');
         }
 
         $this->_filters[] = $filter;
@@ -83,7 +89,7 @@ abstract class Zend_Log_Writer_Abstract
      * @param  Zend_Log_Formatter_Interface $formatter
      * @return void
      */
-    public function setFormatter($formatter)
+    public function setFormatter(Zend_Log_Formatter_Interface $formatter)
     {
         $this->_formatter = $formatter;
     }
@@ -104,4 +110,26 @@ abstract class Zend_Log_Writer_Abstract
      */
     abstract protected function _write($event);
 
+    /**
+     * Validate and optionally convert the config to array
+     *
+     * @param  array|Zend_Config $config Zend_Config or Array
+     * @return array
+     * @throws Zend_Log_Exception
+     */
+    static protected function _parseConfig($config)
+    {
+        if ($config instanceof Zend_Config) {
+            $config = $config->toArray();
+        }
+
+        if (!is_array($config)) {
+            require_once 'Zend/Log/Exception.php';
+            throw new Zend_Log_Exception(
+				'Configuration must be an array or instance of Zend_Config'
+			);
+        }
+
+        return $config;
+    }
 }

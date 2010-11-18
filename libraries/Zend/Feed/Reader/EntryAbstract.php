@@ -14,15 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: EntryAbstract.php,v 1.1 2010/04/28 15:21:47 bart Exp $
+ * @version    $Id: EntryAbstract.php,v 1.2 2010/11/18 15:13:57 bart Exp $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Feed_Reader_EntryAbstract
@@ -118,6 +118,9 @@ abstract class Zend_Feed_Reader_EntryAbstract
     public function getEncoding()
     {
         $assumed = $this->getDomDocument()->encoding;
+        if (empty($assumed)) {
+            $assumed = 'UTF-8';
+        }
         return $assumed;
     }
 
@@ -134,7 +137,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
         return $dom->saveXml();
     }
 
-	/**
+    /**
      * Get the entry type
      *
      * @return string
@@ -151,10 +154,13 @@ abstract class Zend_Feed_Reader_EntryAbstract
      */
     public function getXpath()
     {
+        if (!$this->_xpath) {
+            $this->setXpath(new DOMXPath($this->getDomDocument()));
+        }
         return $this->_xpath;
     }
 
-	/**
+    /**
      * Set the XPath query
      *
      * @param  DOMXPath $xpath
@@ -164,16 +170,6 @@ abstract class Zend_Feed_Reader_EntryAbstract
     {
         $this->_xpath = $xpath;
         return $this;
-    }
-
-    /**
-     * Serialize the entry to an array
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return $this->_data;
     }
 
     /**

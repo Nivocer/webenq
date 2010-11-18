@@ -15,14 +15,15 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Manifest.php,v 1.1 2010/04/28 15:21:57 bart Exp $
+ * @version    $Id: Manifest.php,v 1.2 2010/11/18 15:16:10 bart Exp $
  */
 
 require_once 'Zend/Tool/Framework/Manifest/ProviderManifestable.php';
 require_once 'Zend/Tool/Framework/Manifest/ActionManifestable.php';
 require_once 'Zend/Tool/Framework/System/Provider/Version.php';
+require_once 'Zend/Tool/Framework/System/Provider/Config.php';
 require_once 'Zend/Tool/Framework/System/Provider/Phpinfo.php';
 require_once 'Zend/Tool/Framework/System/Provider/Manifest.php';
 require_once 'Zend/Tool/Framework/System/Action/Create.php';
@@ -31,10 +32,10 @@ require_once 'Zend/Tool/Framework/System/Action/Delete.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Framework_System_Manifest 
+class Zend_Tool_Framework_System_Manifest
     implements Zend_Tool_Framework_Manifest_ProviderManifestable, Zend_Tool_Framework_Manifest_ActionManifestable
 {
 
@@ -42,6 +43,7 @@ class Zend_Tool_Framework_System_Manifest
     {
         $providers = array(
             new Zend_Tool_Framework_System_Provider_Version(),
+            new Zend_Tool_Framework_System_Provider_Config(),
             new Zend_Tool_Framework_System_Provider_Phpinfo(),
             new Zend_Tool_Framework_System_Provider_Manifest()
             );

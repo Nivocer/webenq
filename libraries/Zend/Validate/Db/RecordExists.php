@@ -1,5 +1,4 @@
 <?php
- 
 /**
  * Zend Framework
  *
@@ -15,39 +14,38 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: RecordExists.php,v 1.1 2010/04/28 15:22:25 bart Exp $
- */  
-  
-  
+ * @version    $Id: RecordExists.php,v 1.2 2010/11/18 15:15:30 bart Exp $
+ */
+
 /**
  * @see Zend_Validate_Db_Abstract
- */  
-require_once 'Zend/Validate/Db/Abstract.php';  
-  
+ */
+require_once 'Zend/Validate/Db/Abstract.php';
+
 /**
  * Confirms a record exists in a table.
- * 
+ *
  * @category   Zend
  * @package    Zend_Validate
  * @uses       Zend_Validate_Db_Abstract
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */  
-class Zend_Validate_Db_RecordExists extends Zend_Validate_Db_Abstract  
-{ 
-    public function isValid($value) 
-    { 
-        $valid = true; 
-        $this->_setValue($value); 
-         
-        $result = $this->_query($value); 
-        if (!$result) { 
-            $valid = false; 
-            $this->_error(self::ERROR_NO_RECORD_FOUND); 
-        } 
-         
-        return $valid; 
-    } 
+ */
+class Zend_Validate_Db_RecordExists extends Zend_Validate_Db_Abstract
+{
+    public function isValid($value)
+    {
+        $valid = true;
+        $this->_setValue($value);
+
+        $result = $this->_query($value);
+        if (!$result) {
+            $valid = false;
+            $this->_error(self::ERROR_NO_RECORD_FOUND);
+        }
+
+        return $valid;
+    }
 }

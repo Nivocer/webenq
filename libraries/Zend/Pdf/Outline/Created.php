@@ -15,23 +15,21 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Actions
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Created.php,v 1.1 2010/04/28 15:21:25 bart Exp $
+ * @version    $Id: Created.php,v 1.2 2010/11/18 15:15:40 bart Exp $
  */
 
-/** Zend_Pdf_ElementFactory */
-require_once 'Zend/Pdf/ElementFactory.php';
+
+/** Internally used classes */
+require_once 'Zend/Pdf/Element/Array.php';
+require_once 'Zend/Pdf/Element/Dictionary.php';
+require_once 'Zend/Pdf/Element/Numeric.php';
+require_once 'Zend/Pdf/Element/String.php';
+
 
 /** Zend_Pdf_Outline */
 require_once 'Zend/Pdf/Outline.php';
-
-/** Zend_Pdf_Destination */
-require_once 'Zend/Pdf/Destination.php';
-
-/** Zend_Pdf_Action */
-require_once 'Zend/Pdf/Action.php';
-
 
 /**
  * PDF outline representation class
@@ -40,7 +38,7 @@ require_once 'Zend/Pdf/Action.php';
  *
  * @package    Zend_Pdf
  * @subpackage Outlines
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Outline_Created extends Zend_Pdf_Outline

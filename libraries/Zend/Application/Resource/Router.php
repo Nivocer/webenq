@@ -15,10 +15,16 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Router.php,v 1.1 2010/04/28 15:21:06 bart Exp $
+ * @version    $Id: Router.php,v 1.2 2010/11/18 15:13:14 bart Exp $
  */
+
+/**
+ * @see Zend_Application_Resource_ResourceAbstract
+ */
+require_once 'Zend/Application/Resource/ResourceAbstract.php';
+
 
 /**
  * Resource for initializing the locale
@@ -27,10 +33,10 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Application_Resource_Router 
+class Zend_Application_Resource_Router
     extends Zend_Application_Resource_ResourceAbstract
 {
     /**
@@ -64,15 +70,18 @@ class Zend_Application_Resource_Router
             if (!isset($options['routes'])) {
                 $options['routes'] = array();
             }
-            
 
             if (isset($options['chainNameSeparator'])) {
                 $this->_router->setChainNameSeparator($options['chainNameSeparator']);
             }
-            
+
+            if (isset($options['useRequestParametersAsGlobal'])) {
+                $this->_router->useRequestParametersAsGlobal($options['useRequestParametersAsGlobal']);
+            }
 
             $this->_router->addConfig(new Zend_Config($options['routes']));
         }
+
         return $this->_router;
     }
 }

@@ -14,44 +14,44 @@
  *
  * @category   Zend
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /**
  * Enable Dojo components
- * 
+ *
  * @package    Zend_Dojo
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Dojo.php,v 1.1 2010/04/28 15:20:58 bart Exp $
+ * @version    $Id: Dojo.php,v 1.2 2010/11/18 15:13:18 bart Exp $
  */
 class Zend_Dojo
 {
     /**
-     *  @const string Base path to AOL CDN
+     * Base path to AOL CDN
      */
     const CDN_BASE_AOL = 'http://o.aolcdn.com/dojo/';
 
     /**
-     * @const string Path to dojo on AOL CDN (following version string)
+     * Path to dojo on AOL CDN (following version string)
      */
     const CDN_DOJO_PATH_AOL = '/dojo/dojo.xd.js';
 
     /**
-     *  @const string Base path to Google CDN
+     * Base path to Google CDN
      */
     const CDN_BASE_GOOGLE = 'http://ajax.googleapis.com/ajax/libs/dojo/';
 
     /**
-     * @const string Path to dojo on Google CDN (following version string)
+     * Path to dojo on Google CDN (following version string)
      */
     const CDN_DOJO_PATH_GOOGLE = '/dojo/dojo.xd.js';
 
     /**
      * Dojo-enable a form instance
-     * 
-     * @param  Zend_Form $form 
+     *
+     * @param  Zend_Form $form
      * @return void
      */
     public static function enableForm(Zend_Form $form)
@@ -73,8 +73,8 @@ class Zend_Dojo
 
     /**
      * Dojo-enable a view instance
-     * 
-     * @param  Zend_View_Interface $view 
+     *
+     * @param  Zend_View_Interface $view
      * @return void
      */
     public static function enableView(Zend_View_Interface $view)

@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Atom.php,v 1.1 2010/04/28 15:22:11 bart Exp $
+ * @version    $Id: Atom.php,v 1.2 2010/11/18 15:15:09 bart Exp $
  */
 
 
@@ -32,15 +32,15 @@ require_once 'Zend/Feed/Entry/Abstract.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
 {
-	/**
-	 * Content-Type
-	 */
-	const CONTENT_TYPE = 'application/atom+xml';
+    /**
+     * Content-Type
+     */
+    const CONTENT_TYPE = 'application/atom+xml';
 
     /**
      * Root XML element for Atom entries.

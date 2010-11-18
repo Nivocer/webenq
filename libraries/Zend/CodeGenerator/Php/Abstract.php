@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage PHP
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1 2010/04/28 15:20:47 bart Exp $
+ * @version    $Id: Abstract.php,v 1.2 2010/11/18 15:14:34 bart Exp $
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Zend/CodeGenerator/Abstract.php';
 /**
  * @category   Zend
  * @package    Zend_CodeGenerator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstract
@@ -39,17 +39,17 @@ abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstra
      *
      */
     const LINE_FEED = "\n";
-    
+
     /**
      * @var bool
      */
     protected $_isSourceDirty = true;
-    
+
     /**
      * @var int|string
      */
     protected $_indentation = '    ';
-    
+
     /**
      * setSourceDirty()
      *
@@ -61,7 +61,7 @@ abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstra
         $this->_isSourceDirty = ($isSourceDirty) ? true : false;
         return $this;
     }
-    
+
     /**
      * isSourceDirty()
      *
@@ -71,7 +71,7 @@ abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstra
     {
         return $this->_isSourceDirty;
     }
-    
+
     /**
      * setIndentation()
      *
@@ -83,7 +83,7 @@ abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstra
         $this->_indentation = $indentation;
         return $this;
     }
-    
+
     /**
      * getIndentation()
      *
@@ -93,5 +93,5 @@ abstract class Zend_CodeGenerator_Php_Abstract extends Zend_CodeGenerator_Abstra
     {
         return $this->_indentation;
     }
-    
+
 }

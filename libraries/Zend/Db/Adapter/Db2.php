@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Db2.php,v 1.1 2010/04/28 15:22:02 bart Exp $
+ * @version    $Id: Db2.php,v 1.2 2010/11/18 15:14:26 bart Exp $
  *
  */
 
@@ -39,7 +39,7 @@ require_once 'Zend/Db/Statement/Db2.php';
 
 /**
  * @package    Zend_Db
- * @copyright  Copyright (c) 2005-2009 Zend Technologies Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -373,7 +373,7 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
         if ($schemaName === null && $this->_config['schema'] != null) {
             $schemaName = $this->_config['schema'];
         }
-        
+
         if (!$this->_isI5) {
 
             $sql = "SELECT DISTINCT c.tabschema, c.tabname, c.colname, c.colno,
@@ -402,14 +402,14 @@ class Zend_Db_Adapter_Db2 extends Zend_Db_Adapter_Abstract
             $sql = "SELECT DISTINCT C.TABLE_SCHEMA, C.TABLE_NAME, C.COLUMN_NAME, C.ORDINAL_POSITION,
                 C.DATA_TYPE, C.COLUMN_DEFAULT, C.NULLS ,C.LENGTH, C.SCALE, LEFT(C.IDENTITY,1),
                 LEFT(tc.TYPE, 1) AS tabconsttype, k.COLSEQ
-                FROM QSYS2.SYSCOLUMNS C     
+                FROM QSYS2.SYSCOLUMNS C
                 LEFT JOIN (QSYS2.syskeycst k JOIN QSYS2.SYSCST tc
                     ON (k.TABLE_SCHEMA = tc.TABLE_SCHEMA
                       AND k.TABLE_NAME = tc.TABLE_NAME
-                      AND LEFT(tc.type,1) = 'P'))                  
+                      AND LEFT(tc.type,1) = 'P'))
                     ON (C.TABLE_SCHEMA = k.TABLE_SCHEMA
                        AND C.TABLE_NAME = k.TABLE_NAME
-                       AND C.COLUMN_NAME = k.COLUMN_NAME)                          
+                       AND C.COLUMN_NAME = k.COLUMN_NAME)
                 WHERE "
                  . $this->quoteInto('UPPER(C.TABLE_NAME) = UPPER(?)', $tableName);
 

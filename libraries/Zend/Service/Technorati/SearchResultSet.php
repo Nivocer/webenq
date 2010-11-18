@@ -15,25 +15,25 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: SearchResultSet.php,v 1.1 2010/04/28 15:20:32 bart Exp $
+ * @version    $Id: SearchResultSet.php,v 1.2 2010/11/18 15:13:56 bart Exp $
  */
 
 
-/** 
- * @see Zend_Service_Technorati_ResultSet 
+/**
+ * @see Zend_Service_Technorati_ResultSet
  */
 require_once 'Zend/Service/Technorati/ResultSet.php';
 
 
 /**
  * Represents a Technorati Search query result set.
- * 
+ *
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Technorati_SearchResultSet extends Zend_Service_Technorati_ResultSet
@@ -58,7 +58,7 @@ class Zend_Service_Technorati_SearchResultSet extends Zend_Service_Technorati_Re
 
         $result = $this->_xpath->query('/tapi/document/result/querycount/text()');
         if ($result->length == 1) $this->_queryCount = (int) $result->item(0)->data;
-        
+
         $this->_totalResultsReturned  = (int) $this->_xpath->evaluate("count(/tapi/document/item)");
         $this->_totalResultsAvailable = (int) $this->_queryCount;
     }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: MetadataManifestable.php,v 1.1 2010/04/28 15:20:30 bart Exp $
+ * @version    $Id: MetadataManifestable.php,v 1.2 2010/11/18 15:13:58 bart Exp $
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Zend/Tool/Framework/Manifest/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Tool_Framework_Manifest_MetadataManifestable extends Zend_Tool_Framework_Manifest_Interface
@@ -36,12 +36,12 @@ interface Zend_Tool_Framework_Manifest_MetadataManifestable extends Zend_Tool_Fr
 
     /**
      * getMetadata()
-     * 
+     *
      * Should either return a single metadata object or an array
      * of metadata objects
-     * 
+     *
      * @return array|Zend_Tool_Framework_Manifest_Metadata
-     */    
+     */
     public function getMetadata();
-    
+
 }

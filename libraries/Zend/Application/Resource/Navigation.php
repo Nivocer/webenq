@@ -15,10 +15,16 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Navigation.php,v 1.1 2010/04/28 15:21:06 bart Exp $
+ * @version    $Id: Navigation.php,v 1.2 2010/11/18 15:13:13 bart Exp $
  */
+
+/**
+ * @see Zend_Application_Resource_ResourceAbstract
+ */
+require_once 'Zend/Application/Resource/ResourceAbstract.php';
+
 
 /**
  * Resource for setting navigation structure
@@ -27,11 +33,11 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @author     Dolf Schimmel
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Application_Resource_Navigation 
+class Zend_Application_Resource_Navigation
     extends Zend_Application_Resource_ResourceAbstract
 {
     const DEFAULT_REGISTRY_KEY = 'Zend_Navigation';
@@ -82,16 +88,15 @@ class Zend_Application_Resource_Navigation
     protected function _storeRegistry()
     {
         $options = $this->getOptions();
-        if(isset($options['storage']) &&
-           isset($options['storage']['registry']) &&
-           isset($options['storage']['registry']['key']))
+        if(isset($options['storage']['registry']['key']) &&
+           !is_numeric($options['storage']['registry']['key'])) // see ZF-7461
         {
            $key = $options['storage']['registry']['key'];
         } else {
-		    $key = self::DEFAULT_REGISTRY_KEY;
+            $key = self::DEFAULT_REGISTRY_KEY;
         }
-        
-		Zend_Registry::set($key,$this->getContainer());
+
+        Zend_Registry::set($key,$this->getContainer());
     }
 
     /**

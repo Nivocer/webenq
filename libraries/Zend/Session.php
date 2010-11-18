@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Session.php,v 1.1 2010/04/28 15:20:58 bart Exp $
+ * @version    $Id: Session.php,v 1.2 2010/11/18 15:13:18 bart Exp $
  * @since      Preview Release 0.2
  */
 
@@ -43,7 +43,7 @@ require_once 'Zend/Session/SaveHandler/Interface.php';
  *
  * @category   Zend
  * @package    Zend_Session
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Session extends Zend_Session_Abstract
@@ -62,7 +62,7 @@ class Zend_Session extends Zend_Session_Abstract
      * @var bool|bitset This could also be a combiniation of error codes to catch
      */
     protected static $_throwStartupExceptions = true;
-    
+
     /**
      * Check whether or not the session was started
      *
@@ -244,14 +244,14 @@ class Zend_Session extends Zend_Session_Abstract
         foreach (self::$_localOptions as $localOptionName => $localOptionMemberName) {
             $options[$localOptionName] = self::${$localOptionMemberName};
         }
-        
+
         if ($optionName) {
             if (array_key_exists($optionName, $options)) {
                 return $options[$optionName];
             }
             return null;
         }
-        
+
         return $options;
     }
 
@@ -466,23 +466,23 @@ class Zend_Session extends Zend_Session_Abstract
          * Hack to throw exceptions on start instead of php errors
          * @see http://framework.zend.com/issues/browse/ZF-1325
          */
-        
+
         $errorLevel = (is_int(self::$_throwStartupExceptions)) ? self::$_throwStartupExceptions : E_ALL;
-        
+
         /** @see Zend_Session_Exception */
         if (!self::$_unitTestEnabled) {
-            
+
             if (self::$_throwStartupExceptions) {
                 require_once 'Zend/Session/Exception.php';
                 set_error_handler(array('Zend_Session_Exception', 'handleSessionStartError'), $errorLevel);
             }
-            
+
             $startedCleanly = session_start();
-            
+
             if (self::$_throwStartupExceptions) {
                 restore_error_handler();
             }
-            
+
             if (!$startedCleanly || Zend_Session_Exception::$sessionStartError != null) {
                 if (self::$_throwStartupExceptions) {
                     set_error_handler(array('Zend_Session_Exception', 'handleSilentWriteClose'), $errorLevel);
@@ -528,11 +528,12 @@ class Zend_Session extends Zend_Session_Abstract
                 // Expire Namespace by Time (ENT)
                 if (isset($namespace_metadata['ENT']) && ($namespace_metadata['ENT'] > 0) && (time() > $namespace_metadata['ENT']) ) {
                     unset($_SESSION[$namespace]);
-                    unset($_SESSION['__ZF'][$namespace]['ENT']);
+                    unset($_SESSION['__ZF'][$namespace]);
                 }
 
-                // Expire Namespace by Global Hop (ENGH)
-                if (isset($namespace_metadata['ENGH']) && $namespace_metadata['ENGH'] >= 1) {
+                // Expire Namespace by Global Hop (ENGH) if it wasnt expired above
+                if (isset($_SESSION['__ZF'][$namespace]) && isset($namespace_metadata['ENGH']) && $namespace_metadata['ENGH'] >= 1) {
+
                     $_SESSION['__ZF'][$namespace]['ENGH']--;
 
                     if ($_SESSION['__ZF'][$namespace]['ENGH'] === 0) {
@@ -540,7 +541,7 @@ class Zend_Session extends Zend_Session_Abstract
                             parent::$_expiringData[$namespace] = $_SESSION[$namespace];
                             unset($_SESSION[$namespace]);
                         }
-                        unset($_SESSION['__ZF'][$namespace]['ENGH']);
+                        unset($_SESSION['__ZF'][$namespace]);
                     }
                 }
 
@@ -550,11 +551,10 @@ class Zend_Session extends Zend_Session_Abstract
                         if (time() > $time) {
                             unset($_SESSION[$namespace][$variable]);
                             unset($_SESSION['__ZF'][$namespace]['ENVT'][$variable]);
-
-                            if (empty($_SESSION['__ZF'][$namespace]['ENVT'])) {
-                                unset($_SESSION['__ZF'][$namespace]['ENVT']);
-                            }
                         }
+                    }
+                    if (empty($_SESSION['__ZF'][$namespace]['ENVT'])) {
+                        unset($_SESSION['__ZF'][$namespace]['ENVT']);
                     }
                 }
 
@@ -570,6 +570,9 @@ class Zend_Session extends Zend_Session_Abstract
                             }
                             unset($_SESSION['__ZF'][$namespace]['ENVGH'][$variable]);
                         }
+                    }
+                    if (empty($_SESSION['__ZF'][$namespace]['ENVGH'])) {
+                        unset($_SESSION['__ZF'][$namespace]['ENVGH']);    
                     }
                 }
             }

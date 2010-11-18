@@ -13,11 +13,11 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Test
+ * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbAdapter.php,v 1.1 2010/04/28 15:21:32 bart Exp $
+ * @version    $Id: DbAdapter.php,v 1.2 2010/11/18 15:14:49 bart Exp $
  */
 
 /**
@@ -38,11 +38,10 @@ require_once 'Zend/Db/Profiler.php';
 /**
  * Testing Database Adapter which acts as a stack for SQL Results
  *
- * @uses       uses
  * @category   Zend
- * @package    package
- * @subpackage subpackage
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @package    Zend_Test
+ * @subpackage PHPUnit
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
@@ -73,6 +72,11 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
     protected $_describeTables = array();
 
     /**
+     * @var string
+     */ 
+    protected $_quoteIdentifierSymbol = '';
+
+    /**
      * Empty constructor to make it parameterless.
      */
     public function __construct()
@@ -96,7 +100,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
 
     /**
      * Append a new Insert Id to the {@see lastInsertId}.
-     * 
+     *
      * @param  int|string $id
      * @return Zend_Test_DbAdapter
      */
@@ -107,13 +111,21 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
     }
 
     /**
+     * @var string
+     */ 
+    public function setQuoteIdentifierSymbol($symbol)
+    {
+        $this->_quoteIdentifierSymbol = $symbol;
+    }
+
+    /**
      * Returns the symbol the adapter uses for delimited identifiers.
      *
      * @return string
      */
     public function getQuoteIdentifierSymbol()
     {
-        return '';
+        return $this->_quoteIdentifierSymbol;
     }
 
     /**
@@ -229,7 +241,7 @@ class Zend_Test_DbAdapter extends Zend_Db_Adapter_Abstract
         } else {
             $stmt = new Zend_Test_DbStatement();
         }
-        
+
         if($this->getProfiler()->getEnabled() == true) {
             $qp = $this->getProfiler()->getQueryProfile($queryId);
             $stmt->setQueryProfile($qp);

@@ -15,24 +15,24 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Captcha_Word */
+/** @see Zend_Captcha_Word */
 require_once 'Zend/Captcha/Word.php';
 
 /**
  * Example dumb word-based captcha
- * 
+ *
  * Note that only rendering is necessary for word-based captcha
- *  
+ *
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Dumb.php,v 1.1 2010/04/28 15:21:30 bart Exp $
+ * @version    $Id: Dumb.php,v 1.2 2010/11/18 15:14:41 bart Exp $
 */
 class Zend_Captcha_Dumb extends Zend_Captcha_Word
 {

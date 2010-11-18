@@ -14,26 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FeedAbstract.php,v 1.1 2010/04/28 15:21:47 bart Exp $
+ * @version    $Id: FeedAbstract.php,v 1.2 2010/11/18 15:13:57 bart Exp $
  */
 
 /**
  * @see Zend_Feed_Reader
  */
 require_once 'Zend/Feed/Reader.php';
-
-/**
- * @see Zend_Feed_Reader_Entry_Atom
- */
-require_once 'Zend/Feed/Reader/Entry/Atom.php';
-
-
-/**
- * @see Zend_Feed_Reader_Entry_Rss
- */
-require_once 'Zend/Feed/Reader/Entry/Rss.php';
 
 /**
  * @see Zend_feed_Reader_FeedInterface
@@ -43,12 +32,12 @@ require_once 'Zend/Feed/Reader/FeedInterface.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Reader
- * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInterface
 {
-	/**
+    /**
      * Parsed feed data
      *
      * @var array
@@ -83,7 +72,19 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
      */
     protected $_xpath = null;
 
+    /**
+     * Array of loaded extensions
+     *
+     * @var array
+     */
     protected $_extensions = array();
+
+    /**
+     * Original Source URI (set if imported from a URI)
+     *
+     * @var string
+     */
+    protected $_originalSourceUri = null;
 
     /**
      * Constructor
@@ -106,7 +107,30 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
         $this->_loadExtensions();
     }
 
-	/**
+    /**
+     * Set an original source URI for the feed being parsed. This value
+     * is returned from getFeedLink() method if the feed does not carry
+     * a self-referencing URI.
+     *
+     * @param string $uri
+     */
+    public function setOriginalSourceUri($uri)
+    {
+        $this->_originalSourceUri = $uri;
+    }
+
+    /**
+     * Get an original source URI for the feed being parsed. Returns null if
+     * unset or the feed was not imported from a URI.
+     *
+     * @return string|null
+     */
+    public function getOriginalSourceUri()
+    {
+        return $this->_originalSourceUri;
+    }
+
+    /**
      * Get the number of feed entries.
      * Required by the Iterator interface.
      *
@@ -117,10 +141,10 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
         return count($this->_entries);
     }
 
-	/**
+    /**
      * Return the current entry
      *
-     * @return Zend_Feed_Reader_Entry_Interface
+     * @return Zend_Feed_Reader_EntryInterface
      */
     public function current()
     {
@@ -153,6 +177,9 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
     public function getEncoding()
     {
         $assumed = $this->getDomDocument()->encoding;
+        if (empty($assumed)) {
+            $assumed = 'UTF-8';
+        }
         return $assumed;
     }
 
@@ -196,7 +223,7 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
         return $this->_data['type'];
     }
 
-	/**
+    /**
      * Return the current feed key
      *
      * @return unknown
@@ -206,7 +233,7 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
         return $this->_entriesKey;
     }
 
-	/**
+    /**
      * Move the feed pointer forward
      *
      */
@@ -222,16 +249,6 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
     public function rewind()
     {
         $this->_entriesKey = 0;
-    }
-
-    /**
-     * Return the feed as an array
-     *
-     * @return array
-     */
-    public function toArray() // untested
-    {
-        return $this->_data;
     }
 
     /**

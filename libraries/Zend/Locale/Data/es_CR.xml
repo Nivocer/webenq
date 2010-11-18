@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE ldml SYSTEM "../../common/dtd/ldml.dtd">
 <ldml>
 	<identity>
-		<version number="$Revision: 1.1 $"/>
-		<generation date="$Date: 2010/04/28 15:20:19 $"/>
+		<version number="$Revision: 1.2 $"/>
+		<generation date="$Date: 2010/11/18 15:13:19 $"/>
 		<language type="es"/>
 		<territory type="CR"/>
 	</identity>

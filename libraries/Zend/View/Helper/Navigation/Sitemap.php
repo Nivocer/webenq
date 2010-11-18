@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Sitemap.php,v 1.1 2010/04/28 15:21:08 bart Exp $
+ * @version    $Id: Sitemap.php,v 1.2 2010/11/18 15:14:07 bart Exp $
  */
 
 /**
@@ -33,7 +33,7 @@ require_once 'Zend/View/Helper/Navigation/HelperAbstract.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Navigation_Sitemap
@@ -228,9 +228,11 @@ class Zend_View_Helper_Navigation_Sitemap
             $this->_serverUrl = $uri->getUri();
         } else {
             require_once 'Zend/Uri/Exception.php';
-            throw new Zend_Uri_Exception(sprintf(
+            $e = new Zend_Uri_Exception(sprintf(
                     'Invalid server URL: "%s"',
                     $serverUrl));
+            $e->setView($this->view);
+            throw $e;
         }
 
         return $this;
@@ -260,10 +262,17 @@ class Zend_View_Helper_Navigation_Sitemap
      */
     protected function _xmlEscape($string)
     {
+        $enc = 'UTF-8';
+        if ($this->view instanceof Zend_View_Interface
+            && method_exists($this->view, 'getEncoding')
+        ) {
+            $enc = $this->view->getEncoding();
+        }
+
         // TODO: remove check when minimum PHP version is >= 5.2.3
         if (version_compare(PHP_VERSION, '5.2.3', '>=')) {
             // do not encode existing HTML entities
-            return htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
+            return htmlspecialchars($string, ENT_QUOTES, $enc, false);
         } else {
             $string = preg_replace('/&(?!(?:#\d++|[a-z]++);)/ui', '&amp;', $string);
             $string = str_replace(array('<', '>', '\'', '"'), array('&lt;', '&gt;', '&#39;', '&quot;'), $string);
@@ -379,9 +388,11 @@ class Zend_View_Helper_Navigation_Sitemap
             if ($this->getUseSitemapValidators() &&
                 !$locValidator->isValid($url)) {
                 require_once 'Zend/View/Exception.php';
-                throw new Zend_View_Exception(sprintf(
+                $e = new Zend_View_Exception(sprintf(
                         'Encountered an invalid URL for Sitemap XML: "%s"',
                         $url));
+                $e->setView($this->view);
+                throw $e;
             }
 
             // put url in 'loc' element
@@ -435,9 +446,11 @@ class Zend_View_Helper_Navigation_Sitemap
         if ($this->getUseSchemaValidation()) {
             if (!@$dom->schemaValidate(self::SITEMAP_XSD)) {
                 require_once 'Zend/View/Exception.php';
-                throw new Zend_View_Exception(sprintf(
+                $e = new Zend_View_Exception(sprintf(
                         'Sitemap is invalid according to XML Schema at "%s"',
                         self::SITEMAP_XSD));
+                $e->setView($this->view);
+                throw $e;
             }
         }
 

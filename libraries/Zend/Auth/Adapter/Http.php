@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter_Http
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Http.php,v 1.1 2010/04/28 15:20:40 bart Exp $
+ * @version    $Id: Http.php,v 1.2 2010/11/18 15:13:25 bart Exp $
  */
 
 
@@ -35,7 +35,7 @@ require_once 'Zend/Auth/Adapter/Interface.php';
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter_Http
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @todo       Support auth-int
  * @todo       Track nonces, nonce-count, opaque for replay protection and stale support
@@ -403,7 +403,7 @@ class Zend_Auth_Adapter_Http implements Zend_Auth_Adapter_Interface
             // challenge again the client
             return $this->_challengeClient();
         }
-        
+
         switch ($clientScheme) {
             case 'basic':
                 $result = $this->_basicAuth($authHeader);

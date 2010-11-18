@@ -15,14 +15,19 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Image.php,v 1.1 2010/04/28 15:22:20 bart Exp $
+ * @version    $Id: Image.php,v 1.2 2010/11/18 15:14:00 bart Exp $
  */
 
-/**
- * @see Zend_Pdf_FileParser
- */
+
+/** Internally used classes */
+
+/** Zend_Pdf_Image */
+require_once 'Zend/Pdf/Image.php';
+
+
+/** Zend_Pdf_FileParser */
 require_once 'Zend/Pdf/FileParser.php';
 
 /**
@@ -30,7 +35,7 @@ require_once 'Zend/Pdf/FileParser.php';
  *
  * @package    Zend_Pdf
  * @subpackage FileParser
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_FileParser_Image extends Zend_Pdf_FileParser
@@ -55,5 +60,4 @@ abstract class Zend_Pdf_FileParser_Image extends Zend_Pdf_FileParser
         parent::__construct($dataSource);
         $this->imageType = Zend_Pdf_Image::TYPE_UNKNOWN;
     }
-
 }

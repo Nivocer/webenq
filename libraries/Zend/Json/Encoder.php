@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Encoder.php,v 1.1 2010/04/28 15:20:47 bart Exp $
+ * @version    $Id: Encoder.php,v 1.2 2010/11/18 15:14:35 bart Exp $
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @category   Zend
  * @package    Zend_Json
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Encoder
@@ -145,7 +145,7 @@ class Zend_Json_Encoder
         foreach ($propCollection as $name => $propValue) {
             if (isset($propValue)) {
                 $props .= ','
-                        . $this->_encodeValue($name)
+                        . $this->_encodeString($name)
                         . ':'
                         . $this->_encodeValue($propValue);
             }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Navigation.php,v 1.1 2010/04/28 15:20:33 bart Exp $
+ * @version    $Id: Navigation.php,v 1.2 2010/11/18 15:13:38 bart Exp $
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/View/Helper/Navigation/HelperAbstract.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Navigation
@@ -175,10 +175,12 @@ class Zend_View_Helper_Navigation
         if (!$helper instanceof Zend_View_Helper_Navigation_Helper) {
             if ($strict) {
                 require_once 'Zend/View/Exception.php';
-                throw new Zend_View_Exception(sprintf(
+                $e = new Zend_View_Exception(sprintf(
                         'Proxy helper "%s" is not an instance of ' .
                         'Zend_View_Helper_Navigation_Helper',
                         get_class($helper)));
+                $e->setView($this->view);
+                throw $e;
             }
 
             return null;

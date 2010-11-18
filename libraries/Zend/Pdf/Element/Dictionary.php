@@ -14,22 +14,25 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Dictionary.php,v 1.1 2010/04/28 15:20:48 bart Exp $
+ * @version    $Id: Dictionary.php,v 1.2 2010/11/18 15:13:50 bart Exp $
  */
+
+
+/** Internally used classes */
+require_once 'Zend/Pdf/Element/Name.php';
 
 
 /** Zend_Pdf_Element */
 require_once 'Zend/Pdf/Element.php';
-
 
 /**
  * PDF file 'dictionary' element implementation
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
@@ -54,14 +57,17 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
         if ($val === null) {
             return;
         } else if (!is_array($val)) {
+            require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception('Argument must be an array');
         }
 
         foreach ($val as $name => $element) {
             if (!$element instanceof Zend_Pdf_Element) {
+                require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Array elements must be Zend_Pdf_Element objects');
             }
             if (!is_string($name)) {
+                require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Array keys must be strings');
             }
             $this->_items[$name] = $element;
@@ -145,6 +151,7 @@ class Zend_Pdf_Element_Dictionary extends Zend_Pdf_Element
 
         foreach ($this->_items as $name => $element) {
             if (!is_object($element)) {
+                require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Wrong data');
             }
 

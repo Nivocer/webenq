@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Cache.php,v 1.1 2010/04/28 15:20:49 bart Exp $
+ * @version    $Id: Cache.php,v 1.2 2010/11/18 15:14:58 bart Exp $
  */
 
 /** Zend_Server_Cache */
@@ -29,7 +29,7 @@ require_once 'Zend/Server/Cache.php';
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Server_Cache extends Zend_Server_Cache
@@ -38,9 +38,9 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      * Cache a service map description (SMD) to a file
      *
      * Returns true on success, false on failure
-     * 
-     * @param  string $filename 
-     * @param  Zend_Json_Server $server 
+     *
+     * @param  string $filename
+     * @param  Zend_Json_Server $server
      * @return boolean
      */
     public static function saveSmd($filename, Zend_Json_Server $server)
@@ -61,10 +61,10 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
     /**
      * Retrieve a cached SMD
      *
-     * On success, returns the cached SMD (a JSON string); an failure, returns 
+     * On success, returns the cached SMD (a JSON string); an failure, returns
      * boolean false.
-     * 
-     * @param  string $filename 
+     *
+     * @param  string $filename
      * @return string|false
      */
     public static function getSmd($filename)
@@ -86,8 +86,8 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
 
     /**
      * Delete a file containing a cached SMD
-     * 
-     * @param  string $filename 
+     *
+     * @param  string $filename
      * @return bool
      */
     public static function deleteSmd($filename)

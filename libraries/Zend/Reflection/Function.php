@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Function.php,v 1.1 2010/04/28 15:21:40 bart Exp $
+ * @version    $Id: Function.php,v 1.2 2010/11/18 15:14:16 bart Exp $
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Reflection/Parameter.php';
 /**
  * @category   Zend
  * @package    Zend_Reflection
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Reflection_Function extends ReflectionFunction
@@ -51,7 +51,7 @@ class Zend_Reflection_Function extends ReflectionFunction
         }
         return $instance;
     }
-    
+
     /**
      * Get start line (position) of function
      *
@@ -65,10 +65,10 @@ class Zend_Reflection_Function extends ReflectionFunction
                 return $this->getDocblock()->getStartLine();
             }
         }
-        
+
         return parent::getStartLine();
     }
-    
+
     /**
      * Get contents of function
      *
@@ -77,16 +77,16 @@ class Zend_Reflection_Function extends ReflectionFunction
      */
     public function getContents($includeDocblock = true)
     {
-        return implode("\n", 
+        return implode("\n",
             array_splice(
                 file($this->getFileName()),
-                $this->getStartLine($includeDocblock), 
-                ($this->getEndLine() - $this->getStartLine()), 
+                $this->getStartLine($includeDocblock),
+                ($this->getEndLine() - $this->getStartLine()),
                 true
                 )
             );
     }
-    
+
     /**
      * Get function parameters
      *
@@ -109,7 +109,7 @@ class Zend_Reflection_Function extends ReflectionFunction
         unset($phpReflections);
         return $zendReflections;
     }
-    
+
     /**
      * Get return type tag
      *

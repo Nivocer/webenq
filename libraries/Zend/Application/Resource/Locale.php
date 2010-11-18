@@ -15,10 +15,16 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Locale.php,v 1.1 2010/04/28 15:21:06 bart Exp $
+ * @version    $Id: Locale.php,v 1.2 2010/11/18 15:13:13 bart Exp $
  */
+
+/**
+ * @see Zend_Application_Resource_ResourceAbstract
+ */
+require_once 'Zend/Application/Resource/ResourceAbstract.php';
+
 
 /**
  * Resource for initializing the locale
@@ -27,10 +33,10 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Resource
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Application_Resource_Locale 
+class Zend_Application_Resource_Locale
     extends Zend_Application_Resource_ResourceAbstract
 {
     const DEFAULT_REGISTRY_KEY = 'Zend_Locale';
@@ -60,10 +66,15 @@ class Zend_Application_Resource_Locale
     {
         if (null === $this->_locale) {
             $options = $this->getOptions();
-            if (!isset($options['default'])) {
+            if(!isset($options['default'])) {
                 $this->_locale = new Zend_Locale();
-            } else { 
+            } elseif(!isset($options['force']) ||
+                     (bool) $options['force'] == false)
+            {
+                // Don't force any locale, just go for auto detection
                 Zend_Locale::setDefault($options['default']);
+                $this->_locale = new Zend_Locale();
+            } else {
                 $this->_locale = new Zend_Locale($options['default']);
             }
 
@@ -72,6 +83,7 @@ class Zend_Application_Resource_Locale
                 : self::DEFAULT_REGISTRY_KEY;
             Zend_Registry::set($key, $this->_locale);
         }
+
         return $this->_locale;
     }
 }

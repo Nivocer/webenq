@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProjectProvidersDirectory.php,v 1.1 2010/04/28 15:21:03 bart Exp $
+ * @version    $Id: ProjectProvidersDirectory.php,v 1.2 2010/11/18 15:15:05 bart Exp $
  */
 
 /**
@@ -40,23 +40,23 @@ require_once 'Zend/Tool/Project/Context/System/NotOverwritable.php';
  *
  * A profile is a hierarchical set of resources that keep track of
  * items within a specific project.
- * 
+ *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Tool_Project_Context_System_ProjectProvidersDirectory 
+class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
     extends Zend_Tool_Project_Context_Filesystem_Directory
     implements Zend_Tool_Project_Context_System_Interface,
                Zend_Tool_Project_Context_System_NotOverwritable
 {
-    
+
     /**
      * @var string
      */
     protected $_filesystemName = 'providers';
-    
+
     /**
      * getName()
      *
@@ -66,7 +66,7 @@ class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
     {
         return 'ProjectProvidersDirectory';
     }
-    
+
     /**
      * init()
      *
@@ -75,7 +75,7 @@ class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
     public function init()
     {
         parent::init();
-        
+
         if (file_exists($this->getPath())) {
 
             foreach (new DirectoryIterator($this->getPath()) as $item) {
@@ -83,15 +83,15 @@ class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
                     $loadableFiles[] = $item->getPathname();
                 }
             }
-            
+
             if ($loadableFiles) {
-                
+
                 // @todo process and add the files to the system for usage.
-                
+
             }
         }
-        
+
         return $this;
     }
-    
+
 }

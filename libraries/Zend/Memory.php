@@ -12,10 +12,11 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
+ * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Memory.php,v 1.1 2010/04/28 15:20:59 bart Exp $
+ * @version    $Id: Memory.php,v 1.2 2010/11/18 15:13:18 bart Exp $
  */
 
 /** Zend_Memory_Exception */
@@ -33,7 +34,7 @@ require_once 'Zend/Cache.php';
 /**
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Memory
@@ -52,10 +53,18 @@ class Zend_Memory
             return new Zend_Memory_Manager();
         }
 
-        // because lowercase will fail
-        $backend = @ucfirst(strtolower($backend));
+        // Look through available backendsand
+        // (that allows to specify it in any case)
+        $backendIsFound = false;
+        foreach (Zend_Cache::$availableBackends as $zendCacheBackend) {
+            if (strcasecmp($backend, $zendCacheBackend) == 0) {
+                $backend = $zendCacheBackend;
+                $backendIsFound = true;
+                break;
+            }
+        }
 
-        if (!in_array($backend, Zend_Cache::$availableBackends)) {
+        if (!$backendIsFound) {
             require_once 'Zend/Memory/Exception.php';
             throw new Zend_Memory_Exception("Incorrect backend ($backend)");
         }

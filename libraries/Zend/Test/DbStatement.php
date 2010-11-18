@@ -13,13 +13,16 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Test
+ * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DbStatement.php,v 1.1 2010/04/28 15:21:32 bart Exp $
+ * @version    $Id: DbStatement.php,v 1.2 2010/11/18 15:14:49 bart Exp $
  */
 
+/**
+ * @see Zend_Db_Statement_Interface
+ */
 require_once "Zend/Db/Statement/Interface.php";
 
 /**
@@ -28,7 +31,7 @@ require_once "Zend/Db/Statement/Interface.php";
  * @category   Zend
  * @package    Zend_Test
  * @subpackage PHPUnit
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
@@ -55,7 +58,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
 
     /**
      * Create a Select statement which returns the given array of rows.
-     * 
+     *
      * @param array $rows
      * @return Zend_Test_DbStatement
      */
@@ -70,7 +73,7 @@ class Zend_Test_DbStatement implements Zend_Db_Statement_Interface
 
     /**
      * Create an Insert Statement
-     * 
+     *
      * @param  int $affectedRows
      * @return Zend_Test_DbStatement
      */

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1 2010/04/28 15:21:31 bart Exp $
+ * @version    $Id: Abstract.php,v 1.2 2010/11/18 15:13:24 bart Exp $
  */
 
 /**
@@ -41,7 +41,7 @@ require_once 'Zend/Db.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Db_Table_Abstract
@@ -93,14 +93,14 @@ abstract class Zend_Db_Table_Abstract
      * @var unknown_type
      */
     protected $_definition = null;
-    
+
     /**
      * Optional definition config name used in concrete implementation
      *
      * @var string
      */
     protected $_definitionConfigName = null;
-    
+
     /**
      * Default cache for information provided by the adapter's describeTable() method.
      *
@@ -326,7 +326,7 @@ abstract class Zend_Db_Table_Abstract
 
         return $this;
     }
-    
+
     /**
      * setDefinition()
      *
@@ -338,7 +338,7 @@ abstract class Zend_Db_Table_Abstract
         $this->_definition = $definition;
         return $this;
     }
-    
+
     /**
      * getDefinition()
      *
@@ -348,7 +348,7 @@ abstract class Zend_Db_Table_Abstract
     {
         return $this->_definition;
     }
-    
+
     /**
      * setDefinitionConfigName()
      *
@@ -360,7 +360,7 @@ abstract class Zend_Db_Table_Abstract
         $this->_definitionConfigName = $definitionConfigName;
         return $this;
     }
-    
+
     /**
      * getDefinitionConfigName()
      *
@@ -803,10 +803,10 @@ abstract class Zend_Db_Table_Abstract
         // If $this has a metadata cache
         if (null !== $this->_metadataCache) {
             // Define the cache identifier where the metadata are saved
-            
+
             //get db configuration
             $dbConfig = $this->_db->getConfig();
-                
+
             // Define the cache identifier where the metadata are saved
             $cacheId = md5( // port:host/dbname:schema.table (based on availabilty)
                 (isset($dbConfig['options']['port']) ? ':'.$dbConfig['options']['port'] : null)
@@ -823,11 +823,7 @@ abstract class Zend_Db_Table_Abstract
             $metadata = $this->_db->describeTable($this->_name, $this->_schema);
             // If $this has a metadata cache, then cache the metadata
             if (null !== $this->_metadataCache && !$this->_metadataCache->save($metadata, $cacheId)) {
-                /**
-                 * @see Zend_Db_Table_Exception
-                 */
-                require_once 'Zend/Db/Table/Exception.php';
-                throw new Zend_Db_Table_Exception('Failed saving metadata to metadataCache');
+                trigger_error('Failed saving metadata to metadataCache', E_USER_NOTICE);
             }
         }
 
@@ -1286,7 +1282,7 @@ abstract class Zend_Db_Table_Abstract
             }
             return new $rowsetClass(array('table' => $this, 'rowClass' => $this->getRowClass(), 'stored' => true));
         }
-        
+
         return $this->fetchAll($whereClause);
     }
 

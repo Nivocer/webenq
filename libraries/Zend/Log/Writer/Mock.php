@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mock.php,v 1.1 2010/04/28 15:21:23 bart Exp $
+ * @version    $Id: Mock.php,v 1.2 2010/11/18 15:13:24 bart Exp $
  */
 
 /** Zend_Log_Writer_Abstract */
@@ -27,9 +27,9 @@ require_once 'Zend/Log/Writer/Abstract.php';
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Mock.php,v 1.1 2010/04/28 15:21:23 bart Exp $
+ * @version    $Id: Mock.php,v 1.2 2010/11/18 15:13:24 bart Exp $
  */
 class Zend_Log_Writer_Mock extends Zend_Log_Writer_Abstract
 {
@@ -62,5 +62,17 @@ class Zend_Log_Writer_Mock extends Zend_Log_Writer_Abstract
     public function shutdown()
     {
         $this->shutdown = true;
+    }
+
+    /**
+     * Create a new instance of Zend_Log_Writer_Mock
+     * 
+     * @param  array|Zend_Config $config
+     * @return Zend_Log_Writer_Mock
+     * @throws Zend_Log_Exception
+     */
+    static public function factory($config) 
+    {
+        return new self();
     }
 }

@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Array.php,v 1.1 2010/04/28 15:20:40 bart Exp $
+ * @version    $Id: Array.php,v 1.2 2010/11/18 15:15:16 bart Exp $
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Queue/Adapter/AdapterAbstract.php';
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
@@ -223,22 +223,27 @@ class Zend_Queue_Adapter_Array extends Zend_Queue_Adapter_AdapterAbstract
         }
 
         $data       = array();
-        $start_time = microtime(true);
+        if ($maxMessages > 0) {
+            $start_time = microtime(true);
 
-        $count = 0;
-        $temp = &$this->_data[$queue->getName()];
-        foreach ($temp as $key=>&$msg) {
-            if (($msg['handle'] === null) 
-                || ($msg['timeout'] + $timeout < $start_time)
-            ) {
-                $msg['handle']  = md5(uniqid(rand(), true));
-                $msg['timeout'] = microtime(true);
-                $data[] = $msg;
-                $count++;
-            }
+            $count = 0;
+            $temp = &$this->_data[$queue->getName()];
+            foreach ($temp as $key=>&$msg) {
+                // count check has to be first, as someone can ask for 0 messages
+                // ZF-7650
+                if ($count >= $maxMessages) {
+                    break;
+                }
 
-            if ($count >= $maxMessages) {
-                break;
+                if (($msg['handle'] === null)
+                    || ($msg['timeout'] + $timeout < $start_time)
+                ) {
+                    $msg['handle']  = md5(uniqid(rand(), true));
+                    $msg['timeout'] = microtime(true);
+                    $data[] = $msg;
+                    $count++;
+                }
+
             }
         }
 

@@ -14,17 +14,10 @@
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Context.php,v 1.1 2010/04/28 15:22:15 bart Exp $
+ * @version    $Id: Context.php,v 1.2 2010/11/18 15:16:00 bart Exp $
  */
-
-
-/** Zend_Pdf_StringParser */
-require_once 'Zend/Pdf/StringParser.php';
-
-/** Zend_Pdf_Element_Reference_Table */
-require_once 'Zend/Pdf/Element/Reference/Table.php';
 
 
 /**
@@ -33,7 +26,7 @@ require_once 'Zend/Pdf/Element/Reference/Table.php';
  *
  * @category   Zend
  * @package    Zend_Pdf
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Element_Reference_Context
@@ -41,7 +34,7 @@ class Zend_Pdf_Element_Reference_Context
     /**
      * PDF parser object.
      *
-     * @var Zend_Pdf_Parser
+     * @var Zend_Pdf_StringParser
      */
     private $_stringParser;
 

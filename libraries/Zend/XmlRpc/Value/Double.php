@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Double.php,v 1.1 2010/04/28 15:21:16 bart Exp $
+ * @version    $Id: Double.php,v 1.2 2010/11/18 15:14:37 bart Exp $
  */
 
 
@@ -31,7 +31,7 @@ require_once 'Zend/XmlRpc/Value/Scalar.php';
  * @category   Zend
  * @package    Zend_XmlRpc
  * @subpackage Value
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Value_Double extends Zend_XmlRpc_Value_Scalar
@@ -46,8 +46,8 @@ class Zend_XmlRpc_Value_Double extends Zend_XmlRpc_Value_Scalar
     {
         $this->_type = self::XMLRPC_TYPE_DOUBLE;
         $precision = (int)ini_get('precision');
-        $formatString = '%1.' . $precision . 'f';
-        $this->_value = sprintf($formatString, (float)$value);
+        $formatString = '%1.' . $precision . 'F';
+        $this->_value = rtrim(sprintf($formatString, (float)$value), '0');
     }
 
     /**

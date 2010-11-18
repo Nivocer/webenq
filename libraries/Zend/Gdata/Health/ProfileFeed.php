@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Health
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProfileFeed.php,v 1.1 2010/04/28 15:20:37 bart Exp $
+ * @version    $Id: ProfileFeed.php,v 1.2 2010/11/18 15:15:08 bart Exp $
  */
 
 /**
@@ -34,7 +34,7 @@ require_once 'Zend/Gdata/Feed.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Health
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Health_ProfileFeed extends Zend_Gdata_Feed
@@ -45,7 +45,7 @@ class Zend_Gdata_Health_ProfileFeed extends Zend_Gdata_Feed
      * @var string
      */
     protected $_entryClassName = 'Zend_Gdata_Health_ProfileEntry';
-    
+
     /**
      * Creates a Health Profile feed, representing a user's Health profile
      *

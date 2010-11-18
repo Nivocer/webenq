@@ -14,8 +14,8 @@
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Exception.php,v 1.1 2010/04/28 15:22:07 bart Exp $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Exception.php,v 1.2 2010/11/18 15:15:29 bart Exp $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,8 +25,9 @@ require_once 'Zend/Exception.php';
 
 
 /**
+ * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Memory_Exception extends Zend_Exception

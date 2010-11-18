@@ -15,24 +15,21 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Term.php,v 1.1 2010/04/28 15:21:20 bart Exp $
+ * @version    $Id: Term.php,v 1.2 2010/11/18 15:14:27 bart Exp $
  */
 
 
 /** Zend_Search_Lucene_Search_Query */
 require_once 'Zend/Search/Lucene/Search/Query.php';
 
-/** Zend_Search_Lucene_Search_Weight_Term */
-require_once 'Zend/Search/Lucene/Search/Weight/Term.php';
-
 
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Query
@@ -82,9 +79,11 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
         if ($this->_term->field != null) {
             return $this;
         } else {
+            require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
             $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
             $query->setBoost($this->getBoost());
 
+            require_once 'Zend/Search/Lucene/Index/Term.php';
             foreach ($index->getFieldNames(true) as $fieldName) {
                 $term = new Zend_Search_Lucene_Index_Term($this->_term->text, $fieldName);
 
@@ -105,6 +104,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     {
         // Check, that index contains specified term
         if (!$index->hasTerm($this->_term)) {
+            require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
             return new Zend_Search_Lucene_Search_Query_Empty();
         }
 
@@ -120,6 +120,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
      */
     public function createWeight(Zend_Search_Lucene_Interface $reader)
     {
+        require_once 'Zend/Search/Lucene/Search/Weight/Term.php';
         $this->_weight = new Zend_Search_Lucene_Search_Weight_Term($this->_term, $this, $reader);
         return $this->_weight;
     }
@@ -198,7 +199,7 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
      */
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
-    	$highlighter->highlight($this->_term->text);
+        $highlighter->highlight($this->_term->text);
     }
 
     /**
@@ -210,9 +211,9 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     {
         // It's used only for query visualisation, so we don't care about characters escaping
         if ($this->_term->field !== null) {
-        	$query = $this->_term->field . ':';
+            $query = $this->_term->field . ':';
         } else {
-        	$query = '';
+            $query = '';
         }
 
         $query .= $this->_term->text;

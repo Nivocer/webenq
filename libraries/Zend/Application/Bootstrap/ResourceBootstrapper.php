@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ResourceBootstrapper.php,v 1.1 2010/04/28 15:20:20 bart Exp $
+ * @version    $Id: ResourceBootstrapper.php,v 1.2 2010/11/18 15:13:41 bart Exp $
  */
 
 /**
@@ -26,69 +26,69 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Application_Bootstrap_ResourceBootstrapper
 {
     /**
      * Register a resource with the bootstrap
-     * 
-     * @param  string|Zend_Application_Resource_Resource $resource 
-     * @param  null|array|Zend_Config                     $options 
+     *
+     * @param  string|Zend_Application_Resource_Resource $resource
+     * @param  null|array|Zend_Config                     $options
      * @return Zend_Application_Bootstrap_ResourceBootstrapper
      */
     public function registerPluginResource($resource, $options = null);
 
     /**
      * Unregister a resource from the bootstrap
-     * 
-     * @param  string|Zend_Application_Resource_Resource $resource 
+     *
+     * @param  string|Zend_Application_Resource_Resource $resource
      * @return Zend_Application_Bootstrap_ResourceBootstrapper
      */
     public function unregisterPluginResource($resource);
 
     /**
      * Is the requested resource registered?
-     * 
-     * @param  string $resource 
+     *
+     * @param  string $resource
      * @return bool
      */
     public function hasPluginResource($resource);
 
     /**
      * Retrieve resource
-     * 
-     * @param  string $resource 
+     *
+     * @param  string $resource
      * @return Zend_Application_Resource_Resource
      */
     public function getPluginResource($resource);
 
     /**
      * Get all resources
-     * 
+     *
      * @return array
      */
     public function getPluginResources();
 
     /**
      * Get just resource names
-     * 
+     *
      * @return array
      */
     public function getPluginResourceNames();
 
     /**
      * Set plugin loader to use to fetch resources
-     * 
-     * @param  Zend_Loader_PluginLoader_Interface Zend_Loader_PluginLoader 
+     *
+     * @param  Zend_Loader_PluginLoader_Interface Zend_Loader_PluginLoader
      * @return Zend_Application_Bootstrap_ResourceBootstrapper
      */
     public function setPluginLoader(Zend_Loader_PluginLoader_Interface $loader);
 
     /**
      * Retrieve plugin loader for resources
-     * 
+     *
      * @return Zend_Loader_PluginLoader
      */
     public function getPluginLoader();

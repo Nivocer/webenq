@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: AdapterInterface.php,v 1.1 2010/04/28 15:20:40 bart Exp $
+ * @version    $Id: AdapterInterface.php,v 1.2 2010/11/18 15:15:16 bart Exp $
  */
 
 /**
@@ -26,31 +26,31 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Queue_Adapter_AdapterInterface
 {
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config $options 
-     * @param  Zend_Queue $queue 
+     *
+     * @param  array|Zend_Config $options
+     * @param  Zend_Queue $queue
      * @return void
      */
     public function __construct($options, Zend_Queue $queue = null);
 
     /**
      * Retrieve queue instance
-     * 
+     *
      * @return Zend_Queue
      */
     public function getQueue();
 
     /**
      * Set queue instnace
-     * 
-     * @param  Zend_Queue $queue 
+     *
+     * @param  Zend_Queue $queue
      * @return Zend_Queue_Adapter_AdapterInterface
      */
     public function setQueue(Zend_Queue $queue);
@@ -69,10 +69,10 @@ interface Zend_Queue_Adapter_AdapterInterface
     /**
      * Create a new queue
      *
-     * Visibility timeout is how long a message is left in the queue 
-     * "invisible" to other readers.  If the message is acknowleged (deleted) 
-     * before the timeout, then the message is deleted.  However, if the 
-     * timeout expires then the message will be made available to other queue 
+     * Visibility timeout is how long a message is left in the queue
+     * "invisible" to other readers.  If the message is acknowleged (deleted)
+     * before the timeout, then the message is deleted.  However, if the
+     * timeout expires then the message will be made available to other queue
      * readers.
      *
      * @param  string  $name Queue name

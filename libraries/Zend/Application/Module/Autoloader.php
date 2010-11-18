@@ -15,29 +15,30 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Module
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Autoloader.php,v 1.1 2010/04/28 15:22:12 bart Exp $
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: Autoloader.php,v 1.2 2010/11/18 15:14:33 bart Exp $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/** Zend_Loader_Autoloader_Resource */
+/** @see Zend_Loader_Autoloader_Resource */
 require_once 'Zend/Loader/Autoloader/Resource.php';
 
 /**
  * Resource loader for application module classes
- * 
+ *
  * @uses       Zend_Loader_Autoloader_Resource
+ * @category   Zend
  * @package    Zend_Application
  * @subpackage Module
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application_Module_Autoloader extends Zend_Loader_Autoloader_Resource
 {
     /**
      * Constructor
-     * 
-     * @param  array|Zend_Config $options 
+     *
+     * @param  array|Zend_Config $options
      * @return void
      */
     public function __construct($options)
@@ -48,7 +49,7 @@ class Zend_Application_Module_Autoloader extends Zend_Loader_Autoloader_Resource
 
     /**
      * Initialize default resource types for module resource classes
-     * 
+     *
      * @return void
      */
     public function initDefaultResourceTypes()
@@ -58,6 +59,10 @@ class Zend_Application_Module_Autoloader extends Zend_Loader_Autoloader_Resource
             'dbtable' => array(
                 'namespace' => 'Model_DbTable',
                 'path'      => 'models/DbTable',
+            ),
+            'mappers' => array(
+                'namespace' => 'Model_Mapper',
+                'path'      => 'models/mappers',
             ),
             'form'    => array(
                 'namespace' => 'Form',

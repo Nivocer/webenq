@@ -15,13 +15,25 @@
  * @category   Zend
  * @package    Zend_Soap
  * @subpackage Wsdl
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: DefaultComplexType.php,v 1.1 2010/04/28 15:20:56 bart Exp $
+ * @version    $Id: DefaultComplexType.php,v 1.2 2010/11/18 15:15:01 bart Exp $
  */
 
+/**
+ * @see Zend_Soap_Wsdl_Strategy_Abstract
+ */
 require_once "Zend/Soap/Wsdl/Strategy/Abstract.php";
 
+/**
+ * Zend_Soap_Wsdl_Strategy_DefaultComplexType
+ *
+ * @category   Zend
+ * @package    Zend_Soap
+ * @subpackage Wsdl
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ */
 class Zend_Soap_Wsdl_Strategy_DefaultComplexType extends Zend_Soap_Wsdl_Strategy_Abstract
 {
     /**

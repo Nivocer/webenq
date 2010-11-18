@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ConnectionInterface.php,v 1.1 2010/04/28 15:21:04 bart Exp $
+ * @version    $Id: ConnectionInterface.php,v 1.2 2010/11/18 15:14:55 bart Exp $
  */
 
 /**
@@ -26,7 +26,7 @@
  * @category   Zend
  * @package    Zend_Queue
  * @subpackage Stomp
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Queue_Stomp_Client_ConnectionInterface
@@ -57,7 +57,7 @@ interface Zend_Queue_Stomp_Client_ConnectionInterface
     /**
      * write a frame to the stomp server
      *
-     * @example $response = $client->write($frame)->read();
+     * example: $response = $client->write($frame)->read();
      *
      * @param  Zend_Queue_Stomp_FrameInterface $frame
      * @return $this

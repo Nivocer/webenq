@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Interface.php,v 1.1 2010/04/28 15:22:14 bart Exp $
+ * @version    $Id: Interface.php,v 1.2 2010/11/18 15:13:42 bart Exp $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Index
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Search_Lucene_Index_TermsStream_Interface
@@ -32,7 +32,7 @@ interface Zend_Search_Lucene_Index_TermsStream_Interface
     /**
      * Reset terms stream.
      */
-	public function resetTermsStream();
+    public function resetTermsStream();
 
     /**
      * Skip terms stream up to specified term preffix.

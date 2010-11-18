@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Abstract.php,v 1.1 2010/04/28 15:21:23 bart Exp $
+ * @version    $Id: Abstract.php,v 1.2 2010/11/18 15:15:48 bart Exp $
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'Zend/Controller/Action/Helper/Abstract.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Zend_Controller_Action_Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_Controller_Action_Helper_Abstract
@@ -46,7 +46,7 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
 
     /**
      * Validate autocompletion data
-     * 
+     *
      * @param  mixed $data
      * @return boolean
      */
@@ -54,16 +54,16 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
 
     /**
      * Prepare autocompletion data
-     * 
-     * @param  mixed   $data 
-     * @param  boolean $keepLayouts 
+     *
+     * @param  mixed   $data
+     * @param  boolean $keepLayouts
      * @return mixed
      */
     abstract public function prepareAutoCompletion($data, $keepLayouts = false);
 
     /**
      * Disable layouts and view renderer
-     * 
+     *
      * @return Zend_Controller_Action_Helper_AutoComplete_Abstract Provides a fluent interface
      */
     public function disableLayouts()
@@ -83,9 +83,9 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
 
     /**
      * Encode data to JSON
-     * 
-     * @param  mixed $data 
-     * @param  bool  $keepLayouts 
+     *
+     * @param  mixed $data
+     * @param  bool  $keepLayouts
      * @throws Zend_Controller_Action_Exception
      * @return string
      */
@@ -105,11 +105,11 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
     /**
      * Send autocompletion data
      *
-     * Calls prepareAutoCompletion, populates response body with this 
+     * Calls prepareAutoCompletion, populates response body with this
      * information, and sends response.
-     * 
-     * @param  mixed $data 
-     * @param  bool  $keepLayouts 
+     *
+     * @param  mixed $data
+     * @param  bool  $keepLayouts
      * @return string|void
      */
     public function sendAutoCompletion($data, $keepLayouts = false)
@@ -130,12 +130,12 @@ abstract class Zend_Controller_Action_Helper_AutoComplete_Abstract extends Zend_
     /**
      * Strategy pattern: allow calling helper as broker method
      *
-     * Prepares autocompletion data and, if $sendNow is true, immediately sends 
+     * Prepares autocompletion data and, if $sendNow is true, immediately sends
      * response.
-     * 
-     * @param  mixed $data 
-     * @param  bool  $sendNow 
-     * @param  bool  $keepLayouts 
+     *
+     * @param  mixed $data
+     * @param  bool  $sendNow
+     * @param  bool  $keepLayouts
      * @return string|void
      */
     public function direct($data, $sendNow = true, $keepLayouts = false)

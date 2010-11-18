@@ -15,43 +15,20 @@
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: QueryParserContext.php,v 1.1 2010/04/28 15:21:04 bart Exp $
+ * @version    $Id: QueryParserContext.php,v 1.2 2010/11/18 15:14:38 bart Exp $
  */
-
-/** Zend_Search_Lucene_FSM */
-require_once 'Zend/Search/Lucene/FSM.php';
-
-/** Zend_Search_Lucene_Index_Term */
-require_once 'Zend/Search/Lucene/Index/Term.php';
 
 /** Zend_Search_Lucene_Search_QueryToken */
 require_once 'Zend/Search/Lucene/Search/QueryToken.php';
 
-/** Zend_Search_Lucene_Search_Query_Term */
-require_once 'Zend/Search/Lucene/Search/Query/Term.php';
-
-/** Zend_Search_Lucene_Search_Query_MultiTerm */
-require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
-
-/** Zend_Search_Lucene_Search_Query_Boolean */
-require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
-
-/** Zend_Search_Lucene_Search_Query_Phrase */
-require_once 'Zend/Search/Lucene/Search/Query/Phrase.php';
-
-/** Zend_Search_Lucene_Search_BooleanExpressionRecognizer */
-require_once 'Zend/Search/Lucene/Search/BooleanExpressionRecognizer.php';
-
-/** Zend_Search_Lucene_Search_QueryEntry */
-require_once 'Zend/Search/Lucene/Search/QueryEntry.php';
 
 /**
  * @category   Zend
  * @package    Zend_Search_Lucene
  * @subpackage Search
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Search_Lucene_Search_QueryParserContext
@@ -277,8 +254,10 @@ class Zend_Search_Lucene_Search_QueryParserContext
      */
     public function _signStyleExpressionQuery()
     {
+        require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
         $query = new Zend_Search_Lucene_Search_Query_Boolean();
 
+        require_once 'Zend/Search/Lucene/Search/QueryParser.php';
         if (Zend_Search_Lucene_Search_QueryParser::getDefaultOperator() == Zend_Search_Lucene_Search_QueryParser::B_AND) {
             $defaultSign = true; // required
         } else {
@@ -314,6 +293,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
          * one or more query entries
          */
 
+        require_once 'Zend/Search/Lucene/Search/BooleanExpressionRecognizer.php';
         $expressionRecognizer = new Zend_Search_Lucene_Search_BooleanExpressionRecognizer();
 
         require_once 'Zend/Search/Lucene/Exception.php';
@@ -347,7 +327,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
             //                                                          $e->getMessage() . '\'.' );
             // It's query syntax error message and it should be user friendly. So FSM message is omitted
             require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
-            throw new Zend_Search_Lucene_Search_QueryParserException('Boolean expression error.');
+            throw new Zend_Search_Lucene_Search_QueryParserException('Boolean expression error.', 0, $e);
         }
 
         // Remove 'only negative' conjunctions
@@ -373,6 +353,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
             if (count($conjuction) == 1) {
                 $subqueries[] = $conjuction[0][0]->getQuery($this->_encoding);
             } else {
+                require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
                 $subquery = new Zend_Search_Lucene_Search_Query_Boolean();
 
                 foreach ($conjuction as $conjuctionEntry) {
@@ -384,6 +365,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
         }
 
         if (count($subqueries) == 0) {
+            require_once 'Zend/Search/Lucene/Search/Query/Insignificant.php';
             return new Zend_Search_Lucene_Search_Query_Insignificant();
         }
 
@@ -392,6 +374,7 @@ class Zend_Search_Lucene_Search_QueryParserContext
         }
 
 
+        require_once 'Zend/Search/Lucene/Search/Query/Boolean.php';
         $query = new Zend_Search_Lucene_Search_Query_Boolean();
 
         foreach ($subqueries as $subquery) {

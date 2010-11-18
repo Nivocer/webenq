@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tag
  * @subpackage Cloud
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: HtmlCloud.php,v 1.1 2010/04/28 15:21:50 bart Exp $
+ * @version    $Id: HtmlCloud.php,v 1.2 2010/11/18 15:14:34 bart Exp $
  */
 
 /**
@@ -31,11 +31,16 @@ require_once 'Zend/Tag/Cloud/Decorator/Cloud.php';
  * @category  Zend
  * @package   Zend_Tag
  * @uses      Zend_Tag_Cloud_Decorator_Cloud
- * @copyright Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
 {
+    /**
+     * @var string Encoding to use
+     */
+    protected $_encoding = 'UTF-8';
+
     /**
      * List of HTML tags
      *
@@ -44,14 +49,36 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     protected $_htmlTags = array(
         'ul' => array('class' => 'Zend_Tag_Cloud')
     );
-    
+
     /**
      * Separator for the single tags
      *
      * @var string
      */
     protected $_separator = ' ';
-    
+
+    /**
+     * Get encoding
+     *
+     * @return string
+     */
+    public function getEncoding()
+    {
+        return $this->_encoding;
+    }
+
+    /**
+     * Set encoding
+     *
+     * @param string
+     * @return Zend_Tag_Cloud_Decorator_HtmlCloud
+     */
+    public function setEncoding($value)
+    {
+        $this->_encoding = (string) $value;
+        return $this;
+    }
+
     /**
      * Set the HTML tags surrounding all tags
      *
@@ -61,19 +88,19 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     public function setHtmlTags(array $htmlTags)
     {
         $this->_htmlTags = $htmlTags;
-        return $this;   
+        return $this;
     }
 
     /**
      * Retrieve HTML tag map
-     * 
+     *
      * @return array
      */
     public function getHtmlTags()
     {
         return $this->_htmlTags;
     }
-    
+
     /**
      * Set the separator between the single tags
      *
@@ -88,14 +115,14 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
 
     /**
      * Get tag separator
-     * 
+     *
      * @return string
      */
     public function getSeparator()
     {
         return $this->_separator;
     }
-    
+
     /**
      * Defined by Zend_Tag_Cloud_Decorator_Cloud
      *
@@ -105,23 +132,24 @@ class Zend_Tag_Cloud_Decorator_HtmlCloud extends Zend_Tag_Cloud_Decorator_Cloud
     public function render(array $tags)
     {
         $cloudHtml = implode($this->getSeparator(), $tags);
-        
+
+        $enc = $this->getEncoding();
         foreach ($this->getHtmlTags() as $key => $data) {
             if (is_array($data)) {
                 $htmlTag    = $key;
                 $attributes = '';
-                
+
                 foreach ($data as $param => $value) {
-                    $attributes .= ' ' . $param . '="' . htmlspecialchars($value) . '"';
+                    $attributes .= ' ' . $param . '="' . htmlspecialchars($value, ENT_COMPAT, $enc) . '"';
                 }
             } else {
                 $htmlTag    = $data;
                 $attributes = '';
             }
-            
+
             $cloudHtml = sprintf('<%1$s%3$s>%2$s</%1$s>', $htmlTag, $cloudHtml, $attributes);
         }
-        
+
         return $cloudHtml;
     }
 }

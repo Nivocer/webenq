@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: FormCheckbox.php,v 1.1 2010/04/28 15:20:33 bart Exp $
+ * @version    $Id: FormCheckbox.php,v 1.2 2010/11/18 15:13:38 bart Exp $
  */
 
 
@@ -33,7 +33,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
@@ -89,7 +89,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
 
         // build the element
         $xhtml = '';
-        if (!strstr($name, '[]')) {
+        if (!$disable && !strstr($name, '[]')) {
             $xhtml = $this->_hidden($name, $checkedOptions['uncheckedValue']);
         }
         $xhtml .= '<input type="checkbox"'
@@ -106,10 +106,10 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
 
     /**
      * Determine checkbox information
-     * 
-     * @param  string $value 
-     * @param  bool $checked 
-     * @param  array|null $checkedOptions 
+     *
+     * @param  string $value
+     * @param  bool $checked
+     * @param  array|null $checkedOptions
      * @return array
      */
     public static function determineCheckboxInfo($value, $checked, array $checkedOptions = null)
@@ -127,10 +127,10 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
                 unset($checkedOptions['uncheckedValue']);
             }
             if (null === $checkedValue) {
-                $checkedValue = array_shift($checkedOptions);
+                $checkedValue = (string) array_shift($checkedOptions);
             }
             if (null === $uncheckedValue) {
-                $uncheckedValue = array_shift($checkedOptions);
+                $uncheckedValue = (string) array_shift($checkedOptions);
             }
         } elseif ($value !== null) {
             $uncheckedValue = self::$_defaultCheckedOptions['uncheckedValue'];
@@ -141,7 +141,7 @@ class Zend_View_Helper_FormCheckbox extends Zend_View_Helper_FormElement
 
         // is the element checked?
         $checkedString = '';
-        if ($checked || ($value === $checkedValue)) {
+        if ($checked || ((string) $value === $checkedValue)) {
             $checkedString = ' checked="checked"';
             $checked = true;
         } else {

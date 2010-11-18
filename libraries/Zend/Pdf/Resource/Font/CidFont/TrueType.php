@@ -15,17 +15,22 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: TrueType.php,v 1.1 2010/04/28 15:21:17 bart Exp $
+ * @version    $Id: TrueType.php,v 1.2 2010/11/18 15:15:19 bart Exp $
  */
 
-/** Zend_Pdf_Resource_Font_CidFont */
-require_once 'Zend/Pdf/Resource/Font/CidFont.php';
+
+/** Internally used classes */
+
+require_once 'Zend/Pdf/Element/Name.php';
 
 /** Zend_Pdf_Resource_Font_FontDescriptor */
 require_once 'Zend/Pdf/Resource/Font/FontDescriptor.php';
 
+
+/** Zend_Pdf_Resource_Font_CidFont */
+require_once 'Zend/Pdf/Resource/Font/CidFont.php';
 
 /**
  * Type 2 CIDFonts implementation
@@ -39,15 +44,15 @@ require_once 'Zend/Pdf/Resource/Font/FontDescriptor.php';
  *
  * @package    Zend_Pdf
  * @subpackage Fonts
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Resource_Font_CidFont_TrueType extends Zend_Pdf_Resource_Font_CidFont
 {
     /**
      * Object constructor
-     * 
-     * @todo Joing this class with Zend_Pdf_Resource_Font_Simple_Parsed_TrueType 
+     *
+     * @todo Joing this class with Zend_Pdf_Resource_Font_Simple_Parsed_TrueType
      *
      * @param Zend_Pdf_FileParser_Font_OpenType_TrueType $fontParser Font parser
      *   object containing parsed TrueType file.
@@ -61,7 +66,7 @@ class Zend_Pdf_Resource_Font_CidFont_TrueType extends Zend_Pdf_Resource_Font_Cid
         $this->_fontType = Zend_Pdf_Font::TYPE_CIDFONT_TYPE_2;
 
         $this->_resource->Subtype  = new Zend_Pdf_Element_Name('CIDFontType2');
-        
+
         $fontDescriptor = Zend_Pdf_Resource_Font_FontDescriptor::factory($this, $fontParser, $embeddingOptions);
         $this->_resource->FontDescriptor = $this->_objectFactory->newObject($fontDescriptor);
 

@@ -15,23 +15,21 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Actions
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Loaded.php,v 1.1 2010/04/28 15:21:25 bart Exp $
+ * @version    $Id: Loaded.php,v 1.2 2010/11/18 15:15:40 bart Exp $
  */
 
-/** Zend_Pdf_ElementFactory */
-require_once 'Zend/Pdf/ElementFactory.php';
+
+/** Internally used classes */
+require_once 'Zend/Pdf/Element.php';
+require_once 'Zend/Pdf/Element/Array.php';
+require_once 'Zend/Pdf/Element/Numeric.php';
+require_once 'Zend/Pdf/Element/String.php';
+
 
 /** Zend_Pdf_Outline */
 require_once 'Zend/Pdf/Outline.php';
-
-/** Zend_Pdf_Destination */
-require_once 'Zend/Pdf/Destination.php';
-
-/** Zend_Pdf_Action */
-require_once 'Zend/Pdf/Action.php';
-
 
 /**
  * Traceable PDF outline representation class
@@ -41,7 +39,7 @@ require_once 'Zend/Pdf/Action.php';
  *
  * @package    Zend_Pdf
  * @subpackage Outlines
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
@@ -229,7 +227,7 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
      * Get outline target.
      *
      * @return Zend_Pdf_Target
-     * @thows Zend_Pdf_Exception
+     * @throws Zend_Pdf_Exception
      */
     public function getTarget()
     {
@@ -239,8 +237,10 @@ class Zend_Pdf_Outline_Loaded extends Zend_Pdf_Outline
                 throw new Zend_Pdf_Exception('Outline dictionary may contain Dest or A entry, but not both.');
             }
 
+            require_once 'Zend/Pdf/Destination.php';
             return Zend_Pdf_Destination::load($this->_outlineDictionary->Dest);
         } else if ($this->_outlineDictionary->A !== null) {
+            require_once 'Zend/Pdf/Action.php';
             return Zend_Pdf_Action::load($this->_outlineDictionary->A);
         }
 

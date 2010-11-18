@@ -15,14 +15,13 @@
  * @category   Zend
  * @package    Zend_Pdf
  * @subpackage Annotation
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id:
+ * @version    $Id: Annotation.php,v 1.2 2010/11/18 15:14:05 bart Exp $
  */
 
-/** @see Zend_Pdf_ElementFactory */
-require_once 'Zend/Pdf/ElementFactory.php';
-
+/** Internally used classes */
+require_once 'Zend/Pdf/Element.php';
 
 /**
  * Abstract PDF annotation representation class
@@ -33,7 +32,7 @@ require_once 'Zend/Pdf/ElementFactory.php';
  *
  * @package    Zend_Pdf
  * @subpackage Annotation
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Pdf_Annotation
@@ -169,6 +168,8 @@ abstract class Zend_Pdf_Annotation
      * @return Zend_Pdf_Annotation
      */
     public function setText($text) {
+        require_once 'Zend/Pdf/Element/String.php';
+
         if ($this->_annotationDictionary->Contents === null) {
             $this->_annotationDictionary->touch();
             $this->_annotationDictionary->Contents = new Zend_Pdf_Element_String($text);
@@ -220,11 +221,10 @@ abstract class Zend_Pdf_Annotation
      *
      * @internal
      * @param $destinationArray
-     * @return Zend_Pdf_Destination
+     * @return Zend_Pdf_Annotation
      */
     public static function load(Zend_Pdf_Element $resource)
     {
         /** @todo implementation */
     }
 }
-

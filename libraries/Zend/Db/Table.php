@@ -15,13 +15,13 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Table.php,v 1.1 2010/04/28 15:22:09 bart Exp $
+ * @version    $Id: Table.php,v 1.2 2010/11/18 15:14:37 bart Exp $
  */
 
 /**
- * Zend_Db_Table_Abstract
+ * @see Zend_Db_Table_Abstract
  */
 require_once 'Zend/Db/Table/Abstract.php';
 
@@ -36,25 +36,25 @@ require_once 'Zend/Db/Table/Definition.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Table
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Table extends Zend_Db_Table_Abstract
 {
-    
+
     /**
      * __construct() - For concrete implementation of Zend_Db_Table
      *
      * @param string|array $config string can reference a Zend_Registry key for a db adapter
-     *                             OR it can refernece the name of a table
-     * @param unknown_type $definition 
+     *                             OR it can reference the name of a table
+     * @param array|Zend_Db_Table_Definition $definition
      */
     public function __construct($config = array(), $definition = null)
     {
         if ($definition !== null && is_array($definition)) {
             $definition = new Zend_Db_Table_Definition($definition);
         }
-        
+
         if (is_string($config)) {
             if (Zend_Registry::isRegistered($config)) {
                 trigger_error(__CLASS__ . '::' . __METHOD__ . '(\'registryName\') is not valid usage of Zend_Db_Table, '
@@ -73,12 +73,7 @@ class Zend_Db_Table extends Zend_Db_Table_Abstract
                 }
             }
         }
-        
+
         parent::__construct($config);
     }
-    
-    
-    
-
-    
 }

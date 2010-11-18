@@ -15,23 +15,23 @@
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Result.php,v 1.1 2010/04/28 15:20:32 bart Exp $
+ * @version    $Id: Result.php,v 1.2 2010/11/18 15:13:56 bart Exp $
  */
 
 
 /**
- * Represents a single Technorati Search query result object. 
- * It is never returned as a standalone object, 
+ * Represents a single Technorati Search query result object.
+ * It is never returned as a standalone object,
  * but it always belongs to a valid Zend_Service_Technorati_SearchResultSet object.
- * 
+ *
  * @category   Zend
  * @package    Zend_Service
  * @subpackage Technorati
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @abstract 
+ * @abstract
  */
 abstract class Zend_Service_Technorati_Result
 {
@@ -71,7 +71,7 @@ abstract class Zend_Service_Technorati_Result
     {
         $this->_xpath = new DOMXPath($dom->ownerDocument);
         $this->_dom = $dom;
-        
+
         // default fields for all search results
         $fields = array();
 
@@ -87,10 +87,10 @@ abstract class Zend_Service_Technorati_Result
             }
         }
     }
-    
+
     /**
      * Parses weblog node and sets weblog object.
-     * 
+     *
      * @return  void
      */
     protected function _parseWeblog()

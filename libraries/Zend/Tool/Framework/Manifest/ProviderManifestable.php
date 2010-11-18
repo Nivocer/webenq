@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ProviderManifestable.php,v 1.1 2010/04/28 15:20:30 bart Exp $
+ * @version    $Id: ProviderManifestable.php,v 1.2 2010/11/18 15:13:58 bart Exp $
  */
 
 /**
@@ -28,7 +28,7 @@ require_once 'Zend/Tool/Framework/Manifest/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 interface Zend_Tool_Framework_Manifest_ProviderManifestable extends Zend_Tool_Framework_Manifest_Interface
@@ -36,12 +36,12 @@ interface Zend_Tool_Framework_Manifest_ProviderManifestable extends Zend_Tool_Fr
 
     /**
      * getProviders()
-     * 
+     *
      * Should either return a single provider or an array
      * of providers
-     * 
+     *
      * @return array|string|Zend_Tool_Framework_Provider_Interface
      */
     public function getProviders();
-    
+
 }

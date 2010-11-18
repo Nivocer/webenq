@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_CodeGenerator
  * @subpackage PHP
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: License.php,v 1.1 2010/04/28 15:21:42 bart Exp $
+ * @version    $Id: License.php,v 1.2 2010/11/18 15:13:26 bart Exp $
  */
 
 /**
@@ -28,22 +28,22 @@ require_once 'Zend/CodeGenerator/Php/Docblock/Tag.php';
 /**
  * @category   Zend
  * @package    Zend_CodeGenerator
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php_Docblock_Tag 
+class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php_Docblock_Tag
 {
-    
+
     /**
      * @var string
      */
     protected $_url = null;
-    
+
     /**
      * @var string
      */
     protected $_description = null;
-    
+
     /**
      * fromReflection()
      *
@@ -53,14 +53,14 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
     public static function fromReflection(Zend_Reflection_Docblock_Tag $reflectionTagLicense)
     {
         $returnTag = new self();
-        
+
         $returnTag->setName('license');
         $returnTag->setUrl($reflectionTagLicense->getUrl());
         $returnTag->setDescription($reflectionTagLicense->getDescription());
-        
+
         return $returnTag;
     }
-    
+
     /**
      * setUrl()
      *
@@ -72,7 +72,7 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
         $this->_url = $url;
         return $this;
     }
-    
+
     /**
      * getUrl()
      *
@@ -94,5 +94,5 @@ class Zend_CodeGenerator_Php_Docblock_Tag_License extends Zend_CodeGenerator_Php
         $output = '@license ' . $this->_url . ' ' . $this->_description . self::LINE_FEED;
         return $output;
     }
-    
+
 }

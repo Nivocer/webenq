@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Ldap.php,v 1.1 2010/04/28 15:20:40 bart Exp $
+ * @version    $Id: Ldap.php,v 1.2 2010/11/18 15:13:25 bart Exp $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Auth/Adapter/Interface.php';
  * @category   Zend
  * @package    Zend_Auth
  * @subpackage Zend_Auth_Adapter
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
@@ -161,7 +161,7 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
     /**
      * setIdentity() - set the identity (username) to be used
      *
-     * Proxies to {@see setPassword()}
+     * Proxies to {@see setUsername()}
      *
      * Closes ZF-6813
      *
@@ -286,7 +286,7 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
                  * @see Zend_Auth_Adapter_Exception
                  */
                 require_once 'Zend/Auth/Adapter/Exception.php';
-                throw new Zend_Auth_Adapter_Exception('Adapter options array not in array');
+                throw new Zend_Auth_Adapter_Exception('Adapter options array not an array');
             }
             $adapterOptions = $this->_prepareOptions($ldap, $options);
             $dname = '';
@@ -314,6 +314,18 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
 
                 $canonicalName = $ldap->getCanonicalAccountName($username);
                 $ldap->bind($canonicalName, $password);
+                /*
+                 * Fixes problem when authenticated user is not allowed to retrieve
+                 * group-membership information or own account.
+                 * This requires that the user specified with "username" and optionally
+                 * "password" in the Zend_Ldap options is able to retrieve the required
+                 * information.
+                 */
+                $requireRebind = false;
+                if (isset($options['username'])) {
+                    $ldap->bind();
+                    $requireRebind = true;
+                }
                 $dn = $ldap->getCanonicalAccountName($canonicalName, Zend_Ldap::ACCTNAME_FORM_DN);
 
                 $groupResult = $this->_checkGroupMembership($ldap, $canonicalName, $dn, $adapterOptions);
@@ -322,6 +334,10 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
                     $messages[0] = '';
                     $messages[1] = '';
                     $messages[] = "$canonicalName authentication successful";
+                    if ($requireRebind === true) {
+	                    // rebinding with authenticated user
+	                    $ldap->bind($dn, $password);
+                    }
                     return new Zend_Auth_Result(Zend_Auth_Result::SUCCESS, $canonicalName, $messages);
                 } else {
                     $messages[0] = 'Account is not a member of the specified group';
@@ -408,7 +424,6 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
                 }
             }
         }
-
         $ldap->setOptions($options);
         return $adapterOptions;
     }
@@ -446,14 +461,6 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
             $group = $group->addAnd($groupFilter);
         }
 
-        /*
-         * Fixes problem when authenticated user is not allowed to retrieve
-         * group-membership information.
-         * This requires that the user specified with "username" and "password"
-         * in the Zend_Ldap options is able to retrieve the required information.
-         */
-        $ldap->bind();
-
         $result = $ldap->count($group, $adapterOptions['groupDn'], $adapterOptions['groupScope']);
 
         if ($result === 1) {
@@ -466,13 +473,14 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
     /**
      * getAccountObject() - Returns the result entry as a stdClass object
      *
-     * This ressembles the feature {@see Zend_Auth_Adapter_DbTable::getResultRowObject()}.
+     * This resembles the feature {@see Zend_Auth_Adapter_DbTable::getResultRowObject()}.
      * Closes ZF-6813
      *
      * @param  array $returnAttribs
+     * @param  array $omitAttribs
      * @return stdClass|boolean
      */
-    public function getAccountObject(array $returnAttribs = array())
+    public function getAccountObject(array $returnAttribs = array(), array $omitAttribs = array())
     {
         if (!$this->_authenticatedDn) {
             return false;
@@ -480,8 +488,14 @@ class Zend_Auth_Adapter_Ldap implements Zend_Auth_Adapter_Interface
 
         $returnObject = new stdClass();
 
+        $omitAttribs = array_map('strtolower', $omitAttribs);
+
         $entry = $this->getLdap()->getEntry($this->_authenticatedDn, $returnAttribs, true);
         foreach ($entry as $attr => $value) {
+            if (in_array($attr, $omitAttribs)) {
+                // skip attributes marked to be omitted
+                continue;
+            }
             if (is_array($value)) {
                 $returnObject->$attr = (count($value) > 1) ? $value : $value[0];
             } else {
