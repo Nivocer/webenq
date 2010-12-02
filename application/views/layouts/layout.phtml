@@ -1,12 +1,12 @@
-<?php echo $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-	<head>	
-		<?php echo $this->headTitle(); ?>
-		<?php echo $this->headLink()
-			->appendStylesheet($this->baseUrl("css/global.css")); ?>
-		<?php echo $this->headScript(); ?>
-	</head> 
-	
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<?= $this->headMeta() ?>
+		<?= $this->headLink() ?>
+		<?= $this->jQuery() ?>        
+		<?= $this->headScript() ?> 
+		<?= $this->headTitle()?> 
+	</head>
 	<body>
 		<div id="logo">
 			<a href="<?php echo $this->baseUrl("/"); ?>">
@@ -14,6 +14,7 @@
 			</a>
 		</div>
 		<h1>Webenq 4</h1>
+		<?php echo $this->messenger($this->messages); ?>
 		<?php echo $this->layout()->content ?>
 	</body>
 </html>
