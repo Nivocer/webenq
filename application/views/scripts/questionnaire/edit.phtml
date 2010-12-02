@@ -1,0 +1,26 @@
+<?= $this->form ?>
+
+<a href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>">vraag toevoegen</a>
+
+<?php if ($this->questionnaire->QuestionnaireQuestion->count() == 0): ?>
+	Deze questionnaire bevat nog geen vragen
+<?php else: ?>
+	<table>
+		<tr>
+			<th>vraag</th>
+			<th></th>
+		</tr>
+		<?php foreach ($this->questionnaire->QuestionnaireQuestion as $quesionnaireQuestion): ?>
+			<tr>
+				<td>
+					<?php echo $quesionnaireQuestion->Question->QuestionText[0]->text; ?>
+				</td>
+				<td>
+					<a href="<?= $this->baseUrl('/question/edit/id/' . $quesionnaireQuestion->Question->id); ?>">bewerken</a>
+					<a href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">presentatie</a>
+					<a href="<?= $this->baseUrl('/question/delete/id/' . $quesionnaireQuestion->Question->id); ?>">verwijderen</a>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+<?php endif; ?>

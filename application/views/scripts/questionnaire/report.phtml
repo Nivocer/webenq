@@ -1,0 +1,15 @@
+<?php foreach($this->questionnaire->QuestionnaireQuestion as $qq): ?>
+	<strong><?php echo $qq->Question->QuestionText[0]->text; ?></strong>
+	<ul>
+		<?php foreach($qq->Answer as $answer): ?>
+			<li>
+				<?php if ($answer->text): ?>
+					<?php echo $answer->text; ?>
+				<?php else: ?>
+					<?php $l = $this->language($answer->AnswerPossibility->AnswerPossibilityText, $this->language); ?>
+					<?php if ($l && isset($l->text)) echo $l->text; ?>
+				<?php endif; ?>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+<?php endforeach; ?>

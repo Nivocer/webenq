@@ -1,3 +1,5 @@
+<a href="<?= $this->baseUrl('/question/add') ?>">vraag toevoegen</a>
+
 <?php if (!$this->questions || $this->questions->count() == 0): ?>
 	<p>Geen vragen</p>
 <?php else: ?>
@@ -16,7 +18,9 @@
 					</td>
 					<td>
 						<a href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);	?>">bewerken</a>
-						<a href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">verwijderen</a>					
+						<?php if($question->QuestionnaireQuestion->count() == 0): ?>
+							<a href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">verwijderen</a>
+						<?php endif; ?>					
 					</td>
 				</tr>
 			<?php endforeach; ?>
