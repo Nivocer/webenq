@@ -57,4 +57,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
         return $manager;
 	}
+	
+	protected function _initDefineConstants()
+	{
+		define('COLLECTION_PRESENTATION_OPEN_TEXT', 'open_text');
+		define('COLLECTION_PRESENTATION_OPEN_TEXTAREA', 'open_textarea');
+		define('COLLECTION_PRESENTATION_OPEN_DATE', 'open_date');
+		define('COLLECTION_PRESENTATION_OPEN_CURRENTDATE', 'open_date_current');
+		define('COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST', 'singleselect_dropdownlist');
+		define('COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS', 'singleselect_radiobuttons');
+		define('COLLECTION_PRESENTATION_MULTIPLESELECT_LIST', 'multipleselect_list');
+		define('COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES', 'multipleselect_checkboxes');
+	}
 }
