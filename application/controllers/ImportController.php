@@ -2,106 +2,40 @@
 
 class ImportController extends Zend_Controller_Action
 {
-	/**
-	 * Name of the file to process
-	 */
-	protected $_filename;
-	
-	/**
-	 * Supported input formats
-	 * 
-	 * For every entry there must be a corresponding action in this controller,
-	 * so if 'ods' is in the list, this controller must have an action 'odsAction'.
-	 */
-	protected $_supportedFormats = array('ods', 'xls');
-	
     /**
-     * Index action
+     * Handles the importing of files
+     * 
+     * @return void
      */
     public function indexAction()
     {
-    	$form = new HVA_Form_Import($this->_supportedFormats);
+    	$supportedFormats = Webenq_Import_Adapter_Abstract::$supportedFormats;
+    	
+    	$form = new HVA_Form_Import($supportedFormats);
     	$errors = array();
     	
     	if ($this->_request->isPost()) {
-    		if ($form->isValid($this->_request->getPost())) {
+    		$data = $this->_request->getPost();
+    		if ($form->isValid($data)) {
     			
-    			if (!$form->file->receive()) {
-    				$errors[] = 'Error receiving the file';
+    			if ($form->file->receive()) {
+    				$filename = $form->file->getFileName();
     			} else {
-    				$this->_filename = $form->file->getFileName();
-    				$filenameParts = preg_split('#\.#', $this->_filename);
-    				$extension = array_pop($filenameParts);
-    				if (!in_array($extension, $this->_supportedFormats)) {
-    					$errors[] = 'Invalid format';
-    				}
+    				$errors[] = 'Error receiving the file';
     			}
     			
     			if (!$errors) {
-//    				try {
-    					$action = $extension . 'Action';
-    					$this->{$action}();
-//    				} catch (Exception $e) {
-//    					throw new $e;
-//    					$errors[] = 'Error processing the files';
-//    				}
-
-    				$this->_redirect('index');
+    				$adapter = Webenq_Import_Adapter_Abstract::factory($filename);
+    				$importer = Webenq_Import_Abstract::factory(
+    					$data['type'], $adapter
+    				);
+    				$importer->import();
+    				$this->_redirect('/index');
     			}    			
     		}
     	}
     	
     	$this->view->errors = $errors;    	
     	$this->view->form = $form;
-    }
-    
-    /**
-     * Imports ODS file and builds db table based on headers
-     * 
-     * @return void
-     */
-    public function odsAction()
-    {
-    	/* open file, store data, and close file */
-    	$file = new HVA_Model_Input_File_Ods($this->_filename);
-    	$file->store();
-    	
-    	/* disable view renderer */
-    	$this->_helper->viewRenderer->setNoRender();
-    }
-    
-    /**
-     * Imports XLS file and builds db table based on headers
-     * 
-     * @return void
-     */
-    public function xlsAction()
-    {
-    	/* disable view renderer */
-    	$this->_helper->viewRenderer->setNoRender();
-    	
-    	/* open file, store data, and close file */
-    	$file = new HVA_Model_Input_File_Xls($this->_filename);
-    	$file->store();
-    }
-    
-    /**
-     * Returns the supported input formats
-     * 
-     * @return array Supported input formats
-     */    
-    public function getSupportedFormats()
-    {
-    	return $this->_supportedFormats;
-    }
-    
-    /**
-     * Sets the data file
-     * 
-     * @param string $filename Name of datafile
-     */
-    public function setDataFile($filename)
-    {
-    	$this->_filename = $filename;
     }
 }
