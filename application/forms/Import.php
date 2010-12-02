@@ -44,9 +44,14 @@ class HVA_Form_Import extends Zend_Form
 				$count,
 				$extension
 			));
+			
+		$type = $this->createElement('select', 'type', array(
+			'label' => 'Type:',
+			'multiOptions' => Webenq_Import_Abstract::$supportedTypes,
+		));
 		 
 		$submit = $this->createElement('submit', 'Importeren');
 		 
-		$this->addElements(array($file, $submit));
+		$this->addElements(array($file, $type, $submit));
 	}
 }

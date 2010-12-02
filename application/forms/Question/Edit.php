@@ -42,8 +42,7 @@ class HVA_Form_Question_Edit extends HVA_Form_Question_Add
 	 */
 	public function populate(array $values)
 	{
+		$values = $this->_question->QuestionText[0]->toArray();
 		parent::populate($values);
-		
-		$this->text->setValue($this->_question->QuestionText[0]->text);
 	}
 }

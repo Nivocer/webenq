@@ -8,6 +8,13 @@ class HVA_Form_Question_Add extends Zend_Form
 	 */
 	public function init()
 	{
+		$language = $this->createElement('select', 'language', array(
+			'label' => 'Taal:',
+			'multiOptions' => array(
+				'nl' => 'nl',
+			),
+		));
+		
 		$text = $this->createElement('text', 'text', array(
 			'label' => 'Tekst:',
 		));
@@ -16,6 +23,6 @@ class HVA_Form_Question_Add extends Zend_Form
 			'label' => 'Opslaan',
 		));
 		
-		$this->addElements(array($text, $submit));
+		$this->addElements(array($language, $text, $submit));
 	}
 }
