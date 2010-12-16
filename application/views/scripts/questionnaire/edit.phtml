@@ -1,26 +1,44 @@
 <?= $this->form ?>
 
-<a href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>">vraag toevoegen</a>
+<div class="clear">
+	<a class="icon add add_page" href="#">&nbsp;</a>
+	<a class="add_page" href="#"><?php echo _('pagina toevoegen'); ?></a>
+</div>
+<div class="clear">
+	<a class="icon add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>">&nbsp;</a>
+	<a href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>">vraag toevoegen</a>
+</div>
 
-<?php if ($this->questionnaire->QuestionnaireQuestion->count() == 0): ?>
-	Deze questionnaire bevat nog geen vragen
-<?php else: ?>
-	<table>
-		<tr>
-			<th>vraag</th>
-			<th></th>
-		</tr>
-		<?php foreach ($this->questionnaire->QuestionnaireQuestion as $quesionnaireQuestion): ?>
-			<tr>
-				<td>
-					<?php echo $quesionnaireQuestion->Question->QuestionText[0]->text; ?>
-				</td>
-				<td>
-					<a href="<?= $this->baseUrl('/question/edit/id/' . $quesionnaireQuestion->Question->id); ?>">bewerken</a>
-					<a href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">presentatie</a>
-					<a href="<?= $this->baseUrl('/question/delete/id/' . $quesionnaireQuestion->Question->id); ?>">verwijderen</a>
-				</td>
-			</tr>
-		<?php endforeach; ?>
-	</table>
-<?php endif; ?>
+<div class="tabs">
+	<ul>
+		<?php for($i = 1; $i <= $this->totalPages; $i++): ?>
+			<li><a href="#page-<?php echo $i; ?>"><?php echo _('pagina') . ' ' . $i; ?></a></li>
+		<?php endfor; ?>
+	</ul>
+	<?php for($i = 1; $i <= $this->totalPages; $i++): ?>
+		<div id="page-<?php echo $i; ?>">
+			<div class="questions">
+				<ul class="sortable droppable">
+					<?php foreach ($this->questions as $quesionnaireQuestion): ?>
+						<?php if ($quesionnaireQuestion->CollectionPresentation[0]->page == $i): ?>
+							<li id="qq_<?php echo $quesionnaireQuestion->id; ?>">
+								<div class="admin">
+									<div class="handle" title="<?php echo _('Sleep de vraag naar een andere positie of andere pagina'); ?>"></div>
+									<div class="options">
+										<a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/question/edit/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
+										<a class="icon appearance" title="<?php echo _('presentatie'); ?>" href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">&nbsp;</a>
+										<a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?= $this->baseUrl('/question/delete/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
+									</div>
+								</div>
+								<span>
+									<?php echo $this->questionElement($quesionnaireQuestion); ?>
+								</span>
+							</li>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+	<?php endfor; ?>
+</div>
+

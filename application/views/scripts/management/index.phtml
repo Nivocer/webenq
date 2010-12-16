@@ -1,4 +1,4 @@
-<?php if ($this->questionnaire->QuestionnaireQuestion && $this->questionnaire->QuestionnaireQuestion->count() > 0): ?>
+<?php if ($this->questions && $this->questions->count() > 0): ?>
 	<table>
 		<thead>
 			<tr>
@@ -8,7 +8,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($this->questionnaire->QuestionnaireQuestion as $questionnaireQuestion): ?>
+			<?php foreach ($this->questions as $questionnaireQuestion): ?>
 				<?php $meta = unserialize($questionnaireQuestion->meta); ?>
 				<tr>
 					<td>
@@ -20,9 +20,7 @@
 						?>
 					</td>
 					<td>
-						<a href="<?php echo $this->baseUrl("/management/edit/id/" . $questionnaireQuestion->id); ?>">
-							bewerken
-						</a>					
+						<a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/management/edit/id/" . $questionnaireQuestion->id); ?>">&nbsp;</a>
 					</td>
 				</tr>
 			<?php endforeach; ?>

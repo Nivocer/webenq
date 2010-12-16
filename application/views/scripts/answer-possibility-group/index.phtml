@@ -1,14 +1,15 @@
+<a class="icon add" title="<?php echo _('antwoordmogelijkhedengroep toevoegen'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/add"); ?>">&nbsp;</a>
 <a href="<?php echo $this->baseUrl("/answer-possibility-group/add"); ?>">
 	<?php echo _('antwoordmogelijkhedengroep toevoegen'); ?>
 </a>
 
 <?php if (!$this->answerPossibilityGroups || $this->answerPossibilityGroups->count() == 0): ?>
-	<p>Geen antwoordmogelijkheden</p>
+	<p><?php echo _('Er zijn nog geen antwoordmogelijkheden'); ?></p>
 <?php else: ?>
 	<table>
 		<thead>
 			<tr>
-				<th>groep</th>
+				<th><?php echo _('groep'); ?></th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -16,11 +17,15 @@
 			<?php foreach ($this->answerPossibilityGroups as $answerPossibilityGroup): ?>
 				<tr>
 					<td>
-						<?php echo $answerPossibilityGroup->name; ?>
+						<a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);	?>">
+							<?php echo $answerPossibilityGroup->name; ?>
+						</a>
 					</td>
 					<td>
-						<a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);	?>">bewerken</a>
-						<a href="<?php echo $this->baseUrl("/answer-possibility-group/delete/id/" . $answerPossibilityGroup->id);	?>">verwijderen</a>
+						<a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);	?>">&nbsp;</a>
+						<?php if ($answerPossibilityGroup->QuestionnaireQuestion->count() == 0): ?>
+							<a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/delete/id/" . $answerPossibilityGroup->id);	?>">&nbsp;</a>
+						<?php endif; ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

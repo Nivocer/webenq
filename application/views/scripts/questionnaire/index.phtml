@@ -1,0 +1,50 @@
+<a class="icon add" title="<?php echo _('questionnaire toevoegen'); ?>" href="<?= $this->baseUrl('/questionnaire/add') ?>">&nbsp;</a>
+<a href="<?= $this->baseUrl('/questionnaire/add') ?>"><?php echo _('questionnaire toevoegen'); ?></a>
+
+<?php if ($this->questionnaires && $this->questionnaires->count() > 0): ?>
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>titel</th>
+				<th>datum</th>
+				<th>bestand</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ($this->questionnaires as $questionnaire): ?>
+				<?php $meta = unserialize($questionnaire->meta); ?>
+				<tr>
+					<td>
+						<?php echo $questionnaire->id; ?>
+					</td>
+					<td>
+						<?php echo $questionnaire->title; ?>
+					</td>
+					<td>
+						<?php if (isset($meta['timestamp']))
+							echo date('d-m-Y H:i', $meta['timestamp']);
+						?>
+					</td>
+					<td>
+						<?php if (isset($meta['filename']))
+							echo $meta['filename'];
+						?>
+					</td>
+					<td>
+						<?php if ($questionnaire->QuestionnaireQuestion->count() > 0): ?>
+							<a class="icon collect" title="<?php echo _('verzamelen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire->id); ?>">&nbsp;</a>
+							<a class="icon check" title="<?php echo _('controleren'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire->id); ?>">&nbsp;</a>
+							<a class="icon report" title="<?php echo _('rapporteren'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire->id); ?>">&nbsp;</a>
+						<?php endif; ?>
+						<a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire->id);	?>">&nbsp;</a>
+						<a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire->id); ?>">&nbsp;</a>					
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php else: ?>
+	Er zijn nog geen data-bestanden geimporteerd.			
+<?php endif; ?>

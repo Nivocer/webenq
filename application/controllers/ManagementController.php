@@ -35,9 +35,15 @@ class ManagementController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-    	/* get questionnaire */
-    	$questionnaire = Doctrine_Core::getTable('Questionnaire')->find($this->_id);
-    	$this->view->questionnaire = $questionnaire;
+    	/* get questions */
+		$questions = Doctrine_Query::create()
+			->from('QuestionnaireQuestion qq')
+			->innerJoin('qq.CollectionPresentation cp')
+			->where('qq.questionnaire_id = ?', $this->_request->id)
+			->orderBy('cp.weight, qq.id')
+			->execute();
+			
+    	$this->view->questions = $questions;
     }
     
     /**

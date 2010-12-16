@@ -2,6 +2,13 @@
 class HVA_Form_Questionnaire_Edit extends HVA_Form_Questionnaire_Add
 {
 	/**
+	 * Questionnaire instance
+	 * 
+	 * @var Questionnaire $questionnaire
+	 */
+	protected $_questionnaire;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param Questionnaire $questionnaire
@@ -9,8 +16,8 @@ class HVA_Form_Questionnaire_Edit extends HVA_Form_Questionnaire_Add
 	 */
 	public function __construct(Questionnaire $questionnaire, $options = null)
 	{
+		$this->_questionnaire = $questionnaire;
 		parent::__construct($options);
-		$this->id->setValue($questionnaire->id);
 	}
 	
 	/**
@@ -24,5 +31,6 @@ class HVA_Form_Questionnaire_Edit extends HVA_Form_Questionnaire_Add
 			$this->createElement('hidden', 'id'),
 		));
 		parent::init();
+		$this->populate($this->_questionnaire->toArray());
 	}
 }

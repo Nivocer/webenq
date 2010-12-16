@@ -45,8 +45,9 @@ class HVA_Form_Import extends Zend_Form
 				$extension
 			));
 			
-		$type = $this->createElement('select', 'type', array(
+		$type = $this->createElement('radio', 'type', array(
 			'label' => 'Type:',
+			'value' => 'default',
 			'multiOptions' => Webenq_Import_Abstract::$supportedTypes,
 		));
 		 

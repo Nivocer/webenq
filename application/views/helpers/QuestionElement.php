@@ -31,17 +31,32 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 				$element = new Webenq_Form_Element_CurrentDate($elementName);
 				$element->removeDecorator('Label');
 				break;
+			case COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS:
+				$element = new Zend_Form_Element_Radio($elementName);
+				break;
+			case COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST:
+				$element = new Zend_Form_Element_Select($elementName);
+				break;
+			case COLLECTION_PRESENTATION_SINGLESELECT_SLIDER:
+				$element = new ZendX_JQuery_Form_Element_Slider($elementName);
+				$element->setJQueryParams(array(
+					'value' => '50'
+				));
+				break;
 			case COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES:
 				$element = new Zend_Form_Element_MultiCheckbox($elementName);
 				break;
 			case COLLECTION_PRESENTATION_MULTIPLESELECT_LIST:
 				$element = new Zend_Form_Element_Multiselect($elementName);
 				break;
-			case COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS:
-				$element = new Zend_Form_Element_Radio($elementName);
-				break;
-			case COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST:
-				$element = new Zend_Form_Element_Select($elementName);
+			case COLLECTION_PRESENTATION_RANGESELECT_SLIDER:
+				$element = new ZendX_JQuery_Form_Element_Slider($elementName);
+				$element->setJQueryParams(array(
+					'range' => true,
+					'min' => 0,
+					'max' => 100,
+					'values' => array(33, 67),
+				));
 				break;
 			default:
 				throw new Exception('Element type "' . $qq->CollectionPresentation[0]->type . '" (qq ' . $qq->id . ') not yet implemented in ' . get_class($this));
@@ -59,10 +74,29 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 			$element->setMultiOptions($options);
 		}
 		
-		/* set required */
-		if ($qq->CollectionPresentation[0]->required) {
-			$element->setRequired(true)
-				->addValidator(new Zend_Validate_NotEmpty());
+		/* set filters */
+		if ($qq->CollectionPresentation[0]->filters) {
+			$filters = unserialize($qq->CollectionPresentation[0]->filters);
+			if (is_array($filters)) {
+				foreach ($filters as $name) {
+					$filter = Webenq::getFilterInstance($name);
+					$element->addFilter($filter);
+				}
+			}
+		}
+		
+		/* set validators */
+		if ($qq->CollectionPresentation[0]->validators) {
+			$validators = unserialize($qq->CollectionPresentation[0]->validators);
+			if (is_array($validators)) {
+				foreach ($validators as $name) {
+					$validator = Webenq::getValidatorInstance($name);
+					$element->addValidator($validator, true);
+					if ($validator instanceof Zend_Validate_NotEmpty) {
+						$element->setRequired(true);
+					}
+				}
+			}
 		}
 		
 		return $element;

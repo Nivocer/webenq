@@ -1,8 +1,12 @@
 body {
-	margin: 10px;
+	margin: 0 10px 10px;
 	padding: 0;
 	font-family: verdana;
 	font-size: 10pt;
+}
+
+body.loading {
+	opacity: 0.3;
 }
 
 h1, h2, h3 {
@@ -25,18 +29,35 @@ a, a:active, a:visited {
 	color: #F25900;
 }
 
-form,
-table {
+form {
+	background-color: #E5E5D8;
 	border: 1px solid #B20000;
-	width: 80%;
 	margin: 1em auto;
 }
 
-dt label {
+ul {
+	padding: 0;
+}
+
+form input[type="text"] {
+	width: 97%;
+}
+
+form input[type="text"].hasDatepicker {
+	width: 6em;
+}
+
+form dt label {
 	margin-left: 1em;
 	font-weight: bold;
-	background-color: #65B2D8;
+	color: #65B2D8;
 	padding: 2px 5px;
+}
+
+table {
+	border: 1px solid #B20000;
+	margin: 1em auto;
+	width: 100%;
 }
 
 th {
@@ -44,7 +65,6 @@ th {
 	background-color: #65B2D8;
 }
 
-form,
 tr {
 	background-color: #E5E5D8;
 }
@@ -58,17 +78,93 @@ img {
 	border: none;
 }
 
-#logo {
-	border: none;
-	position: absolute;
-	right: 10px;
-	top: 0;
+#header {
+	clear: both;
+	height: 120px;
 }
 
-.nav-link {
-	margin: 20px 0;
+#header #logo {
+	float: left;
+}
+
+#header #logo h1 {
+	margin: 0;
+}
+
+#header .navigation {
+	clear: right;
+	margin: 0 0 0 100px;
+	padding: .5em 0 0 0;
+	list-style: none;
+	background: #E5E5D8;
+	display: block;
+	height: 2.5em;
+}
+
+#header .navigation li {
+	float: left;
+	margin: 0 10px;
+}
+
+#header .navigation li a {
+	font-weight: bold;
+}
+
+#header .navigation li.active a {
+	color: #B20000;
 }
 
 .errors {
 	color: red;
 }
+
+ul.droppable,
+ul.draggable,
+ul.sortable {
+	list-style: none;
+}
+
+ul.droppable li,
+ul.draggable li,
+ul.sortable li {
+	list-style: none;
+	padding: 2px;
+}
+
+.ui-state-default {
+	list-style: none;
+}
+
+li.ui-state-highlight {
+	height: 1em;
+	list-style: none;
+}
+
+div.clear {
+	clear: both;
+}
+
+a.icon {
+	display: block;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 0 4px;
+	text-decoration: none;
+}
+
+a.link {
+	display: block;
+	margin: 0 4px;
+	padding: 0 0 0 20px;
+	background: no-repeat;
+}
+
+a.add { background-image: url("../images/add.gif"); }
+a.edit { background-image: url("../images/edit.gif"); }
+a.delete { background-image: url("../images/delete.gif"); }
+a.back { background-image: url("../images/back.gif"); }
+a.appearance { background-image: url("../images/appearance.gif"); }
+a.collect { background-image: url("../images/collect.gif"); }
+a.check { background-image: url("../images/check.gif"); }
+a.report { background-image: url("../images/report.gif"); }

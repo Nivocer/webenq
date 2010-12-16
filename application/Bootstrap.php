@@ -66,7 +66,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		define('COLLECTION_PRESENTATION_OPEN_CURRENTDATE', 'open_date_current');
 		define('COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST', 'singleselect_dropdownlist');
 		define('COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS', 'singleselect_radiobuttons');
+		define('COLLECTION_PRESENTATION_SINGLESELECT_SLIDER', 'singleselect_slider');
 		define('COLLECTION_PRESENTATION_MULTIPLESELECT_LIST', 'multipleselect_list');
 		define('COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES', 'multipleselect_checkboxes');
+		define('COLLECTION_PRESENTATION_RANGESELECT_SLIDER', 'rangeselect_slider');
 	}
 }

@@ -6,6 +6,11 @@ class HVA_Form_Questionnaire_Add extends Zend_Form
 		$this->addElements(array(
 			$this->createElement('text', 'title', array(
 				'label' => 'Titel:',
+				'required' => true,
+				'validators' => array(
+					new Zend_Validate_NotEmpty(),
+					new Zend_Validate_Alnum(true),
+				),
 			)),
 			$this->createElement('submit', 'submit', array(
 				'label' => 'opslaan',

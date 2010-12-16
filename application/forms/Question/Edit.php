@@ -16,7 +16,7 @@ class HVA_Form_Question_Edit extends HVA_Form_Question_Add
 	{
 		$this->_question = $question;
 		parent::__construct($options);
-		$this->populate($this->_question->toArray());
+		$this->populate(array());
 	}
 	
 	/**
@@ -42,7 +42,10 @@ class HVA_Form_Question_Edit extends HVA_Form_Question_Add
 	 */
 	public function populate(array $values)
 	{
-		$values = $this->_question->QuestionText[0]->toArray();
+		foreach ($this->_question->QuestionText as $questionText) {
+			$language = $questionText->language;
+			$this->text->$language->setValue($questionText->text);
+		}
 		parent::populate($values);
 	}
 }

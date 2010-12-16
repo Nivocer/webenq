@@ -19,13 +19,26 @@ class QuestionnaireController extends Zend_Controller_Action
 		$this->_language = ($this->_request->language) ? $this->_request->language : 'nl';
 	}
 	
-    /**
+	/**
+     * Renders the overview of questoinnaires
+     * 
+     * @return void
+     */
+    public function indexAction()
+    {
+    	$this->view->questionnaires =
+    		Doctrine_Core::getTable('Questionnaire')->findAll();
+    }
+	
+	/**
      * Renders the form for adding a questionnaire
      * 
      * @return void
      */
     public function addAction()
     {
+    	$this->_helper->actionStack('index', 'questionnaire');
+    	
     	$form = new HVA_Form_Questionnaire_Add();
     	
     	if ($this->_request->isPost()) {
@@ -34,7 +47,7 @@ class QuestionnaireController extends Zend_Controller_Action
     			$questionnaire = new Questionnaire();
     			$questionnaire->fromArray($data);
     			$questionnaire->save();
-    			$this->_redirect('/');
+    			$this->_redirect('/questionnaire');
     		}
     	}
     	
@@ -50,6 +63,26 @@ class QuestionnaireController extends Zend_Controller_Action
     {
 		$questionnaire = Doctrine_Core::getTable('Questionnaire')
 			->find($this->_request->id);
+			
+		$totalPages = Doctrine_Query::create()
+			->select('MAX(cp.page) as max')
+			->from('QuestionnaireQuestion qq')
+			->innerJoin('qq.CollectionPresentation cp')
+			->where('qq.questionnaire_id = ?', $questionnaire->id)
+			->execute()->getFirst()->max;
+			
+		$questions = Doctrine_Query::create()
+			->from('QuestionnaireQuestion qq')
+			->innerJoin('qq.CollectionPresentation cp')
+			->where('qq.questionnaire_id = ?', $questionnaire->id)
+			->orderBy('cp.page, cp.weight, qq.id')
+			->execute();
+    	
+		$repoQuestions = Doctrine_Query::create()
+			->from('Question q')
+			->leftJoin('q.QuestionnaireQuestion qq')
+			->where('qq.id IS NULL')
+			->execute();
     	
 		$form = new HVA_Form_Questionnaire_Edit($questionnaire);
     	
@@ -58,12 +91,60 @@ class QuestionnaireController extends Zend_Controller_Action
     		if ($form->isValid($data)) {
     			$questionnaire->fromArray($data);
     			$questionnaire->save();
-    			$this->_redirect('/');
+    			$this->_redirect('/questionnaire');
     		}
     	}
 		
     	$this->view->form = $form;
     	$this->view->questionnaire = $questionnaire;
+    	$this->view->totalPages = $totalPages;
+    	$this->view->questions = $questions;
+    	$this->view->repoQuestions = $repoQuestions;
+    }
+    
+    public function orderAction()
+    {
+    	/* disable view/layout rendering */
+    	$this->_helper->viewRenderer->setNoRender(true);
+    	$this->_helper->layout->disableLayout(true);
+    	
+    	$page = $this->_request->page;
+    	$qqIds = $this->_request->qq;
+    	
+    	if (count($qqIds) == 0) return;
+    	
+    	$qqs = Doctrine_Query::create()
+    		->from('QuestionnaireQuestion qq')
+    		->innerJoin('qq.CollectionPresentation cp')
+    		->whereIn('qq.id', $qqIds)
+    		->execute();
+    	
+    	foreach ($qqs as $qq) {
+    		
+    		$weight = array_search($qq->id, $qqIds);
+    		
+    		if ($qq->CollectionPresentation[0]->weight != $weight ||
+    			$qq->CollectionPresentation[0]->page != $page)
+    		{
+	    		$qq->CollectionPresentation[0]->weight = $weight;
+    			$qq->CollectionPresentation[0]->page = $page;
+	    		$qq->save();
+    		}
+    	}
+    }
+    
+    public function addQuestionAction()
+    {
+		$qq = new QuestionnaireQuestion();
+		$qq->questionnaire_id = $this->_request->questionnaire_id;
+		$qq->question_id = $this->_request->question_id;
+		$qq->CollectionPresentation[] = new CollectionPresentation();
+		$qq->ReportPresentation[] = new ReportPresentation();
+		$qq->save();
+    	
+    	$this->_helper->viewRenderer->setNoRender(true);
+    	$this->_helper->layout->disableLayout(true);
+    	$this->_response->setBody($qq->id);
     }
     
     /**
@@ -73,6 +154,8 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
+    	$this->_helper->actionStack('index', 'questionnaire');
+    	
     	$questionnaire = Doctrine_Core::getTable('Questionnaire')
 			->find($this->_request->id);
 			
@@ -85,7 +168,7 @@ class QuestionnaireController extends Zend_Controller_Action
     		if ($this->_request->yes) {
     			$questionnaire->delete();
     		}
-    		$this->_redirect('/');
+    		$this->_redirect('/questionnaire');
     	}
     	
     	/* render view */
@@ -101,60 +184,163 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function collectAction()
     {
-    	/* get questionnaire */
-    	$questionnaire = Doctrine_Core::getTable('Questionnaire')
-			->find($this->_request->id);
-			
-		/* set respondent */
+    	/* get session */
+    	$session = new Zend_Session_Namespace();
+    	
+    	/* reset respondent in session if other questionnaire */
+    	if ($session->questionnaire_id != $this->_request->id) {
+    		$session->respondent_id = null;
+    	}
+    	
+    	/* set respondent */
 		if ($this->_request->respondent_id) {
 			$respondent = Doctrine_Core::getTable('Respondent')
 				->find($this->_request->respondent_id);
+		} else if ($session->respondent_id) {
+			$respondent = Doctrine_Core::getTable('Respondent')
+				->find($session->respondent_id);
 		} else {
 			$respondent = new Respondent();
-			$respondent->questionnaire_id = $questionnaire->id;
+			$respondent->questionnaire_id = $this->_request->id;
 			$respondent->save();
 		}
 		
-		/* build form */
-		$form = new Zend_Form(array(
-			'action' => $this->view->baseUrl('/questionnaire/collect/id/' . $this->_request->id)
-		));
-		$form->addElement($form->createElement('hidden', 'respondent_id', array('value' => $respondent->id)));
-		$qqs = array();		
-		foreach ($questionnaire->QuestionnaireQuestion as $qq) {
-			$form->addElement($this->view->questionElement($qq));
-			$qqs[$qq->id] = $qq;
-		}
-		$form->addElement($form->createElement('submit', 'submit', array('label' => 'verzenden')));
+		/* get current page */
+		$pages = Doctrine_Query::create()
+			->from('QuestionnaireQuestion qq')
+			->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
+			->innerJoin('qq.CollectionPresentation cp')
+			->where('a.id IS NULL')
+			->andWhere('qq.questionnaire_id = ?', $this->_request->id)
+			->orderBy('cp.page')
+			->groupBy('cp.page')
+			->limit(1)
+			->execute();
+			
+		if ($pages) $firstPage = $pages->getFirst();
+		if ($firstPage) $pageNr = $firstPage->CollectionPresentation->getFirst()->page;
+		
+		/* redirect if no more questions */
+		if (!isset($pageNr)) $this->_redirect('/questionnaire');
+		
+		/* get questions for current page */
+		$qqs = Doctrine_Query::create()
+			->from('QuestionnaireQuestion qq')
+			->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
+			->innerJoin('qq.CollectionPresentation cp')
+			->where('a.id IS NULL')
+			->andWhere('qq.questionnaire_id = ?', $this->_request->id)
+			->andWhere('cp.page = ?', $pageNr)
+			->orderBy('cp.page, cp.weight, qq.id')
+			->execute();
+	
+		/* redirect if no more questions */
+		if (!$qqs) $this->_redirect('/questionnaire');
+		
+		/* get form */
+		$form = new HVA_Form_Questionnaire_Collect($qqs);
+		
+		/* get progress data */
+		$totalQuestions = Doctrine_Query::create()
+			->from('QuestionnaireQuestion qq')
+			->where('qq.questionnaire_id = ?', $this->_request->id)
+			->execute()
+			->count();
+			
+		$answeredQuestions = Doctrine_Query::create()
+			->from('QuestionnaireQuestion qq')
+			->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
+			->where('a.id IS NOT NULL')
+			->andWhere('qq.questionnaire_id = ?', $this->_request->id)
+			->execute()
+			->count();
 		
 		/* process posted data */
 		if ($this->_request->isPost()) {
-			$data = $this->_request->getPost();
-			if ($form->isValid($data)) {
-				foreach ($data as $k => $v) {
-					if (preg_match('/^qq_(\d*)$/', $k, $m)) {
-						$answer = new Answer();
-						$answer->questionnaire_question_id = $m[1];
-						$answer->respondent_id = $respondent->id;
-						if ($v) {
-							if ($qqs[$m[1]]->answerPossibilityGroup_id) {
-								$answer->answerPossibility_id = $v;
-							} else {
-								$answer->text = $v;
-							}
-							$answer->save();
-						}
+			if ($form->isValid($this->_request->getPost())) {
+				foreach ($qqs as $qq) {
+					
+					/* get filtered and validated value(s) */
+					$elm = $form->getElement('qq_' . $qq->id);
+					$value = $elm->getValue();
+					
+					/* check for range */
+					if (isset($this->_request->{$elm->getId() . '-1'})) {
+						$value = array($value, $this->_request->{$elm->getId() . '-1'});
+					}
+					
+					/* save answer-id(s) or text(s) */
+					if ($qq->answerPossibilityGroup_id) {
+						$this->_saveAnswerId($value, $qq, $respondent);
+					} else {
+						$this->_saveAnswerText($value, $qq, $respondent);
 					}
 				}
-				$this->_helper->FlashMessenger->addMessage('Opgeslagen');
-				$this->_redirect('/');
+				
+				/* store respondent id to session and reload page */
+				$session->respondent_id = $respondent->id;
+				$session->questionnaire_id = $this->_request->id;
+				$this->_redirect($this->_request->getPathInfo());
 			}
 		}
 			
 		/* display form */
 		$this->view->form = $form;
+		$this->view->pageNr = $pageNr;
+		$this->view->progress = array(
+			'total' => $totalQuestions,
+			'ready' => $answeredQuestions,
+		);
     }
-
+    
+    protected function _saveAnswerId($value, QuestionnaireQuestion $qq, Respondent $respondent)
+    {
+    	try {
+			if (is_array($value)) {
+				foreach ($value as $answerPossibilityId) {
+					$answer = new Answer();
+					$answer->answerPossibility_id = $answerPossibilityId;
+					$answer->respondent_id = $respondent->id;
+					$answer->questionnaire_question_id = $qq->id;
+					$answer->save();						
+				}
+			} else {
+				$answer = new Answer();
+				$answer->answerPossibility_id = $value;
+				$answer->respondent_id = $respondent->id;
+				$answer->questionnaire_question_id = $qq->id;
+				$answer->save();						
+			}
+    	} catch(Exception $e) {
+    		return false;
+    	}
+    	return true;
+    }
+    
+    protected function _saveAnswerText($value, QuestionnaireQuestion $qq, Respondent $respondent)
+    {
+    	try {
+			if (is_array($value)) {
+				foreach ($value as $text) {
+					$answer = new Answer();
+					$answer->text = $text;
+					$answer->respondent_id = $respondent->id;
+					$answer->questionnaire_question_id = $qq->id;
+					$answer->save();						
+				}
+			} else {
+				$answer = new Answer();
+				$answer->text = $value;
+				$answer->respondent_id = $respondent->id;
+				$answer->questionnaire_question_id = $qq->id;
+				$answer->save();						
+			}
+    	} catch (Exception $e) {
+    		return false;
+    	}
+    	return true;
+    }
+    
 	/**
      * Renders the data collection for the given questionnaire
      * 
@@ -162,6 +348,10 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function reportAction()
     {
+    	$this->_response->setBody('De rapportfunctie is nog niet geïmplementeerd');
+    	$this->_helper->viewRenderer->setNoRender(true);
+    	return;
+    	
     	/* get questionnaire */
     	$questionnaire = Doctrine_Core::getTable('Questionnaire')
 			->find($this->_request->id);

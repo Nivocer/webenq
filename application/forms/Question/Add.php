@@ -8,21 +8,29 @@ class HVA_Form_Question_Add extends Zend_Form
 	 */
 	public function init()
 	{
-		$language = $this->createElement('select', 'language', array(
-			'label' => 'Taal:',
-			'multiOptions' => array(
-				'nl' => 'nl',
-			),
-		));
+		$text = new Zend_Form_SubForm();
+		$text->setDecorators(array('FormElements'));
+		$this->addSubForm($text, 'text');
 		
-		$text = $this->createElement('text', 'text', array(
-			'label' => 'Tekst:',
-		));
+		$languages = Webenq_Language::getLanguages();
+		foreach ($languages as $language) {
+			$text->addElement(
+				$text->createElement('text', $language, array(
+					'label' => 'Tekst (' . $language . '):',
+					'size' => 60,
+					'maxlength' => 255,
+					'required' => true,
+					'validators' => array(
+						new Zend_Validate_NotEmpty(),
+					),
+				))
+			);
+		}
 		
-		$submit = $this->createElement('submit', 'submit', array(
-			'label' => 'Opslaan',
-		));
-		
-		$this->addElements(array($language, $text, $submit));
+		$this->addElement(
+			$this->createElement('submit', 'submit', array(
+				'label' => 'Opslaan',
+			))
+		);
 	}
 }

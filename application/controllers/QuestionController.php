@@ -38,7 +38,7 @@ class QuestionController extends Zend_Controller_Action
     		->from('Question q')
     		->innerJoin('q.QuestionText qt')
     		->where('qt.language = ?', $this->_language)
-    		->orderBy('qt.text')
+    		->orderBy('q.created DESC, qt.text')
     		->execute();
     	$this->view->questions = $questions;
     }
@@ -56,7 +56,12 @@ class QuestionController extends Zend_Controller_Action
     		$data = $this->_request->getPost();
     		if ($form->isValid($data)) {
     			$question = new Question();
-    			$question->QuestionText[0]->fromArray($data);
+    			foreach ($data['text'] as $language => $text) {
+    				$questionText = new QuestionText();
+    				$questionText->language = $language;
+    				$questionText->text = $text;
+    				$question->QuestionText[] = $questionText;
+    			}
     			$question->save();
     			$this->_redirect('/question');
     		}
@@ -75,19 +80,17 @@ class QuestionController extends Zend_Controller_Action
 		$question = Doctrine_Core::getTable('Question')
 			->find($this->_request->id);
 			
-		$collectionPresentation = Doctrine_Core::getTable('CollectionPresentation')
-			->findOneByquestionGroup_idAndQuestionGroup_questionnaire_question_id(
-				$question->id,
-				$question->QuestionnaireQuestion->id
-			);
-			
-		$form = new HVA_Form_Question_Edit($question, $collectionPresentation);
+		$form = new HVA_Form_Question_Edit($question);
     	
 		if ($this->_request->isPost()) {
     		$data = $this->_request->getPost();
     		if ($form->isValid($data)) {
-    			$question->QuestionText[0]->fromArray($data);
-    			$question->save();
+    			foreach ($data['text'] as $language => $text) {
+	    			$questionText = Doctrine_Core::getTable('QuestionText')
+	    				->findOneByQuestionIdAndLanguage($question->id, $language);
+	    			$questionText->text = $text;
+    				$questionText->save();
+    			}
     			$this->_redirect('/question');
     		}
     	}
