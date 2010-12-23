@@ -112,7 +112,20 @@ class HVA_Plugin_View extends Zend_Controller_Plugin_Abstract
 				'controller' => 'test',
 				'action' => 'index',
 			),
+			array(
+				'label' => _('Gebruikersbeheer'),
+				'controller' => 'user',
+				'action' => 'user',
+			),
 		);
+		
+		if (Zend_Auth::getInstance()->hasIdentity()) {
+			$pages[] = array(
+				'label' => _('Uitloggen'),
+				'controller' => 'user',
+				'action' => 'logout',
+			);
+		}
 		
 		return new Zend_Navigation($pages);
 	}

@@ -75,6 +75,7 @@ class QuestionnaireController extends Zend_Controller_Action
 			->from('QuestionnaireQuestion qq')
 			->innerJoin('qq.CollectionPresentation cp')
 			->where('qq.questionnaire_id = ?', $questionnaire->id)
+			->andWhere('cp.parent_id IS NULL')
 			->orderBy('cp.page, cp.weight, qq.id')
 			->execute();
     	
@@ -359,5 +360,29 @@ class QuestionnaireController extends Zend_Controller_Action
 		/* display */
 		$this->view->questionnaire = $questionnaire;
 		$this->view->language = $this->_language;
+    }
+    
+    public function groupAction()
+    {
+    	$questions = Doctrine_Query::create()
+    		->from('CollectionPresentation cp')
+    		->innerJoin('cp.QuestionnaireQuestion qq')
+    		->innerJoin('qq.Questionnaire q')
+    		->where('q.id = ?', $this->_request->id)
+    		->andWhere('cp.parent_id IS NULL')
+    		->groupBy('qq.id')
+    		->execute();
+    		
+    	$groups = Doctrine_Query::create()
+    		->from('CollectionPresentation cp')
+    		->innerJoin('cp.QuestionnaireQuestion qq')
+    		->innerJoin('qq.Questionnaire q')
+    		->where('q.id = ?', $this->_request->id)
+    		->andWhere('cp.parent_id IS NULL')
+//    		->groupBy('cp.parent_id')
+    		->execute();
+    		
+    	$this->view->questions = $questions;
+    	$this->view->groups = $groups;
     }
 }

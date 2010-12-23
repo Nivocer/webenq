@@ -1,7 +1,40 @@
 <?php
 class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 {
-	public function questionElement(QuestionnaireQuestion $qq)
+	/**
+	 * Helper for rendering form elements
+	 * 
+	 * @param QuestionnaireQuestion $qq Doctrine object
+	 * @param bool $deep Indicating if childs elements should be rendered as well
+	 * @return Zend_Form_Element or string
+	 */
+	public function questionElement(QuestionnaireQuestion $qq, $deep = true)
+	{
+		if ($deep == false) {
+			return $this->_getElement($qq);
+		}
+		
+		$elm = array($this->_getElement($qq));
+		if ($qq->CollectionPresentation[0]->CollectionPresentation->count() > 0) {
+			foreach ($qq->CollectionPresentation[0]->CollectionPresentation as $cp1) {
+				$subElm = array($this->_getElement($cp1->QuestionnaireQuestion));
+				if ($cp1->CollectionPresentation->count() > 0) {
+					foreach ($cp1->CollectionPresentation as $cp2) {
+						$subElm[] = $this->_getElement($cp2->QuestionnaireQuestion);
+					}
+					$elm[] = $subElm;
+				}
+			}
+		}
+		
+		if (count($elm) == 1 && is_object($elm[0])) {
+			return $elm[0];
+		} else {
+			return $this->_getMultiElementTable($elm);
+		}
+	}
+	
+	protected function _getElement(QuestionnaireQuestion $qq)
 	{
 		$elementName = 'qq_' . $qq->id;
 		
@@ -100,5 +133,57 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		}
 		
 		return $element;
+	}
+	
+	protected function _getMultiElementTable(array $elements)
+	{
+		$html = '<table><thead><tr><th colspan="' . $this->_getTableWidth($elements) . '">';
+		$html .= $elements[0]->getLabel();
+		$html .= '</th></tr></thead><tbody>';
+		
+		unset($elements[0]);
+		foreach ($elements as $row) {
+			$html .= '<tr>';
+			foreach ($row as $i => $col) {
+				if ($i == 0) {
+					$html .= '<td>' . $col->getLabel() . '</td>';
+				} else {
+					if ($i > 1 && $this->_equalElements($col, $row[$i-1])) {
+						var_dump($col); die;
+					} else {
+						$html .= '<td>' . $col->render() . '</td>';
+					}
+				}
+			}
+			$html .= '</tr>';
+		}
+		$html .= '</tbody></table>';
+		
+		return $html;
+	}
+	
+	protected function _equalElements(Zend_Form_Element $elm1, Zend_Form_Element $elm2)
+	{
+		if (get_class($elm1) == get_class($elm2)) {
+			if ($elm1->getLabel() == $elm2->getLabel()) {
+				if ($elm1 instanceof Zend_Form_Element_Multi) {
+					if ($elm1->getMultiOptions() == $elm2->getMultiOptions()) {
+						return true;
+					}
+				} else {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	protected function _getTableWidth($elements)
+	{
+		$max = 0;
+		foreach ($elements as $element) {
+			if (count($element) > $max) $max = count($element);
+		}
+		return $max;
 	}
 }

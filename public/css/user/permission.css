@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+dd {
+	float: left;
+	height: 30px;
+}
+
+dt {
+	height: 30px;
+}

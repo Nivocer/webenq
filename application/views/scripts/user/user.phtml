@@ -1,0 +1,50 @@
+<p>
+	<a class="icon edit" title="<?php echo _('rollen beheren'); ?>" href="<?= $this->baseUrl('/user/role') ?>">&nbsp;</a>
+	<a href="<?= $this->baseUrl('/user/role') ?>"><?php echo _('rollen beheren'); ?></a>
+</p>
+<p>
+	<a class="icon edit" title="<?php echo _('rechten beheren'); ?>" href="<?= $this->baseUrl('/user/permission') ?>">&nbsp;</a>
+	<a href="<?= $this->baseUrl('/user/permission') ?>"><?php echo _('rechten beheren'); ?></a>
+</p>
+<table>
+	<thead>
+		<tr>
+			<th><?php echo _('gebruikersnaam'); ?></th>
+			<th><?php echo _('naam'); ?></th>
+			<th><?php echo _('rol'); ?></th>
+			<th class="actions"><?php echo _('acties'); ?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($this->users as $user): ?>
+			<tr>
+				<?php if (isset($this->editForm) && $this->editForm->id->getValue() == $user->id): ?>
+					<td colspan="3">
+						<?php echo $this->editForm; ?>
+					</td>
+				<?php elseif (isset($this->deleteForm) && $this->deleteForm->id->getValue() == $user->id): ?>
+					<td colspan="3">
+						<?php echo $this->deleteForm; ?>
+					</td>
+				<?php else: ?>
+					<td>
+						<?php echo $user->username; ?>
+					</td>
+					<td>
+						<?php echo $user->fullname; ?>
+					</td>
+					<td>
+						<?php echo $user->Role->name; ?>
+					</td>
+				<?php endif; ?>
+				<td>
+					<a class="icon edit" href="<?php echo $this->baseUrl('/user/user/edit/' . $user->id); ?>"></a>
+					<a class="icon delete" href="<?php echo $this->baseUrl('/user/user/delete/' . $user->id); ?>"></a>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+		<tr>
+			<td colspan="4"><?php echo $this->addForm; ?></td>
+		</tr>
+	</tbody>
+</table>
