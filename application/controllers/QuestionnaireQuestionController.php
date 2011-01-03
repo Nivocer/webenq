@@ -68,5 +68,47 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 		
     	$this->view->form = $form;
     	$this->view->questionnaireQuestion = $questionnaireQuestion;
+    	$this->view->cols = $cols = 1 + $questionnaireQuestion->CollectionPresentation[0]
+    		->CollectionPresentation[0]->CollectionPresentation->count();
+    }
+    
+    public function orderAction()
+    {
+    	/* disable view/layout rendering */
+    	$this->_helper->viewRenderer->setNoRender(true);
+    	$this->_helper->layout->disableLayout(true);
+    	
+    	$cols = $this->_request->cols;
+    	$qqIds = $this->_request->qq;
+    	$parentId = Doctrine_Core::getTable('QuestionnaireQuestion')
+    		->find($this->_request->parent)
+    		->CollectionPresentation[0]->id;
+    	
+    	$i = 0;
+    	$row = array();
+    	$rows = array();
+    	foreach ($qqIds as $qqId) {
+    		$i++;
+    		$row[] = $qqId;
+    		if ($i == $cols) {
+    			$rows[] = $row;
+    			$row = array();
+    			$i = 0;
+    		}
+    	}
+    	
+    	foreach ($rows as $row) {
+    		foreach ($row as $key => $col) {
+		    	$qq = Doctrine_Core::getTable('QuestionnaireQuestion')->find($col);
+		    	if ($key == 0) {
+		    		$qq->CollectionPresentation[0]->parent_id = $parentId;
+		    	} else {
+		    		$qq->CollectionPresentation[0]->parent_id = Doctrine_Core::getTable('QuestionnaireQuestion')
+		    			->find($row[0])->CollectionPresentation[0]->id;
+		    	}    			
+		    	$qq->CollectionPresentation[0]->weight = $key;
+		    	$qq->save();
+    		}
+    	}
     }
 }

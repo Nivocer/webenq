@@ -66,6 +66,7 @@ class HVA_Plugin_Access extends Zend_Controller_Plugin_Abstract
 			$redirector->gotoSimpleAndExit(
 				self::$_defaultRoute['action'],
 				self::$_defaultRoute['controller'],
+				null,
 				array(
 					'redirect' => base64_encode($request->getPathInfo()),
 				)

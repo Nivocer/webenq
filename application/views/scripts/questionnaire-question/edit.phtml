@@ -1,1 +1,22 @@
-<?= $this->form ?>
+<p>
+	<?php echo _('Kolommen'); ?>
+	<input id="less" type="button" value="-" />
+	<input id="more" type="button" value="+" />
+	<input id="cols" type="hidden" value="<?php echo $this->cols; ?>" />
+</p>
+
+<ul class="sortable">
+	<?php foreach ($this->questionnaireQuestion->CollectionPresentation->getFirst()->CollectionPresentation as $subQuestion): ?>
+		<li class="ui-state-default" id="qq_<?php echo $subQuestion->QuestionnaireQuestion->id; ?>">
+			<?php echo $subQuestion->QuestionnaireQuestion->Question->QuestionText->getFirst()->text; ?>
+		</li>
+		<?php foreach ($subQuestion->CollectionPresentation as $subSubQuestion): ?>
+			<li class="ui-state-default" id="qq_<?php echo $subSubQuestion->QuestionnaireQuestion->id; ?>">
+				<?php echo $subSubQuestion->QuestionnaireQuestion->Question->QuestionText->getFirst()->text; ?>
+			</li>
+		<?php endforeach; ?>
+	<?php endforeach; ?>
+</ul>
+<br clear="all" />
+
+<?php echo $this->form ?>

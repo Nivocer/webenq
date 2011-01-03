@@ -9,7 +9,7 @@ class HVA_Form_User_User_Add extends Zend_Form
 		
 		$this->addElements(array(
 			$this->createElement('text', 'username', array(
-				'label' => 'Naam:',
+				'label' => 'Gebruikersnaam:',
 				'required' => true,
 				'filters' => array(
 					'StringToLower',
@@ -17,10 +17,14 @@ class HVA_Form_User_User_Add extends Zend_Form
 				'validators' => array(
 					new Zend_Validate_Alpha(true),
 				),
+				'maxlength' => 64,
+				'size' => 20,
 			)),
 			$this->createElement('password', 'password', array(
 				'label' => 'Wachtwoord:',
 				'required' => true,
+				'maxlength' => 64,
+				'size' => 20,
 			)),
 			$this->createElement('password', 'repeat_password', array(
 				'label' => 'Herhaal wachtwoord:',
@@ -31,16 +35,20 @@ class HVA_Form_User_User_Add extends Zend_Form
 							->getRequest()->getPost('password')
 					),
 				),
+				'maxlength' => 64,
+				'size' => 20,
 			)),
 			$this->createElement('text', 'fullname', array(
-				'label' => 'Naam:',
+				'label' => 'Volledige naam:',
 				'required' => true,
 				'validators' => array(
 					new Zend_Validate_Alpha(true),
 				),
+				'maxlength' => 64,
+				'size' => 20,
 			)),
 			$this->createElement('select', 'role_id', array(
-				'label' => 'Naam:',
+				'label' => 'Rol:',
 				'required' => true,
 				'multiOptions' => Role::getAllAsArray(),
 			)),
