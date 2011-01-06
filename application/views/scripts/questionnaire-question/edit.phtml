@@ -1,4 +1,7 @@
 <p>
+	<a class="ajax link add" href="<?php echo $this->baseUrl('questionnaire-question/add-subquestion/id/' . $this->questionnaireQuestion->id); ?>" title="<?php echo _('Subvraag toevoegen'); ?>">
+		<?php echo _('Subvraag toevoegen'); ?>
+	</a>
 	<?php echo _('Kolommen'); ?>
 	<input id="less" type="button" value="-" />
 	<input id="more" type="button" value="+" />
@@ -6,13 +9,11 @@
 </p>
 
 <ul class="sortable">
-	<?php foreach ($this->questionnaireQuestion->CollectionPresentation->getFirst()->CollectionPresentation as $subQuestion): ?>
-		<li class="ui-state-default" id="qq_<?php echo $subQuestion->QuestionnaireQuestion->id; ?>">
-			<?php echo $subQuestion->QuestionnaireQuestion->Question->QuestionText->getFirst()->text; ?>
-		</li>
-		<?php foreach ($subQuestion->CollectionPresentation as $subSubQuestion): ?>
-			<li class="ui-state-default" id="qq_<?php echo $subSubQuestion->QuestionnaireQuestion->id; ?>">
-				<?php echo $subSubQuestion->QuestionnaireQuestion->Question->QuestionText->getFirst()->text; ?>
+	<?php foreach ($this->subQuestions as $subQuestions): ?>
+		<?php foreach ($subQuestions as $subQuestion): ?>
+			<li class="ui-state-default" id="qq_<?php echo $subQuestion->Question->QuestionnaireQuestion[0]->id; ?>">
+				<a class="icon delete" href="#"></a>
+				<?php echo $subQuestion->text; ?>
 			</li>
 		<?php endforeach; ?>
 	<?php endforeach; ?>

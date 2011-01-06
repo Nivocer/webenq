@@ -1,12 +1,12 @@
+<a id="edit_title" class="icon edit" href="#"></a>
+<h1><?php echo $this->questionnaire->title; ?></h1>
 <?= $this->form ?>
 
 <div class="clear">
-	<a class="icon add add_page" href="#">&nbsp;</a>
-	<a class="add_page" href="#"><?php echo _('pagina toevoegen'); ?></a>
+	<a class="link add add_page" href="#"><?php echo _('pagina toevoegen'); ?></a>
 </div>
 <div class="clear">
-	<a class="icon add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>">&nbsp;</a>
-	<a href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>">vraag toevoegen</a>
+	<a class="link add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>">vraag toevoegen</a>
 </div>
 
 <div class="tabs">
@@ -25,7 +25,7 @@
 								<div class="admin">
 									<div class="handle" title="<?php echo _('Sleep de vraag naar een andere positie of andere pagina'); ?>"></div>
 									<div class="options">
-										<a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/question/edit/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
+										<a class="ajax icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/question/edit/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
 										<a class="icon appearance" title="<?php echo _('presentatie'); ?>" href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">&nbsp;</a>
 										<a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?= $this->baseUrl('/question/delete/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
 									</div>

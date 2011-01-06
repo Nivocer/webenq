@@ -3,6 +3,15 @@
 class QuestionController extends Zend_Controller_Action
 {
 	/**
+	 * Controller actions that are ajaxable
+	 * 
+	 * @var array
+	 */
+	public $ajaxable = array(
+		'edit' => array('html'),
+	);
+	
+	/**
 	 * Current question
 	 * 
 	 * @var Question
@@ -23,6 +32,8 @@ class QuestionController extends Zend_Controller_Action
 	 */
 	public function init()
 	{
+		$this->_helper->ajaxContext()->initContext();
+		
 		$this->_language = ($this->_request->language) ? $this->_request->language : 'nl';
 	}
 	
@@ -81,6 +92,8 @@ class QuestionController extends Zend_Controller_Action
 			->find($this->_request->id);
 			
 		$form = new HVA_Form_Question_Edit($question);
+		$form->setAction($this->view->baseUrl('/question/edit/id/' . $this->_request->id));
+		
     	
 		if ($this->_request->isPost()) {
     		$data = $this->_request->getPost();
@@ -91,7 +104,11 @@ class QuestionController extends Zend_Controller_Action
 	    			$questionText->text = $text;
     				$questionText->save();
     			}
-    			$this->_redirect('/question');
+    			if ($this->_request->isXmlHttpRequest()) {
+    				$this->_helper->json(array('reload' => true));
+    			} else {
+    				$this->_redirect('/question');
+    			}
     		}
     	}
 		

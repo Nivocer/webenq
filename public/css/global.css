@@ -168,3 +168,11 @@ a.appearance { background-image: url("../images/appearance.gif"); }
 a.collect { background-image: url("../images/collect.gif"); }
 a.check { background-image: url("../images/check.gif"); }
 a.report { background-image: url("../images/report.gif"); }
+
+/* jquery selectable */
+ul.selectable {
+	list-style: none;
+}
+.ui-widget-content.ui-selected {
+	background: #ffe45c;
+}

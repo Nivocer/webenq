@@ -27,6 +27,7 @@ class HVA_Form_Questionnaire_Edit extends HVA_Form_Questionnaire_Add
 	 */
 	public function init()
 	{
+		$this->setName(get_class($this));
 		$this->addElements(array(
 			$this->createElement('hidden', 'id'),
 		));

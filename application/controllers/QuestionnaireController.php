@@ -64,6 +64,16 @@ class QuestionnaireController extends Zend_Controller_Action
 		$questionnaire = Doctrine_Core::getTable('Questionnaire')
 			->find($this->_request->id);
 			
+		$form = new HVA_Form_Questionnaire_Edit($questionnaire);
+		if ($this->_request->isPost()) {
+    		$data = $this->_request->getPost();
+    		if ($form->isValid($data)) {
+    			$questionnaire->fromArray($data);
+    			$questionnaire->save();
+    			$this->_redirect($this->_request->getPathInfo());
+    		}
+    	}
+		
 		$totalPages = Doctrine_Query::create()
 			->select('MAX(cp.page) as max')
 			->from('QuestionnaireQuestion qq')
@@ -85,17 +95,6 @@ class QuestionnaireController extends Zend_Controller_Action
 			->where('qq.id IS NULL')
 			->execute();
     	
-		$form = new HVA_Form_Questionnaire_Edit($questionnaire);
-    	
-		if ($this->_request->isPost()) {
-    		$data = $this->_request->getPost();
-    		if ($form->isValid($data)) {
-    			$questionnaire->fromArray($data);
-    			$questionnaire->save();
-    			$this->_redirect('/questionnaire');
-    		}
-    	}
-		
     	$this->view->form = $form;
     	$this->view->questionnaire = $questionnaire;
     	$this->view->totalPages = $totalPages;

@@ -5,7 +5,7 @@ function saveState() {
 	var $list = $('ul.sortable');
 	
 	var $data = $list.sortable('serialize') + '&cols=' + $('#cols').val() + '&parent=' + $qqId;
-	$.post(baseUrl + '/questionnaire-question/order', $data, function() {
+	$.post(baseUrl + '/questionnaire-question/save-state', $data, function() {
 		$('body').removeClass('loading');
 	});
 }
@@ -24,6 +24,10 @@ function submitForm(form) {
 function initColWidth() {
 	$containerWidth = parseInt($('ul.sortable').css('width'));
 	$cols = $('#cols').val();
+	if ($cols == 'NaN') {
+		$cols = 1;
+		$('#cols').val($cols);
+	} 
 	$newWidth = $containerWidth / $cols - (5 * $cols);
 	$.each($('ul.sortable li'), function($i, $elm) {
 		$($elm).css('width', $newWidth);
@@ -66,4 +70,25 @@ $(function() {
 		saveState();
 		return false;
 	});
+	
+	$('ul.sortable li a.icon.delete').click(function() {
+		$(this).closest('li').remove();
+		saveState();
+		return false;
+	});
 });
+
+function postOpenDialog() {
+	$('.selectable').selectable({
+		stop: function() {
+			$('.ui-selected', this).appendTo('.sortable')
+				.removeClass('ui-widget-content')
+				.removeClass('ui-selectee')
+				.removeClass('ui-selected')
+				.addClass('ui-state-default')
+				.css('width', $('.sortable li').css('width'));
+			$('#dialog').dialog('close');
+			saveState();
+		}
+	});
+}

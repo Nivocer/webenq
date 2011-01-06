@@ -1,0 +1,7 @@
+<ul class="selectable">
+	<?php foreach ($this->qq as $qq): ?>
+		<li id="qq_<?php echo $qq->id; ?>" class="ui-widget-content">
+			<?php echo $qq->Question->QuestionText[0]->text; ?>
+		</li>
+	<?php endforeach; ?>
+</ul>

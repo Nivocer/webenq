@@ -74,4 +74,20 @@ $(function() {
 		
 		return false;
 	});
+	
+	/* hide form for editing title if no errors */
+	if ($('form#HVA_Form_Questionnaire_Edit ul.errors').length == 0) {
+		$('form#HVA_Form_Questionnaire_Edit').hide();
+	}
+	
+	/* show form for editing title when edit-buttons is clicked */
+	$('a#edit_title').toggle(
+		function() {
+			$('form#HVA_Form_Questionnaire_Edit').show('slow');
+			return false;
+		}, function() {
+			$('form#HVA_Form_Questionnaire_Edit').hide('slow');
+			return false;
+		}
+	);
 });
