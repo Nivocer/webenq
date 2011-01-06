@@ -1,6 +1,7 @@
 <a id="edit_title" class="icon edit" href="#"></a>
 <h1><?php echo $this->questionnaire->title; ?></h1>
 <?= $this->form ?>
+<br clear="all" />
 
 <div class="clear">
 	<a class="link add add_page" href="#"><?php echo _('pagina toevoegen'); ?></a>
@@ -27,7 +28,7 @@
 									<div class="options">
 										<a class="ajax icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/question/edit/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
 										<a class="icon appearance" title="<?php echo _('presentatie'); ?>" href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">&nbsp;</a>
-										<a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?= $this->baseUrl('/question/delete/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
+										<a class="ajax icon delete" title="<?php echo _('verwijderen'); ?>" href="<?= $this->baseUrl('/question/delete/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
 									</div>
 								</div>
 								<span>

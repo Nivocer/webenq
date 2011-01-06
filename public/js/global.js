@@ -4,10 +4,12 @@ $(function() {
 	 * Every <a class="ajax"/> will open in a dialog box
 	 */
 	$('a.ajax').live('click', function() {
+		$('body').addClass('loading');
 		$dialog = resetDialog();
 		$href = $(this).attr('href');
 		$title = $(this).attr('title');
 		$.get($href, function(response) {
+			$('body').removeClass('loading');
 			preOpenDialog();
 			$dialog.html(response);
 			$dialog.dialog({
@@ -17,6 +19,20 @@ $(function() {
 			});
 			postOpenDialog();			
 		});
+		return false;
+	});
+	
+	/**
+	 * When a form is submitted with ajax, the button pressed in not posted.
+	 * Therefore the pressed button's value is stored in a hidden field.
+	 */
+	$('div#dialog form input[type="submit"]').live('click', function() {
+		$name = $(this).attr('name');
+		$value = $(this).val();
+		$form = $(this).closest('form');
+		$hiddenElm = $('<input type="hidden" name="' + $name + '" value="' + $value + '" />');
+		$hiddenElm.appendTo($form);
+		$form.submit();
 		return false;
 	});
 	
@@ -33,6 +49,8 @@ $(function() {
 				$dialog.dialog('close');
 				if (response.reload == true) {
 					window.location.reload();
+				} else {
+					$('body').removeClass('loading');
 				}
 			} else {
 				preOpenDialog();

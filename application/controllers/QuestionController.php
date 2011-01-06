@@ -9,6 +9,7 @@ class QuestionController extends Zend_Controller_Action
 	 */
 	public $ajaxable = array(
 		'edit' => array('html'),
+		'delete' => array('html'),
 	);
 	
 	/**
@@ -128,13 +129,22 @@ class QuestionController extends Zend_Controller_Action
 		$confirmationText = 'Weet u zeker dat u de vraag "' . $question->QuestionText[0]->text . '" (inclusief alle vertalingen) wilt verwijderen?';
 			
     	$form = new HVA_Form_Confirm($question->id, $confirmationText);
+    	$form->setAction($this->view->baseUrl('/question/delete/id/' . $this->_request->id));
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
     		if ($this->_request->yes) {
-    			$question->delete();
+   				$question->delete();
     		}
-    		$this->_redirect('/question');
+    		if ($this->_request->isXmlHttpRequest()) {
+    			if ($this->_request->yes) {
+    				$this->_helper->json(array('reload' => true));
+    			} else {
+    				$this->_helper->json(array('reload' => false));
+    			}
+    		} else {
+    			$this->_redirect('/question');
+    		}
     	}
     	
     	/* render view */
