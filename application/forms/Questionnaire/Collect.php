@@ -4,13 +4,13 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 	/**
 	 * Collection of QuestionnaireQuestions
 	 * 
-	 * @var Doctrine_Collection
+	 * @var Doctrine_Collection containing instances of QuestionnaireQuestion
 	 */
-	protected $_qqs;
+	protected $_questions;
 	
-	public function __construct(Doctrine_Collection $qqs, $options = null)
+	public function __construct(Doctrine_Collection $questions, $options = null)
 	{
-		$this->_qqs = $qqs;
+		$this->_questions = $questions;
 		parent::__construct($options);
 	}
 	
@@ -18,21 +18,39 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 	{
 		$view = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer')->view;
 		
-		foreach ($this->_qqs as $qq) {
-			if ($qq->CollectionPresentation[0]->CollectionPresentation->count() > 0) {
+		/* iterate over questions */
+		foreach ($this->_questions as $question) {
+			
+			/* get sub-questions */
+			$subQuestions = QuestionnaireQuestion::getSubQuestions($question);
+			
+			/* if no sub-questions: add element */
+			if ($subQuestions->count() == 0) {
+				$this->addElement($view->questionElement($question, false));
+			}
+			
+			/* if sub-questions: add subform */
+			else {
 				$subForm = new Zend_Form_SubForm();
-				foreach ($qq->CollectionPresentation[0]->CollectionPresentation as $cp) {
-					if ($cp->CollectionPresentation->count() > 0) {
+				
+				/* iterate over sub-questions */
+				foreach ($subQuestions as $subQuestion) {
+					
+					/* get sub-sub-questions */
+					$subSubQuestions = QuestionnaireQuestion::getSubQuestions($subQuestion);
+					if ($subSubQuestions->count() > 0) {
+						
 						$subSubForm = new Zend_Form_SubForm();
-						foreach ($cp->CollectionPresentation as $subCp) {
-							$subSubForm->addElement($view->questionElement($subCp->QuestionnaireQuestion, false));
+						
+						/* iterate over sub-sub-questions */
+						foreach ($subSubQuestions as $subSubQuestion) {
+							$subSubForm->addElement($view->questionElement($subSubQuestion, false));
 						}
-						$subForm->addSubForm($subSubForm, $cp->QuestionnaireQuestion->Question->QuestionText[0]->text);
+						$subForm->addSubForm($subSubForm, $subQuestion->Question->QuestionText[0]->text);
 					}
 				}
-				$this->addSubForm($subForm, $subCp->QuestionnaireQuestion->Question->QuestionText[0]->text);
+				$this->addSubForm($subForm, $question->Question->QuestionText[0]->text);
 			}
-			$this->addElement($view->questionElement($qq, false));
 		}
 		
 		$this->addElement(

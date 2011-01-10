@@ -91,3 +91,32 @@ $(function() {
 		}
 	);
 });
+
+function postOpenDialog(response) {
+	
+	/* add questionnaire id to the form */
+	var $questionnaireId = window.location.href.match(/id\/(\d{1,})/)[1];
+	$('<input type="hidden" id="questionnaire_id" name="questionnaire_id" value="' + $questionnaireId + '" />').appendTo('#dialog form');
+	
+	$.each($('#dialog input[type="text"]'), function($key, $val) {
+		var $elm = $($val);
+		var $name = $elm.attr('name');
+		$elm.autocomplete({
+			source: baseUrl + '/question/autocomplete/element/' + $name,
+			select: function(event, ui) {
+			
+				/* replace the value by the label */
+				$(this).val(ui.item.label);
+				
+				/* add question id to the form */
+				if ($('#dialog form input#question_id').length == 0) {
+					$('<input type="hidden" id="question_id" name="question_id" value="' + ui.item.value + '" />').appendTo('#dialog form');
+				} else {
+					$('#dialog form input#question_id').val(ui.item.value);
+				}
+				
+				return false;
+			}
+		});
+	});
+}

@@ -53,10 +53,10 @@ $(function() {
 					$('body').removeClass('loading');
 				}
 			} else {
-				preOpenDialog();
+				preOpenDialog(response);
 				$dialog.html(response);
 				$('body').removeClass('loading');
-				postOpenDialog();
+				postOpenDialog(response);
 			}
 		});
 		return false;

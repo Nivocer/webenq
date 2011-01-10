@@ -3,6 +3,14 @@
 class QuestionnaireController extends Zend_Controller_Action
 {
 	/**
+	 * Controller actions that are ajaxable
+	 * 
+	 * @var array
+	 */
+	public $ajaxable = array(
+	);
+	
+	/**
 	 * Current language
 	 * 
 	 * @var string
@@ -16,6 +24,8 @@ class QuestionnaireController extends Zend_Controller_Action
 	 */
 	public function init()
 	{
+		$this->_helper->ajaxContext()->initContext();
+		
 		$this->_language = ($this->_request->language) ? $this->_request->language : 'nl';
 	}
 	
@@ -138,7 +148,9 @@ class QuestionnaireController extends Zend_Controller_Action
 		$qq = new QuestionnaireQuestion();
 		$qq->questionnaire_id = $this->_request->questionnaire_id;
 		$qq->question_id = $this->_request->question_id;
-		$qq->CollectionPresentation[] = new CollectionPresentation();
+		$cp = new CollectionPresentation();
+		$cp->weight = -1;
+		$qq->CollectionPresentation[] = $cp;
 		$qq->ReportPresentation[] = new ReportPresentation();
 		$qq->save();
     	

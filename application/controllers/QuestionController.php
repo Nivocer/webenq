@@ -8,6 +8,7 @@ class QuestionController extends Zend_Controller_Action
 	 * @var array
 	 */
 	public $ajaxable = array(
+		'add' => array('html'),
 		'edit' => array('html'),
 		'delete' => array('html'),
 	);
@@ -63,19 +64,47 @@ class QuestionController extends Zend_Controller_Action
     public function addAction()
     {
     	$form = new HVA_Form_Question_Add();
+    	$form->setAction($this->view->baseUrl('/question/add'));
     	
     	if ($this->_request->isPost()) {
     		$data = $this->_request->getPost();
     		if ($form->isValid($data)) {
-    			$question = new Question();
-    			foreach ($data['text'] as $language => $text) {
-    				$questionText = new QuestionText();
-    				$questionText->language = $language;
-    				$questionText->text = $text;
-    				$question->QuestionText[] = $questionText;
+    			
+    			/* if no question id is posted, create new question from text fields */
+    			if (!$this->_request->question_id) {
+	    			$question = new Question();
+	    			foreach ($data['text'] as $language => $text) {
+	    				$questionText = new QuestionText();
+	    				$questionText->language = $language;
+	    				$questionText->text = $text;
+	    				$question->QuestionText[] = $questionText;
+	    			}
+	    			$question->save();
     			}
-    			$question->save();
-    			$this->_redirect('/question');
+    			
+    			/* if a questionnaire id is posted, connect question to it */
+    			if ($this->_request->questionnaire_id) {
+    				
+    				$questionId = ($this->_request->question_id) ? $this->_request->question_id : $question->id;
+    			 
+					$qq = new QuestionnaireQuestion();
+					$qq->questionnaire_id = $this->_request->questionnaire_id;
+					$qq->question_id = $questionId;
+					$cp = new CollectionPresentation();
+					$cp->weight = -1;
+					$qq->CollectionPresentation[] = $cp;
+					$qq->ReportPresentation[] = new ReportPresentation();
+					$qq->save();
+    			}
+    			
+    			if ($this->_request->isXmlHttpRequest()) {
+    				$this->_helper->json(array(
+    					'id' => $questionId,
+    					'reload' => true,
+    				));
+    			} else {
+    				$this->_redirect('/question');
+    			}
     		}
     	}
     	
@@ -152,4 +181,15 @@ class QuestionController extends Zend_Controller_Action
     	$this->view->form = $form;
     	$this->_response->setBody($this->view->render('confirm.phtml'));
     }
+    
+    public function autocompleteAction()
+    {
+    	/* get term and language (from element name) */
+    	$term = $this->_request->term;
+    	$elm = preg_match('/\[(.{2})\]$/', $this->_request->element, $matches);
+    	$lang = $matches[1];
+    	
+    	/* return results */
+    	$this->_helper->json(Question::autocomplete($term, $lang));
+    } 
 }
