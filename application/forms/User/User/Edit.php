@@ -49,6 +49,7 @@ class HVA_Form_User_User_Edit extends HVA_Form_User_User_Add
 		
     	try {
     		$this->_user->fromArray($values);
+    		$this->_user->password = md5($values['password']);
     		$this->_user->save();
     		return true;
     	}

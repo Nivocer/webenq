@@ -61,8 +61,10 @@ class HVA_Form_User_User_Add extends Zend_Form
 	public function store()
 	{
     	try {
+    		$values = $this->getValues();
     		$user = new User();
-    		$user->fromArray($this->getValues());
+    		$user->fromArray($values);
+    		$user->password = md5($values['password']);
     		$user->save();
     		return true;
     	}
