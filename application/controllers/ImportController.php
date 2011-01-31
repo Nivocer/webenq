@@ -30,7 +30,7 @@ class ImportController extends Zend_Controller_Action
     					$data['type'], $adapter
     				);
     				$importer->import();
-    				$this->_redirect('/index');
+    				$this->_redirect('/');
     			}    			
     		}
     	}
