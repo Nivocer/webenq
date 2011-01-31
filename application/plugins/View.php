@@ -44,6 +44,9 @@ class HVA_Plugin_View extends Zend_Controller_Plugin_Abstract
         
         /* navigation */
 		$view->navigation($this->_getNavigation($request));
+		
+		/* language selector */
+		$view->language = $this->_getLanguageSelector($view);
         
         /* store view object in registry */
         Zend_Registry::set('view', $view);
@@ -128,5 +131,33 @@ class HVA_Plugin_View extends Zend_Controller_Plugin_Abstract
 		}
 		
 		return new Zend_Navigation($pages);
+	}
+	
+	protected function _getLanguageSelector($view)
+	{
+		/* set default language */
+		$session = new Zend_Session_Namespace();
+    	if ($session->language) {
+    		$language = $session->language;
+    		Zend_Registry::set('language', $language);    		
+    	} else {
+    		$language = 'nl';
+    		$session->language = $language;
+    		Zend_Registry::set('language', $language);
+    	}
+    	
+    	/* get all languages */
+    	/* @todo this should be retrieved from the database */
+    	$languages = array('en', 'nl');
+    	
+		/* return html for language selector */
+    	$html = '<ul id="language_selector">';
+    	foreach ($languages as $l) {
+    		$html .= ($l == $language) ? '<li class="active">' : '<li>';
+    		$html .= '<a href="' . $view->baseUrl('/language/select/language/' . $l) . '">' . $l . '</a>';
+    		$html .= '</li>';
+    	}
+		$html .= '</ul>';
+    	return $html;
 	}
 }

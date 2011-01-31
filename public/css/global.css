@@ -114,6 +114,25 @@ img {
 	color: #B20000;
 }
 
+#header #language_selector {
+	display: block;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	margin: 0;
+	padding: 0;
+}
+
+#header #language_selector li {
+	list-style: none;
+	float: left;
+	margin: 0 5px;
+}
+
+#header #language_selector li.active a {
+	font-weight: bold;
+}
+
 .errors {
 	color: red;
 }
@@ -175,4 +194,24 @@ ul.selectable {
 }
 .ui-widget-content.ui-selected {
 	background: #ffe45c;
+}
+
+/* dialog box */
+#dialog form {
+	background-color: transparent;
+	border: none;
+	margin: 0;
+}
+
+#dialog form fieldset {
+	border: none;
+	margin: 0;
+}
+
+#dialog form dd {
+	margin: 0;
+}
+
+#dialog form dt label {
+	margin: 0;
 }

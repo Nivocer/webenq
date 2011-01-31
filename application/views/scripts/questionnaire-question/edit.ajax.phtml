@@ -27,7 +27,7 @@
 				<input id="more" type="button" value="+" />
 				<input id="cols" type="hidden" value="<?php echo $this->cols; ?>" />
 			</p>
-			<ul class="sortable">
+			<ul id="subquestions">
 				<?php foreach ($this->subQuestions as $subQuestions): ?>
 					<?php foreach ($subQuestions as $subQuestion): ?>
 						<li class="ui-state-default" id="qq_<?php echo $subQuestion->Question->QuestionnaireQuestion[0]->id; ?>">
@@ -37,9 +37,10 @@
 					<?php endforeach; ?>
 				<?php endforeach; ?>
 			</ul>
+			<br clear="all" />
 			<ul id="repository-questions">
 				<?php foreach ($this->repositoryQuestions as $question): ?>
-					<li><?php echo $question->Question->QuestionText[0]->text; ?></li>
+					<li id="qq_<?php echo $question->id; ?>" class="ui-widget-content"><?php echo $question->Question->QuestionText[0]->text; ?></li>
 				<?php endforeach; ?>
 			</ul>
 			<br clear="all" />

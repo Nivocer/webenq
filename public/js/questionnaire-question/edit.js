@@ -10,17 +10,6 @@ function saveState() {
 	});
 }
 
-function submitForm(form) {
-	$.post(
-		window.location.href,
-		form.serialize(),
-		function(response) {
-			form.replaceWith(response);
-		}
-	);
-	return false;
-};
-
 function initColWidth() {
 	$containerWidth = parseInt($('ul.sortable').css('width'));
 	$cols = $('#cols').val();
@@ -37,11 +26,6 @@ function initColWidth() {
 $(function() {
 	
 	initColWidth();
-	
-	$('form input[type=checkbox]').live('click', function() {
-		submitForm($(this).closest('form'));
-		return false;
-	});
 	
 	$('#less').click(function() {
 		$containerWidth = parseInt($('ul.sortable').css('width'));
@@ -76,6 +60,8 @@ $(function() {
 		saveState();
 		return false;
 	});
+	
+	$('.tabs').tabs();
 });
 
 function postOpenDialog() {

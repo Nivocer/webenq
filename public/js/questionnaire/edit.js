@@ -1,19 +1,40 @@
-function saveState() {
-	$('body').addClass('loading');
-	$('.tabs ul:first li').addClass('ui-state-default');
+function saveState($elm) {
 	
-	var $questionnaireId = window.location.href.match(/\/id\/(\d{1,})/)[1].toString();
-	var $pages = $('ul.sortable');
+	switch($elm[0].id) {
 	
-	$pages.each(function($key, $val) {
-		var $page = $($val);
-		var $data = $page.sortable('serialize') + '&page=' + (parseInt($key) + 1);
-		$.post(baseUrl + '/questionnaire/order', $data, function() {
-			if ($key == ($pages.length - 1)) {
+		case 'questionnaire-questions-list':
+			$('body').addClass('loading');
+			$('.tabs ul:first li').addClass('ui-state-default');
+			
+			var $questionnaireId = window.location.href.match(/\/id\/(\d{1,})/)[1].toString();
+			var $pages = $('ul.sortable');
+			
+			$pages.each(function($key, $val) {
+				var $page = $($val);
+				var $data = $page.sortable('serialize') + '&page=' + (parseInt($key) + 1);
+				$.post(baseUrl + '/questionnaire/order', $data, function() {
+					if ($key == ($pages.length - 1)) {
+						$('body').removeClass('loading');
+					}
+				});
+			});
+			break;
+			
+		case 'repository-questions':
+		case 'less':
+		case 'more':
+			$('body').addClass('loading');
+			
+			var $action = $elm.closest('form').attr('action');
+			var $qqId = $action.match(/\/id\/(\d{1,})/)[1].toString();
+			
+			var $list = $('#subquestions');
+			var $data = $list.sortable('serialize') + '&cols=' + $('#cols').val() + '&parent=' + $qqId;
+			$.post(baseUrl + '/questionnaire-question/save-state', $data, function() {
 				$('body').removeClass('loading');
-			}
-		});
-	});
+			});
+			break;
+	}
 }
 
 function makeTabsSortable() {
@@ -28,7 +49,7 @@ function makeTabsSortable() {
 			});
 		},
 		update: function(event, ui) {
-			saveState();
+			saveState($(this));
 		}
 	}).disableSelection();
 }
@@ -46,6 +67,129 @@ function makeTabsDroppable($tabs) {
 			ui.draggable.remove();
 			$list.prepend($('<li id="' + $draggable.attr('id') + '">' + $draggable.html() + '</li>'));
 			$tabs.tabs('select', $tabItems.index($item));
+		}
+	});
+}
+
+function updateAnswersTab() {
+	if ($('#answers-useAnswerPossibilityGroup').is(':checked')) {
+		$('#answers-answerPossibilityGroup_id').removeAttr('disabled');
+		$('#answers-collectionPresentationType').removeAttr('disabled');
+	} else {
+		$('#answers-answerPossibilityGroup_id').attr('disabled', 'disabled');
+		$('#answers-collectionPresentationType').attr('disabled', 'disabled');
+	}
+}
+
+function updateColWidth(action) {
+	/* get and update current number of columns */
+	$cols = $('#cols').val();
+	if ($cols == 'NaN') $cols = 1;
+	if (action == 'less' && $cols > 1) {
+		$cols--;
+	} else if (action == 'more' && $cols < $('#dialog #group ul#subquestions li').length) {
+		$cols++;
+	}
+	$('#cols').val($cols);
+	
+	/* calculate and set new column width */
+	$containerWidth = parseInt($('#dialog').width()) - 65;
+	$newWidth = parseInt($containerWidth / $cols) - (5 * $cols);
+	$.each($('#dialog #group ul#subquestions li'), function($i, $elm) {
+		$($elm).width($newWidth);
+	});
+}
+
+function postOpenDialog(response) {
+	
+	/* tabs */
+	$('.tabs').tabs();
+
+	/* answer-possibility tab */
+	updateAnswersTab();
+	$('#answers-useAnswerPossibilityGroup').change(function() {
+		updateAnswersTab();
+	});
+	
+	/* sub-questions grid */
+	updateColWidth();
+	$('#less').click(function() {
+		updateColWidth('less');
+		saveState($(this));
+		return false;
+	});
+	$('#more').click(function() {
+		updateColWidth('more');
+		saveState($(this));
+		return false;
+	});
+	
+	$('ul.sortable li a.icon.delete').click(function() {
+		$(this).closest('li').remove();
+		saveState($(this));
+		return false;
+	});
+
+	/* add questionnaire id to the form */
+	var $questionnaireId = window.location.href.match(/id\/(\d{1,})/)[1];
+	$('<input type="hidden" id="questionnaire_id" name="questionnaire_id" value="' + $questionnaireId + '" />').appendTo('#dialog form');
+	
+	$.each($('#dialog input[type="text"]'), function($key, $val) {
+		var $elm = $($val);
+		var $name = $elm.attr('name');
+		$elm.autocomplete({
+			source: baseUrl + '/question/autocomplete/element/' + $name,
+			select: function(event, ui) {
+			
+				/* replace the value by the label */
+				$(this).val(ui.item.label);
+				
+				/* add question id to the form */
+				if ($('#dialog form input#question_id').length == 0) {
+					$('<input type="hidden" id="question_id" name="question_id" value="' + ui.item.value + '" />').appendTo('#dialog form');
+				} else {
+					$('#dialog form input#question_id').val(ui.item.value);
+				}
+				
+				return false;
+			}
+		});
+	});
+	
+	/* hide repository questions list */
+	$('#repository-questions').hide();
+	
+	/* add action to 'add subquestion' link */
+	$('#group a.add').toggle(function() {
+		$('#repository-questions').show();
+		return false;
+	}, function() {
+		$('#repository-questions').hide();
+		return false;
+	});
+	
+	/* make repository questions list selectable */
+	$('#repository-questions').selectable({		
+		/* add event to selection of a subquestion */
+		selected: function(event, ui) {		
+			var $list = $('#subquestions');			
+			/* make sortable */
+			$list.sortable();
+			/* append selected subquestion to list */
+			$(ui.selected)
+				.removeClass('ui-widget-content')
+				.removeClass('ui-selectee')
+				.removeClass('ui-selected')
+				.addClass('ui-state-default')
+				.prepend('<a class="icon delete" href="#"></a>')
+				.appendTo($list);
+			if ($list.find('li').length == 1) {
+				$(ui.selected).css({width: '100%'});
+			} else {
+				$(ui.selected).css({width: $list.find('li:first').width() + 'px'});
+			}
+			/* save current state of the list */
+			saveState($(this));
 		}
 	});
 }
@@ -90,33 +234,14 @@ $(function() {
 			return false;
 		}
 	);
-});
-
-function postOpenDialog(response) {
 	
-	/* add questionnaire id to the form */
-	var $questionnaireId = window.location.href.match(/id\/(\d{1,})/)[1];
-	$('<input type="hidden" id="questionnaire_id" name="questionnaire_id" value="' + $questionnaireId + '" />').appendTo('#dialog form');
-	
-	$.each($('#dialog input[type="text"]'), function($key, $val) {
-		var $elm = $($val);
-		var $name = $elm.attr('name');
-		$elm.autocomplete({
-			source: baseUrl + '/question/autocomplete/element/' + $name,
-			select: function(event, ui) {
-			
-				/* replace the value by the label */
-				$(this).val(ui.item.label);
-				
-				/* add question id to the form */
-				if ($('#dialog form input#question_id').length == 0) {
-					$('<input type="hidden" id="question_id" name="question_id" value="' + ui.item.value + '" />').appendTo('#dialog form');
-				} else {
-					$('#dialog form input#question_id').val(ui.item.value);
-				}
-				
-				return false;
-			}
-		});
+	/* hide admin options by default; show on hover */
+	$('#questionnaire-questions-list li .admin .options').hide();
+	$('#questionnaire-questions-list li').hover(function() {
+		$(this).addClass('ui-state-highlight')
+			.find('.admin .options').show();
+	}, function() {
+		$(this).removeClass('ui-state-highlight')
+			.find('.admin .options').hide();
 	});
-}
+});

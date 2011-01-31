@@ -31,27 +31,45 @@ class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
 		$cp = $qq->CollectionPresentation[0];
 		$rp = $qq->ReportPresentation[0];
 		
-		/* insert elements from form for general question settings */
-		$questionForm = new HVA_Form_Question_Edit($qq->Question);
-		$subform = $questionForm->getSubForm('text');
-		$subform->addElement(
-			$subform->createElement('radio', 'change_globally', array(
-				'label' => 'Hoe wilt u bovenstaande wijzigingen doorvoeren?',
-				'value' => 'global',
-				'multiOptions' => array(
-					'global' => 'Alle questionnaires',
-					'local' => 'Alleen de huidige questionnaire',
-				),
+		/* add subform for question's general settings */
+		$generalForm = new Zend_Form_SubForm();
+		$questionEditForm = new HVA_Form_Question_Edit($qq->Question);
+		$generalForm->addSubForm($questionEditForm->getSubForm('text'), 'text');
+		
+		if ($qq->existsInMultipleQuestionnaires()) {
+			$generalForm->addElement(
+				$this->createElement('radio', 'change_globally', array(
+					'label' => 'Hoe wilt u bovenstaande wijzigingen doorvoeren?',
+					'value' => 'local',
+					'multiOptions' => array(
+						'local' => 'Huidige questionnaire',
+						'global' => 'Alle questionnaires',
+					),
+					'order' => 10,
+				))
+			);
+		} else {
+			$generalForm->addElement(
+				$this->createElement('hidden', 'change_globally', array(
+					'value' => 'global',
+				))
+			);
+		}
+		
+		$generalForm->addElement(
+			$this->createElement('submit', 'submit', array(
+				'label' => 'opslaan',
+				'order' => 20,
 			))
 		);
-		$this->addSubForm($subform, 'text');
+		$this->addSubForm($generalForm, 'general');
 		
-		$this->addElements(array(
-			$this->createElement('hidden', 'id', array(
-				'value' => $qq->id,
-			)),
+		/* add subform for question's data-collection settings */		
+		$answerForm = new Zend_Form_SubForm();
+		$answerForm->addElements(array(
 			$this->createElement('checkbox', 'useAnswerPossibilityGroup', array(
 				'label' => 'Maak gebruik van vaste antwoordmogelijkheden:',
+				'checked' => ($qq->answerPossibilityGroup_id) ? true : false,
 			)),
 			$this->createElement('select', 'answerPossibilityGroup_id', array(
 				'label' => 'Selecteer een groep met antwoordmogelijkheden:',
@@ -61,8 +79,17 @@ class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
 			$this->createElement('select', 'collectionPresentationType', array(
 				'label' => 'Type:',
 				'multiOptions' => Webenq::getCollectionPresentationTypes(),
-				'value' => $cp->type,
+				'value' => ($qq->answerPossibilityGroup_id) ? $cp->type : COLLECTION_PRESENTATION_OPEN_TEXT,
 			)),
+			$this->createElement('submit', 'submit', array(
+				'label' => 'opslaan',
+			)),
+		));
+		$this->addSubForm($answerForm, 'answers');
+		
+		/* add subform for question's data-collection settings */		
+		$validationForm = new Zend_Form_SubForm();
+		$validationForm->addElements(array(
 			$this->createElement('multiCheckbox', 'filters', array(
 				'label' => 'Filters:',
 				'multiOptions' => Webenq::getFilters(),
@@ -73,67 +100,32 @@ class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
 				'multiOptions' => Webenq::getValidators(),
 				'value' => unserialize($cp->validators),
 			)),
-			$this->createElement('select', 'reportPresentationType', array(
-				'label' => 'Type:',
-				'multiOptions' => Webenq::getReportPresentationTypes(),
-				'value' => $rp->type,
-			)),
-		));
-		
-		/* display group with options for data collection */
-		$this->addDisplayGroup(
-			array('useAnswerPossibilityGroup', 'answerPossibilityGroup_id', 'collectionPresentationType', 'filters', 'validators'),
-			'collectionPresentation',
-			array('legend' => 'Datacollectie')
-		);
-		
-		/* display group with options for data reporting */
-		$this->addDisplayGroup(
-			array('reportPresentationType'),
-			'reportPresentation',
-			array('legend' => 'Rapportage')
-		);
-		
-		/* add submit button */
-		$this->addElement(
 			$this->createElement('submit', 'submit', array(
 				'label' => 'opslaan',
-			))
-		);
-		
-		if ($qq->answerPossibilityGroup_id) {
-			$this->useAnswerPossibilityGroup->setChecked(true);
-		} else {
-			$this->useAnswerPossibilityGroup->setChecked(false);
-		}
-	}
-	
-	public function populate(array $values)
-	{
-		parent::populate($values);
-		
-		/* remove selection options if checkbox not checked */
-		if (!$this->useAnswerPossibilityGroup->isChecked()) {
-			$this->removeElement('answerPossibilityGroup_id');
-		}
+			)),
+		));
+		$this->addSubForm($validationForm, 'validation');
 	}
 	
 	public function storeValues()
 	{
 		$qq = $this->_questionnaireQuestion;
 		$cp = $qq->CollectionPresentation[0];
-		$rp = $qq->ReportPresentation[0];
 		
 		$values = $this->getValues();
-		$qq->fromArray($values);
 		
 		/* check if the question texts have been modified */
-		$isModified = false;
+		$isModifiedText = false;
 		foreach ($qq->Question->QuestionText as $qt) {
-			if (!isset($values['text'][$qt->language])) {
-				$isModified = true;
-			} elseif ($values['text'][$qt->language] !== $qt->text) {
-				$isModified = true;
+			if (count($values['general']['text']) != $qq->Question->QuestionText->count()) {
+				$isModifiedText = true;
+				break;
+			} elseif (!isset($values['general']['text'][$qt->language])) {
+				$isModifiedText = true;
+				break;
+			} elseif ($values['general']['text'][$qt->language] !== $qt->text) {
+				$isModifiedText = true;
+				break;
 			}
 		}
 		
@@ -141,34 +133,41 @@ class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
 		 * If text changes are set to be made locally, a copy of the
 		 * question is made and assigned to the current questionnaire.
 		 */
-		if ($isModified) {
-			if ($values['text']['change_globally'] == 'local') {
+		if ($isModifiedText) {
+			if ($values['general']['change_globally'] == 'local') {
 				/* copy question */
 				$question = new Question();
-				unset($values['text']['change_globally']);
-				foreach ($values['text'] as $language => $text) {
+				unset($values['general']['change_globally']);
+				foreach ($values['general']['text'] as $language => $text) {
 					$qt = new QuestionText;
 					$qt->text = $text;
 					$qt->language = $language;
 					$question->QuestionText[] = $qt;
 				}
 				$question->save();
-				$qq->question_id = $question->id;
+				$qq->Question = $question;
 			} else {
 				foreach ($qq->Question->QuestionText as $qt) {
-					if (!isset($values['text'][$qt->language])) {
+					if (!isset($values['general']['text'][$qt->language])) {
 						$qt->delete();
 					} else {
-						$qt->text = $values['text'][$qt->language];
+						$qt->text = $values['general']['text'][$qt->language];
+						$qt->save();
 					}
 				}
 			}
 		}
 		
-		$cp->type = $values['collectionPresentationType'];
-    	$cp->filters = serialize($values['filters']);
-    	$cp->validators = serialize($values['validators']);
-    	$rp->type = $values['reportPresentationType'];
+		if ($values['answers']['useAnswerPossibilityGroup'] == 1) {
+			$qq->answerPossibilityGroup_id = $values['answers']['answerPossibilityGroup_id'];
+			$cp->type = $values['answers']['collectionPresentationType'];
+		} else {
+			$qq->answerPossibilityGroup_id = null;
+			$cp->type = COLLECTION_PRESENTATION_OPEN_TEXT;
+		}
+		
+    	$cp->filters = serialize($values['validation']['filters']);
+    	$cp->validators = serialize($values['validation']['validators']);
     	$qq->save();
 	}
 }

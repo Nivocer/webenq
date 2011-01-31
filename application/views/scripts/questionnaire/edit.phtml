@@ -19,15 +19,14 @@
 	<?php for($i = 1; $i <= $this->totalPages; $i++): ?>
 		<div id="page-<?php echo $i; ?>">
 			<div class="questions">
-				<ul class="sortable droppable">
+				<ul id="questionnaire-questions-list" class="sortable droppable">
 					<?php foreach ($this->questions as $quesionnaireQuestion): ?>
 						<?php if ($quesionnaireQuestion->CollectionPresentation[0]->page == $i): ?>
 							<li id="qq_<?php echo $quesionnaireQuestion->id; ?>">
 								<div class="admin">
 									<div class="handle" title="<?php echo _('Sleep de vraag naar een andere positie of andere pagina'); ?>"></div>
 									<div class="options">
-										<a class="ajax icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/question/edit/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
-										<a class="icon appearance" title="<?php echo _('presentatie'); ?>" href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">&nbsp;</a>
+										<a class="ajax icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">&nbsp;</a>
 										<a class="ajax icon delete" title="<?php echo _('verwijderen'); ?>" href="<?= $this->baseUrl('/question/delete/id/' . $quesionnaireQuestion->Question->id); ?>">&nbsp;</a>
 									</div>
 								</div>

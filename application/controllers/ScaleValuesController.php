@@ -14,9 +14,7 @@ class ScaleValuesController extends Zend_Controller_Action
 	 */
     public function init()
     {
-    	$this->_language = $this->getRequest()->getParam("language");
-    	if (!$this->_language) $this->_language = 'nl';
-    	$this->view->language = $this->_language;
+		$this->_language = Zend_Registry::get('language');
     }
 	
 	

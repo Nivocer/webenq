@@ -25,8 +25,7 @@ class QuestionnaireController extends Zend_Controller_Action
 	public function init()
 	{
 		$this->_helper->ajaxContext()->initContext();
-		
-		$this->_language = ($this->_request->language) ? $this->_request->language : 'nl';
+		$this->_language = Zend_Registry::get('language');
 	}
 	
 	/**
@@ -71,8 +70,7 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function editAction()
     {
-		$questionnaire = Doctrine_Core::getTable('Questionnaire')
-			->find($this->_request->id);
+    	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
 			
 		$form = new HVA_Form_Questionnaire_Edit($questionnaire);
 		if ($this->_request->isPost()) {
@@ -84,21 +82,6 @@ class QuestionnaireController extends Zend_Controller_Action
     		}
     	}
 		
-		$totalPages = Doctrine_Query::create()
-			->select('MAX(cp.page) as max')
-			->from('QuestionnaireQuestion qq')
-			->innerJoin('qq.CollectionPresentation cp')
-			->where('qq.questionnaire_id = ?', $questionnaire->id)
-			->execute()->getFirst()->max;
-			
-		$questions = Doctrine_Query::create()
-			->from('QuestionnaireQuestion qq')
-			->innerJoin('qq.CollectionPresentation cp')
-			->where('qq.questionnaire_id = ?', $questionnaire->id)
-			->andWhere('cp.parent_id IS NULL')
-			->orderBy('cp.page, cp.weight, qq.id')
-			->execute();
-    	
 		$repoQuestions = Doctrine_Query::create()
 			->from('Question q')
 			->leftJoin('q.QuestionnaireQuestion qq')
@@ -107,8 +90,8 @@ class QuestionnaireController extends Zend_Controller_Action
     	
     	$this->view->form = $form;
     	$this->view->questionnaire = $questionnaire;
-    	$this->view->totalPages = $totalPages;
-    	$this->view->questions = $questions;
+    	$this->view->totalPages = $questionnaire->getTotalPages();
+    	$this->view->questions = $questionnaire->QuestionnaireQuestion;
     	$this->view->repoQuestions = $repoQuestions;
     }
     

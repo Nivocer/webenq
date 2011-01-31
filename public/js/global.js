@@ -15,7 +15,8 @@ $(function() {
 			$dialog.dialog({
 				title: $title,
 				modal: true,
-				width: '50%'
+				width: .67 * $(window).width(),
+				height: .67 * $(window).height()
 			});
 			postOpenDialog();			
 		});

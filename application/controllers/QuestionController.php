@@ -35,8 +35,7 @@ class QuestionController extends Zend_Controller_Action
 	public function init()
 	{
 		$this->_helper->ajaxContext()->initContext();
-		
-		$this->_language = ($this->_request->language) ? $this->_request->language : 'nl';
+		$this->_language = Zend_Registry::get('language');
 	}
 	
 	/**
