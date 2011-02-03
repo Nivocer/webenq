@@ -8,6 +8,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 	 * @var array
 	 */
 	public $ajaxable = array(
+		'add' => array('html'),
 		'edit' => array('html'),
 		'add-subquestion' => array('html'),
 	);
@@ -28,6 +29,49 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 	{
 		$this->_helper->ajaxContext()->initContext();
 		$this->_language = Zend_Registry::get('language');
+	}
+	
+	/**
+	 * Renders the form for adding an existing question to a questionnaire
+	 */
+	public function addAction()
+	{
+		$questionnaireId = $this->_request->questionnaire_id;
+		
+		if (!$questionnaireId) {
+			throw new Exception('No questionnaire id given!');
+		}
+		
+		$form = new HVA_Form_QuestionnaireQuestion_Add($questionnaireId);
+		$form->setAction($this->view->baseUrl('/questionnaire-question/add'));
+		
+		if ($this->_request->isPost()) {
+			if ($form->isValid($this->_request->getPost())) {
+				/* store */
+				$qq = new QuestionnaireQuestion();
+				$qq->question_id = str_replace('q_', '', $form->id->getValue());
+				$qq->questionnaire_id = $form->questionnaire_id->getValue();
+				$qq->CollectionPresentation[0]->type = 'open_text';
+				$qq->CollectionPresentation[0]->page = 1;
+				$qq->CollectionPresentation[0]->weight = -1;
+				$qq->save();
+				/* send response */
+				if ($this->_request->isXmlHttpRequest()) {
+					$this->_helper->json(array(
+    					'reload' => true,
+					));
+				}
+			}			
+		}
+			
+    	$questions = Doctrine_Query::create()
+    		->from('Question q')
+    		->innerJoin('q.QuestionText qt')
+    		->where('qt.language = ?', $this->_language)    		
+    		->execute();
+    		
+    	$this->view->form = $form;
+    	$this->view->questions = $questions;
 	}
 	
     /**

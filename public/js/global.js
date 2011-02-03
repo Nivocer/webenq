@@ -109,3 +109,42 @@ function preOpenDialog() {
  */
 function postOpenDialog() {
 }
+
+/**
+ * Initializes the filter function for a list
+ */
+function initFilter()
+{
+	$('#filter').keyup(function() {
+		clearTimeout(window.timeoutId);
+		window.timeoutId = setTimeout(applyFilter, 200);
+	});
+	
+	$('.selectable.filterable').selectable({
+		selected: function(event, ui) {
+			$('#dialog form #id').val($(ui.selected).attr('id'));
+			$('#dialog form').submit();
+			return false;
+		}
+	});
+}
+
+/**
+ * Applies the current filter to the list
+ */
+function applyFilter()
+{
+	var $filter = $('#filter');
+	var $search = $filter.val();
+	var $list = $('ul.filterable').first();
+	var $items = $list.find('li');
+	$.each($items, function($key, $val) {
+		$elm = $($val);
+		$text = $elm.text();
+		if ($text.match(new RegExp($search, 'i'))) {
+			$elm.show();
+		} else {
+			$elm.hide();
+		}
+	});
+}

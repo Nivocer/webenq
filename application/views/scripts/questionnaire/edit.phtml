@@ -4,10 +4,13 @@
 <br clear="all" />
 
 <div class="clear">
-	<a class="link add add_page" href="#"><?php echo _('pagina toevoegen'); ?></a>
+	<a class="ajax link add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>" title="vraag toevoegen">nieuwe vraag toevoegen</a>
 </div>
 <div class="clear">
-	<a class="ajax link add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>" title="vraag toevoegen">vraag toevoegen</a>
+	<a class="ajax link add" href="<?= $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire->id) ?>" title="vraag toevoegen">bestaande vraag toevoegen</a>
+</div>
+<div class="clear">
+	<a class="link add add_page" href="#"><?php echo _('pagina toevoegen'); ?></a>
 </div>
 
 <div class="tabs">
