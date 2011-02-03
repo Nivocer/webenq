@@ -10,6 +10,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 	public $ajaxable = array(
 		'add' => array('html'),
 		'edit' => array('html'),
+		'delete' => array('html'),
 		'add-subquestion' => array('html'),
 	);
 	
@@ -113,6 +114,52 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     	$this->view->cols = $cols = 1 + $questionnaireQuestion->CollectionPresentation[0]
     		->CollectionPresentation[0]->CollectionPresentation->count();
     	$this->view->subQuestions = $this->_getSubQuestions($questionnaireQuestion);
+    }
+    
+    /**
+     * Renders the form for deleting a questionnaire from a questionnaire,
+     * or - optionally completely deleting it from the repository.
+     * 
+     * @return void
+     */
+    public function deleteAction()
+    {
+		$questionnaireQuestion = Doctrine_Query::create()
+			->from('QuestionnaireQuestion qq')
+			->innerJoin('qq.Question q')
+			->leftJoin('q.QuestionText qt')
+			->where('qq.id = ?', $this->_request->id)
+			->andWhere('qt.language = ?', $this->_language)
+			->execute()
+			->getFirst();
+			
+		$form = new HVA_Form_QuestionnaireQuestion_Delete($questionnaireQuestion);
+		$form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
+    	
+		if ($this->_request->isPost()) {
+    		$data = $this->_request->getPost();
+    		if (isset($data['yes'])) {
+    			if ($data['change_globally'] == 'global') {
+    				$questionnaireQuestion->Question->delete();
+    			} else {
+    				$questionnaireQuestion->delete();
+    			}
+	    		if ($this->_request->isXmlHttpRequest()) {
+	    			$this->_helper->json(array(
+	    				'reload' => true,
+	    			));
+	    		}
+    		} else {
+	    		if ($this->_request->isXmlHttpRequest()) {
+	    			$this->_helper->json(array(
+	    				'reload' => false,
+	    			));
+	    		}
+    		}
+    	}
+    	
+    	$this->view->form = $form;
+    	$this->view->questionnaireQuestion = $questionnaireQuestion;
     }
     
     protected function _getSubQuestions(QuestionnaireQuestion $questionnaireQuestion)

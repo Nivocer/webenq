@@ -113,18 +113,18 @@ function postOpenDialog(response) {
 	
 	/* sub-questions grid */
 	updateColWidth();
-	$('#less').click(function() {
+	$('#dialog #less').click(function() {
 		updateColWidth('less');
 		saveState($(this));
 		return false;
 	});
-	$('#more').click(function() {
+	$('#dialog #more').click(function() {
 		updateColWidth('more');
 		saveState($(this));
 		return false;
 	});
 	
-	$('ul.sortable li a.icon.delete').click(function() {
+	$('#dialog ul.sortable li a.icon.delete').click(function() {
 		$(this).closest('li').remove();
 		saveState($(this));
 		return false;
