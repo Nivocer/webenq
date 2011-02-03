@@ -55,4 +55,20 @@ class HVA_Form_Import extends Zend_Form
 		 
 		$this->addElements(array($file, $type, $submit));
 	}
+	
+	
+	/**
+	 * Validates the form
+	 */
+	public function isValid($data)
+	{
+		$files = $this->file->getTransferAdapter()->getFileInfo();
+		if (preg_match('/csv$/', strtolower($files['file']['name']))) {
+			if ($data['type'] != 'default') {
+				$this->file->addError('Bestanden met formaat CSV kunnen alleen van het type "default" zijn');
+				return false;
+			}
+		}
+		return parent::isValid($data);
+	}
 }
