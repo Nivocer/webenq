@@ -60,48 +60,48 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		/* set default element type if not yet set */
 		if (!$qq->CollectionPresentation[0]->type) {
 			if (!$qq->answerPossibilityGroup_id) {
-				$qq->CollectionPresentation[0]->type = COLLECTION_PRESENTATION_OPEN_TEXT;
+				$qq->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
 			} else {
-				$qq->CollectionPresentation[0]->type = COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS;
+				$qq->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS;
 			}
 			$qq->save();
 		}
 		
 		/* instantiate form element */
 		switch ($qq->CollectionPresentation[0]->type) {
-			case COLLECTION_PRESENTATION_OPEN_TEXT:
+			case Webenq::COLLECTION_PRESENTATION_OPEN_TEXT:
 				$element = new Zend_Form_Element_Text($elementName);
 				break;
-			case COLLECTION_PRESENTATION_OPEN_TEXTAREA:
+			case Webenq::COLLECTION_PRESENTATION_OPEN_TEXTAREA:
 				$element = new Zend_Form_Element_Textarea($elementName);
 				break;
-			case COLLECTION_PRESENTATION_OPEN_DATE:
+			case Webenq::COLLECTION_PRESENTATION_OPEN_DATE:
 				$element = new ZendX_JQuery_Form_Element_DatePicker($elementName);
 				$element->addFilter(new Webenq_Filter_Date());
 				break;
-			case COLLECTION_PRESENTATION_OPEN_CURRENTDATE:
+			case Webenq::COLLECTION_PRESENTATION_OPEN_CURRENTDATE:
 				$element = new Webenq_Form_Element_CurrentDate($elementName);
 				$element->removeDecorator('Label');
 				break;
-			case COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS:
+			case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS:
 				$element = new Zend_Form_Element_Radio($elementName);
 				break;
-			case COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST:
+			case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST:
 				$element = new Zend_Form_Element_Select($elementName);
 				break;
-			case COLLECTION_PRESENTATION_SINGLESELECT_SLIDER:
+			case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_SLIDER:
 				$element = new ZendX_JQuery_Form_Element_Slider($elementName);
 				$element->setJQueryParams(array(
 					'value' => '50'
 				));
 				break;
-			case COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES:
+			case Webenq::COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES:
 				$element = new Zend_Form_Element_MultiCheckbox($elementName);
 				break;
-			case COLLECTION_PRESENTATION_MULTIPLESELECT_LIST:
+			case Webenq::COLLECTION_PRESENTATION_MULTIPLESELECT_LIST:
 				$element = new Zend_Form_Element_Multiselect($elementName);
 				break;
-			case COLLECTION_PRESENTATION_RANGESELECT_SLIDER:
+			case Webenq::COLLECTION_PRESENTATION_RANGESELECT_SLIDER:
 				$element = new ZendX_JQuery_Form_Element_Slider($elementName);
 				$element->setJQueryParams(array(
 					'range' => true,

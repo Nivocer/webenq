@@ -79,7 +79,7 @@ class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
 			$this->createElement('select', 'collectionPresentationType', array(
 				'label' => 'Type:',
 				'multiOptions' => Webenq::getCollectionPresentationTypes(),
-				'value' => ($qq->answerPossibilityGroup_id) ? $cp->type : COLLECTION_PRESENTATION_OPEN_TEXT,
+				'value' => ($qq->answerPossibilityGroup_id) ? $cp->type : Webenq::COLLECTION_PRESENTATION_OPEN_TEXT,
 			)),
 			$this->createElement('submit', 'submit', array(
 				'label' => 'opslaan',
@@ -163,7 +163,7 @@ class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
 			$cp->type = $values['answers']['collectionPresentationType'];
 		} else {
 			$qq->answerPossibilityGroup_id = null;
-			$cp->type = COLLECTION_PRESENTATION_OPEN_TEXT;
+			$cp->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
 		}
 		
     	$cp->filters = serialize($values['validation']['filters']);
