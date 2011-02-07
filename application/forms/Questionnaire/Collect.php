@@ -32,15 +32,23 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 			/* if sub-questions: add subform */
 			else {
 				$subForm = new Zend_Form_SubForm();
+				$subForm->setLegend($question->Question->QuestionText[0]->text);
 				
 				/* iterate over sub-questions */
 				foreach ($subQuestions as $subQuestion) {
 					
 					/* get sub-sub-questions */
 					$subSubQuestions = QuestionnaireQuestion::getSubQuestions($subQuestion);
-					if ($subSubQuestions->count() > 0) {
-						
+					
+					/* if no sub-sub-questions: add element */
+					if ($subSubQuestions->count() == 0) {
+						$subForm->addElement($view->questionElement($subQuestion, false));
+					}
+					
+					/* if sub-sub-questions: add subform */
+					else {						
 						$subSubForm = new Zend_Form_SubForm();
+						$subSubForm->setLegend($subQuestion->Question->QuestionText[0]->text);
 						
 						/* iterate over sub-sub-questions */
 						foreach ($subSubQuestions as $subSubQuestion) {

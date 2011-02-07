@@ -200,37 +200,30 @@ class QuestionnaireController extends Zend_Controller_Action
 			$respondent->save();
 		}
 		
-		/* get current page */
-		$pages = Doctrine_Query::create()
-			->from('QuestionnaireQuestion qq')
-			->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
-			->innerJoin('qq.CollectionPresentation cp')
-			->where('a.id IS NULL')
-			->andWhere('qq.questionnaire_id = ?', $this->_request->id)
-			->orderBy('cp.page')
-			->groupBy('cp.page')
-			->limit(1)
-			->execute();
-			
-		if ($pages) $firstPage = $pages->getFirst();
-		if ($firstPage) $pageNr = $firstPage->CollectionPresentation->getFirst()->page;
-		
-		/* redirect if no more questions */
-		if (!isset($pageNr)) $this->_redirect('/questionnaire');
+		try {
+			/* get current page */
+			$pageNr = Doctrine_Query::create()
+				->from('QuestionnaireQuestion qq')
+				->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
+				->innerJoin('qq.CollectionPresentation cp')
+				->where('a.id IS NULL')
+				->andWhere('qq.questionnaire_id = ?', $this->_request->id)
+				->orderBy('cp.page')
+				->groupBy('cp.page')
+				->limit(1)
+				->execute()
+				->getFirst()->CollectionPresentation[0]->page;
+		} catch (Exception $e) {
+			/* redirect if no more questions */
+			$this->_redirect('/questionnaire');
+		}
 		
 		/* get questions for current page */
-		$qqs = Doctrine_Query::create()
-			->from('QuestionnaireQuestion qq')
-			->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
-			->innerJoin('qq.CollectionPresentation cp')
-			->where('a.id IS NULL')
-			->andWhere('qq.questionnaire_id = ?', $this->_request->id)
-			->andWhere('cp.page = ?', $pageNr)
-			->orderBy('cp.page, cp.weight, qq.id')
-			->execute();
-	
+    	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr);
+    	$qqs = $questionnaire->QuestionnaireQuestion;
+    	
 		/* redirect if no more questions */
-		if (!$qqs) $this->_redirect('/questionnaire');
+		if ($qqs->count() == 0) $this->_redirect('/questionnaire');
 		
 		/* get form */
 		$form = new HVA_Form_Questionnaire_Collect($qqs);

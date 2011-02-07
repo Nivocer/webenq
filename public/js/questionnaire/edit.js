@@ -124,13 +124,13 @@ function initTabSubquestions()
 
 	updateColWidth();
 	
-	$('#dialog #answer #less').click(function() {
+	$('#dialog #group #less').click(function() {
 		updateColWidth('less');
 		saveState($list);
 		return false;
 	});
 	
-	$('#dialog #answer #more').click(function() {
+	$('#dialog #group #more').click(function() {
 		updateColWidth('more');
 		saveState($list);
 		return false;
