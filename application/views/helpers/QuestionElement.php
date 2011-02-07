@@ -14,12 +14,31 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 			return $this->_getElement($qq);
 		}
 		
+		/* get form element */
 		$elm = array($this->_getElement($qq));
-		if ($qq->CollectionPresentation[0]->CollectionPresentation->count() > 0) {
-			foreach ($qq->CollectionPresentation[0]->CollectionPresentation as $cp1) {
+		
+		/* get collection-presentation objects for child questions */
+		$subQqsCp = Doctrine_Query::create()
+			->from('CollectionPresentation cp')
+			->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
+			->orderBy('cp.weight')
+			->execute();
+			
+		if ($subQqsCp->count() > 0) {
+			foreach ($subQqsCp as $cp1) {
+				
+				/* get form element for current sub question */
 				$subElm = array($this->_getElement($cp1->QuestionnaireQuestion));
-				if ($cp1->CollectionPresentation->count() > 0) {
-					foreach ($cp1->CollectionPresentation as $cp2) {
+				
+				/* get collection-presentation objects for child questions */
+				$subSubQqsCp = Doctrine_Query::create()
+					->from('CollectionPresentation cp')
+					->where('cp.parent_id = ?', $cp1->id)
+					->orderBy('cp.weight')
+					->execute();
+				
+				if ($subSubQqsCp->count() > 0) {
+					foreach ($subSubQqsCp as $cp2) {
 						$subElm[] = $this->_getElement($cp2->QuestionnaireQuestion);
 					}
 					$elm[] = $subElm;

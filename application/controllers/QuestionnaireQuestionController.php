@@ -183,6 +183,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 		return $subQuestions;
     }
     
+    /**
+     * Saves the current state of the given questionnaire-question
+     */
     public function saveStateAction()
     {
     	/* disable view/layout rendering */
@@ -191,54 +194,79 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     	
     	$cols = $this->_request->cols;
     	$qqIds = (is_array($this->_request->qq)) ? $this->_request->qq : array();
-    	$parentId = Doctrine_Core::getTable('QuestionnaireQuestion')
-    		->find($this->_request->parent)
-    		->CollectionPresentation[0]->id;
-    		
-    	/* reset all for this parent */
-    	Doctrine_Query::create()
-    		->update('CollectionPresentation')
-    		->set('parent_id', '?', '')
-    		->where('parent_id = ?', $parentId)
-    		->execute();
+    	$parentId = $this->_request->parent;
     	
-    	$i = 0;
+    	/* reproduce grid */
+    	$rowIndex = 0;
+    	$grid = array();
     	$row = array();
-    	$rows = array();
-    	foreach ($qqIds as $j => $qqId) {
-    		$i++;
+    	foreach ($qqIds as $colIndex => $qqId) {
+    		$rowIndex++;
     		$row[] = $qqId;
-    		if ($i == $cols || $j == count($qqIds) - 1) {
-    			$rows[] = $row;
+    		if ($rowIndex == $cols || $colIndex == count($qqIds) - 1) {
+    			$grid[] = $row;
     			$row = array();
-    			$i = 0;
+    			$rowIndex = 0;
     		}
     	}
     	
-    	foreach ($rows as $i => $row) {
-    		foreach ($row as $j => $col) {
+    	$this->_saveGridSubquestions($parentId, $grid);
+    }
+    
+    /**
+     * Stores the grid of subquestions to the database
+     * 
+     * @param int $parentId Parent questionnaire-question
+     * @param array $grid Grid with sub-questionnaire-questions
+     * @return void
+     */
+    protected function _saveGridSubquestions($parentId, array $grid)
+    {
+    	/* get collection-presentation object for given parent */
+    	$cp = Doctrine_Core::getTable('QuestionnaireQuestion')
+    		->find($parentId)
+    		->CollectionPresentation
+    		->getFirst();
+    		
+    	/* clear all for this parent */
+    	Doctrine_Query::create()
+    		->update('CollectionPresentation')
+    		->set('parent_id', '?', '')
+			->set('weight', '?', '0')
+    		->where('parent_id = ?', $cp->id)
+    		->execute();
+    		
+    	/* save grid */
+    	foreach ($grid as $rowIndex => $row) {
+    		foreach ($row as $colIndex => $col) {
     			
-    			/* get questionnaire-question */
-		    	$qq = Doctrine_Core::getTable('QuestionnaireQuestion')
-		    		->find($col);
+		    	/* get collection-presentation object for current questionnaire-question */
+		    	$current = Doctrine_Core::getTable('QuestionnaireQuestion')
+		    		->find($col)
+		    		->CollectionPresentation
+		    		->getFirst();
 		    		
-    			/* reset all for this parent */
+    			/* clear all for this parent */
 		    	Doctrine_Query::create()
 		    		->update('CollectionPresentation')
 		    		->set('parent_id', '?', '')
 					->set('weight', '?', '0')
-		    		->where('parent_id = ?', $qq->CollectionPresentation[0]->id)
+		    		->where('parent_id = ?', $current->id)
 		    		->execute();
     			
     			/* save new state */
-		    	if ($j == 0) {
-		    		$qq->CollectionPresentation[0]->parent_id = $parentId;
+		    	if ($colIndex == 0) {
+		    		/* set parent */
+		    		$current->parent_id = $cp->id;
+		    		/* save current as parent for next object */
+		    		$parent = $current;
 		    	} else {
-		    		$qq->CollectionPresentation[0]->parent_id = Doctrine_Core::getTable('QuestionnaireQuestion')
-		    			->find($row[0])->CollectionPresentation[0]->id;
-		    	}    			
-		    	$qq->CollectionPresentation[0]->weight = $i * $i + $j;
-		    	$qq->save();
+		    		$current->parent_id = $parent->id;
+		    	}
+		    	/* set weight */
+		    	$current->weight = $rowIndex * $rowIndex + $colIndex;
+		    	/* save object */
+		    	$current->save();
     		}
     	}
     }

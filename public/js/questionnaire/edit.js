@@ -1,6 +1,14 @@
-function saveState($elm) {
+/**
+ * Saves the state of the given element. Must implement an action for
+ * any element that can be saved.
+ * 
+ * @param $elm The element for which to save the current state
+ */
+function saveState($elm)
+{
+	var $elmId = $elm[0].id;
 	
-	switch($elm[0].id) {
+	switch ($elmId) {
 	
 		case 'questionnaire-questions-list':
 			$('body').addClass('loading');
@@ -23,6 +31,7 @@ function saveState($elm) {
 		case 'repository-questions':
 		case 'less':
 		case 'more':
+		case 'subquestions':
 			$('body').addClass('loading');
 			
 			var $action = $elm.closest('form').attr('action');
@@ -34,10 +43,16 @@ function saveState($elm) {
 				$('body').removeClass('loading');
 			});
 			break;
+			
+		default:
+			var $message = 'No action implemented for element with id #' + $elmId;
+			console.log($message);
+			break;
 	}
 }
 
-function makeTabsSortable() {
+function makeTabsSortable()
+{
 	$('ul.sortable').sortable({
 		handle: 'div.handle',
 		revert: 'invalid',
@@ -100,36 +115,68 @@ function updateColWidth(action) {
 	});
 }
 
-function postOpenDialog(response) {
-	
-	/* tabs */
-	$('.tabs').tabs();
+/**
+ * Initialises the tab for editing sub-questions
+ */
+function initTabSubquestions()
+{
+	var $list = $('#dialog #group ul#subquestions');
 
-	/* answer-possibility tab */
+	updateColWidth();
+	
+	$('#dialog #answer #less').click(function() {
+		updateColWidth('less');
+		saveState($list);
+		return false;
+	});
+	
+	$('#dialog #answer #more').click(function() {
+		updateColWidth('more');
+		saveState($list);
+		return false;
+	});
+	
+	$('#dialog #group ul#subquestions').sortable({
+		update: function(event, ui) {
+			saveState($list);
+		}
+	});
+	
+	$('#dialog #group ul#subquestions li a.delete').click(function() {
+		$(this).closest('li').remove();
+		saveState($list);
+		return false;
+	});
+}
+
+/**
+ * Initialises the tab for editing answer-possibilities
+ */
+function initTabAnswerPossibilities()
+{
 	updateAnswersTab();
 	$('#answers-useAnswerPossibilityGroup').change(function() {
 		updateAnswersTab();
 	});
-	
-	/* sub-questions grid */
-	updateColWidth();
-	$('#dialog #less').click(function() {
-		updateColWidth('less');
-		saveState($(this));
-		return false;
-	});
-	$('#dialog #more').click(function() {
-		updateColWidth('more');
-		saveState($(this));
-		return false;
-	});
-	
-	$('#dialog ul.sortable li a.icon.delete').click(function() {
-		$(this).closest('li').remove();
-		saveState($(this));
-		return false;
-	});
+}
 
+
+
+function postOpenDialog(response) {
+	
+	/* tabs */
+	$('.tabs').tabs();
+	
+	/* init tab sub-questions */
+	if ($('#dialog #group').length > 0) {
+		initTabSubquestions();
+	}
+	
+	/* init tab answer-possibilities */
+	if ($('#dialog #answer').length > 0) {
+		initTabAnswerPossibilities();
+	}
+	
 	/* add questionnaire id to the form */
 	var $questionnaireId = window.location.href.match(/id\/(\d{1,})/)[1];
 	$('<input type="hidden" id="questionnaire_id" name="questionnaire_id" value="' + $questionnaireId + '" />').appendTo('#dialog form');
