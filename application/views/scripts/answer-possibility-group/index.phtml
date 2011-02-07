@@ -10,6 +10,7 @@
 		<thead>
 			<tr>
 				<th><?php echo _('groep'); ?></th>
+				<th><?php echo _('mogelijkheden'); ?></th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -19,6 +20,12 @@
 					<td>
 						<a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);	?>">
 							<?php echo $answerPossibilityGroup->name; ?>
+						</a>
+					</td>
+					<td>
+						<a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);	?>">
+							<?php echo $answerPossibilityGroup->AnswerPossibility->count(); ?>
+							<?php echo _('mogelijkheden'); ?>
 						</a>
 					</td>
 					<td>

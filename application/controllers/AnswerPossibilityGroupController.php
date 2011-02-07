@@ -69,8 +69,13 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     public function editAction()
     {
     	/* get group */
-    	$answerPossibilityGroup = Doctrine_Core::getTable('AnswerPossibilityGroup')
-    		->find($this->_request->id);
+    	$answerPossibilityGroup = Doctrine_Query::create()
+    		->from('AnswerPossibilityGroup apg')
+    		->innerJoin('apg.AnswerPossibility ap')
+    		->where('apg.id = ?', $this->_request->id)
+    		->orderBy('ap.value')
+    		->execute()
+    		->getFirst();
     		
     	/* get form */
     	$form = new HVA_Form_AnswerPossibilityGroup_Edit($answerPossibilityGroup);
@@ -97,6 +102,8 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
+    	$this->_helper->actionStack('index', 'answer-possibility-group');
+    	
     	/* get group */
     	$answerPossibilityGroup = Doctrine_Core::getTable('AnswerPossibilityGroup')
     		->find($this->_request->id);
