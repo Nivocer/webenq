@@ -96,6 +96,14 @@ function updateAnswersTab() {
 	}
 }
 
+function updateValidationTab() {
+	if ($('#answers-useAnswerPossibilityGroup').is(':checked')) {
+		$('#dialog #validation input[type="checkbox"]').attr('disabled', 'disabled');
+	} else {
+		$('#dialog #validation input[type="checkbox"]').removeAttr('disabled');
+	}
+}
+
 function updateColWidth(action) {
 	/* get and update current number of columns */
 	$cols = $('#cols').val();
@@ -160,6 +168,16 @@ function initTabAnswerPossibilities()
 	});
 }
 
+/**
+ * Initialises the tab for validation settings
+ */
+function initTabValidation()
+{
+	updateValidationTab();
+	$('#answers-useAnswerPossibilityGroup').change(function() {
+		updateValidationTab();		
+	});
+}
 
 
 function postOpenDialog(response) {
@@ -175,6 +193,7 @@ function postOpenDialog(response) {
 	/* init tab answer-possibilities */
 	if ($('#dialog #answer').length > 0) {
 		initTabAnswerPossibilities();
+		initTabValidation();
 	}
 	
 	/* add questionnaire id to the form */
