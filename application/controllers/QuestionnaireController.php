@@ -200,6 +200,10 @@ class QuestionnaireController extends Zend_Controller_Action
 			$respondent->save();
 		}
 		
+		/* store respondent id to session and reload page */
+		$session->respondent_id = $respondent->id;
+		$session->questionnaire_id = $this->_request->id;
+    	
 		try {
 			/* get current page */
 			$pageNr = Doctrine_Query::create()
@@ -219,7 +223,7 @@ class QuestionnaireController extends Zend_Controller_Action
 		}
 		
 		/* get questions for current page */
-    	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr);
+    	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, $respondent);
     	$qqs = $questionnaire->QuestionnaireQuestion;
     	
 		/* redirect if no more questions */
@@ -249,12 +253,15 @@ class QuestionnaireController extends Zend_Controller_Action
 				foreach ($qqs as $qq) {
 					
 					/* get filtered and validated value(s) */
+					$value = '';
 					$elm = $form->getElement('qq_' . $qq->id);
-					$value = $elm->getValue();
-					
-					/* check for range */
-					if (isset($this->_request->{$elm->getId() . '-1'})) {
-						$value = array($value, $this->_request->{$elm->getId() . '-1'});
+					if (is_object($elm)) {
+						/* get value */
+						$value = $elm->getValue();
+						/* check for range */
+						if (isset($this->_request->{$elm->getId() . '-1'})) {
+							$value = array($value, $this->_request->{$elm->getId() . '-1'});
+						}
 					}
 					
 					/* save answer-id(s) or text(s) */
@@ -265,9 +272,7 @@ class QuestionnaireController extends Zend_Controller_Action
 					}
 				}
 				
-				/* store respondent id to session and reload page */
-				$session->respondent_id = $respondent->id;
-				$session->questionnaire_id = $this->_request->id;
+				/* reload page */
 				$this->_redirect($this->_request->getPathInfo());
 			}
 		}

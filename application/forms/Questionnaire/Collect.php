@@ -67,4 +67,35 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 			))
 		);
 	}
+	
+    /**
+     * Retrieve a single element
+     *
+     * @param  string $name
+     * @return Zend_Form_Element|null
+     */
+    public function getElement($name)
+    {
+    	$element = parent::getElement($name);
+    	if ($element) {
+    		return $element;
+    	} else {
+    		$subForms = $this->getSubForms();
+    		foreach ($subForms as $subForm) {
+    			$element = $subForm->getElement($name);
+        		if ($element) {
+        			return $element;
+        		} else {
+        			$subSubForms = $subForm->getSubForms();
+        			foreach ($subSubForms as $subSubForm) {
+        				$element = $subSubForm->getElement($name);
+        				if ($element) {
+        					return $element;
+        				}
+        			}
+        		}
+        	}
+        }
+        return null;
+    }
 }
