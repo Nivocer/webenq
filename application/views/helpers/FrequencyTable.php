@@ -26,12 +26,14 @@ class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
 						<th>' . _('aantal') . '</th>
 					</tr>';
 		
+		$hasRows = false;
 		foreach ($frequency as $id => $count) {
 			
 			$answerPossibility = Doctrine_Core::getTable('AnswerPossibility')
 				->find($id);
 				
 			if ($answerPossibility) {
+				$hasRows = true;
 				$html .= '
 						<tr>
 							<td>' . $answerPossibility->id . '</td>
@@ -46,6 +48,6 @@ class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
 				</tbody>
 			</table>';
 		
-		return $html;
+		if ($hasRows) return $html;
 	}
 }
