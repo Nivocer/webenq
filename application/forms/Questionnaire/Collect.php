@@ -32,8 +32,9 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 			/* if sub-questions: add subform */
 			else {
 				$subForm = new Zend_Form_SubForm();
-				$subForm->setLegend($question->Question->QuestionText[0]->text);
-				
+				$subForm->setLegend($question->Question->QuestionText[0]->text)
+					->removeDecorator('DtDdWrapper');
+					
 				/* iterate over sub-questions */
 				foreach ($subQuestions as $subQuestion) {
 					
@@ -48,11 +49,20 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 					/* if sub-sub-questions: add subform */
 					else {						
 						$subSubForm = new Zend_Form_SubForm();
-						$subSubForm->setLegend($subQuestion->Question->QuestionText[0]->text);
+						$subSubForm->setLegend($subQuestion->Question->QuestionText[0]->text)
+							->removeDecorator('DtDdWrapper');
+							
+						/* prepare wrapper decorator */
+						$wrapper = new Zend_Form_Decorator_HtmlTag();
+						$wrapper->setTag('div');							
+						$percentage = floor(100/$subSubQuestions->count());
+						$wrapper->setOption('style', "float: left; width: $percentage%;");
 						
 						/* iterate over sub-sub-questions */
 						foreach ($subSubQuestions as $subSubQuestion) {
-							$subSubForm->addElement($view->questionElement($subSubQuestion, false));
+							$elm = $view->questionElement($subSubQuestion, false);
+							$elm->addDecorator(array('Wrapper' => $wrapper));
+							$subSubForm->addElement($elm);
 						}
 						$subForm->addSubForm($subSubForm, $subQuestion->Question->QuestionText[0]->text);
 					}
