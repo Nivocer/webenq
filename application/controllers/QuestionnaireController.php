@@ -335,19 +335,15 @@ class QuestionnaireController extends Zend_Controller_Action
     }
     
 	/**
-     * Renders the data collection for the given questionnaire
+     * Reports the collected data for the given questionnaire
      * 
      * @return void
      */
     public function reportAction()
     {
-    	$this->_response->setBody('De rapportfunctie is nog niet geïmplementeerd');
-    	$this->_helper->viewRenderer->setNoRender(true);
-    	return;
-    	
-    	/* get questionnaire */
-    	$questionnaire = Doctrine_Core::getTable('Questionnaire')
-			->find($this->_request->id);
+		/* get questions for current page */
+    	$pageNr = $this->_request->page ? $this->_request->page : null;
+    	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr);
 			
 		/* display */
 		$this->view->questionnaire = $questionnaire;
