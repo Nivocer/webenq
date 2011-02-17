@@ -35,8 +35,12 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-    	$this->view->questionnaires =
-    		Doctrine_Core::getTable('Questionnaire')->findAll();
+    	$this->view->questionnaires = Doctrine_Query::create()
+    		->select('q.*, COUNT(qq.id) as count_qqs')
+    		->from('Questionnaire q')
+    		->leftJoin('q.QuestionnaireQuestion qq')
+    		->groupBy('q.id')
+    		->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
     }
 	
 	/**
