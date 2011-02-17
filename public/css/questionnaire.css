@@ -24,7 +24,7 @@ div.admin {
 }
 
 div.handle {
-	background: url("../images/asterisk.gif") no-repeat center center;
+	background: url("../images/move.gif") no-repeat center center;
 	float: left;
 	cursor: pointer;
 	width: 20px;
