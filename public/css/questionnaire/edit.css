@@ -6,6 +6,8 @@
 
 #questionnaire-questions-list li.ui-state-highlight {
 	height: auto;
+	min-height: 18px;
+	height: expression(this.scrollHeight < 18 ? "18px" : "auto");	
 }
 
 #questionnaire-questions-list table {
