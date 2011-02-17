@@ -55,6 +55,7 @@ class QuestionnaireController extends Zend_Controller_Action
     		if ($form->isValid($data)) {
     			$questionnaire = new Questionnaire();
     			$questionnaire->fromArray($data);
+    			$questionnaire->meta = serialize(array('timestamp' => time()));
     			$questionnaire->save();
     			$this->_redirect('/questionnaire');
     		}
