@@ -72,7 +72,7 @@ class QuestionnaireController extends Zend_Controller_Action
     public function editAction()
     {
     	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
-			
+    	
 		$form = new HVA_Form_Questionnaire_Edit($questionnaire);
 		if ($this->_request->isPost()) {
     		$data = $this->_request->getPost();
@@ -82,18 +82,10 @@ class QuestionnaireController extends Zend_Controller_Action
     			$this->_redirect($this->_request->getPathInfo());
     		}
     	}
-		
-		$repoQuestions = Doctrine_Query::create()
-			->from('Question q')
-			->leftJoin('q.QuestionnaireQuestion qq')
-			->where('qq.id IS NULL')
-			->execute();
     	
     	$this->view->form = $form;
     	$this->view->questionnaire = $questionnaire;
-    	$this->view->totalPages = $questionnaire->getTotalPages();
-    	$this->view->questions = $questionnaire->QuestionnaireQuestion;
-    	$this->view->repoQuestions = $repoQuestions;
+    	$this->view->totalPages = Questionnaire::getTotalPages($questionnaire['id']);
     }
     
     public function orderAction()

@@ -4,11 +4,11 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 	/**
 	 * Helper for rendering form elements
 	 * 
-	 * @param QuestionnaireQuestion $qq Doctrine object
+	 * @param array $qq Array representing a questionnaire-question
 	 * @param bool $deep Indicating if childs elements should be rendered as well
 	 * @return Zend_Form_Element or string
 	 */
-	public function questionElement(QuestionnaireQuestion $qq, $deep = true)
+	public function questionElement(array $qq, $deep = true)
 	{
 		if ($deep == false) {
 			return $this->_getElement($qq);
@@ -18,32 +18,16 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		$elm = array($this->_getElement($qq));
 		
 		/* get collection-presentation objects for child questions */
-		$subQqsCp = Doctrine_Query::create()
-			->from('CollectionPresentation cp')
-			->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
-			->orderBy('cp.weight')
-			->execute();
-			
-		if ($subQqsCp->count() > 0) {
-			foreach ($subQqsCp as $cp1) {
-				
-				/* get form element for current sub question */
-				$subElm = array($this->_getElement($cp1->QuestionnaireQuestion));
-				
-				/* get collection-presentation objects for child questions */
-				$subSubQqsCp = Doctrine_Query::create()
-					->from('CollectionPresentation cp')
-					->where('cp.parent_id = ?', $cp1->id)
-					->orderBy('cp.weight')
-					->execute();
-				
-				if ($subSubQqsCp->count() > 0) {
-					foreach ($subSubQqsCp as $cp2) {
-						$subElm[] = $this->_getElement($cp2->QuestionnaireQuestion);
-					}
-					$elm[] = $subElm;
-				}
+		$subQqs = QuestionnaireQuestion::getSubQuestions($qq);
+		foreach ($subQqs as $subQq) {
+			/* get form element for current sub question */
+			$subElm = array($this->_getElement($subQq));
+			/* get collection-presentation objects for child questions */
+			$subSubQqs = QuestionnaireQuestion::getSubQuestions($subQq);
+			foreach ($subSubQqs as $subSubQq) {
+				$subElm[] = $this->_getElement($subSubQq);
 			}
+			$elm[] = $subElm;
 		}
 		
 		if (count($elm) == 1 && is_object($elm[0])) {
@@ -53,22 +37,24 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		}
 	}
 	
-	protected function _getElement(QuestionnaireQuestion $qq)
+	protected function _getElement(array $qq)
 	{
-		$elementName = 'qq_' . $qq->id;
+		$elementName = 'qq_' . $qq['id'];
 		
 		/* set default element type if not yet set */
-		if (!$qq->CollectionPresentation[0]->type) {
-			if (!$qq->answerPossibilityGroup_id) {
-				$qq->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
+		if (!$qq['CollectionPresentation'][0]['type']) {
+			$qqTmp = Doctrine_Core::getTable('QuestionnaireQuestion')->find($qq['id']);
+			if (!$qqTmp->answerPossibilityGroup_id) {
+				$qqTmp->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
 			} else {
-				$qq->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS;
+				$qqTmp->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS;
 			}
-			$qq->save();
+			$qqTmp->save();
+			$qq = $qqTmp->toArray();
 		}
 		
 		/* instantiate form element */
-		switch ($qq->CollectionPresentation[0]->type) {
+		switch ($qq['CollectionPresentation'][0]['type']) {
 			case Webenq::COLLECTION_PRESENTATION_OPEN_TEXT:
 				$element = new Zend_Form_Element_Text($elementName);
 				break;
@@ -115,20 +101,22 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		}
 		
 		/* add label */
-		$element->setLabel($qq->Question->QuestionText[0]->text);
+		$element->setLabel($qq['Question']['QuestionText'][0]['text']);
 		
 		/* add answer possibilities */
 		if ($element instanceof Zend_Form_Element_Multi) {
 			$options = array();
-			foreach ($qq->AnswerPossibilityGroup->AnswerPossibility as $possibility) {
-				$options[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
+			if (isset($qq['AnswerPossibilityGroup'])) {
+				foreach ($qq['AnswerPossibilityGroup']['AnswerPossibility'] as $possibility) {
+					$options[$possibility['id']] = $possibility['AnswerPossibilityText'][0]['text'];
+				}
 			}
 			$element->setMultiOptions($options);
 		}
 		
 		/* set filters */
-		if ($qq->CollectionPresentation[0]->filters) {
-			$filters = unserialize($qq->CollectionPresentation[0]->filters);
+		if ($qq['CollectionPresentation'][0]['filters']) {
+			$filters = unserialize($qq['CollectionPresentation'][0]['filters']);
 			if (is_array($filters)) {
 				foreach ($filters as $name) {
 					$filter = Webenq::getFilterInstance($name);
@@ -138,8 +126,8 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		}
 		
 		/* set validators */
-		if ($qq->CollectionPresentation[0]->validators) {
-			$validators = unserialize($qq->CollectionPresentation[0]->validators);
+		if ($qq['CollectionPresentation'][0]['validators']) {
+			$validators = unserialize($qq['CollectionPresentation'][0]['validators']);
 			if (is_array($validators)) {
 				foreach ($validators as $name) {
 					$validator = Webenq::getValidatorInstance($name);
@@ -160,15 +148,18 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		$html .= $elements[0]->getLabel();
 		$html .= '</th></tr></thead><tbody>';
 		
+		/* do not render root element */
 		unset($elements[0]);
+		
 		foreach ($elements as $row) {
 			$html .= '<tr>';
 			foreach ($row as $i => $col) {
 				if ($i == 0) {
 					$html .= '<td>' . $col->getLabel() . '</td>';
 				} else {
-					if ($i > 1 && $this->_equalElements($col, $row[$i-1])) {
-						var_dump($col); die;
+					/* is this element equal to the previous one? */
+					if ($i > 1 && $this->_equalElementTypes($col, $row[$i-1])) {
+						$html .= '<td>' . $col->render() . '</td>';
 					} else {
 						$html .= '<td>' . $col->render() . '</td>';
 					}
@@ -181,7 +172,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		return $html;
 	}
 	
-	protected function _equalElements(Zend_Form_Element $elm1, Zend_Form_Element $elm2)
+	protected function _equalElementTypes(Zend_Form_Element $elm1, Zend_Form_Element $elm2)
 	{
 		if (get_class($elm1) == get_class($elm2)) {
 			if ($elm1->getLabel() == $elm2->getLabel()) {

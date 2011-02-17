@@ -1,36 +1,46 @@
 <a id="edit_title" class="icon edit" href="#"></a>
-<h1><?php echo $this->questionnaire->title; ?></h1>
+<h1><?php echo $this->questionnaire['title']; ?></h1>
 <?= $this->form ?>
 <br clear="all" />
 
 <div class="clear">
-	<a class="ajax link add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire->id) ?>" title="vraag toevoegen">nieuwe vraag toevoegen</a>
+	<a class="ajax link add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire['id']) ?>" title="<?php echo _('nieuwe vraag toevoegen'); ?>">
+		<?php echo _('nieuwe vraag toevoegen'); ?>
+	</a>
 </div>
 <div class="clear">
-	<a class="ajax link add" href="<?= $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire->id) ?>" title="vraag toevoegen">bestaande vraag toevoegen</a>
+	<a class="ajax link add" href="<?= $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo _('bestaande vraag toevoegen'); ?>">
+		<?php echo _('bestaande vraag toevoegen'); ?>
+	</a>
 </div>
 <div class="clear">
-	<a class="link add add_page" href="#"><?php echo _('pagina toevoegen'); ?></a>
+	<a class="link add add_page" href="#" title="<?php echo _('pagina toevoegen'); ?>">
+		<?php echo _('pagina toevoegen'); ?>
+	</a>
 </div>
 
 <div class="tabs">
 	<ul>
 		<?php for($i = 1; $i <= $this->totalPages; $i++): ?>
-			<li><a href="#page-<?php echo $i; ?>"><?php echo _('pagina') . ' ' . $i; ?></a></li>
+			<li>
+				<a href="#page-<?php echo $i; ?>">
+					<?php echo _('pagina') . ' ' . $i; ?>
+				</a>
+			</li>
 		<?php endfor; ?>
 	</ul>
 	<?php for($i = 1; $i <= $this->totalPages; $i++): ?>
 		<div id="page-<?php echo $i; ?>">
 			<div class="questions">
 				<ul id="questionnaire-questions-list" class="sortable droppable">
-					<?php foreach ($this->questions as $quesionnaireQuestion): ?>
-						<?php if ($quesionnaireQuestion->CollectionPresentation[0]->page == $i): ?>
-							<li id="qq_<?php echo $quesionnaireQuestion->id; ?>">
+					<?php foreach ($this->questionnaire['QuestionnaireQuestion'] as $quesionnaireQuestion): ?>
+						<?php if ($quesionnaireQuestion['CollectionPresentation'][0]['page'] == $i): ?>
+							<li id="qq_<?php echo $quesionnaireQuestion['id']; ?>">
 								<div class="admin">
 									<div class="handle" title="<?php echo _('Sleep de vraag naar een andere positie of andere pagina'); ?>"></div>
 									<div class="options">
-										<a class="ajax icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion->id); ?>">&nbsp;</a>
-										<a class="ajax icon delete" title="<?php echo _('verwijderen'); ?>" href="<?= $this->baseUrl('/questionnaire-question/delete/id/' . $quesionnaireQuestion->id); ?>">&nbsp;</a>
+										<a class="ajax icon edit" title="<?php echo _('bewerken'); ?>" href="<?= $this->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion['id']); ?>">&nbsp;</a>
+										<a class="ajax icon delete" title="<?php echo _('verwijderen'); ?>" href="<?= $this->baseUrl('/questionnaire-question/delete/id/' . $quesionnaireQuestion['id']); ?>">&nbsp;</a>
 									</div>
 								</div>
 								<span>

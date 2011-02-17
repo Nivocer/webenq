@@ -159,6 +159,10 @@ li.ui-state-highlight {
 	list-style: none;
 }
 
+li.ui-selectee {
+	cursor: pointer;
+}
+
 div.clear {
 	clear: both;
 }

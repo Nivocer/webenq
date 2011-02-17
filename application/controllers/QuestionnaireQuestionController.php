@@ -64,12 +64,13 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 				}
 			}			
 		}
-			
+		
     	$questions = Doctrine_Query::create()
+    		->select('q.id, qt.text')
     		->from('Question q')
     		->innerJoin('q.QuestionText qt')
     		->where('qt.language = ?', $this->_language)    		
-    		->execute();
+    		->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
     		
     	$this->view->form = $form;
     	$this->view->questions = $questions;
