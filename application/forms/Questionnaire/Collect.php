@@ -8,7 +8,7 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 	 */
 	protected $_questions;
 	
-	public function __construct(Doctrine_Collection $questions, $options = null)
+	public function __construct(array $questions, $options = null)
 	{
 		$this->_questions = $questions;
 		parent::__construct($options);
@@ -25,14 +25,14 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 			$subQuestions = QuestionnaireQuestion::getSubQuestions($question);
 			
 			/* if no sub-questions: add element */
-			if ($subQuestions->count() == 0) {
+			if (!isset($subQuestions[0])) {
 				$this->addElement($view->questionElement($question, false));
 			}
 			
 			/* if sub-questions: add subform */
 			else {
 				$subForm = new Zend_Form_SubForm();
-				$subForm->setLegend($question->Question->QuestionText[0]->text)
+				$subForm->setLegend($question['Question']['QuestionText'][0]['text'])
 					->removeDecorator('DtDdWrapper');
 					
 				/* iterate over sub-questions */
@@ -42,20 +42,20 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 					$subSubQuestions = QuestionnaireQuestion::getSubQuestions($subQuestion);
 					
 					/* if no sub-sub-questions: add element */
-					if ($subSubQuestions->count() == 0) {
+					if (!isset($subSubQuestions[0])) {
 						$subForm->addElement($view->questionElement($subQuestion, false));
 					}
 					
 					/* if sub-sub-questions: add subform */
 					else {						
 						$subSubForm = new Zend_Form_SubForm();
-						$subSubForm->setLegend($subQuestion->Question->QuestionText[0]->text)
+						$subSubForm->setLegend($subQuestion['Question']['QuestionText'][0]['text'])
 							->removeDecorator('DtDdWrapper');
 							
 						/* prepare wrapper decorator */
 						$wrapper = new Zend_Form_Decorator_HtmlTag();
 						$wrapper->setTag('div');							
-						$percentage = floor(100/$subSubQuestions->count());
+						$percentage = floor(100/count($subSubQuestions));
 						$wrapper->setOption('style', "float: left; width: $percentage%;");
 						
 						/* iterate over sub-sub-questions */
@@ -64,10 +64,10 @@ class HVA_Form_Questionnaire_Collect extends Zend_Form
 							$elm->addDecorator(array('Wrapper' => $wrapper));
 							$subSubForm->addElement($elm);
 						}
-						$subForm->addSubForm($subSubForm, $subQuestion->Question->QuestionText[0]->text);
+						$subForm->addSubForm($subSubForm, $subQuestion['Question']['QuestionText'][0]['text']);
 					}
 				}
-				$this->addSubForm($subForm, $question->Question->QuestionText[0]->text);
+				$this->addSubForm($subForm, $question['Question']['QuestionText'][0]['text']);
 			}
 		}
 		

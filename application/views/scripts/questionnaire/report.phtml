@@ -1,22 +1,22 @@
-<?php foreach($this->questionnaire->QuestionnaireQuestion as $qq): ?>
-	<strong><?php echo $qq->Question->QuestionText[0]->text; ?></strong>
+<?php foreach($this->questionnaire['QuestionnaireQuestion'] as $qq): ?>
+	<strong><?php echo $qq['Question']['QuestionText'][0]['text']; ?></strong>
 	<div>
 		<a class="toggle_answers" href="#"><?php echo _('Toon/verberg antwoorden'); ?></a>
 		<ul class="answers">
-			<?php foreach($qq->Answer as $answer): ?>
+			<?php foreach ($qq['Answer'] as $answer): ?>
 				<li>
-					<?php if ($answer->text): ?>
-						<?php echo $answer->text; ?>
+					<?php if (isset($answer['text'])): ?>
+						<?php echo $answer['text']; ?>
 					<?php else: ?>
-						<?php $l = $this->language($answer->AnswerPossibility->AnswerPossibilityText, $this->language); ?>
-						<?php if (isset($l->text)): ?>
-							<?php echo $l->text; ?>
-							[<?php echo 'id=' . $answer->AnswerPossibility->id . ' / value=' . $answer->AnswerPossibility->value; ?>]
+						<?php $l = $this->language($answer['AnswerPossibility']['AnswerPossibilityText'], $this->language); ?>
+						<?php if (isset($l['text'])): ?>
+							<?php echo $l['text']; ?>
+							[<?php echo 'id=' . $answer['AnswerPossibility']['id'] . ' / value=' . $answer['AnswerPossibility']['value']; ?>]
 						<?php endif; ?>
 					<?php endif; ?>
 				</li>
 			<?php endforeach; ?>
 		</ul>
-		<?php if (!$qq->Answer[0]->text) echo $this->frequencyTable($qq); ?>
+		<?php if (!$qq['Answer'][0]['text']) echo $this->frequencyTable($qq); ?>
 	</div>
 <?php endforeach; ?>

@@ -5,14 +5,14 @@
  */
 class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
 {
-	public function frequencyTable(QuestionnaireQuestion $qq)
+	public function frequencyTable(array $qq)
 	{
 		$frequency = array();
-		foreach ($qq->Answer as $answer) {
-			if (key_exists($answer->answerPossibility_id, $frequency)) {
-				$frequency[$answer->answerPossibility_id]++;
+		foreach ($qq['Answer'] as $answer) {
+			if (key_exists($answer['answerPossibility_id'], $frequency)) {
+				$frequency[$answer['answerPossibility_id']]++;
 			} else {
-				$frequency[$answer->answerPossibility_id] = 1;
+				$frequency[$answer['answerPossibility_id']] = 1;
 			}
 		}
 		

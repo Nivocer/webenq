@@ -221,10 +221,10 @@ class QuestionnaireController extends Zend_Controller_Action
 		
 		/* get questions for current page */
     	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, $respondent);
-    	$qqs = $questionnaire->QuestionnaireQuestion;
+    	$qqs = $questionnaire['QuestionnaireQuestion'];
     	
 		/* redirect if no more questions */
-		if ($qqs->count() == 0) $this->_redirect('/questionnaire');
+		if (!isset($qqs[0])) $this->_redirect('/questionnaire');
 		
 		/* get form */
 		$form = new HVA_Form_Questionnaire_Collect($qqs);
@@ -248,10 +248,9 @@ class QuestionnaireController extends Zend_Controller_Action
 		if ($this->_request->isPost()) {
 			if ($form->isValid($this->_request->getPost())) {
 				foreach ($qqs as $qq) {
-					
 					/* get filtered and validated value(s) */
 					$value = '';
-					$elm = $form->getElement('qq_' . $qq->id);
+					$elm = $form->getElement('qq_' . $qq['id']);
 					if (is_object($elm)) {
 						/* get value */
 						$value = $elm->getValue();
@@ -262,7 +261,7 @@ class QuestionnaireController extends Zend_Controller_Action
 					}
 					
 					/* save answer-id(s) or text(s) */
-					if ($qq->answerPossibilityGroup_id) {
+					if (isset($qq['answerPossibilityGroup_id'])) {
 						$this->_saveAnswerId($value, $qq, $respondent);
 					} else {
 						$this->_saveAnswerText($value, $qq, $respondent);
@@ -283,7 +282,7 @@ class QuestionnaireController extends Zend_Controller_Action
 		);
     }
     
-    protected function _saveAnswerId($value, QuestionnaireQuestion $qq, Respondent $respondent)
+    protected function _saveAnswerId($value, array $qq, Respondent $respondent)
     {
     	try {
 			if (is_array($value)) {
@@ -291,14 +290,14 @@ class QuestionnaireController extends Zend_Controller_Action
 					$answer = new Answer();
 					$answer->answerPossibility_id = $answerPossibilityId;
 					$answer->respondent_id = $respondent->id;
-					$answer->questionnaire_question_id = $qq->id;
+					$answer->questionnaire_question_id = $qq['id'];
 					$answer->save();						
 				}
 			} else {
 				$answer = new Answer();
 				$answer->answerPossibility_id = $value;
 				$answer->respondent_id = $respondent->id;
-				$answer->questionnaire_question_id = $qq->id;
+				$answer->questionnaire_question_id = $qq['id'];
 				$answer->save();						
 			}
     	} catch(Exception $e) {
@@ -307,7 +306,7 @@ class QuestionnaireController extends Zend_Controller_Action
     	return true;
     }
     
-    protected function _saveAnswerText($value, QuestionnaireQuestion $qq, Respondent $respondent)
+    protected function _saveAnswerText($value, array $qq, Respondent $respondent)
     {
     	try {
 			if (is_array($value)) {
@@ -315,14 +314,14 @@ class QuestionnaireController extends Zend_Controller_Action
 					$answer = new Answer();
 					$answer->text = $text;
 					$answer->respondent_id = $respondent->id;
-					$answer->questionnaire_question_id = $qq->id;
+					$answer->questionnaire_question_id = $qq['id'];
 					$answer->save();						
 				}
 			} else {
 				$answer = new Answer();
 				$answer->text = $value;
 				$answer->respondent_id = $respondent->id;
-				$answer->questionnaire_question_id = $qq->id;
+				$answer->questionnaire_question_id = $qq['id'];
 				$answer->save();						
 			}
     	} catch (Exception $e) {
@@ -340,7 +339,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
 		/* get questions for current page */
     	$pageNr = $this->_request->page ? $this->_request->page : null;
-    	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr);
+    	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, null, true);
 			
 		/* display */
 		$this->view->questionnaire = $questionnaire;

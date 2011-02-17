@@ -1,15 +1,14 @@
 <?php
 /**
- * Helper class that returns the right language from a collection
- * of doctrine objects
+ * Helper class that returns the right language from a result set
  */
 class Zend_View_Helper_Language extends Zend_View_Helper_Abstract
 {
-	public function Language(Doctrine_Collection $collection, $language)
+	public function Language($collection = array(), $language)
 	{
-		if ($collection->count() > 0) {
+		if (count($collection) > 0) {
 			foreach ($collection as $record) {
-				if ($record->language == $language) {
+				if (isset($record['language']) && $record['language'] == $language) {
 					return $record;
 				}
 			}
