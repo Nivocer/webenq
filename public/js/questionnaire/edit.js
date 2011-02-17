@@ -69,7 +69,8 @@ function makeTabsSortable()
 	}).disableSelection();
 }
 
-function makeTabsDroppable($tabs) {
+function makeTabsDroppable($tabs)
+{
 	var $tabItems = $('ul:first li', $tabs);
 	return $tabItems.droppable({
 		activeClass: 'ui-state-default',
@@ -86,7 +87,8 @@ function makeTabsDroppable($tabs) {
 	});
 }
 
-function updateAnswersTab() {
+function updateAnswersTab()
+{
 	if ($('#answers-useAnswerPossibilityGroup').is(':checked')) {
 		$('#answers-answerPossibilityGroup_id').removeAttr('disabled');
 		$('#answers-collectionPresentationType').removeAttr('disabled');
@@ -96,7 +98,8 @@ function updateAnswersTab() {
 	}
 }
 
-function updateValidationTab() {
+function updateValidationTab()
+{
 	if ($('#answers-useAnswerPossibilityGroup').is(':checked')) {
 		$('#dialog #validation input[type="checkbox"]').attr('disabled', 'disabled');
 	} else {
@@ -104,7 +107,8 @@ function updateValidationTab() {
 	}
 }
 
-function updateColWidth(action) {
+function updateColWidth(action)
+{
 	/* get and update current number of columns */
 	$cols = $('#cols').val();
 	if ($cols == 'NaN') $cols = 1;
@@ -288,6 +292,11 @@ $(function() {
 		
 		return false;
 	});
+	
+	/* add one page if no pages are present */
+	if ($tabItems.length == 0) {
+		$('.add_page').click();
+	}
 	
 	/* hide form for editing title if no errors */
 	if ($('form#HVA_Form_Questionnaire_Edit ul.errors').length == 0) {
