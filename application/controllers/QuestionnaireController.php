@@ -384,7 +384,10 @@ class QuestionnaireController extends Zend_Controller_Action
     		$form->createElement('radio', 'format', array(
     			'label' => 'Selecteer een formaat:',
     			'multiOptions' => array(
-    				'csv' => 'CSV',
+    				'xls' => 'Microsoft Excel 5 (XLS)',
+    				'xlsx' => 'Microsoft Excel 2007 (XLSX)',
+    				'csv' => 'comma separated values (CSV)',
+    				'pdf' => 'Portable Document Format (PDF)',
     			),
     			'required' => true,
     		)),
@@ -400,13 +403,8 @@ class QuestionnaireController extends Zend_Controller_Action
     			$format = $form->format->getValue();
 		    	$questionnaire = Questionnaire::getQuestionnaire($id, $this->_language, null, null, true);
 		    	$download = Webenq_Download::factory($format, $questionnaire);
+		    	$download->send($this->_response);
 		    	
-		    	$this->_response
-		    		->setHeader('Content-Type', $download->getMimeType())
-		    		->setHeader('Content-Transfer-Encoding', 'binary')
-		    		->setHeader('Content-Length', strlen($download))
-		    		->setHeader('Content-Disposition', 'attachment; filename="download.csv"')
-		    		->setBody($download);
 		    	return;
     		}
     	}
