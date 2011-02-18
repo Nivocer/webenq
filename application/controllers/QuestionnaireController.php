@@ -369,4 +369,49 @@ class QuestionnaireController extends Zend_Controller_Action
     	$this->view->questions = $questions;
     	$this->view->groups = $groups;
     }
+    
+    public function downloadAction()
+    {
+    	if (!$id = $this->_request->id) {
+    		throw new Exception('No ID given!');
+    	}
+    	
+    	/* disable view renderer */
+    	$this->_helper->viewRenderer->setNoRender();
+    	
+    	$form = new Zend_Form();
+    	$form->addElements(array(
+    		$form->createElement('radio', 'format', array(
+    			'label' => 'Selecteer een formaat:',
+    			'multiOptions' => array(
+    				'csv' => 'CSV',
+    			),
+    			'required' => true,
+    		)),
+    		$form->createElement('submit', 'submit', array('label' => 'Download')),
+    	));
+    	
+    	if ($this->_request->isPost()) {
+    		if ($form->isValid($this->_request->getPost())) {
+    			
+    			/* disable layout */
+    			$this->_helper->layout->disableLayout();
+    			
+    			$format = $form->format->getValue();
+		    	$questionnaire = Questionnaire::getQuestionnaire($id, $this->_language, null, null, true);
+		    	$download = Webenq_Download::factory($format, $questionnaire);
+		    	
+		    	$this->_response
+		    		->setHeader('Content-Type', $download->getMimeType())
+		    		->setHeader('Content-Transfer-Encoding', 'binary')
+		    		->setHeader('Content-Length', strlen($download))
+		    		->setHeader('Content-Disposition', 'attachment; filename="download.csv"')
+		    		->setBody($download);
+		    	return;
+    		}
+    	}
+    	
+    	/* display form */
+    	$this->_response->setBody($form->render());
+    }
 }
