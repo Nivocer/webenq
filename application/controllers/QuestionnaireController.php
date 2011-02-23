@@ -413,4 +413,44 @@ class QuestionnaireController extends Zend_Controller_Action
     	/* display form */
     	$this->_response->setBody($form->render());
     }
+    
+    public function printAction()
+    {
+    	if (!$id = $this->_request->id) {
+    		throw new Exception('No ID given!');
+    	}
+    	
+    	/* disable view renderer */
+    	$this->_helper->viewRenderer->setNoRender();
+    	
+    	$form = new Zend_Form();
+    	$form->addElements(array(
+    		$form->createElement('radio', 'format', array(
+    			'label' => 'Selecteer een formaat:',
+    			'multiOptions' => array(
+    				'pdf' => 'Portable Document Format (PDF)',
+    			),
+    			'required' => true,
+    		)),
+    		$form->createElement('submit', 'submit', array('label' => 'Download')),
+    	));
+    	
+    	if ($this->_request->isPost()) {
+    		if ($form->isValid($this->_request->getPost())) {
+    			
+    			/* disable layout */
+    			$this->_helper->layout->disableLayout();
+    			
+    			$format = $form->format->getValue();
+		    	$questionnaire = Questionnaire::getQuestionnaire($id, $this->_language, null, null, false);
+		    	$download = Webenq_Print::factory($format, $questionnaire);
+		    	$download->send($this->_response);
+		    	
+		    	return;
+    		}
+    	}
+    	
+    	/* display form */
+    	$this->_response->setBody($form->render());
+    }
 }

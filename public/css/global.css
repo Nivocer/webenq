@@ -203,6 +203,7 @@ a.collect { background-image: url("../images/collect.gif"); }
 a.check { background-image: url("../images/check.gif"); }
 a.report { background-image: url("../images/report.gif"); }
 a.download { background-image: url("../images/download.gif"); }
+a.print { background-image: url("../images/print.gif"); }
 
 /* jquery selectable */
 ul.selectable {
