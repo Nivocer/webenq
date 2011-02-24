@@ -132,8 +132,6 @@ class AnswerPossibilityController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-    	$this->_helper->actionStack('index', 'answer-possibility');
-    	
     	/* get group */
     	$answerPossibility = Doctrine_Query::create()
     		->from('AnswerPossibility ap')
@@ -154,7 +152,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
     		if ($this->_request->yes) {
     			$answerPossibility->delete();
     		}
-    		$this->_redirect('/answer-possibility-group/edit/id/' . $answerPossibility->AnswerPossibilityGroup->id);
+    		$this->_redirect('/answer-possibility-group');
     	}
     	
     	/* render view */

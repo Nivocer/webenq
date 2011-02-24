@@ -26,6 +26,8 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+    	$this->_helper->actionStack('index', 'answer-possibility-null-value');
+    	
     	/* get answer possibility groups */
     	$answerPossibilityGroups = Doctrine_Query::create()
     		->from('AnswerPossibilityGroup apg')
@@ -71,7 +73,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     	/* get group */
     	$answerPossibilityGroup = Doctrine_Query::create()
     		->from('AnswerPossibilityGroup apg')
-    		->innerJoin('apg.AnswerPossibility ap')
+    		->leftJoin('apg.AnswerPossibility ap')
     		->where('apg.id = ?', $this->_request->id)
     		->orderBy('ap.value')
     		->execute()
