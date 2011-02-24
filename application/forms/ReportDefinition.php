@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Form_ReportDefinition extends Zend_Form
+class Webenq_Form_ReportDefinition extends Zend_Form
 {
 	/**
 	 * Questions

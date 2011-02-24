@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Form_User_Login extends Zend_Form
+class Webenq_Form_User_Login extends Zend_Form
 {
 	public function init()
 	{

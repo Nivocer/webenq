@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_AnswerPossibilityNullValue_Edit extends HVA_Form_AnswerPossibilityNullValue_Add
+class Webenq_Form_AnswerPossibilityNullValue_Edit extends Webenq_Form_AnswerPossibilityNullValue_Add
 {
 	/**
 	 * Current answer-possibility-null-value

@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_AnswerPossibilityGroup_Add extends Zend_Form
+class Webenq_Form_AnswerPossibilityGroup_Add extends Zend_Form
 {
 	/**
 	 * Builds the form

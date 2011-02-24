@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_Questionnaire_Add extends Zend_Form
+class Webenq_Form_Questionnaire_Add extends Zend_Form
 {
 	public function init()
 	{

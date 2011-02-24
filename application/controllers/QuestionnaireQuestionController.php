@@ -43,7 +43,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 			throw new Exception('No questionnaire id given!');
 		}
 		
-		$form = new HVA_Form_QuestionnaireQuestion_Add($questionnaireId);
+		$form = new Webenq_Form_QuestionnaireQuestion_Add($questionnaireId);
 		$form->setAction($this->view->baseUrl('/questionnaire-question/add'));
 		
 		if ($this->_request->isPost()) {
@@ -86,7 +86,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 		$questionnaireQuestion = Doctrine_Core::getTable('QuestionnaireQuestion')
 			->find($this->_request->id);
 			
-		$form = new HVA_Form_QuestionnaireQuestion_Edit($questionnaireQuestion);
+		$form = new Webenq_Form_QuestionnaireQuestion_Edit($questionnaireQuestion);
 		$form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
     	
 		if ($this->_request->isPost()) {
@@ -134,7 +134,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 			->execute()
 			->getFirst();
 			
-		$form = new HVA_Form_QuestionnaireQuestion_Delete($questionnaireQuestion);
+		$form = new Webenq_Form_QuestionnaireQuestion_Delete($questionnaireQuestion);
 		$form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
     	
 		if ($this->_request->isPost()) {

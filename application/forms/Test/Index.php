@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Form_Test_Index extends Zend_Form
+class Webenq_Form_Test_Index extends Zend_Form
 {
 	/**
 	 * Builds the form

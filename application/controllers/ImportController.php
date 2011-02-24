@@ -11,7 +11,7 @@ class ImportController extends Zend_Controller_Action
     {
     	$supportedFormats = Webenq_Import_Adapter_Abstract::$supportedFormats;
     	
-    	$form = new HVA_Form_Import($supportedFormats);
+    	$form = new Webenq_Form_Import($supportedFormats);
     	$errors = array();
     	
     	if ($this->_request->isPost()) {

@@ -57,7 +57,7 @@ class ManagementController extends Zend_Controller_Action
     	$qq = Doctrine_Core::getTable('QuestionnaireQuestion')->find($this->_id);
     	
     	/* build form */
-    	$form = new HVA_Form_Management_Edit($qq);
+    	$form = new Webenq_Form_Management_Edit($qq);
     	
     	/* process form */
     	if ($this->_request->isPost()) {
@@ -90,7 +90,7 @@ class ManagementController extends Zend_Controller_Action
     protected function _convertLabelsToValues()
     {
     	/* get table models */
-    	$meta = new HVA_Model_DbTable_Meta("meta_" . $this->_id);
+    	$meta = new Webenq_Model_DbTable_Meta("meta_" . $this->_id);
     	
     	/* query for building table */
     	$table = "values_" . $this->_id;
@@ -101,15 +101,15 @@ class ManagementController extends Zend_Controller_Action
     	$questionTypes = $meta->fetchAll("parent_id = 0", "id");
     	foreach ($questionTypes as $questionType) {
     		switch ($questionType->type) {
-    			case "HVA_Model_Data_Question_Open_Date":
+    			case "Webenq_Model_Data_Question_Open_Date":
     				$q .= $questionType->question_id . " DATETIME DEFAULT NULL, ";
     				break;
-    			case "HVA_Model_Data_Question_Closed_Scale_Two":
-    			case "HVA_Model_Data_Question_Closed_Scale_Three":
-    			case "HVA_Model_Data_Question_Closed_Scale_Four":
-    			case "HVA_Model_Data_Question_Closed_Scale_Five":
-    			case "HVA_Model_Data_Question_Closed_Scale_Six":
-    			case "HVA_Model_Data_Question_Closed_Scale_Seven":
+    			case "Webenq_Model_Data_Question_Closed_Scale_Two":
+    			case "Webenq_Model_Data_Question_Closed_Scale_Three":
+    			case "Webenq_Model_Data_Question_Closed_Scale_Four":
+    			case "Webenq_Model_Data_Question_Closed_Scale_Five":
+    			case "Webenq_Model_Data_Question_Closed_Scale_Six":
+    			case "Webenq_Model_Data_Question_Closed_Scale_Seven":
     				$q .= $questionType->question_id . " INT DEFAULT NULL, ";
     				break;
     			default:
@@ -129,19 +129,19 @@ class ManagementController extends Zend_Controller_Action
     	$dbConnection->exec($q);
     	
     	/* get labels and store values */    	
-    	$labels = new HVA_Model_DbTable_Data("data_" . $this->_id);
-    	$values = new HVA_Model_DbTable_Data("values_" . $this->_id);
+    	$labels = new Webenq_Model_DbTable_Data("data_" . $this->_id);
+    	$values = new Webenq_Model_DbTable_Data("values_" . $this->_id);
     	
     	foreach ($labels->fetchAll() as $row) {
     		$data = $row->toArray();
     		foreach ($data as $questionId => $answer) {
     			$type = $meta->fetchRow("question_id = '$questionId'");
     			if ($type) {
-    				if (preg_match("#^HVA_Model_Data_Question_Open_Date#", $type->type)) {
-    					$data[$questionId] = HVA_Model_Data_Question_Open_Date::toFormat($answer, "Y-m-d H:i:s");
+    				if (preg_match("#^Webenq_Model_Data_Question_Open_Date#", $type->type)) {
+    					$data[$questionId] = Webenq_Model_Data_Question_Open_Date::toFormat($answer, "Y-m-d H:i:s");
     				}
-    				if (preg_match("#^HVA_Model_Data_Question_Closed_Scale_#", $type->type)) {
-    					$scaleValues = HVA_Model_Data_Question_Closed_Scale::getScaleValues();
+    				if (preg_match("#^Webenq_Model_Data_Question_Closed_Scale_#", $type->type)) {
+    					$scaleValues = Webenq_Model_Data_Question_Closed_Scale::getScaleValues();
     					@$value = $scaleValues[$type->type][strtolower($answer)];
     					if (!$value) $value = -1;
     					$data[$questionId] = $value;

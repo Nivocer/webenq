@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_QuestionnaireQuestion_Delete extends Zend_Form
+class Webenq_Form_QuestionnaireQuestion_Delete extends Zend_Form
 {
 	/**
 	 * QuestionnaireQuestion instance

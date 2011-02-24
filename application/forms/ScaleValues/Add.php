@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_ScaleValues_Add extends Zend_Form
+class Webenq_Form_ScaleValues_Add extends Zend_Form
 {
 	public function init()
 	{
@@ -22,12 +22,12 @@ class HVA_Form_ScaleValues_Add extends Zend_Form
 		$questionType = $this->createElement('select', 'question_type');
 		$questionType->setLabel('Vraagtype:')
 			->addMultiOptions(array(
-				'HVA_Model_Data_Question_Closed_Scale_Two'	=> '2-punts schaal',
-				'HVA_Model_Data_Question_Closed_Scale_Three'=> '3-punts schaal',
-				'HVA_Model_Data_Question_Closed_Scale_Four'	=> '4-punts schaal',
-				'HVA_Model_Data_Question_Closed_Scale_Five'	=> '5-punts schaal',
-				'HVA_Model_Data_Question_Closed_Scale_Six'	=> '6-punts schaal',
-				'HVA_Model_Data_Question_Closed_Scale_Seven'=> '7-punts schaal',
+				'Webenq_Model_Data_Question_Closed_Scale_Two'	=> '2-punts schaal',
+				'Webenq_Model_Data_Question_Closed_Scale_Three'	=> '3-punts schaal',
+				'Webenq_Model_Data_Question_Closed_Scale_Four'	=> '4-punts schaal',
+				'Webenq_Model_Data_Question_Closed_Scale_Five'	=> '5-punts schaal',
+				'Webenq_Model_Data_Question_Closed_Scale_Six'	=> '6-punts schaal',
+				'Webenq_Model_Data_Question_Closed_Scale_Seven'	=> '7-punts schaal',
 			));
 		
 		$submit = $this->createElement('submit', 'submit');

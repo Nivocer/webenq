@@ -36,7 +36,7 @@ class InterpretationController extends Zend_Controller_Action
     public function debugAction()
     {
     	/* get table and its columns */
-    	$table = new HVA_Model_DbTable_Data($this->_id);
+    	$table = new Webenq_Model_DbTable_Data($this->_id);
     	$columns = $table->getColumns();
     	
     	/* test with one question (for debugging) */
@@ -47,7 +47,7 @@ class InterpretationController extends Zend_Controller_Action
     	
     	/* dump question object */
     	$values = $table->fetchColumn($columns[$key]);
-    	$question = HVA_Model_Data_Question::factory($values);
+    	$question = Webenq_Model_Data_Question::factory($values);
     	$this->_response->setBody(var_dump($question));
     	$this->_helper->viewRenderer->setNoRender();
     }
@@ -70,14 +70,14 @@ class InterpretationController extends Zend_Controller_Action
     	/* factor question objects */
     	foreach ($columns as $k => $v) {
     		$values = $table->fetchColumn($columns[$k]);
-    		$this->_questions[$k] = HVA_Model_Data_Question::factory($values);
+    		$this->_questions[$k] = Webenq_Model_Data_Question::factory($values);
     	}
     	
     	/* create table */
-    	HVA_Model_DbTable_Meta::createTable("meta_" . $this->_id);
+    	Webenq_Model_DbTable_Meta::createTable("meta_" . $this->_id);
     	
     	/* store meta information */
-    	$meta = new HVA_Model_DbTable_Meta($this->_id);
+    	$meta = new Webenq_Model_DbTable_Meta($this->_id);
     	foreach ($this->_questions as $k => $question) {
     		if (!is_object($question)) {
     			throw new Exception("Questions with index $k could not be detected!");
@@ -116,7 +116,7 @@ class InterpretationController extends Zend_Controller_Action
     	$this->_rewriteValues();
     	
     	/* update status in imports table */
-    	HVA_Model_DbTable_Imports::updateStatus($this->_id, HVA_Model_DbTable_Imports::INTERPRETED);
+    	Webenq_Model_DbTable_Imports::updateStatus($this->_id, Webenq_Model_DbTable_Imports::INTERPRETED);
     	
     	$this->_redirect('index');
     }
@@ -124,10 +124,10 @@ class InterpretationController extends Zend_Controller_Action
     
     protected function _rewriteValues()
     {
-    	$meta = new HVA_Model_DbTable_Meta($this->_id);
-    	$data = new HVA_Model_DbTable_Data($this->_id);
+    	$meta = new Webenq_Model_DbTable_Meta($this->_id);
+    	$data = new Webenq_Model_DbTable_Data($this->_id);
     	
-    	$percetageQuestions = $meta->fetchAll("type = 'HVA_Model_Data_Question_Closed_Percentage'");
+    	$percetageQuestions = $meta->fetchAll("type = 'Webenq_Model_Data_Question_Closed_Percentage'");
     	foreach ($percetageQuestions as $percentageQuestion) {
     		$answers = $data->fetchAll($percentageQuestion->question_id . " LIKE '<%'");
     		if ($answers->count() > 0) {

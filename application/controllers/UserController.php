@@ -9,7 +9,7 @@ class UserController extends Zend_Controller_Action
      */
     public function loginAction()
     {
-    	$form = new HVA_Form_User_Login();
+    	$form = new Webenq_Form_User_Login();
    		$form->redirect->setValue($this->_request->redirect);
     	
     	if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
@@ -42,7 +42,7 @@ class UserController extends Zend_Controller_Action
      */
     public function userAction()
     {
-    	$addForm = new HVA_Form_User_User_Add();
+    	$addForm = new Webenq_Form_User_User_Add();
     	$this->view->addForm = $addForm;
     	
     	if ($this->_request->isPost()) {
@@ -55,7 +55,7 @@ class UserController extends Zend_Controller_Action
 	    				$this->_redirect('/user/user');
 	    			}
 	    		} else {
-		    		$editForm = $this->view->editForm = new HVA_Form_User_User_Edit($user);
+		    		$editForm = $this->view->editForm = new Webenq_Form_User_User_Edit($user);
 	    			if ($editForm->isValid($this->_request->getPost())) {
 	    				if ($editForm->store()) {
 	    					$this->_redirect('/user/user');
@@ -72,12 +72,12 @@ class UserController extends Zend_Controller_Action
     	} else {
 	    	if ($this->_request->edit) {
 	    		$user = Doctrine_Core::getTable('User')->find($this->_request->edit);
-	    		$editForm = new HVA_Form_User_User_Edit($user);
+	    		$editForm = new Webenq_Form_User_User_Edit($user);
 		    	$this->view->editForm = $editForm;
 	    	}
 	    	elseif ($this->_request->delete) {
 	    		$user = Doctrine_Core::getTable('User')->find($this->_request->delete);
-	    		$deleteForm = new HVA_Form_Confirm($user->id, "Weet u zeker dat u gebruiker '$user->fullname' wilt verwijderen?");
+	    		$deleteForm = new Webenq_Form_Confirm($user->id, "Weet u zeker dat u gebruiker '$user->fullname' wilt verwijderen?");
 		    	$this->view->deleteForm = $deleteForm;
 	    	}
     	}
@@ -92,7 +92,7 @@ class UserController extends Zend_Controller_Action
      */
     public function roleAction()
     {
-    	$addForm = new HVA_Form_User_Role_Add();
+    	$addForm = new Webenq_Form_User_Role_Add();
     	$this->view->addForm = $addForm;
     	
     	if ($this->_request->isPost()) {
@@ -105,7 +105,7 @@ class UserController extends Zend_Controller_Action
 	    				$this->_redirect('/user/role');
 	    			}
 	    		} else {
-		    		$editForm = $this->view->editForm = new HVA_Form_User_Role_Edit($role);
+		    		$editForm = $this->view->editForm = new Webenq_Form_User_Role_Edit($role);
 	    			if ($editForm->isValid($this->_request->getPost())) {
 	    				if ($editForm->store()) {
 	    					$this->_redirect('/user/role');
@@ -122,12 +122,12 @@ class UserController extends Zend_Controller_Action
     	} else {
 	    	if ($this->_request->edit) {
 	    		$role = Doctrine_Core::getTable('Role')->find($this->_request->edit);
-	    		$editForm = new HVA_Form_User_Role_Edit($role);
+	    		$editForm = new Webenq_Form_User_Role_Edit($role);
 		    	$this->view->editForm = $editForm;
 	    	}
 	    	elseif ($this->_request->delete) {
 	    		$role = Doctrine_Core::getTable('Role')->find($this->_request->delete);
-	    		$deleteForm = new HVA_Form_Confirm($role->id, "Weet u zeker dat u rol '$role->name' wilt verwijderen?");
+	    		$deleteForm = new Webenq_Form_Confirm($role->id, "Weet u zeker dat u rol '$role->name' wilt verwijderen?");
 		    	$this->view->deleteForm = $deleteForm;
 	    	}
     	}
@@ -143,7 +143,7 @@ class UserController extends Zend_Controller_Action
     public function permissionAction()
     {
     	$resources = $this->_getResources();
-    	$form = new HVA_Form_User_Permission($resources);
+    	$form = new Webenq_Form_User_Permission($resources);
     	
     	if ($this->_request->isPost()) {
     		if ($form->isValid($this->_request->getPost())) {

@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_QuestionnaireQuestion_Add extends Zend_Form
+class Webenq_Form_QuestionnaireQuestion_Add extends Zend_Form
 {
 	/**
 	 * Id of the current questionnaire

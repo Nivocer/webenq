@@ -13,7 +13,7 @@ class EmailController extends Zend_Controller_Action
 	
 	public function init()
 	{
-		$this->_email = new HVA_Model_DbTable_Email();
+		$this->_email = new Webenq_Model_DbTable_Email();
 	}
 	
 	protected function _findDirs($dir)
@@ -74,7 +74,7 @@ class EmailController extends Zend_Controller_Action
     public function indexAction()
     {
     	$subDirs = $this->_findDirs(realpath('reports'));
-    	$form = new HVA_Form_Email_Index($subDirs);
+    	$form = new Webenq_Form_Email_Index($subDirs);
     	
     	if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
     		
@@ -115,7 +115,7 @@ class EmailController extends Zend_Controller_Action
     
     public function mergeTeacherAction()
     {
-    	$form = $this->view->form = new HVA_Form_Email_Merge(array('csv'));
+    	$form = $this->view->form = new Webenq_Form_Email_Merge(array('csv'));
     	$form->file->setLabel('Selecteer het docenten-groep-boecode-bestand:');
     	$errors = array();
     	

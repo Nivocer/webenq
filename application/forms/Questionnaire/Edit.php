@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_Questionnaire_Edit extends HVA_Form_Questionnaire_Add
+class Webenq_Form_Questionnaire_Edit extends Webenq_Form_Questionnaire_Add
 {
 	/**
 	 * Questionnaire instance

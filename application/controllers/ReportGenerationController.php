@@ -39,7 +39,7 @@ class ReportGenerationController extends Zend_Controller_Action
 	    $pass	= $config->resources->db->params->password;
 	    
 	    /* remove old report */
-	    $repDef = new HVA_Model_DbTable_ReportDefinitions();
+	    $repDef = new Webenq_Model_DbTable_ReportDefinitions();
 	    $row = $repDef->find($this->_id)->current();
 	    $file = $dir . '/' . $row->output_filename . "." . $row->output_format;
 	    if (file_exists($file)) {
@@ -101,7 +101,7 @@ class ReportGenerationController extends Zend_Controller_Action
 	
     public function indexAction()
     {
-    	$form = new HVA_Form_ReportGeneration_Index($this->_getSubDirs());
+    	$form = new Webenq_Form_ReportGeneration_Index($this->_getSubDirs());
     	
     	if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
     		if ($this->_request->createDir) {
@@ -125,7 +125,7 @@ class ReportGenerationController extends Zend_Controller_Action
     	}
     	
     	/* get questions */
-    	$questionsModel = new HVA_Model_DbTable_Questions("questions_" . $row->data_set_id);
+    	$questionsModel = new Webenq_Model_DbTable_Questions("questions_" . $row->data_set_id);
     	$questions = $questionsModel->fetchAll("group_id > 0");
     	$splitBy = $row->split_question_id;
     	$ignoreQuestionIds = explode(',', $row->ignore_question_ids);
@@ -138,13 +138,13 @@ class ReportGenerationController extends Zend_Controller_Action
     		}
     		
     		$answers = $questionsModel->getAnswers($question->id, $splitBy);
-    		if ($answers instanceof HVA_Model_Data_Question_Closed_Scale) {
+    		if ($answers instanceof Webenq_Model_Data_Question_Closed_Scale) {
     			$filename = "$dir/images/bar_report_" . $row->id . "_question_" . $question->id . ".png";
     			$answers->generateBarchart($filename);
     			system("chmod -R 774 $filename");
     		} elseif (is_array($answers)) {
     			foreach ($answers as $answer => $part) {
-    				if ($part instanceof HVA_Model_Data_Question_Closed_Scale) {
+    				if ($part instanceof Webenq_Model_Data_Question_Closed_Scale) {
 	    				$filename = "$dir/images/bar_report_" . $row->id . "_question_" . $question->id . "_splitanswer_" . $answer . ".png";
 		    			$part->generateBarchart($filename);
 		    			system("chmod -R 774 $filename");

@@ -31,7 +31,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
     		->find($this->_request->id);
     		
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibility_Add(
+    	$form = new Webenq_Form_AnswerPossibility_Add(
     		$answerPossibilityGroup,
     		$this->_language
     	);
@@ -75,7 +75,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
     		->find($this->_request->id);
     		
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibility_Edit($answerPossibility);
+    	$form = new Webenq_Form_AnswerPossibility_Edit($answerPossibility);
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -142,7 +142,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
     		->getFirst();
     		
     	/* get form */
-    	$form = new HVA_Form_Confirm(
+    	$form = new Webenq_Form_Confirm(
     		$answerPossibility->id,
     		'Weet u zeker dat u het antwoord "' . $answerPossibility->AnswerPossibilityText[0]->text . '" wilt verwijderen?'
     	);

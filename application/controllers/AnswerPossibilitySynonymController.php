@@ -26,7 +26,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
     		->find($this->_request->id);
     		
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibilitySynonym_Add($answerPossibilityText);
+    	$form = new Webenq_Form_AnswerPossibilitySynonym_Add($answerPossibilityText);
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -59,7 +59,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
     		->find($this->_request->id);
     		
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibilitySynonym_Edit($synonym);
+    	$form = new Webenq_Form_AnswerPossibilitySynonym_Edit($synonym);
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -96,7 +96,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
     		->find($this->_request->id);
     		
     	/* get form */
-    	$form = new HVA_Form_Confirm(
+    	$form = new Webenq_Form_Confirm(
     		$synonym->id,
     		'Weet u zeker dat u het synoniem "' . $synonym->text . '" wilt verwijderen?'
     	);

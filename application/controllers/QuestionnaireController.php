@@ -52,7 +52,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
     	$this->_helper->actionStack('index', 'questionnaire');
     	
-    	$form = new HVA_Form_Questionnaire_Add();
+    	$form = new Webenq_Form_Questionnaire_Add();
     	
     	if ($this->_request->isPost()) {
     		$data = $this->_request->getPost();
@@ -77,7 +77,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
     	$questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
     	
-		$form = new HVA_Form_Questionnaire_Edit($questionnaire);
+		$form = new Webenq_Form_Questionnaire_Edit($questionnaire);
 		if ($this->_request->isPost()) {
     		$data = $this->_request->getPost();
     		if ($form->isValid($data)) {
@@ -153,7 +153,7 @@ class QuestionnaireController extends Zend_Controller_Action
 			
 		$confirmationText = 'Weet u zeker dat u questionnaire ' . $questionnaire->id . ' (inclusief alle vragen en antwoorden) wilt verwijderen?';
 			
-    	$form = new HVA_Form_Confirm($questionnaire->id, $confirmationText);
+    	$form = new Webenq_Form_Confirm($questionnaire->id, $confirmationText);
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -227,7 +227,7 @@ class QuestionnaireController extends Zend_Controller_Action
 		if (!isset($qqs[0])) $this->_redirect('/questionnaire');
 		
 		/* get form */
-		$form = new HVA_Form_Questionnaire_Collect($qqs);
+		$form = new Webenq_Form_Questionnaire_Collect($qqs);
 		
 		/* get progress data */
 		$totalQuestions = Doctrine_Query::create()

@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Form_User_Role_Edit extends HVA_Form_User_Role_Add
+class Webenq_Form_User_Role_Edit extends Webenq_Form_User_Role_Add
 {
 	protected $_role;
 	

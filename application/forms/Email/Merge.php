@@ -1,6 +1,6 @@
 <?php
 
-class HVA_Form_Email_Merge extends Zend_Form
+class Webenq_Form_Email_Merge extends Zend_Form
 {
 	/**
 	 * Supported input formats

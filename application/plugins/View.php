@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Plugin_View extends Zend_Controller_Plugin_Abstract
+class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 {
 	public function preDispatch(Zend_Controller_Request_Abstract $request)
 	{

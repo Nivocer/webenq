@@ -24,7 +24,7 @@ class ScaleValuesController extends Zend_Controller_Action
     public function indexAction()
     {
     	/* get model, and query for defined scale labels */
-    	$scale = new HVA_Model_DbTable_ScaleValues();
+    	$scale = new Webenq_Model_DbTable_ScaleValues();
     	
     	try {
     		$this->view->scaleValues = $scale->fetchAll($scale->select()
@@ -40,7 +40,7 @@ class ScaleValuesController extends Zend_Controller_Action
     
     public function addAction()
     {
-    	$this->view->form = $form = new HVA_Form_ScaleValues_Add();
+    	$this->view->form = $form = new Webenq_Form_ScaleValues_Add();
     	
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
@@ -54,7 +54,7 @@ class ScaleValuesController extends Zend_Controller_Action
     protected function _processAdd()
     {
     	$data = $this->getRequest()->getpost();
-    	$scaleValues = new HVA_Model_DbTable_ScaleValues();
+    	$scaleValues = new Webenq_Model_DbTable_ScaleValues();
 
     	try {
     		$scaleValues->insert(array(
@@ -72,10 +72,10 @@ class ScaleValuesController extends Zend_Controller_Action
     
     public function editAction()
     {
-    	$this->view->form = $form = new HVA_Form_ScaleValues_Add();
+    	$this->view->form = $form = new Webenq_Form_ScaleValues_Add();
     	$id = $this->getRequest()->getParam('id');
     	
-    	$scaleValues = new HVA_Model_DbTable_ScaleValues();
+    	$scaleValues = new Webenq_Model_DbTable_ScaleValues();
     	$form->populate($scaleValues->find($id)->current()->toArray());
     	
     	if ($this->getRequest()->isPost()) {
@@ -90,7 +90,7 @@ class ScaleValuesController extends Zend_Controller_Action
     protected function _processEdit($id)
     {
     	$data = $this->getRequest()->getpost();
-    	$scaleValues = new HVA_Model_DbTable_ScaleValues();
+    	$scaleValues = new Webenq_Model_DbTable_ScaleValues();
 
     	try {
     		$scaleValues->update(array(
@@ -108,10 +108,10 @@ class ScaleValuesController extends Zend_Controller_Action
     
     public function delAction()
     {
-    	$this->view->form = $form = new HVA_Form_ScaleValues_Del();
+    	$this->view->form = $form = new Webenq_Form_ScaleValues_Del();
     	$id = $this->getRequest()->getParam('id');
     	
-    	$scaleValues = new HVA_Model_DbTable_ScaleValues();
+    	$scaleValues = new Webenq_Model_DbTable_ScaleValues();
     	$this->view->label = $scaleValues->find($id)->current()->label;
     	
     	if ($this->getRequest()->isPost()) {
@@ -124,7 +124,7 @@ class ScaleValuesController extends Zend_Controller_Action
     
     protected function _processDel($id)
     {
-    	$scaleValues = new HVA_Model_DbTable_ScaleValues();
+    	$scaleValues = new Webenq_Model_DbTable_ScaleValues();
     	$scaleValues->delete("id = $id");
     }
 }

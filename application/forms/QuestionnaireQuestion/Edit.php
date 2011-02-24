@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
+class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
 {
 	/**
 	 * QuestionnaireQuestion instance
@@ -33,7 +33,7 @@ class HVA_Form_QuestionnaireQuestion_Edit extends Zend_Form
 		
 		/* add subform for question's general settings */
 		$generalForm = new Zend_Form_SubForm();
-		$questionEditForm = new HVA_Form_Question_Edit($qq->Question);
+		$questionEditForm = new Webenq_Form_Question_Edit($qq->Question);
 		$generalForm->addSubForm($questionEditForm->getSubForm('text'), 'text');
 		
 		if ($qq->existsInMultipleQuestionnaires()) {

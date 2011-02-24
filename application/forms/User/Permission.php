@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Form_User_Permission extends ZendX_JQuery_Form
+class Webenq_Form_User_Permission extends ZendX_JQuery_Form
 {
 	protected $_acl;
 	

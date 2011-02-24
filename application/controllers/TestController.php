@@ -12,7 +12,7 @@ class TestController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-    	$form = new HVA_Form_Test_Index();
+    	$form = new Webenq_Form_Test_Index();
     	$errors = array();
     	$question = null;
     	
@@ -56,6 +56,6 @@ class TestController extends Zend_Controller_Action
     		$data[] = trim($line);
     	}
     	
-    	return HVA_Model_Data_Question::factory($data);
+    	return Webenq_Model_Data_Question::factory($data);
     }
 }

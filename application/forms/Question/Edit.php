@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_Question_Edit extends HVA_Form_Question_Add
+class Webenq_Form_Question_Edit extends Webenq_Form_Question_Add
 {
 	/**
 	 * Current question

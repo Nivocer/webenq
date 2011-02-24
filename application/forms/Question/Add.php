@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_Question_Add extends Zend_Form
+class Webenq_Form_Question_Add extends Zend_Form
 {
 	/**
 	 * Builds the form

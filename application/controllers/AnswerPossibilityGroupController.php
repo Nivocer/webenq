@@ -46,7 +46,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     public function addAction()
     {
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibilityGroup_Add();
+    	$form = new Webenq_Form_AnswerPossibilityGroup_Add();
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -80,7 +80,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     		->getFirst();
     		
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibilityGroup_Edit($answerPossibilityGroup);
+    	$form = new Webenq_Form_AnswerPossibilityGroup_Edit($answerPossibilityGroup);
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -111,7 +111,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     		->find($this->_request->id);
     		
     	/* get form */
-    	$form = new HVA_Form_Confirm(
+    	$form = new Webenq_Form_Confirm(
     		$answerPossibilityGroup->id,
     		'Weet u zeker dat u antwoordengroep "' . $answerPossibilityGroup->name . '" wilt verwijderen?'
     	);

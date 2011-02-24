@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_AnswerPossibility_Edit extends Zend_Form
+class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
 {
 	/**
 	 * Current answer-possibility

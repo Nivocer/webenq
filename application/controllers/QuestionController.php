@@ -62,7 +62,7 @@ class QuestionController extends Zend_Controller_Action
      */
     public function addAction()
     {
-    	$form = new HVA_Form_Question_Add();
+    	$form = new Webenq_Form_Question_Add();
     	$form->setAction($this->view->baseUrl('/question/add'));
     	
     	if ($this->_request->isPost()) {
@@ -120,7 +120,7 @@ class QuestionController extends Zend_Controller_Action
 		$question = Doctrine_Core::getTable('Question')
 			->find($this->_request->id);
 			
-		$form = new HVA_Form_Question_Edit($question);
+		$form = new Webenq_Form_Question_Edit($question);
 		$form->setAction($this->view->baseUrl('/question/edit/id/' . $this->_request->id));
 		
     	
@@ -156,7 +156,7 @@ class QuestionController extends Zend_Controller_Action
 			
 		$confirmationText = 'Weet u zeker dat u de vraag "' . $question->QuestionText[0]->text . '" (inclusief alle vertalingen) wilt verwijderen?';
 			
-    	$form = new HVA_Form_Confirm($question->id, $confirmationText);
+    	$form = new Webenq_Form_Confirm($question->id, $confirmationText);
     	$form->setAction($this->view->baseUrl('/question/delete/id/' . $this->_request->id));
     	
     	/* process posted data */

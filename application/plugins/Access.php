@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Plugin_Access extends Zend_Controller_Plugin_Abstract
+class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
 {
 	/**
 	 * This role must be defined in the database and will be assigned to

@@ -47,7 +47,7 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
     	$this->_helper->actionStack('index', 'answer-possibility-null-value');
     	
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibilityNullValue_Add();
+    	$form = new Webenq_Form_AnswerPossibilityNullValue_Add();
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -78,7 +78,7 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
     		->find($this->_request->id);
     	    		
     	/* get form */
-    	$form = new HVA_Form_AnswerPossibilityNullValue_Edit($answerPossibilityNullValue);
+    	$form = new Webenq_Form_AnswerPossibilityNullValue_Edit($answerPossibilityNullValue);
     	
     	/* process posted data */
     	if ($this->_request->isPost()) {
@@ -108,7 +108,7 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
     		->find($this->_request->id);
     		
     	/* get form */
-    	$form = new HVA_Form_Confirm(
+    	$form = new Webenq_Form_Confirm(
     		$answerPossibilityNullValue->id,
     		'Weet u zeker dat u nulwaarde-antwoordmogelijkheid "' . $answerPossibilityNullValue->value . '" wilt verwijderen?'
     	);

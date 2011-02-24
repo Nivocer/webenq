@@ -1,6 +1,5 @@
 <?php
-
-class HVA_Form_User_User_Edit extends HVA_Form_User_User_Add
+class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
 {
 	protected $_user;
 	

@@ -23,15 +23,15 @@ class ReportDefinitionController extends Zend_Controller_Action
     	}
     	
     	/* get title of data set */
-    	$info = new HVA_Model_DbTable_Info('info_' . $this->_id);
+    	$info = new Webenq_Model_DbTable_Info('info_' . $this->_id);
     	$this->_title = $this->view->title = $info->getTitle();
     }
 	
     public function indexAction()
     {
     	/* get models */
-    	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+    	$data = new Webenq_Model_DbTable_Data("data_" . $this->_id);
+    	$reportDefinitions = new Webenq_Model_DbTable_ReportDefinitions();
     	
     	/* try to get existing report definitions */
     	try {
@@ -57,8 +57,8 @@ class ReportDefinitionController extends Zend_Controller_Action
     
     protected function _createDefaultReportDefinitions()
     {
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
-    	$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
+    	$reportDefinitions = new Webenq_Model_DbTable_ReportDefinitions();
+    	$questions = new Webenq_Model_DbTable_Questions("questions_" . $this->_id);
     	
     	$leewenburgDefaultGroupRow = $questions->fetchAll("title = 'basisgroep'");
     	if ($leewenburgDefaultGroupRow->count() === 1) {
@@ -106,9 +106,9 @@ class ReportDefinitionController extends Zend_Controller_Action
     public function addAction()
     {
     	/* get models */
-    	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
-    	$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+    	$data = new Webenq_Model_DbTable_Data("data_" . $this->_id);
+    	$questions = new Webenq_Model_DbTable_Questions("questions_" . $this->_id);
+    	$reportDefinitions = new Webenq_Model_DbTable_ReportDefinitions();
     	
     	/* get enum options */
     	$outputFormats = $reportDefinitions->getEnumValues('output_format');
@@ -118,7 +118,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     	$pages = $reportDefinitions->getEnumValues('page');
     	
     	/* get form */
-    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages, $customers, $pages);
+    	$form = new Webenq_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages, $customers, $pages);
 
     	if ($this->getRequest()->isPost()) {
     		if ($form->isValid($this->getRequest()->getPost())) {
@@ -134,9 +134,9 @@ class ReportDefinitionController extends Zend_Controller_Action
     public function editAction()
     {
     	/* get models */
-    	$data = new HVA_Model_DbTable_Data("data_" . $this->_id);
-    	$questions = new HVA_Model_DbTable_Questions("questions_" . $this->_id);
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+    	$data = new Webenq_Model_DbTable_Data("data_" . $this->_id);
+    	$questions = new Webenq_Model_DbTable_Questions("questions_" . $this->_id);
+    	$reportDefinitions = new Webenq_Model_DbTable_ReportDefinitions();
     	$repDef = $reportDefinitions->find($this->_request->getParam('report-definition-id'))->current();
     	
     	/* get enum options */
@@ -147,7 +147,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     	$pages = $reportDefinitions->getEnumValues('page');
     	
     	/* get form */
-    	$form = new HVA_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages, $customers, $pages);
+    	$form = new Webenq_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages, $customers, $pages);
     	$values = $repDef->toArray();
     	$values['ignore_question_ids'] = json_decode('[' . $values['ignore_question_ids'] . ']');
     	$form->populate($values);
@@ -185,7 +185,7 @@ class ReportDefinitionController extends Zend_Controller_Action
     protected function _processEdit()
     {
     	/* get model */
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+    	$reportDefinitions = new Webenq_Model_DbTable_ReportDefinitions();
     	
     	/* test if table exists */
 		try {
@@ -253,7 +253,7 @@ class ReportDefinitionController extends Zend_Controller_Action
 
     protected function _processDel()
     {
-    	$reportDefinitions = new HVA_Model_DbTable_ReportDefinitions();
+    	$reportDefinitions = new Webenq_Model_DbTable_ReportDefinitions();
     	$reportDefinitions->delete("id = " . $this->getRequest()->getParam("report-definition-id"));
     }
 }

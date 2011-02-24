@@ -1,5 +1,5 @@
 <?php
-class HVA_Form_Questionnaire_Collect extends Zend_Form
+class Webenq_Form_Questionnaire_Collect extends Zend_Form
 {
 	/**
 	 * Collection of QuestionnaireQuestions
