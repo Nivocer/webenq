@@ -101,14 +101,22 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 		}
 		
 		/* add label */
-		$element->setLabel($qq['Question']['QuestionText'][0]['text']);
+		if (isset($qq['Question']['QuestionText'][0])) {
+			$element->setLabel($qq['Question']['QuestionText'][0]['text']);
+		} else {
+			$element->setLabel(_('No question text available for the current language'));
+		}
 		
 		/* add answer possibilities */
 		if ($element instanceof Zend_Form_Element_Multi) {
 			$options = array();
 			if (isset($qq['AnswerPossibilityGroup'])) {
 				foreach ($qq['AnswerPossibilityGroup']['AnswerPossibility'] as $possibility) {
-					$options[$possibility['id']] = $possibility['AnswerPossibilityText'][0]['text'];
+					if (isset($possibility['AnswerPossibilityText'][0])) {
+						$options[$possibility['id']] = $possibility['AnswerPossibilityText'][0]['text'];
+					} else {
+						$options[$possibility['id']] = _('No answer possibility text available for the current language');
+					}
 				}
 			}
 			$element->setMultiOptions($options);

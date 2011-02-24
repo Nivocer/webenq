@@ -343,7 +343,6 @@ class QuestionnaireController extends Zend_Controller_Action
 			
 		/* display */
 		$this->view->questionnaire = $questionnaire;
-		$this->view->language = $this->_language;
     }
     
     public function groupAction()
