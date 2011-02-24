@@ -53,7 +53,7 @@ class TestController extends Zend_Controller_Action
     	
     	$data = array();
     	while ($line = fgets($f)) {
-    		$data[] = $line;
+    		$data[] = trim($line);
     	}
     	
     	return HVA_Model_Data_Question::factory($data);
