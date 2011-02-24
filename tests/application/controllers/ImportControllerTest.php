@@ -1,6 +1,6 @@
 <?php
 
-class HVA_Test_Controller_IndexControllerTest extends HVA_Test_ControllerTest
+class Webenq_Test_Controller_IndexControllerTest extends Webenq_Test_ControllerTest
 {
 	public function testDummy()
     {

@@ -23,10 +23,10 @@ set_include_path(implode(PATH_SEPARATOR, array(
 /* set up auto-loading */
 require_once "Zend/Loader/Autoloader.php";
 $autoloader = Zend_Loader_Autoloader::getInstance();
-$autoloader->registerNamespace('HVA_');
+$autoloader->registerNamespace('Webenq_');
 $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
 	'basePath'  => APPLICATION_PATH,
-	'namespace' => 'HVA',
+	'namespace' => 'Webenq',
 ));
 $resourceLoader->addResourceType('model', 'models', 'Model');
 $resourceLoader->addResourceType('form', 'forms', 'Form');

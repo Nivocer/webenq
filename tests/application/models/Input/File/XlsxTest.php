@@ -1,6 +1,6 @@
 <?php
 
-class HVA_Test_Model_Input_File_XlsxTest extends HVA_Test_Model_Input_FileTest
+class Webenq_Test_Model_Input_File_XlsxTest extends Webenq_Test_Model_Input_FileTest
 {
     /**
      * @expectedException Exception

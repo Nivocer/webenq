@@ -1,6 +1,6 @@
 <?php
 
-class HVA_Test_Model_Input_FileTest extends HVA_Test_Model_InputTest
+class Webenq_Test_Model_Input_FileTest extends Webenq_Test_Model_InputTest
 {
 	public function test() {}
 }
