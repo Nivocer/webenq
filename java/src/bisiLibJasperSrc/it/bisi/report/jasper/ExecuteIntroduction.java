@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +18,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.export.*;
 
+import org.apache.commons.lang.StringEscapeUtils;
 
 public class ExecuteIntroduction {
 
@@ -33,10 +34,11 @@ public class ExecuteIntroduction {
 		Connection jdbcConnection = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			String host="jdbc:mysql://"+databaseName;
+			//String host="jdbc:mysql://"+databaseName;
 			//System.out.println("host="+host);
 			jdbcConnection = DriverManager.getConnection("jdbc:mysql://"+databaseName,userName,password);
 		}catch(Exception ex) {
+			@SuppressWarnings("unused")
 			String connectMsg = "Could not connect to the database: " + ex.getMessage() + " " + ex.getLocalizedMessage();
 	         
 			ex.printStackTrace();
@@ -53,23 +55,40 @@ public class ExecuteIntroduction {
 			prms.put("OUTPUT_DIR", output_dir);
 			
 			//hardcoded....
+			//some defaults
+			String page_orientation = "portrait"; 
+			String output_format="pdf";
+			//String output_format="odt";
+			
+			//language
 			String language;
-			if (period_identifier.equals("3") || period_identifier.equals("5") || period_identifier.equals("7")){
+			if (period_identifier.equals("3") || period_identifier.equals("5") || period_identifier.equals("7") || period_identifier.equals("15")){
 					language="en";
 			}else{
 				language = "nl";
 			}
+			
+			//customer
 			String customer = "fraijlemaborg";
-			String page_orientation = "portrait"; 
-			//String output_format="pdf";
-			String output_format="odt";
+			if (period_identifier.equals("8") || period_identifier.equals("9")) {
+				customer ="hvaoo";
+			}
+			if (period_identifier.equals("10")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("11")) {
+				customer="hvaoo";
+			}
+			
+			//output file name adjustments
 			String output_file_name=output_dir + "/introduction_" + report_type;			
 			if (period_identifier.equals("5") || period_identifier.equals("4")){
 				output_file_name+="2";
 			}
-			if (period_identifier.equals("6") || period_identifier.equals("7")){
+			if (period_identifier.equals("6") || period_identifier.equals("7") || period_identifier.equals("13") || period_identifier.equals("15") ){
 				output_file_name+="_"+language;
 			}
+			//end hardcoded config
 			
 			prms.put("REPORT_TYPE", report_type);
 			prms.put("CUSTOMER", customer);
@@ -111,18 +130,20 @@ public class ExecuteIntroduction {
 				String update_query2;
 				/*
 				 * @todo need to change this for new datamodel
+				 * @todo check next if statement
 				 */
 				if (!split_question_id.equals(null) && !split_question_id.equals("")){
 					update_query2=update_query2="UPDATE population set response=" +
-					"(select count(*) from data_"+dataset_id+" where "+split_question_id+"='"+split_value+"')" +
+					"(select count(*) from values_"+dataset_id+" where "+split_question_id+"='"+split_value+"')" +
 					" where period_id="+period_identifier +
 					" and dataset_id="+dataset_id+
 					" and split_question_id='"+split_question_id+"'" +
 					" and split_value='"+split_value+"'";
 					
+					//System.out.println(update_query2);
 				} else {
 					update_query2="UPDATE population set response=" +
-					"(select count(*) from data_"+dataset_id+") " +
+					"(select count(*) from values_"+dataset_id+") " +
 						" where period_id="+period_identifier +
 						" and dataset_id="+dataset_id+
 						" and (split_question_id=null or split_question_id='')" +
@@ -157,7 +178,7 @@ public class ExecuteIntroduction {
 					String query="select * from population" +
 						" where period_id="+period_identifier +
 						" and split_value='"+split_value+"'"+
-						" order by dataset_id DESC";
+						" order by dataset_id ASC";
 					prms.put("QUERY", query);
 					
 					if (page_orientation != null && page_orientation.equals("landscape")) {
@@ -168,18 +189,31 @@ public class ExecuteIntroduction {
 					
 					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
+					// first step better path handling: cleaning of split_value (is data input).
+					String split_value_clean=split_value.replace("/","_");
+					split_value_clean=split_value_clean.replace(" ","_");
+					split_value_clean=split_value_clean.replace(",","");
+					split_value_clean=split_value_clean.replace("*","");
+					split_value_clean=split_value_clean.toLowerCase();
+					split_value_clean=StringEscapeUtils.escapeJava(split_value_clean);
+					
 					// Create output in directory public/reports  
 					if(output_format.equals("pdf")) {
-						JasperExportManager.exportReportToPdfFile(print, output_file_name + "_" + split_value + ".pdf");
+						//JasperExportManager.exportReportToPdfFile(print, output_file_name + "_" + split_value_clean + ".pdf");
+						net.sf.jasperreports.engine.export.JRPdfExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter(); 
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name+ "-" + split_value_clean + ".pdf");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+						exporter.setParameter(JRPdfExporterParameter.FORCE_LINEBREAK_POLICY, Boolean.TRUE);
+						exporter.exportReport();
 					} else if(output_format.equals("odt")) {
 						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "_" + split_value+ ".odt");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "_" + split_value_clean+ ".odt");
 						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 						exporter.exportReport();
 					} else if(output_format.equals("html")) {
-						JasperExportManager.exportReportToHtmlFile(print, output_file_name +"_"+split_value+ ".html");
+						JasperExportManager.exportReportToHtmlFile(print, output_file_name +"_"+split_value_clean+ ".html");
 					} else if(output_format.equals("xml")) {
-						JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_value+ ".xml", false);
+						JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_value_clean+ ".xml", false);
 					} else { 
 						JasperViewer.viewReport(print);
 					}
@@ -221,6 +255,7 @@ public class ExecuteIntroduction {
 			}
 		}
 		catch(Exception ex) {
+			@SuppressWarnings("unused")
 			String connectMsg = "Could not create the report " + ex.getMessage() + " " + ex.getLocalizedMessage();
 			ex.printStackTrace();
 		}

@@ -3,7 +3,10 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
+	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+        </parameter>
 	<field name="row" class="java.lang.String"/>
 	<field name="col" class="java.lang.String"/>
 	<field name="title_row" class="java.lang.String"/>

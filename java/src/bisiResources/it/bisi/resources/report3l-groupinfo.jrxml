@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="842" pageHeight="20" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="842" pageHeight="10" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="30"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<parameter name="TEXTS" class="java.util.Map" isForPrompting="false"/>
+	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<field name="row" class="java.lang.String"/>
 	<field name="col" class="java.lang.String"/>
 	<field name="title_row" class="java.lang.String"/>
@@ -32,14 +35,7 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="555" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} <0]]></printWhenExpression>
-				</reportElement>
-				<textElement verticalAlignment="Bottom"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
-			</textField>
+		<band height="10" splitType="Stretch">
 			<crosstab ignoreWidth="false">
 				<reportElement x="0" y="0" width="800" height="10" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
@@ -51,19 +47,23 @@
 					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
 				</crosstabParameter>
 				<parametersMapExpression><![CDATA[$P{TEXTS}]]></parametersMapExpression>
+				<crosstabDataset isDataPreSorted="true"/>
 				<crosstabHeaderCell>
 					<cellContents>
-						<box>
-							<topPen lineWidth="0.0"/>
-							<leftPen lineWidth="0.0"/>
-							<bottomPen lineWidth="0.5"/>
-							<rightPen lineWidth="0.0"/>
-						</box>
+						<staticText>
+							<reportElement x="0" y="0" width="180" height="0"/>
+							<box>
+								<bottomPen lineWidth="0.5"/>
+							</box>
+							<textElement/>
+							<text><![CDATA[Static text]]></text>
+						</staticText>
 					</cellContents>
 				</crosstabHeaderCell>
-				<rowGroup name="row" width="179" totalPosition="End">
-					<bucket>
+				<rowGroup name="row" width="180" totalPosition="End">
+					<bucket order="Descending">
 						<bucketExpression class="java.lang.String"><![CDATA[$F{row}]]></bucketExpression>
+						<orderByExpression class="java.lang.Comparable"><![CDATA[$V{label}]]></orderByExpression>
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque">
@@ -75,8 +75,8 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" x="0" y="0" width="179" height="10"/>
-								<box>
+								<reportElement x="0" y="0" width="180" height="10"/>
+								<box leftPadding="2">
 									<topPen lineWidth="0.0"/>
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
@@ -84,7 +84,7 @@
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font size="7" isStrikeThrough="false"/>
 								</textElement>
-								<textFieldExpression class="java.lang.String"><![CDATA[$V{row}]]></textFieldExpression>
+								<textFieldExpression class="java.lang.String"><![CDATA[str($V{row})]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>
@@ -98,14 +98,14 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<staticText>
-								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="179" height="10"/>
-								<box>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="180" height="10"/>
+								<box leftPadding="2">
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font size="7"/>
+									<font size="8"/>
 								</textElement>
 								<text><![CDATA[N ]]></text>
 							</staticText>
@@ -122,20 +122,32 @@
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 								<topPen lineWidth="0.0"/>
 								<leftPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="20" height="0"/>
+								<box topPadding="0">
+									<bottomPen lineWidth="0.5"/>
+								</box>
+								<textElement/>
+								<text><![CDATA[Static text]]></text>
+							</staticText>
 						</cellContents>
 					</crosstabColumnHeader>
 					<crosstabTotalColumnHeader>
 						<cellContents mode="Opaque">
-							<box>
-								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-								<topPen lineWidth="0.0"/>
-								<leftPen lineWidth="0.0"/>
-								<bottomPen lineWidth="0.5"/>
-								<rightPen lineWidth="0.0"/>
-							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="15" height="0">
+									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
+								</reportElement>
+								<box>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement/>
+								<text><![CDATA[Static text]]></text>
+							</staticText>
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
@@ -148,7 +160,10 @@
 				<measure name="countMeasure" class="java.lang.Integer" calculation="Count">
 					<measureExpression><![CDATA[$F{col}]]></measureExpression>
 				</measure>
-				<crosstabCell width="15" height="10">
+				<measure name="label" class="java.lang.Object">
+					<measureExpression><![CDATA[$F{row}]]></measureExpression>
+				</measure>
+				<crosstabCell width="20" height="10">
 					<cellContents>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -158,7 +173,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="15" height="10" forecolor="#000000" backcolor="#FFFFFF">
+							<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="10" forecolor="#000000" backcolor="#FFFFFF">
 								<printWhenExpression><![CDATA[$V{ROW_COUNT}==1]]></printWhenExpression>
 							</reportElement>
 							<box>
@@ -169,12 +184,12 @@
 								<rightPen lineWidth="0.5" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="7"/>
+								<font size="8"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{avgMeasure}]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0">
-							<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="15" height="10" forecolor="#000000" backcolor="#FFFFFF">
+							<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="20" height="10" forecolor="#000000" backcolor="#FFFFFF">
 								<printWhenExpression><![CDATA[$V{ROW_COUNT}==2]]></printWhenExpression>
 							</reportElement>
 							<box>
@@ -185,13 +200,13 @@
 								<rightPen lineWidth="0.5" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="7"/>
+								<font size="8"/>
 							</textElement>
-							<textFieldExpression class="java.lang.Double"><![CDATA[100*$V{sumMeasure}]]></textFieldExpression>
+							<textFieldExpression class="java.lang.Double"><![CDATA[100*$V{avgMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="15" height="10" rowTotalGroup="row">
+				<crosstabCell width="20" height="10" rowTotalGroup="row">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -201,14 +216,14 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="15" height="10"/>
+							<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="20" height="10"/>
 							<box>
 								<leftPen lineWidth="0.5"/>
 								<bottomPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="7" isBold="false"/>
+								<font size="8" isBold="false"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{countMeasure}.doubleValue() /$V{ROW_COUNT}]]></textFieldExpression>
 						</textField>
@@ -217,12 +232,25 @@
 				<crosstabCell width="15" height="10" columnTotalGroup="col">
 					<cellContents mode="Opaque">
 						<box>
-							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							<pen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
-							<leftPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.5"/>
 							<bottomPen lineWidth="0.0"/>
-							<rightPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.0"/>
 						</box>
+						<staticText>
+							<reportElement x="0" y="0" width="15" height="10">
+								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
+							</reportElement>
+							<box>
+								<leftPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement>
+								<font size="7"/>
+							</textElement>
+							<text><![CDATA[]]></text>
+						</staticText>
 					</cellContents>
 				</crosstabCell>
 				<crosstabCell width="15" height="10" rowTotalGroup="row" columnTotalGroup="col">
@@ -230,19 +258,21 @@
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
-							<leftPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.5"/>
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="15" height="10"/>
+							<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="15" height="10">
+								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
+							</reportElement>
 							<box>
 								<leftPen lineWidth="0.5"/>
 								<bottomPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="7" isBold="false"/>
+								<font size="8" isBold="false"/>
 							</textElement>
 							<textFieldExpression class="java.lang.Double"><![CDATA[$V{countMeasure}.doubleValue() /$V{ROW_COUNT}]]></textFieldExpression>
 						</textField>

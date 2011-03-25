@@ -3,7 +3,11 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+       <template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
+        <parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA[]]></defaultValueExpression>
+        </parameter>
+
 	<parameter name="CUSTOMER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
@@ -129,7 +133,13 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="10"/>
+								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="10">
+									<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+									<property name="net.sf.jasperreports.text.truncate.suffix" value="..."/>
+									<property name="net.sf.jasperreports.export.html.wrap.break.word" value="true"/>
+									<property name="net.sf.jasperreports.export.pdf.force.linebreak.policy" value="true"/>
+									<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+								</reportElement>
 								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
@@ -137,7 +147,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement verticalAlignment="Top">
-									<font size="7"/>
+									<font size="6"/>
 								</textElement>
 								<textFieldExpression class="java.lang.String"><![CDATA[$V{col}]]></textFieldExpression>
 							</textField>
@@ -283,7 +293,7 @@
 			</crosstab>
 			<textField>
 				<reportElement x="0" y="10" width="555" height="10" isPrintWhenDetailOverflows="true"/>
-				<textElement verticalAlignment="Bottom">
+				<textElement verticalAlignment="Bottom" markup="html">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_row}]]></textFieldExpression>
@@ -292,7 +302,7 @@
 				<reportElement x="197" y="0" width="358" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[!$P{CUSTOMER}.equals("leeuwenburg")]]></printWhenExpression>
 				</reportElement>
-				<textElement>
+				<textElement markup="html">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{title_col}]]></textFieldExpression>

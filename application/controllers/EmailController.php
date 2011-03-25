@@ -323,7 +323,8 @@ class EmailController extends Zend_Controller_Action
     	$messageHtml = $this->view->render('email/' . $report->customer . '/message-html.phtml');
     	
     	/* build attachment */
-    	$content = file_get_contents('reports/' . $report->filename);
+    	  	
+    	$content = file_get_contents($report->filename);
     	$attachment = new Zend_Mime_Part($content);
     	$attachment->type = "application/pdf";
     	$attachment->encoding = Zend_Mime::ENCODING_BASE64;
@@ -335,8 +336,8 @@ class EmailController extends Zend_Controller_Action
     	$mail->setFrom("pietje@example.com", "Pietje Example")
     		->setBodyText($messageText)
     		->setBodyHtml($messageHtml)
-    		->setSubject("Open antwoorden Onderwijsevaluaties Semester 2")
-    		->addAttachment($attachment);
+    		->setSubject("Let op: correctie open antwoorden evaluatie")
+    		->addAttachment($attachment);	
     		
     	/* add test address or real address, and send mail */
     	if ($test->use == "1") {

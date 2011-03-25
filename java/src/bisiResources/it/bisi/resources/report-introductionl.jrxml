@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report introduction (frontpage+intro)" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="772" leftMargin="35" rightMargin="35" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="156"/>
+	<property name="ireport.callouts" value="##Thu Feb 10 15:33:01 CET 2011\ncallouts.1.pins=291,236;\ncallouts.1.text=responsepercentage wordt berekend bij change of group, maar is dat nodig?\ncallouts.1.bounds=-7,1,150,126"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<subDataset name="dataset1"/>
+        <parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+                <defaultValueExpression><![CDATA["it/bisi/resources/defaultStyle.jrtx"]]></defaultValueExpression>
+        </parameter>
 	<parameter name="QUERY" class="java.lang.String"/>
 	<parameter name="TEXTS" class="java.util.HashMap" isForPrompting="false"/>
 	<parameter name="REPORT_TYPE" class="java.lang.String"/>
 	<parameter name="CUSTOMER" class="java.lang.String"/>
+	<parameter name="IMAGE_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["it/bisi/resources/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["it/bisi/resources/"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
@@ -120,9 +131,9 @@
 	<title>
 		<band height="60" splitType="Stretch">
 			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.equals( 1 )]]></printWhenExpression>
-			<image hAlign="Center">
+			<image hAlign="Center" onErrorType="Icon">
 				<reportElement x="0" y="0" width="772" height="60"/>
-				<imageExpression class="java.net.URL"><![CDATA[it.bisi.Utils.getResource("/it/bisi/resources/logo.png")]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA[$P{IMAGE_DIR}+"logo_"+$P{CUSTOMER}+".png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -156,7 +167,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[($F{population}>0?$V{responsepercentage}:"")]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Double"><![CDATA[($F{population}>0.0?$V{responsepercentage}:"")]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="200" height="15"/>
