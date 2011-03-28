@@ -55,7 +55,7 @@ public class ExecuteReport {
 		}catch(Exception ex) {
 			@SuppressWarnings("unused")
 			String connectMsg = "Could not connect to the database: " + ex.getMessage() + " " + ex.getLocalizedMessage();
-	         
+	        System.err.println("connectMsg"); 
 			ex.printStackTrace();
 		}
 		return jdbcConnection;
@@ -80,36 +80,55 @@ public class ExecuteReport {
 			
 			//minus group...
 			//find out the group on rows and other report options
-			Statement stmt_rows=conn.createStatement();
-			stmt_rows.execute("select * from report_definitions where id='"+report_identifier+"'");
-			
-			ResultSet rs_repdef = stmt_rows.getResultSet();
-			rs_repdef.next();
-			String identifier=rs_repdef.getString("data_set_id");
-			String group_rows=rs_repdef.getString("group_question_id");
-			String split_question_id=rs_repdef.getString("split_question_id");
-			String output_file_name=output_dir + '/' + rs_repdef.getString("output_filename");
-			String output_format=rs_repdef.getString("output_format");
-			String report_type=rs_repdef.getString("report_type");
-			@SuppressWarnings("unused")
-			String ignore_question_ids = rs_repdef.getString("ignore_question_ids");
-			String language = rs_repdef.getString("language");
-			String customer = rs_repdef.getString("customer");
-			String page_orientation = rs_repdef.getString("page"); 
-			String config_hack_identifier="";
-			if (identifier.equals(config_identifier) && report_type.equals("tables")){
-				//very ugly hack, use another table to get the groups
-				config_hack_identifier="hack_";
-			}
-			
-			prms.put("DATA_SET_ID", identifier);
-			prms.put("GROUP_ROWS", group_rows);
-			prms.put("REPORT_IDENTIFIER", report_identifier);
-			prms.put("REPORT_TYPE", report_type);
-			prms.put("CUSTOMER", customer);
-			prms.put("SPLIT_QUESTION_ID", split_question_id );
-			stmt_rows.close();
+			//@todo dit moeten we nog aanpassen aan nieuw datamodel versie in webenq_4_5 #4986
+		      String identifier=null;
+				String group_rows=null;
+				String split_question_id=null;
+				String output_file_name=null;
+				String output_format=null;
+				String report_type=null;
+				@SuppressWarnings("unused")
+				String ignore_question_ids=null;
+				String language=null;
+				String customer=null;
+				String page_orientation=null; 
 
+			PreparedStatement stmt_getReportDefinition = null;
+			String getReportDefinitionQuery="select * from report_definitions where id=?";
+		    try {
+			      //con.setAutoCommit(false);
+			      stmt_getReportDefinition = conn.prepareStatement(getReportDefinitionQuery);
+			      stmt_getReportDefinition.setString(1, report_identifier);
+			      stmt_getReportDefinition.execute();
+			      ResultSet rs_getReportDefinition = stmt_getReportDefinition.getResultSet();
+			      rs_getReportDefinition.next();
+			      identifier=rs_getReportDefinition.getString("data_set_id");
+			      group_rows=rs_getReportDefinition.getString("group_question_id");
+			      split_question_id=rs_getReportDefinition.getString("split_question_id");
+			      output_file_name=output_dir + '/' + rs_getReportDefinition.getString("output_filename");
+			      output_format=rs_getReportDefinition.getString("output_format");
+			      report_type=rs_getReportDefinition.getString("report_type");
+			      
+			      ignore_question_ids = rs_getReportDefinition.getString("ignore_question_ids");
+			      language = rs_getReportDefinition.getString("language");
+			      customer = rs_getReportDefinition.getString("customer");
+			      page_orientation = rs_getReportDefinition.getString("page_orientation"); 
+								
+			      prms.put("DATA_SET_ID", identifier);
+					prms.put("GROUP_ROWS", group_rows);
+					prms.put("REPORT_IDENTIFIER", report_identifier);
+					prms.put("REPORT_TYPE", report_type);
+					prms.put("CUSTOMER", customer);
+					prms.put("SPLIT_QUESTION_ID", split_question_id );
+	      
+		    }catch(Exception ex) {
+				String connectMsg = "Could not get meta report definition: " + ex.getMessage();
+		        System.err.println(connectMsg); 
+				//ex.printStackTrace();
+			} finally {
+		      stmt_getReportDefinition.close();
+		      //conn.setAutoCommit(true);
+		    }
 			Locale locale = new Locale("nl", "NL");
 			if (language.equals("nl")){
 				locale = new Locale("nl", "NL");
@@ -118,7 +137,7 @@ public class ExecuteReport {
 			}
 			prms.put(JRParameter.REPORT_LOCALE, locale);
 			
-			//todo nicer handling missing files
+			//@TODO nicer handling missing files
 			// eg http://jasperforge.org/plugins/espforum/view.php?group_id=102&forumid=103&topicid=65623
 			if (customer.equals("fraijlemaborg")) {
 				ResourceBundle myresources = ResourceBundle.getBundle("it.bisi.resources.fraijlemaborg",locale);
@@ -211,8 +230,10 @@ public class ExecuteReport {
 			//System.out.println(color_range_alternate);
 			/* get key/value pairs for current language/customer-combination */
 			// some values are overriden in resource bundle (eg fmb barchart introduction text)
+			// @todo nog kijken hoe we teksten en vertalingen doen #4987.
 			String key = "";
 			String val = "";
+			
 			Map<String,String> texts = new HashMap<String,String>();
 			Statement stmt_texts = conn.createStatement();
 			stmt_texts.execute("SELECT `key`, `value` FROM `text` WHERE `language` = '" + language + "' AND `customer` = '" + customer + "';");
@@ -227,48 +248,25 @@ public class ExecuteReport {
 			
 			
 			
-			//
-			//returns result:
-			//title 	srtdt 	enddt 	response 	percentage 	type 	group_id
-			//MER jaar 2 - Vt blok 3 0910 	40276 	40306 	15 	0.1239669421487603 	AVG 	1
-			//MER jaar 2 - Vt blok 3 0910 	40276 	40306 	15 	0.1239669421487603 	AVG 	3
-			//MER jaar 2 - Vt blok 3 0910 	40276 	40306 	15 	0.1239669421487603 	AVG 	5
 			// where group_id=theme_id
 			// and type is type of crosstab needed.
 			/* 
-			 * @todo need to change this for new datamodel
+			 * @todo need to change this for new datamodel #4972
 			 */
-			String query="SELECT a.value title,b.value srtdt, " +
-         		"c.value enddt,d.value response,e.value percentage,type,group_id  " +
-         		"FROM info_"+identifier+" a,info_"+identifier+" b," +
-         				"info_"+identifier+" c, info_"+identifier+" d," +
-         				"info_"+identifier+" e," +
-         				"(SELECT distinct q.group_id," +
-         				"	case type " +
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Two' then 'AVG'" +	         				
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Three' then 'AVG'" +	         				
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Four' then 'AVG'" +	         				
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Five' then 'AVG'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Six' then 'AVG'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Scale_Seven' then 'AVG'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Percentage' then 'PERC'" +
-         				"		when 'HVA_Model_Data_Question_Closed_Number' then 'NUMBER'" +
-         				"       when 'HVA_Model_Data_Question_Open_Text' then 'OPEN'" +
-         				"		when 'HVA_Model_Data_Question_Open_Email' then 'SKIP'" +
-         				"		when 'HVA_Model_Data_Question_Open' then 'SKIP' " +
-         				"		ELSE 'NOTYETIMPLEMENTED'" +
-         				"	end type " +
-         				"FROM questions_"+config_hack_identifier+identifier+" q,meta_"+identifier+" m "+ 
-         				"where m.question_id=q.id and parent_id=0 and q.id!='"+group_rows+"' and q.id!='"+split_question_id+"' and " +
-         				"(type like '%Closed_Percentage%' or type like '%Closed_Scale%' or type like '%open%' or type like '%number%')) t "+
-         		"where a.id='Titel vragenlijst' " +
-         		"and b.id='Startdatum' " +
-         		"and c.id='Einddatum' " +
-         		"and d.id='unieke respondenten' " +
-         		"and e.id='Respons percentage' ";
-			prms.put("QUERY", query);
-			//System.out.println(query);
+			//@todo title naar parameter
+			prms.put("TITLE", "@todo title");
+			//@todo startdatum en einddatum naar parameter
+			prms.put("START_DATE","@todo startdate");
+			prms.put("END_DATE","@todo enddate");
+			//@todo response naar parameter
+			prms.put("RESPONSE", "@todo response");
+			//@todo percentage naar parameter
+			prms.put("RESPONSE_PERCENTAGE","@todo response%");
 			
+			//@todo dan blijft over type en group_id
+			String query="Select report_id as group_id, type from reportPresentation where parent_id is NULL and report_id=1 order by page, weight"; 
+			prms.put("QUERY", query);
+			 
 			//looping through possible split by values (multiple reports for subset of respondents)
 			/* split question_id is from report_definition*/
 			/*
@@ -284,7 +282,6 @@ public class ExecuteReport {
 					//needed for displaying content
 					prms.put("SPLIT_VALUE", split_value);
 					//landscape of portrait number of groups in split_value < 11 (at this moment) only for report_type=tables?
-					//@todo adjust only perform when page-orientation = automatic
 					//@todo use preparedStatement ?
 					
 					if (report_type.equals("tables") && page_orientation.equals("automatic")){
@@ -422,7 +419,9 @@ public class ExecuteReport {
 				 * @todo need to change this for new datamodel
 				 */
 				Statement stmt_response=conn.createStatement();
-				String response_query="select count(*) as response from values_"+identifier;
+				String response_query="SELECT count( DISTINCT respondent_id ) as response" +
+						" FROM answer, questionnaire_question WHERE questionnaire_id ="+identifier;
+				
 				stmt_response.execute(response_query);
 				ResultSet rs_response = stmt_response.getResultSet();
 				rs_response.next();
@@ -433,8 +432,10 @@ public class ExecuteReport {
 				// correction page orientation
 
 				if (report_type.equals("tables") && page_orientation.equals("automatic")){
+					System.out.println(page_orientation);
 					//for tables we can choose between landscape and portrait depending on number of percentage columns
 					Statement stmt_number_group_split=conn.createStatement();
+					//@TODO change for new datamodel
 					stmt_number_group_split.execute("select distinct "+group_rows+ " from values_"+identifier );
 					ResultSet rs_number_group_split=stmt_number_group_split.getResultSet();
 					rs_number_group_split.last();

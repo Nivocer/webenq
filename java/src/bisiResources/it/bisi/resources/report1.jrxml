@@ -32,14 +32,12 @@
 		<defaultValueExpression><![CDATA["it/bisi/resources/defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="RESPONSE_PERCENTAGE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="TITLE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="START_DATE" class="java.lang.String"/>
+	<parameter name="END_DATE" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
-	<field name="title" class="java.lang.String"/>
-	<field name="srtdt" class="java.lang.String"/>
-	<field name="enddt" class="java.lang.String"/>
-	<field name="response" class="java.lang.String"/>
-	<field name="percentage" class="java.lang.String"/>
 	<field name="type" class="java.lang.String"/>
 	<field name="group_id" class="java.lang.Integer"/>
 	<variable name="GROUP_ROWS" class="java.lang.String">
@@ -67,7 +65,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[str($F{title})]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[str($P{TITLE})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="20" width="555" height="20" isRemoveLineWhenBlank="true"/>
@@ -188,7 +186,7 @@
 				<textElement verticalAlignment="Top">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_data_collection")+$F{srtdt}.substring(0,10)+$P{TEXTS}.get("label_data_collection_to")+$F{enddt}.substring(0,10)+"\n"+
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_data_collection")+$P{START_DATE}.substring(0,10)+$P{TEXTS}.get("label_data_collection_to")+$P{END_DATE}.substring(0,10)+"\n"+
 $P{TEXTS}.get("label_date_report")+" "+
 new SimpleDateFormat("yyyy-MM-dd").format( new java.util.Date()  )]]></textFieldExpression>
 			</textField>
@@ -242,7 +240,7 @@ $P{SPLIT_VALUE}.length()>0 && !$P{CUSTOMER}.equals("fraijlemaborg")]]></printWhe
 					<textElement verticalAlignment="Top">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_respondense_percentage")+$F{percentage}]]></textFieldExpression>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("label_respondense_percentage")+$P{RESPONSE_PERCENTAGE}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement positionType="Float" x="0" y="86" width="555" height="10" isRemoveLineWhenBlank="true">
