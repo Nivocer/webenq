@@ -12,11 +12,10 @@ defined('APPLICATION_PATH')
 /* Define application environment */
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-    
+
 /* Ensure library/ is on include_path */
 set_include_path(implode(PATH_SEPARATOR, array(
 	realpath(APPLICATION_PATH . '/../libraries'),
-	realpath(APPLICATION_PATH . '/../../nivocer-thirdparty'),
 	realpath(APPLICATION_PATH . '/../classes'),
     get_include_path(),
 )));
@@ -29,5 +28,5 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
-$application->bootstrap();
-$application->run();
+
+$application->bootstrap()->run();
