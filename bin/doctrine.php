@@ -1,11 +1,13 @@
 #!/usr/bin/env php
 <?php
+
 define('APPLICATION_ENV', 'development');
 
 define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../libraries'),
+    realpath(APPLICATION_PATH . '/../classes'),
     get_include_path(),
 )));
 
@@ -16,6 +18,7 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+$application->bootstrap();
 
 $bootstrap = $application->getBootstrap();
 $config = $bootstrap->getOption('resources');

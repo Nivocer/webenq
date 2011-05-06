@@ -1,29 +1,29 @@
 <h2>Data export</h2>
 
 <p>
-	<?php echo count($this->questions); ?> vragen ingelezen
+    <?php echo count($this->questions); ?> vragen ingelezen
 </p>
 
 <p>
-	<?php echo $this->form->render(); ?>
+    <?php echo $this->form->render(); ?>
 </p>
 
 <?php if ($this->groupId): ?>
-	<p>
-		<?php $q = $this->form->question->getMultiOptions(); ?>
-		Current group: <?php echo $q[$this->groupId]; ?>
-	</p>
+    <p>
+        <?php $q = $this->form->question->getMultiOptions(); ?>
+        Current group: <?php echo $q[$this->groupId]; ?>
+    </p>
 <?php endif; ?>
 
 <p>
-	Export formats:
-	<ul>
-		<?php foreach ($this->supportedFormats as $format): ?>
-			<li>
-				<a href="<?php echo $this->url(array('action' => $format, 'q' => $this->groupId)); ?>">
-					<?php echo $format; ?>
-				</a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
+    Export formats:
+    <ul>
+        <?php foreach ($this->supportedFormats as $format): ?>
+            <li>
+                <a href="<?php echo $this->url(array('action' => $format, 'q' => $this->groupId)); ?>">
+                    <?php echo $format; ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </p>

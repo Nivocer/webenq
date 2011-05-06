@@ -1,40 +1,37 @@
 <?php if ($this->question): ?>
-
-	<p>
-		Deze dataset wordt herkend als type:
-		<strong><?php echo get_class($this->question); ?></strong>
-	</p>
-	<p>
-		En zou ook valideren voor de types:
-	</p>
-	<ul>
-		<?php foreach ($this->question->getValidTypes() as $type): ?>
-			<li>
-				<?php echo $type; ?>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-	<p>
-		Testdata:
-	</p>
-	<ul>
-		<?php foreach ($this->question->getRawData() as $data): ?>
-			<li>
-				<?php echo $data; ?>
-			</li>
-		<?php endforeach; ?>
-	</ul>
+    <p>
+        Deze dataset wordt herkend als type:
+        <strong><?php echo get_class($this->question); ?></strong>
+    </p>
+    <p>En zou ook valideren voor de types:</p>
+    <ul>
+        <?php foreach ($this->question->getValidTypes() as $type): ?>
+            <li><?php echo $type; ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <p>De dataset valideert niet voor de types:</p>
+    <ul>
+        <?php foreach ($this->question->getInvalidTypes() as $type): ?>
+            <li><?php echo $type; ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <p>Testdata:</p>
+    <ul>
+        <?php foreach ($this->question->getAnswerValues() as $value): ?>
+            <li><?php echo $value; ?></li>
+        <?php endforeach; ?>
+    </ul>
 
 <?php else: ?>
 
-	<?php echo $this->form->render(); ?>
-	
-	<?php if ($this->errors): ?>
-		<ul class="errors">
-			<?php foreach ($this->errors as $error): ?>
-				<li><?php echo $error; ?></li>
-			<?php endforeach; ?>
-		</ul>
-	<?php endif; ?>
+    <?php echo $this->form->render(); ?>
+
+    <?php if ($this->errors): ?>
+        <ul class="errors">
+            <?php foreach ($this->errors as $error): ?>
+                <li><?php echo $error; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
 <?php endif; ?>

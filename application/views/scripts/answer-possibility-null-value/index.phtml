@@ -1,31 +1,31 @@
 <a class="link add" href="<?php echo $this->baseUrl("/answer-possibility-null-value/add"); ?>">
-	<?php echo _('nulwaarde-antwoordmogelijkheid toevoegen'); ?>
+    <?php echo _('nulwaarde-antwoordmogelijkheid toevoegen'); ?>
 </a>
 
 <?php if (!$this->answerPossibilityNullValues || $this->answerPossibilityNullValues->count() == 0): ?>
-	<p><?php echo _('Er zijn nog geen nulwaarde-antwoordmogelijkheden'); ?></p>
+    <p><?php echo _('Er zijn nog geen nulwaarde-antwoordmogelijkheden'); ?></p>
 <?php else: ?>
-	<table>
-		<thead>
-			<tr>
-				<th><?php echo _('label'); ?></th>
-				<th>&nbsp;</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach ($this->answerPossibilityNullValues as $answerPossibilityNullValue): ?>
-				<tr>
-					<td>
-						<a href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);	?>">
-							<?php echo $answerPossibilityNullValue->value; ?>
-						</a>
-					</td>
-					<td>
-						<a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);	?>">&nbsp;</a>
-						<a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/delete/id/" . $answerPossibilityNullValue->id);	?>">&nbsp;</a>
-					</td>
-				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
+    <table>
+        <thead>
+            <tr>
+                <th><?php echo _('label'); ?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->answerPossibilityNullValues as $answerPossibilityNullValue): ?>
+                <tr>
+                    <td>
+                        <a href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);    ?>">
+                            <?php echo $answerPossibilityNullValue->value; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
+                        <a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/delete/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 <?php endif; ?>

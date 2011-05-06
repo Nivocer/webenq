@@ -4,14 +4,14 @@
  */
 class Zend_View_Helper_Language extends Zend_View_Helper_Abstract
 {
-	public function Language($collection = array(), $language)
-	{
-		if (count($collection) > 0) {
-			foreach ($collection as $record) {
-				if (isset($record['language']) && $record['language'] == $language) {
-					return $record;
-				}
-			}
-		}
-	}
+    public function language(array $collection, $language)
+    {
+        if (count($collection) > 0) {
+            foreach ($collection as $record) {
+                if (isset($record['language']) && $record['language'] == $language) {
+                    return $record;
+                }
+            }
+        }
+    }
 }

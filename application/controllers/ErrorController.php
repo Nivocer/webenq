@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Controller class
+ * 
+ * @category    Webenq
+ * @package        Controllers
+ * @author        Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class ErrorController extends Zend_Controller_Action
 {
 

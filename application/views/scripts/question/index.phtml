@@ -2,39 +2,39 @@
 <a href="<?= $this->baseUrl('/question/add') ?>"><?php echo _('vraag toevoegen'); ?></a>
 
 <?php if (!$this->questions || $this->questions->count() == 0): ?>
-	<p><?php echo _('Er zijn nog geen vragen aangemaakt'); ?></p>
+    <p><?php echo _('Er zijn nog geen vragen aangemaakt'); ?></p>
 <?php else: ?>
-	<table>
-		<thead>
-			<tr>
-				<th><?php echo _('vraag'); ?></th>
-				<th><?php echo _('datum toegevoegd'); ?></th>
-				<th><?php echo _('in gebruik in questionnaires'); ?></th>
-				<th>&nbsp;</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach ($this->questions as $question): ?>
-				<tr>
-					<td>
-						<?php echo $question->QuestionText[0]->text; ?>
-					</td>
-					<td>
-						<?php echo $question->created; ?>
-					</td>
-					<td>
-						<?php foreach ($question->QuestionnaireQuestion as $qq): ?>
-							<a href="<?php echo $this->baseUrl('/questionnaire/edit/id/' . $qq->questionnaire_id); ?>"><?php echo $qq->questionnaire_id; ?></a>
-						<?php endforeach;?>
-					</td>
-					<td>
-						<a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);	?>">&nbsp;</a>
-						<?php if($question->QuestionnaireQuestion->count() == 0): ?>
-							<a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
-						<?php endif; ?>					
-					</td>
-				</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
+    <table>
+        <thead>
+            <tr>
+                <th><?php echo _('vraag'); ?></th>
+                <th><?php echo _('datum toegevoegd'); ?></th>
+                <th><?php echo _('in gebruik in questionnaires'); ?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->questions as $question): ?>
+                <tr>
+                    <td>
+                        <?php echo $question->QuestionText[0]->text; ?>
+                    </td>
+                    <td>
+                        <?php echo $question->created; ?>
+                    </td>
+                    <td>
+                        <?php foreach ($question->QuestionnaireQuestion as $qq): ?>
+                            <a href="<?php echo $this->baseUrl('/questionnaire/edit/id/' . $qq->questionnaire_id); ?>"><?php echo $qq->questionnaire_id; ?></a>
+                        <?php endforeach;?>
+                    </td>
+                    <td>
+                        <a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);    ?>">&nbsp;</a>
+                        <?php if($question->QuestionnaireQuestion->count() == 0): ?>
+                            <a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
+                        <?php endif; ?>                    
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 <?php endif; ?>

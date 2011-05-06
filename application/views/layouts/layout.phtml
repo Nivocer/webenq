@@ -1,29 +1,29 @@
 <?= $this->doctype() ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<?= $this->headMeta() ?>
-		<?= $this->headLink() ?>
-		<?= $this->jQuery() ?>        
-		<?= $this->headScript() ?> 
-		<?= $this->headTitle()?> 
-	</head>
-	<body>
-		<div id="header">
-			<div id="logo">
-				<a href="<?php echo $this->baseUrl("/"); ?>">
-					<img src="<?php echo $this->baseUrl("images/nivocer-logo.png"); ?>"/>
-					<h1>Webenq 4</h1>
-				</a>
-			</div>
-			<div class="loading"><?php echo _('Bezig met laden en/of opslaan...'); ?></div>
-			<?php echo $this->navigation()->menu(); ?>
-			<?php echo $this->language; ?>
-			<?php echo $this->messenger($this->messages); ?>
-		</div>
-		<div id="content">
-			<?php echo $this->layout()->content ?>
-		</div>
-		<div id="footer">
-		</div>
-	</body>
-</html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <?= $this->headMeta() ?>
+            <?= $this->headLink() ?>
+            <?= $this->jQuery() ?>        
+            <?= $this->headScript() ?> 
+            <?= $this->headTitle()?> 
+        </head>
+        <body>
+            <div id="header">
+                <div id="logo">
+                    <a href="<?php echo $this->baseUrl("/"); ?>">
+                        <img src="<?php echo $this->baseUrl("images/nivocer-logo.png"); ?>"/>
+                        <h1>Webenq 4</h1>
+                    </a>
+                </div>
+                <div class="loading"><?php echo _('Bezig met laden en/of opslaan...'); ?></div>
+                <?php echo $this->navigation()->menu(); ?>
+                <?php echo $this->language; ?>
+                <?php echo $this->messenger($this->messages); ?>
+            </div>
+            <div id="content">
+                <?php echo $this->layout()->content ?>
+            </div>
+            <div id="footer">
+            </div>
+        </body>
+    </html>

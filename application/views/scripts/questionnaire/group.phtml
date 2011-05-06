@@ -1,16 +1,16 @@
 <ul>
-	<?php foreach ($this->groups as $group): ?>
-		<li class="draggable">
-			<div class="handle"></div>
-			<p><?php echo $group->QuestionnaireQuestion->Question->QuestionText[0]->text; ?></p>
-			<ul class="sortable">
-				<?php foreach ($group->CollectionPresentation as $child): ?>
-					<li class="draggable">
-						<?php echo $child->QuestionnaireQuestion->Question->QuestionText[0]->text; ?>
-						<ul class="sortable"></ul>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-		</li>
-	<?php endforeach; ?>
+    <?php foreach ($this->groups as $group): ?>
+        <li class="draggable">
+            <div class="handle"></div>
+            <p><?php echo $group->QuestionnaireQuestion->Question->QuestionText[0]->text; ?></p>
+            <ul class="sortable">
+                <?php foreach ($group->CollectionPresentation as $child): ?>
+                    <li class="draggable">
+                        <?php echo $child->QuestionnaireQuestion->Question->QuestionText[0]->text; ?>
+                        <ul class="sortable"></ul>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </li>
+    <?php endforeach; ?>
 </ul>

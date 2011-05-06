@@ -1,55 +1,55 @@
 <div class="tabs">
-	<form action="<?php echo $this->form->getAction(); ?>" method="post">
-		<ul>
-			<li>
-				<a href="#general"><?php echo _('algemeen'); ?></a>
-			</li>
-			<li>
-				<a href="#group"><?php echo _('sub-vragen'); ?></a>
-			</li>
-			<li>
-				<a href="#answer"><?php echo _('antwoordmogelijkheden'); ?></a>
-			</li>
-			<li>
-				<a href="#validation"><?php echo _('validatie'); ?></a>
-			</li>
-		</ul>
-		<div id="general">
-			<?php echo $this->form->general; ?>
-		</div>
-		<div id="group">
-			<p>
-				<a class="ajax link add" href="<?php echo $this->baseUrl('questionnaire-question/add-subquestion/id/' . $this->questionnaireQuestion->id); ?>" title="<?php echo _('Subvraag toevoegen'); ?>">
-					<?php echo _('Subvraag toevoegen'); ?>
-				</a>
-				<?php echo _('Kolommen'); ?>
-				<input id="less" type="button" value="-" />
-				<input id="more" type="button" value="+" />
-				<input id="cols" type="hidden" value="<?php echo $this->cols; ?>" />
-			</p>
-			<ul id="subquestions">
-				<?php foreach ($this->subQuestions as $subQuestions): ?>
-					<?php foreach ($subQuestions as $subQuestion): ?>
-						<li class="ui-state-default" id="qq_<?php echo $subQuestion->Question->QuestionnaireQuestion[0]->id; ?>">
-							<a class="icon delete" href="#"></a>
-							<?php echo $subQuestion->text; ?>
-						</li>
-					<?php endforeach; ?>
-				<?php endforeach; ?>
-			</ul>
-			<br clear="all" />
-			<ul id="repository-questions">
-				<?php foreach ($this->repositoryQuestions as $question): ?>
-					<li id="qq_<?php echo $question->id; ?>" class="ui-widget-content"><?php echo $question->Question->QuestionText[0]->text; ?></li>
-				<?php endforeach; ?>
-			</ul>
-			<br clear="all" />
-		</div>
-		<div id="answer">
-			<?php echo $this->form->answers; ?>
-		</div>
-		<div id="validation">
-			<?php echo $this->form->validation; ?>
-		</div>
-	</form>
+    <form action="<?php echo $this->form->getAction(); ?>" method="post">
+        <ul>
+            <li>
+                <a href="#general"><?php echo _('algemeen'); ?></a>
+            </li>
+            <li>
+                <a href="#group"><?php echo _('sub-vragen'); ?></a>
+            </li>
+            <li>
+                <a href="#answer"><?php echo _('antwoordmogelijkheden'); ?></a>
+            </li>
+            <li>
+                <a href="#validation"><?php echo _('validatie'); ?></a>
+            </li>
+        </ul>
+        <div id="general">
+            <?php echo $this->form->general; ?>
+        </div>
+        <div id="group">
+            <p>
+                <a class="ajax link add" href="<?php echo $this->baseUrl('questionnaire-question/add-subquestion/id/' . $this->questionnaireQuestion->id); ?>" title="<?php echo _('Subvraag toevoegen'); ?>">
+                    <?php echo _('Subvraag toevoegen'); ?>
+                </a>
+                <?php echo _('Kolommen'); ?>
+                <input id="less" type="button" value="-" />
+                <input id="more" type="button" value="+" />
+                <input id="cols" type="hidden" value="<?php echo $this->cols; ?>" />
+            </p>
+            <ul id="subquestions">
+                <?php foreach ($this->subQuestions as $subQuestions): ?>
+                    <?php foreach ($subQuestions as $subQuestion): ?>
+                        <li class="ui-state-default" id="qq_<?php echo $subQuestion->Question->QuestionnaireQuestion[0]->id; ?>">
+                            <a class="icon delete" href="#"></a>
+                            <?php echo $subQuestion->text; ?>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </ul>
+            <br clear="all" />
+            <ul id="repository-questions">
+                <?php foreach ($this->repositoryQuestions as $question): ?>
+                    <li id="qq_<?php echo $question->id; ?>" class="ui-widget-content"><?php echo $question->Question->QuestionText[0]->text; ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <br clear="all" />
+        </div>
+        <div id="answer">
+            <?php echo $this->form->answers; ?>
+        </div>
+        <div id="validation">
+            <?php echo $this->form->validation; ?>
+        </div>
+    </form>
 </div>
