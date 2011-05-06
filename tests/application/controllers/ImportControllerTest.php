@@ -1,18 +1,19 @@
 <?php
-
-class Webenq_Test_Controller_IndexControllerTest extends Webenq_Test_ControllerTest
+class Webenq_Test_ControllerTestCase_ImportControllerTest extends Webenq_Test_Controller
 {
-	public function testDummy()
-    {
-        $this->dispatch('/index');
+    public function test() {}
 
-        $controller = new ImportController(
-            $this->request,
-            $this->response,
-            $this->request->getParams()
-        );
-        $controller->indexAction();
-        
-        $this->assertTrue(1 == 1);
-    }
+//	public function testDummy()
+//    {
+//        $this->dispatch('/index');
+//
+//        $controller = new ImportController(
+//            $this->request,
+//            $this->response,
+//            $this->request->getParams()
+//        );
+//        $controller->indexAction();
+//
+//        $this->assertTrue(1 == 1);
+//    }
 }
