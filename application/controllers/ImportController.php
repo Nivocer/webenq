@@ -34,7 +34,7 @@ class ImportController extends Zend_Controller_Action
 
                     /* set memory_limit */
                     $key = 'memory_limit';
-                    $value = '256M';
+                    $value = '512M';
                     @ini_set($key, $value);
                     if (!ini_get($key) == $value) {
                         throw new Exception("PHP-settings $key could not be set to $value!");
