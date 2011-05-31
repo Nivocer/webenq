@@ -40,7 +40,7 @@ class ImportController extends Zend_Controller_Action
                         throw new Exception("PHP-settings $key could not be set to $value!");
                     }
 
-                    /* set memory_limit */
+                    /* set max_execution_time */
                     $key = 'max_execution_time';
                     $value = 300;
                     @ini_set($key, $value);
