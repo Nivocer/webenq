@@ -41,14 +41,13 @@ class Webenq_Model_Question extends Question
     /**
      * Class constructor
      *
-     * Explicitly set the table and defaults to new entry
+     * Defaults to new entry
      *
      * @param Doctrine_Table $table
      * @param bool $isNewEntry
      */
     public function __construct($table = null, $isNewEntry = true)
     {
-        $table = Doctrine_Core::getTable('Question');
         parent::__construct($table, $isNewEntry);
     }
 
