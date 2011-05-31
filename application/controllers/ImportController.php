@@ -40,6 +40,14 @@ class ImportController extends Zend_Controller_Action
                         throw new Exception("PHP-settings $key could not be set to $value!");
                     }
 
+                    /* set memory_limit */
+                    $key = 'max_execution_time';
+                    $value = 300;
+                    @ini_set($key, $value);
+                    if (!ini_get($key) == $value) {
+                        throw new Exception("PHP-settings $key could not be set to $value!");
+                    }
+
                     $adapter = Webenq_Import_Adapter_Abstract::factory($filename);
                     $importer = Webenq_Import_Abstract::factory($data['type'], $adapter);
                     $importer->import();
