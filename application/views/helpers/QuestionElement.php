@@ -111,6 +111,9 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
         /* add answer possibilities */
         if ($element instanceof Zend_Form_Element_Multi) {
             $options = array();
+            if ($element instanceof Zend_Form_Element_Select) {
+                $options[''] = '--- selecteer ---';
+            }
             if (isset($qq['AnswerPossibilityGroup'])) {
                 foreach ($qq['AnswerPossibilityGroup']['AnswerPossibility'] as $possibility) {
                     if (isset($possibility['AnswerPossibilityText'][0])) {

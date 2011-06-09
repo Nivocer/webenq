@@ -101,9 +101,11 @@ function updateAnswersTab()
 function updateValidationTab()
 {
 	if ($('#answers-useAnswerPossibilityGroup').is(':checked')) {
-		$('#dialog #validation input[type="checkbox"]').attr('disabled', 'disabled');
+		$('#dialog #validation #filters-element input[type="checkbox"]').attr('disabled', 'disabled');
+		$('#dialog #validation #validators-element input[type="checkbox"]').attr('disabled', 'disabled');
 	} else {
-		$('#dialog #validation input[type="checkbox"]').removeAttr('disabled');
+		$('#dialog #validation #filters-element input[type="checkbox"]').removeAttr('disabled');
+		$('#dialog #validation #validators-elementinput[type="checkbox"]').removeAttr('disabled');
 	}
 }
 

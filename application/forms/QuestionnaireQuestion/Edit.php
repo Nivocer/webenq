@@ -84,13 +84,18 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         /* add subform for question's data-collection settings */
         $validationForm = new Zend_Form_SubForm();
         $validationForm->addElements(array(
+            $this->createElement('multiCheckbox', 'required', array(
+                'label' => 'Algemeen:',
+                'multiOptions' => array('not_empty' => 'Verplicht'),
+                'value' => unserialize($cp->validators),
+            )),
             $this->createElement('multiCheckbox', 'filters', array(
-                'label' => 'Filters:',
+                'label' => 'Tekst filters:',
                 'multiOptions' => Webenq::getFilters(),
                 'value' => unserialize($cp->filters),
             )),
             $this->createElement('multiCheckbox', 'validators', array(
-                'label' => 'Validatie:',
+                'label' => 'Tekst validatie:',
                 'multiOptions' => Webenq::getValidators(),
                 'value' => unserialize($cp->validators),
             )),
@@ -181,8 +186,15 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
             $cp->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
         }
 
-        $cp->filters = serialize($values['validation']['filters']);
-        $cp->validators = serialize($values['validation']['validators']);
+        // get filters and validators
+        if (!isset($values['validation']['filters'])) $values['validation']['filters'] = array();
+        if (!isset($values['validation']['required'])) $values['validation']['required'] = array();
+        if (!isset($values['validation']['validators'])) $values['validation']['validators'] = array();
+        $filters = $values['validation']['filters'];
+        $validators = array_merge($values['validation']['required'], $values['validation']['validators']);
+
+        $cp->filters = serialize($filters);
+        $cp->validators = serialize($validators);
         $qq->save();
     }
 }
