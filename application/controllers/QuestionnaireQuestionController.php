@@ -82,9 +82,14 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      */
     public function editAction()
     {
+        // get requested questionnaire-question
         $questionnaireQuestion = Doctrine_Core::getTable('QuestionnaireQuestion')->find($this->_request->id);
+
+        // get form
         $form = new Webenq_Form_QuestionnaireQuestion_Edit($questionnaireQuestion);
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
+
+        // process form
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {

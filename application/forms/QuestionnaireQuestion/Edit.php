@@ -101,6 +101,27 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         $this->addSubForm($validationForm, 'validation');
     }
 
+    public function isValid($data)
+    {
+        // check if at least one language is filled out
+        $hasAtLeastOneLanguage = false;
+        foreach ($data['general']['text'] as $language => $translation) {
+            if (trim($translation) != '') {
+                $hasAtLeastOneLanguage = true;
+                break;
+            }
+        }
+
+        // disable required setting if at least one language was found
+        if ($hasAtLeastOneLanguage) {
+            foreach ($this->getSubForm('general')->getSubForm('text')->getElements() as $elm) {
+                $elm->setRequired(false);
+            }
+        }
+
+        return parent::isValid($data);
+    }
+
     public function storeValues()
     {
         $qq = $this->_questionnaireQuestion;
@@ -130,10 +151,10 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         if ($isModifiedText) {
             if ($values['general']['change_globally'] == 'local') {
                 /* copy question */
-                $question = new Question();
+                $question = new Webenq_Model_Question();
                 unset($values['general']['change_globally']);
                 foreach ($values['general']['text'] as $language => $text) {
-                    $qt = new QuestionText;
+                    $qt = new Webenq_Model_QuestionText;
                     $qt->text = $text;
                     $qt->language = $language;
                     $question->QuestionText[] = $qt;
