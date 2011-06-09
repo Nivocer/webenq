@@ -3,14 +3,14 @@ class Webenq_Form_Question_Edit extends Webenq_Form_Question_Add
 {
     /**
      * Current question
-     * 
-     * @var Question
+     *
+     * @var Question $_question
      */
     protected $_question;
-    
+
     /**
      * Class constructor
-     * 
+     *
      */
     public function __construct($question, $options = null)
     {
@@ -18,25 +18,25 @@ class Webenq_Form_Question_Edit extends Webenq_Form_Question_Add
         parent::__construct($options);
         $this->populate(array());
     }
-    
+
     /**
      * Builds the form
-     * 
+     *
      * @return void
      */
     public function init()
     {
         parent::init();
-        
+
         $id = $this->createElement('hidden', 'id', array(
             'value' => $this->_question->id,
         ));
         $this->addElements(array($id));
     }
-    
+
     /**
      * Populates the form
-     * 
+     *
      * @param array $values
      * @return void
      */

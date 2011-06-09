@@ -379,7 +379,7 @@ class Webenq_Model_Question extends Question
      */
     public function getUniqueValues()
     {
-        return array_unique($this->_answerValues);
+        return array_unique($this->getAnswerValues());
     }
 
     /**

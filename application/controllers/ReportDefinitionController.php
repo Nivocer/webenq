@@ -79,29 +79,28 @@ class ReportDefinitionController extends Zend_Controller_Action
         }
 
         $reportDefinitions->insert(array(
-            "data_set_id"            => $this->_id,
-            "group_question_id"        => $leewenburgDefaultGroupTitle,
-            "output_filename"        => str_replace(' ', '_', $this->_title) . '_open',
-            "output_format"            => 'pdf',
-            "report_type"            => 'open',
-            "ignore_question_ids"    => '"0_respondent","1_datum"',
-            "language"                => 'nl',
-            "customer"                => 'leeuwenburg',
-            "page"                    => 'portrait',
+            "data_set_id"           => $this->_id,
+            "group_question_id"     => $leewenburgDefaultGroupTitle,
+            "output_filename"       => str_replace(' ', '_', $this->_title) . '_open',
+            "output_format"         => 'pdf',
+            "report_type"           => 'open',
+            "ignore_question_ids"   => '"0_respondent","1_datum"',
+            "language"              => 'nl',
+            "customer"              => 'leeuwenburg',
+            "page"                  => 'portrait',
         ));
         $reportDefinitions->insert(array(
-            "data_set_id"            => $this->_id,
-            "group_question_id"        => $leewenburgDefaultGroupTitle,
-            "output_filename"        => str_replace(' ', '_', $this->_title) . '_tables',
-            "output_format"            => 'pdf',
-            "report_type"            => 'tables',
-            "ignore_question_ids"    => '"0_respondent","1_datum"',
-            "language"                => 'nl',
-            "customer"                => 'leeuwenburg',
-            "page"                    => 'portrait',
+            "data_set_id"           => $this->_id,
+            "group_question_id"     => $leewenburgDefaultGroupTitle,
+            "output_filename"       => str_replace(' ', '_', $this->_title) . '_tables',
+            "output_format"         => 'pdf',
+            "report_type"           => 'tables',
+            "ignore_question_ids"   => '"0_respondent","1_datum"',
+            "language"              => 'nl',
+            "customer"              => 'leeuwenburg',
+            "page"                  => 'portrait',
         ));
     }
-
 
     public function addAction()
     {
