@@ -19,25 +19,30 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         'delete' => array('html'),
         'add-subquestion' => array('html'),
     );
+
     /**
      * Current language
      *
      * @var string
      */
     protected $_language;
+
     /**
-     * Initializes the class
+     * Initializes the object
      *
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         $this->_helper->ajaxContext()->initContext();
         $this->_language = Zend_Registry::get('language');
     }
+
     /**
      * Renders the form for adding an existing question to a questionnaire
      */
-    public function addAction() {
+    public function addAction()
+    {
         $questionnaireId = $this->_request->questionnaire_id;
         if (!$questionnaireId) {
             throw new Exception('No questionnaire id given!');
@@ -47,7 +52,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 /* store */
-                $qq = new QuestionnaireQuestion();
+                $qq = new Webenq_Model_QuestionnaireQuestion();
                 $qq->question_id = str_replace('q_', '', $form->id->getValue());
                 $qq->questionnaire_id = $form->questionnaire_id->getValue();
                 $qq->CollectionPresentation[0]->type = 'open_text';
@@ -69,12 +74,14 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         $this->view->form = $form;
         $this->view->questions = $questions;
     }
+
     /**
      * Renders the form for editing a questionnaire
      *
      * @return void
      */
-    public function editAction() {
+    public function editAction()
+    {
         $questionnaireQuestion = Doctrine_Core::getTable('QuestionnaireQuestion')->find($this->_request->id);
         $form = new Webenq_Form_QuestionnaireQuestion_Edit($questionnaireQuestion);
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
@@ -103,13 +110,15 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             ->count();
         $this->view->subQuestions = $this->_getSubQuestions($questionnaireQuestion);
     }
+
     /**
-     * Renders the form for deleting a questionnaire from a questionnaire,
-     * or - optionally completely deleting it from the repository.
+     * Renders the form for deleting a question from a questionnaire,
+     * or completely deleting it from the repository.
      *
      * @return void
      */
-    public function deleteAction() {
+    public function deleteAction()
+    {
         $questionnaireQuestion = Doctrine_Query::create()
             ->from('QuestionnaireQuestion qq')
             ->innerJoin('qq.Question q')
@@ -118,29 +127,30 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             ->andWhere('qt.language = ?', $this->_language)
             ->execute()
             ->getFirst();
+
         $form = new Webenq_Form_QuestionnaireQuestion_Delete($questionnaireQuestion);
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
+
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if (isset($data['yes'])) {
-                if ($data['change_globally'] == 'global') {
-                    $questionnaireQuestion->Question->delete();
-                } else {
-                    $questionnaireQuestion->delete();
-                }
+                $questionnaireQuestion->delete();
                 if ($this->_request->isXmlHttpRequest()) {
-                    $this->_helper->json(array('reload' => true,));
+                    $this->_helper->json(array('reload' => true));
                 }
             } else {
                 if ($this->_request->isXmlHttpRequest()) {
-                    $this->_helper->json(array('reload' => false,));
+                    $this->_helper->json(array('reload' => false));
                 }
             }
         }
+
         $this->view->form = $form;
         $this->view->questionnaireQuestion = $questionnaireQuestion;
     }
-    protected function _getSubQuestions(QuestionnaireQuestion $questionnaireQuestion) {
+
+    protected function _getSubQuestions(QuestionnaireQuestion $questionnaireQuestion)
+    {
         $subQuestions = array();
         foreach ($questionnaireQuestion->CollectionPresentation->getFirst()->CollectionPresentation as $subQuestion) {
             if ($subQuestion->QuestionnaireQuestion->Question->QuestionText->count() > 0) {
@@ -161,7 +171,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     /**
      * Saves the current state of the given questionnaire-question
      */
-    public function saveStateAction() {
+    public function saveStateAction()
+    {
         /* disable view/layout rendering */
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout(true);
@@ -183,6 +194,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         }
         $this->_saveGridSubquestions($parentId, $grid);
     }
+
     /**
      * Stores the grid of subquestions to the database
      *
@@ -190,7 +202,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      * @param array $grid Grid with sub-questionnaire-questions
      * @return void
      */
-    protected function _saveGridSubquestions($parentId, array $grid) {
+    protected function _saveGridSubquestions($parentId, array $grid)
+    {
         /* get collection-presentation object for given parent */
         $cp = Doctrine_Core::getTable('QuestionnaireQuestion')->find($parentId)->CollectionPresentation->getFirst();
         /* clear all for this parent */
@@ -231,7 +244,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             }
         }
     }
-    public function addSubquestionAction() {
+
+    public function addSubquestionAction()
+    {
         $qq = Doctrine_Query::create()
             ->from('QuestionnaireQuestion qq')
             ->innerJoin('qq.CollectionPresentation cp')
