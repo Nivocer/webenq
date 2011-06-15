@@ -10,7 +10,7 @@ defined('APPLICATION_PATH')
 /* Define application environment */
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', 'unit-testing');
-    
+
 /* Ensure library/ is on include_path */
 set_include_path(implode(PATH_SEPARATOR, array(
 	realpath(APPLICATION_PATH . '/../libraries'),
@@ -30,8 +30,10 @@ $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
 ));
 $resourceLoader->addResourceType('model', 'models', 'Model');
 $resourceLoader->addResourceType('form', 'forms', 'Form');
-$resourceLoader->addResourceType('test', '../tests/application', 'Test');
-$resourceLoader->addResourceType('test_model', '../tests/application/models', 'Test_Model');
+$resourceLoader->addResourceType('tests', '../tests/application', 'Test');
+$resourceLoader->addResourceType('controllerTestCases', '../tests/application/controllers', 'Test_Controller');
+$resourceLoader->addResourceType('modelTestCases', '../tests/application/models', 'Test_Model');
+$resourceLoader->addResourceType('formTestCases', '../tests/application/forms', 'Test_Form');
 
 Zend_Session::$_unitTestEnabled = true;
 Zend_Session::start();
@@ -42,3 +44,7 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/application.ini'
 );
 $application->bootstrap();
+
+require_once 'cases/Controller.php';
+require_once 'cases/Model.php';
+require_once 'cases/Form.php';
