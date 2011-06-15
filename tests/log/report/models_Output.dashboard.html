@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>models/Output</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--[if IE]><script src="excanvas.compressed.js"></script><![endif]-->
+    <script src="RGraph.common.core.js" ></script>
+    <script src="RGraph.common.tooltips.js" ></script>
+    <script src="RGraph.bar.js" ></script>
+    <script src="RGraph.scatter.js" ></script>
+  </head>
+
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="title">models/Output</td></tr>
+      <tr><td><div align="center"><p><a href="models_Output.html">Back to Code Coverage report</a></p></div></td></tr>
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+    </table>
+
+    <br />
+
+    <center>
+      <table width="90%" cellpadding="2" cellspacing="1" border="0">
+        <tr>
+          <td valign="top">
+            <h2>Class Coverage Distribution</h2>
+            <canvas id="classCoverageDistribution" width="475" height="200"></canvas>
+            <script>
+            var ccd = new RGraph.Bar('classCoverageDistribution', [13,0,0,0,0,0,0,0,0,0,0,0]);
+            ccd.Set('chart.background.barcolor1', 'white');
+            ccd.Set('chart.background.barcolor2', 'white');
+            ccd.Set('chart.colors', ['blue']);
+            ccd.Set('chart.shadow', true);
+            ccd.Set('chart.shadow.offsetx', 3);
+            ccd.Set('chart.shadow.offsety', 3);
+            ccd.Set('chart.labels', ['0%','0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%','100%']);
+            ccd.Set('chart.text.size', 5);
+            ccd.Draw();
+            </script>
+          </td>
+
+          <td valign="top">
+            <h2>Class Complexity</h2>
+            <canvas id="classComplexity" width="475" height="200"></canvas>
+            <script>
+            var cc = new RGraph.Scatter('classComplexity', [[0,79,"blue","Webenq_Model_Output_Chart"],[0,13,"blue","Webenq_Model_Output_Chart_Bar"],[0,4,"blue","Webenq_Model_Output_Chart_Bar_GroupedHorizontal"],[0,4,"blue","Webenq_Model_Output_Chart_Bar_GroupedVertical"],[0,0,"blue","Webenq_Model_Output_Chart_Bar_Horizontal"],[0,0,"blue","Webenq_Model_Output_Chart_Bar_Vertical"],[0,4,"blue","Webenq_Model_Output_Chart_Line"],[0,0,"blue","Webenq_Model_Output_Chart_Line_Normal"],[0,0,"blue","Webenq_Model_Output_Chart_Line_Spark"],[0,3,"blue","Webenq_Model_Output_Chart_Pie"],[0,0,"blue","Webenq_Model_Output_Chart_Pie_Concentric"],[0,0,"blue","Webenq_Model_Output_Chart_Pie_ThreeDimensional"],[0,0,"blue","Webenq_Model_Output_Chart_Pie_TwoDimensional"]]);
+            cc.Set('chart.xmax', 100);
+            cc.Set('chart.background.barcolor1', 'white');
+            cc.Set('chart.background.barcolor2', 'white');
+            cc.Set('chart.tickmarks', 'plus');
+            cc.Set('chart.ticksize', 5);
+            cc.Set('chart.text.size', 5);
+            cc.Set('chart.ylabels', false);
+            cc.Draw();
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <h2>Top Project Risks</h2>
+            <ul>
+              <li><a href="models_Output_Chart.php.html#8">Webenq_Model_Output_Chart</a> (6320)</li>
+              <li><a href="models_Output_Chart_Bar.php.html#8">Webenq_Model_Output_Chart_Bar</a> (182)</li>
+              <li><a href="models_Output_Chart_Bar_GroupedHorizontal.php.html#8">Webenq_Model_Output_Chart_Bar_GroupedHorizontal</a> (20)</li>
+              <li><a href="models_Output_Chart_Bar_GroupedVertical.php.html#8">Webenq_Model_Output_Chart_Bar_GroupedVertical</a> (20)</li>
+              <li><a href="models_Output_Chart_Line.php.html#8">Webenq_Model_Output_Chart_Line</a> (20)</li>
+              <li><a href="models_Output_Chart_Pie.php.html#8">Webenq_Model_Output_Chart_Pie</a> (12)</li>
+
+            </ul>
+          </td>
+
+          <td valign="top">
+            <h2>Least Tested Methods</h2>
+            <ul>
+              <li><a href="models_Output_Chart.php.html#472">Webenq_Model_Output_Chart::_getMinValue</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#489">Webenq_Model_Output_Chart::_getMaxValue</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#507">Webenq_Model_Output_Chart::_getLegend</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#459">Webenq_Model_Output_Chart::_getScale</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#435">Webenq_Model_Output_Chart::_getEncodedData</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#397">Webenq_Model_Output_Chart::_isValidSize</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#413">Webenq_Model_Output_Chart::_isValidData</a> (0%)</li>
+              <li><a href="models_Output_Chart_Bar.php.html#10">Webenq_Model_Output_Chart_Bar::factory</a> (0%)</li>
+              <li><a href="models_Output_Chart_Bar.php.html#31">Webenq_Model_Output_Chart_Bar::_getMinValue</a> (0%)</li>
+              <li><a href="models_Output_Chart_Line.php.html#33">Webenq_Model_Output_Chart_Line::_swapLabelsLegend</a> (0%)</li>
+
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </center>
+
+    <br />
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+      <tr><td class="versionInfo">Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 1.0.4</a> using <a href="http://www.php.net/" target="_top">PHP 5.3.5-1ubuntu7.2</a> and PHPUnit 3.5.5 at Wed Jun 15 13:31:10 CEST 2011.</td></tr>
+    </table>
+
+    <br/>
+  </body>
+</html>

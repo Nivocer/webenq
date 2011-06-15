@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--[if IE]><script src="excanvas.compressed.js"></script><![endif]-->
+    <script src="RGraph.common.core.js" ></script>
+    <script src="RGraph.common.tooltips.js" ></script>
+    <script src="RGraph.bar.js" ></script>
+    <script src="RGraph.scatter.js" ></script>
+  </head>
+
+  <body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="title"></td></tr>
+      <tr><td><div align="center"><p><a href="index.html">Back to Code Coverage report</a></p></div></td></tr>
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+    </table>
+
+    <br />
+
+    <center>
+      <table width="90%" cellpadding="2" cellspacing="1" border="0">
+        <tr>
+          <td valign="top">
+            <h2>Class Coverage Distribution</h2>
+            <canvas id="classCoverageDistribution" width="475" height="200"></canvas>
+            <script>
+            var ccd = new RGraph.Bar('classCoverageDistribution', [96,0,1,0,0,1,0,2,3,5,1,15]);
+            ccd.Set('chart.background.barcolor1', 'white');
+            ccd.Set('chart.background.barcolor2', 'white');
+            ccd.Set('chart.colors', ['blue']);
+            ccd.Set('chart.shadow', true);
+            ccd.Set('chart.shadow.offsetx', 3);
+            ccd.Set('chart.shadow.offsety', 3);
+            ccd.Set('chart.labels', ['0%','0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%','100%']);
+            ccd.Set('chart.text.size', 5);
+            ccd.Draw();
+            </script>
+          </td>
+
+          <td valign="top">
+            <h2>Class Complexity</h2>
+            <canvas id="classComplexity" width="475" height="200"></canvas>
+            <script>
+            var cc = new RGraph.Scatter('classComplexity', [[0,15,"blue","AnswerPossibilityController"],[0,11,"blue","AnswerPossibilityGroupController"],[0,11,"blue","AnswerPossibilityNullValueController"],[0,12,"blue","AnswerPossibilitySynonymController"],[0,77,"blue","EmailController"],[0,3,"blue","ErrorController"],[0,7,"blue","ImportController"],[0,1,"blue","IndexController"],[0,17,"blue","InterpretationController"],[0,2,"blue","JasperController"],[0,1,"blue","LanguageController"],[0,22,"blue","ManagementController"],[0,20,"blue","QuestionController"],[0,47,"blue","QuestionnaireController"],[0,30,"blue","QuestionnaireQuestionController"],[0,24,"blue","ReportDefinitionController"],[0,30,"blue","ReportGenerationController"],[0,19,"blue","ScaleValuesController"],[0,8,"blue","TestController"],[0,40,"blue","UserController"],[100,2,"blue","Webenq_Form_AnswerPossibility_Add"],[0,3,"blue","Webenq_Form_AnswerPossibility_Edit"],[0,1,"blue","Webenq_Form_AnswerPossibilityGroup_Add"],[0,2,"blue","Webenq_Form_AnswerPossibilityGroup_Edit"],[0,1,"blue","Webenq_Form_AnswerPossibilityNullValue_Add"],[0,2,"blue","Webenq_Form_AnswerPossibilityNullValue_Edit"],[0,2,"blue","Webenq_Form_AnswerPossibilitySynonym_Add"],[0,2,"blue","Webenq_Form_AnswerPossibilitySynonym_Edit"],[0,2,"blue","Webenq_Form_Confirm"],[0,2,"blue","Webenq_Form_Email_Index"],[0,2,"blue","Webenq_Form_Email_Merge"],[0,5,"blue","Webenq_Form_Import"],[0,3,"blue","Webenq_Form_Management_Edit"],[0,2,"blue","Webenq_Form_Question_Add"],[0,4,"blue","Webenq_Form_Question_Edit"],[0,1,"blue","Webenq_Form_Questionnaire_Add"],[0,13,"blue","Webenq_Form_Questionnaire_Collect"],[0,2,"blue","Webenq_Form_Questionnaire_Edit"],[0,2,"blue","Webenq_Form_QuestionnaireQuestion_Add"],[0,2,"blue","Webenq_Form_QuestionnaireQuestion_Delete"],[0,24,"blue","Webenq_Form_QuestionnaireQuestion_Edit"],[0,2,"blue","Webenq_Form_ReportDefinition"],[0,7,"blue","Webenq_Form_ReportGeneration_Index"],[0,1,"blue","Webenq_Form_ScaleValues_Add"],[0,1,"blue","Webenq_Form_ScaleValues_Del"],[0,1,"blue","Webenq_Form_Test_Index"],[0,1,"blue","Webenq_Form_User_Login"],[0,16,"blue","Webenq_Form_User_Permission"],[0,4,"blue","Webenq_Form_User_Role_Add"],[0,5,"blue","Webenq_Form_User_Role_Edit"],[0,4,"blue","Webenq_Form_User_User_Add"],[0,10,"blue","Webenq_Form_User_User_Edit"],[0,1,"blue","Webenq_Model_Answer"],[0,1,"blue","Webenq_Model_AnswerPossibility"],[0,1,"blue","Webenq_Model_AnswerPossibilityGroup"],[0,79,"blue","Webenq_Model_Output_Chart"],[0,13,"blue","Webenq_Model_Output_Chart_Bar"],[0,4,"blue","Webenq_Model_Output_Chart_Bar_GroupedHorizontal"],[0,4,"blue","Webenq_Model_Output_Chart_Bar_GroupedVertical"],[0,0,"blue","Webenq_Model_Output_Chart_Bar_Horizontal"],[0,0,"blue","Webenq_Model_Output_Chart_Bar_Vertical"],[0,4,"blue","Webenq_Model_Output_Chart_Line"],[0,0,"blue","Webenq_Model_Output_Chart_Line_Normal"],[0,0,"blue","Webenq_Model_Output_Chart_Line_Spark"],[0,3,"blue","Webenq_Model_Output_Chart_Pie"],[0,0,"blue","Webenq_Model_Output_Chart_Pie_Concentric"],[0,0,"blue","Webenq_Model_Output_Chart_Pie_ThreeDimensional"],[0,0,"blue","Webenq_Model_Output_Chart_Pie_TwoDimensional"],[69.950738916256,83,"blue","Webenq_Model_Question"],[87.5,5,"blue","Webenq_Model_Question_Closed"],[100,3,"blue","Webenq_Model_Question_Closed_Number"],[100,3,"blue","Webenq_Model_Question_Closed_Percentage"],[43.617021276596,25,"blue","Webenq_Model_Question_Closed_Scale"],[81.818181818182,5,"blue","Webenq_Model_Question_Closed_Scale_Five"],[88.888888888889,4,"blue","Webenq_Model_Question_Closed_Scale_Four"],[77.777777777778,4,"blue","Webenq_Model_Question_Closed_Scale_Seven"],[77.777777777778,4,"blue","Webenq_Model_Question_Closed_Scale_Six"],[77.777777777778,4,"blue","Webenq_Model_Question_Closed_Scale_Three"],[88.888888888889,4,"blue","Webenq_Model_Question_Closed_Scale_Two"],[0,0,"blue","Webenq_Model_Question_Group"],[100,1,"blue","Webenq_Model_Question_Open"],[95.384615384615,44,"blue","Webenq_Model_Question_Open_Date"],[85.714285714286,7,"blue","Webenq_Model_Question_Open_Email"],[100,1,"blue","Webenq_Model_Question_Open_Text"],[0,1,"blue","Webenq_Model_QuestionText"],[0,1,"blue","Webenq_Model_Questionnaire"],[0,27,"blue","Webenq_Model_QuestionnaireQuestion"],[0,1,"blue","Webenq_Model_Respondent"],[100,1,"blue","Answer"],[100,1,"blue","AnswerPossibility"],[61.818181818182,15,"blue","AnswerPossibilityGroup"],[100,3,"blue","AnswerPossibilityNullValue"],[0,6,"blue","CollectionPresentation"],[17.647058823529,5,"blue","Question"],[0,1,"blue","QuestionText"],[0,8,"blue","Questionnaire"],[0,5,"blue","QuestionnaireQuestion"],[0,1,"blue","Respondent"],[0,2,"blue","Role"],[0,3,"blue","User"],[100,2,"blue","BaseAnswer"],[100,2,"blue","BaseAnswerPossibility"],[100,2,"blue","BaseAnswerPossibilityGroup"],[100,2,"blue","BaseAnswerPossibilityNullValue"],[100,2,"blue","BaseAnswerPossibilityText"],[100,2,"blue","BaseAnswerPossibilityTextSynonym"],[0,2,"blue","BaseCollectionPresentation"],[0,2,"blue","BaseGroups_"],[0,2,"blue","BaseInfo_"],[100,2,"blue","BaseQuestion"],[0,2,"blue","BaseQuestionGroup"],[0,2,"blue","BaseQuestionText"],[0,2,"blue","BaseQuestionnaire"],[0,2,"blue","BaseQuestionnaireQuestion"],[0,2,"blue","BaseReportPresentation"],[0,2,"blue","BaseResource"],[0,2,"blue","BaseRespondent"],[0,2,"blue","BaseRole"],[0,2,"blue","BaseRoleResource"],[0,2,"blue","BaseScaleValues"],[0,2,"blue","BaseUser"],[0,12,"blue","Webenq_Plugin_Access"],[0,3,"blue","Webenq_Plugin_Request"],[0,13,"blue","Webenq_Plugin_View"]]);
+            cc.Set('chart.xmax', 100);
+            cc.Set('chart.background.barcolor1', 'white');
+            cc.Set('chart.background.barcolor2', 'white');
+            cc.Set('chart.tickmarks', 'plus');
+            cc.Set('chart.ticksize', 5);
+            cc.Set('chart.text.size', 5);
+            cc.Set('chart.ylabels', false);
+            cc.Draw();
+            </script>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <h2>Top Project Risks</h2>
+            <ul>
+              <li><a href="models_Question_Open_Email.php.html#5">Webenq_Model_Question_Open_Email</a> (7)</li>
+              <li><a href="forms_Question_Add.php.html#2">Webenq_Form_Question_Add</a> (6)</li>
+              <li><a href="models_doctrine_Role.php.html#13">Role</a> (6)</li>
+              <li><a href="models_Question_Closed_Scale_Five.php.html#5">Webenq_Model_Question_Closed_Scale_Five</a> (5)</li>
+              <li><a href="models_Question_Closed.php.html#5">Webenq_Model_Question_Closed</a> (5)</li>
+              <li><a href="models_Question_Closed_Scale_Seven.php.html#5">Webenq_Model_Question_Closed_Scale_Seven</a> (4)</li>
+              <li><a href="models_Question_Closed_Scale_Six.php.html#5">Webenq_Model_Question_Closed_Scale_Six</a> (4)</li>
+              <li><a href="models_Question_Closed_Scale_Three.php.html#5">Webenq_Model_Question_Closed_Scale_Three</a> (4)</li>
+              <li><a href="models_Question_Closed_Scale_Four.php.html#5">Webenq_Model_Question_Closed_Scale_Four</a> (4)</li>
+              <li><a href="models_Question_Closed_Scale_Two.php.html#6">Webenq_Model_Question_Closed_Scale_Two</a> (4)</li>
+
+            </ul>
+          </td>
+
+          <td valign="top">
+            <h2>Least Tested Methods</h2>
+            <ul>
+              <li><a href="models_Output_Chart.php.html#209">Webenq_Model_Output_Chart::setLegend</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#193">Webenq_Model_Output_Chart::setLabels</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#179">Webenq_Model_Output_Chart::setTitleFont</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#230">Webenq_Model_Output_Chart::setColors</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#248">Webenq_Model_Output_Chart::_setDefaults</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#318">Webenq_Model_Output_Chart::getUrl</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#292">Webenq_Model_Output_Chart::build</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#166">Webenq_Model_Output_Chart::setTitle</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#145">Webenq_Model_Output_Chart::setSize</a> (0%)</li>
+              <li><a href="models_Output_Chart.php.html#65">Webenq_Model_Output_Chart::__construct</a> (0%)</li>
+
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </center>
+
+    <br />
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr><td class="ruler"><img src="glass.png" width="3" height="3" alt=""></td></tr>
+      <tr><td class="versionInfo">Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 1.0.4</a> using <a href="http://www.php.net/" target="_top">PHP 5.3.5-1ubuntu7.2</a> and PHPUnit 3.5.5 at Wed Jun 15 13:31:10 CEST 2011.</td></tr>
+    </table>
+
+    <br/>
+  </body>
+</html>
