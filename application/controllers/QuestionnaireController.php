@@ -197,7 +197,7 @@ class QuestionnaireController extends Zend_Controller_Action
             $respondent = Doctrine_Core::getTable('Respondent')
                 ->find($session->respondent_id);
         } else {
-            $respondent = new Respondent();
+            $respondent = new Webenq_Model_Respondent();
             $respondent->questionnaire_id = $this->_request->id;
             $respondent->save();
         }
@@ -236,41 +236,37 @@ class QuestionnaireController extends Zend_Controller_Action
         $form = new Webenq_Form_Questionnaire_Collect($qqs);
 
         /* get progress data */
-        $totalQuestions = Doctrine_Query::create()
+        $totalQuestions = (int) Doctrine_Query::create()
+            ->select('COUNT(qq.id) AS count')
             ->from('QuestionnaireQuestion qq')
             ->where('qq.questionnaire_id = ?', $this->_request->id)
-            ->execute()
-            ->count();
+            ->execute()->getFirst()->count;
 
-        $answeredQuestions = Doctrine_Query::create()
+        $answeredQuestions = (int) Doctrine_Query::create()
+            ->select('COUNT(qq.id) AS count')
             ->from('QuestionnaireQuestion qq')
             ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
             ->where('a.id IS NOT NULL')
             ->andWhere('qq.questionnaire_id = ?', $this->_request->id)
-            ->execute()
-            ->count();
+            ->execute()->getFirst()->count;
 
         /* process posted data */
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
-                foreach ($qqs as $qq) {
-                    /* get filtered and validated value(s) */
-                    $value = '';
-                    $elm = $form->getElement('qq_' . $qq['id']);
-                    if (is_object($elm)) {
-                        /* get value */
-                        $value = $elm->getValue();
-                        /* check for range */
-                        if (isset($this->_request->{$elm->getId() . '-1'})) {
-                            $value = array($value, $this->_request->{$elm->getId() . '-1'});
-                        }
+                // iterate filtered/validated values
+                foreach ($form->getValues() as $id => $value) {
+                    // check for range
+                    if (isset($this->_request->{"$id-1"})) {
+                        $value = array($value, $this->_request->{"$id-1"});
                     }
 
-                    /* save answer-id(s) or text(s) */
-                    if (isset($qq['answerPossibilityGroup_id'])) {
-                        $this->_saveAnswerId($value, $qq, $respondent);
+                    // save answer-id or text
+                    $qq = Doctrine_Core::getTable('QuestionnaireQuestion')
+                        ->find(str_replace('qq_', null, $id));
+                    if ($qq->answerPossibilityGroup_id) {
+                        $this->_saveAnswerId($qq, $value, $respondent);
                     } else {
-                        $this->_saveAnswerText($value, $qq, $respondent);
+                        $this->_saveAnswerText($qq, $value, $respondent);
                     }
                 }
 
@@ -288,50 +284,42 @@ class QuestionnaireController extends Zend_Controller_Action
         );
     }
 
-    protected function _saveAnswerId($value, array $qq, Respondent $respondent)
+    protected function _saveAnswerId(QuestionnaireQuestion $qq, $answerIds, Respondent $respondent)
     {
-        try {
-            if (is_array($value)) {
-                foreach ($value as $answerPossibilityId) {
-                    $answer = new Answer();
-                    $answer->answerPossibility_id = $answerPossibilityId;
-                    $answer->respondent_id = $respondent->id;
-                    $answer->questionnaire_question_id = $qq['id'];
-                    $answer->save();
-                }
-            } else {
-                $answer = new Answer();
-                $answer->answerPossibility_id = $value;
+        if (!is_array($answerIds)) {
+            $answerIds = array($answerIds);
+        }
+
+        foreach ($answerIds as $answerId) {
+            try {
+                $answer = new Webenq_Model_Answer();
+                $answer->answerPossibility_id = $answerId;
                 $answer->respondent_id = $respondent->id;
-                $answer->questionnaire_question_id = $qq['id'];
+                $answer->questionnaire_question_id = $qq->id;
                 $answer->save();
+            } catch(Exception $e) {
+                return false;
             }
-        } catch(Exception $e) {
-            return false;
         }
         return true;
     }
 
-    protected function _saveAnswerText($value, array $qq, Respondent $respondent)
+    protected function _saveAnswerText(QuestionnaireQuestion $qq, $answerValues, Respondent $respondent)
     {
-        try {
-            if (is_array($value)) {
-                foreach ($value as $text) {
-                    $answer = new Answer();
-                    $answer->text = $text;
-                    $answer->respondent_id = $respondent->id;
-                    $answer->questionnaire_question_id = $qq['id'];
-                    $answer->save();
-                }
-            } else {
-                $answer = new Answer();
-                $answer->text = $value;
+        if (!is_array($answerValues)) {
+            $answerValues = array($answerValues);
+        }
+
+        foreach ($answerValues as $answerValue) {
+            try {
+                $answer = new Webenq_Model_Answer();
+                $answer->text = $answerValue;
                 $answer->respondent_id = $respondent->id;
-                $answer->questionnaire_question_id = $qq['id'];
+                $answer->questionnaire_question_id = $qq->id;
                 $answer->save();
+            } catch (Exception $e) {
+                return false;
             }
-        } catch (Exception $e) {
-            return false;
         }
         return true;
     }

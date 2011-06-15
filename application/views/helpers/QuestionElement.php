@@ -4,21 +4,41 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
     /**
      * Helper for rendering form elements
      *
-     * @param array $qq Array representing a questionnaire-question
+     * @param array $qq Webenq_Model_QuestionnaireQuestion|Array representing a questionnaire-question
      * @param bool $deep Indicating if childs elements should be rendered as well
      * @return Zend_Form_Element or string
      */
-    public function questionElement(array $qq, $deep = true)
+    public function questionElement($qq, $deep = true)
     {
-        if ($deep == false) {
-            return $this->_getElement($qq);
+        if (!$qq instanceof Webenq_Model_QuestionnaireQuestion) {
+            if (is_array($qq)) {
+                $values = $qq;
+                $qq = new Webenq_Model_QuestionnaireQuestion();
+                $qq->fromArray($values);
+            } else {
+                throw new Exception('Agrument 1 passed to Zend_View_Helper_QuestionElement::questionElement() must be an array of an instance of Webenq_Model_QuestionnaireQuestion');
+            }
         }
 
         /* get form element */
-        $elm = array($this->_getElement($qq));
+        $elm = $qq->getFormElement();
 
         /* get collection-presentation objects for child questions */
         $subQqs = QuestionnaireQuestion::getSubQuestions($qq);
+        if (!$subQqs || !$deep) {
+            return '<li id="qq_' . $qq['id'] . '" class="question">' . $this->_getAdminHtml($qq) . $elm->render() . '</li>';
+        }
+
+        $html = '<li id="qq_' . $qq['id'] . '" class="question">' . $this->_getAdminHtml($qq) . $elm->getLabel();
+        $html .= '<ul class="sub-questions">';
+        foreach ($subQqs as $subQq) {
+            $html .= $this->view->questionElement($subQq);
+        }
+        $html .= '</ul></li>';
+        return $html;
+
+        var_dump(__FILE__, __LINE__, $qq, $subQqs); die;
+
         foreach ($subQqs as $subQq) {
             /* get form element for current sub question */
             $subElm = array($this->_getElement($subQq));
@@ -30,15 +50,24 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
             $elm[] = $subElm;
         }
 
-        if (count($elm) == 1 && is_object($elm[0])) {
-            return $elm[0];
-        } else {
-            return $this->_getMultiElementTable($elm);
-        }
+        return $html;
     }
 
-    protected function _getElement(array $qq)
+    protected function _getAdminHtml($quesionnaireQuestion)
     {
+        return '
+            <div class="admin">
+                <div class="handle" title="Sleep de vraag naar een andere positie of andere pagina"></div>
+                    <div class="options">
+                        <a class="ajax icon edit" title="bewerken" href="' . $this->view->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion['id']) . '">&nbsp;</a>
+                        <a class="ajax icon delete" title="verwijderen" href="' . $this->view->baseUrl('/questionnaire-question/delete/id/' . $quesionnaireQuestion['id']) . '">&nbsp;</a>
+                    </div>
+                </div>';
+    }
+
+    protected function _getElement($qq)
+    {
+        var_dump(__FILE__, __LINE__, 'SHOULD NOT BE USED ANYMORE'); die;
         $elementName = 'qq_' . $qq['id'];
 
         /* set default element type if not yet set */
@@ -157,9 +186,8 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 
     protected function _getMultiElementTable(array $elements)
     {
-        $html = '<table><thead><tr><th colspan="' . $this->_getTableWidth($elements) . '">';
-        $html .= $elements[0]->getLabel();
-        $html .= '</th></tr></thead><tbody>';
+        $html = $elements[0]->getLabel();
+        $html .= '<table><tbody>';
 
         /* do not render root element */
         unset($elements[0]);

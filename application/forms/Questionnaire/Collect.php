@@ -2,9 +2,9 @@
 class Webenq_Form_Questionnaire_Collect extends Zend_Form
 {
     /**
-     * Collection of QuestionnaireQuestions
+     * Array with questions
      *
-     * @var Doctrine_Collection containing instances of QuestionnaireQuestion
+     * @var array
      */
     protected $_questions;
 
@@ -16,17 +16,21 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
 
     public function init()
     {
-        $view = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer')->view;
+        $view = $this->getView();
 
         /* iterate over questions */
-        foreach ($this->_questions as $question) {
+        foreach ($this->_questions as $values) {
+
+            // instantiate question object
+            $question = new Webenq_Model_QuestionnaireQuestion();
+            $question->fromArray($values);
 
             /* get sub-questions */
-            $subQuestions = QuestionnaireQuestion::getSubQuestions($question);
+            $subQuestions = QuestionnaireQuestion::getSubQuestions($values);
 
             if (!isset($subQuestions[0])) {
                 /* if no sub-questions: add element */
-                $this->addElement($view->questionElement($question, false));
+                $this->addElement($question->getFormElement());
             } else {
                 /* if sub-questions: add subform */
                 $subForm = new Zend_Form_SubForm();
