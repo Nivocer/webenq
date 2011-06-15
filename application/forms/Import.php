@@ -51,9 +51,15 @@ class Webenq_Form_Import extends Zend_Form
             'multiOptions' => Webenq_Import_Abstract::$supportedTypes,
         ));
 
+        $language = $this->createElement('radio', 'language', array(
+            'label' => 'Taal:',
+            'multiOptions' => Webenq_Language::getLanguages(),
+            'required' => true,
+        ));
+
         $submit = $this->createElement('submit', 'submit', array('value' => 'Importeren'));
 
-        $this->addElements(array($file, $type, $submit));
+        $this->addElements(array($file, $type, $language, $submit));
     }
 
 

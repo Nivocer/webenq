@@ -15,44 +15,46 @@ class ImportController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        $session = new Zend_Session_Namespace();
         $supportedFormats = Webenq_Import_Adapter_Abstract::$supportedFormats;
 
         $form = new Webenq_Form_Import($supportedFormats);
+        $form->language->setValue($session->language);
         $errors = array();
 
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
 
-                if ($form->file->receive()) {
-                    $filename = $form->file->getFileName();
-                } else {
-                    $errors[] = 'Error receiving the file';
+            $data = $form->getValues();
+            $session->language = $data['language'];
+
+            if ($form->file->receive()) {
+                $filename = $form->file->getFileName();
+            } else {
+                $errors[] = 'Error receiving the file';
+            }
+
+            if (!$errors) {
+
+                /* set memory_limit */
+                $key = 'memory_limit';
+                $value = '512M';
+                @ini_set($key, $value);
+                if (!ini_get($key) == $value) {
+                    throw new Exception("PHP-settings $key could not be set to $value!");
                 }
 
-                if (!$errors) {
-
-                    /* set memory_limit */
-                    $key = 'memory_limit';
-                    $value = '512M';
-                    @ini_set($key, $value);
-                    if (!ini_get($key) == $value) {
-                        throw new Exception("PHP-settings $key could not be set to $value!");
-                    }
-
-                    /* set max_execution_time */
-                    $key = 'max_execution_time';
-                    $value = 0;
-                    @ini_set($key, $value);
-                    if (!ini_get($key) == $value) {
-                        throw new Exception("PHP-settings $key could not be set to $value!");
-                    }
-
-                    $adapter = Webenq_Import_Adapter_Abstract::factory($filename);
-                    $importer = Webenq_Import_Abstract::factory($data['type'], $adapter);
-                    $importer->import();
-                    $this->_redirect('/');
+                /* set max_execution_time */
+                $key = 'max_execution_time';
+                $value = 0;
+                @ini_set($key, $value);
+                if (!ini_get($key) == $value) {
+                    throw new Exception("PHP-settings $key could not be set to $value!");
                 }
+
+                $adapter = Webenq_Import_Adapter_Abstract::factory($filename);
+                $importer = Webenq_Import_Abstract::factory($data['type'], $adapter);
+                $importer->import();
+                $this->_redirect('/');
             }
         }
 
