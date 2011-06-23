@@ -1,24 +1,30 @@
 <?php
 class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 {
+    protected $_totalPages;
+
     /**
      * Helper for rendering form elements
      *
-     * @param array $qq Webenq_Model_QuestionnaireQuestion|Array representing a questionnaire-question
+     * @param array|object $qqOriginal Webenq_Model_QuestionnaireQuestion|Array representing a questionnaire-question
      * @param bool $deep Indicating if childs elements should be rendered as well
      * @return Zend_Form_Element or string
      */
-    public function questionElement($qq, $deep = true)
+    public function questionElement(QuestionnaireQuestion $qqOriginal, $totalPages, $deep = true)
     {
-        if (!$qq instanceof Webenq_Model_QuestionnaireQuestion) {
-            if (is_array($qq)) {
-                $values = $qq;
+        if (!$qqOriginal instanceof Webenq_Model_QuestionnaireQuestion) {
+            if (is_array($qqOriginal)) {
                 $qq = new Webenq_Model_QuestionnaireQuestion();
-                $qq->fromArray($values);
+                $qq->fromArray($qqOriginal);
+            } elseif ($qqOriginal instanceof Doctrine_Record) {
+                $qq = new Webenq_Model_QuestionnaireQuestion();
+                @$qq->fromArray($qqOriginal->toArray());
             } else {
                 throw new Exception('Agrument 1 passed to Zend_View_Helper_QuestionElement::questionElement() must be an array of an instance of Webenq_Model_QuestionnaireQuestion');
             }
         }
+
+        $this->_totalPages = $totalPages;
 
         /* get form element */
         $elm = $qq->getFormElement();
@@ -26,18 +32,16 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
         /* get collection-presentation objects for child questions */
         $subQqs = QuestionnaireQuestion::getSubQuestions($qq);
         if (!$subQqs || !$deep) {
-            return '<li id="qq_' . $qq['id'] . '" class="question">' . $this->_getAdminHtml($qq) . $elm->render() . '</li>';
+            return '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) . $elm->render() . '</li>';
         }
 
         $html = '<li id="qq_' . $qq['id'] . '" class="question">' . $this->_getAdminHtml($qq) . $elm->getLabel();
-        $html .= '<ul class="sub-questions">';
+        $html .= '<ul class="sub-questions sortable droppable">';
         foreach ($subQqs as $subQq) {
             $html .= $this->view->questionElement($subQq);
         }
         $html .= '</ul></li>';
         return $html;
-
-        var_dump(__FILE__, __LINE__, $qq, $subQqs); die;
 
         foreach ($subQqs as $subQq) {
             /* get form element for current sub question */
@@ -53,16 +57,29 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
         return $html;
     }
 
-    protected function _getAdminHtml($quesionnaireQuestion)
+    protected function _getAdminHtml($qq)
     {
-        return '
+        $pages = array();
+        for ($page = 1; $page <= $this->_totalPages; $page++) {
+            $pages[$page] = $page;
+        }
+
+        $currentPage = isset($qq['CollectionPresentation'][0]['page']) ? $qq['CollectionPresentation'][0]['page'] : 1;
+
+        $pageSelect = $this->view->formSelect('to-page', $currentPage, array(
+            'id' => 'page-select-qq-' . $qq['id']), $pages);
+
+        $html = '
             <div class="admin">
                 <div class="handle" title="Sleep de vraag naar een andere positie of andere pagina"></div>
-                    <div class="options">
-                        <a class="ajax icon edit" title="bewerken" href="' . $this->view->baseUrl('/questionnaire-question/edit/id/' . $quesionnaireQuestion['id']) . '">&nbsp;</a>
-                        <a class="ajax icon delete" title="verwijderen" href="' . $this->view->baseUrl('/questionnaire-question/delete/id/' . $quesionnaireQuestion['id']) . '">&nbsp;</a>
-                    </div>
-                </div>';
+                <div class="options">
+                    Naar pagina: ' . $pageSelect . '
+                    <a class="ajax icon edit" title="bewerken" href="' . $this->view->baseUrl('/questionnaire-question/edit/id/' . $qq['id']) . '">&nbsp;</a>
+                    <a class="ajax icon delete" title="verwijderen" href="' . $this->view->baseUrl('/questionnaire-question/delete/id/' . $qq['id']) . '">&nbsp;</a>
+                </div>
+            </div>';
+
+        return $html;
     }
 
     protected function _getElement($qq)

@@ -212,10 +212,10 @@ class Webenq_Model_Question extends Question
      */
     public function setQuestionText($language, $text)
     {
-        $questionText = new QuestionText();
+        $questionText = new Webenq_Model_QuestionText();
         $questionText->language = $language;
         $questionText->text = $text;
-        $question->QuestionText[] = $questionText;
+        $this->QuestionText[] = $questionText;
     }
 
     /**
@@ -227,7 +227,7 @@ class Webenq_Model_Question extends Question
     public function setQuestionTexts(array $texts)
     {
         foreach ($texts as $language => $text) {
-            $this->setLanguageText($language, $text);
+            $this->setQuestionText($language, $text);
         }
     }
 

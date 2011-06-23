@@ -1,16 +1,28 @@
 @CHARSET "UTF-8";
 
-#questionnaire-questions-list li {
+ul.questions-list li {
 	border: 1px solid #B20000;
 }
 
-#questionnaire-questions-list li.ui-state-highlight {
-	height: auto;
-	min-height: 18px;
-	height: expression(this.scrollHeight < 18 ? "18px" : "auto");	
+ul.questions-list li.hover {
+    cursor: pointer;
 }
 
-#questionnaire-questions-list table {
+ul.questions-list li .admin {
+    visibility: hidden;
+}
+
+ul.questions-list li.hover .admin {
+    visibility: visible;
+}
+
+ul.questions-list li.ui-state-highlight {
+	height: auto;
+	min-height: 50px;
+	height: expression(this.scrollHeight < 50 ? "50px" : "auto");	
+}
+
+ul.questions-list table {
 	margin: 0;
 }
 

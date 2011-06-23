@@ -60,15 +60,12 @@ class QuestionnaireController extends Zend_Controller_Action
 
         $form = new Webenq_Form_Questionnaire_Add();
 
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $questionnaire = new Questionnaire();
-                $questionnaire->fromArray($data);
-                $questionnaire->meta = serialize(array('timestamp' => time()));
-                $questionnaire->save();
-                $this->_redirect('/questionnaire');
-            }
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+            $questionnaire = new Webenq_Model_Questionnaire();
+            $questionnaire->fromArray($form->getValues());
+            $questionnaire->meta = serialize(array('timestamp' => time()));
+            $questionnaire->save();
+            $this->_redirect('/questionnaire');
         }
 
         $this->view->form = $form;
@@ -82,19 +79,24 @@ class QuestionnaireController extends Zend_Controller_Action
     public function editAction()
     {
         $questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+        if (!$questionnaire) $this->_redirect('questionnaire');
 
         $form = new Webenq_Form_Questionnaire_Edit($questionnaire);
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $questionnaire->fromArray($data);
-                $questionnaire->save();
-                $this->_redirect($this->_request->getPathInfo());
-            }
+
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+            $questionnaire->fromArray($form->getValues());
+            $questionnaire->save();
+            $this->_redirect($this->_request->getPathInfo());
+        }
+
+        $questionsToBeRendered = array();
+        foreach ($questionnaire['QuestionnaireQuestion'] as $qq) {
+            $questionsToBeRendered[] = $qq;
         }
 
         $this->view->form = $form;
         $this->view->questionnaire = $questionnaire;
+        $this->view->questions = $questionsToBeRendered;
         $this->view->totalPages = Questionnaire::getTotalPages($questionnaire['id']);
     }
 
@@ -107,20 +109,15 @@ class QuestionnaireController extends Zend_Controller_Action
         $page = $this->_request->page;
         $qqIds = $this->_request->qq;
 
-        if (count($qqIds) == 0) return;
+        if (count($qqIds) > 0) {
+            $qqs = Doctrine_Query::create()
+                ->from('QuestionnaireQuestion qq')
+                ->leftJoin('qq.CollectionPresentation cp')
+                ->whereIn('qq.id', $qqIds)
+                ->execute();
 
-        $qqs = Doctrine_Query::create()
-            ->from('QuestionnaireQuestion qq')
-            ->innerJoin('qq.CollectionPresentation cp')
-            ->whereIn('qq.id', $qqIds)
-            ->execute();
-
-        foreach ($qqs as $qq) {
-
-            $weight = array_search($qq->id, $qqIds);
-
-            if ($qq->CollectionPresentation[0]->weight != $weight || $qq->CollectionPresentation[0]->page != $page) {
-                $qq->CollectionPresentation[0]->weight = $weight;
+            foreach ($qqs as $qq) {
+                $qq->CollectionPresentation[0]->weight = array_search($qq->id, $qqIds);
                 $qq->CollectionPresentation[0]->page = $page;
                 $qq->save();
             }

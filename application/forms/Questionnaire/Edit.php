@@ -3,26 +3,26 @@ class Webenq_Form_Questionnaire_Edit extends Webenq_Form_Questionnaire_Add
 {
     /**
      * Questionnaire instance
-     * 
+     *
      * @var array $questionnaire
      */
     protected $_questionnaire;
-    
+
     /**
      * Constructor
-     * 
-     * @param array $questionnaire
+     *
+     * @param Questionnaire $questionnaire
      * @param mixed $options
      */
-    public function __construct(array $questionnaire, $options = null)
+    public function __construct(Questionnaire $questionnaire, $options = null)
     {
         $this->_questionnaire = $questionnaire;
         parent::__construct($options);
     }
-    
+
     /**
      * Initialises the form
-     * 
+     *
      * @return void
      */
     public function init()
@@ -32,6 +32,6 @@ class Webenq_Form_Questionnaire_Edit extends Webenq_Form_Questionnaire_Add
             $this->createElement('hidden', 'id'),
         ));
         parent::init();
-        $this->populate($this->_questionnaire);
+        $this->populate($this->_questionnaire->toArray());
     }
 }

@@ -23,15 +23,12 @@ class Webenq_Model_QuestionnaireQuestion extends QuestionnaireQuestion
 
         /* set default element type if not yet set */
         if (!$this->CollectionPresentation[0]->type) {
-            // @todo
-            $qqTmp = Doctrine_Core::getTable('QuestionnaireQuestion')->find($qq['id']);
-            if (!$qqTmp->answerPossibilityGroup_id) {
-                $qqTmp->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
+            if (!$this->answerPossibilityGroup_id) {
+                $this->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
             } else {
-                $qqTmp->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS;
+                $this->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS;
             }
-            $qqTmp->save();
-            $qq = $qqTmp->toArray();
+//            $this->CollectionPresentation[0]->save();
         }
 
         /* instantiate form element */

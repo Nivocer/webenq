@@ -1,10 +1,10 @@
 <a id="edit_title" class="icon edit" href="#"></a>
 <h1><?php echo $this->questionnaire['title']; ?></h1>
-<?= $this->form ?>
+<?php echo $this->form ?>
 <br clear="all" />
 
 <div class="clear">
-    <a class="ajax link add" href="<?= $this->baseUrl('/question/add/id/' . $this->questionnaire['id']) ?>" title="<?php echo _('nieuwe vraag toevoegen'); ?>">
+    <a class="ajax link add" href="<?= $this->baseUrl('/question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo _('nieuwe vraag toevoegen'); ?>">
         <?php echo _('nieuwe vraag toevoegen'); ?>
     </a>
 </div>
@@ -21,26 +21,30 @@
 
 <div class="tabs">
     <ul>
-        <?php for($i = 1; $i <= $this->totalPages; $i++): ?>
-            <li>
-                <a href="#page-<?php echo $i; ?>">
-                    <?php echo _('pagina') . ' ' . $i; ?>
+        <?php for($page = 1; $page <= $this->totalPages; $page++): ?>
+            <li class="droppable">
+                <a href="#page-<?php echo $page; ?>">
+                    <?php echo _('pagina') . ' ' . $page; ?>
                 </a>
             </li>
         <?php endfor; ?>
     </ul>
-    <?php for($i = 1; $i <= $this->totalPages; $i++): ?>
-        <div id="page-<?php echo $i; ?>">
+    <?php for($page = 1; $page <= $this->totalPages; $page++): ?>
+        <div id="page-<?php echo $page; ?>">
             <div class="questions">
-                <ul id="questionnaire-questions-list" class="sortable droppable">
-                    <?php foreach ($this->questionnaire['QuestionnaireQuestion'] as $quesionnaireQuestion): ?>
-                        <?php if ($quesionnaireQuestion['CollectionPresentation'] && $quesionnaireQuestion['CollectionPresentation'][0]['page'] == $i): ?>
-                            <?php echo $this->questionElement($quesionnaireQuestion); ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                <ul class="questions-list sortable droppable">
+                    <?php
+                        foreach ($this->questions as $key => $qq) {
+                            if (($page === 1 && !isset($qq['CollectionPresentation'][0])) ||
+                                $page === (int) $qq['CollectionPresentation'][0]['page'])
+                            {
+                                echo $this->questionElement($qq, $this->totalPages);
+                                unset($this->questions[$key]);
+                            }
+                        }
+                    ?>
                 </ul>
             </div>
         </div>
     <?php endfor; ?>
 </div>
-

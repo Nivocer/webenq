@@ -66,20 +66,42 @@ $(function() {
 	
 	$('.dateformat').mask('99-99-9999');
 	
-	$('ul.sortable').sortable({
+	$('.sortable').sortable({
 		placeholder: 'ui-state-highlight',
 		update: function(event, ui) {
-			saveState();
+			saveState(event, ui);
 		}
+	}).disableSelection();
+	
+	$('.draggable').draggable({
+		placeholder: 'ui-state-highlight',
+		update: function(event, ui) {
+			saveState(event, ui);
+		}
+	}).disableSelection();
+	
+	$('.droppable').droppable({
+		placeholder: 'ui-state-highlight',
+		update: function(event, ui) {
+			saveState(event, ui);
+		}
+	}).disableSelection();
+	
+	$('.tabs').tabs();
+	
+	$('.hoverable').hover(function() {
+		$(this).addClass('hover').addClass('ui-state-highlight');
+	}, function() {
+		$(this).removeClass('hover').removeClass('ui-state-highlight');
 	});
-	$('ul.sortable').disableSelection();
 });
 
 /**
  * Is used for saving the state of a sortable/draggable overview
  * May be overridden for custom logic.
  */
-function saveState() {
+function saveState(event, ui) {
+	console.log(event, ui);
 	return false;
 }
 

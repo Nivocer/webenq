@@ -68,43 +68,46 @@ class QuestionController extends Zend_Controller_Action
      */
     public function addAction()
     {
+        // get form, set action and add questionnaire_id if known
         $form = new Webenq_Form_Question_Add();
-        $form->setAction($this->view->baseUrl('/question/add'));
+        $form->setAction($this->view->baseUrl('question/add'));
+        if ($this->_request->questionnaire_id) {
+            $form->addElement($form->createElement('hidden', 'questionnaire_id', array(
+                'value' => $this->_request->questionnaire_id)));
+        }
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
 
-            /* get clean values */
+            // get clean values
             $values = $form->getValues();
 
-            /* if no question id is posted, create new question from text fields */
-            if (!$this->_request->question_id) {
-                $question = new Webenq_Model_Question_Open_Text();
-                $question->setQuestionTexts($values['text']);
-                $question->save();
-            }
+            // create question from text fields
+            $question = new Webenq_Model_Question_Open_Text();
+            $question->setQuestionTexts($values['text']);
+            $question->save();
 
             /* if a questionnaire id is posted, connect question to it */
-            if ($this->_request->questionnaire_id) {
+            if ($values['questionnaire_id']) {
 
-                $questionId = ($this->_request->question_id) ? $this->_request->question_id : $question->id;
-
-                $qq = new QuestionnaireQuestion();
+                $qq = new Webenq_Model_QuestionnaireQuestion();
                 $qq->questionnaire_id = $this->_request->questionnaire_id;
-                $qq->question_id = $questionId;
-                $cp = new CollectionPresentation();
+                $qq->question_id = $question->id;
+
+                $cp = new Webenq_Model_CollectionPresentation();
                 $cp->weight = -1;
                 $qq->CollectionPresentation[] = $cp;
-                $qq->ReportPresentation[] = new ReportPresentation();
+
+                $qq->ReportPresentation[] = new Webenq_Model_ReportPresentation();
                 $qq->save();
             }
 
             if ($this->_request->isXmlHttpRequest()) {
                 $this->_helper->json(array(
-                    'id' => $questionId,
+                    'id' => $question->id,
                     'reload' => true,
                 ));
             } else {
-                $this->_redirect('/question');
+                $this->_redirect('question');
             }
         }
 

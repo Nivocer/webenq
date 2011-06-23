@@ -67,9 +67,6 @@ class InterpretationController extends Zend_Controller_Action
     {
         /* get questionnaire */
         $questionnaire = Doctrine_Core::getTable('Questionnaire')->find($this->_id);
-        var_dump($questionnaire); die;
-
-
 
         $columns = $table->getColumns();
 

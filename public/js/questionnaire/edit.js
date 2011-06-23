@@ -2,77 +2,89 @@
  * Saves the state of the given element. Must implement an action for
  * any element that can be saved.
  * 
- * @param $elm The element for which to save the current state
+ * @param event
+ * @param ui
  */
-function saveState($elm)
+function saveState(event, ui)
 {
-	var $elmId = $elm[0].id;
-	
-	switch ($elmId) {
-	
-		case 'questionnaire-questions-list':
-			$('body').addClass('loading');
-			$('.tabs ul:first li').addClass('ui-state-default');
-			
-			var $questionnaireId = window.location.href.match(/\/id\/(\d{1,})/)[1].toString();
-			var $pages = $('ul.sortable');
-			
-			$pages.each(function($key, $val) {
-				var $page = $($val);
-				var $data = $page.sortable('serialize') + '&page=' + (parseInt($key) + 1);
-				$.post(baseUrl + '/questionnaire/order', $data, function() {
-					if ($key == ($pages.length - 1)) {
-						$('body').removeClass('loading');
-					}
-				});
+	if ($(event.target).hasClass('questions-list') ||
+		$(event.target).attr('name') == 'to-page')
+	{
+		$('body').addClass('loading');
+		$('.tabs ul:first li').addClass('ui-state-default');
+		
+		var $questionnaireId = window.location.href.match(/\/id\/(\d{1,})/)[1].toString();
+		var $pages = $('ul.sortable');
+		
+		$pages.each(function($key, $val) {
+			var $page = $($val);
+			var $data = $page.sortable('serialize') + '&page=' + (parseInt($key) + 1);
+			$.post(baseUrl + '/questionnaire/order', $data, function() {
+				if ($key == ($pages.length - 1)) $('body').removeClass('loading');
 			});
-			break;
-			
-		case 'repository-questions':
-		case 'less':
-		case 'more':
-		case 'subquestions':
-			$('body').addClass('loading');
-			
-			var $action = $elm.closest('form').attr('action');
-			var $qqId = $action.match(/\/id\/(\d{1,})/)[1].toString();
-			
-			var $list = $('#subquestions');
-			var $data = $list.sortable('serialize') + '&cols=' + $('#cols').val() + '&parent=' + $qqId;
-			$.post(baseUrl + '/questionnaire-question/save-state', $data, function() {
-				$('body').removeClass('loading');
-			});
-			break;
-			
-		default:
-			var $message = 'No action implemented for element with id #' + $elmId;
-			console.log($message);
-			break;
+		});
+	} 
+	
+	else if (1 == 1 ||
+			event.target.id === 'repository-questions' ||
+			event.target.id === 'less' ||
+			event.target.id === 'more' ||
+			event.target.id === 'subquestions')
+	{
+		console.log(event);
+		return;
+		$('body').addClass('loading');
+		
+		var $action = $elm.closest('form').attr('action');
+		var $qqId = $action.match(/\/id\/(\d{1,})/)[1].toString();
+		
+		var $list = $('#subquestions');
+		var $data = $list.sortable('serialize') + '&cols=' + $('#cols').val() + '&parent=' + $qqId;
+		$.post(baseUrl + '/questionnaire-question/save-state', $data, function() {
+			$('body').removeClass('loading');
+		});
 	}
 }
 
 function makeTabsSortable()
 {
-	$('ul.sortable').sortable({
-		handle: 'div.handle',
-		revert: 'invalid',
-		start: function(event, ui) {
-			$(ui.helper).css({
-				width: '16px',
-				height: '16px',
-				overflow: 'hidden'
-			});
-		},
-		update: function(event, ui) {
-			saveState($(this));
-		}
-	}).disableSelection();
+//	return $('ul.sortable').sortable({
+//		handle: 'div.handle',
+//		revert: 'invalid',
+//		accept: 'li.question',
+//		start: function(event, ui) {
+//			$(ui.helper).css({
+//				width: '16px',
+//				height: '16px',
+//				overflow: 'hidden'
+//			});
+//		},
+//		update: function(event, ui) {
+//			saveState(event, ui);
+//		}
+//	}).disableSelection();
 }
 
 function makeTabsDroppable($tabs)
 {
 	var $tabItems = $('ul:first li', $tabs);
 	return $tabItems.droppable({
+		activeClass: 'ui-state-default',
+		hoverClass: 'ui-state-hover',
+		accept: 'ul.sortable li',
+		drop: function(event, ui) {
+			var $item = $(this);
+			var $list = $item.find('ul');
+			var $draggable = ui.draggable.clone();
+			ui.draggable.remove();
+			$list.append('<li id="' + $draggable.attr('id') + '" class="question">' + $draggable.html() + '</li>');
+		}
+	});
+}
+
+function makeQuestionsDroppable($tabs)
+{
+	return $('li.question').droppable({
 		activeClass: 'ui-state-default',
 		hoverClass: 'ui-state-hover',
 		accept: 'ul.sortable li',
@@ -270,59 +282,66 @@ function postOpenDialog(response) {
 	});
 }
 
-$(function() {
-
-	var $tabs = $('.tabs').tabs();
+function addPage() {
+	// get page tabs
+	var $tabs = $('div.tabs');
+	// calculate new page id
+	var $newPageId = $tabs.tabs('length') + 1;
+	// create new page by cloning
+	var $newPage = $('#page-1').clone();
+	
+	// assign id to new page
+	$newPage.attr('id', 'page-' + $newPageId);
+	// remove cloned questions list
+	$('ul.sortable li', $newPage).remove();
+	// append page
+	$newPage.appendTo($tabs);
+	
+	// add tabs functionality to new page
+	$tabs.tabs('add', '#' + 'page-' + $newPageId, 'pagina ' + $newPageId);
+	// select the newly added page
+	$tabs.tabs('select', $tabs.tabs('length') - 1);
+	
+	// reset sortable and droppable
 	makeTabsSortable();
-	var $tabItems = makeTabsDroppable($tabs);
+	makeTabsDroppable($tabs);
+	
+	return false;
+}
 
+$(function() {
+	
+//	var $tabs = $('.tabs');
+//	makeTabsSortable();
+//	var $tabItems = makeTabsDroppable($tabs);
+
+	// add event to add-page button
 	$('.add_page').click(function() {
-		var $tabs = $('div.tabs');
-		var $newPageId = $tabs.tabs('length') + 1;
-		var $newPage = $('#page-1').clone();
-		
-		$newPage.attr('id', 'page-' + $newPageId);
-		$('ul.sortable li', $newPage).remove();
-		$newPage.appendTo($tabs);
-		
-		$tabs.tabs('add', '#' + 'page-' + $newPageId, 'pagina ' + $newPageId);
-		$tabs.tabs('select', $tabs.tabs('length') - 1);
-		
-		/* reset */
-		makeTabsSortable();
-		makeTabsDroppable($tabs);
-		
+		addPage();
+	});
+	
+	// event for moving question to other page
+	$('select[name="to-page"]').change(function(event, ui) {
+		var question = $(this).closest('li.question');
+		var newPage = $('div#page-' + $(this).val());
+		// move question to selected page
+		$('ul.questions-list', newPage).append(question);
+		question.removeClass('hover').removeClass('ui-state-highlight');
+		saveState(event, ui);
 		return false;
 	});
 	
-	/* add one page if no pages are present */
-	if ($tabItems.length == 0) {
-		$('.add_page').click();
-	}
-	
-	/* hide form for editing title if no errors */
+	// hide form for editing questionnaire title if no errors
 	if ($('form#Webenq_Form_Questionnaire_Edit ul.errors').length == 0) {
 		$('form#Webenq_Form_Questionnaire_Edit').hide();
 	}
 	
-	/* show form for editing title when edit-buttons is clicked */
-	$('a#edit_title').toggle(
-		function() {
-			$('form#Webenq_Form_Questionnaire_Edit').show('slow');
-			return false;
-		}, function() {
-			$('form#Webenq_Form_Questionnaire_Edit').hide('slow');
-			return false;
-		}
-	);
-	
-	/* hide admin options by default; show on hover */
-	$('#questionnaire-questions-list li .admin .options').hide();
-	$('#questionnaire-questions-list li').hover(function() {
-		$(this).addClass('ui-state-highlight')
-			.find('.admin .options').show();
+	// show form for editing title when edit-buttons is clicked
+	$('a#edit_title').toggle(function() {
+		$('form#Webenq_Form_Questionnaire_Edit').show('slow');
+		return false;
 	}, function() {
-		$(this).removeClass('ui-state-highlight')
-			.find('.admin .options').hide();
+		$('form#Webenq_Form_Questionnaire_Edit').hide('slow');
+		return false;
 	});
 });

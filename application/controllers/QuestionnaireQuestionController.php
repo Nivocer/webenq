@@ -90,17 +90,15 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         // process form
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $form->storeValues();
-                if ($this->_request->isXmlHttpRequest()) {
-                    $this->_helper->json(array('reload' => true,));
-                } else {
-                    $this->_redirect('questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->id);
-                }
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+            $form->storeValues();
+            if ($this->_request->isXmlHttpRequest()) {
+                $this->_helper->json(array('reload' => true,));
+            } else {
+                $this->_redirect('questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->id);
             }
         }
+
         $this->view->repositoryQuestions = Doctrine_Query::create()
             ->from('QuestionnaireQuestion qq')
             ->innerJoin('qq.CollectionPresentation cp')
@@ -126,10 +124,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     {
         $questionnaireQuestion = Doctrine_Query::create()
             ->from('QuestionnaireQuestion qq')
-            ->innerJoin('qq.Question q')
+            ->innerJoin('qq.Question q WITH qq.id = ?', $this->_request->id)
             ->leftJoin('q.QuestionText qt')
-            ->where('qq.id = ?', $this->_request->id)
-            ->andWhere('qt.language = ?', $this->_language)
+            ->where('qt.language = ?', $this->_language)
             ->execute()
             ->getFirst();
 
