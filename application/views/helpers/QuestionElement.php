@@ -35,7 +35,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
             return '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) . $elm->render() . '</li>';
         }
 
-        $html = '<li id="qq_' . $qq['id'] . '" class="question">' . $this->_getAdminHtml($qq) . $elm->getLabel();
+        $html = '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) . $elm->getLabel();
         $html .= '<ul class="sub-questions sortable droppable">';
         foreach ($subQqs as $subQq) {
             $html .= $this->view->questionElement($subQq, $this->_totalPages);
