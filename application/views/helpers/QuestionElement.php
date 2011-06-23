@@ -10,7 +10,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
      * @param bool $deep Indicating if childs elements should be rendered as well
      * @return Zend_Form_Element or string
      */
-    public function questionElement(QuestionnaireQuestion $qqOriginal, $totalPages, $deep = true)
+    public function questionElement($qqOriginal, $totalPages, $deep = true)
     {
         if (!$qqOriginal instanceof Webenq_Model_QuestionnaireQuestion) {
             if (is_array($qqOriginal)) {
@@ -38,7 +38,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
         $html = '<li id="qq_' . $qq['id'] . '" class="question">' . $this->_getAdminHtml($qq) . $elm->getLabel();
         $html .= '<ul class="sub-questions sortable droppable">';
         foreach ($subQqs as $subQq) {
-            $html .= $this->view->questionElement($subQq);
+            $html .= $this->view->questionElement($subQq, $this->_totalPages);
         }
         $html .= '</ul></li>';
         return $html;
