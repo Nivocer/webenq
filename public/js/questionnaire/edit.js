@@ -25,14 +25,14 @@ function saveState(event, ui)
 		});
 	} 
 	
-	else if (1 == 1 ||
-			event.target.id === 'repository-questions' ||
+	else if (event.target.id === 'repository-questions' ||
 			event.target.id === 'less' ||
 			event.target.id === 'more' ||
 			event.target.id === 'subquestions')
 	{
 		console.log(event);
 		return;
+		
 		$('body').addClass('loading');
 		
 		var $action = $elm.closest('form').attr('action');
@@ -282,7 +282,8 @@ function postOpenDialog(response) {
 	});
 }
 
-function addPage() {
+function addPage()
+{
 	// get page tabs
 	var $tabs = $('div.tabs');
 	// calculate new page id
@@ -301,10 +302,20 @@ function addPage() {
 	$tabs.tabs('add', '#' + 'page-' + $newPageId, 'pagina ' + $newPageId);
 	// select the newly added page
 	$tabs.tabs('select', $tabs.tabs('length') - 1);
+	// append the new page to all questions' change-page-select-elements
+	$('select[name="to-page"]').append('<option label="' + $newPageId + '" value="' + $newPageId + '">' + $newPageId + '</option');
+	
+	// make new page's question list sortable
+	$('.questions-list', $newPage).sortable({
+		placeholder: 'ui-state-highlight',
+		update: function(event, ui) {
+			saveState(event, ui);
+		}
+	}).disableSelection();
 	
 	// reset sortable and droppable
-	makeTabsSortable();
-	makeTabsDroppable($tabs);
+//	makeTabsSortable();
+//	makeTabsDroppable($tabs);
 	
 	return false;
 }
