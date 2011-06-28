@@ -14,10 +14,9 @@ class Webenq_Test_Model_Question_Closed_PercentageTest extends Webenq_Test_Model
     /**
      * @dataProvider provideInvalidData
      */
-    public function testIsTypeFunctionReturnsFalseOnInvalidPercentages($data)
+    public function testFactoryWithInvalidDataDoesNotReturnType($data)
     {
-        $question = new Webenq_Model_Question();
-        $question->setAnswerValues($data);
-    	$this->assertFalse(Webenq_Model_Question_Closed_Percentage::isType($question));
+        $question = Webenq_Model_Question::factory($data);
+        $this->assertFalse($question instanceof Webenq_Model_Question_Closed_Percentage);
     }
 }
