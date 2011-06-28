@@ -13,15 +13,26 @@ function saveState(event, ui)
 		$('body').addClass('loading');
 		$('.tabs ul:first li').addClass('ui-state-default');
 		
-		var $questionnaireId = window.location.href.match(/\/id\/(\d{1,})/)[1].toString();
-		var $pages = $('ul.sortable');
+		var $pages = $('.ui-tabs .ui-tabs-panel');
+		var $data = new Array();
 		
-		$pages.each(function($key, $val) {
-			var $page = $($val);
-			var $data = $page.sortable('serialize') + '&page=' + (parseInt($key) + 1);
-			$.post(baseUrl + '/questionnaire/order', $data, function() {
-				if ($key == ($pages.length - 1)) $('body').removeClass('loading');
-			});
+		$pages.each(function($key, $page) {
+			var $questionsList = $($page).find('.questions-list');
+			$data[$key] = $questionsList.sortable('toArray');
+		});
+		$.post(baseUrl + '/questionnaire/order', {data: $.toJSON($data)}, function() {
+			$('body').removeClass('loading');
+		});
+	}
+	
+	else if ($(event.target).hasClass('sub-questions')) {
+		$('body').addClass('loading');
+		
+		var $subQuestions = $(event.target);
+		var $question = $subQuestions.closest('.question');
+		var $data = $subQuestions.sortable('toArray');
+		$.post(baseUrl + '/questionnaire/order', {question: $.toJSON($data)}, function() {
+			$('body').removeClass('loading');
 		});
 	} 
 	

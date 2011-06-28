@@ -106,21 +106,83 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout(true);
 
-        $page = $this->_request->page;
-        $qqIds = $this->_request->qq;
+        if ($this->_request->data) {
+            $this->_orderPagesAndQuestions(Zend_Json::decode($this->_request->data));
+        } elseif ($this->_request->question) {
+            $this->_orderSubQuestions(Zend_Json::decode($this->_request->question));
+        }
+    }
 
-        if (count($qqIds) > 0) {
+    protected function _orderPagesAndQuestions(array $data)
+    {
+        if (count($data) === 0) {
+            return;
+        }
+
+        foreach ($data as $key => $val) {
+
+            $page = $key + 1;
+
+            $qqIds = array();
+            foreach ($val as $id) {
+                $id = (int) str_replace('qq_', null, $id);
+                $qqIds[] = $id;
+            }
+
+            // reset all questions on this page
+            Doctrine_Query::create()
+                ->update('CollectionPresentation cp')
+                ->set('weight', '?', 0)
+                ->set('page', '?', $page)
+                ->whereIn('cp.questionnaire_question_id', $qqIds)
+                ->execute();
+
+            // get questions on this page
             $qqs = Doctrine_Query::create()
                 ->from('QuestionnaireQuestion qq')
                 ->leftJoin('qq.CollectionPresentation cp')
                 ->whereIn('qq.id', $qqIds)
                 ->execute();
 
-            foreach ($qqs as $qq) {
+            // set new weight
+            foreach ($qqs as $weight => $qq) {
                 $qq->CollectionPresentation[0]->weight = array_search($qq->id, $qqIds);
-                $qq->CollectionPresentation[0]->page = $page;
                 $qq->save();
             }
+        }
+    }
+
+    protected function _orderSubQuestions(array $data)
+    {
+        if (count($data) === 0) {
+            return;
+        }
+
+        $qqIds = array();
+        foreach ($data as $key => $id) {
+            $id = (int) str_replace('qq_', null, $id);
+            $qqIds[] = $id;
+        }
+
+        // reset subquestions
+        Doctrine_Query::create()
+            ->update('CollectionPresentation cp')
+            ->set('weight', '?', 0)
+            ->set('page', '?', 0)
+            ->whereIn('cp.questionnaire_question_id', $qqIds)
+            ->execute();
+
+        // get subquestions
+        $qqs = Doctrine_Query::create()
+            ->from('QuestionnaireQuestion qq')
+            ->leftJoin('qq.CollectionPresentation cp')
+            ->whereIn('qq.id', $qqIds)
+            ->execute();
+
+        // set new weight
+        foreach ($qqs as $weight => $qq) {
+            $qq->CollectionPresentation[0]->weight = array_search($qq->id, $qqIds);
+            $qq->save();
         }
     }
 

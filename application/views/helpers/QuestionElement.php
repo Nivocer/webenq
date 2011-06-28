@@ -59,22 +59,26 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 
     protected function _getAdminHtml($qq)
     {
-        $pages = array();
-        for ($page = 1; $page <= $this->_totalPages; $page++) {
-            $pages[$page] = $page;
+        $isSubQuestion = (bool) $qq['CollectionPresentation'][0]['parent_id'];
+
+        if (!$isSubQuestion) {
+            $pages = array();
+            for ($page = 1; $page <= $this->_totalPages; $page++) {
+                $pages[$page] = $page;
+            }
+            $currentPage = isset($qq['CollectionPresentation'][0]['page']) ? $qq['CollectionPresentation'][0]['page'] : 1;
+            $pageSelect = $this->view->formSelect('to-page', $currentPage, array(
+                'id' => 'page-select-qq-' . $qq['id']), $pages);
         }
-
-        $currentPage = isset($qq['CollectionPresentation'][0]['page']) ? $qq['CollectionPresentation'][0]['page'] : 1;
-
-        $pageSelect = $this->view->formSelect('to-page', $currentPage, array(
-            'id' => 'page-select-qq-' . $qq['id']), $pages);
 
         $html = '
             <div class="admin">
                 <div class="handle" title="Sleep de vraag naar een andere positie of andere pagina"></div>
-                <div class="options">
-                    Naar pagina: ' . $pageSelect . '
-                    <a class="ajax icon edit" title="bewerken" href="' . $this->view->baseUrl('/questionnaire-question/edit/id/' . $qq['id']) . '">&nbsp;</a>
+                <div class="options">';
+
+        if (!$isSubQuestion) $html .= 'Naar pagina: ' . $pageSelect;
+
+        $html .= '  <a class="ajax icon edit" title="bewerken" href="' . $this->view->baseUrl('/questionnaire-question/edit/id/' . $qq['id']) . '">&nbsp;</a>
                     <a class="ajax icon delete" title="verwijderen" href="' . $this->view->baseUrl('/questionnaire-question/delete/id/' . $qq['id']) . '">&nbsp;</a>
                 </div>
             </div>';
