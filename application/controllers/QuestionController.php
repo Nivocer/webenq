@@ -130,8 +130,16 @@ class QuestionController extends Zend_Controller_Action
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $values = $form->getValues();
             foreach ($values['text'] as $language => $text) {
+                // get existing question-text
                 $questionText = Doctrine_Core::getTable('QuestionText')
                     ->findOneByQuestionIdAndLanguage($question->id, $language);
+                // or create new question-text
+                if (!$questionText) {
+                    $questionText = new Webenq_Model_QuestionText();
+                    $questionText->question_id = $question->id;
+                    $questionText->language = $language;
+                }
+                // set (new) text and save
                 $questionText->text = $text;
                 $questionText->save();
             }
