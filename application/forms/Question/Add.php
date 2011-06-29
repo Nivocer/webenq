@@ -30,4 +30,25 @@ class Webenq_Form_Question_Add extends Zend_Form
             'label' => 'Opslaan',
         )));
     }
+
+    public function isValid($data)
+    {
+        // check if at least one language is filled out
+        $hasAtLeastOneLanguage = false;
+        foreach ($data['text'] as $language => $translation) {
+            if (trim($translation) != '') {
+                $hasAtLeastOneLanguage = true;
+                break;
+            }
+        }
+
+        // disable required setting if at least one language was found
+        if ($hasAtLeastOneLanguage) {
+            foreach ($this->getSubForm('text')->getElements() as $elm) {
+                $elm->setRequired(false);
+            }
+        }
+
+        return parent::isValid($data);
+    }
 }
