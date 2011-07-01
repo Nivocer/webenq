@@ -3,11 +3,12 @@
  * any element that can be saved.
  * 
  * @param event
- * @param ui
+ * @param reload Boolean that indicates reloading of the whole page
  */
-function saveState(event, ui)
+function saveState(event, reload)
 {
 	if ($(event.target).hasClass('questions-list') ||
+		$(event.target).hasClass('delete-page') ||
 		$(event.target).attr('name') == 'to-page')
 	{
 		$('body').addClass('loading');
@@ -21,7 +22,11 @@ function saveState(event, ui)
 			$data[$key] = $questionsList.sortable('toArray');
 		});
 		$.post(baseUrl + '/questionnaire/order', {data: $.toJSON($data)}, function() {
-			$('body').removeClass('loading');
+			if (reload === true) {
+				window.location.reload();
+			} else {
+				$('body').removeClass('loading');
+			}
 		});
 	}
 	
@@ -306,11 +311,13 @@ function addPage()
 	$newPage.attr('id', 'page-' + $newPageId);
 	// remove cloned questions list
 	$('ul.sortable li', $newPage).remove();
+	// show delete-page-link
+	$('a.delete-page', $newPage).show();
 	// append page
 	$newPage.appendTo($tabs);
 	
 	// add tabs functionality to new page
-	$tabs.tabs('add', '#' + 'page-' + $newPageId, 'pagina ' + $newPageId);
+	var $elm = $tabs.tabs('add', '#page-' + $newPageId, 'pagina ' + $newPageId);
 	// select the newly added page
 	$tabs.tabs('select', $tabs.tabs('length') - 1);
 	// append the new page to all questions' change-page-select-elements
@@ -343,13 +350,21 @@ $(function() {
 	});
 	
 	// event for moving question to other page
-	$('select[name="to-page"]').change(function(event, ui) {
+	$('select[name="to-page"]').change(function(event) {
 		var question = $(this).closest('li.question');
+		var originalPage = $(event.target).closest('.ui-tabs-panel');
 		var newPage = $('div#page-' + $(this).val());
 		// move question to selected page
 		$('ul.questions-list', newPage).append(question);
 		question.removeClass('hover').removeClass('ui-state-highlight');
-		saveState(event, ui);
+		// check if original page is empty now
+		if (originalPage.find('ul.questions-list li').length === 0) {
+			originalPage.find('a.delete-page').show();
+		}	
+		// make sure new page cannot be deleted
+		newPage.find('a.delete-page').hide();
+		// save current state
+		saveState(event, false);
 		return false;
 	});
 	
@@ -365,5 +380,26 @@ $(function() {
 	}, function() {
 		$('form#Webenq_Form_Questionnaire_Edit').hide('slow');
 		return false;
+	});
+	
+	// only show delete-page-link when no questions
+	$.each($('a.delete-page'), function() {
+		var page = $(this).closest('.ui-tabs-panel');
+		var questions = page.find('ul.questions-list li');
+		if (questions.length === 0) {
+			$(this).show();
+		}
+	});
+	
+	// delete page when clicked on delete-page-link
+	$('a.delete-page').live('click', function(event) {
+		var page = $(this).closest('.ui-tabs-panel');
+		var questions = page.find('ul.questions-list li');
+		if (questions.length === 0) {
+			var pageId = page.attr('id');
+			var pageIndex = parseInt(pageId.replace('page-', '')) - 1;
+			$('div.tabs').tabs('remove', pageIndex);
+			saveState(event, true);
+		}
 	});
 });

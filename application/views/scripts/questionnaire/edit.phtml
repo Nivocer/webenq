@@ -22,7 +22,7 @@
 <div class="tabs">
     <ul>
         <?php for($page = 1; $page <= $this->totalPages; $page++): ?>
-            <li class="droppable">
+            <li>
                 <a href="#page-<?php echo $page; ?>">
                     <?php echo _('pagina') . ' ' . $page; ?>
                 </a>
@@ -31,6 +31,7 @@
     </ul>
     <?php for($page = 1; $page <= $this->totalPages; $page++): ?>
         <div id="page-<?php echo $page; ?>">
+            <a href="#" class="delete-page link delete">Deze pagina verwijderen</a>
             <div class="questions">
                 <ul class="questions-list sortable droppable">
                     <?php

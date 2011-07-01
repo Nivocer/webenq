@@ -146,8 +146,17 @@ class QuestionnaireController extends Zend_Controller_Action
 
             // set new weight
             foreach ($qqs as $weight => $qq) {
+
+                // set new weight
                 $qq->CollectionPresentation[0]->weight = array_search($qq->id, $qqIds);
                 $qq->save();
+
+                // make sure the page is also set on sub-questions
+                Doctrine_Query::create()
+                    ->update('CollectionPresentation cp')
+                    ->set('page', '?', $page)
+                    ->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
+                    ->execute();
             }
         }
     }

@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+a.delete-page {
+    display: none;
+}
+
 ul.questions-list li {
 	border: 1px solid #B20000;
 }
