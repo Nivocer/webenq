@@ -8,6 +8,8 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
      */
     protected $_questionnaireQuestion;
 
+    protected $_rootQuestionsMultiOptions;
+
     /**
      * Constructor
      *
@@ -17,6 +19,22 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
     public function __construct(QuestionnaireQuestion $questionnaireQuestion, $options = null)
     {
         $this->_questionnaireQuestion = $questionnaireQuestion;
+
+        // get all questions in this questionnaire at root level
+        $rootQuestions = Doctrine_Query::create()
+            ->from('QuestionnaireQuestion qq')
+            ->innerJoin('qq.CollectionPresentation cp WITH qq.questionnaire_id = ?', $questionnaireQuestion->questionnaire_id)
+            ->innerJoin('qq.Question q')
+            ->innerJoin('q.QuestionText qt WITH qt.language = ?', Zend_Registry::get('language'))
+            ->andWhere('cp.parent_id IS NULL OR cp.parent_id = 0')
+            ->orderBy('cp.page, cp.weight')
+            ->execute(null, Doctrine_Core::HYDRATE_ARRAY);
+        $rootQuestionsMultiOptions = array(0 => '---');
+        foreach ($rootQuestions as $question) {
+            $rootQuestionsMultiOptions[$question['CollectionPresentation'][0]['id']] = $question['Question']['QuestionText'][0]['text'];
+        }
+        $this->_rootQuestionsMultiOptions = $rootQuestionsMultiOptions;
+
         parent::__construct($options);
     }
 
@@ -51,6 +69,12 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
                 'value' => 'global',
             )));
         }
+
+        $generalForm->addElement($this->createElement('select', 'moveTo', array(
+            'label' => 'Maak deze vraag een subvraag van:',
+            'multiOptions' => $this->_rootQuestionsMultiOptions,
+            'value' => $cp->parent_id,
+        )));
 
         $generalForm->addElement($this->createElement('submit', 'submit', array(
             'label' => 'opslaan',
@@ -192,6 +216,9 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         if (!isset($values['validation']['validators'])) $values['validation']['validators'] = array();
         $filters = $values['validation']['filters'];
         $validators = array_merge($values['validation']['required'], $values['validation']['validators']);
+
+        // get move-to-value
+        $cp->parent_id = ($values['general']['moveTo'] > 0) ? $values['general']['moveTo'] : null;
 
         $cp->filters = serialize($filters);
         $cp->validators = serialize($validators);
