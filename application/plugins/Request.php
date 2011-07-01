@@ -19,11 +19,21 @@ class Webenq_Plugin_Request extends Zend_Controller_Plugin_Abstract
     protected function _unQuotePost($request)
     {
         if ($request->isPost() && (bool) ini_get('magic_quotes_gpc')) {
-            $unQuoted = array();
-            foreach ($request->getPost() as $key => $val) {
-                $unQuoted[stripslashes($key)] = stripslashes($val);
-            }
+            $unQuoted = $this->_unQuoteArrayRecursively($request->getPost());
             $request->setPost($unQuoted);
         }
+    }
+
+    protected function _unQuoteArrayRecursively(array $array)
+    {
+        $unQuoted = array();
+        foreach ($array as $key => $val) {
+            if (is_array($val)) {
+                $unQuoted[stripslashes($key)] = $this->_unQuoteArrayRecursively($val);
+            } else {
+                $unQuoted[stripslashes($key)] = stripslashes($val);
+            }
+        }
+        return $unQuoted;
     }
 }
