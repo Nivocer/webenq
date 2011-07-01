@@ -26,6 +26,7 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
             ->innerJoin('qq.CollectionPresentation cp WITH qq.questionnaire_id = ?', $questionnaireQuestion->questionnaire_id)
             ->innerJoin('qq.Question q')
             ->innerJoin('q.QuestionText qt WITH qt.language = ?', Zend_Registry::get('language'))
+            ->andWhere('qq.id != ?', $questionnaireQuestion['id'])
             ->andWhere('cp.parent_id IS NULL OR cp.parent_id = 0')
             ->orderBy('cp.page, cp.weight')
             ->execute(null, Doctrine_Core::HYDRATE_ARRAY);
