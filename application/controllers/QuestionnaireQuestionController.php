@@ -91,11 +91,24 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
         // process form
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+
+            // store the posted values
             $form->storeValues();
+
+            // build redirect url
+            $redirectUrl = 'questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->id;
+            if ((int) $questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
+                $redirectUrl .= '#page-' . $questionnaireQuestion->CollectionPresentation[0]->page;
+            }
+
+            // close dialog and redirect
             if ($this->_request->isXmlHttpRequest()) {
-                $this->_helper->json(array('reload' => true,));
+                $this->_helper->json(array(
+                    'reload' => true,
+                    'href' => $this->view->baseUrl($redirectUrl),
+                ));
             } else {
-                $this->_redirect('questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->id);
+                $this->_redirect($redirectUrl);
             }
         }
 

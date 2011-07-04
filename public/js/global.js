@@ -49,6 +49,9 @@ $(function() {
 			if (typeof(response) == 'object') {
 				$dialog.dialog('close');
 				if (response.reload == true) {
+					if (response.href) {
+						window.location.href = response.href;
+					}
 					window.location.reload();
 				} else {
 					$('body').removeClass('loading');
