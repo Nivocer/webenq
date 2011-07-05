@@ -1,8 +1,6 @@
 <?php
 class Webenq_Test_Model_QuestionTest extends Webenq_Test_Model
 {
-    public function test() {}
-
     public function testAnswersCanBeAddedToQuestion()
     {
         $question = new Webenq_Model_Question();
@@ -18,6 +16,23 @@ class Webenq_Test_Model_QuestionTest extends Webenq_Test_Model
         $this->assertTrue($question->maxLen() == 9);
         $this->assertTrue($question->minVal() == 12);
         $this->assertTrue($question->maxVal() == 123456789);
+    }
+
+    public function testQuestionIsSearchable()
+    {
+        $result = Question::search('e');
+        $this->assertTrue($result instanceof Doctrine_Collection);
+        $this->assertTrue($result->count() > 0);
+    }
+
+    public function testQuestionIsAutocompletable()
+    {
+        $result = Question::autocomplete('e');
+        $this->assertTrue(is_array($result));
+        $this->assertTrue(count($result) > 0);
+        $this->assertTrue(is_array($result[0]));
+        $this->assertTrue(key_exists('value', $result[0]));
+        $this->assertTrue(key_exists('label', $result[0]));
     }
 
     protected function _getPath()
