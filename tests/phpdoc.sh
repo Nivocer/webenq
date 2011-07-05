@@ -1,4 +1,4 @@
-phpdoc												\
-	-d ../application/,../classes/					\
-	-i *.phtml,*.ini								\
-	-t phpdocs
+phpdoc                              \
+    -d ../application/,../classes/  \
+    -i *.phtml,*.ini                \
+    -t phpdocs
