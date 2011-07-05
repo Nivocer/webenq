@@ -34,9 +34,7 @@ $resourceLoader->addResourceType('tests', '../tests/application', 'Test');
 $resourceLoader->addResourceType('controllerTestCases', '../tests/application/controllers', 'Test_Controller');
 $resourceLoader->addResourceType('modelTestCases', '../tests/application/models', 'Test_Model');
 $resourceLoader->addResourceType('formTestCases', '../tests/application/forms', 'Test_Form');
-
-Zend_Session::$_unitTestEnabled = true;
-Zend_Session::start();
+$resourceLoader->addResourceType('pluginTestCases', '../tests/application/plugins', 'Test_Plugin');
 
 /* Bootstrap application */
 $application = new Zend_Application(
@@ -48,3 +46,4 @@ $application->bootstrap();
 require_once 'cases/Controller.php';
 require_once 'cases/Model.php';
 require_once 'cases/Form.php';
+require_once 'cases/Plugin.php';
