@@ -3,21 +3,20 @@
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Webenq_Print</title>
+			<title>Docs For Class Webenq_Download_Csv</title>
 			<link rel="stylesheet" href="../media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
 		</head>
 		<body>
 			<div class="page-body">			
-<h2 class="class-name">Class Webenq_Print</h2>
+<h2 class="class-name">Class Webenq_Download_Csv</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
 	<div class="info-box-title">Description</div>
 	<div class="nav-bar">
 					<span class="disabled">Description</span> |
-							<a href="#sec-descendents">Descendents</a>
-			|											<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
 						
 											<a href="#sec-consts">Constants</a>
@@ -25,50 +24,25 @@
 			</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Class for application wide methods and constants</p>
+<p class="short-description">Downloader class for CSV format</p>
+<p class="description"><p>This class generates a comma separated values  download and sends it to the client.</p></p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Bart Huttinga &lt;<a href="mailto:b.huttinga@nivocer.com">b.huttinga@nivocer.com</a>&gt;</li>
-				<li><span class="field">abstract:</span> </li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_classes---Webenq---Print.php.html">/classes/Webenq/Print.php</a> (line <span class="field">3</span>)
+			Located in <a class="field" href="_classes---Webenq---Download---Csv.php.html">/classes/Webenq/Download/Csv.php</a> (line <span class="field">12</span>)
 		</p>
 		
 				
 		<pre><a href="../Webenq/Webenq.html">Webenq</a>
    |
-   --Webenq_Print</pre>
+   --<a href="../Webenq/Webenq_Download.html">Webenq_Download</a>
+      |
+      --Webenq_Download_Csv</pre>
 	
 			</div>
 </div>
 
-	<a name="sec-descendents"></a>
-	<div class="info-box">
-		<div class="info-box-title">Direct descendents</div>
-		<div class="nav-bar">
-			<a href="#sec-description">Description</a> |
-			<span class="disabled">Descendents</span>
-			|												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
-								|															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
-							
-															<a href="#sec-consts">Constants</a>
-							
-					</div>
-		<div class="info-box-body">
-			<table cellpadding="2" cellspacing="0" class="class-table">
-				<tr>
-					<th class="class-table-header">Class</th>
-					<th class="class-table-header">Description</th>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../Webenq/Webenq_Print_Pdf.html">Webenq_Print_Pdf</a></td>
-					<td>
-											Class for application wide methods and constants
-										</td>
-				</tr>
-							</table>
-		</div>
-	</div>
 
 
 	<a name="sec-var-summary"></a>
@@ -76,7 +50,6 @@
 		<div class="info-box-title">Variable Summary</span></div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
 						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
 							| 
 									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
@@ -86,9 +59,17 @@
 					</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																								<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$_questionnaire" title="details" class="var-name">$_questionnaire</a>
+																																								<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$_extension" title="details" class="var-name">$_extension</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$_mimeType" title="details" class="var-name">$_mimeType</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
+					<a href="#$_output" title="details" class="var-name">$_output</a>
 				</div>
 											</div>
 		</div>
@@ -99,7 +80,6 @@
 		<div class="info-box-title">Method Summary</span></div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
 															<a href="#sec-consts">Constants</a>
 							
 															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
@@ -109,29 +89,9 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																				<div class="method-definition">
-					static 						<span class="method-result">void</span>
-										<a href="#factory" title="details" class="method-name">factory</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$format</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$questionnaire</span>)
-									</div>
-																																								
+																				
 												<div class="method-definition">
-											<span class="method-result">Webenq_Print</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$questionnaire</span>)
-									</div>
-																								<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#getDownloadFilename" title="details" class="method-name">getDownloadFilename</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
-										<a href="#getMimeType" title="details" class="method-name">getMimeType</a>
-										()
-									</div>
-																<div class="method-definition">
-											<span class="method-result">void</span>
+											<span class="method-result">self</span>
 										<a href="#init" title="details" class="method-name">init</a>
 										()
 									</div>
@@ -149,7 +109,6 @@
 		<div class="info-box-title">Variables</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
 										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
 						
 			
@@ -160,18 +119,63 @@
 							
 					</div>
 		<div class="info-box-body">
-			<a name="var$_questionnaire" id="$_questionnaire"><!-- --></A>
-<div class="oddrow">
+			<a name="var$_extension" id="$_extension"><!-- --></A>
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$_questionnaire</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">5</span>)
+			<span class="var-type">string</span>
+			<span class="var-name">$_extension</span>
+			 = <span class="var-default"> 'csv'</span>			(line <span class="line-number">19</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Extension of the file for download.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_mimeType" id="$_mimeType"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$_mimeType</span>
+			 = <span class="var-default"> 'text/plain'</span>			(line <span class="line-number">26</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">The MIME type of the file for download.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_output" id="$_output"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">string</span>
+			<span class="var-name">$_output</span>
+						(line <span class="line-number">33</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">String representing the actual document</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
 			</ul>
@@ -183,6 +187,12 @@
 </div>
 							<h4>Inherited Variables</h4>
 				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../Webenq/Webenq_Download.html">Webenq_Download</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../Webenq/Webenq_Download.html#var$_questionnaire">Webenq_Download::$_questionnaire</a></span><br>
+							</span>
+											</blockquote> 
 									<p>Inherited from <span class="classname"><a href="../Webenq/Webenq.html">Webenq</a></span></p>
 					<blockquote>
 													<span class="var-title">
@@ -201,7 +211,6 @@
 		<div class="info-box-title">Methods</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendents</a> |
 															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
 																			<a href="#sec-consts">Constants</a>
 							
@@ -210,127 +219,22 @@
 		</div>
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
-<a name="methodfactory" id="factory"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">static method factory</span> (line <span class="line-number">7</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-	    static
-		<span class="method-result">void</span>
-		<span class="method-name">
-			factory
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$format</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$questionnaire</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$format</span>			</li>
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$questionnaire</span>			</li>
-				</ul>
-		
-			
-	</div>
 
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">13</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">Webenq_Print</span>
-		<span class="method-name">
-			__construct
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$questionnaire</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$questionnaire</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodgetDownloadFilename" id="getDownloadFilename"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">getDownloadFilename</span> (line <span class="line-number">23</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			getDownloadFilename
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
-<a name="methodgetMimeType" id="getMimeType"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">getMimeType</span> (line <span class="line-number">28</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			getMimeType
-		</span>
-				()
-			</div>
-	
-		
-			
-	</div>
 <a name="methodinit" id="init"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">init</span> (line <span class="line-number">19</span>)
+		<span class="method-title">init</span> (line <span class="line-number">41</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Prepares the document so that it can be send to  the client.</p>
 	<ul class="tags">
-				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">void</span>
+		<span class="method-result">self</span>
 		<span class="method-name">
 			init
 		</span>
@@ -338,25 +242,26 @@
 			</div>
 	
 		
-			
 			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../Webenq/Webenq_Print_Pdf.html#methodinit">Webenq_Print_Pdf::init()</a>
-							</li>
-				</ul>
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../Webenq/Webenq_Download.html#methodinit">Webenq_Download::init()</a></dt>
+						<dd>Prepares the document</dd>
+					</dl>
+			
 	</div>
 <a name="methodsend" id="send"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">send</span> (line <span class="line-number">21</span>)
+		<span class="method-title">send</span> (line <span class="line-number">81</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sends the document</p>
+<p class="description"><p>Sets the headers and body using the provided  response object.</p></p>
 	<ul class="tags">
-				<li><span class="field">abstract:</span> </li>
+				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
@@ -373,17 +278,26 @@
 				<span class="var-name">$response</span>			</li>
 				</ul>
 		
-			
 			<hr class="separator" />
-		<div class="notes">Redefined in descendants as:</div>
-		<ul class="redefinitions">
-					<li>
-				<a href="../Webenq/Webenq_Print_Pdf.html#methodsend">Webenq_Print_Pdf::send()</a>
-							</li>
-				</ul>
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../Webenq/Webenq_Download.html#methodsend">Webenq_Download::send()</a></dt>
+						<dd>Sends the document</dd>
+					</dl>
+			
 	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../Webenq/Webenq_Download.html">Webenq_Download</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../Webenq/Webenq_Download.html#method__construct">Webenq_Download::__construct()</a></span><br>
+													<span class="method-name"><a href="../Webenq/Webenq_Download.html#methodfactory">Webenq_Download::factory()</a></span><br>
+													<span class="method-name"><a href="../Webenq/Webenq_Download.html#methodgetDownloadFilename">Webenq_Download::getDownloadFilename()</a></span><br>
+													<span class="method-name"><a href="../Webenq/Webenq_Download.html#methodgetMimeType">Webenq_Download::getMimeType()</a></span><br>
+													<span class="method-name"><a href="../Webenq/Webenq_Download.html#methodinit">Webenq_Download::init()</a></span><br>
+													<span class="method-name"><a href="../Webenq/Webenq_Download.html#methodsend">Webenq_Download::send()</a></span><br>
+											</blockquote>
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../Webenq/Webenq.html">Webenq</a></span></p>
 					<blockquote>
@@ -403,7 +317,6 @@
 		<div class="info-box-title">Class Constants</div>
 		<div class="nav-bar">
 			<a href="#sec-description">Description</a> |
-							<a href="#sec-descendents">Descendants</a> |
 										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
 						
 			
@@ -463,7 +376,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 05 Jul 2011 13:13:00 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 05 Jul 2011 13:12:51 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

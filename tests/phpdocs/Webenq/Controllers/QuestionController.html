@@ -3,13 +3,13 @@
   <html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<!-- template designed by Marco Von Ballmoos -->
-			<title>Docs For Class Stats</title>
-			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<title>Docs For Class QuestionController</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
 			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
 		</head>
 		<body>
 			<div class="page-body">			
-<h2 class="class-name">Class Stats</h2>
+<h2 class="class-name">Class QuestionController</h2>
 
 <a name="sec-description"></a>
 <div class="info-box">
@@ -22,13 +22,18 @@
 					</div>
 	<div class="info-box-body">
         		<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Statistics class</p>
+<p class="short-description">Controller class</p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Bart Huttinga &lt;<a href="mailto:b.huttinga@nivocer.com">b.huttinga@nivocer.com</a>&gt;</li>
+			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_classes---stats.php.html">/classes/stats.php</a> (line <span class="field">41</span>)
+			Located in <a class="field" href="_application---controllers---QuestionController.php.html">/application/controllers/QuestionController.php</a> (line <span class="field">9</span>)
 		</p>
 		
 				
-		<pre></pre>
+		<pre>Zend_Controller_Action
+   |
+   --QuestionController</pre>
 	
 			</div>
 </div>
@@ -48,16 +53,16 @@
 		<div class="info-box-body">
 			<div class="var-summary">
 																																								<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$answerPossibilities" title="details" class="var-name">$answerPossibilities</a>
+					<span class="var-type">array</span>
+					<a href="#$ajaxable" title="details" class="var-name">$ajaxable</a>
 				</div>
 																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$data" title="details" class="var-name">$data</a>
+					<span class="var-type">string</span>
+					<a href="#$_language" title="details" class="var-name">$_language</a>
 				</div>
 																<div class="var-title">
-					<span class="var-type">mixed</span>
-					<a href="#$missing" title="details" class="var-name">$missing</a>
+					<span class="var-type"><a href="../../Webenq/Models/Question.html">Question</a></span>
+					<a href="#$_question" title="details" class="var-name">$_question</a>
 				</div>
 											</div>
 		</div>
@@ -77,33 +82,33 @@
 			<div class="method-summary">
 																																																				
 												<div class="method-definition">
-											<span class="method-result"><a href="../Statistics/Stats.html">Stats</a></span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$data</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$missing</span> = <span class="var-default">NULL</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$answerPossibilities</span> = <span class="var-default">NULL</span>])
+											<span class="method-result">void</span>
+										<a href="#addAction" title="details" class="method-name">addAction</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
-										<a href="#computeFreqRecoded" title="details" class="method-name">computeFreqRecoded</a>
-											([<span class="var-type"></span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">'positiveNegative'</span>])
+										<a href="#autocompleteAction" title="details" class="method-name">autocompleteAction</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
-										<a href="#computeSkewness" title="details" class="method-name">computeSkewness</a>
-											([<span class="var-type"></span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">Null</span>])
+										<a href="#deleteAction" title="details" class="method-name">deleteAction</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
-										<a href="#computeVariance" title="details" class="method-name">computeVariance</a>
-											([<span class="var-type"></span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">NULL</span>])
+										<a href="#editAction" title="details" class="method-name">editAction</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
-										<a href="#isEven" title="details" class="method-name">isEven</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$x</span>)
+										<a href="#indexAction" title="details" class="method-name">indexAction</a>
+										()
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
-										<a href="#univariate" title="details" class="method-name">univariate</a>
+										<a href="#init" title="details" class="method-name">init</a>
 										()
 									</div>
 								</div>
@@ -123,54 +128,66 @@
 							
 					</div>
 		<div class="info-box-body">
-			<a name="var$answerPossibilities" id="$answerPossibilities"><!-- --></A>
+			<a name="var$ajaxable" id="$ajaxable"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$answerPossibilities</span>
-						(line <span class="line-number">44</span>)
+			<span class="var-type">array</span>
+			<span class="var-name">$ajaxable</span>
+			 = <span class="var-default">array(<br />        'add' =&gt; array('html'),'edit'=&gt;array('html'),'delete'=&gt;array('html'),)</span>			(line <span class="line-number">16</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Controller actions that are ajaxable</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
 	
 	
 		
 		
 
 </div>
-<a name="var$data" id="$data"><!-- --></A>
+<a name="var$_language" id="$_language"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$data</span>
-						(line <span class="line-number">42</span>)
+			<span class="var-type">string</span>
+			<span class="var-name">$_language</span>
+						(line <span class="line-number">34</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Current language</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
 	
 	
 		
 		
 
 </div>
-<a name="var$missing" id="$missing"><!-- --></A>
+<a name="var$_question" id="$_question"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">mixed</span>
-			<span class="var-name">$missing</span>
-						(line <span class="line-number">43</span>)
+			<span class="var-type"><a href="../../Webenq/Models/Question.html">Question</a></span>
+			<span class="var-name">$_question</span>
+						(line <span class="line-number">27</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Current question</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
 	
 	
 		
@@ -193,158 +210,35 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 
-<a name="method__construct" id="__construct"><!-- --></a>
+<a name="methodaddAction" id="addAction"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">53</span>)
+		<span class="method-title">addAction</span> (line <span class="line-number">69</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Constructor</p>
+<p class="short-description">Renders the form for adding a question</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result"><a href="../Statistics/Stats.html">Stats</a></span>
+		<span class="method-result">void</span>
 		<span class="method-name">
-			__construct
+			addAction
 		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$data</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$missing</span> = <span class="var-default">NULL</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$answerPossibilities</span> = <span class="var-default">NULL</span>])
+				()
 			</div>
 	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$data</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$missing</span>			</li>
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$answerPossibilities</span>			</li>
-				</ul>
 		
 			
 	</div>
-<a name="methodcomputeFreqRecoded" id="computeFreqRecoded"><!-- --></a>
+<a name="methodautocompleteAction" id="autocompleteAction"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">computeFreqRecoded</span> (line <span class="line-number">127</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			computeFreqRecoded
-		</span>
-					([<span class="var-type"></span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">'positiveNegative'</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodcomputeSkewness" id="computeSkewness"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">computeSkewness</span> (line <span class="line-number">166</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			computeSkewness
-		</span>
-					([<span class="var-type"></span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">Null</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodcomputeVariance" id="computeVariance"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">computeVariance</span> (line <span class="line-number">153</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			computeVariance
-		</span>
-					([<span class="var-type"></span>&nbsp;<span class="var-name">$type</span> = <span class="var-default">NULL</span>])
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$type</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodisEven" id="isEven"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">isEven</span> (line <span class="line-number">181</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-	<ul class="tags">
-				<li><span class="field">access:</span> protected</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">void</span>
-		<span class="method-name">
-			isEven
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$x</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$x</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodunivariate" id="univariate"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">univariate</span> (line <span class="line-number">61</span>)
+		<span class="method-title">autocompleteAction</span> (line <span class="line-number">194</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -355,7 +249,103 @@
 	<div class="method-signature">
 		<span class="method-result">void</span>
 		<span class="method-name">
-			univariate
+			autocompleteAction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methoddeleteAction" id="deleteAction"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">deleteAction</span> (line <span class="line-number">161</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Renders the confirmation form for deleting a question</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			deleteAction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodeditAction" id="editAction"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">editAction</span> (line <span class="line-number">122</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Renders the form for editing a question</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			editAction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodindexAction" id="indexAction"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">indexAction</span> (line <span class="line-number">52</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Renders the overview of question types</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			indexAction
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodinit" id="init"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">init</span> (line <span class="line-number">41</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Initializes the class</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			init
 		</span>
 				()
 			</div>
@@ -369,7 +359,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 05 Jul 2011 13:13:04 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 05 Jul 2011 13:13:01 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
