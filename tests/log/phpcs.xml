@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpcs version="1.1.0">
- <file name="/home/bart/www/webenq4/application/controllers/QuestionnaireQuestionController.php" errors="16" warnings="16">
-  <error line="51" column="22">Variable &quot;question_id&quot; is not in valid camel caps format</error>
-  <error line="52" column="22">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
-  <error line="52" column="48">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
-  <error line="53" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="54" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="55" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="78" column="110">Line exceeds 80 characters; contains 109 characters</warning>
-  <warning line="79" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <error line="88" column="89">Variable &quot;Questionnaire&quot; is not in valid camel caps format</error>
-  <warning line="88" column="108">Line exceeds 80 characters; contains 107 characters</warning>
-  <error line="100" column="65">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="100" column="90">Line exceeds 80 characters; contains 89 characters</warning>
-  <warning line="104" column="85">Line exceeds 80 characters; contains 84 characters</warning>
-  <warning line="121" column="86">Line exceeds 80 characters; contains 85 characters</warning>
-  <error line="127" column="45">Variable &quot;Question&quot; is not in valid camel caps format</error>
-  <warning line="143" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <error line="145" column="42">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="145" column="119">Line exceeds 80 characters; contains 118 characters</warning>
-  <error line="146" column="31">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
-  <warning line="146" column="92">Line exceeds 80 characters; contains 91 characters</warning>
-  <error line="147" column="72">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
-  <warning line="147" column="121">Line exceeds 80 characters; contains 120 characters</warning>
-  <error line="148" column="40">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="148" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="149" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <error line="150" column="42">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
-  <warning line="150" column="91">Line exceeds 80 characters; contains 90 characters</warning>
-  <warning line="169" column="82">Line exceeds 80 characters; contains 81 characters</warning>
-  <warning line="195" column="117">Line exceeds 80 characters; contains 116 characters</warning>
-  <warning line="206" column="92">Line exceeds 80 characters; contains 91 characters</warning>
-  <error line="221" column="31">Variable &quot;parent_id&quot; is not in valid camel caps format</error>
-  <error line="225" column="31">Variable &quot;parent_id&quot; is not in valid camel caps format</error>
+ <file name="/home/bart/www/webenq4/application/controllers/QuestionnaireQuestionController.php" errors="17" warnings="19">
+  <error line="56" column="22">Variable &quot;question_id&quot; is not in valid camel caps format</error>
+  <error line="57" column="22">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <error line="57" column="48">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <error line="58" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="59" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="60" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="86" column="110">Line exceeds 80 characters; contains 109 characters</warning>
+  <warning line="89" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="93" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <error line="99" column="79">Variable &quot;Questionnaire&quot; is not in valid camel caps format</error>
+  <warning line="99" column="97">Line exceeds 80 characters; contains 96 characters</warning>
+  <error line="100" column="47">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="100" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <error line="101" column="68">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="101" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <error line="123" column="65">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="123" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="127" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+  <warning line="146" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="167" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <error line="170" column="42">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="170" column="119">Line exceeds 80 characters; contains 118 characters</warning>
+  <error line="171" column="31">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
+  <warning line="171" column="92">Line exceeds 80 characters; contains 91 characters</warning>
+  <error line="172" column="72">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
+  <warning line="172" column="121">Line exceeds 80 characters; contains 120 characters</warning>
+  <error line="173" column="40">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="173" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="174" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <error line="175" column="42">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
+  <warning line="175" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+  <warning line="195" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="223" column="117">Line exceeds 80 characters; contains 116 characters</warning>
+  <warning line="234" column="92">Line exceeds 80 characters; contains 91 characters</warning>
+  <error line="249" column="31">Variable &quot;parent_id&quot; is not in valid camel caps format</error>
+  <error line="253" column="31">Variable &quot;parent_id&quot; is not in valid camel caps format</error>
  </file>
- <file name="/home/bart/www/webenq4/application/controllers/ImportController.php" errors="0" warnings="3">
-  <warning line="40" column="94">Line exceeds 80 characters; contains 93 characters</warning>
-  <warning line="43" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <warning line="44" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+ <file name="/home/bart/www/webenq4/application/controllers/ImportController.php" errors="0" warnings="4">
+  <warning line="25" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="43" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="51" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="55" column="86">Line exceeds 80 characters; contains 85 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/controllers/JasperController.php" errors="0" warnings="6">
   <warning line="33" column="93">Line exceeds 80 characters; contains 92 characters</warning>
@@ -67,18 +72,18 @@
   <warning line="69" column="86">Line exceeds 80 characters; contains 85 characters</warning>
   <warning line="74" column="82">Line exceeds 80 characters; contains 81 characters</warning>
   <warning line="76" column="92">Line exceeds 80 characters; contains 91 characters</warning>
-  <warning line="84" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <warning line="95" column="90">Line exceeds 80 characters; contains 89 characters</warning>
-  <warning line="110" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="121" column="119">Line exceeds 80 characters; contains 118 characters</warning>
-  <warning line="139" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="141" column="106">Line exceeds 80 characters; contains 105 characters</warning>
-  <warning line="151" column="119">Line exceeds 80 characters; contains 118 characters</warning>
-  <warning line="154" column="98">Line exceeds 80 characters; contains 97 characters</warning>
-  <warning line="194" column="99">Line exceeds 80 characters; contains 98 characters</warning>
-  <warning line="208" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <warning line="210" column="100">Line exceeds 80 characters; contains 99 characters</warning>
-  <warning line="255" column="101">Line exceeds 80 characters; contains 100 characters</warning>
+  <warning line="84" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="95" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <warning line="109" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="120" column="119">Line exceeds 80 characters; contains 118 characters</warning>
+  <warning line="138" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="140" column="106">Line exceeds 80 characters; contains 105 characters</warning>
+  <warning line="150" column="119">Line exceeds 80 characters; contains 118 characters</warning>
+  <warning line="153" column="98">Line exceeds 80 characters; contains 97 characters</warning>
+  <warning line="193" column="99">Line exceeds 80 characters; contains 98 characters</warning>
+  <warning line="207" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="209" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <warning line="254" column="101">Line exceeds 80 characters; contains 100 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/controllers/AnswerPossibilityGroupController.php" errors="0" warnings="3">
   <warning line="89" column="86">Line exceeds 80 characters; contains 85 characters</warning>
@@ -100,21 +105,22 @@
   <warning line="179" column="103">Line exceeds 80 characters; contains 102 characters</warning>
   <warning line="182" column="96">Line exceeds 80 characters; contains 95 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/controllers/QuestionController.php" errors="5" warnings="7">
-  <warning line="74" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <warning line="79" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="89" column="109">Line exceeds 80 characters; contains 108 characters</warning>
-  <error line="92" column="22">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
-  <error line="93" column="22">Variable &quot;question_id&quot; is not in valid camel caps format</error>
-  <error line="96" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="97" column="22">Variable &quot;ReportPresentation&quot; is not in valid camel caps format</error>
-  <warning line="125" column="92">Line exceeds 80 characters; contains 91 characters</warning>
-  <warning line="127" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <error line="155" column="74">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
-  <warning line="155" column="97">Line exceeds 80 characters; contains 96 characters</warning>
-  <warning line="159" column="94">Line exceeds 80 characters; contains 93 characters</warning>
+ <file name="/home/bart/www/webenq4/application/controllers/QuestionController.php" errors="6" warnings="7">
+  <warning line="75" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="79" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <error line="93" column="22">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <error line="94" column="22">Variable &quot;question_id&quot; is not in valid camel caps format</error>
+  <error line="98" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="100" column="22">Variable &quot;ReportPresentation&quot; is not in valid camel caps format</error>
+  <warning line="100" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="128" column="92">Line exceeds 80 characters; contains 91 characters</warning>
+  <warning line="130" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <error line="139" column="36">Variable &quot;question_id&quot; is not in valid camel caps format</error>
+  <error line="166" column="74">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
+  <warning line="166" column="97">Line exceeds 80 characters; contains 96 characters</warning>
+  <warning line="170" column="94">Line exceeds 80 characters; contains 93 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/controllers/EmailController.php" errors="1" warnings="20">
+ <file name="/home/bart/www/webenq4/application/controllers/EmailController.php" errors="0" warnings="20">
   <warning line="31" column="100">Line exceeds 80 characters; contains 99 characters</warning>
   <warning line="55" column="89">Line exceeds 80 characters; contains 88 characters</warning>
   <warning line="73" column="85">Line exceeds 80 characters; contains 84 characters</warning>
@@ -135,7 +141,6 @@
   <warning line="385" column="84">Line exceeds 80 characters; contains 83 characters</warning>
   <warning line="403" column="91">Line exceeds 80 characters; contains 90 characters</warning>
   <warning line="413" column="112">Line exceeds 80 characters; contains 111 characters</warning>
-  <error line="432" column="9">Expected &quot;if (...) {\n&quot;; found &quot;if (...){\n&quot;</error>
  </file>
  <file name="/home/bart/www/webenq4/application/controllers/AnswerPossibilityController.php" errors="4" warnings="7">
   <warning line="36" column="84">Line exceeds 80 characters; contains 83 characters</warning>
@@ -150,94 +155,88 @@
   <error line="153" column="71">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
   <warning line="153" column="103">Line exceeds 80 characters; contains 102 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/controllers/QuestionnaireController.php" errors="25" warnings="14">
-  <warning line="84" column="97">Line exceeds 80 characters; contains 96 characters</warning>
-  <warning line="98" column="86">Line exceeds 80 characters; contains 85 characters</warning>
-  <error line="122" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="122" column="75">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="122" column="118">Line exceeds 80 characters; contains 117 characters</warning>
-  <error line="123" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="124" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="133" column="14">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
-  <error line="134" column="14">Variable &quot;question_id&quot; is not in valid camel caps format</error>
-  <error line="137" column="14">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="138" column="14">Variable &quot;ReportPresentation&quot; is not in valid camel caps format</error>
-  <warning line="158" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <error line="188" column="23">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
-  <error line="189" column="23">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="196" column="30">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="198" column="34">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="201" column="26">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
-  <error line="206" column="19">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="207" column="19">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
-  <warning line="213" column="105">Line exceeds 80 characters; contains 104 characters</warning>
-  <warning line="229" column="119">Line exceeds 80 characters; contains 118 characters</warning>
-  <warning line="247" column="118">Line exceeds 80 characters; contains 117 characters</warning>
-  <warning line="265" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <error line="297" column="30">Variable &quot;answerPossibility_id&quot; is not in valid camel caps format</error>
-  <error line="298" column="30">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="299" column="30">Variable &quot;questionnaire_question_id&quot; is not in valid camel caps format</error>
-  <error line="304" column="26">Variable &quot;answerPossibility_id&quot; is not in valid camel caps format</error>
-  <error line="305" column="26">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="306" column="26">Variable &quot;questionnaire_question_id&quot; is not in valid camel caps format</error>
-  <warning line="315" column="82">Line exceeds 80 characters; contains 81 characters</warning>
-  <error line="322" column="30">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="323" column="30">Variable &quot;questionnaire_question_id&quot; is not in valid camel caps format</error>
-  <error line="329" column="26">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
-  <error line="330" column="26">Variable &quot;questionnaire_question_id&quot; is not in valid camel caps format</error>
-  <warning line="348" column="118">Line exceeds 80 characters; contains 117 characters</warning>
-  <warning line="400" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="410" column="107">Line exceeds 80 characters; contains 106 characters</warning>
-  <warning line="440" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="450" column="108">Line exceeds 80 characters; contains 107 characters</warning>
+ <file name="/home/bart/www/webenq4/application/controllers/QuestionnaireController.php" errors="20" warnings="20">
+  <warning line="63" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="81" column="97">Line exceeds 80 characters; contains 96 characters</warning>
+  <warning line="86" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="100" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="110" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="112" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+  <error line="151" column="22">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="151" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <error line="158" column="54">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="158" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <error line="193" column="18">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="193" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <error line="201" column="14">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <error line="202" column="14">Variable &quot;question_id&quot; is not in valid camel caps format</error>
+  <error line="205" column="14">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="206" column="14">Variable &quot;ReportPresentation&quot; is not in valid camel caps format</error>
+  <warning line="226" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <error line="256" column="23">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <error line="257" column="23">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
+  <error line="264" column="30">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
+  <error line="266" column="34">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
+  <error line="269" column="26">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <error line="274" column="19">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
+  <error line="275" column="19">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <warning line="281" column="105">Line exceeds 80 characters; contains 104 characters</warning>
+  <warning line="297" column="119">Line exceeds 80 characters; contains 118 characters</warning>
+  <warning line="316" column="118">Line exceeds 80 characters; contains 117 characters</warning>
+  <error line="334" column="30">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <warning line="355" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <error line="364" column="26">Variable &quot;answerPossibility_id&quot; is not in valid camel caps format</error>
+  <error line="365" column="26">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
+  <error line="366" column="26">Variable &quot;questionnaire_question_id&quot; is not in valid camel caps format</error>
+  <warning line="375" column="105">Line exceeds 80 characters; contains 104 characters</warning>
+  <error line="385" column="26">Variable &quot;respondent_id&quot; is not in valid camel caps format</error>
+  <error line="386" column="26">Variable &quot;questionnaire_question_id&quot; is not in valid camel caps format</error>
+  <warning line="404" column="118">Line exceeds 80 characters; contains 117 characters</warning>
+  <warning line="456" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="466" column="107">Line exceeds 80 characters; contains 106 characters</warning>
+  <warning line="496" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="506" column="108">Line exceeds 80 characters; contains 107 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/controllers/InterpretationController.php" errors="3" warnings="7">
   <warning line="69" column="85">Line exceeds 80 characters; contains 84 characters</warning>
-  <warning line="79" column="82">Line exceeds 80 characters; contains 81 characters</warning>
-  <warning line="89" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <warning line="121" column="107">Line exceeds 80 characters; contains 106 characters</warning>
-  <warning line="132" column="104">Line exceeds 80 characters; contains 103 characters</warning>
-  <error line="134" column="61">Variable &quot;question_id&quot; is not in valid camel caps format</error>
-  <warning line="134" column="89">Line exceeds 80 characters; contains 88 characters</warning>
-  <error line="137" column="49">Variable &quot;question_id&quot; is not in valid camel caps format</error>
-  <error line="138" column="84">Variable &quot;question_id&quot; is not in valid camel caps format</error>
-  <warning line="138" column="98">Line exceeds 80 characters; contains 97 characters</warning>
+  <warning line="76" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="86" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="118" column="107">Line exceeds 80 characters; contains 106 characters</warning>
+  <warning line="129" column="104">Line exceeds 80 characters; contains 103 characters</warning>
+  <error line="131" column="61">Variable &quot;question_id&quot; is not in valid camel caps format</error>
+  <warning line="131" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <error line="134" column="49">Variable &quot;question_id&quot; is not in valid camel caps format</error>
+  <error line="135" column="84">Variable &quot;question_id&quot; is not in valid camel caps format</error>
+  <warning line="135" column="98">Line exceeds 80 characters; contains 97 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/controllers/TestController.php" errors="0" warnings="1">
   <warning line="39" column="86">Line exceeds 80 characters; contains 85 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/controllers/ReportGenerationController.php" errors="14" warnings="17">
+ <file name="/home/bart/www/webenq4/application/controllers/ReportGenerationController.php" errors="10" warnings="14">
   <warning line="31" column="110">Line exceeds 80 characters; contains 109 characters</warning>
   <warning line="41" column="103">Line exceeds 80 characters; contains 102 characters</warning>
   <error line="51" column="36">Variable &quot;output_filename&quot; is not in valid camel caps format</error>
   <error line="51" column="66">Variable &quot;output_format&quot; is not in valid camel caps format</error>
   <error line="57" column="19">Variable &quot;report_type&quot; is not in valid camel caps format</error>
-  <warning line="68" column="119">Line exceeds 80 characters; contains 118 characters</warning>
-  <error line="69" column="1">Spaces must be used to indent lines; tabs are not allowed</error>
-  <warning line="69" column="100">Line exceeds 80 characters; contains 99 characters</warning>
-  <error line="70" column="1">Spaces must be used to indent lines; tabs are not allowed</error>
-  <warning line="70" column="113">Line exceeds 80 characters; contains 112 characters</warning>
-  <error line="71" column="1">Spaces must be used to indent lines; tabs are not allowed</error>
-  <warning line="71" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <error line="72" column="1">Spaces must be used to indent lines; tabs are not allowed</error>
-  <warning line="86" column="112">Line exceeds 80 characters; contains 111 characters</warning>
-  <error line="98" column="56">Variable &quot;output_filename&quot; is not in valid camel caps format</error>
-  <error line="99" column="57">Variable &quot;output_format&quot; is not in valid camel caps format</error>
-  <error line="100" column="41">Variable &quot;output_filename&quot; is not in valid camel caps format</error>
-  <error line="100" column="79">Variable &quot;output_format&quot; is not in valid camel caps format</error>
-  <warning line="100" column="95">Line exceeds 80 characters; contains 94 characters</warning>
-  <warning line="101" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <warning line="108" column="101">Line exceeds 80 characters; contains 100 characters</warning>
-  <warning line="117" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <warning line="119" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <warning line="122" column="82">Line exceeds 80 characters; contains 81 characters</warning>
-  <error line="139" column="83">Variable &quot;data_set_id&quot; is not in valid camel caps format</error>
-  <warning line="139" column="96">Line exceeds 80 characters; contains 95 characters</warning>
-  <error line="141" column="26">Variable &quot;split_question_id&quot; is not in valid camel caps format</error>
-  <error line="142" column="49">Variable &quot;ignore_question_ids&quot; is not in valid camel caps format</error>
-  <warning line="153" column="106">Line exceeds 80 characters; contains 105 characters</warning>
-  <warning line="158" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="159" column="121">Line exceeds 80 characters; contains 120 characters</warning>
+  <warning line="68" column="117">Line exceeds 80 characters; contains 116 characters</warning>
+  <warning line="82" column="112">Line exceeds 80 characters; contains 111 characters</warning>
+  <error line="94" column="56">Variable &quot;output_filename&quot; is not in valid camel caps format</error>
+  <error line="95" column="57">Variable &quot;output_format&quot; is not in valid camel caps format</error>
+  <error line="96" column="41">Variable &quot;output_filename&quot; is not in valid camel caps format</error>
+  <error line="96" column="79">Variable &quot;output_format&quot; is not in valid camel caps format</error>
+  <warning line="96" column="95">Line exceeds 80 characters; contains 94 characters</warning>
+  <warning line="97" column="93">Line exceeds 80 characters; contains 92 characters</warning>
+  <warning line="104" column="101">Line exceeds 80 characters; contains 100 characters</warning>
+  <warning line="113" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="115" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="118" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+  <error line="135" column="83">Variable &quot;data_set_id&quot; is not in valid camel caps format</error>
+  <warning line="135" column="96">Line exceeds 80 characters; contains 95 characters</warning>
+  <error line="137" column="26">Variable &quot;split_question_id&quot; is not in valid camel caps format</error>
+  <error line="138" column="49">Variable &quot;ignore_question_ids&quot; is not in valid camel caps format</error>
+  <warning line="149" column="106">Line exceeds 80 characters; contains 105 characters</warning>
+  <warning line="154" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="155" column="121">Line exceeds 80 characters; contains 120 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/controllers/ScaleValuesController.php" errors="0" warnings="3">
   <warning line="54" column="90">Line exceeds 80 characters; contains 89 characters</warning>
@@ -265,110 +264,130 @@
  <file name="/home/bart/www/webenq4/application/views/helpers/Language.php" errors="0" warnings="1">
   <warning line="11" column="86">Line exceeds 80 characters; contains 85 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/views/helpers/QuestionElement.php" errors="5" warnings="22">
-  <warning line="8" column="1">Line exceeds 80 characters; contains 81 characters</warning>
-  <warning line="46" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <error line="47" column="26">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
-  <error line="48" column="25">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="48" column="101">Line exceeds 80 characters; contains 100 characters</warning>
-  <error line="50" column="25">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="50" column="117">Line exceeds 80 characters; contains 116 characters</warning>
-  <warning line="65" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <error line="100" column="61">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <warning line="100" column="115">Line exceeds 80 characters; contains 114 characters</warning>
-  <error line="102" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
-  <warning line="108" column="90">Line exceeds 80 characters; contains 89 characters</warning>
-  <warning line="115" column="95">Line exceeds 80 characters; contains 94 characters</warning>
-  <warning line="117" column="105">Line exceeds 80 characters; contains 104 characters</warning>
-  <warning line="120" column="96">Line exceeds 80 characters; contains 95 characters</warning>
-  <warning line="140" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <warning line="157" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <warning line="185" column="92">Line exceeds 80 characters; contains 91 characters</warning>
-  <warning line="185" column="61">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
-  <warning line="185" column="86">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
-  <warning line="187" column="23">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
-  <warning line="187" column="43">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
-  <warning line="188" column="17">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
-  <warning line="188" column="38">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
-  <warning line="189" column="21">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
-  <warning line="190" column="25">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
-  <warning line="190" column="53">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
+ <file name="/home/bart/www/webenq4/application/views/helpers/QuestionElement.php" errors="6" warnings="29">
+  <warning line="9" column="1">Line exceeds 80 characters; contains 117 characters</warning>
+  <warning line="10" column="1">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="23" column="119">Line exceeds 80 characters; contains 118 characters</warning>
+  <warning line="24" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <warning line="36" column="119">Line exceeds 80 characters; contains 118 characters</warning>
+  <warning line="40" column="116">Line exceeds 80 characters; contains 115 characters</warning>
+  <warning line="74" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="80" column="1">Line exceeds 80 characters; contains 106 characters</warning>
+  <warning line="86" column="84">Line exceeds 80 characters; contains 96 characters</warning>
+  <error line="87" column="152">Line exceeds maximum limit of 120 characters; contains 164 characters</error>
+  <warning line="101" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <error line="102" column="26">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <error line="103" column="25">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="103" column="101">Line exceeds 80 characters; contains 100 characters</warning>
+  <error line="105" column="25">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="105" column="117">Line exceeds 80 characters; contains 116 characters</warning>
+  <warning line="120" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <error line="155" column="61">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="155" column="115">Line exceeds 80 characters; contains 114 characters</warning>
+  <error line="157" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
+  <warning line="163" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="173" column="95">Line exceeds 80 characters; contains 94 characters</warning>
+  <warning line="175" column="105">Line exceeds 80 characters; contains 104 characters</warning>
+  <warning line="178" column="96">Line exceeds 80 characters; contains 95 characters</warning>
+  <warning line="198" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="242" column="92">Line exceeds 80 characters; contains 91 characters</warning>
+  <warning line="242" column="61">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
+  <warning line="242" column="86">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
+  <warning line="244" column="23">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
+  <warning line="244" column="43">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
+  <warning line="245" column="17">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
+  <warning line="245" column="38">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
+  <warning line="246" column="21">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
+  <warning line="247" column="25">Variable &quot;elm1&quot; contains numbers but this is discouraged</warning>
+  <warning line="247" column="53">Variable &quot;elm2&quot; contains numbers but this is discouraged</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/views/helpers/FrequencyTable.php" errors="1" warnings="1">
   <error line="40" column="57">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
   <warning line="40" column="90">Line exceeds 80 characters; contains 95 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/plugins/Access.php" errors="3" warnings="6">
-  <error line="43" column="42">Variable &quot;role_id&quot; is not in valid camel caps format</error>
-  <warning line="50" column="94">Line exceeds 80 characters; contains 93 characters</warning>
-  <warning line="56" column="106">Line exceeds 80 characters; contains 105 characters</warning>
-  <warning line="63" column="117">Line exceeds 80 characters; contains 116 characters</warning>
-  <warning line="70" column="94">Line exceeds 80 characters; contains 93 characters</warning>
-  <warning line="98" column="96">Line exceeds 80 characters; contains 95 characters</warning>
-  <error line="108" column="40">Variable &quot;Role&quot; is not in valid camel caps format</error>
-  <error line="108" column="67">Variable &quot;Resource&quot; is not in valid camel caps format</error>
-  <warning line="108" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <error line="50" column="42">Variable &quot;role_id&quot; is not in valid camel caps format</error>
+  <warning line="57" column="94">Line exceeds 80 characters; contains 93 characters</warning>
+  <warning line="63" column="106">Line exceeds 80 characters; contains 105 characters</warning>
+  <warning line="70" column="117">Line exceeds 80 characters; contains 116 characters</warning>
+  <warning line="77" column="94">Line exceeds 80 characters; contains 93 characters</warning>
+  <warning line="105" column="96">Line exceeds 80 characters; contains 95 characters</warning>
+  <error line="115" column="40">Variable &quot;Role&quot; is not in valid camel caps format</error>
+  <error line="115" column="67">Variable &quot;Resource&quot; is not in valid camel caps format</error>
+  <warning line="115" column="83">Line exceeds 80 characters; contains 82 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/plugins/View.php" errors="0" warnings="16">
-  <warning line="4" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <warning line="10" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <warning line="17" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <warning line="20" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <warning line="23" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <warning line="24" column="100">Line exceeds 80 characters; contains 99 characters</warning>
-  <warning line="25" column="110">Line exceeds 80 characters; contains 109 characters</warning>
-  <warning line="28" column="97">Line exceeds 80 characters; contains 96 characters</warning>
-  <warning line="29" column="110">Line exceeds 80 characters; contains 109 characters</warning>
-  <warning line="30" column="1">Line exceeds 80 characters; contains 100 characters</warning>
-  <warning line="41" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <warning line="54" column="90">Line exceeds 80 characters; contains 89 characters</warning>
-  <warning line="63" column="95">Line exceeds 80 characters; contains 94 characters</warning>
-  <warning line="69" column="91">Line exceeds 80 characters; contains 90 characters</warning>
-  <warning line="78" column="98">Line exceeds 80 characters; contains 97 characters</warning>
-  <warning line="156" column="107">Line exceeds 80 characters; contains 106 characters</warning>
+ <file name="/home/bart/www/webenq4/application/plugins/Request.php" errors="0" warnings="2">
+  <warning line="11" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="39" column="87">Line exceeds 80 characters; contains 86 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/models/Question.php" errors="3" warnings="7">
-  <warning line="114" column="101">Line exceeds 80 characters; contains 100 characters</warning>
-  <error line="117" column="16">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
-  <error line="133" column="27">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
-  <error line="165" column="20">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
-  <warning line="171" column="1">Line exceeds 80 characters; contains 89 characters</warning>
-  <warning line="198" column="13">Line exceeds 80 characters; contains 82 characters</warning>
-  <warning line="202" column="13">Line exceeds 80 characters; contains 84 characters</warning>
-  <warning line="248" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <warning line="328" column="1">Line exceeds 80 characters; contains 99 characters</warning>
-  <warning line="493" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+ <file name="/home/bart/www/webenq4/application/plugins/View.php" errors="0" warnings="17">
+  <warning line="11" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="17" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="24" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="27" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="30" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="31" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <warning line="32" column="110">Line exceeds 80 characters; contains 109 characters</warning>
+  <warning line="35" column="97">Line exceeds 80 characters; contains 96 characters</warning>
+  <warning line="36" column="110">Line exceeds 80 characters; contains 109 characters</warning>
+  <warning line="37" column="101">Line exceeds 80 characters; contains 100 characters</warning>
+  <warning line="38" column="1">Line exceeds 80 characters; contains 100 characters</warning>
+  <warning line="49" column="93">Line exceeds 80 characters; contains 92 characters</warning>
+  <warning line="62" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="71" column="95">Line exceeds 80 characters; contains 94 characters</warning>
+  <warning line="77" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+  <warning line="86" column="98">Line exceeds 80 characters; contains 97 characters</warning>
+  <warning line="164" column="107">Line exceeds 80 characters; contains 106 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Question.php" errors="9" warnings="8">
+  <error line="136" column="26">Variable &quot;Questionnaire&quot; is not in valid camel caps format</error>
+  <warning line="144" column="101">Line exceeds 80 characters; contains 100 characters</warning>
+  <error line="146" column="18">Variable &quot;Respondent&quot; is not in valid camel caps format</error>
+  <error line="148" column="20">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
+  <error line="153" column="37">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <error line="153" column="69">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <warning line="153" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <error line="158" column="20">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
+  <error line="162" column="16">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
+  <error line="178" column="27">Variable &quot;QuestionnaireQuestion&quot; is not in valid camel caps format</error>
+  <error line="222" column="16">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
+  <warning line="228" column="1">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="256" column="13">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="260" column="13">Line exceeds 80 characters; contains 84 characters</warning>
+  <warning line="313" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="392" column="1">Line exceeds 80 characters; contains 99 characters</warning>
+  <warning line="565" column="91">Line exceeds 80 characters; contains 90 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/models/doctrine/Question.php" errors="1" warnings="1">
-  <warning line="22" column="1">Line exceeds 80 characters; contains 81 characters</warning>
-  <error line="49" column="39">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
+  <warning line="29" column="1">Line exceeds 80 characters; contains 81 characters</warning>
+  <error line="56" column="39">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
  </file>
  <file name="/home/bart/www/webenq4/application/models/doctrine/AnswerPossibilityGroup.php" errors="5" warnings="2">
-  <warning line="53" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <error line="65" column="37">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
-  <warning line="65" column="105">Line exceeds 80 characters; contains 104 characters</warning>
-  <error line="68" column="34">Variable &quot;AnswerPossibility&quot; is not in valid camel caps format</error>
-  <error line="100" column="37">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
-  <error line="101" column="37">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
-  <error line="103" column="38">Variable &quot;AnswerPossibility&quot; is not in valid camel caps format</error>
+  <warning line="67" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <error line="79" column="37">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
+  <warning line="79" column="105">Line exceeds 80 characters; contains 104 characters</warning>
+  <error line="82" column="34">Variable &quot;AnswerPossibility&quot; is not in valid camel caps format</error>
+  <error line="114" column="37">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
+  <error line="115" column="37">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
+  <error line="117" column="38">Variable &quot;AnswerPossibility&quot; is not in valid camel caps format</error>
  </file>
  <file name="/home/bart/www/webenq4/application/models/doctrine/Questionnaire.php" errors="0" warnings="3">
-  <warning line="31" column="105">Line exceeds 80 characters; contains 104 characters</warning>
-  <warning line="40" column="112">Line exceeds 80 characters; contains 111 characters</warning>
-  <warning line="45" column="102">Line exceeds 80 characters; contains 101 characters</warning>
+  <warning line="44" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="50" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="52" column="102">Line exceeds 80 characters; contains 101 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/models/doctrine/CollectionPresentation.php" errors="1" warnings="2">
-  <warning line="37" column="89">Line exceeds 80 characters; contains 88 characters</warning>
-  <warning line="40" column="89">Line exceeds 80 characters; contains 88 characters</warning>
-  <error line="47" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
+  <warning line="50" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <warning line="53" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <error line="60" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
  </file>
  <file name="/home/bart/www/webenq4/application/models/doctrine/QuestionnaireQuestion.php" errors="3" warnings="3">
-  <warning line="34" column="121">Line exceeds 80 characters; contains 120 characters</warning>
-  <warning line="42" column="108">Line exceeds 80 characters; contains 107 characters</warning>
-  <warning line="44" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <error line="47" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
-  <error line="47" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
-  <error line="60" column="47">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <warning line="48" column="121">Line exceeds 80 characters; contains 120 characters</warning>
+  <warning line="56" column="108">Line exceeds 80 characters; contains 107 characters</warning>
+  <warning line="58" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <error line="61" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
+  <error line="61" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
+  <error line="74" column="47">Variable &quot;Question&quot; is not in valid camel caps format</error>
  </file>
  <file name="/home/bart/www/webenq4/application/models/doctrine/generated/BaseCollectionPresentation.php" errors="0" warnings="1">
   <warning line="3" column="86">Line exceeds 80 characters; contains 85 characters</warning>
@@ -440,18 +459,18 @@
   <warning line="19" column="1">Line exceeds 80 characters; contains 98 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/models/Question/Closed/Scale.php" errors="1" warnings="11">
-  <warning line="48" column="1">Line exceeds 80 characters; contains 98 characters</warning>
-  <warning line="54" column="91">Line exceeds 80 characters; contains 90 characters</warning>
-  <error line="59" column="21">Variable &quot;measurement_level&quot; is not in valid camel caps format</error>
-  <warning line="99" column="1">Line exceeds 80 characters; contains 98 characters</warning>
-  <warning line="101" column="1">Line exceeds 80 characters; contains 88 characters</warning>
-  <warning line="104" column="1">Line exceeds 80 characters; contains 81 characters</warning>
-  <warning line="164" column="102">Line exceeds 80 characters; contains 101 characters</warning>
-  <warning line="186" column="100">Line exceeds 80 characters; contains 99 characters</warning>
-  <warning line="189" column="117">Line exceeds 80 characters; contains 116 characters</warning>
-  <warning line="198" column="109">Line exceeds 80 characters; contains 108 characters</warning>
-  <warning line="249" column="97">Line exceeds 80 characters; contains 96 characters</warning>
-  <warning line="254" column="119">Line exceeds 80 characters; contains 118 characters</warning>
+  <warning line="37" column="1">Line exceeds 80 characters; contains 98 characters</warning>
+  <warning line="43" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+  <error line="48" column="21">Variable &quot;measurement_level&quot; is not in valid camel caps format</error>
+  <warning line="88" column="1">Line exceeds 80 characters; contains 98 characters</warning>
+  <warning line="90" column="1">Line exceeds 80 characters; contains 88 characters</warning>
+  <warning line="93" column="1">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="153" column="102">Line exceeds 80 characters; contains 101 characters</warning>
+  <warning line="175" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <warning line="178" column="117">Line exceeds 80 characters; contains 116 characters</warning>
+  <warning line="187" column="109">Line exceeds 80 characters; contains 108 characters</warning>
+  <warning line="238" column="97">Line exceeds 80 characters; contains 96 characters</warning>
+  <warning line="243" column="119">Line exceeds 80 characters; contains 118 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/models/Question/Open.php" errors="0" warnings="1">
   <warning line="17" column="1">Line exceeds 80 characters; contains 98 characters</warning>
@@ -464,123 +483,198 @@
  </file>
  <file name="/home/bart/www/webenq4/application/models/Question/Open/Date.php" errors="0" warnings="2">
   <warning line="63" column="1">Line exceeds 80 characters; contains 98 characters</warning>
-  <warning line="161" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+  <warning line="171" column="85">Line exceeds 80 characters; contains 84 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/Bootstrap.php" errors="1" warnings="1">
-  <warning line="17" column="84">Line exceeds 80 characters; contains 83 characters</warning>
-  <error line="22" column="132">Line exceeds maximum limit of 120 characters; contains 131 characters</error>
+ <file name="/home/bart/www/webenq4/application/models/QuestionnaireQuestion.php" errors="17" warnings="9">
+  <error line="29" column="21">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="30" column="25">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <error line="31" column="24">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="31" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <error line="33" column="24">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="33" column="116">Line exceeds 80 characters; contains 115 characters</warning>
+  <error line="39" column="24">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="47" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <error line="82" column="61">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="82" column="115">Line exceeds 80 characters; contains 114 characters</warning>
+  <error line="84" column="9">Closing brace indented incorrectly; expected 12 spaces, found 8</error>
+  <error line="87" column="26">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <error line="88" column="39">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <warning line="90" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <error line="99" column="30">Variable &quot;AnswerPossibilityGroup&quot; is not in valid camel caps format</error>
+  <error line="100" column="33">Variable &quot;AnswerPossibilityGroup&quot; is not in valid camel caps format</error>
+  <warning line="100" column="93">Line exceeds 80 characters; contains 92 characters</warning>
+  <error line="101" column="45">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
+  <error line="102" column="68">Variable &quot;AnswerPossibilityText&quot; is not in valid camel caps format</error>
+  <warning line="102" column="99">Line exceeds 80 characters; contains 98 characters</warning>
+  <warning line="105" column="96">Line exceeds 80 characters; contains 95 characters</warning>
+  <error line="113" column="20">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="114" column="43">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="124" column="20">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="125" column="46">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <warning line="125" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Line/Normal.php" errors="0" warnings="1">
+  <warning line="7" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Line/Spark.php" errors="0" warnings="1">
+  <warning line="7" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Pie/ThreeDimensional.php" errors="0" warnings="1">
+  <warning line="7" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Pie/TwoDimensional.php" errors="0" warnings="1">
+  <warning line="7" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Pie/Concentric.php" errors="0" warnings="1">
+  <warning line="7" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Bar/Horizontal.php" errors="0" warnings="1">
+  <warning line="7" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Bar/GroupedHorizontal.php" errors="0" warnings="1">
+  <warning line="7" column="92">Line exceeds 80 characters; contains 91 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Bar/GroupedVertical.php" errors="0" warnings="1">
+  <warning line="7" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart/Bar/Vertical.php" errors="0" warnings="1">
+  <warning line="7" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/models/Output/Chart.php" errors="0" warnings="7">
+  <warning line="9" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="118" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+  <warning line="147" column="110">Line exceeds 80 characters; contains 109 characters</warning>
+  <warning line="151" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="351" column="108">Line exceeds 80 characters; contains 107 characters</warning>
+  <warning line="355" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="395" column="1">Line exceeds 80 characters; contains 101 characters</warning>
+ </file>
+ <file name="/home/bart/www/webenq4/application/Bootstrap.php" errors="0" warnings="2">
+  <warning line="25" column="84">Line exceeds 80 characters; contains 83 characters</warning>
+  <warning line="30" column="110">Line exceeds 80 characters; contains 109 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/User/User/Add.php" errors="0" warnings="2">
-  <warning line="72" column="109">Line exceeds 80 characters; contains 108 characters</warning>
-  <warning line="74" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="79" column="109">Line exceeds 80 characters; contains 108 characters</warning>
+  <warning line="81" column="82">Line exceeds 80 characters; contains 81 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/User/User/Edit.php" errors="0" warnings="2">
-  <warning line="55" column="109">Line exceeds 80 characters; contains 108 characters</warning>
-  <warning line="57" column="82">Line exceeds 80 characters; contains 81 characters</warning>
+  <warning line="62" column="109">Line exceeds 80 characters; contains 108 characters</warning>
+  <warning line="64" column="82">Line exceeds 80 characters; contains 81 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/User/Role/Add.php" errors="0" warnings="1">
-  <warning line="32" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <warning line="39" column="89">Line exceeds 80 characters; contains 88 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/User/Role/Edit.php" errors="0" warnings="1">
-  <warning line="35" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <warning line="42" column="89">Line exceeds 80 characters; contains 88 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/User/Permission.php" errors="2" warnings="5">
-  <warning line="59" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <warning line="65" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <warning line="93" column="90">Line exceeds 80 characters; contains 89 characters</warning>
-  <warning line="97" column="86">Line exceeds 80 characters; contains 85 characters</warning>
-  <warning line="100" column="97">Line exceeds 80 characters; contains 96 characters</warning>
-  <error line="104" column="40">Variable &quot;role_id&quot; is not in valid camel caps format</error>
-  <error line="105" column="40">Variable &quot;resource_id&quot; is not in valid camel caps format</error>
+  <warning line="66" column="93">Line exceeds 80 characters; contains 92 characters</warning>
+  <warning line="72" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="100" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="104" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="107" column="97">Line exceeds 80 characters; contains 96 characters</warning>
+  <error line="111" column="40">Variable &quot;role_id&quot; is not in valid camel caps format</error>
+  <error line="112" column="40">Variable &quot;resource_id&quot; is not in valid camel caps format</error>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/Management/Edit.php" errors="1" warnings="1">
-  <warning line="17" column="95">Line exceeds 80 characters; contains 94 characters</warning>
-  <error line="36" column="42">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <warning line="23" column="95">Line exceeds 80 characters; contains 94 characters</warning>
+  <error line="42" column="42">Variable &quot;Question&quot; is not in valid camel caps format</error>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/ReportDefinition.php" errors="0" warnings="3">
-  <warning line="52" column="110">Line exceeds 80 characters; contains 109 characters</warning>
-  <warning line="79" column="91">Line exceeds 80 characters; contains 90 characters</warning>
-  <warning line="128" column="94">Line exceeds 80 characters; contains 93 characters</warning>
+  <warning line="59" column="110">Line exceeds 80 characters; contains 109 characters</warning>
+  <warning line="86" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+  <warning line="135" column="94">Line exceeds 80 characters; contains 93 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/Import.php" errors="0" warnings="3">
-  <warning line="40" column="85">Line exceeds 80 characters; contains 84 characters</warning>
-  <warning line="54" column="92">Line exceeds 80 characters; contains 91 characters</warning>
-  <warning line="68" column="110">Line exceeds 80 characters; contains 109 characters</warning>
+  <warning line="46" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+  <warning line="66" column="92">Line exceeds 80 characters; contains 91 characters</warning>
+  <warning line="80" column="110">Line exceeds 80 characters; contains 109 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/ScaleValues/Add.php" errors="0" warnings="6">
-  <warning line="25" column="86">Line exceeds 80 characters; contains 85 characters</warning>
-  <warning line="26" column="88">Line exceeds 80 characters; contains 87 characters</warning>
-  <warning line="27" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <warning line="28" column="87">Line exceeds 80 characters; contains 86 characters</warning>
-  <warning line="29" column="86">Line exceeds 80 characters; contains 85 characters</warning>
-  <warning line="30" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="32" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="33" column="88">Line exceeds 80 characters; contains 87 characters</warning>
+  <warning line="34" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="35" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="36" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="37" column="88">Line exceeds 80 characters; contains 87 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/forms/Questionnaire/Collect.php" errors="0" warnings="9">
-  <warning line="19" column="92">Line exceeds 80 characters; contains 91 characters</warning>
-  <warning line="33" column="86">Line exceeds 80 characters; contains 85 characters</warning>
-  <warning line="40" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <warning line="44" column="91">Line exceeds 80 characters; contains 90 characters</warning>
-  <warning line="48" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+ <file name="/home/bart/www/webenq4/application/forms/Questionnaire/Collect.php" errors="0" warnings="8">
+  <warning line="44" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="51" column="93">Line exceeds 80 characters; contains 92 characters</warning>
   <warning line="55" column="91">Line exceeds 80 characters; contains 90 characters</warning>
-  <warning line="59" column="83">Line exceeds 80 characters; contains 82 characters</warning>
-  <warning line="63" column="112">Line exceeds 80 characters; contains 111 characters</warning>
-  <warning line="66" column="95">Line exceeds 80 characters; contains 94 characters</warning>
+  <warning line="59" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <warning line="66" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+  <warning line="70" column="83">Line exceeds 80 characters; contains 82 characters</warning>
+  <warning line="74" column="112">Line exceeds 80 characters; contains 111 characters</warning>
+  <warning line="77" column="95">Line exceeds 80 characters; contains 94 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/AnswerPossibilityNullValue/Edit.php" errors="0" warnings="3">
-  <warning line="2" column="101">Line exceeds 80 characters; contains 100 characters</warning>
-  <warning line="18" column="111">Line exceeds 80 characters; contains 110 characters</warning>
-  <warning line="35" column="89">Line exceeds 80 characters; contains 88 characters</warning>
+  <warning line="9" column="101">Line exceeds 80 characters; contains 100 characters</warning>
+  <warning line="25" column="111">Line exceeds 80 characters; contains 110 characters</warning>
+  <warning line="42" column="89">Line exceeds 80 characters; contains 88 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/AnswerPossibilityGroup/Edit.php" errors="0" warnings="1">
-  <warning line="18" column="103">Line exceeds 80 characters; contains 102 characters</warning>
+  <warning line="25" column="103">Line exceeds 80 characters; contains 102 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/ReportGeneration/Index.php" errors="0" warnings="1">
-  <warning line="36" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <warning line="43" column="87">Line exceeds 80 characters; contains 86 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/QuestionnaireQuestion/Add.php" errors="0" warnings="1">
-  <warning line="14" column="1">Line exceeds 80 characters; contains 84 characters</warning>
+  <warning line="21" column="1">Line exceeds 80 characters; contains 84 characters</warning>
  </file>
- <file name="/home/bart/www/webenq4/application/forms/QuestionnaireQuestion/Edit.php" errors="14" warnings="6">
-  <warning line="17" column="95">Line exceeds 80 characters; contains 94 characters</warning>
-  <error line="31" column="20">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="32" column="20">Variable &quot;ReportPresentation&quot; is not in valid camel caps format</error>
-  <error line="36" column="64">Variable &quot;Question&quot; is not in valid camel caps format</error>
-  <warning line="40" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <warning line="50" column="94">Line exceeds 80 characters; contains 93 characters</warning>
-  <error line="66" column="36">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
-  <error line="71" column="33">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
-  <error line="76" column="34">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
-  <warning line="76" column="117">Line exceeds 80 characters; contains 116 characters</warning>
-  <error line="107" column="20">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
-  <error line="113" column="23">Variable &quot;Question&quot; is not in valid camel caps format</error>
-  <error line="114" column="59">Variable &quot;Question&quot; is not in valid camel caps format</error>
-  <warning line="114" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <error line="139" column="32">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
-  <error line="142" column="22">Variable &quot;Question&quot; is not in valid camel caps format</error>
-  <error line="144" column="31">Variable &quot;Question&quot; is not in valid camel caps format</error>
-  <error line="156" column="18">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
-  <warning line="156" column="94">Line exceeds 80 characters; contains 93 characters</warning>
-  <error line="159" column="18">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+ <file name="/home/bart/www/webenq4/application/forms/QuestionnaireQuestion/Edit.php" errors="17" warnings="15">
+  <warning line="26" column="95">Line exceeds 80 characters; contains 94 characters</warning>
+  <warning line="33" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+  <error line="34" column="41">Variable &quot;questionnaire_id&quot; is not in valid camel caps format</error>
+  <warning line="36" column="98">Line exceeds 80 characters; contains 97 characters</warning>
+  <warning line="43" column="87">Line exceeds 80 characters; contains 86 characters</warning>
+  <error line="59" column="20">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="60" column="20">Variable &quot;ReportPresentation&quot; is not in valid camel caps format</error>
+  <error line="64" column="64">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <warning line="68" column="93">Line exceeds 80 characters; contains 92 characters</warning>
+  <warning line="78" column="94">Line exceeds 80 characters; contains 93 characters</warning>
+  <error line="86" column="29">Variable &quot;parent_id&quot; is not in valid camel caps format</error>
+  <error line="101" column="36">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <error line="106" column="33">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <error line="111" column="34">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <warning line="111" column="117">Line exceeds 80 characters; contains 116 characters</warning>
+  <warning line="157" column="96">Line exceeds 80 characters; contains 95 characters</warning>
+  <error line="168" column="20">Variable &quot;CollectionPresentation&quot; is not in valid camel caps format</error>
+  <error line="174" column="23">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <error line="175" column="59">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <warning line="175" column="93">Line exceeds 80 characters; contains 92 characters</warning>
+  <error line="200" column="32">Variable &quot;QuestionText&quot; is not in valid camel caps format</error>
+  <error line="203" column="22">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <error line="205" column="31">Variable &quot;Question&quot; is not in valid camel caps format</error>
+  <error line="217" column="18">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <warning line="217" column="94">Line exceeds 80 characters; contains 93 characters</warning>
+  <error line="220" column="18">Variable &quot;answerPossibilityGroup_id&quot; is not in valid camel caps format</error>
+  <warning line="225" column="98">Line exceeds 80 characters; contains 97 characters</warning>
+  <warning line="226" column="100">Line exceeds 80 characters; contains 99 characters</warning>
+  <warning line="227" column="104">Line exceeds 80 characters; contains 103 characters</warning>
+  <warning line="229" column="107">Line exceeds 80 characters; contains 106 characters</warning>
+  <error line="232" column="14">Variable &quot;parent_id&quot; is not in valid camel caps format</error>
+  <warning line="232" column="99">Line exceeds 80 characters; contains 98 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/QuestionnaireQuestion/Delete.php" errors="0" warnings="1">
-  <warning line="17" column="95">Line exceeds 80 characters; contains 94 characters</warning>
+  <warning line="24" column="95">Line exceeds 80 characters; contains 94 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/AnswerPossibility/Add.php" errors="0" warnings="1">
-  <warning line="26" column="114">Line exceeds 80 characters; contains 113 characters</warning>
+  <warning line="33" column="114">Line exceeds 80 characters; contains 113 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/AnswerPossibility/Edit.php" errors="0" warnings="3">
-  <warning line="25" column="93">Line exceeds 80 characters; contains 92 characters</warning>
-  <warning line="56" column="90">Line exceeds 80 characters; contains 89 characters</warning>
-  <warning line="60" column="86">Line exceeds 80 characters; contains 85 characters</warning>
+  <warning line="32" column="93">Line exceeds 80 characters; contains 92 characters</warning>
+  <warning line="63" column="90">Line exceeds 80 characters; contains 89 characters</warning>
+  <warning line="67" column="86">Line exceeds 80 characters; contains 85 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/AnswerPossibilitySynonym/Add.php" errors="0" warnings="2">
-  <warning line="18" column="101">Line exceeds 80 characters; contains 100 characters</warning>
-  <warning line="36" column="91">Line exceeds 80 characters; contains 90 characters</warning>
+  <warning line="25" column="101">Line exceeds 80 characters; contains 100 characters</warning>
+  <warning line="43" column="91">Line exceeds 80 characters; contains 90 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/AnswerPossibilitySynonym/Edit.php" errors="0" warnings="1">
-  <warning line="18" column="94">Line exceeds 80 characters; contains 93 characters</warning>
+  <warning line="25" column="94">Line exceeds 80 characters; contains 93 characters</warning>
  </file>
  <file name="/home/bart/www/webenq4/application/forms/Email/Merge.php" errors="0" warnings="1">
-  <warning line="41" column="85">Line exceeds 80 characters; contains 84 characters</warning>
+  <warning line="47" column="85">Line exceeds 80 characters; contains 84 characters</warning>
  </file>
 </phpcs>
