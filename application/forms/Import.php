@@ -1,4 +1,11 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_Import extends Zend_Form
 {
     /**
@@ -16,14 +23,13 @@ class Webenq_Form_Import extends Zend_Form
     public function __construct(array $supportedFormats, $options = null) {
         parent::__construct($options);
         $this->_supportedFormats = $supportedFormats;
-        $this->_buildForm();
     }
 
 
     /**
      * Builds the form
      */
-    protected function _buildForm()
+    public function init()
     {
         $this->setAttrib('enctype', 'multipart/form-data');
 

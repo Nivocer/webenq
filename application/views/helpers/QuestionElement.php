@@ -20,7 +20,8 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
                 $qq = new Webenq_Model_QuestionnaireQuestion();
                 @$qq->fromArray($qqOriginal->toArray());
             } else {
-                throw new Exception('Agrument 1 passed to Zend_View_Helper_QuestionElement::questionElement() must be an array of an instance of Webenq_Model_QuestionnaireQuestion');
+                throw new Exception('Agrument 1 passed to Zend_View_Helper_QuestionElement::questionElement() must ' .
+                    'be an array of an instance of Webenq_Model_QuestionnaireQuestion');
             }
         }
 
@@ -32,10 +33,12 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
         /* get collection-presentation objects for child questions */
         $subQqs = QuestionnaireQuestion::getSubQuestions($qq);
         if (!$subQqs || !$deep) {
-            return '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) . $elm->render() . '</li>';
+            return '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) .
+                $elm->render() . '</li>';
         }
 
-        $html = '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) . $elm->getLabel();
+        $html = '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) .
+            $elm->getLabel();
         $html .= '<ul class="sub-questions sortable droppable">';
         foreach ($subQqs as $subQq) {
             $html .= $this->view->questionElement($subQq, $this->_totalPages);
@@ -66,7 +69,8 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
             for ($page = 1; $page <= $this->_totalPages; $page++) {
                 $pages[$page] = $page;
             }
-            $currentPage = isset($qq['CollectionPresentation'][0]['page']) ? $qq['CollectionPresentation'][0]['page'] : 1;
+            $currentPage = isset($qq['CollectionPresentation'][0]['page'])
+                ? $qq['CollectionPresentation'][0]['page'] : 1;
             $pageSelect = $this->view->formSelect('to-page', $currentPage, array(
                 'id' => 'page-select-qq-' . $qq['id']), $pages);
         }
@@ -78,7 +82,8 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 
         if (!$isSubQuestion) $html .= 'Naar pagina: ' . $pageSelect;
 
-        $html .= '  <a class="ajax icon edit" title="bewerken" href="' . $this->view->baseUrl('/questionnaire-question/edit/id/' . $qq['id']) . '">&nbsp;</a>
+        $html .= '  <a class="ajax icon edit" title="bewerken" href="' .
+            $this->view->baseUrl('/questionnaire-question/edit/id/' . $qq['id']) . '">&nbsp;</a>
                     <a class="ajax icon delete" title="verwijderen" href="' . $this->view->baseUrl('/questionnaire-question/delete/id/' . $qq['id']) . '">&nbsp;</a>
                 </div>
             </div>';

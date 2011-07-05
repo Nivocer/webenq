@@ -1,15 +1,21 @@
 <?php
-
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_Management_Edit extends Zend_Form
 {
     /**
      * Questionnaire question
      */
     protected $_questionnaireQuestion;
-    
+
     /**
      * Class constructor
-     * 
+     *
      * @param QuestionnaireQuestion $questionnaireQuestion
      * @param array $options Zend_Form options
      * @return void
@@ -23,16 +29,16 @@ class Webenq_Form_Management_Edit extends Zend_Form
 
     /**
      * Builds the form
-     * 
+     *
      * @return void
      */
     public function init()
     {
         $questionnaireQuestion = $this->_questionnaireQuestion;
-        
+
         /* needed to show the default checked radio button in FireFox */
         $this->setAttrib("autocomplete", "off");
-        
+
         $label = $questionnaireQuestion->Question->QuestionText[0]->text;
         if ($questionnaireQuestion->meta) {
             $meta = unserialize($questionnaireQuestion->meta);
@@ -41,14 +47,14 @@ class Webenq_Form_Management_Edit extends Zend_Form
         } else {
             $class = '';
         }
-        
+
         $elm = new Zend_Form_Element_Radio('class');
         $elm->setLabel($label)
             ->setRequired(true)
             ->setValue(array_search($class, $valid))
             ->addMultiOptions($valid);
         $this->addElement($elm);
-        
+
         $submit = new Zend_Form_Element_Submit("submit", "submit");
         $this->addElement($submit);
     }

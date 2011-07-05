@@ -1,4 +1,11 @@
 <?php
+/**
+ * Controller plugin for settings up the view
+ *
+ * @package     Webenq
+ * @subpackage  Plugins
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 {
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)

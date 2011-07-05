@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Application bootstrap class
+ *
+ * @package     Webenq
+ * @subpackage  Bootstrap
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initDoctrine()
@@ -22,7 +28,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $config = $this->getOption('resources');
         $db = $config['db']['params'];
         $url = 'mysql://' . $db['username'] . ':' . $db['password'] . '@' . $db['host'] . ':' . $db['port'] .
-        	'/' .  $db['dbname'];
+            '/' .  $db['dbname'];
         $conn = Doctrine_Manager::connection($url, 'doctrine');
 
         return $manager;

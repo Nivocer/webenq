@@ -1,23 +1,30 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
 {
     /**
      * Current answer-possibility
-     * 
+     *
      * @var AnswerPossibility $_answerPossibility
      */
     protected $_answerPossibility;
-    
+
     /**
      * Array of answer-possibility-groups
-     * 
+     *
      * @var array $_answerPossibilityGroups
      */
     protected $_answerPossibilityGroups;
-    
+
     /**
      * Class constructor
-     * 
+     *
      * @param AnswerPossibility $answerPossibility
      * @param array|Zend_Config $options
      * @return void
@@ -25,7 +32,7 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
     public function __construct(AnswerPossibility $answerPossibility, array $options = null)
     {
         $this->_answerPossibility = $answerPossibility;
-        
+
         $groups = Doctrine_Query::create()
             ->from('AnswerPossibilityGroup apg')
             ->orderBy('apg.name')
@@ -33,13 +40,13 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
         foreach ($groups as $group) {
             $this->_answerPossibilityGroups[$group->id] = $group->name;
         }
-        
+
         parent::__construct($options);
     }
-    
+
     /**
      * Builds the form
-     * 
+     *
      * @return void
      */
     public function init()

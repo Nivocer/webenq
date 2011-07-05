@@ -1,4 +1,11 @@
 <?php
+/**
+ * Controller plugin for setting up ACL
+ *
+ * @package     Webenq
+ * @subpackage  Plugins
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
 {
     /**

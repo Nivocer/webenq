@@ -1,16 +1,23 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_QuestionnaireQuestion_Add extends Zend_Form
 {
     /**
      * Id of the current questionnaire
-     * 
+     *
      * @var int $_questionnaireId
      */
     protected $_questionnaireId;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param int $questionnaireId Questionnaire to which the question must be added
      * @param mixed $options
      */
@@ -19,10 +26,10 @@ class Webenq_Form_QuestionnaireQuestion_Add extends Zend_Form
         $this->_questionnaireId = $questionnaireId;
         parent::__construct($options);
     }
-    
+
     /**
      * Initialises the form
-     * 
+     *
      * @return void
      */
     public function init()

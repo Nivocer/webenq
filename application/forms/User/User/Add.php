@@ -1,11 +1,18 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_User_User_Add extends Zend_Form
 {
     public function init()
     {
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
         $this->setAction("$baseUrl/user/user");
-        
+
         $this->addElements(array(
             $this->createElement('text', 'username', array(
                 'label' => 'Gebruikersnaam:',
@@ -56,7 +63,7 @@ class Webenq_Form_User_User_Add extends Zend_Form
             )),
         ));
     }
-    
+
     public function store()
     {
         try {

@@ -2,9 +2,9 @@
 /**
  * Controller class
  *
- * @category    Webenq
- * @package        Controllers
- * @author        Bart Huttinga <b.huttinga@nivocer.com>
+ * @package     Webenq
+ * @subpackage  Controllers
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
  */
 class ReportGenerationController extends Zend_Controller_Action
 {
@@ -65,7 +65,7 @@ class ReportGenerationController extends Zend_Controller_Action
 
         /* create new report */
         chdir(APPLICATION_PATH . "/../java");
-	    $cmd = "java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport $host:$port/$db $user $pass $this->_id $dir";
+        $cmd = "java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport $host:$port/$db $user $pass $this->_id $dir";
         ob_start();
         passthru($cmd, $returnVar);
         $output = ob_get_contents();

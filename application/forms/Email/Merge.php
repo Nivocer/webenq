@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_Email_Merge extends Zend_Form
 {
     /**

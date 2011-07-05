@@ -1,4 +1,11 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
 {
     protected $_user;

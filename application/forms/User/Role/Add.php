@@ -1,11 +1,18 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_User_Role_Add extends Zend_Form
 {
     public function init()
     {
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
         $this->setAction("$baseUrl/user/role");
-        
+
         $this->addElements(array(
             $this->createElement('text', 'name', array(
                 'label' => 'Nieuwe rol:',
@@ -18,7 +25,7 @@ class Webenq_Form_User_Role_Add extends Zend_Form
             )),
         ));
     }
-    
+
     public function store()
     {
         try {

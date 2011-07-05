@@ -2,9 +2,9 @@
 /**
  * Controller class
  *
- * @category    Webenq
- * @package     Controllers
- * @author        Bart Huttinga <b.huttinga@nivocer.com>
+ * @package     Webenq
+ * @subpackage  Controllers
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
  */
 class ReportDefinitionController extends Zend_Controller_Action
 {

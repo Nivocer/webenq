@@ -1,4 +1,11 @@
 <?php
+/**
+ * Controller plugin for pre-handling the request
+ *
+ * @package     Webenq
+ * @subpackage  Plugins
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Plugin_Request extends Zend_Controller_Plugin_Abstract
 {
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
@@ -18,7 +25,7 @@ class Webenq_Plugin_Request extends Zend_Controller_Plugin_Abstract
 
     protected function _unQuotePost($request)
     {
-        if ($request->isPost() && (bool) ini_get('magic_quotes_gpc')) {
+        if ($request->isPost()) {
             $unQuoted = $this->_unQuoteArrayRecursively($request->getPost());
             $request->setPost($unQuoted);
         }

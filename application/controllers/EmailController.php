@@ -2,9 +2,9 @@
 /**
  * Controller class
  *
- * @category    Webenq
- * @package        Controllers
- * @author        Bart Huttinga <b.huttinga@nivocer.com>
+ * @package     Webenq
+ * @subpackage  Controllers
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
  */
 class EmailController extends Zend_Controller_Action
 {
@@ -336,7 +336,7 @@ class EmailController extends Zend_Controller_Action
         $mail->setFrom("pietje@example.com", "Pietje Example")
             ->setBodyText($messageText)
             ->setBodyHtml($messageHtml)
-    		->setSubject("Let op: correctie open antwoorden evaluatie")
+            ->setSubject("subject")
             ->addAttachment($attachment);
 
         /* add test address or real address, and send mail */
@@ -429,7 +429,7 @@ class EmailController extends Zend_Controller_Action
         $language=$this->_getLanguageFromReports($reports);
         echo "language: $language<br/>";
         $cmd = "pdftk ";
-        if ($language=='nl'){
+        if ($language=='nl') {
             $cmd .= " reports/fraijlemaborg_open_nl_voorblad.pdf ";
         } elseif ($language=='en') {
             $cmd .= " reports/fraijlemaborg_open_en_voorblad.pdf ";

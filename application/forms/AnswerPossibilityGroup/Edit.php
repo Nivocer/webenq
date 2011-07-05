@@ -1,16 +1,23 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_AnswerPossibilityGroup_Edit extends Zend_Form
 {
     /**
      * Current answer-possibility-group
-     * 
+     *
      * @var AnswerPossibilityGroup $_answerPossibilityGroup
      */
     protected $_answerPossibilityGroup;
-    
+
     /**
      * Class constructor
-     * 
+     *
      * @param AnswerPossibilityGroup $answerPossibilityGroup
      * @param array|Zend_Config $options
      * @return void
@@ -20,16 +27,16 @@ class Webenq_Form_AnswerPossibilityGroup_Edit extends Zend_Form
         $this->_answerPossibilityGroup = $answerPossibilityGroup;
         parent::__construct($options);
     }
-    
+
     /**
      * Builds the form
-     * 
+     *
      * @return void
      */
     public function init()
     {
         $this->setAttrib('autocomplete', 'off');
-        
+
         $this->addElements(array(
             $this->createElement('hidden', 'id', array(
                 'value' => $this->_answerPossibilityGroup->id,

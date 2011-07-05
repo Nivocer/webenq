@@ -1,9 +1,16 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_AnswerPossibilityGroup_Add extends Zend_Form
 {
     /**
      * Builds the form
-     * 
+     *
      * @return void
      */
     public function init()

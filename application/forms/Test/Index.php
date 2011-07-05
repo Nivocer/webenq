@@ -1,4 +1,11 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_Test_Index extends Zend_Form
 {
     /**
@@ -7,7 +14,7 @@ class Webenq_Form_Test_Index extends Zend_Form
     public function init()
     {
         $this->setAttrib('enctype', 'multipart/form-data');
-        
+
         $notEmpty = new Zend_Validate_NotEmpty();
         $count = new Zend_Validate_File_Count(array(
             'min' => 1,
@@ -21,9 +28,9 @@ class Webenq_Form_Test_Index extends Zend_Form
                 $notEmpty,
                 $count,
             ));
-         
+
         $submit = $this->createElement('submit', 'Test');
-         
+
         $this->addElements(array($file, $submit));
     }
 }

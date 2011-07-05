@@ -1,4 +1,11 @@
 <?php
+/**
+ * Respondent
+ *
+ * @package    Webenq
+ * @subpackage Models
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Model_Respondent extends Respondent
 {
     /**

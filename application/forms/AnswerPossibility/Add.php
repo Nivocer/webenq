@@ -1,23 +1,30 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_AnswerPossibility_Add extends Zend_Form
 {
     /**
      * Current answer-possibility-group
-     * 
+     *
      * @var AnswerPossibilityGroup $_answerPossibilityGroup
      */
     protected $_answerPossibilityGroup;
-    
+
     /**
      * Current language
-     * 
+     *
      * @var string $_language
      */
     protected $_language;
-    
+
     /**
      * Class constructor
-     * 
+     *
      * @param AnswerPossibilityGroup $_answerPossibilityGroup
      * @param string $language
      * @param array|Zend_Config $options
@@ -30,10 +37,10 @@ class Webenq_Form_AnswerPossibility_Add extends Zend_Form
 
         parent::__construct($options);
     }
-    
+
     /**
      * Builds the form
-     * 
+     *
      * @return void
      */
     public function init()

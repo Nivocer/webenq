@@ -1,4 +1,11 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_User_Permission extends ZendX_JQuery_Form
 {
     protected $_acl;

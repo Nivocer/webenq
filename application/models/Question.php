@@ -1,6 +1,10 @@
 <?php
 /**
- * Class definition for answer data types
+ * Question class definition
+ *
+ * @package    Webenq
+ * @subpackage Models
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
  */
 class Webenq_Model_Question extends Question
 {

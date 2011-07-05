@@ -1,16 +1,23 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_AnswerPossibilitySynonym_Add extends Zend_Form
 {
     /**
      * Current answer-possibility-text
-     * 
+     *
      * @var AnswerPossibilityText $_answerPossibilityText
      */
     protected $_answerPossibilityText;
-    
+
     /**
      * Class constructor
-     * 
+     *
      * @param AnswerPossibilityText $_answerPossibilityText
      * @param array|Zend_Config $options
      * @return void
@@ -20,10 +27,10 @@ class Webenq_Form_AnswerPossibilitySynonym_Add extends Zend_Form
         $this->_answerPossibilityText = $answerPossibilityText;
         parent::__construct($options);
     }
-    
+
     /**
      * Builds the form
-     * 
+     *
      * @return void
      */
     public function init()

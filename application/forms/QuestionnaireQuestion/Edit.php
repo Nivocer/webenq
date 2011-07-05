@@ -1,4 +1,11 @@
 <?php
+/**
+ * Form class
+ *
+ * @package     Webenq
+ * @subpackage  Forms
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ */
 class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
 {
     /**
@@ -23,7 +30,8 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         // get all questions in this questionnaire at root level
         $rootQuestions = Doctrine_Query::create()
             ->from('QuestionnaireQuestion qq')
-            ->innerJoin('qq.CollectionPresentation cp WITH qq.questionnaire_id = ?', $questionnaireQuestion->questionnaire_id)
+            ->innerJoin('qq.CollectionPresentation cp WITH qq.questionnaire_id = ?',
+                $questionnaireQuestion->questionnaire_id)
             ->innerJoin('qq.Question q')
             ->innerJoin('q.QuestionText qt WITH qt.language = ?', Zend_Registry::get('language'))
             ->andWhere('qq.id != ?', $questionnaireQuestion['id'])
@@ -32,7 +40,8 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
             ->execute(null, Doctrine_Core::HYDRATE_ARRAY);
         $rootQuestionsMultiOptions = array(0 => '---');
         foreach ($rootQuestions as $question) {
-            $rootQuestionsMultiOptions[$question['CollectionPresentation'][0]['id']] = $question['Question']['QuestionText'][0]['text'];
+            $rootQuestionsMultiOptions[$question['CollectionPresentation'][0]['id']] =
+                $question['Question']['QuestionText'][0]['text'];
         }
         $this->_rootQuestionsMultiOptions = $rootQuestionsMultiOptions;
 
@@ -63,7 +72,7 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
                     'local' => 'Huidige questionnaire',
                     'global' => 'Alle questionnaires',
                 ),
-                'order' => 10,
+                'order' => 100,
             )));
         } else {
             $generalForm->addElement($this->createElement('hidden', 'change_globally', array(
@@ -75,11 +84,12 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
             'label' => 'Maak deze vraag een subvraag van:',
             'multiOptions' => $this->_rootQuestionsMultiOptions,
             'value' => $cp->parent_id,
+            'order' => 110,
         )));
 
         $generalForm->addElement($this->createElement('submit', 'submit', array(
             'label' => 'opslaan',
-            'order' => 20,
+            'order' => 120,
         )));
         $this->addSubForm($generalForm, 'general');
 
