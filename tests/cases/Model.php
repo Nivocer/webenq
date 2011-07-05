@@ -1,17 +1,15 @@
 <?php
 class Webenq_Test_Model extends PHPUnit_Framework_TestCase
 {
-    public $application;
-
-    public function setUp()
+    public function testModelInstanceHasCorrectState()
     {
-        $this->application = new Zend_Application(
-            APPLICATION_ENV,
-            APPLICATION_PATH . '/configs/application.ini'
-        );
-        $this->bootstrap = array($this->application->getBootstrap(), 'bootstrap');
-        parent::setUp();
-    }
+        $modelClass = get_class($this);
+        $modelClass = str_replace('Test_', null, $modelClass);
+        $modelClass = str_replace('Test', null, $modelClass);
 
-    public function tearDown() {}
+        if (preg_match('/^Webenq_Model_.*$/', $modelClass)) {
+            $model = new $modelClass;
+            $this->assertTrue($model->state() === Doctrine_Record::STATE_TCLEAN);
+        }
+    }
 }
