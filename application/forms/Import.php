@@ -13,18 +13,17 @@ class Webenq_Form_Import extends Zend_Form
      */
     protected $_supportedFormats = array();
 
-
     /**
      * Class constructor
      *
      * @param array $supportedFormats Formats allowed for file upload
      * @param array $options Zend_Form options
      */
-    public function __construct(array $supportedFormats, $options = null) {
-        parent::__construct($options);
+    public function __construct(array $supportedFormats, $options = null)
+    {
         $this->_supportedFormats = $supportedFormats;
+        parent::__construct($options);
     }
-
 
     /**
      * Builds the form
