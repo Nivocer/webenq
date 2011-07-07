@@ -15,9 +15,20 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
      */
     protected $_questions;
 
-    public function __construct(array $questions, $options = null)
+    /**
+     *
+     * @param array|Doctrine_Collection $questions
+     * @param array $options
+     */
+    public function __construct($questions, $options = null)
     {
-        $this->_questions = $questions;
+        if ($questions instanceof Doctrine_Collection) {
+            $this->_questions = $questions->toArray();
+        } elseif (is_array($questions)) {
+            $this->_questions = $questions;
+        } else {
+            throw new Exception('First parameter must be an array or an instance of Doctrine_Collection!');
+        }
         parent::__construct($options);
     }
 
@@ -30,10 +41,10 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
 
             // instantiate question object
             $question = new Webenq_Model_QuestionnaireQuestion();
-            $question->fromArray($values);
+            $question->fromArray($values, false);
 
             /* get sub-questions */
-            $subQuestions = QuestionnaireQuestion::getSubQuestions($values);
+            $subQuestions = QuestionnaireQuestion::getSubQuestions($question);
 
             if (!isset($subQuestions[0])) {
                 /* if no sub-questions: add element */
