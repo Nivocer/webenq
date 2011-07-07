@@ -449,7 +449,7 @@ class QuestionnaireController extends Zend_Controller_Action
                     'xlsx' => 'Microsoft Excel 2007 (XLSX)',
                     'csv' => 'comma separated values (CSV)',
                     'ods' => 'Open Office Spreadsheet (ODS)',
-                    'pdf' => 'Portable Document Format (PDF)',
+//                    'pdf' => 'Portable Document Format (PDF)',
                 ),
                 'required' => true,
             )),
