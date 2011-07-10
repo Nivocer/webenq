@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Inflector.php,v 1.1 2010/11/18 15:13:51 bart Exp $
+ *  $Id: Inflector.php,v 1.2 2011/07/10 20:27:47 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +31,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Jonathan H. Wage <jonwage@gmail.com>
  */
@@ -218,7 +218,7 @@ class Doctrine_Inflector
           'Ä' => 'Ae', 'ä' => 'ae', 'Ü' => 'Ue', 'ü' => 'ue',
           'Ö' => 'Oe', 'ö' => 'oe', 'ß' => 'ss',
           // Norwegian characters
-          'Å'=>'Aa','Æ'=>'Ae','Ø'=>'O','æ'=>'a','ø'=>'o','å','aa'
+          'Å'=>'Aa','Æ'=>'Ae','Ø'=>'O','æ'=>'a','ø'=>'o','å'=>'aa'
           );
 
           $string = strtr($string, $chars);

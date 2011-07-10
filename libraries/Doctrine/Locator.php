@@ -1,6 +1,6 @@
 <?php
 /**
- *  $Id: Locator.php,v 1.1 2010/11/18 15:13:51 bart Exp $
+ *  $Id: Locator.php,v 1.2 2011/07/10 20:27:47 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @author      Janne Vanhala <jpvanhal@cc.hut.fi>
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Eevert Saukkokoski <dmnEe0@gmail.com>
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @since       1.0
  */
 class Doctrine_Locator implements Countable, IteratorAggregate

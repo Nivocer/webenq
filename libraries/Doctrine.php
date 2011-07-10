@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Doctrine.php,v 1.1 2010/11/18 15:14:01 bart Exp $
+ *  $Id: Doctrine.php,v 1.2 2011/07/10 20:27:50 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +31,7 @@ require_once 'Doctrine/Core.php';
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  */
 class Doctrine extends Doctrine_Core
 {

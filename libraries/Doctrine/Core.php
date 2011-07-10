@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Core.php,v 1.1 2010/11/18 15:13:51 bart Exp $
+ *  $Id: Core.php,v 1.2 2011/07/10 20:27:48 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,14 +28,14 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  */
 class Doctrine_Core
 {
     /**
      * VERSION
      */
-    const VERSION                   = '1.2.2';
+    const VERSION                   = '1.2.4';
 
     /**
      * ERROR CONSTANTS
@@ -582,16 +582,6 @@ class Doctrine_Core
     }
 
     /**
-     * Get all the loaded extension classes 
-     *
-     * @return array $extensionClasses
-     */
-    public static function getExtensionsClasses()
-    {
-        return Doctrine_Manager::getInstance()->getExtensionsClasses();
-    }
-
-    /**
      * Load an individual model name and path in to the model loading registry
      *
      * @return null
@@ -664,7 +654,7 @@ class Doctrine_Core
                             $className = $e[0];
                         }
 
-                        if ($classPrefix) {
+                        if ($classPrefix && $classPrefix != substr($className, 0, strlen($classPrefix))) {
                             $className = $classPrefix . $className;
                         }
 
@@ -1125,7 +1115,7 @@ class Doctrine_Core
             return true;
         }
 
-        if (0 !== stripos($className, 'Doctrine_') || class_exists($className, false) || interface_exists($className, false)) {
+        if (0 !== stripos($className, 'Doctrine') || class_exists($className, false) || interface_exists($className, false)) {
             return false;
         }
 

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Pager.php,v 1.1 2010/11/18 15:13:51 bart Exp $
+ *  $Id: Pager.php,v 1.2 2011/07/10 20:27:48 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@
  * @package     Doctrine
  * @subpackage  Pager
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @link        www.doctrine-project.org
  * @since       0.9
  */
@@ -366,7 +366,7 @@ class Doctrine_Pager
      * @param $page       current page
      * @return void
      */
-    private function _setPage($page)
+    protected function _setPage($page)
     {
         $page = intval($page);
         $this->_page = ($page <= 0) ? 1 : $page;

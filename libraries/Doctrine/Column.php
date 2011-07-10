@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Column.php,v 1.1 2010/11/18 15:13:51 bart Exp $
+ *  $Id: Column.php,v 1.2 2011/07/10 20:27:47 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @package     Doctrine
  * @subpackage  Column
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @link        www.doctrine-project.org
  * @since       1.0
  */
@@ -121,10 +121,10 @@ class Doctrine_Column extends Doctrine_Access implements IteratorAggregate, Coun
     public function enumValue($index)
     {
         if ($index instanceof Doctrine_Null) {
-            return $index;
+            return false;
         }
 
-        return isset($this->_definition['values'][$index]) ? $this->_definition['values'][$index] : $index;
+        return isset($this->_definition['values'][$index]) ? $this->_definition['values'][$index] : false;
     }
 
     /**
