@@ -117,11 +117,11 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
                 'controller' => 'answer-possibility-group',
                 'action' => 'index',
             ),
-            array(
-                'label' => _('Test'),
-                'controller' => 'test',
-                'action' => 'index',
-            ),
+//            array(
+//                'label' => _('Test'),
+//                'controller' => 'test',
+//                'action' => 'index',
+//            ),
             array(
                 'label' => _('Gebruikersbeheer'),
                 'controller' => 'user',
@@ -154,8 +154,7 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         }
 
         /* get all languages */
-        /* @todo this should be retrieved from the database */
-        $languages = array('en', 'nl');
+        $languages = Webenq_Language::getLanguages();
 
         /* return html for language selector */
         $html = '<ul id="language_selector">';
