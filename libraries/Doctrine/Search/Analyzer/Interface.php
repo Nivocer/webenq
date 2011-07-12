@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Interface.php,v 1.1 2010/11/18 15:14:21 bart Exp $
+ *  $Id: Interface.php,v 1.2 2011/07/12 13:42:53 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@
  * @subpackage  Search
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @link        www.doctrine-project.org
  * @since       1.0
  */

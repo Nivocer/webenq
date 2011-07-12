@@ -16,7 +16,7 @@ require_once dirname(__FILE__).'/sfYaml.php';
  * @package    symfony
  * @subpackage yaml
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfYamlInline.php,v 1.1 2010/11/18 15:13:31 bart Exp $
+ * @version    SVN: $Id: sfYamlInline.php,v 1.2 2011/07/12 13:42:50 bart Exp $
  */
 class sfYamlInline
 {
@@ -214,7 +214,7 @@ class sfYamlInline
    */
   static protected function parseQuotedScalar($scalar, &$i)
   {
-    if (!preg_match('/'.self::REGEX_QUOTED_STRING.'/A', substr($scalar, $i), $match))
+    if (!preg_match('/'.self::REGEX_QUOTED_STRING.'/Au', substr($scalar, $i), $match))
     {
       throw new InvalidArgumentException(sprintf('Malformed inline YAML string (%s).', substr($scalar, $i)));
     }

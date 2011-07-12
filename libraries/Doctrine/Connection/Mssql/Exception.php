@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Exception.php,v 1.1 2010/11/18 15:16:14 bart Exp $
+ *  $Id: Exception.php,v 1.2 2011/07/12 13:42:47 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @link        www.doctrine-project.org
  */
 class Doctrine_Connection_Mssql_Exception extends Doctrine_Connection_Exception

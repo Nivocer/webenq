@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Normal.php,v 1.1 2010/11/18 15:15:57 bart Exp $
+ *  $Id: Normal.php,v 1.2 2011/07/12 13:42:47 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Collection_Iterator_Normal extends Doctrine_Collection_Iterator
