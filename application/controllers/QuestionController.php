@@ -51,13 +51,13 @@ class QuestionController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        /* get questionnaire */
+        // get questions
         $questions = Doctrine_Query::create()
-            ->from('Question q')
-            ->innerJoin('q.QuestionText qt')
-            ->where('qt.language = ?', $this->_language)
+            ->from('Webenq_Model_Question q')
+            ->leftJoin('q.QuestionText qt WITH qt.language = ?', $this->_language)
             ->orderBy('q.created DESC, qt.text')
             ->execute();
+
         $this->view->questions = $questions;
     }
 
@@ -83,7 +83,7 @@ class QuestionController extends Zend_Controller_Action
 
             // create question from text fields
             $question = new Webenq_Model_Question_Open_Text();
-            $question->setQuestionTexts($values['text']);
+            $question->addQuestionTexts($values['text']);
             $question->save();
 
             /* if a questionnaire id is posted, connect question to it */
@@ -121,7 +121,7 @@ class QuestionController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $question = Doctrine_Core::getTable('Question')
+        $question = Doctrine_Core::getTable('Webenq_Model_Question')
             ->find($this->_request->id);
 
         $form = new Webenq_Form_Question_Edit($question);
@@ -131,7 +131,7 @@ class QuestionController extends Zend_Controller_Action
             $values = $form->getValues();
             foreach ($values['text'] as $language => $text) {
                 // get existing question-text
-                $questionText = Doctrine_Core::getTable('QuestionText')
+                $questionText = Doctrine_Core::getTable('Webenq_Model_QuestionText')
                     ->findOneByQuestionIdAndLanguage($question->id, $language);
                 // or create new question-text
                 if (!$questionText) {
@@ -160,7 +160,7 @@ class QuestionController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        $question = Doctrine_Core::getTable('Question')
+        $question = Doctrine_Core::getTable('Webenq_Model_Question')
             ->find($this->_request->id);
 
         $confirmationText = 'Weet u zeker dat u de vraag "' . $question->QuestionText[0]->text .

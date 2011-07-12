@@ -46,7 +46,7 @@ class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
         if (!$this->_requestingRole) {
             if ($auth->hasIdentity()) {
                 $currentUser = $auth->getIdentity();
-                $this->_requestingRole = Doctrine_Core::getTable('Role')
+                $this->_requestingRole = Doctrine_Core::getTable('Webenq_Model_Role')
                     ->find($currentUser->role_id)->name;
             } else {
                 $this->_requestingRole = self::$_anonymousRole;
@@ -89,9 +89,9 @@ class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
 
     protected function _setupAcl()
     {
-        $roles = Doctrine_Core::getTable('Role')->findAll();
-        $resources = Doctrine_Core::getTable('Resource')->findAll();
-        $rolesResources = Doctrine_Core::getTable('RoleResource')->findAll();
+        $roles = Doctrine_Core::getTable('Webenq_Model_Role')->findAll();
+        $resources = Doctrine_Core::getTable('Webenq_Model_Resource')->findAll();
+        $rolesResources = Doctrine_Core::getTable('Webenq_Model_RoleResource')->findAll();
         $acl = new Zend_Acl();
 
         /* add roles */

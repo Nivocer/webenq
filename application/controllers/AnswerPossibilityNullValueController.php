@@ -34,7 +34,7 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
     {
         /* get answer possibility groups */
         $answerPossibilityNullValues = Doctrine_Query::create()
-            ->from('AnswerPossibilityNullValue apnv')
+            ->from('Webenq_Model_AnswerPossibilityNullValue apnv')
             ->orderBy('apnv.value')
             ->execute();
 
@@ -80,7 +80,7 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
         $this->_helper->actionStack('index', 'answer-possibility-null-value');
 
         /* get record */
-        $answerPossibilityNullValue = Doctrine_Core::getTable('AnswerPossibilityNullValue')
+        $answerPossibilityNullValue = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityNullValue')
             ->find($this->_request->id);
 
         /* get form */
@@ -110,7 +110,7 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
         $this->_helper->actionStack('index', 'answer-possibility-null-value');
 
         /* get record */
-        $answerPossibilityNullValue = Doctrine_Core::getTable('AnswerPossibilityNullValue')
+        $answerPossibilityNullValue = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityNullValue')
             ->find($this->_request->id);
 
         /* get form */

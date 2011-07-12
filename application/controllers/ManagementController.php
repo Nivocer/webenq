@@ -43,7 +43,7 @@ class ManagementController extends Zend_Controller_Action
     {
         /* get questions */
         $questions = Doctrine_Query::create()
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->innerJoin('qq.CollectionPresentation cp')
             ->where('qq.questionnaire_id = ?', $this->_request->id)
             ->orderBy('cp.weight, qq.id')
@@ -60,7 +60,7 @@ class ManagementController extends Zend_Controller_Action
     public function editAction()
     {
         /* get questionnaireQuestion */
-        $qq = Doctrine_Core::getTable('QuestionnaireQuestion')->find($this->_id);
+        $qq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')->find($this->_id);
 
         /* build form */
         $form = new Webenq_Form_Management_Edit($qq);

@@ -19,7 +19,7 @@ class UserController extends Zend_Controller_Action
         $form->redirect->setValue($this->_request->redirect);
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
-            if (User::login($form->username->getValue(), $form->password->getValue())) {
+            if (Webenq_Model_User::login($form->username->getValue(), $form->password->getValue())) {
                 if ($this->_request->redirect) {
                     $this->_redirect(base64_decode($this->_request->redirect));
                 }
@@ -53,7 +53,7 @@ class UserController extends Zend_Controller_Action
 
         if ($this->_request->isPost()) {
             if ($this->_request->id) {
-                $user = Doctrine_Core::getTable('User')->find($this->_request->id);
+                $user = Doctrine_Core::getTable('Webenq_Model_User')->find($this->_request->id);
                 if ($this->_request->yes || $this->_request->no) {
                     if ($this->_request->yes) {
                         $user->delete();
@@ -77,18 +77,18 @@ class UserController extends Zend_Controller_Action
             }
         } else {
             if ($this->_request->edit) {
-                $user = Doctrine_Core::getTable('User')->find($this->_request->edit);
+                $user = Doctrine_Core::getTable('Webenq_Model_User')->find($this->_request->edit);
                 $editForm = new Webenq_Form_User_User_Edit($user);
                 $this->view->editForm = $editForm;
             } elseif ($this->_request->delete) {
-                $user = Doctrine_Core::getTable('User')->find($this->_request->delete);
+                $user = Doctrine_Core::getTable('Webenq_Model_User')->find($this->_request->delete);
                 $deleteForm = new Webenq_Form_Confirm($user->id,
                     "Weet u zeker dat u gebruiker '$user->fullname' wilt verwijderen?");
                 $this->view->deleteForm = $deleteForm;
             }
         }
 
-        $this->view->users = Doctrine_Core::getTable('User')->findAll();
+        $this->view->users = Doctrine_Core::getTable('Webenq_Model_User')->findAll();
     }
 
     /**
@@ -103,7 +103,7 @@ class UserController extends Zend_Controller_Action
 
         if ($this->_request->isPost()) {
             if ($this->_request->id) {
-                $role = Doctrine_Core::getTable('Role')->find($this->_request->id);
+                $role = Doctrine_Core::getTable('Webenq_Model_Role')->find($this->_request->id);
                 if ($this->_request->yes || $this->_request->no) {
                     if ($this->_request->yes) {
                         $role->delete();
@@ -127,18 +127,18 @@ class UserController extends Zend_Controller_Action
             }
         } else {
             if ($this->_request->edit) {
-                $role = Doctrine_Core::getTable('Role')->find($this->_request->edit);
+                $role = Doctrine_Core::getTable('Webenq_Model_Role')->find($this->_request->edit);
                 $editForm = new Webenq_Form_User_Role_Edit($role);
                 $this->view->editForm = $editForm;
             } elseif ($this->_request->delete) {
-                $role = Doctrine_Core::getTable('Role')->find($this->_request->delete);
+                $role = Doctrine_Core::getTable('Webenq_Model_Role')->find($this->_request->delete);
                 $deleteForm = new Webenq_Form_Confirm($role->id,
                     "Weet u zeker dat u rol '$role->name' wilt verwijderen?");
                 $this->view->deleteForm = $deleteForm;
             }
         }
 
-        $this->view->roles = Doctrine_Core::getTable('Role')->findAll();
+        $this->view->roles = Doctrine_Core::getTable('Webenq_Model_Role')->findAll();
     }
 
     /**

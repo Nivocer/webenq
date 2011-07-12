@@ -36,7 +36,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
 
         /* get answer possibility groups */
         $answerPossibilityGroups = Doctrine_Query::create()
-            ->from('AnswerPossibilityGroup apg')
+            ->from('Webenq_Model_AnswerPossibilityGroup apg')
             ->orderBy('apg.name')
             ->execute();
 
@@ -51,21 +51,18 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      */
     public function addAction()
     {
-        /* get form */
+        // get form
         $form = new Webenq_Form_AnswerPossibilityGroup_Add();
 
-        /* process posted data */
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $answerPossibilityGroup = new AnswerPossibilityGroup();
-                $answerPossibilityGroup->fromArray($data);
-                $answerPossibilityGroup->save();
-                $this->_redirect('/answer-possibility-group');
-            }
+        // process posted data
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+            $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
+            $answerPossibilityGroup->fromArray($form->getValues());
+            $answerPossibilityGroup->save();
+            $this->_redirect('/answer-possibility-group');
         }
 
-        /* render view */
+        // render view
         $this->view->form = $form;
     }
 
@@ -78,7 +75,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     {
         /* get group */
         $answerPossibilityGroup = Doctrine_Query::create()
-            ->from('AnswerPossibilityGroup apg')
+            ->from('Webenq_Model_AnswerPossibilityGroup apg')
             ->leftJoin('apg.AnswerPossibility ap')
             ->where('apg.id = ?', $this->_request->id)
             ->orderBy('ap.value')
@@ -113,7 +110,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
         $this->_helper->actionStack('index', 'answer-possibility-group');
 
         /* get group */
-        $answerPossibilityGroup = Doctrine_Core::getTable('AnswerPossibilityGroup')
+        $answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
             ->find($this->_request->id);
 
         /* get form */

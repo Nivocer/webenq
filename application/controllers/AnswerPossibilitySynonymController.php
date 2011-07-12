@@ -28,29 +28,26 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
     public function addAction()
     {
         /* get possibility */
-        $answerPossibilityText = Doctrine_Core::getTable('AnswerPossibilityText')
+        $answerPossibilityText = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityText')
             ->find($this->_request->id);
 
-        /* get form */
+        // get form
         $form = new Webenq_Form_AnswerPossibilitySynonym_Add($answerPossibilityText);
 
-        /* process posted data */
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
+        // process posted data
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
 
-                /* store synonym */
-                $answerPossibilityTextSynonym = new AnswerPossibilityTextSynonym();
-                $answerPossibilityTextSynonym->fromArray($data);
+            // store synonym
+            $answerPossibilityTextSynonym = new Webenq_Model_AnswerPossibilityTextSynonym();
+            $answerPossibilityTextSynonym->fromArray($form->getValues());
 
-                try {
-                    $answerPossibilityTextSynonym->save();
-                    $id = $answerPossibilityTextSynonym->AnswerPossibilityText->AnswerPossibility->id;
-                    $this->_redirect("/answer-possibility/edit/id/$id");
-                }
-                catch (Exception $e) {
-                       $form->text->addError($e->getMessage());
-                }
+            try {
+                $answerPossibilityTextSynonym->save();
+                $id = $answerPossibilityTextSynonym->AnswerPossibilityText->AnswerPossibility->id;
+                $this->_redirect("answer-possibility/edit/id/$id");
+            }
+            catch (Exception $e) {
+                   $form->text->addError($e->getMessage());
             }
         }
 
@@ -62,7 +59,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
     public function editAction()
     {
         /* get synonym */
-        $synonym = Doctrine_Core::getTable('AnswerPossibilityTextSynonym')
+        $synonym = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityTextSynonym')
             ->find($this->_request->id);
 
         /* get form */
@@ -100,7 +97,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
     public function deleteAction()
     {
         /* get synonym */
-        $synonym = Doctrine_Core::getTable('AnswerPossibilityTextSynonym')
+        $synonym = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityTextSynonym')
             ->find($this->_request->id);
 
         /* get form */

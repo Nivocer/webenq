@@ -43,7 +43,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $this->view->questionnaires = Doctrine_Query::create()
             ->select('q.*, COUNT(qq.id) as count_qqs')
-            ->from('Questionnaire q')
+            ->from('Webenq_Model_Questionnaire q')
             ->leftJoin('q.QuestionnaireQuestion qq')
             ->groupBy('q.id')
             ->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
@@ -78,7 +78,7 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
         if (!$questionnaire) $this->_redirect('questionnaire');
 
         $form = new Webenq_Form_Questionnaire_Edit($questionnaire);
@@ -97,7 +97,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->view->form = $form;
         $this->view->questionnaire = $questionnaire;
         $this->view->questions = $questionsToBeRendered;
-        $this->view->totalPages = Questionnaire::getTotalPages($questionnaire['id']);
+        $this->view->totalPages = Webenq_Model_Questionnaire::getTotalPages($questionnaire['id']);
     }
 
     public function orderAction()
@@ -139,7 +139,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
             // get questions on this page
             $qqs = Doctrine_Query::create()
-                ->from('QuestionnaireQuestion qq')
+                ->from('Webenq_Model_QuestionnaireQuestion qq')
                 ->leftJoin('qq.CollectionPresentation cp')
                 ->whereIn('qq.id', $qqIds)
                 ->execute();
@@ -183,7 +183,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
         // get subquestions
         $qqs = Doctrine_Query::create()
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->leftJoin('qq.CollectionPresentation cp')
             ->whereIn('qq.id', $qqIds)
             ->execute();
@@ -197,10 +197,10 @@ class QuestionnaireController extends Zend_Controller_Action
 
     public function addQuestionAction()
     {
-        $qq = new QuestionnaireQuestion();
+        $qq = new Webenq_Model_QuestionnaireQuestion();
         $qq->questionnaire_id = $this->_request->questionnaire_id;
         $qq->question_id = $this->_request->question_id;
-        $cp = new CollectionPresentation();
+        $cp = new Webenq_Model_CollectionPresentation();
         $cp->weight = -1;
         $qq->CollectionPresentation[] = $cp;
         $qq->ReportPresentation[] = new ReportPresentation();
@@ -220,7 +220,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $this->_helper->actionStack('index', 'questionnaire');
 
-        $questionnaire = Doctrine_Core::getTable('Questionnaire')
+        $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
             ->find($this->_request->id);
 
         $confirmationText = 'Weet u zeker dat u questionnaire ' . $questionnaire->id .
@@ -259,10 +259,10 @@ class QuestionnaireController extends Zend_Controller_Action
 
         /* set respondent */
         if ($this->_request->respondent_id) {
-            $respondent = Doctrine_Core::getTable('Respondent')
+            $respondent = Doctrine_Core::getTable('Webenq_Model_Respondent')
                 ->find($this->_request->respondent_id);
         } else if ($session->respondent_id) {
-            $respondent = Doctrine_Core::getTable('Respondent')
+            $respondent = Doctrine_Core::getTable('Webenq_Model_Respondent')
                 ->find($session->respondent_id);
         } else {
             $respondent = new Webenq_Model_Respondent();
@@ -277,7 +277,7 @@ class QuestionnaireController extends Zend_Controller_Action
         try {
             /* get current page */
             $pageNr = Doctrine_Query::create()
-                ->from('QuestionnaireQuestion qq')
+                ->from('Webenq_Model_QuestionnaireQuestion qq')
                 ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?',
                     $respondent->id)
                 ->innerJoin('qq.CollectionPresentation cp')
@@ -294,7 +294,7 @@ class QuestionnaireController extends Zend_Controller_Action
         }
 
         /* get questions for current page */
-        $questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, $respondent);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, $respondent);
         $qqs = $questionnaire['QuestionnaireQuestion'];
 
         /* redirect if no more questions */
@@ -306,13 +306,13 @@ class QuestionnaireController extends Zend_Controller_Action
         /* get progress data */
         $totalQuestions = (int) Doctrine_Query::create()
             ->select('COUNT(qq.id) AS count')
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->where('qq.questionnaire_id = ?', $this->_request->id)
             ->execute()->getFirst()->count;
 
         $answeredQuestions = (int) Doctrine_Query::create()
             ->select('COUNT(qq.id) AS count')
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
             ->where('a.id IS NOT NULL')
             ->andWhere('qq.questionnaire_id = ?', $this->_request->id)
@@ -329,7 +329,7 @@ class QuestionnaireController extends Zend_Controller_Action
                     }
 
                     // save answer-id or text
-                    $qq = Doctrine_Core::getTable('QuestionnaireQuestion')
+                    $qq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
                         ->find(str_replace('qq_', null, $id));
                     if ($qq->answerPossibilityGroup_id) {
                         $this->_saveAnswerId($qq, $value, $respondent);
@@ -352,7 +352,8 @@ class QuestionnaireController extends Zend_Controller_Action
         );
     }
 
-    protected function _saveAnswerId(QuestionnaireQuestion $qq, $answerIds, Respondent $respondent)
+    protected function _saveAnswerId(Webenq_Model_QuestionnaireQuestion $qq, $answerIds,
+        Webenq_Model_Respondent $respondent)
     {
         if (!is_array($answerIds)) {
             $answerIds = array($answerIds);
@@ -372,7 +373,8 @@ class QuestionnaireController extends Zend_Controller_Action
         return true;
     }
 
-    protected function _saveAnswerText(QuestionnaireQuestion $qq, $answerValues, Respondent $respondent)
+    protected function _saveAnswerText(Webenq_Model_QuestionnaireQuestion $qq, $answerValues,
+        Webenq_Model_Respondent $respondent)
     {
         if (!is_array($answerValues)) {
             $answerValues = array($answerValues);
@@ -401,7 +403,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         /* get questions for current page */
         $pageNr = $this->_request->page ? $this->_request->page : null;
-        $questionnaire = Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, null, true);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, null, true);
 
         /* display */
         $this->view->questionnaire = $questionnaire;
@@ -410,7 +412,7 @@ class QuestionnaireController extends Zend_Controller_Action
     public function groupAction()
     {
         $questions = Doctrine_Query::create()
-            ->from('CollectionPresentation cp')
+            ->from('Webenq_Model_CollectionPresentation cp')
             ->innerJoin('cp.QuestionnaireQuestion qq')
             ->innerJoin('qq.Questionnaire q')
             ->where('q.id = ?', $this->_request->id)
@@ -419,7 +421,7 @@ class QuestionnaireController extends Zend_Controller_Action
             ->execute();
 
         $groups = Doctrine_Query::create()
-            ->from('CollectionPresentation cp')
+            ->from('Webenq_Model_CollectionPresentation cp')
             ->innerJoin('cp.QuestionnaireQuestion qq')
             ->innerJoin('qq.Questionnaire q')
             ->where('q.id = ?', $this->_request->id)
@@ -463,7 +465,7 @@ class QuestionnaireController extends Zend_Controller_Action
                 $this->_helper->layout->disableLayout();
 
                 $format = $form->format->getValue();
-                $questionnaire = Questionnaire::getQuestionnaire($id, $this->_language, null, null, true);
+                $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($id, $this->_language, null, null, true);
                 $download = Webenq_Download::factory($format, $questionnaire);
                 $download->send($this->_response);
 

@@ -67,7 +67,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         }
         $questions = Doctrine_Query::create()
             ->select('q.id, qt.text')
-            ->from('Question q')
+            ->from('Webenq_Model_Question q')
             ->innerJoin('q.QuestionText qt')
             ->where('qt.language = ?', $this->_language)
             ->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
@@ -83,7 +83,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     public function editAction()
     {
         // get requested questionnaire-question
-        $questionnaireQuestion = Doctrine_Core::getTable('QuestionnaireQuestion')->find($this->_request->id);
+        $questionnaireQuestion = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')->find($this->_request->id);
 
         // get form
         $form = new Webenq_Form_QuestionnaireQuestion_Edit($questionnaireQuestion);
@@ -113,7 +113,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         }
 
         $this->view->repositoryQuestions = Doctrine_Query::create()
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->innerJoin('qq.CollectionPresentation cp')
             ->where('qq.id != ?', $questionnaireQuestion->id)
             ->andWhere('cp.parent_id IS NULL')
@@ -136,7 +136,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     public function deleteAction()
     {
         $questionnaireQuestion = Doctrine_Query::create()
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->innerJoin('qq.Question q WITH qq.id = ?', $this->_request->id)
             ->leftJoin('q.QuestionText qt')
             ->where('qt.language = ?', $this->_language)
@@ -164,7 +164,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         $this->view->questionnaireQuestion = $questionnaireQuestion;
     }
 
-    protected function _getSubQuestions(QuestionnaireQuestion $questionnaireQuestion)
+    protected function _getSubQuestions(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion)
     {
         $subQuestions = array();
         foreach ($questionnaireQuestion->CollectionPresentation->getFirst()->CollectionPresentation as $subQuestion) {
@@ -220,7 +220,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     protected function _saveGridSubquestions($parentId, array $grid)
     {
         /* get collection-presentation object for given parent */
-        $cp = Doctrine_Core::getTable('QuestionnaireQuestion')->find($parentId)->CollectionPresentation->getFirst();
+        $cp = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')->find($parentId)->CollectionPresentation->getFirst();
         /* clear all for this parent */
         Doctrine_Query::create()
             ->update('CollectionPresentation')
@@ -232,7 +232,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         foreach ($grid as $rowIndex => $row) {
             foreach ($row as $colIndex => $col) {
                 /* get collection-presentation object for current questionnaire-question */
-                $current = Doctrine_Core::getTable('QuestionnaireQuestion')
+                $current = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
                     ->find($col)
                     ->CollectionPresentation
                     ->getFirst();
@@ -263,7 +263,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     public function addSubquestionAction()
     {
         $qq = Doctrine_Query::create()
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->innerJoin('qq.CollectionPresentation cp')
             ->where('qq.id != ?', $this->_request->id)
             ->andWhere('cp.parent_id IS NULL')

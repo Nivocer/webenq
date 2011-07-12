@@ -32,39 +32,33 @@ class AnswerPossibilityController extends Zend_Controller_Action
      */
     public function addAction()
     {
-        /* get group */
-        $answerPossibilityGroup = Doctrine_Core::getTable('AnswerPossibilityGroup')
+        // get group
+        $answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
             ->find($this->_request->id);
 
-        /* get form */
-        $form = new Webenq_Form_AnswerPossibility_Add(
-            $answerPossibilityGroup,
-            $this->_language
-        );
+        // get form
+        $form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $this->_language);
 
-        /* process posted data */
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
+        // process posted data
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
 
-                   $answerPossibilityText = new AnswerPossibilityText();
-                   $answerPossibilityText->fromArray($data);
+            $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
+            $answerPossibilityText->fromArray($form->getValues());
 
-                $answerPossibility = new AnswerPossibility();
-                   $answerPossibility->fromArray($data);
-                $answerPossibility->AnswerPossibilityText[] = $answerPossibilityText;
+            $answerPossibility = new Webenq_Model_AnswerPossibility();
+            $answerPossibility->fromArray($form->getValues());
+            $answerPossibility->AnswerPossibilityText[] = $answerPossibilityText;
 
-                try {
-                       $answerPossibility->save();
-                    $this->_redirect('/answer-possibility-group/edit/id/' . $answerPossibilityGroup->id);
-                }
-                catch (Exception $e) {
-                       $form->value->addError($e->getMessage());
-                }
+            try {
+                $answerPossibility->save();
+                $this->_redirect('/answer-possibility-group/edit/id/' . $answerPossibilityGroup->id);
+            }
+            catch (Exception $e) {
+                $form->value->addError($e->getMessage());
             }
         }
 
-        /* render view */
+        // render view
         $this->view->form = $form;
         $this->view->answerPossibilityGroup = $answerPossibilityGroup;
     }
@@ -77,53 +71,51 @@ class AnswerPossibilityController extends Zend_Controller_Action
     public function editAction()
     {
         /* get possibility */
-        $answerPossibility = Doctrine_Core::getTable('AnswerPossibility')
+        $answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
             ->find($this->_request->id);
 
         /* get form */
         $form = new Webenq_Form_AnswerPossibility_Edit($answerPossibility);
 
         /* process posted data */
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
 
-                $errors = array();
+            $errors = array();
+            $data = $form->getValues();
 
-                /* store possibility */
-                $answerPossibility->fromArray($data);
-                try {
-                    $answerPossibility->save();
-                }
-                catch (Exception $e) {
-                    $errors[] = $e->getMessage();
-                }
+            // store possibility
+            $answerPossibility->fromArray($data);
+            try {
+                $answerPossibility->save();
+            }
+            catch (Exception $e) {
+                $errors[] = $e->getMessage();
+            }
 
-                /* store text */
-                $answerPossibilityText = Doctrine_Core::getTable('AnswerPossibilityText')
-                    ->findOneByAnswerPossibility_idAndLanguage($answerPossibility->id, $this->_language);
+            /* store text */
+            $answerPossibilityText = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityText')
+                ->findOneByAnswerPossibility_idAndLanguage($answerPossibility->id, $this->_language);
 
-                if (!$answerPossibilityText) {
-                    $answerPossibilityText = new AnswerPossibilityText();
-                    $answerPossibilityText->language = $this->language;
-                    $answerPossibilityText->answerPossibility_id = $answerPossibility->id;
-                }
+            if (!$answerPossibilityText) {
+                $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
+                $answerPossibilityText->language = $this->language;
+                $answerPossibilityText->answerPossibility_id = $answerPossibility->id;
+            }
 
-                $answerPossibilityText->text = $data['text'];
+            $answerPossibilityText->text = $data['text'];
 
-                try {
-                    $answerPossibilityText->save();
-                }
-                catch (Exception $e) {
-                    $errors[] = $e->getMessage();
-                }
+            try {
+                $answerPossibilityText->save();
+            }
+            catch (Exception $e) {
+                $errors[] = $e->getMessage();
+            }
 
-                if (count($errors) == 0) {
-                    $this->_redirect('/answer-possibility-group/edit/id/' .
-                        $answerPossibility->AnswerPossibilityGroup->id);
-                } else {
-                    $form->value->addErrors($errors);
-                }
+            if (count($errors) == 0) {
+                $this->_redirect('/answer-possibility-group/edit/id/' .
+                    $answerPossibility->AnswerPossibilityGroup->id);
+            } else {
+                $form->value->addErrors($errors);
             }
         }
 
@@ -141,7 +133,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
     {
         /* get group */
         $answerPossibility = Doctrine_Query::create()
-            ->from('AnswerPossibility ap')
+            ->from('Webenq_Model_AnswerPossibility ap')
             ->innerJoin('ap.AnswerPossibilityText apt')
             ->where('ap.id = ?', $this->_request->id)
             ->andWhere('apt.language = ?', $this->_language)

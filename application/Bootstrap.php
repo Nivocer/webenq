@@ -8,6 +8,16 @@
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    protected function _initResourceAutoLoading()
+    {
+        $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
+            'basePath'  => APPLICATION_PATH,
+            'namespace' => 'Webenq',
+        ));
+        $resourceLoader->addResourceType('doctrine', 'models/generated/Base', 'Model_Base');
+        $resourceLoader->addResourceType('model', 'models/', 'Model');
+    }
+
     protected function _initDoctrine()
     {
         require_once 'Doctrine.php';
@@ -18,18 +28,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->pushAutoloader(array('Doctrine', 'autoload'), 'sfYaml');
 
         $manager = Doctrine_Manager::getInstance();
-        $manager->setAttribute(Doctrine::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
-        $manager->setAttribute(Doctrine::ATTR_QUOTE_IDENTIFIER, true);
-        $manager->setAttribute(Doctrine::ATTR_AUTOLOAD_TABLE_CLASSES, true);
+//        $manager->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
+        $manager->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, true);
 
-        Doctrine_Core::loadModels(APPLICATION_PATH . '/models/doctrine/generated');
-        Doctrine_Core::loadModels(APPLICATION_PATH . '/models/doctrine');
+//        $config = $this->getOption('doctrine');
+//        Doctrine_Core::loadModels($config['models_path'] . '/generated', null, 'Webenq_Model_Base');
+//        Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model');
 
-        $config = $this->getOption('resources');
-        $db = $config['db']['params'];
-        $url = 'mysql://' . $db['username'] . ':' . $db['password'] . '@' . $db['host'] . ':' . $db['port'] .
-            '/' .  $db['dbname'];
-        $conn = Doctrine_Manager::connection($url, 'doctrine');
+        $config = $this->getOption('doctrine');
+        if (isset($config['dsn'])) {
+            // connect by data source name
+            $conn = Doctrine_Manager::connection($config['dsn'], 'doctrine');
+        } else {
+            // connect by database parameters
+            $config = $this->getOption('resources');
+            $db = $config['db']['params'];
+            $dsn = 'mysql://' . $db['username'] . ':' . $db['password'] . '@' . $db['host'] . ':' . $db['port'] .
+                '/' .  $db['dbname'];
+            $conn = Doctrine_Manager::connection($dsn, 'doctrine');
+        }
 
         return $manager;
     }
