@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Pgsql.php,v 1.1 2010/11/18 15:14:56 bart Exp $
+ *  $Id: Pgsql.php,v 1.2 2011/07/12 13:38:57 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  */
 class Doctrine_Sequence_Pgsql extends Doctrine_Sequence
 {

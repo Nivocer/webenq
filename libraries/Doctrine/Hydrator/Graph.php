@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Graph.php,v 1.1 2010/11/18 15:13:52 bart Exp $
+ *  $Id: Graph.php,v 1.2 2011/07/12 13:39:04 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Roman Borschel <roman@code-factory.org>
  * @author      Jonathan H. Wage <jonwage@gmail.com>
@@ -75,18 +75,20 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
         $idTemplate = array();
 
         // Initialize 
-     	foreach ($this->_queryComponents as $dqlAlias => $data) { 
-     	    $componentName = $data['table']->getComponentName(); 
-     	    $instances[$componentName] = $data['table']->getRecordInstance(); 
-     	    $listeners[$componentName] = $data['table']->getRecordListener(); 
-     	    $identifierMap[$dqlAlias] = array(); 
-     	    $prev[$dqlAlias] = null; 
-     	    $idTemplate[$dqlAlias] = ''; 
-     	} 
-     	$cache = array();
-     	
-        $result = $this->getElementCollection($rootComponentName);
+        foreach ($this->_queryComponents as $dqlAlias => $data) { 
+            $componentName = $data['table']->getComponentName(); 
+            $instances[$componentName] = $data['table']->getRecordInstance(); 
+            $listeners[$componentName] = $data['table']->getRecordListener(); 
+            $identifierMap[$dqlAlias] = array(); 
+            $prev[$dqlAlias] = null; 
+            $idTemplate[$dqlAlias] = ''; 
+        } 
+        $cache = array();
 
+        $result = $this->getElementCollection($rootComponentName);
+        if ($result instanceof Doctrine_Collection && $indexField = $this->_getCustomIndexField($rootAlias)) {
+            $result->setKeyColumn($indexField);
+        }
         if ($stmt === false || $stmt === 0) {
             return $result;
         }
@@ -209,8 +211,10 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                     continue;
                 }
 
+                $indexField = $this->_getCustomIndexField($dqlAlias);
+
                 // check the type of the relation
-                if ( ! $relation->isOneToOne() && $this->initRelated($prev[$parent], $relationAlias)) {
+                if ( ! $relation->isOneToOne() && $this->initRelated($prev[$parent], $relationAlias, $indexField)) {
                     $oneToOne = false;
                     // append element
                     if (isset($nonemptyComponents[$dqlAlias])) {
@@ -235,8 +239,13 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
                             }
                             $identifierMap[$path][$id[$parent]][$id[$dqlAlias]] = $this->getLastKey($prev[$parent][$relationAlias]);                            
                         }
+                        $collection = $prev[$parent][$relationAlias];
+                        if ($collection instanceof Doctrine_Collection && $indexField) {
+                            $collection->setKeyColumn($indexField);
+                        }
+
                         // register collection for later snapshots
-                        $this->registerCollection($prev[$parent][$relationAlias]);
+                        $this->registerCollection($collection);
                     }
                 } else {
                     // 1-1 relation
@@ -352,7 +361,7 @@ abstract class Doctrine_Hydrator_Graph extends Doctrine_Hydrator_Abstract
 
     abstract public function registerCollection($coll);
  
-    abstract public function initRelated(&$record, $name);
+    abstract public function initRelated(&$record, $name, $keyColumn = null);
  
     abstract public function getNullPointer();
  

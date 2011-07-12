@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Pgsql.php,v 1.1 2010/11/18 15:14:43 bart Exp $
+ *  $Id: Pgsql.php,v 1.2 2011/07/12 13:38:58 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
@@ -229,5 +229,32 @@ class Doctrine_Expression_Pgsql extends Doctrine_Expression_Driver
     {
     	$translate = 'TRANSLATE(' . $string . ', ' . $from . ', ' . $to . ')';
     	return $translate;
+    }
+
+    /**
+     * transform locate to position
+     *
+     * @param string $substr string to find
+     * @param string $str to find where
+     * @return string
+     */
+    public function locate($substr, $str)
+    {
+        return $this->position($substr, $str);
+    }
+    
+    /**
+     * position
+     *
+     * @param string $substr string to find
+     * @param string $str to find where
+     * @return string
+     */
+    public function position($substr, $str)
+    {
+        $substr = $this->getIdentifier($substr);
+        $str = $this->getIdentifier($str);
+        
+        return sprintf('POSITION(%s IN %s)', $substr, $str);
     }
 }

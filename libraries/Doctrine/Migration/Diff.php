@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Diff.php,v 1.1 2010/11/18 15:14:49 bart Exp $
+ *  $Id: Diff.php,v 1.2 2011/07/12 13:39:00 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Jonathan H. Wage <jonwage@gmail.com>
  */
 class Doctrine_Migration_Diff
@@ -112,7 +112,10 @@ class Doctrine_Migration_Diff
         $this->_cleanup();
 
         $from = $this->_generateModels(self::$_fromPrefix, $this->_from);
-        $to = $this->_generateModels(self::$_toPrefix, $this->_to);
+        $to = $this->_generateModels(
+            Doctrine_Manager::getInstance()->getAttribute(Doctrine_Core::ATTR_MODEL_CLASS_PREFIX) . self::$_toPrefix,
+            $this->_to
+        );
 
         return $this->_diff($from, $to);
     }

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Export.php,v 1.1 2010/11/18 15:15:10 bart Exp $
+ *  $Id: Export.php,v 1.2 2011/07/12 13:39:12 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  */
 class Doctrine_Data_Export extends Doctrine_Data
 {
@@ -153,6 +153,7 @@ class Doctrine_Data_Export extends Doctrine_Data
 
         foreach ($data AS $className => $classData) {
             $preparedData[$className] = array();
+            $keyType = $classData->getTable()->getIdentifierType();
             foreach ($classData as $record) {
                 $className = get_class($record);
                 $recordKey = $className . '_' . implode('_', $record->identifier());
@@ -168,7 +169,7 @@ class Doctrine_Data_Export extends Doctrine_Data
                       $keys = array($keys);
                     }
 
-                    if (count($keys) <= 1 && in_array($key, $keys)) {
+                    if ($keyType !== Doctrine_Core::IDENTIFIER_NATURAL && count($keys) <= 1 && in_array($key, $keys)) {
                         continue;
                     }
 

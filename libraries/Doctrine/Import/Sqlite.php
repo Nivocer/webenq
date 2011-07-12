@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Sqlite.php,v 1.1 2010/11/18 15:15:40 bart Exp $
+ *  $Id: Sqlite.php,v 1.2 2011/07/12 13:39:03 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +25,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @link        www.doctrine-project.org
  * @since       1.0
  */
@@ -79,7 +79,7 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
                 $result[] = $sqn;
             }
         }
-        if ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE) {
+        if ($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) && ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE)) {
             $result = array_map(($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) == CASE_LOWER ? 'strtolower' : 'strtoupper'), $result);
         }
         return $result;
@@ -97,7 +97,7 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
 
         $query = "SELECT sql FROM sqlite_master WHERE type='index' AND ";
 
-        if ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE) {
+        if ($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) && ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE)) {
             $query .= 'LOWER(tbl_name) = ' . strtolower($table);
         } else {
             $query .= 'tbl_name = ' . $table;
@@ -115,7 +115,7 @@ class Doctrine_Import_Sqlite extends Doctrine_Import
             }
         }
 
-        if ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE) {
+        if ($this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE) && ($this->conn->getAttribute(Doctrine_Core::ATTR_PORTABILITY) & Doctrine_Core::PORTABILITY_FIX_CASE)) {
             $result = array_change_key_case($result, $this->conn->getAttribute(Doctrine_Core::ATTR_FIELD_CASE));
         }
         return array_keys($result);

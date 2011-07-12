@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Oracle.php,v 1.1 2010/11/18 15:13:51 bart Exp $
+ *  $Id: Oracle.php,v 1.2 2011/07/12 13:38:59 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Connection_Oracle extends Doctrine_Connection_Common
@@ -108,8 +108,8 @@ class Doctrine_Connection_Oracle extends Doctrine_Connection_Common
                 $column = $column === null ? '*' : $this->quoteIdentifier($column);
                 if ($offset > 0) {
                     $min = $offset + 1;
-                    $query = 'SELECT b.'.$column.' FROM ( '.
-                                 'SELECT a.*, ROWNUM AS doctrine_rownum FROM ( '
+                    $query = 'SELECT '.$this->quoteIdentifier('b').'.'.$column.' FROM ( '.
+                                 'SELECT '.$this->quoteIdentifier('a').'.*, ROWNUM AS doctrine_rownum FROM ( '
                                    . $query . ' ) ' . $this->quoteIdentifier('a') . ' '.
                               ' ) ' . $this->quoteIdentifier('b') . ' '.
                               'WHERE doctrine_rownum BETWEEN ' . $min .  ' AND ' . $max;
@@ -141,5 +141,22 @@ class Doctrine_Connection_Oracle extends Doctrine_Connection_Common
     public function getTmpConnection($info)
     {
         return clone $this;
+    }
+
+    /**
+     * Override quote behaviour for boolean to fix issues with quoting of
+     * boolean values.
+     */
+    public function quote($input, $type = null)
+    {
+        if ($type === 'boolean') {
+            if ($input === null) {
+                return null;
+            } else {
+                return $input ? 1 : 0;    
+            }
+        } else {
+            return parent::quote($input, $type);  
+        }
     }
 }

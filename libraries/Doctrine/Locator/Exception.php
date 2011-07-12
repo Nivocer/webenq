@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Exception.php,v 1.1 2010/11/18 15:15:45 bart Exp $
+ *  $Id: Exception.php,v 1.2 2011/07/12 13:39:08 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@
  * @link        http://www.doctrine-project.org
  * @author      Janne Vanhala <jpvanhal@cc.hut.fi>
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @since       1.0
  */
 class Doctrine_Locator_Exception extends Doctrine_Exception

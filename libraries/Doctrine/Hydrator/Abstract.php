@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Abstract.php,v 1.1 2010/11/18 15:13:52 bart Exp $
+ *  $Id: Abstract.php,v 1.2 2011/07/12 13:39:03 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 abstract class Doctrine_Hydrator_Abstract extends Doctrine_Locator_Injectable
@@ -38,10 +38,45 @@ abstract class Doctrine_Hydrator_Abstract extends Doctrine_Locator_Injectable
         $_priorRow,
         $_hydrationMode;
 
-    public function __construct($queryComponents, $tableAliases, $hydrationMode)
+    public function __construct($queryComponents = null, $tableAliases = null, $hydrationMode = null)
+    {
+        $this->setQueryComponents($queryComponents);
+        $this->setTableAliases($tableAliases);
+        $this->setHydrationMode($hydrationMode);
+    }
+
+    /**
+     * Set the query components (structure and query instructions)
+     *
+     * @param array $queryComponents
+     * @return void
+     */
+    public function setQueryComponents($queryComponents)
     {
         $this->_queryComponents = $queryComponents;
+    }
+
+    /**
+     * Set the table aliases for this query
+     *
+     * @param array $tableAliases
+     * @return void
+     */
+    public function setTableAliases($tableAliases)
+    {
         $this->_tableAliases = $tableAliases;
+    }
+
+    /**
+     * Set the hydration mode
+     *
+     * @param mixed $hydrationMode  One of the Doctrine_Core::HYDRATE_* constants or
+     *                              a string representing the name of the hydration mode or
+     *                              or an instance of the hydration class
+     * @return void
+     */
+    public function setHydrationMode($hydrationMode)
+    {
         $this->_hydrationMode = $hydrationMode;
     }
 

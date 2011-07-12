@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Statement.php,v 1.1 2010/11/18 15:14:55 bart Exp $
+ *  $Id: Statement.php,v 1.2 2011/07/12 13:39:11 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@
  * @subpackage  Adapter
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  */
 abstract class Doctrine_Adapter_Statement
 {

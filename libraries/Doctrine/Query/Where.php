@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Where.php,v 1.1 2010/11/18 15:14:17 bart Exp $
+ *  $Id: Where.php,v 1.2 2011/07/12 13:39:07 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  */
 class Doctrine_Query_Where extends Doctrine_Query_Condition
@@ -49,7 +49,7 @@ class Doctrine_Query_Where extends Doctrine_Query_Condition
         if (count($terms) > 1) {
             if (substr($where, 0, 6) == 'EXISTS') {
                 return $this->parseExists($where, true);
-            } elseif (substr($where, 0, 10) == 'NOT EXISTS') {
+            } elseif (preg_match('/^NOT\s+EXISTS\b/i', $where) !== 0) {
                 return $this->parseExists($where, false);
             }
         }

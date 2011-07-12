@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Mssql.php,v 1.1 2010/11/18 15:13:51 bart Exp $
+ *  $Id: Mssql.php,v 1.2 2011/07/12 13:38:59 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Lukas Smith <smith@pooteeweet.org> (PEAR MDB2 library)
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @link        www.doctrine-project.org
  * @since       1.0
  */
@@ -64,6 +64,8 @@ class Doctrine_Connection_Mssql extends Doctrine_Connection_Common
                           'result_introspection'  => true,
                           'prepared_statements'   => 'emulated',
                           );
+
+        $this->properties['varchar_max_length'] = 8000;
 
         parent::__construct($manager, $adapter);
     }
@@ -352,7 +354,7 @@ class Doctrine_Connection_Mssql extends Doctrine_Connection_Common
                 $value = $this->quote($value);
             }
 
-            $re = '/([=,\(][^\\\']*)(\?)/iuU';
+            $re = '/([=,\(][^\\\']*)(\?)/iU';
 
             $query = preg_replace($re, "\\1 {$value}", $query, 1);
 

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Oracle.php,v 1.1 2010/11/18 15:15:39 bart Exp $
+ *  $Id: Oracle.php,v 1.2 2011/07/12 13:40:14 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -398,7 +398,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
             return false;
         }
         $row = $this->fetch(Doctrine_Core::FETCH_NUM);
-        return $row[$columnIndex];
+        return isset($row[$columnIndex]) ? $row[$columnIndex] : false;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ArrayHierarchyDriver.php,v 1.1 2010/11/18 15:13:52 bart Exp $
+ *  $Id: ArrayHierarchyDriver.php,v 1.2 2011/07/12 13:39:04 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.2
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Guilherme Blanco <guilhermeblanco@hotmail.com>
  */
 class Doctrine_Hydrator_ArrayHierarchyDriver extends Doctrine_Hydrator_ArrayDriver
@@ -38,8 +38,8 @@ class Doctrine_Hydrator_ArrayHierarchyDriver extends Doctrine_Hydrator_ArrayDriv
 
         $table = $this->getRootComponent();
 
-        if ( ! $table->hasTemplate('NestedSet')) {
-            throw new Doctrine_Exception('Cannot hydrate model that does not have the NestedSet behavior enabled');
+        if ( ! $table->isTree() || ! $table->hasColumn('level')) {
+            throw new Doctrine_Exception('Cannot hydrate model that does not implements Tree behavior with `level` column');
         }
 
         // Trees mapped

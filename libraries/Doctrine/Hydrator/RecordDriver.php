@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: RecordDriver.php,v 1.1 2010/11/18 15:13:52 bart Exp $
+ *  $Id: RecordDriver.php,v 1.2 2011/07/12 13:39:04 bart Exp $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.org
  * @since       1.0
- * @version     $Revision: 1.1 $
+ * @version     $Revision: 1.2 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Roman Borschel <roman@code-factory.org>
  * @author      Jonathan H. Wage <jonwage@gmail.com>
@@ -45,11 +45,11 @@ class Doctrine_Hydrator_RecordDriver extends Doctrine_Hydrator_Graph
         return $coll;
     }
     
-    public function initRelated(&$record, $name)
+    public function initRelated(&$record, $name, $keyColumn = null)
     {
         if ( ! isset($this->_initializedRelations[$record->getOid()][$name])) {
             $relation = $record->getTable()->getRelation($name);
-            $coll = Doctrine_Collection::create($relation->getTable()->getComponentName());
+            $coll = Doctrine_Collection::create($relation->getTable()->getComponentName(), $keyColumn);
             $coll->setReference($record, $relation);
             $record[$name] = $coll;
             $this->_initializedRelations[$record->getOid()][$name] = true;
