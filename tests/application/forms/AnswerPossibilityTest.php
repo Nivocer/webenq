@@ -3,7 +3,7 @@ class Webenq_Test_Form_AnswerPossibilityTest extends Webenq_Test_Form
 {
     public function setUp()
     {
-        $answerPossibilityGroup = new AnswerPossibilityGroup();
+        $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
         $answerPossibilityGroup->id = 1;
         $language = 'nl';
         $this->_form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $language);

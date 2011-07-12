@@ -7,7 +7,7 @@ class Webenq_Test_Form_AnswerPossibility_AddTest extends Webenq_Test_Form_Answer
     {
         parent::setUp();
 
-        $answerPossibilityGroup = new AnswerPossibilityGroup();
+        $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
         $answerPossibilityGroup->id = 1;
         $language = 'nl';
         $this->_form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $language);

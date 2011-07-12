@@ -20,16 +20,16 @@ class Webenq_Test_Model_QuestionTest extends Webenq_Test_Model
 
     public function testQuestionIsSearchable()
     {
-        $result = Question::search('e');
+        $result = Webenq_Model_Question::search('e', null, 1);
         $this->assertTrue($result instanceof Doctrine_Collection);
-        $this->assertTrue($result->count() > 0);
+        $this->assertTrue($result->count() === 1);
     }
 
     public function testQuestionIsAutocompletable()
     {
-        $result = Question::autocomplete('e');
+        $result = Webenq_Model_Question::autocomplete('e', null, 1);
         $this->assertTrue(is_array($result));
-        $this->assertTrue(count($result) > 0);
+        $this->assertTrue(count($result) === 1);
         $this->assertTrue(is_array($result[0]));
         $this->assertTrue(key_exists('value', $result[0]));
         $this->assertTrue(key_exists('label', $result[0]));
