@@ -6,18 +6,6 @@
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
  */
-class Webenq_Model_QuestionText extends QuestionText
+class Webenq_Model_QuestionText extends Webenq_Model_Base_QuestionText
 {
-    /**
-     * Class constructor
-     *
-     * Defaults to new entry
-     *
-     * @param Doctrine_Table $table
-     * @param bool $isNewEntry
-     */
-    public function __construct($table = null, $isNewEntry = true)
-    {
-        parent::__construct($table, $isNewEntry);
-    }
 }

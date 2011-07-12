@@ -6,21 +6,8 @@
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
  */
-class Webenq_Model_QuestionnaireQuestion extends QuestionnaireQuestion
+class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_QuestionnaireQuestion
 {
-    /**
-     * Class constructor
-     *
-     * Defaults to new entry
-     *
-     * @param Doctrine_Table $table
-     * @param bool $isNewEntry
-     */
-    public function __construct($table = null, $isNewEntry = true)
-    {
-        parent::__construct($table, $isNewEntry);
-    }
-
     public function getFormElement()
     {
         $elementName = "qq_$this->id";
@@ -135,5 +122,56 @@ class Webenq_Model_QuestionnaireQuestion extends QuestionnaireQuestion
         }
 
         return $element;
+    }
+
+    /**
+     * Returns the subquestions for the given questionnaire-question.
+     * Note that the grouping of questions can be different for collection
+     * mode and reporting mode. Therefor, the mode can be given as second
+     * parameter. It defaults to the mode 'collection'.
+     *
+     * @param Webenq_Model_QuestionnaireQuestion|array $qq
+     * @param $mode Can be 'collection' or 'report'
+     * @return Doctrine_Collection containing instances of QuestionnaireQuestion
+     */
+    static public function getSubQuestions($qq, $mode = 'collection')
+    {
+        /* get current language from session */
+        $session = new Zend_Session_Namespace();
+        $language = $session->language;
+
+        switch (strtolower($mode)) {
+
+            case 'report':
+                throw new Exception('Mode "report" is not yet implemented in QuestionnaireQuestion::getSubQuestions()');
+                break;
+
+            case 'collection':
+            default:
+                return Doctrine_Query::create()
+                    ->from('Webenq_Model_QuestionnaireQuestion qq')
+                    ->leftJoin('qq.Question q')
+                    ->leftJoin('q.QuestionText qt ON q.id = qt.question_id AND qt.language = ?', $language)
+                    ->innerJoin('qq.CollectionPresentation cp')
+                    ->where('cp.parent_id = ?', $qq['CollectionPresentation'][0]['id'])
+                    ->orderBy('cp.weight')
+                    ->execute(null, Doctrine_Core::HYDRATE_ARRAY);
+        }
+    }
+
+    /**
+     * Returns true if this question is present in more than one questionnaire,
+     * and returns false otherwise.
+     *
+     * @return bool True or false
+     */
+    public function existsInMultipleQuestionnaires()
+    {
+        $count = Doctrine_Query::create()
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
+            ->where('question_id = ?', $this->Question->id)
+            ->execute()
+            ->count();
+        return ($count > 1);
     }
 }

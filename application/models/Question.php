@@ -6,7 +6,7 @@
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
  */
-class Webenq_Model_Question extends Question
+class Webenq_Model_Question extends Webenq_Model_Base_Question
 {
     protected $_questionnaire;
 
@@ -43,16 +43,39 @@ class Webenq_Model_Question extends Question
     public $children = array('Closed', 'Open');
 
     /**
-     * Class constructor
+     * Searches the question repository for the given term in the given language.
+     * If no language is given, all languages are searched.
      *
-     * Defaults to new entry
-     *
-     * @param Doctrine_Table $table
-     * @param bool $isNewEntry
+     * @param string $term
+     * @param string $lang
+     * @return Doctrine_Collection containing instances of Question
      */
-    public function __construct($table = null, $isNewEntry = true)
+    static public function search($term, $lang = null, $limit = null)
     {
-        parent::__construct($table, $isNewEntry);
+        $query = Doctrine_Query::create()
+            ->from('Webenq_Model_Question q')
+            ->innerJoin('q.QuestionText qt')
+            ->where('qt.text LIKE ?', "%$term%");
+
+        if ($lang) $query->andWhere('qt.language = ?', $lang);
+        if ($limit) $query->limit($limit);
+
+        return $query->execute();
+    }
+
+    static public function autocomplete($term, $lang = null, $limit = null)
+    {
+        $questions = self::search($term, $lang, $limit);
+
+        $autocomplete = array();
+        foreach ($questions as $question) {
+            $autocomplete[] = array(
+                'value' => $question->id,
+                'label' => $question->QuestionText[0]->text,
+            );
+        }
+
+        return $autocomplete;
     }
 
     /**
@@ -200,12 +223,12 @@ class Webenq_Model_Question extends Question
      *
      * @return string
      */
-//    public function getQuestionText()
-//    {
-//        if (isset($this->QuestionText[0]->text)) {
-//            return $this->QuestionText[0]->text;
-//        }
-//    }
+    public function getQuestionText()
+    {
+        if (isset($this->QuestionText[0]->text)) {
+            return $this->QuestionText[0]->text;
+        }
+    }
 
     /**
      * Sets the question text for a given language
@@ -214,7 +237,7 @@ class Webenq_Model_Question extends Question
      * @param string $text The question text for the given language
      * @return self
      */
-    public function setQuestionText($language, $text)
+    public function addQuestionText($language, $text)
     {
         $questionText = new Webenq_Model_QuestionText();
         $questionText->language = $language;
@@ -228,10 +251,10 @@ class Webenq_Model_Question extends Question
      * @param array $texts Array with language codes as keys and question texts as values
      * @return self
      */
-    public function setQuestionTexts(array $texts)
+    public function addQuestionTexts(array $texts)
     {
         foreach ($texts as $language => $text) {
-            $this->setQuestionText($language, $text);
+            $this->addQuestionText($language, $text);
         }
     }
 
@@ -562,7 +585,7 @@ class Webenq_Model_Question extends Question
         /* cleanup tmp data */
         $tmpData = $this->_answerValues;
         foreach ($tmpData as $key => $val) {
-            if (in_array(strtolower($val), AnswerPossibilityNullValue::getNullValues())) {
+            if (in_array(strtolower($val), Webenq_Model_AnswerPossibilityNullValue::getNullValues())) {
                 unset($tmpData[$key]);
             }
         }
@@ -612,6 +635,20 @@ class Webenq_Model_Question extends Question
         return true;
     }
 
+    public static function findByQuestionText($questionText, $language)
+    {
+        $result = Doctrine_Query::create()
+            ->from('Webenq_Model_Question q')
+            ->innerJoin('q.QuestionText qt')
+            ->where('qt.language - ?', $language)
+            ->andWhere('qt.text LIKE ?', "%$questionText%")
+            ->execute();
+
+        if ($result->count() > 0) {
+            return $result->getFirst();
+        }
+    }
+
     /**
      * Stores the question to db
      *
@@ -624,7 +661,7 @@ class Webenq_Model_Question extends Question
 //
 //        var_dump(__FILE__, __LINE__, $text); die;
 //        $q = @Doctrine_Query::create()
-//            ->from('Question q')
+//            ->from('Webenq_Model_Question q')
 //            ->innerJoin('q.QuestionText qt')
 //            ->where('qt.text = ?', $text)
 //            ->andWhere('qt.language = ?', $lang)

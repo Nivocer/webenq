@@ -6,18 +6,21 @@
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
  */
-class Webenq_Model_Respondent extends Respondent
+class Webenq_Model_Respondent extends Webenq_Model_Base_Respondent
 {
-    /**
-     * Class constructor
-     *
-     * Defaults to new entry
-     *
-     * @param Doctrine_Table $table
-     * @param bool $isNewEntry
-     */
-    public function __construct($table = null, $isNewEntry = true)
+    public function getAnswer(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion)
     {
-        parent::__construct($table, $isNewEntry);
+        $answers = Doctrine_Query::create()
+            ->from('Webenq_Model_Answer a')
+            ->where('a.respondent_id = ?', $this->id)
+            ->andWhere('a.questionnaire_question_id = ?', $questionnaireQuestion->id)
+            ->limit(1)
+            ->execute();
+
+        if (count($answers) === 1) {
+            return $answers->getFirst();
+        }
+
+        return false;
     }
 }
