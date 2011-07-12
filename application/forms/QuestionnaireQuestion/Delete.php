@@ -9,19 +9,19 @@
 class Webenq_Form_QuestionnaireQuestion_Delete extends Zend_Form
 {
     /**
-     * QuestionnaireQuestion instance
+     * Webenq_Model_QuestionnaireQuestion instance
      *
-     * @var QuestionnaireQuestion $_questionnaireQuestion
+     * @var Webenq_Model_QuestionnaireQuestion $_questionnaireQuestion
      */
     protected $_questionnaireQuestion;
 
     /**
      * Constructor
      *
-     * @param QuestionnaireQuestion $questionnaireQuestion
+     * @param Webenq_Model_QuestionnaireQuestion $questionnaireQuestion
      * @param mixed $options
      */
-    public function __construct(QuestionnaireQuestion $questionnaireQuestion, $options = null)
+    public function __construct(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion, $options = null)
     {
         $this->_questionnaireQuestion = $questionnaireQuestion;
         parent::__construct($options);

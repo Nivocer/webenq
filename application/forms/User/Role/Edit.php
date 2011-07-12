@@ -10,7 +10,7 @@ class Webenq_Form_User_Role_Edit extends Webenq_Form_User_Role_Add
 {
     protected $_role;
 
-    public function __construct(Role $role, $options = null)
+    public function __construct(Webenq_Model_Role $role, $options = null)
     {
         $this->_role = $role;
         parent::__construct($options);

@@ -9,9 +9,9 @@
 class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
 {
     /**
-     * QuestionnaireQuestion instance
+     * Webenq_Model_QuestionnaireQuestion instance
      *
-     * @var QuestionnaireQuestion $_questionnaireQuestion
+     * @var Webenq_Model_QuestionnaireQuestion $_questionnaireQuestion
      */
     protected $_questionnaireQuestion;
 
@@ -20,16 +20,16 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
     /**
      * Constructor
      *
-     * @param QuestionnaireQuestion $questionnaireQuestion
+     * @param Webenq_Model_QuestionnaireQuestion $questionnaireQuestion
      * @param mixed $options
      */
-    public function __construct(QuestionnaireQuestion $questionnaireQuestion, $options = null)
+    public function __construct(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion, $options = null)
     {
         $this->_questionnaireQuestion = $questionnaireQuestion;
 
         // get all questions in this questionnaire at root level
         $rootQuestions = Doctrine_Query::create()
-            ->from('QuestionnaireQuestion qq')
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->innerJoin('qq.CollectionPresentation cp WITH qq.questionnaire_id = ?',
                 $questionnaireQuestion->questionnaire_id)
             ->innerJoin('qq.Question q')
@@ -102,7 +102,7 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
             )),
             $this->createElement('select', 'answerPossibilityGroup_id', array(
                 'label' => 'Selecteer een groep met antwoordmogelijkheden:',
-                'multiOptions' => AnswerPossibilityGroup::getAll(),
+                'multiOptions' => Webenq_Model_AnswerPossibilityGroup::getAll(),
                 'value' => $qq->answerPossibilityGroup_id,
             )),
             $this->createElement('select', 'collectionPresentationType', array(

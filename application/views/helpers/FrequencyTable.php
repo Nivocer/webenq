@@ -5,7 +5,7 @@
  */
 class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
 {
-    public function frequencyTable(array $qq)
+    public function frequencyTable(Webenq_Model_QuestionnaireQuestion $qq)
     {
         $frequency = array();
         foreach ($qq['Answer'] as $answer) {
@@ -15,7 +15,7 @@ class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
                 $frequency[$answer['answerPossibility_id']] = 1;
             }
         }
-        
+
         $html = '
             <table>
                 <tbody>
@@ -25,13 +25,12 @@ class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
                         <th>' . _('waarde') . '</th>
                         <th>' . _('aantal') . '</th>
                     </tr>';
-        
+
         $hasRows = false;
         foreach ($frequency as $id => $count) {
-            
-            $answerPossibility = Doctrine_Core::getTable('AnswerPossibility')
-                ->find($id);
-                
+
+            $answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')->find($id);
+
             if ($answerPossibility) {
                 $hasRows = true;
                 $html .= '
@@ -43,11 +42,11 @@ class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
                         </tr>';
             }
         }
-        
+
         $html .= '
                 </tbody>
             </table>';
-        
+
         if ($hasRows) return $html;
     }
 }

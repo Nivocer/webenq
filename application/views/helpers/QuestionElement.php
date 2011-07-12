@@ -10,19 +10,15 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
      * @param bool $deep Indicating if childs elements should be rendered as well
      * @return Zend_Form_Element or string
      */
-    public function questionElement($qqOriginal, $totalPages, $deep = true)
+    public function questionElement($qq, $totalPages, $deep = true)
     {
-        if (!$qqOriginal instanceof Webenq_Model_QuestionnaireQuestion) {
-            if (is_array($qqOriginal)) {
-                $qq = new Webenq_Model_QuestionnaireQuestion();
-                $qq->fromArray($qqOriginal);
-            } elseif ($qqOriginal instanceof Doctrine_Record) {
-                $qq = new Webenq_Model_QuestionnaireQuestion();
-                @$qq->fromArray($qqOriginal->toArray());
-            } else {
-                throw new Exception('Agrument 1 passed to Zend_View_Helper_QuestionElement::questionElement() must ' .
-                    'be an array of an instance of Webenq_Model_QuestionnaireQuestion');
-            }
+        if (is_array($qq)) {
+            $values = $qq;
+            $qq = new Webenq_Model_QuestionnaireQuestion();
+            $qq->fromArray($values);
+        } elseif (!$qq instanceof Webenq_Model_QuestionnaireQuestion) {
+            throw new Exception('Agrument 1 passed to Zend_View_Helper_QuestionElement::questionElement() must ' .
+                'be an array of an instance of Webenq_Model_QuestionnaireQuestion');
         }
 
         $this->_totalPages = $totalPages;
@@ -31,7 +27,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
         $elm = $qq->getFormElement();
 
         /* get collection-presentation objects for child questions */
-        $subQqs = QuestionnaireQuestion::getSubQuestions($qq);
+        $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($qq);
         if (!$subQqs || !$deep) {
             return '<li id="qq_' . $qq['id'] . '" class="question droppable hoverable">' . $this->_getAdminHtml($qq) .
                 $elm->render() . '</li>';
@@ -50,7 +46,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
             /* get form element for current sub question */
             $subElm = array($this->_getElement($subQq));
             /* get collection-presentation objects for child questions */
-            $subSubQqs = QuestionnaireQuestion::getSubQuestions($subQq);
+            $subSubQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($subQq);
             foreach ($subSubQqs as $subSubQq) {
                 $subElm[] = $this->_getElement($subSubQq);
             }

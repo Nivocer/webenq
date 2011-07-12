@@ -18,11 +18,11 @@ class Webenq_Form_AnswerPossibilityNullValue_Edit extends Webenq_Form_AnswerPoss
     /**
      * Class constructor
      *
-     * @param AnswerPossibilityNullValue $answerPossibilityNullValue
+     * @param Webenq_Model_AnswerPossibilityNullValue $answerPossibilityNullValue
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct(AnswerPossibilityNullValue $answerPossibilityNullValue, array $options = null)
+    public function __construct(Webenq_Model_AnswerPossibilityNullValue $answerPossibilityNullValue, array $options = null)
     {
         $this->_answerPossibilityNullValue = $answerPossibilityNullValue;
         parent::__construct($options);

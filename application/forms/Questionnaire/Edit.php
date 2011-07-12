@@ -21,7 +21,7 @@ class Webenq_Form_Questionnaire_Edit extends Webenq_Form_Questionnaire_Add
      * @param Questionnaire $questionnaire
      * @param mixed $options
      */
-    public function __construct(Questionnaire $questionnaire, $options = null)
+    public function __construct(Webenq_Model_Questionnaire $questionnaire, $options = null)
     {
         $this->_questionnaire = $questionnaire;
         parent::__construct($options);

@@ -11,24 +11,18 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
     /**
      * Array with questions
      *
-     * @var array
+     * @var Doctrine_Collection
      */
     protected $_questions;
 
     /**
      *
-     * @param array|Doctrine_Collection $questions
+     * @param Doctrine_Collection $questions
      * @param array $options
      */
-    public function __construct($questions, $options = null)
+    public function __construct(Doctrine_Collection $questions, $options = null)
     {
-        if ($questions instanceof Doctrine_Collection) {
-            $this->_questions = $questions->toArray();
-        } elseif (is_array($questions)) {
-            $this->_questions = $questions;
-        } else {
-            throw new Exception('First parameter must be an array or an instance of Doctrine_Collection!');
-        }
+        $this->_questions = $questions;
         parent::__construct($options);
     }
 
@@ -37,14 +31,10 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
         $view = $this->getView();
 
         /* iterate over questions */
-        foreach ($this->_questions as $values) {
-
-            // instantiate question object
-            $question = new Webenq_Model_QuestionnaireQuestion();
-            $question->fromArray($values, false);
+        foreach ($this->_questions as $question) {
 
             /* get sub-questions */
-            $subQuestions = QuestionnaireQuestion::getSubQuestions($question);
+            $subQuestions = Webenq_Model_QuestionnaireQuestion::getSubQuestions($question);
 
             if (!isset($subQuestions[0])) {
                 /* if no sub-questions: add element */
@@ -59,7 +49,7 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
                 foreach ($subQuestions as $subQuestion) {
 
                     /* get sub-sub-questions */
-                    $subSubQuestions = QuestionnaireQuestion::getSubQuestions($subQuestion);
+                    $subSubQuestions = Webenq_Model_QuestionnaireQuestion::getSubQuestions($subQuestion);
 
                     if (!isset($subSubQuestions[0])) {
                         /* if no sub-sub-questions: add element */

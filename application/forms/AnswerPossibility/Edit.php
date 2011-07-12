@@ -25,16 +25,16 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
     /**
      * Class constructor
      *
-     * @param AnswerPossibility $answerPossibility
+     * @param Webenq_Model_AnswerPossibility $answerPossibility
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct(AnswerPossibility $answerPossibility, array $options = null)
+    public function __construct(Webenq_Model_AnswerPossibility $answerPossibility, array $options = null)
     {
         $this->_answerPossibility = $answerPossibility;
 
         $groups = Doctrine_Query::create()
-            ->from('AnswerPossibilityGroup apg')
+            ->from('Webenq_Model_AnswerPossibilityGroup apg')
             ->orderBy('apg.name')
             ->execute();
         foreach ($groups as $group) {

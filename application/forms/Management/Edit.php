@@ -16,11 +16,11 @@ class Webenq_Form_Management_Edit extends Zend_Form
     /**
      * Class constructor
      *
-     * @param QuestionnaireQuestion $questionnaireQuestion
+     * @param Webenq_Model_QuestionnaireQuestion $questionnaireQuestion
      * @param array $options Zend_Form options
      * @return void
      */
-    public function __construct(QuestionnaireQuestion $questionnaireQuestion, $options = null)
+    public function __construct(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion, $options = null)
     {
         $this->_questionnaireQuestion = $questionnaireQuestion;
         parent::__construct($options);

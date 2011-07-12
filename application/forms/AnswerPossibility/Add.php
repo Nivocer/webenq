@@ -11,7 +11,7 @@ class Webenq_Form_AnswerPossibility_Add extends Zend_Form
     /**
      * Current answer-possibility-group
      *
-     * @var AnswerPossibilityGroup $_answerPossibilityGroup
+     * @var Webenq_Model_AnswerPossibilityGroup $_answerPossibilityGroup
      */
     protected $_answerPossibilityGroup;
 
@@ -25,12 +25,12 @@ class Webenq_Form_AnswerPossibility_Add extends Zend_Form
     /**
      * Class constructor
      *
-     * @param AnswerPossibilityGroup $_answerPossibilityGroup
+     * @param Webenq_Model_AnswerPossibilityGroup $_answerPossibilityGroup
      * @param string $language
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct(AnswerPossibilityGroup $answerPossibilityGroup, $language, array $options = null)
+    public function __construct(Webenq_Model_AnswerPossibilityGroup $answerPossibilityGroup, $language, array $options = null)
     {
         $this->_answerPossibilityGroup = $answerPossibilityGroup;
         $this->_language = $language;

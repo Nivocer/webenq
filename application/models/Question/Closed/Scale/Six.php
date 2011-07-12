@@ -30,7 +30,7 @@ class Webenq_Model_Question_Closed_Scale_Six extends Webenq_Model_Question_Close
         }
 
         /* are all values present in an answer-possibility-group? */
-        $group = AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues());
+        $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues());
         if ($group->AnswerPossibility[0]->value != 6) {
             return false;
         }

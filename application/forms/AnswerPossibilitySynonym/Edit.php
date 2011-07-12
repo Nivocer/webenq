@@ -11,18 +11,18 @@ class Webenq_Form_AnswerPossibilitySynonym_Edit extends Zend_Form
     /**
      * Current answer-possibility-text-synonym
      *
-     * @var AnswerPossibilityTextSynonym $_synonym
+     * @var Webenq_Model_AnswerPossibilityTextSynonym $_synonym
      */
     protected $_synonym;
 
     /**
      * Class constructor
      *
-     * @param AnswerPossibilityTextSynonym $_synonym
+     * @param Webenq_Model_AnswerPossibilityTextSynonym $_synonym
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct(AnswerPossibilityTextSynonym $synonym, array $options = null)
+    public function __construct(Webenq_Model_AnswerPossibilityTextSynonym $synonym, array $options = null)
     {
         $this->_synonym = $synonym;
         parent::__construct($options);

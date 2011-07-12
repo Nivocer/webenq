@@ -10,7 +10,7 @@ class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
 {
     protected $_user;
 
-    public function __construct(User $user, $options = null)
+    public function __construct(Webenq_Model_User $user, $options = null)
     {
         $this->_user = $user;
         parent::__construct($options);

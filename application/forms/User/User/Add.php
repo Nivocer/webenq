@@ -56,7 +56,7 @@ class Webenq_Form_User_User_Add extends Zend_Form
             $this->createElement('select', 'role_id', array(
                 'label' => 'Rol:',
                 'required' => true,
-                'multiOptions' => Role::getAllAsArray(),
+                'multiOptions' => Webenq_Model_Role::getAllAsArray(),
             )),
             $this->createElement('submit', 'submit', array(
                 'label' => 'toevoegen',
@@ -68,7 +68,7 @@ class Webenq_Form_User_User_Add extends Zend_Form
     {
         try {
             $values = $this->getValues();
-            $user = new User();
+            $user = new Webenq_Model_User();
             $user->fromArray($values);
             $user->password = md5($values['password']);
             $user->save();

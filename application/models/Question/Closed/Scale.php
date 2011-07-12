@@ -25,7 +25,7 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Question_Closed
     {
         if (!self::$_groups instanceof Doctrine_Collection) {
             self::$_groups = Doctrine_Query::create()
-                ->from('AnswerPossibilityGroup')
+                ->from('Webenq_Model_AnswerPossibilityGroup')
                 ->execute();
         }
         return self::$_groups;
@@ -40,7 +40,7 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Question_Closed
     static public function isType(Webenq_Model_Question $question)
     {
         /* are all values present in an answer-possibility-group? */
-        $group = AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues());
+        $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues());
         if (!$group) {
             return false;
         }
@@ -66,12 +66,12 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Question_Closed
     /**
      * Checks if no invalid answers are given
      *
-     * @return AnswerPossibilityGroup
+     * @return Webenq_Model_AnswerPossibilityGroup
      */
 //    public function getValidAnswerPossibilityGroup()
 //    {
 //        $query = Doctrine_Query::create()
-//            ->from('AnswerPossibilityText t')
+//            ->from('Webenq_Model_AnswerPossibilityText t')
 //            ->leftJoin('t.AnswerPossibilityTextSynonym s');
 //
 //        $uniqueValues = $this->getUniqueValues();
@@ -101,7 +101,7 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Question_Closed
 //
 //        if (count($validGroupIds) > 0) {
 //            $group = Doctrine_Query::create()
-//                ->from('AnswerPossibilityGroup apg')
+//                ->from('Webenq_Model_AnswerPossibilityGroup apg')
 //                ->innerJoin('apg.AnswerPossibility ap')
 //                ->whereIn('apg.id', $validGroupIds)
 //                ->orderBy('ap.value DESC')
