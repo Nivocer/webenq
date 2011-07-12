@@ -131,7 +131,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
             // reset all questions on this page
             Doctrine_Query::create()
-                ->update('CollectionPresentation cp')
+                ->update('Webenq_Model_CollectionPresentation cp')
                 ->set('weight', '?', 0)
                 ->set('page', '?', $page)
                 ->whereIn('cp.questionnaire_question_id', $qqIds)
@@ -153,7 +153,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
                 // make sure the page is also set on sub-questions
                 Doctrine_Query::create()
-                    ->update('CollectionPresentation cp')
+                    ->update('Webenq_Model_CollectionPresentation cp')
                     ->set('page', '?', $page)
                     ->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
                     ->execute();
@@ -175,7 +175,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
         // reset subquestions
         Doctrine_Query::create()
-            ->update('CollectionPresentation cp')
+            ->update('Webenq_Model_CollectionPresentation cp')
             ->set('weight', '?', 0)
             ->set('page', '?', 0)
             ->whereIn('cp.questionnaire_question_id', $qqIds)
