@@ -1,5 +1,10 @@
 <?php
 
+require_once 'cases/Controller.php';
+require_once 'cases/Model.php';
+require_once 'cases/Form.php';
+require_once 'cases/Plugin.php';
+
 // define application environment
 define('APPLICATION_ENV', 'testing');
 
@@ -21,12 +26,3 @@ $resourceLoader->addResourceType('controllerTestCases', '../tests/application/co
 $resourceLoader->addResourceType('modelTestCases', '../tests/application/models', 'Test_Model');
 $resourceLoader->addResourceType('formTestCases', '../tests/application/forms', 'Test_Form');
 $resourceLoader->addResourceType('pluginTestCases', '../tests/application/plugins', 'Test_Plugin');
-
-// create and bootstrap application
-$application = new Zend_Application(APPLICATION_ENV, $config->{APPLICATION_ENV});
-$application->bootstrap();
-
-require_once 'cases/Controller.php';
-require_once 'cases/Model.php';
-require_once 'cases/Form.php';
-require_once 'cases/Plugin.php';

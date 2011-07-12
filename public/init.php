@@ -26,3 +26,8 @@ if (file_exists(APPLICATION_PATH . '/configs/override.ini')) {
 if (!$config->{APPLICATION_ENV}) {
     throw new Exception('No configuration found for application environment "' . APPLICATION_ENV . '"');
 }
+
+// bootstrap application
+require_once 'Zend/Application.php';
+$application = new Zend_Application(APPLICATION_ENV, $config->{APPLICATION_ENV});
+$application->bootstrap();

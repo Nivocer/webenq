@@ -7,7 +7,5 @@ defined('APPLICATION_ENV')
 // initialize
 require_once realpath(dirname(__FILE__) . '/init.php');
 
-// create application, bootstrap, and run
-require_once 'Zend/Application.php';
-$application = new Zend_Application(APPLICATION_ENV, $config->{APPLICATION_ENV});
-$application->bootstrap()->run();
+// run application
+$application->run();
