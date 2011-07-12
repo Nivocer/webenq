@@ -1,15 +1,14 @@
 <?php
 class Webenq_Test_Model extends PHPUnit_Framework_TestCase
 {
-    public function testModelInstanceHasCorrectState()
+    public function setUp()
     {
-        $modelClass = get_class($this);
-        $modelClass = str_replace('Test_', null, $modelClass);
-        $modelClass = str_replace('Test', null, $modelClass);
+        global $application;
 
-        if (preg_match('/^Webenq_Model_.*$/', $modelClass)) {
-            $model = new $modelClass;
-            $this->assertTrue($model->state() === Doctrine_Record::STATE_TCLEAN);
-        }
+        $config = $application->getBootstrap()->getOption('doctrine');
+        Doctrine_Core::createTablesFromModels($config['models_path']);
+        Doctrine_Core::loadData($config['data_fixtures_path'] . '/testing.yml');
+
+        parent::setUp();
     }
 }
