@@ -1,4 +1,4 @@
-<phpunit bootstrap="./bootstrap.php" colors="false">
+<phpunit bootstrap="./bootstrap.php" colors="true">
     <testsuite name="Webenq Test Suite">
         <directory>./</directory>
 	</testsuite>
