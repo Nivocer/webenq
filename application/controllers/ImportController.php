@@ -52,7 +52,7 @@ class ImportController extends Zend_Controller_Action
                 }
 
                 $adapter = Webenq_Import_Adapter_Abstract::factory($filename);
-                $importer = Webenq_Import_Abstract::factory($data['type'], $adapter);
+                $importer = Webenq_Import_Abstract::factory($data['type'], $adapter, $data['language']);
                 $importer->import();
                 $this->_redirect('/');
             }
