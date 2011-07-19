@@ -3,9 +3,9 @@
         <head>
             <?= $this->headMeta() ?>
             <?= $this->headLink() ?>
-            <?= $this->jQuery() ?>        
-            <?= $this->headScript() ?> 
-            <?= $this->headTitle()?> 
+            <?= $this->jQuery() ?>
+            <?= $this->headScript() ?>
+            <?= $this->headTitle()?>
         </head>
         <body>
             <div id="header">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="loading"><?php echo _('Bezig met laden en/of opslaan...'); ?></div>
                 <?php echo $this->navigation()->menu(); ?>
-                <?php echo $this->language; ?>
+                <?php echo $this->languageSelection; ?>
                 <?php echo $this->messenger($this->messages); ?>
             </div>
             <div id="content">

@@ -1,14 +1,25 @@
 <?php
 /**
- * Helper class that returns the right language from a result set
+ * View helper class
+ *
+ * @package     Webenq
+ * @subpackage  Views
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
  */
 class Zend_View_Helper_Language extends Zend_View_Helper_Abstract
 {
-    public function language(array $collection, $language)
+    /**
+     * Return the string in the correct language from a collection of
+     * records in several languages.
+     *
+     * @param Doctrine_Collection $collection
+     * @param string $language
+     */
+    public function language(Doctrine_Collection $collection = null, $language)
     {
-        if (count($collection) > 0) {
+        if ($collection && $collection->count() > 0) {
             foreach ($collection as $record) {
-                if (isset($record['language']) && $record['language'] == $language) {
+                if ($record->language === $language) {
                     return $record;
                 }
             }

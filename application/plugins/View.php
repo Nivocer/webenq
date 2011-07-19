@@ -53,7 +53,7 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->navigation($this->_getNavigation($request));
 
         /* language selector */
-        $view->language = $this->_getLanguageSelector($view);
+        $view->languageSelection = $this->_getLanguageSelector($view);
 
         /* store view object in registry */
         Zend_Registry::set('view', $view);

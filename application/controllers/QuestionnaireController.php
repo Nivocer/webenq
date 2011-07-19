@@ -406,6 +406,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, null, true);
 
         /* display */
+        $this->view->language = $this->_language;
         $this->view->questionnaire = $questionnaire;
     }
 
