@@ -11,6 +11,7 @@
             <tr>
                 <th><?php echo _('groep'); ?></th>
                 <th><?php echo _('mogelijkheden'); ?></th>
+                <th><?php echo _('gebruikt in questionnaire'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -27,6 +28,21 @@
                             <?php echo $answerPossibilityGroup->AnswerPossibility->count(); ?>
                             <?php echo _('mogelijkheden'); ?>
                         </a>
+                    </td>
+                    <td>
+                        <?php
+                            $usedIn = array();
+                            foreach ($answerPossibilityGroup->QuestionnaireQuestion as $qq):
+                                $usedIn[] = $qq->Questionnaire->id;
+                            endforeach;
+                            $usedIn = array_unique($usedIn);
+                            sort($usedIn);
+                            foreach ($usedIn as $id):
+                        ?>
+                                <a href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $id);    ?>"><?php echo $id; ?></a>
+                        <?php
+                            endforeach;
+                        ?>
                     </td>
                     <td>
                         <a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
