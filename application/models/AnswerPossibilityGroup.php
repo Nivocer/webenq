@@ -28,6 +28,63 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
         return $retVal;
     }
 
+    public function findAnswerPossibility($answerText, $currentLanguage = null)
+    {
+        $possibility = null;
+        // try to find answerpossibility in current group
+        foreach ($this->AnswerPossibility as $possibility) {
+            // try to find text in current possibility
+            foreach ($possibility->AnswerPossibilityText as $answerPossibilityText) {
+                if ($currentLanguage) {
+                    if ($answerPossibilityText->language === $currentLanguage &&
+                        $answerPossibilityText->text === $answerText)
+                    {
+                        return $possibility;
+                    }
+                    // try to find synonym in current language
+                    foreach ($answerPossibilityText->AnswerPossibilityTextSynonym as $answerPossibilityTextSynonym) {
+                        if ($answerPossibilityTextSynonym->text === $answerText) {
+                            return $possibility;
+                        }
+                    }
+                } else {
+                    if ($answerPossibilityText->text === $answerText) {
+                        return $possibility;
+                    }
+                    // try to find synonym in current language
+                    foreach ($answerPossibilityText->AnswerPossibilityTextSynonym as $answerPossibilityTextSynonym) {
+                        if ($answerPossibilityTextSynonym->text === $answerText) {
+                            return $possibility;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function addAnswerPossibility($answerText, $language)
+    {
+        // check if answer-text is null value
+        $nullValues = Webenq_Model_AnswerPossibilityNullValue::getNullValues();
+        foreach ($nullValues as $nullValue) {
+            if ($answerText == $nullValue) {
+                return false;
+            }
+        }
+
+        // create new answer-possibility
+        $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
+        $answerPossibilityText->text = $answerText;
+        $answerPossibilityText->language = $language;
+
+        $answerPossibility = new Webenq_Model_AnswerPossibility();
+        $answerPossibility->AnswerPossibilityText[] = $answerPossibilityText;
+
+        $this->AnswerPossibility[] = $answerPossibility;
+
+        return $answerPossibility;
+    }
+
     /**
      * Finds an existing group of answer possibilities, based on a set
      * of unique values.
