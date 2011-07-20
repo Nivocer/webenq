@@ -32,9 +32,9 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             // answers
             foreach ($this->Respondent as $indexRow => $respondent) {
                 $answer = $respondent->Answer[$indexCol];
-                if (isset($answer->text)) {
+                if (!empty($answer->text)) {
                     $value = $answer->text;
-                } elseif (isset($answer->AnswerPossibility->AnswerPossibilityText[0]->text)) {
+                } elseif (!empty($answer->AnswerPossibility->AnswerPossibilityText[0]->text)) {
                     $value = $answer->AnswerPossibility->AnswerPossibilityText[0]->text;
                 } else {
                     $value = '';
