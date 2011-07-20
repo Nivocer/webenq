@@ -11,9 +11,16 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
     /**
      * Current answer-possibility
      *
-     * @var AnswerPossibility $_answerPossibility
+     * @var Webenq_Model_AnswerPossibility $_answerPossibility
      */
     protected $_answerPossibility;
+
+    /**
+     * All answer-possibilities in current group
+     *
+     * @var array $_answerPossibilities
+     */
+    protected $_answerPossibilities;
 
     /**
      * Array of answer-possibility-groups
@@ -26,10 +33,11 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
      * Class constructor
      *
      * @param Webenq_Model_AnswerPossibility $answerPossibility
+     * @param string $language
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct(Webenq_Model_AnswerPossibility $answerPossibility, array $options = null)
+    public function __construct(Webenq_Model_AnswerPossibility $answerPossibility, $language, array $options = null)
     {
         $this->_answerPossibility = $answerPossibility;
 
@@ -39,6 +47,18 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
             ->execute();
         foreach ($groups as $group) {
             $this->_answerPossibilityGroups[$group->id] = $group->name;
+        }
+
+        $possibilities = Doctrine_Query::create()
+            ->from('Webenq_Model_AnswerPossibility ap')
+            ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $language)
+            ->where('ap.answerPossibilityGroup_id = ?', $answerPossibility->answerPossibilityGroup_id)
+            ->andWhere('ap.id != ?', $answerPossibility->id)
+            ->orderBy('ap.value, apt.text')
+            ->execute();
+        $this->_answerPossibilities = array('--- selecteer ---');
+        foreach ($possibilities as $possibility) {
+            $this->_answerPossibilities[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
         }
 
         parent::__construct($options);
@@ -80,9 +100,46 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
                 'value' => $this->_answerPossibility->answerPossibilityGroup_id,
                 'multiOptions' => $this->_answerPossibilityGroups,
             )),
-            $this->createElement('submit', 'submit', array(
+            $this->createElement('submit', 'submitedit', array(
                 'label' => 'opslaan',
             )),
+            $this->createElement('select', 'answerPossibility_id', array(
+                'label' => 'Antwoordmogelijkheden:',
+                'multiOptions' => $this->_answerPossibilities,
+            )),
+            $this->createElement('submit', 'submitmove', array(
+                'label' => 'verplaatsen',
+            )),
+            $this->createElement('submit', 'submitnull', array(
+                'label' => 'nul-waarde van maken',
+            )),
         ));
+
+        $this->addDisplayGroup(
+            array('language', 'value', 'answerPossibilityGroup_id', 'text', 'submitedit'),
+            'edit',
+            array('legend' => 'Bewerken')
+        );
+        $this->addDisplayGroup(
+            array('answerPossibility_id', 'submitmove'),
+            'move',
+            array('legend' => 'Verplaatsen')
+        );
+        $this->addDisplayGroup(
+            array('submitnull'),
+            'null',
+            array('legend' => 'Markeren als nul-waarde')
+        );
+    }
+
+    public function isValid($values)
+    {
+        if (key_exists('submitmove', $values) || key_exists('submitnull', $values)) {
+            foreach ($this->edit->getElements() as $elm) {
+                $elm->setRequired(false);
+            }
+        }
+
+        return parent::isValid($values);
     }
 }
