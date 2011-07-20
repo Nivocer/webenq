@@ -30,6 +30,8 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
 
     public function findAnswerPossibility($answerText, $currentLanguage = null)
     {
+        $answerText = strtolower(trim($answerText));
+
         $possibility = null;
         // try to find answerpossibility in current group
         foreach ($this->AnswerPossibility as $possibility) {
@@ -64,10 +66,12 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
 
     public function addAnswerPossibility($answerText, $language)
     {
+        $answerText = strtolower($answerText);
+
         // check if answer-text is null value
         $nullValues = Webenq_Model_AnswerPossibilityNullValue::getNullValues();
         foreach ($nullValues as $nullValue) {
-            if ($answerText == $nullValue) {
+            if ($answerText === $nullValue) {
                 return false;
             }
         }
@@ -94,7 +98,7 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
      */
     static public function findByUniqueValues($uniqueValues)
     {
-        /* remove null values */
+        // remove null values
         $nullValues = Webenq_Model_AnswerPossibilityNullValue::getNullValues();
         foreach ($nullValues as $nullValue) {
             while ($key = array_search($nullValue, $uniqueValues)) {
@@ -137,6 +141,20 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
     }
 
     /**
+     * Finds an existing group of answer possibilities, based on a set
+     * of answer values.
+     *
+     * @param array $values
+     * @return Webenq_Model_AnswerPossibilityGroup
+     */
+    static public function findByAnswerValues($values)
+    {
+        $values = array_map('strtolower', $values);
+        $uniqueValues = array_unique($values);
+        return self::findByUniqueValues($uniqueValues);
+    }
+
+    /**
      * Creates a new group of answer possibilities based on the provided
      * set of unique answers
      *
@@ -165,5 +183,19 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
         }
 
         return false;
+    }
+
+    /**
+     * Creates a new group of answer possibilities based on the provided
+     * set of answer answers
+     *
+     * @param array $values
+     * @return self
+     */
+    static public function createByAnswerValues($values)
+    {
+        $values = array_map('strtolower', $values);
+        $uniqueValues = array_unique($values);
+        return self::createByUniqueValues($uniqueValues);
     }
 }
