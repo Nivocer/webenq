@@ -155,7 +155,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                     ->innerJoin('qq.CollectionPresentation cp')
                     ->where('cp.parent_id = ?', $qq['CollectionPresentation'][0]['id'])
                     ->orderBy('cp.weight')
-                    ->execute(null, Doctrine_Core::HYDRATE_ARRAY);
+                    ->execute();
         }
     }
 

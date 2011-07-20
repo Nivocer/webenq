@@ -22,28 +22,56 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
      */
     public function getDataAsSpreadsheetArray()
     {
-        $rows = array();
-        foreach ($this->QuestionnaireQuestion as $indexCol => $questionnaireQuestion) {
+        // get row with questions
+        $row = array();
+        foreach ($this->QuestionnaireQuestion as $questionnaireQuestion) {
+            $this->_getQuestionCell($questionnaireQuestion, $row);
+        }
+        $rows = array($row);
 
-            // question
-            $value = $questionnaireQuestion->Question->QuestionText[0]->text;
-            $rows[0][$indexCol] = $value;
-
-            // answers
-            foreach ($this->Respondent as $indexRow => $respondent) {
-                $answer = $respondent->Answer[$indexCol];
-                if (!empty($answer->text)) {
-                    $value = $answer->text;
-                } elseif (!empty($answer->AnswerPossibility->AnswerPossibilityText[0]->text)) {
-                    $value = $answer->AnswerPossibility->AnswerPossibilityText[0]->text;
-                } else {
-                    $value = '';
-                }
-                $rows[$indexRow+1][$indexCol] = $value;
+        // get all rows with answers (on for each respondent)
+        foreach ($this->Respondent as $respondent) {
+            $row = array();
+            foreach ($this->QuestionnaireQuestion as $questionnaireQuestion) {
+                $this->_getAnswerCell($questionnaireQuestion, $respondent, $row);
             }
+            $rows[] = $row;
         }
 
         return $rows;
+    }
+
+    protected function _getQuestionCell(Webenq_Model_QuestionnaireQuestion $parent, array &$row)
+    {
+        $subQuestions = Webenq_Model_QuestionnaireQuestion::getSubQuestions($parent);
+        if ($subQuestions->count() > 0) {
+            foreach ($subQuestions as $subQuestion) {
+                $this->_getQuestionCell($subQuestion, $row);
+            }
+        } else {
+            $row[] = $parent->Question->QuestionText[0]->text;
+        }
+    }
+
+    protected function _getAnswerCell(Webenq_Model_QuestionnaireQuestion $parent,
+        Webenq_Model_Respondent $respondent, array &$row)
+    {
+        $subQuestions = Webenq_Model_QuestionnaireQuestion::getSubQuestions($parent);
+        if ($subQuestions->count() > 0) {
+            foreach ($subQuestions as $subQuestion) {
+                $this->_getAnswerCell($subQuestion, $respondent, $row);
+            }
+        } else {
+            $answer = $respondent->getAnswer($parent);
+            if (!empty($answer->text)) {
+                $value = $answer->text;
+            } elseif (!empty($answer->AnswerPossibility->AnswerPossibilityText[0]->text)) {
+                $value = $answer->AnswerPossibility->AnswerPossibilityText[0]->text;
+            } else {
+                $value = '';
+            }
+            $row[] = $value;
+        }
     }
 
     /**
