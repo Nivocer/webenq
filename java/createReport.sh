@@ -4,12 +4,21 @@
 echo ------ >> createReport.error
 echo $1 >> createReport.error
 echo ------ >> createReport.error
-path='/home/jaapandre/workspace/webenq4_3/public/reports'
+path='/home/jaapandre/workspace/webenq4/public/reports'
+
+#hva
+dbuser='hva'
+dbpassword=''
+
+#webenq4
+dbuser='webenq_org'
+dbpassword=''
+
 dir=$path/$2
 echo $dir
 #lokaal
-java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport 127.0.0.1/webenq_org_hva hva  6V080HEp0hFzAGOv $1 $dir 2>>createReport.error
+java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport 127.0.0.1/webenq_org_new_model $dbuser $dbpassword $1 $dir 2>>createReport.error
 #server
-#java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport 127.0.0.1:6603/webenq_org_hva hva  6V080HEp0hFzAGOv $1 $dir 2>>createReport.error
+#java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport 127.0.0.1:6603/webenq_org_hva $dbuser $dbpassword $1 $dir 2>>createReport.error
 #more createReport.error
 
