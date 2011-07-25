@@ -43,16 +43,17 @@ public class QuestionJRDataSource {
 			//hack fraijlemaborg response
 			String config_response_group="30_aantal_werkelijke_respondenten";
 			String config_population_group="29_groepsgrootte";
+			@SuppressWarnings("unused")
 			String config_identifier="207";
 			
-			
+			//@TODO adjust for new datamodel, step 2
 			Statement stmt_rows=conn.createStatement();
 			stmt_rows.execute("select * from report_definitions where id='"+report_identifier+"'");
 			
 			ResultSet rs_repdef =stmt_rows.getResultSet();
 			rs_repdef.next();
 			String identifier=rs_repdef.getString("data_set_id");			
-			//group_rows is variable to group the data with (columns in crosstab)
+			//group_rows is variable to group the data with (columns in cross tab)
 			String group_rows=rs_repdef.getString("group_question_id");
 			String split_question_id=rs_repdef.getString("split_question_id");
 			//String output_file_name=rs_repdef.getString("output_filename");
@@ -63,12 +64,7 @@ public class QuestionJRDataSource {
 			String customer = rs_repdef.getString("customer");
 			//String page_orientation = rs_repdef.getString("page"); 
 			String config_hack_identifier="";
-			if (identifier.equals(config_identifier) && report_type.equals("tables")){
-				//very ugly hack, use another table to get the groups
-				config_hack_identifier="hack_";
-			}
-
-						
+									
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
 			//group_rows may be empty, we don't have a title.
