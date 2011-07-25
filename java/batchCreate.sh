@@ -107,6 +107,9 @@ dir="fmb201102"
 #dir="lwb201102d"
 #vt prop blok 2
 
+reports="1 2 3"
+dir='test'
+
 for repdef in `echo $reports` 
 do 
 echo '---------'
