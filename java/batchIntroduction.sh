@@ -44,13 +44,26 @@ type_reports="openSem"
 #type_reports="openSem"
 dir="fmb201102"
 
+#hva oo 2010-2011 sem 1
+dir="oo-20102011-sem1"
+reports="112 114"
+type_reports="pabo"
+settings="hva-local-oo"
+
+#let op coordinator lv moet vanuit odt gegenereerd worden (113)
+reports="113 115"
+type_reports="pedagogiek"
+
+#coordinatoren pedagogie:
+reports="113"
+
 for repdef in `echo $reports` 
 do 
 echo '---------'
 for type_report in `echo $type_reports`
 do
 echo $repdef $dir  $type_report
-./createIntroduction.sh $repdef $type_report $dir
+./createIntroduction.sh $repdef $type_report $dir $settings
 done
 done
 

@@ -68,7 +68,7 @@ public class QuestionJRDataSource {
 			//find out the title of the group rows
 			Statement stmt_titlerows=conn.createStatement();
 			//group_rows may be empty, we don't have a title.
-			if ( group_rows.length() != 0 ) {
+			if ( group_rows != null && group_rows.length()>0) {
 				stmt_titlerows.execute("select title from questions_"+identifier+" where id='"+group_rows+"'");
 				ResultSet rs_titlerows=stmt_titlerows.getResultSet();
 				rs_titlerows.next();
@@ -120,10 +120,10 @@ public class QuestionJRDataSource {
 					Statement stmt_valuep=conn.createStatement();
 					//group_rows may be empty
 					String query="";
-					if ( group_rows.length() == 0 ){
-						query="select "+question_field+" ,\"Totaal\" from values_"+identifier+" where "+question_field+" is not null";
-					}else{
+					if ( group_rows != null &&  group_rows.length() > 0 ){
 						query="select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+" is not null ";
+					}else{
+						query="select "+question_field+" ,\"Totaal\" from values_"+identifier+" where "+question_field+" is not null";
 					}
 					
 					if  ((split_question_id!=null) && (split_question_id.length()>0)  ) {
@@ -154,7 +154,11 @@ public class QuestionJRDataSource {
 							tempLabel="2) "+tempLabel;
 						}else if ((tempLabel.toLowerCase().equals("te weing"))){
 							tempLabel="2) te weinig";
+						}else if ((tempLabel.toLowerCase().equals("te weining"))){
+							tempLabel="2) te weinig";
 						}else if ((tempLabel.toLowerCase().equals("precies goed"))){
+							tempLabel="3) "+tempLabel;
+						}else if ((tempLabel.toLowerCase().equals("niet te veel/niet te weinig"))){
 							tempLabel="3) "+tempLabel;
 						}else if ((tempLabel.toLowerCase().equals("te veel"))){
 							tempLabel="4) "+tempLabel;
@@ -173,6 +177,18 @@ public class QuestionJRDataSource {
 						}else if ((tempLabel.toLowerCase().equals("veel te moeilijk"))){
 							tempLabel="5) "+tempLabel;
 						}
+						if (tempLabel.toLowerCase().equals("0 - 5 uur")){
+							tempLabel=" "+tempLabel;
+						} else if (tempLabel.toLowerCase().equals("0-5 uur")){
+							tempLabel=" "+tempLabel;
+						} else if (tempLabel.toLowerCase().equals("0 - 10 uur")){
+							tempLabel=" "+tempLabel;
+						} else if (tempLabel.toLowerCase().equals("0-10 uur")){
+							tempLabel=" "+tempLabel;
+						} else	if (tempLabel.toLowerCase().equals("6-10 uur")){
+							tempLabel=" "+tempLabel;
+						}
+						
 						Record rp=new Record(question_title,titlerows,question_field,tempLabel,rsh_valuep.getString(2),"1");
 						reportRows.add(rp);
 					}
@@ -184,14 +200,14 @@ public class QuestionJRDataSource {
 					//report3-groupinfo.jrxml
 					Statement stmt_valuea=conn.createStatement();
 					String query="";
-					if ( group_rows.length() == 0 ){
-						query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
-					}else{
+					if ( group_rows !=null && group_rows.length() > 0 ){
 						query="select "+question_field+","+group_rows+" from values_"+identifier+" where "+question_field+">0";
+					}else{
+						query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
 					}
 					//@todo ugly hack response fraijlemaborg
 					if (customer.equals("fraijlemaborg") && question_field.equals(config_response_group)){
-						if ( group_rows.length() == 0 ){
+						if ( group_rows != null && group_rows.length() == 0 ){
 							query="SELECT  "+config_response_group+"/"+config_population_group+" as "+config_response_group+", \"Totaal\" FROM values_"+identifier+" where 1=1 ";
 						}else{
 							query="SELECT  "+config_response_group+"/"+config_population_group+" as "+config_response_group+","+group_rows+" FROM values_"+identifier+" where 1=1 ";
@@ -201,7 +217,7 @@ public class QuestionJRDataSource {
 					if  ( (split_question_id !=null) && (split_question_id.length()>0)   ) {
 						query=query+" and "+split_question_id+" like \""+split_value+"\"";
 					}
-					if ( group_rows.length() != 0 ){
+					if ( group_rows != null && group_rows.length() != 0 ){
 						query=query+" order by "+group_rows;
 					}
 
@@ -225,7 +241,7 @@ public class QuestionJRDataSource {
 					
 					//@todo ugly hack response fraijlemaborg
 					if (customer.equals("fraijlemaborg") && question_field.equals("30_respons")){
-						if ( group_rows.length() == 0 ){
+						if ( group_rows != null && group_rows.length() == 0 ){
 							query="SELECT  "+config_response_group+"/"+config_population_group+" as "+config_response_group+", \"Totaal\" FROM values_"+identifier+" where 1=1 ";
 						}else{
 							query="SELECT  "+config_response_group+"/"+config_population_group+" as "+config_response_group+","+group_rows+" FROM values_"+identifier+" where 1=1 ";

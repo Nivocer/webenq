@@ -1,10 +1,11 @@
 *.pdf
 *.zip
-test
+test*
 images
 legeRapporten
 fraijlema*
 leeuwenburg
-fmb201*
 oo-p*
-lwb201*
+fmb*
+lwb*
+oo*

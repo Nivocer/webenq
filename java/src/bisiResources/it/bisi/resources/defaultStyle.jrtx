@@ -3,5 +3,5 @@
 
 <jasperTemplate>
 	<style name="defaultStyle" isDefault="true" fontName="Arial"/>
-	<style name="Crosstab Data Text" isDefault="false" style="defaultStyle" hAlign="Center"/>
+	<style name="Crosstab Data Text" style="defaultStyle" hAlign="Center"/>
 </jasperTemplate>

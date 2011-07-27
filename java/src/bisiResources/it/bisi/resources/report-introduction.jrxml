@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report introduction (frontpage+intro)" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="525" leftMargin="35" rightMargin="35" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report introduction (frontpage+intro)" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="525" leftMargin="35" rightMargin="35" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="203"/>
+	<property name="ireport.x" value="163"/>
+	<property name="ireport.y" value="156"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<subDataset name="dataset1"/>
 	<parameter name="QUERY" class="java.lang.String"/>
@@ -60,7 +60,7 @@
 						<font size="18" isBold="true"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("title_page_title_"+$P{REPORT_TYPE} )+"\n\n"+
-($F{split_value}.indexOf("_")>0?
+($F{split_value}.indexOf("_")>0 && $P{CUSTOMER}.equals( "fraijlemaborg" )?
     $P{TEXTS}.get(( $F{split_value}.split("_")[0]))+"\n"+$F{split_value}.split("_")[1]:
         ($P{TEXTS}.get($F{split_value})==null?
             $F{split_value}:
@@ -222,7 +222,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[]]></textFieldExpression>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{response}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.0 %">
 				<reportElement x="375" y="0" width="75" height="15" isRemoveLineWhenBlank="true">

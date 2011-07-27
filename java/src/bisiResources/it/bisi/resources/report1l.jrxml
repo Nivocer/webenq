@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="173"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -86,7 +86,8 @@
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="240" y="40" width="560" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1 &&  $P{REPORT_TYPE}.equals("tables")
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "fraijlemaborg" ) &&
+$V{PAGE_NUMBER}==1 &&  $P{REPORT_TYPE}.equals("tables")
 && (!$P{SPLIT_VALUE}.split("-")[1].equals(null))]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
@@ -228,11 +229,11 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				<subreportParameter name="REPORT_LOCALE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_LOCALE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="GROUP_ID">
 					<subreportParameterExpression><![CDATA[$F{group_id}]]></subreportParameterExpression>
@@ -241,16 +242,18 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 					<subreportParameterExpression><![CDATA[$P{REPORT_TYPE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE">
-					<subreportParameterExpression><![CDATA[$P{DATA_SET_ID}.equals( "97" )&& $F{group_id}.equals(5)? $P{COLOR_RANGE_ALTERNATE}: $P{COLOR_RANGE}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{DATA_SET_ID}.equals( "97" )&& $F{group_id}.equals(5)
+|| $F{type}.equals("NUMBER") && !$P{CUSTOMER}.equals("fraijlemaborg")
+? $P{COLOR_RANGE_ALTERNATE}: $P{COLOR_RANGE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="TEXTS">
 					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="TYPE">
 					<subreportParameterExpression><![CDATA[$F{type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"report3l-mean.jasper"]]></subreportExpression>
@@ -366,14 +369,14 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 		<band height="50">
 			<printWhenExpression><![CDATA[$P{REPORT_TYPE}.equals("tables" )]]></printWhenExpression>
 			<textField>
-				<reportElement x="32" y="32" width="216" height="15" isRemoveLineWhenBlank="true">
+				<reportElement x="32" y="32" width="770" height="15" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_negative")]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="32" y="16" width="216" height="15" isRemoveLineWhenBlank="true">
+				<reportElement x="32" y="16" width="770" height="15" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
@@ -395,14 +398,14 @@ $P{TEXTS}.get("label_date_report")]]></textFieldExpression>
 				</reportElement>
 			</rectangle>
 			<textField>
-				<reportElement x="32" y="0" width="216" height="15" isRemoveLineWhenBlank="true">
+				<reportElement x="32" y="0" width="770" height="15" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "leeuwenburg" )]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TEXTS}.get("legend_label_positive")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="800" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="0" y="0" width="802" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>

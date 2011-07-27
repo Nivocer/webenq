@@ -176,7 +176,21 @@ public class ExecuteReport {
 				color_range.put("lowWhite",new Double(1.0));
 				color_range.put("highWhite", new Double(5.0));
 				color_range.put("lowGreen",new Double(0.0));
-				color_range.put("highGreen", new Double(0.0));	
+				color_range.put("highGreen", new Double(0.0));
+				
+			}else if (customer.equals("leeuwenburg") && report_type.equals("tables")){
+				//rood < 3 (dus exclusief 3.0
+				//geel 3 tot 4 (dus exclusief 4.0)
+				//groen 4 en hoger
+				//wit: niet meer
+				color_range.put("lowRed",new Double(1.0));
+				color_range.put("highRed",new Double(2.94999));
+				color_range.put("lowYellow",new Double(2.95));
+				color_range.put("highYellow",new Double(3.9499));
+				color_range.put("lowWhite",new Double(1.0));
+				color_range.put("highWhite", new Double(5.0));
+				color_range.put("lowGreen",new Double(3.95));
+				color_range.put("highGreen", new Double(5.0));	
 			}else {
 				//default
 				color_range.put("lowRed",new Double(1.0));
@@ -197,14 +211,29 @@ public class ExecuteReport {
 			
 			Map<String,Double> color_range_alternate=new HashMap<String,Double>();
 			if (customer.equals("leeuwenburg")){
+				//question type=number (mark)
+				//rood: <5.5 (exclusief 5.5)
+				//wit 5.5 tot 7.5 (exclusief 7.5)
+				//groen 7.5 en hoger
+				//geel: niet
 				color_range_alternate.put("lowRed",new Double(1.0));
+				color_range_alternate.put("highRed",new Double(5.4999));
+				color_range_alternate.put("lowYellow",new Double(0.0));
+				color_range_alternate.put("highYellow",new Double(0.0));
+				color_range_alternate.put("lowWhite",new Double(1.0));
+				color_range_alternate.put("highWhite", new Double(10.0));
+				color_range_alternate.put("lowGreen",new Double(7.4999));
+				color_range_alternate.put("highGreen", new Double(10.0));
+				
+				//extreme red, mid green
+				/*color_range_alternate.put("lowRed",new Double(1.0));
 				color_range_alternate.put("highRed",new Double(5.0));
 				color_range_alternate.put("lowYellow",new Double(1.5));
 				color_range_alternate.put("highYellow",new Double(4.5));
 				color_range_alternate.put("lowWhite",new Double(0.0));
 				color_range_alternate.put("highWhite", new Double(0.0));
 				color_range_alternate.put("lowGreen",new Double(2.5));
-				color_range_alternate.put("highGreen", new Double(3.5));
+				color_range_alternate.put("highGreen", new Double(3.5));*/
 			}else if (customer.equals("fraijlemaborg")){
 				//mark
 					color_range_alternate.put("lowRed",new Double(1.0));
@@ -217,14 +246,15 @@ public class ExecuteReport {
 					color_range_alternate.put("highGreen", new Double(10.0));
 			} else {
 				//default
-				color_range_alternate.put("lowRed",new Double(1.0));
-				color_range_alternate.put("highRed",new Double(5.0));
-				color_range_alternate.put("lowYellow",new Double(5.0));
-				color_range_alternate.put("highYellow",new Double(4.0));
+				//no coloring
+				color_range_alternate.put("lowRed",new Double(0.0));
+				color_range_alternate.put("highRed",new Double(0.0));
+				color_range_alternate.put("lowYellow",new Double(0.0));
+				color_range_alternate.put("highYellow",new Double(0.0));
 				color_range_alternate.put("lowWhite",new Double(0.0));
-				color_range_alternate.put("highWhite", new Double(0.0));
-				color_range_alternate.put("lowGreen",new Double(2.75));
-				color_range_alternate.put("highGreen", new Double(3.25));
+				color_range_alternate.put("highWhite", new Double(10.0));
+				color_range_alternate.put("lowGreen",new Double(0.0));
+				color_range_alternate.put("highGreen", new Double(0.0));
 			}
 			prms.put("COLOR_RANGE_ALTERNATE", color_range_alternate);
 			//System.out.println(color_range_alternate);
@@ -287,6 +317,7 @@ public class ExecuteReport {
 					if (report_type.equals("tables") && page_orientation.equals("automatic")){
 						//for tables we can choose between landscape and portrait depending on number of percentage columns
 						Statement stmt_number_group_split=conn.createStatement();
+						System.out.println(group_rows);
 						stmt_number_group_split.execute("select distinct "+group_rows+ " from values_"+identifier+" where "+split_question_id+" like \""+split_value+"\"");
 						ResultSet rs_number_group_split=stmt_number_group_split.getResultSet();
 						rs_number_group_split.last();
@@ -328,11 +359,22 @@ public class ExecuteReport {
 				      stmt_selectResponse.close();
 				      //conn.setAutoCommit(true);
 				    }
-
-				    
+					//hackje if no open questions, don't generate open report
+					int open_questions=99999;
+					if (report_type.equals("open")){
+						String query_open_questions="SELECT count( * ) as count " +
+							"FROM questions_"+identifier+" q, meta_"+identifier+" m" +
+						" WHERE q.id = m.question_id AND m.parent_id =0 AND m.type LIKE '%OPEN_TEXT'" +
+						" AND q.id NOT IN ('0_respondent')";
+						Statement stmt_open_questions=conn.createStatement();
+						stmt_open_questions.execute(query_open_questions);
+						ResultSet rs_open_response=stmt_open_questions.getResultSet();
+						rs_open_response.next();
+						open_questions=rs_open_response.getInt("count");
+					}
 					//add check for no response (can be extended with low response)
 					//if (response>0 && report_type.equals("open")) {
-					if (response>0) {
+					if (response>0 &&  open_questions>0) {
 						//ugly hack voor fraijlemaborg om groepinformatie in rapport te krijgen.
 						//alleen voor onderwijsevaluatie datasetid/identifier=50
 						/*
@@ -418,6 +460,7 @@ public class ExecuteReport {
 				/*
 				 * @todo need to change this for new datamodel
 				 */
+				prms.put("SPLIT_VALUE", "");
 				Statement stmt_response=conn.createStatement();
 				String response_query="SELECT count( DISTINCT respondent_id ) as response" +
 						" FROM answer, questionnaire_question WHERE questionnaire_id ="+identifier;
@@ -434,6 +477,10 @@ public class ExecuteReport {
 				if (report_type.equals("tables") && page_orientation.equals("automatic")){
 					System.out.println(page_orientation);
 					//for tables we can choose between landscape and portrait depending on number of percentage columns
+					//if we don' have multiple columns, we use portrait
+					if (group_rows.equals("")){
+						page_orientation="portrait";
+					} else {
 					Statement stmt_number_group_split=conn.createStatement();
 					//@TODO change for new datamodel
 					stmt_number_group_split.execute("select distinct "+group_rows+ " from values_"+identifier );
@@ -444,7 +491,18 @@ public class ExecuteReport {
 						page_orientation="landscape";
 					}else{
 						page_orientation="portrait";
-					}
+					} else {
+						Statement stmt_number_group_split=conn.createStatement();
+						stmt_number_group_split.execute("select distinct "+group_rows+ " from values_"+identifier );
+						ResultSet rs_number_group_split=stmt_number_group_split.getResultSet();
+						rs_number_group_split.last();
+						int number_group_split=rs_number_group_split.getRow();
+						if (number_group_split>11){
+							page_orientation="landscape";
+						}else{
+							page_orientation="portrait";
+						}
+					}	
 				} else {
 					if (page_orientation.equals("automatic")){
 						//other reports (except tables) are portrait

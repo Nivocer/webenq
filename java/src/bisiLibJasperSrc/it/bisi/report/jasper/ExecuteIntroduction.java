@@ -58,7 +58,7 @@ public class ExecuteIntroduction {
 			//some defaults
 			String page_orientation = "portrait"; 
 			String output_format="pdf";
-			//String output_format="odt";
+			output_format="odt";
 			
 			//language
 			String language;
@@ -79,7 +79,19 @@ public class ExecuteIntroduction {
 			if (period_identifier.equals("11")) {
 				customer="hvaoo";
 			}
-			
+			if (period_identifier.equals("112")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("113")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("114")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("115")) {
+				customer="hvaoo";
+			}			
+
 			//output file name adjustments
 			String output_file_name=output_dir + "/introduction_" + report_type;			
 			if (period_identifier.equals("5") || period_identifier.equals("4")){
@@ -132,14 +144,22 @@ public class ExecuteIntroduction {
 				 * @todo need to change this for new datamodel
 				 * @todo check next if statement
 				 */
-				if (!split_question_id.equals(null) && !split_question_id.equals("")){
+				if ((split_question_id !=null) && !split_question_id.equals("")){
 					update_query2=update_query2="UPDATE population set response=" +
 					"(select count(*) from values_"+dataset_id+" where "+split_question_id+"='"+split_value+"')" +
 					" where period_id="+period_identifier +
 					" and dataset_id="+dataset_id+
 					" and split_question_id='"+split_question_id+"'" +
 					" and split_value='"+split_value+"'";
-					
+					// ugly hack: als split_question_id 0_respondent is, dan geen echte split
+					if (split_question_id.equals("0_respondent")){
+						update_query2="UPDATE population set response=" +
+						"(select count(*) from values_"+dataset_id+") " +
+							" where period_id="+period_identifier +
+							" and dataset_id="+dataset_id+
+							" and split_question_id='0_respondent'";
+						//System.out.println(update_query2);
+					}
 					//System.out.println(update_query2);
 				} else {
 					update_query2="UPDATE population set response=" +
@@ -178,7 +198,9 @@ public class ExecuteIntroduction {
 					String query="select * from population" +
 						" where period_id="+period_identifier +
 						" and split_value='"+split_value+"'"+
+						" and response>0"+
 						" order by dataset_id ASC";
+					//System.out.println(query);
 					prms.put("QUERY", query);
 					
 					if (page_orientation != null && page_orientation.equals("landscape")) {
