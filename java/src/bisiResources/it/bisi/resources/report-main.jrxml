@@ -226,7 +226,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="47">
+		<band height="48">
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 				<subreportParameter name="SUBREPORT_DIR">
