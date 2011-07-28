@@ -8,7 +8,6 @@
  */
 class ErrorController extends Zend_Controller_Action
 {
-
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
@@ -30,8 +29,6 @@ class ErrorController extends Zend_Controller_Action
 
         $this->view->exception = $errors->exception;
         $this->view->request   = $errors->request;
+        $this->view->display   = (bool) Zend_Controller_Front::getInstance()->getParam('displayExceptions');
     }
-
-
 }
-
