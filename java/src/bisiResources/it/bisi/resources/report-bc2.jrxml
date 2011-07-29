@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-bc2" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key" isIgnorePagination="true">
-	<property name="ireport.zoom" value="4.0"/>
-	<property name="ireport.x" value="1681"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
@@ -19,6 +19,11 @@
 	<variable name="stddev" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="StandardDeviation">
 		<variableExpression><![CDATA[Double.parseDouble($F{val})]]></variableExpression>
 	</variable>
+	<variable name="valueRecoded" class="java.lang.String" resetType="Group" resetGroup="value">
+		<variableExpression><![CDATA[($F{val}.equals("1") || $F{val}.equals("2") ? "2" :
+    ($F{val}.equals("4") || $F{val}.equals("5") ? "4": $F{val})
+    )]]></variableExpression>
+	</variable>
 	<group name="question">
 		<groupExpression><![CDATA[$F{row}]]></groupExpression>
 		<groupHeader>
@@ -32,7 +37,7 @@
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{row}]]></textFieldExpression>
 				</textField>
 				<stackedBarChart>
-					<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="question" theme="barchart">
+					<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="question" theme="aegean">
 						<reportElement stretchType="RelativeToTallestObject" x="160" y="0" width="350" height="35" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
 						<chartTitle/>
 						<chartSubtitle/>
@@ -41,7 +46,7 @@
 					<categoryDataset>
 						<dataset resetType="Group" resetGroup="question"/>
 						<categorySeries>
-							<seriesExpression><![CDATA[$F{val}]]></seriesExpression>
+							<seriesExpression><![CDATA[$V{valueRecoded}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{row}]]></categoryExpression>
 							<valueExpression><![CDATA[$V{value_COUNT}]]></valueExpression>
 						</categorySeries>
@@ -64,20 +69,15 @@
 					</barPlot>
 				</stackedBarChart>
 				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
-					<reportElement stretchType="RelativeToTallestObject" x="510" y="0" width="20" height="35" isPrintInFirstWholeBand="true"/>
+					<reportElement stretchType="RelativeToTallestObject" x="510" y="0" width="23" height="35" isPrintInFirstWholeBand="true"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression class="java.lang.Double"><![CDATA[$V{average}]]></textFieldExpression>
-				</textField>
-				<textField pattern="###0.00">
-					<reportElement x="530" y="0" width="25" height="35"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression class="java.lang.Double"><![CDATA[$V{stddev}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
 	</group>
 	<group name="value">
-		<groupExpression><![CDATA[$F{val}]]></groupExpression>
+		<groupExpression><![CDATA[$V{valueRecoded}]]></groupExpression>
 		<groupHeader>
 			<band/>
 		</groupHeader>
