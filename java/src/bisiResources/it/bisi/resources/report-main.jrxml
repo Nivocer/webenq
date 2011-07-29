@@ -1,117 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="45"/>
+	<property name="ireport.y" value="8"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
 	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["it/bisi/resources/defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["it/bisi/resources/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="OUTPUT_DIR" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="TEXTS" class="java.util.HashMap" isForPrompting="false"/>
 	<parameter name="CUSTOMER" class="java.lang.String">
 		<defaultValueExpression><![CDATA["leeuwenburg"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="GROUP_ROWS" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="GROUP_ROWS_VALUE" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="SPLIT_QUESTION_ID" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="SPLIT_VALUE" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="REPORT_TYPE" class="java.lang.String"/>
-	<parameter name="GROUP_NAME" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="BOECODE" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="DOCENT" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="MODULE_NAME" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="COLOR_RANGE" class="java.util.HashMap" isForPrompting="false"/>
-	<parameter name="RESPONSE" class="java.lang.Integer" isForPrompting="false"/>
-	<parameter name="IMAGE_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["it/bisi/resources/"]]></defaultValueExpression>
-	</parameter>
-	<parameter name="RESPONSE_PERCENTAGE" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="TITLE" class="java.lang.String"/>
-	<parameter name="START_DATE" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="END_DATE" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="COLOR_RANGE_ALTERNATE" class="java.util.HashMap" isForPrompting="false"/>
+	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[$P!{QUERY}]]>
 	</queryString>
-	<field name="type" class="java.lang.String"/>
-	<field name="group_id" class="java.lang.Integer"/>
-	<variable name="GROUP_ROWS" class="java.lang.String">
-		<variableExpression><![CDATA[$P{GROUP_ROWS}]]></variableExpression>
-	</variable>
-	<group name="group">
-		<groupExpression><![CDATA[$F{group_id}]]></groupExpression>
-		<groupHeader>
-			<band/>
-		</groupHeader>
-		<groupFooter>
-			<band/>
-		</groupFooter>
-	</group>
 	<title>
-		<band height="20" splitType="Stretch">
-			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_TYPE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_TYPE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TITLE">
-					<subreportParameterExpression><![CDATA[$P{TITLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="IMAGE_DIR">
-					<subreportParameterExpression><![CDATA[$P{IMAGE_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"main_title_"+$P{CUSTOMER}+".jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="20" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="20" splitType="Stretch">
-			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_TYPE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_TYPE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TITLE">
-					<subreportParameterExpression><![CDATA[$P{TITLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="IMAGE_DIR">
-					<subreportParameterExpression><![CDATA[$P{IMAGE_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression class="java.lang.String"><![CDATA["main_pageHeader_"+$P{CUSTOMER}+".jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="20" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
@@ -119,54 +35,28 @@
 	<detail>
 		<band height="20" splitType="Immediate">
 			<subreport>
-				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables")) ||
-("NUMBER".equals($F{type}) && ($P{REPORT_TYPE}.equals("barcharts")) &&
-       ($P{CUSTOMER}.equals("hvaoo") ||  $P{CUSTOMER}.equals("leeuwenburg"))
-) ||
-("NUMBER".equals($F{type}) && $P{REPORT_TYPE}.equals("tables") &&
-    $P{CUSTOMER}.equals("leeuwenburg")
-)]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="COLOR_RANGE">
-					<subreportParameterExpression><![CDATA["NUMBER".equals($F{type})
-? $P{COLOR_RANGE_ALTERNATE}: $P{COLOR_RANGE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TYPE">
-					<subreportParameterExpression><![CDATA[$F{type}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[($P{CUSTOMER}.equals( "fraijlemaborg")
-        && ( $F{group_id}.equals(9999))
-    && $P{REPORT_TYPE}.equals("tables"))]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{CUSTOMER}.equals( "fraijlemaborg" )]]></printWhenExpression>
 				</reportElement>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="COLOR_RANGE">
-					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -175,28 +65,18 @@
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"report3-groupinfo.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA["AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("barcharts") ||
-("NUMBER".equals($F{type}) && $P{REPORT_TYPE}.equals("barcharts") && $P{CUSTOMER}.equals("fraijlemaborg"))]]></printWhenExpression>
-				</reportElement>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<parametersMapExpression><![CDATA[new HashMap($P{REPORT_PARAMETERS_MAP})]]></parametersMapExpression>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"report-bc.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA["PERC".equals($F{type}) &&
-    ($P{REPORT_TYPE}.equals("tables") ||
-        ($P{REPORT_TYPE}.equals("barcharts")&& $P{CUSTOMER}.equals("hvaoo")))]]></printWhenExpression>
-				</reportElement>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -205,17 +85,12 @@
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA["OPEN".equals($F{type})]]></printWhenExpression>
-				</reportElement>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -223,93 +98,32 @@
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type}, $P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
 			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TYPE">
+					<subreportParameterExpression><![CDATA[$F{type}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="48">
-			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_TYPE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_TYPE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TITLE">
-					<subreportParameterExpression><![CDATA[$P{TITLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="IMAGE_DIR">
-					<subreportParameterExpression><![CDATA[$P{IMAGE_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression class="java.lang.String"><![CDATA["main_columnFooter_"+$P{CUSTOMER}+".jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="48"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="30" splitType="Stretch">
-			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_TYPE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_TYPE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TITLE">
-					<subreportParameterExpression><![CDATA[$P{TITLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="IMAGE_DIR">
-					<subreportParameterExpression><![CDATA[$P{IMAGE_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression class="java.lang.String"><![CDATA["main_pageFooter_"+$P{CUSTOMER}+".jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="30" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="20" splitType="Stretch">
-			<subreport>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_TYPE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_TYPE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TEXTS">
-					<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="TITLE">
-					<subreportParameterExpression><![CDATA[$P{TITLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="IMAGE_DIR">
-					<subreportParameterExpression><![CDATA[$P{IMAGE_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportExpression class="java.lang.String"><![CDATA["main_summary_"+$P{CUSTOMER}+".jasper"]]></subreportExpression>
-			</subreport>
-		</band>
+		<band height="20" splitType="Stretch"/>
 	</summary>
 </jasperReport>
