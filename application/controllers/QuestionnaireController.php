@@ -49,6 +49,34 @@ class QuestionnaireController extends Zend_Controller_Action
             ->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
     }
 
+    public function xformAction()
+    {
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+
+        $xml = new DOMDocument('1.0', 'utf-8');
+        $xml->formatOutput = true;
+
+        $xform = $xml->createElement('xform');
+        $xform->setAttribute('xlsns', 'http://www.w3.org/2000/xforms');
+        $model = $xml->createElement('model');
+        $instance = $xml->createElement('instance');
+
+        $model->appendChild($instance);
+        $xform->appendChild($model);
+        $xml->appendChild($xform);
+
+        foreach ($questionnaire->QuestionnaireQuestion as $qq) {
+            $instance->appendChild($qq->getXformsInstanceElement($xml));
+            $xform->appendChild($qq->getXformsElement($xml));
+        }
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_response
+            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->setBody($xml->saveXML());
+    }
+
     /**
      * Renders the form for adding a questionnaire
      *
@@ -516,5 +544,31 @@ class QuestionnaireController extends Zend_Controller_Action
 
         /* display form */
         $this->_response->setBody($form->render());
+    }
+
+    public function jrxmlAction()
+    {
+        // config settings
+        // @todo get this from database
+        $this->view->pageWidth = 595;
+        $this->view->pageHeight = 842;
+
+        $this->render();
+
+        // create new dom document
+        $dom = new DOMDocument('1.0', 'utf-8');
+        $dom->formatOutput = true;
+
+        // append rendered xml to dom
+        $fragment = $dom->createDocumentFragment();
+        $fragment->appendXML($this->_response->getBody());
+        $dom->appendChild($fragment);
+
+        // output
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_response
+            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->setBody($dom->saveXML());
     }
 }

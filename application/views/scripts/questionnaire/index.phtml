@@ -37,6 +37,9 @@
                             <a class="icon check" title="<?php echo _('controleren'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                             <a class="icon report" title="<?php echo _('rapporteren'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                             <a class="icon download" title="<?php echo _('downloaden'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <br/>
+                            <a title="<?php echo _('jrxml'); ?>" href="<?php echo $this->baseUrl("/questionnaire/jrxml/id/" . $questionnaire['id']); ?>"><?php echo _('jrxml'); ?></a>
+                            <a title="<?php echo _('xform'); ?>" href="<?php echo $this->baseUrl("/questionnaire/xform/id/" . $questionnaire['id']); ?>"><?php echo _('xform'); ?></a>
                         <?php endif; ?>
                         <!--
                             <a class="icon print" title="<?php echo _('printen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>
