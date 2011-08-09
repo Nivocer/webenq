@@ -9,7 +9,7 @@ class Webenq_Model_Question_Open extends Webenq_Model_Question
      *
      * @var array $children
      */
-    public $children = array('Email', 'Date', 'Text');
+    public $children = array('Email', 'Date', 'Number', 'Text');
 
     /**
      * Checks if the given result set validates for this type

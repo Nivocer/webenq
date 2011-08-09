@@ -9,7 +9,7 @@ class Webenq_Model_Question_Closed extends Webenq_Model_Question
      *
      * @var array $children
      */
-    public $children = array('Number', 'Scale', 'Percentage');
+    public $children = array('Scale', 'Percentage');
 
     /**
      * Checks if the given result set validates for this type
