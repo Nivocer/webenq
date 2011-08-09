@@ -28,57 +28,18 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
 
     public function init()
     {
-        $view = $this->getView();
-
-        /* iterate over questions */
+        // add questions
         foreach ($this->_questions as $question) {
-
-            /* get sub-questions */
-            $subQuestions = Webenq_Model_QuestionnaireQuestion::getSubQuestions($question);
-
-            if (!isset($subQuestions[0])) {
-                /* if no sub-questions: add element */
-                $this->addElement($question->getFormElement());
-            } else {
-                /* if sub-questions: add subform */
-                $subForm = new Zend_Form_SubForm();
-                $subForm->setLegend($question['Question']['QuestionText'][0]['text'])
-                    ->removeDecorator('DtDdWrapper');
-
-                /* iterate over sub-questions */
-                foreach ($subQuestions as $subQuestion) {
-
-                    /* get sub-sub-questions */
-                    $subSubQuestions = Webenq_Model_QuestionnaireQuestion::getSubQuestions($subQuestion);
-
-                    if (!isset($subSubQuestions[0])) {
-                        /* if no sub-sub-questions: add element */
-                        $subForm->addElement($view->questionElement($subQuestion, false));
-                    } else {
-                        /* if sub-sub-questions: add subform */
-                        $subSubForm = new Zend_Form_SubForm();
-                        $subSubForm->setLegend($subQuestion['Question']['QuestionText'][0]['text'])
-                            ->removeDecorator('DtDdWrapper');
-
-                        /* prepare wrapper decorator */
-                        $wrapper = new Zend_Form_Decorator_HtmlTag();
-                        $wrapper->setTag('div');
-                        $percentage = floor(100/count($subSubQuestions));
-                        $wrapper->setOption('style', "float: left; width: $percentage%;");
-
-                        /* iterate over sub-sub-questions */
-                        foreach ($subSubQuestions as $subSubQuestion) {
-                            $elm = $view->questionElement($subSubQuestion, false);
-                            $elm->addDecorator(array('Wrapper' => $wrapper));
-                            $subSubForm->addElement($elm);
-                        }
-                        $subForm->addSubForm($subSubForm, $subQuestion['Question']['QuestionText'][0]['text']);
-                    }
-                }
-                $this->addSubForm($subForm, $question['Question']['QuestionText'][0]['text']);
+            $name = "qq_$question->id";
+            $elm = $question->getFormElement();
+            if ($elm instanceof Zend_Form_Element) {
+                $this->addElement($elm, $name);
+            } elseif ($elm instanceof Zend_Form_SubForm) {
+                $this->addSubform($elm, $name);
             }
         }
 
+        // add submit button
         $this->addElement($this->createElement('submit', 'submit', array(
             'label' => 'verder',
         )));
@@ -89,6 +50,7 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
      *
      * @param  string $name
      * @return Zend_Form_Element|null
+     * @todo make recursive
      */
     public function getElement($name)
     {
@@ -96,8 +58,7 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
         if ($element) {
             return $element;
         } else {
-            $subForms = $this->getSubForms();
-            foreach ($subForms as $subForm) {
+            foreach ($this->getSubForms() as $subForm) {
                 $element = $subForm->getElement($name);
                 if ($element) {
                     return $element;
