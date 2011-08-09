@@ -8,120 +8,234 @@
  */
 class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_QuestionnaireQuestion
 {
+    public function getXformsElement(DOMDocument $xml, DOMElement $group = null)
+    {
+        $meta = unserialize($this->meta);
+        switch ($meta['class']) {
+
+            case 'Webenq_Model_Question_Closed_Scale_Two':
+            case 'Webenq_Model_Question_Closed_Scale_Three':
+            case 'Webenq_Model_Question_Closed_Scale_Four':
+            case 'Webenq_Model_Question_Closed_Scale_Five':
+            case 'Webenq_Model_Question_Closed_Scale_Six':
+            case 'Webenq_Model_Question_Closed_Scale_Seven':
+            case 'Webenq_Model_Question_Closed_Number':
+                $elm = $xml->createElement('select1');
+                $elm->setAttribute('ref', 'qq_' . $this->id);
+                $label = $xml->createElement('label', $this->Question->QuestionText[0]->text);
+                $elm->appendChild($label);
+                foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $ap) {
+                    $item = $xml->createElement('item');
+                    $label = $xml->createElement('label', $ap->AnswerPossibilityText[0]->text);
+                    $value = $xml->createElement('value', $ap->value);
+                    $item->appendChild($label);
+                    $item->appendChild($value);
+                    $elm->appendChild($item);
+                }
+                break;
+
+            case null:
+            case 'Webenq_Model_Question_Open_Text':
+                $elm = $xml->createElement('input');
+                $elm->setAttribute('ref', 'qq_' . $this->id);
+                $label = $xml->createElement('label', $this->Question->QuestionText[0]->text);
+                $elm->appendChild($label);
+                break;
+
+            default:
+                throw new Exception('not yet implemented!');
+        }
+
+        $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
+        if ($subQqs->count() > 0) {
+
+            $originalElm = $elm;
+            $elm = $xml->createElement('group');
+            $elm->setAttribute('ref', 'qq_' . $this->id);
+            foreach ($originalElm->childNodes as $item) {
+                $elm->appendChild($item);
+            }
+
+            foreach ($subQqs as $subQq) {
+                $subElm = $subQq->getXformsElement($xml, $elm);
+                $elm->appendChild($subElm);
+            }
+        }
+        return $elm;
+    }
+
+    public function getXformsInstanceElement(DOMDocument $xml, DOMElement $group = null)
+    {
+        $meta = unserialize($this->meta);
+        switch ($meta['class']) {
+
+            case 'Webenq_Model_Question_Closed_Scale_Two':
+            case 'Webenq_Model_Question_Closed_Scale_Three':
+            case 'Webenq_Model_Question_Closed_Scale_Four':
+            case 'Webenq_Model_Question_Closed_Scale_Five':
+            case 'Webenq_Model_Question_Closed_Scale_Six':
+            case 'Webenq_Model_Question_Closed_Scale_Seven':
+            case 'Webenq_Model_Question_Closed_Number':
+                $elm = $xml->createElement('qq_' . $this->id);
+                break;
+
+            case null:
+            case 'Webenq_Model_Question_Open_Text':
+                $elm = $xml->createElement('qq_' . $this->id);
+                break;
+
+            default:
+                throw new Exception('not yet implemented!');
+        }
+
+        $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
+        if ($subQqs->count() > 0) {
+            foreach ($subQqs as $subQq) {
+                $subElm = $subQq->getXformsInstanceElement($xml, $elm);
+                $elm->appendChild($subElm);
+            }
+        }
+        return $elm;
+    }
+
+    /**
+     * Returns an instance of Zend_Form_SubForm if it has sub-questions,
+     * and an instance of Zend_Form_Element otherwise.
+     *
+     * @return Zend_Form_SubForm|Zend_Form_Element
+     */
     public function getFormElement()
     {
-        $elementName = "qq_$this->id";
+        $name = "qq_$this->id";
+        $subQuestions = self::getSubQuestions($this);
 
-        /* set default element type if not yet set */
-        if (!$this->CollectionPresentation[0]->type) {
-            if (!$this->answerPossibilityGroup_id) {
-                $this->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
-            } else {
-                $this->CollectionPresentation[0]->type = Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS;
+        if ($subQuestions->count() > 0) {
+
+            // create subform
+            $subForm = new Zend_Form_SubForm();
+            $subForm->setLegend($this->Question->QuestionText[0]->text)
+                ->removeDecorator('DtDdWrapper');
+
+            // add child questions to subform
+            foreach ($subQuestions as $subQuestion) {
+                $name = "qq_$subQuestion->id";
+                $elm = $subQuestion->getFormElement();
+                if ($elm instanceof Zend_Form_Element) {
+                    $subForm->addElement($elm, $name);
+                } else {
+                    $subForm->addSubForm($elm, $name);
+                }
             }
-//            $this->CollectionPresentation[0]->save();
-        }
+            return $subForm;
 
-        /* instantiate form element */
-        switch ($this->CollectionPresentation[0]->type) {
-            case Webenq::COLLECTION_PRESENTATION_OPEN_TEXT:
-                $element = new Zend_Form_Element_Text($elementName);
-                break;
-            case Webenq::COLLECTION_PRESENTATION_OPEN_TEXTAREA:
-                $element = new Zend_Form_Element_Textarea($elementName);
-                break;
-            case Webenq::COLLECTION_PRESENTATION_OPEN_DATE:
-                $element = new ZendX_JQuery_Form_Element_DatePicker($elementName);
-                $element->addFilter(new Webenq_Filter_Date());
-                break;
-            case Webenq::COLLECTION_PRESENTATION_OPEN_CURRENTDATE:
-                $element = new Webenq_Form_Element_CurrentDate($elementName);
-                $element->removeDecorator('Label');
-                break;
-            case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS:
-                $element = new Zend_Form_Element_Radio($elementName);
-                break;
-            case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST:
-                $element = new Zend_Form_Element_Select($elementName);
-                break;
-            case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_SLIDER:
-                $element = new ZendX_JQuery_Form_Element_Slider($elementName);
-                $element->setJQueryParams(array(
-                    'value' => '50'
-                ));
-                break;
-            case Webenq::COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES:
-                $element = new Zend_Form_Element_MultiCheckbox($elementName);
-                break;
-            case Webenq::COLLECTION_PRESENTATION_MULTIPLESELECT_LIST:
-                $element = new Zend_Form_Element_Multiselect($elementName);
-                break;
-            case Webenq::COLLECTION_PRESENTATION_RANGESELECT_SLIDER:
-                $element = new ZendX_JQuery_Form_Element_Slider($elementName);
-                $element->setJQueryParams(array(
-                    'range' => true,
-                    'min' => 0,
-                    'max' => 100,
-                    'values' => array(33, 67),
-                ));
-                break;
-            default:
-                throw new Exception('Element type "' . $qq->CollectionPresentation[0]->type . '" (qq ' . $qq->id .
-                    ') not yet implemented in ' . get_class($this));
-        }
-
-        /* add label */
-        if (isset($this->Question->QuestionText[0])) {
-            $element->setLabel($this->Question->QuestionText[0]->text);
         } else {
-            $element->setLabel(_('No question text available for the current language'));
-        }
 
-        /* add answer possibilities */
-        if ($element instanceof Zend_Form_Element_Multi) {
-            $options = array();
-            if ($element instanceof Zend_Form_Element_Select) {
-                $options[''] = '--- selecteer ---';
+            // set default element type if not yet set
+            if (!$this->CollectionPresentation[0]->type) {
+                $this->CollectionPresentation[0]->setDefaults();
+                $this->CollectionPresentation[0]->save();
             }
-            if (isset($this->AnswerPossibilityGroup)) {
-                foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $possibility) {
-                    if (isset($possibility->AnswerPossibilityText[0])) {
-                        $options[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
-                    } else {
-                        $options[$possibility->id] =
-                            _('No answer possibility text available for the current language');
+
+            // instantiate form element
+            switch ($this->CollectionPresentation[0]->type) {
+                case Webenq::COLLECTION_PRESENTATION_OPEN_TEXT:
+                    $element = new Zend_Form_Element_Text($name);
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_OPEN_TEXTAREA:
+                    $element = new Zend_Form_Element_Textarea($name);
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_OPEN_DATE:
+                    $element = new ZendX_JQuery_Form_Element_DatePicker($name);
+                    $element->addFilter(new Webenq_Filter_Date());
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_OPEN_CURRENTDATE:
+                    $element = new Webenq_Form_Element_CurrentDate($name);
+                    $element->removeDecorator('Label');
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS:
+                    $element = new Zend_Form_Element_Radio($name);
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST:
+                    $element = new Zend_Form_Element_Select($name);
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_SLIDER:
+                    $element = new ZendX_JQuery_Form_Element_Slider($name);
+                    $element->setJQueryParams(array(
+                        'value' => '50'
+                    ));
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES:
+                    $element = new Zend_Form_Element_MultiCheckbox($name);
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_MULTIPLESELECT_LIST:
+                    $element = new Zend_Form_Element_Multiselect($name);
+                    break;
+                case Webenq::COLLECTION_PRESENTATION_RANGESELECT_SLIDER:
+                    $element = new ZendX_JQuery_Form_Element_Slider($name);
+                    $element->setJQueryParams(array(
+                        'range' => true,
+                        'min' => 0,
+                        'max' => 100,
+                        'values' => array(33, 67),
+                    ));
+                    break;
+                default:
+                    throw new Exception('Element type "' . $qq->CollectionPresentation[0]->type . '" (qq ' . $qq->id .
+                        ') not yet implemented in ' . get_class($this));
+            }
+
+            // add label
+            if (isset($this->Question->QuestionText[0])) {
+                $element->setLabel($this->Question->QuestionText[0]->text);
+            } else {
+                $element->setLabel(_('No question text available for the current language'));
+            }
+
+            // add answer possibilities
+            if ($element instanceof Zend_Form_Element_Multi) {
+                $options = array();
+                if ($element instanceof Zend_Form_Element_Select) {
+                    $options[''] = '--- selecteer ---';
+                }
+                if (isset($this->AnswerPossibilityGroup)) {
+                    foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $possibility) {
+                        if (isset($possibility->AnswerPossibilityText[0])) {
+                            $options[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
+                        } else {
+                            $options[$possibility->id] =
+                                _('No answer possibility text available for the current language');
+                        }
+                    }
+                }
+                $element->setMultiOptions($options);
+            }
+
+            // set filters
+            if ($this->CollectionPresentation[0]->filters) {
+                $filters = unserialize($this->CollectionPresentation[0]->filters);
+                if (is_array($filters)) {
+                    foreach ($filters as $name) {
+                        $filter = Webenq::getFilterInstance($name);
+                        $element->addFilter($filter);
                     }
                 }
             }
-            $element->setMultiOptions($options);
-        }
 
-        /* set filters */
-        if ($this->CollectionPresentation[0]->filters) {
-            $filters = unserialize($this->CollectionPresentation[0]->filters);
-            if (is_array($filters)) {
-                foreach ($filters as $name) {
-                    $filter = Webenq::getFilterInstance($name);
-                    $element->addFilter($filter);
-                }
-            }
-        }
-
-        /* set validators */
-        if ($this->CollectionPresentation[0]->validators) {
-            $validators = unserialize($this->CollectionPresentation[0]->validators);
-            if (is_array($validators)) {
-                foreach ($validators as $name) {
-                    $validator = Webenq::getValidatorInstance($name);
-                    $element->addValidator($validator, true);
-                    if ($validator instanceof Zend_Validate_NotEmpty) {
-                        $element->setRequired(true);
+            // set validators
+            if ($this->CollectionPresentation[0]->validators) {
+                $validators = unserialize($this->CollectionPresentation[0]->validators);
+                if (is_array($validators)) {
+                    foreach ($validators as $name) {
+                        $validator = Webenq::getValidatorInstance($name);
+                        $element->addValidator($validator, true);
+                        if ($validator instanceof Zend_Validate_NotEmpty) {
+                            $element->setRequired(true);
+                        }
                     }
                 }
             }
+            return $element;
         }
-
-        return $element;
     }
 
     /**
@@ -173,5 +287,10 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             ->execute()
             ->count();
         return ($count > 1);
+    }
+
+    public static function edit()
+    {
+        return 'test';
     }
 }

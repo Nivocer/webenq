@@ -308,20 +308,20 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      */
     static public function factory(array $answers)
     {
-        /* if no answers: type defaults to open text */
+        // if no answers: type defaults to open text
         if (!self::answersGiven($answers)) {
             $question = new Webenq_Model_Question_Open_Text();
             return $question;
         }
 
-        /* determine question valid question types */
+        // determine question valid question types
         $baseQuestion = new self();
         $baseQuestion->setAnswerValues($answers);
         $question = $baseQuestion->_determineType($baseQuestion);
         $validTypes = $question->getValidTypes();
         $invalidTypes = $question->getInvalidTypes();
 
-        if (count($validTypes) == 0) {
+        if (count($validTypes) === 0) {
             throw new Exception('No valid question type found!');
         }
 
