@@ -303,19 +303,9 @@ class QuestionnaireController extends Zend_Controller_Action
         $session->questionnaire_id = $this->_request->id;
 
         try {
-            /* get current page */
-            $pageNr = Doctrine_Query::create()
-                ->from('Webenq_Model_QuestionnaireQuestion qq')
-                ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?',
-                    $respondent->id)
-                ->innerJoin('qq.CollectionPresentation cp')
-                ->where('a.id IS NULL')
-                ->andWhere('qq.questionnaire_id = ?', $this->_request->id)
-                ->orderBy('cp.page')
-                ->groupBy('cp.page')
-                ->limit(1)
-                ->execute()
-                ->getFirst()->CollectionPresentation[0]->page;
+            // get current page
+            $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')->find($this->_request->id);
+            $pageNr = Webenq_Model_Questionnaire::getCurrentPage($questionnaire, $respondent);
         } catch (Exception $e) {
             /* redirect if no more questions */
             $this->_redirect('/questionnaire');

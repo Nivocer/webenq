@@ -197,14 +197,12 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                 if ($element instanceof Zend_Form_Element_Select) {
                     $options[''] = '--- selecteer ---';
                 }
-                if (isset($this->AnswerPossibilityGroup)) {
-                    foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $possibility) {
-                        if (isset($possibility->AnswerPossibilityText[0])) {
-                            $options[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
-                        } else {
-                            $options[$possibility->id] =
-                                _('No answer possibility text available for the current language');
-                        }
+                foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $possibility) {
+                    if (isset($possibility->AnswerPossibilityText[0])) {
+                        $options[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
+                    } else {
+                        $options[$possibility->id] =
+                            _('No answer possibility text available for the current language');
                     }
                 }
                 $element->setMultiOptions($options);

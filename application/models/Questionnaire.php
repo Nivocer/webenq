@@ -159,4 +159,31 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
         return $result;
     }
+
+    public static function getCurrentPage(Webenq_Model_Questionnaire $questionaire,
+        Webenq_Model_Respondent $respondent)
+    {
+        $qqs = Doctrine_Query::create()
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
+            ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?',
+                $respondent->id)
+            ->innerJoin('qq.CollectionPresentation cp')
+            ->where('a.id IS NULL')
+            ->andWhere('qq.questionnaire_id = ?', $questionaire->id)
+            ->orderBy('cp.page, cp.weight')
+            ->groupBy('cp.page')
+            ->limit(1)
+            ->execute();
+
+        if ($qqs->count() > 0) {
+            $qq = $qqs[0];
+        }
+
+        $cp = $qq->CollectionPresentation[0];
+        while ($cp->id) {
+            $cp = $cp->Parent;
+        }
+
+        return $cp->page;
+    }
 }

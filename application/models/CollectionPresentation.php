@@ -11,7 +11,11 @@ class Webenq_Model_CollectionPresentation extends Webenq_Model_Base_CollectionPr
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Webenq_Model_CollectionPresentation as CollectionPresentation', array(
+        $this->hasMany('Webenq_Model_CollectionPresentation as Children', array(
+            'local' => 'parent_id',
+            'foreign' => 'id',
+        ));
+        $this->hasOne('Webenq_Model_CollectionPresentation as Parent', array(
             'local' => 'id',
             'foreign' => 'parent_id',
         ));

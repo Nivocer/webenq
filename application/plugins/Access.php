@@ -45,9 +45,13 @@ class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
         /* requesting role */
         if (!$this->_requestingRole) {
             if ($auth->hasIdentity()) {
-                $currentUser = $auth->getIdentity();
-                $this->_requestingRole = Doctrine_Core::getTable('Webenq_Model_Role')
-                    ->find($currentUser->role_id)->name;
+                $user = Doctrine_Core::getTable('Webenq_Model_User')->find($auth->getIdentity()->id);
+                if (!$user) {
+                    $auth->clearIdentity();
+                    $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
+                    $redirector->gotoUrlAndExit($request->getBaseUrl());
+                }
+                $this->_requestingRole = $user->Role->name;
             } else {
                 $this->_requestingRole = self::$_anonymousRole;
             }
