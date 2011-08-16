@@ -55,7 +55,7 @@ class Webenq_Form_User_Permission extends ZendX_JQuery_Form
                 } catch (Zend_Acl_Exception $e) {
                     $isAllowed = false;
                     try {
-                        $r = new Resource();
+                        $r = new Webenq_Model_Resource();
                         $r->name = $resource;
                         $r->save();
                     }
@@ -91,23 +91,23 @@ class Webenq_Form_User_Permission extends ZendX_JQuery_Form
                 foreach ($value as $key => $setting) {
 
                     $resourceName = base64_decode($key);
-                    $resource = Doctrine_Core::getTable('Resource')
+                    $resource = Doctrine_Core::getTable('Webenq_Model_Resource')
                         ->findOneByName($resourceName);
-                    $role = Doctrine_Core::getTable('Role')
+                    $role = Doctrine_Core::getTable('Webenq_Model_Role')
                         ->findOneByName($roleName);
 
                     /* check if settings has changed */
                     if ($setting == 0 && $acl->isAllowed($role->name, $resource->name)) {
 
                         /* turn off permission */
-                        $roleResource = Doctrine_Core::getTable('RoleResource')
+                        $roleResource = Doctrine_Core::getTable('Webenq_Model_RoleResource')
                             ->findOneByRoleIdAndResourceId($role->id, $resource->id);
                         if ($roleResource) $roleResource->delete();
 
                     } elseif ($setting == 1 && !$acl->isAllowed($role->name, $resource->name)) {
 
                         /* turn on permission */
-                        $roleResource = new RoleResource();
+                        $roleResource = new Webenq_Model_RoleResource();
                         $roleResource->role_id = $role->id;
                         $roleResource->resource_id = $resource->id;
                         try {
