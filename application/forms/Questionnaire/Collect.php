@@ -33,6 +33,11 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
             $name = "qq_$question->id";
             $elm = $question->getFormElement();
             if ($elm instanceof Zend_Form_Element) {
+                if ($elm instanceof Zend_Form_Element_Multi) {
+                    $elm->setValue($question->answerPossibilityGroup_id);
+                } else {
+                    $elm->setValue($question->Answer[0]->text);
+                }
                 $this->addElement($elm, $name);
             } elseif ($elm instanceof Zend_Form_SubForm) {
                 $this->addSubform($elm, $name);
