@@ -24,20 +24,18 @@
 <p class="short-description">CollectionPresentation</p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Bart Huttinga &lt;<a href="mailto:b.huttinga@nivocer.com">b.huttinga@nivocer.com</a>&gt;</li>
-				<li><span class="field">version:</span> SVN: $Id: Webenq_Model_CollectionPresentation.html,v 1.1 2011/07/05 12:46:02 bart Exp $</li>
+				<li><span class="field">version:</span> SVN: $Id: Webenq_Model_CollectionPresentation.html,v 1.2 2011/08/16 15:28:40 bart Exp $</li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_application---models---CollectionPresentation.php.html">/application/models/CollectionPresentation.php</a> (line <span class="field">9</span>)
+			Located in <a class="field" href="_models---CollectionPresentation.php.html">/models/CollectionPresentation.php</a> (line <span class="field">9</span>)
 		</p>
 		
 				
 		<pre>Doctrine_Record
    |
-   --<a href="../../Webenq/Models/BaseCollectionPresentation.html">BaseCollectionPresentation</a>
+   --<a href="../../Webenq/Models/Webenq_Model_Base_CollectionPresentation.html">Webenq_Model_Base_CollectionPresentation</a>
       |
-      --<a href="../../Webenq/Models/CollectionPresentation.html">CollectionPresentation</a>
-         |
-         --Webenq_Model_CollectionPresentation</pre>
+      --Webenq_Model_CollectionPresentation</pre>
 	
 			</div>
 </div>
@@ -54,11 +52,16 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-												
+																				
 												<div class="method-definition">
-											<span class="method-result">Webenq_Model_CollectionPresentation</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">Doctrine_Table</span>&nbsp;<span class="var-name">$table</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$isNewEntry</span> = <span class="var-default">true</span>])
+											<span class="method-result">void</span>
+										<a href="#setDefaults" title="details" class="method-name">setDefaults</a>
+											(<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_QuestionnaireQuestion.html">Webenq_Model_QuestionnaireQuestion</a></span>&nbsp;<span class="var-name">$questionnaireQuestion</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#setUp" title="details" class="method-name">setUp</a>
+										()
 									</div>
 								</div>
 		</div>
@@ -76,59 +79,70 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 
-<a name="method__construct" id="__construct"><!-- --></a>
+<a name="methodsetDefaults" id="setDefaults"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">19</span>)
+		<span class="method-title">setDefaults</span> (line <span class="line-number">30</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Class constructor</p>
-<p class="description"><p>Defaults to new entry</p></p>
+<p class="short-description">Sets the defaults based on the given questionnaire question</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">Webenq_Model_CollectionPresentation</span>
+		<span class="method-result">void</span>
 		<span class="method-name">
-			__construct
+			setDefaults
 		</span>
-					([<span class="var-type">Doctrine_Table</span>&nbsp;<span class="var-name">$table</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$isNewEntry</span> = <span class="var-default">true</span>])
+					(<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_QuestionnaireQuestion.html">Webenq_Model_QuestionnaireQuestion</a></span>&nbsp;<span class="var-name">$questionnaireQuestion</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type">Doctrine_Table</span>
-				<span class="var-name">$table</span>			</li>
-					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$isNewEntry</span>			</li>
+				<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_QuestionnaireQuestion.html">Webenq_Model_QuestionnaireQuestion</a></span>
+				<span class="var-name">$questionnaireQuestion</span>			</li>
 				</ul>
+		
+			
+	</div>
+<a name="methodsetUp" id="setUp"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">setUp</span> (line <span class="line-number">11</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			setUp
+		</span>
+				()
+			</div>
+	
 		
 			<hr class="separator" />
 		<div class="notes">Redefinition of:</div>
 		<dl>
-			<dt><a href="../../Webenq/Models/CollectionPresentation.html#method__construct">CollectionPresentation::__construct()</a></dt>
-						<dd>Class constructor</dd>
+			<dt><a href="../../Webenq/Models/Webenq_Model_Base_CollectionPresentation.html#methodsetUp">Webenq_Model_Base_CollectionPresentation::setUp()</a></dt>
 					</dl>
 			
 	</div>
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/CollectionPresentation.html">CollectionPresentation</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/Webenq_Model_Base_CollectionPresentation.html">Webenq_Model_Base_CollectionPresentation</a></span></p>
 					<blockquote>
-													<span class="method-name"><a href="../../Webenq/Models/CollectionPresentation.html#method__construct">CollectionPresentation::__construct()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/CollectionPresentation.html#methodsetDefaults">CollectionPresentation::setDefaults()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/CollectionPresentation.html#methodsetUp">CollectionPresentation::setUp()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/BaseCollectionPresentation.html">BaseCollectionPresentation</a></span></p>
-					<blockquote>
-													<span class="method-name"><a href="../../Webenq/Models/BaseCollectionPresentation.html#methodsetTableDefinition">BaseCollectionPresentation::setTableDefinition()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/BaseCollectionPresentation.html#methodsetUp">BaseCollectionPresentation::setUp()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Base_CollectionPresentation.html#methodsetTableDefinition">Webenq_Model_Base_CollectionPresentation::setTableDefinition()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Base_CollectionPresentation.html#methodsetUp">Webenq_Model_Base_CollectionPresentation::setUp()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -136,7 +150,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 05 Jul 2011 13:12:51 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 16 Aug 2011 17:24:19 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

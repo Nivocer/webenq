@@ -26,20 +26,18 @@
 <p class="short-description">Question class definition</p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Bart Huttinga &lt;<a href="mailto:b.huttinga@nivocer.com">b.huttinga@nivocer.com</a>&gt;</li>
-				<li><span class="field">version:</span> SVN: $Id: Webenq_Model_Question.html,v 1.1 2011/07/05 12:46:02 bart Exp $</li>
+				<li><span class="field">version:</span> SVN: $Id: Webenq_Model_Question.html,v 1.2 2011/08/16 15:28:42 bart Exp $</li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_application---models---Question.php.html">/application/models/Question.php</a> (line <span class="field">9</span>)
+			Located in <a class="field" href="_models---Question.php.html">/models/Question.php</a> (line <span class="field">9</span>)
 		</p>
 		
 				
 		<pre>Doctrine_Record
    |
-   --<a href="../../Webenq/Models/BaseQuestion.html">BaseQuestion</a>
+   --<a href="../../Webenq/Models/Webenq_Model_Base_Question.html">Webenq_Model_Base_Question</a>
       |
-      --<a href="../../Webenq/Models/Question.html">Question</a>
-         |
-         --Webenq_Model_Question</pre>
+      --Webenq_Model_Question</pre>
 	
 			</div>
 </div>
@@ -133,31 +131,41 @@
 		</div>
 		<div class="info-box-body">			
 			<div class="method-summary">
-																																																																				<div class="method-definition">
+																																																																												<div class="method-definition">
 					static 						<span class="method-result">bool</span>
 										<a href="#answersGiven" title="details" class="method-name">answersGiven</a>
 											(<span class="var-type">array</span>&nbsp;<span class="var-name">$values</span>)
+									</div>
+																<div class="method-definition">
+					static 						<span class="method-result">void</span>
+										<a href="#autocomplete" title="details" class="method-name">autocomplete</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$term</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$lang</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">null</span>])
 									</div>
 																																																<div class="method-definition">
 					static 						<span class="method-result"><a href="../../Webenq/Models/Webenq_Model_Question.html">Webenq_Model_Question</a></span>
 										<a href="#factory" title="details" class="method-name">factory</a>
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$answers</span>)
 									</div>
-																																																								<div class="method-definition">
+																<div class="method-definition">
+					static 						<span class="method-result">void</span>
+										<a href="#findByQuestionText" title="details" class="method-name">findByQuestionText</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$questionText</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$language</span>)
+									</div>
+																																																																<div class="method-definition">
 					static 						<span class="method-result">bool</span>
 										<a href="#isType" title="details" class="method-name">isType</a>
 											(<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_Question.html">Webenq_Model_Question</a></span>&nbsp;<span class="var-name">$question</span>)
 									</div>
-																																																																																																
-												<div class="method-definition">
-											<span class="method-result">Webenq_Model_Question</span>
-										<a href="#__construct" title="details" class="method-name">__construct</a>
-											([<span class="var-type">Doctrine_Table</span>&nbsp;<span class="var-name">$table</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$isNewEntry</span> = <span class="var-default">true</span>])
+																																																<div class="method-definition">
+					static 						<span class="method-result">Doctrine_Collection</span>
+										<a href="#search" title="details" class="method-name">search</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$term</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$lang</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">null</span>])
 									</div>
-																<div class="method-definition">
+																																																
+												<div class="method-definition">
 											<span class="method-result">self</span>
 										<a href="#addAnswer" title="details" class="method-name">addAnswer</a>
-											(<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_Answer.html">Webenq_Model_Answer</a>|string</span>&nbsp;<span class="var-name">$answer</span>, [<span class="var-type"><a href="../../Webenq/Models/Respondent.html">Respondent</a></span>&nbsp;<span class="var-name">$respondent</span> = <span class="var-default">null</span>])
+											(<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_Answer.html">Webenq_Model_Answer</a>|string</span>&nbsp;<span class="var-name">$answer</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$respondent</span> = <span class="var-default">null</span>])
 									</div>
 																<div class="method-definition">
 											<span class="method-result">self</span>
@@ -175,6 +183,16 @@
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$invalidTypes</span>)
 									</div>
 																<div class="method-definition">
+											<span class="method-result">self</span>
+										<a href="#addQuestionText" title="details" class="method-name">addQuestionText</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$language</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">self</span>
+										<a href="#addQuestionTexts" title="details" class="method-name">addQuestionTexts</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$texts</span>)
+									</div>
+																<div class="method-definition">
 											<span class="method-result">void</span>
 										<a href="#addValidType" title="details" class="method-name">addValidType</a>
 											(<span class="var-type">string</span>&nbsp;<span class="var-name">$validType</span>)
@@ -184,7 +202,7 @@
 										<a href="#addValidTypes" title="details" class="method-name">addValidTypes</a>
 											(<span class="var-type"></span>&nbsp;<span class="var-name">$validTypes</span>)
 									</div>
-																								<div class="method-definition">
+																																<div class="method-definition">
 											<span class="method-result">int</span>
 										<a href="#count" title="details" class="method-name">count</a>
 										()
@@ -204,7 +222,7 @@
 										<a href="#diffLen" title="details" class="method-name">diffLen</a>
 										()
 									</div>
-																								<div class="method-definition">
+																																<div class="method-definition">
 											<span class="method-result">array</span>
 										<a href="#getAnswerValues" title="details" class="method-name">getAnswerValues</a>
 										()
@@ -212,6 +230,11 @@
 																<div class="method-definition">
 											<span class="method-result">array</span>
 										<a href="#getInvalidTypes" title="details" class="method-name">getInvalidTypes</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getQuestionText" title="details" class="method-name">getQuestionText</a>
 										()
 									</div>
 																<div class="method-definition">
@@ -249,7 +272,7 @@
 										<a href="#minVal" title="details" class="method-name">minVal</a>
 										()
 									</div>
-																<div class="method-definition">
+																								<div class="method-definition">
 											<span class="method-result">void</span>
 										<a href="#setAnswerValues" title="details" class="method-name">setAnswerValues</a>
 											([<span class="var-type"></span>&nbsp;<span class="var-name">$answers</span> = <span class="var-default">array()</span>])
@@ -262,17 +285,7 @@
 																<div class="method-definition">
 											<span class="method-result">void</span>
 										<a href="#setQuestionnaire" title="details" class="method-name">setQuestionnaire</a>
-											(<span class="var-type"><a href="../../Webenq/Models/Questionnaire.html">Questionnaire</a></span>&nbsp;<span class="var-name">$questionnaire</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">self</span>
-										<a href="#setQuestionText" title="details" class="method-name">setQuestionText</a>
-											(<span class="var-type">string</span>&nbsp;<span class="var-name">$language</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>)
-									</div>
-																<div class="method-definition">
-											<span class="method-result">self</span>
-										<a href="#setQuestionTexts" title="details" class="method-name">setQuestionTexts</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$texts</span>)
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$questionnaire</span>)
 									</div>
 																<div class="method-definition">
 											<span class="method-result">void</span>
@@ -303,7 +316,7 @@
 					</div>
 		<div class="info-box-body">
 			<a name="var$children" id="$children"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -326,10 +339,6 @@
 		<ul class="redefinitions">
 					<li>
 				<a href="../../Webenq/Models/Webenq_Model_Question_Closed.html#var$children">Webenq_Model_Question_Closed::$children</a>
-								: Child classes
-							</li>
-					<li>
-				<a href="../../Webenq/Models/Webenq_Model_Question_Closed_Number.html#var$children">Webenq_Model_Question_Closed_Number::$children</a>
 								: Child classes
 							</li>
 					<li>
@@ -377,6 +386,10 @@
 								: Child classes
 							</li>
 					<li>
+				<a href="../../Webenq/Models/Webenq_Model_Question_Open_Number.html#var$children">Webenq_Model_Question_Open_Number::$children</a>
+								: Child classes
+							</li>
+					<li>
 				<a href="../../Webenq/Models/Webenq_Model_Question_Open_Email.html#var$children">Webenq_Model_Question_Open_Email::$children</a>
 								: Child classes
 							</li>
@@ -389,7 +402,7 @@
 
 </div>
 <a name="var$_answerValues" id="$_answerValues"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -412,7 +425,7 @@
 
 </div>
 <a name="var$_invalidTypes" id="$_invalidTypes"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -434,7 +447,7 @@
 
 </div>
 <a name="var$_questionnaire" id="$_questionnaire"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -455,7 +468,7 @@
 
 </div>
 <a name="var$_validTypes" id="$_validTypes"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -493,10 +506,10 @@
 		<div class="info-box-body">
 			<A NAME='method_detail'></A>
 <a name="methodanswersGiven" id="answersGiven"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">static method answersGiven</span> (line <span class="line-number">601</span>)
+		<span class="method-title">static method answersGiven</span> (line <span class="line-number">620</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -523,11 +536,46 @@
 		
 			
 	</div>
+<a name="methodautocomplete" id="autocomplete"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method autocomplete</span> (line <span class="line-number">66</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">void</span>
+		<span class="method-name">
+			autocomplete
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$term</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$lang</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$term</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$lang</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$limit</span>			</li>
+				</ul>
+		
+			
+	</div>
 <a name="methodfactory" id="factory"><!-- --></a>
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">static method factory</span> (line <span class="line-number">286</span>)
+		<span class="method-title">static method factory</span> (line <span class="line-number">311</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -554,11 +602,43 @@
 		
 			
 	</div>
-<a name="methodisType" id="isType"><!-- --></a>
+<a name="methodfindByQuestionText" id="findByQuestionText"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">static method isType</span> (line <span class="line-number">395</span>)
+		<span class="method-title">static method findByQuestionText</span> (line <span class="line-number">634</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">void</span>
+		<span class="method-name">
+			findByQuestionText
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$questionText</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$language</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$questionText</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$language</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodisType" id="isType"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method isType</span> (line <span class="line-number">420</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -589,10 +669,6 @@
 		<ul class="redefinitions">
 					<li>
 				<a href="../../Webenq/Models/Webenq_Model_Question_Closed.html#methodisType">Webenq_Model_Question_Closed::isType()</a>
-								: Checks if the given result set validates for this type
-							</li>
-					<li>
-				<a href="../../Webenq/Models/Webenq_Model_Question_Closed_Number.html#methodisType">Webenq_Model_Question_Closed_Number::isType()</a>
 								: Checks if the given result set validates for this type
 							</li>
 					<li>
@@ -636,6 +712,10 @@
 								: Checks if the given result set validates for this type
 							</li>
 					<li>
+				<a href="../../Webenq/Models/Webenq_Model_Question_Open_Number.html#methodisType">Webenq_Model_Question_Open_Number::isType()</a>
+								: Checks if the given result set validates for this type
+							</li>
+					<li>
 				<a href="../../Webenq/Models/Webenq_Model_Question_Open_Email.html#methodisType">Webenq_Model_Question_Open_Email::isType()</a>
 								: Checks if the given result set validates for this type
 							</li>
@@ -645,51 +725,50 @@
 							</li>
 				</ul>
 	</div>
-
-<a name="method__construct" id="__construct"><!-- --></a>
-<div class="evenrow">
+<a name="methodsearch" id="search"><!-- --></a>
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">53</span>)
+		<span class="method-title">static method search</span> (line <span class="line-number">53</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Class constructor</p>
-<p class="description"><p>Defaults to new entry</p></p>
+<p class="short-description">Searches the question repository for the given term in the given language.</p>
+<p class="description"><p>If no language is given, all languages are searched.</p></p>
 	<ul class="tags">
+				<li><span class="field">return:</span> containing instances of Question</li>
 				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	<div class="method-signature">
-		<span class="method-result">Webenq_Model_Question</span>
+	    static
+		<span class="method-result">Doctrine_Collection</span>
 		<span class="method-name">
-			__construct
+			search
 		</span>
-					([<span class="var-type">Doctrine_Table</span>&nbsp;<span class="var-name">$table</span> = <span class="var-default">null</span>], [<span class="var-type">bool</span>&nbsp;<span class="var-name">$isNewEntry</span> = <span class="var-default">true</span>])
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$term</span>, [<span class="var-type">string</span>&nbsp;<span class="var-name">$lang</span> = <span class="var-default">null</span>], [<span class="var-type"></span>&nbsp;<span class="var-name">$limit</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type">Doctrine_Table</span>
-				<span class="var-name">$table</span>			</li>
+				<span class="var-type">string</span>
+				<span class="var-name">$term</span>			</li>
 					<li>
-				<span class="var-type">bool</span>
-				<span class="var-name">$isNewEntry</span>			</li>
+				<span class="var-type">string</span>
+				<span class="var-name">$lang</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$limit</span>			</li>
 				</ul>
 		
-			<hr class="separator" />
-		<div class="notes">Redefinition of:</div>
-		<dl>
-			<dt><a href="../../Webenq/Models/Question.html#method__construct">Question::__construct()</a></dt>
-						<dd>Class constructor</dd>
-					</dl>
 			
 	</div>
+
 <a name="methodaddAnswer" id="addAnswer"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">addAnswer</span> (line <span class="line-number">132</span>)
+		<span class="method-title">addAnswer</span> (line <span class="line-number">155</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -703,7 +782,7 @@
 		<span class="method-name">
 			addAnswer
 		</span>
-					(<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_Answer.html">Webenq_Model_Answer</a>|string</span>&nbsp;<span class="var-name">$answer</span>, [<span class="var-type"><a href="../../Webenq/Models/Respondent.html">Respondent</a></span>&nbsp;<span class="var-name">$respondent</span> = <span class="var-default">null</span>])
+					(<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_Answer.html">Webenq_Model_Answer</a>|string</span>&nbsp;<span class="var-name">$answer</span>, [<span class="var-type"></span>&nbsp;<span class="var-name">$respondent</span> = <span class="var-default">null</span>])
 			</div>
 	
 			<ul class="parameters">
@@ -711,17 +790,17 @@
 				<span class="var-type"><a href="../../Webenq/Models/Webenq_Model_Answer.html">Webenq_Model_Answer</a>|string</span>
 				<span class="var-name">$answer</span>			</li>
 					<li>
-				<span class="var-type"><a href="../../Webenq/Models/Respondent.html">Respondent</a></span>
+				<span class="var-type">Respondent</span>
 				<span class="var-name">$respondent</span>			</li>
 				</ul>
 		
 			
 	</div>
 <a name="methodaddAnswers" id="addAnswers"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">addAnswers</span> (line <span class="line-number">112</span>)
+		<span class="method-title">addAnswers</span> (line <span class="line-number">135</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -750,10 +829,10 @@
 			
 	</div>
 <a name="methodaddInvalidType" id="addInvalidType"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">addInvalidType</span> (line <span class="line-number">358</span>)
+		<span class="method-title">addInvalidType</span> (line <span class="line-number">383</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -779,10 +858,10 @@
 			
 	</div>
 <a name="methodaddInvalidTypes" id="addInvalidTypes"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">addInvalidTypes</span> (line <span class="line-number">370</span>)
+		<span class="method-title">addInvalidTypes</span> (line <span class="line-number">395</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -807,11 +886,72 @@
 		
 			
 	</div>
-<a name="methodaddValidType" id="addValidType"><!-- --></a>
+<a name="methodaddQuestionText" id="addQuestionText"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addQuestionText</span> (line <span class="line-number">242</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sets the question text for a given language</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">self</span>
+		<span class="method-name">
+			addQuestionText
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$language</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$language</span><span class="var-description">: The language to set the text for</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$text</span><span class="var-description">: The question text for the given language</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddQuestionTexts" id="addQuestionTexts"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">addValidType</span> (line <span class="line-number">332</span>)
+		<span class="method-title">addQuestionTexts</span> (line <span class="line-number">256</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Sets the question texts for every language</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">self</span>
+		<span class="method-name">
+			addQuestionTexts
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$texts</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">array</span>
+				<span class="var-name">$texts</span><span class="var-description">: Array with language codes as keys and question texts as values</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodaddValidType" id="addValidType"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">addValidType</span> (line <span class="line-number">357</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -837,10 +977,10 @@
 			
 	</div>
 <a name="methodaddValidTypes" id="addValidTypes"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">addValidTypes</span> (line <span class="line-number">344</span>)
+		<span class="method-title">addValidTypes</span> (line <span class="line-number">369</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -866,10 +1006,10 @@
 			
 	</div>
 <a name="methodcount" id="count"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">count</span> (line <span class="line-number">511</span>)
+		<span class="method-title">count</span> (line <span class="line-number">536</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -891,10 +1031,10 @@
 			
 	</div>
 <a name="methodcountUnique" id="countUnique"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">countUnique</span> (line <span class="line-number">533</span>)
+		<span class="method-title">countUnique</span> (line <span class="line-number">558</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -916,10 +1056,10 @@
 			
 	</div>
 <a name="methodcountUniqueExcludingNullValues" id="countUniqueExcludingNullValues"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">countUniqueExcludingNullValues</span> (line <span class="line-number">555</span>)
+		<span class="method-title">countUniqueExcludingNullValues</span> (line <span class="line-number">580</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -941,10 +1081,10 @@
 			
 	</div>
 <a name="methoddiffLen" id="diffLen"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">diffLen</span> (line <span class="line-number">453</span>)
+		<span class="method-title">diffLen</span> (line <span class="line-number">478</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -966,10 +1106,10 @@
 			
 	</div>
 <a name="methodgetAnswerValues" id="getAnswerValues"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getAnswerValues</span> (line <span class="line-number">172</span>)
+		<span class="method-title">getAnswerValues</span> (line <span class="line-number">195</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -991,10 +1131,10 @@
 			
 	</div>
 <a name="methodgetInvalidTypes" id="getInvalidTypes"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getInvalidTypes</span> (line <span class="line-number">73</span>)
+		<span class="method-title">getInvalidTypes</span> (line <span class="line-number">96</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1014,11 +1154,35 @@
 		
 			
 	</div>
+<a name="methodgetQuestionText" id="getQuestionText"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getQuestionText</span> (line <span class="line-number">226</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the question text in the current language</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getQuestionText
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
 <a name="methodgetUniqueValues" id="getUniqueValues"><!-- --></a>
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">getUniqueValues</span> (line <span class="line-number">384</span>)
+		<span class="method-title">getUniqueValues</span> (line <span class="line-number">409</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1042,7 +1206,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">getValidTypes</span> (line <span class="line-number">63</span>)
+		<span class="method-title">getValidTypes</span> (line <span class="line-number">86</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1066,7 +1230,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">isNumeric</span> (line <span class="line-number">578</span>)
+		<span class="method-title">isNumeric</span> (line <span class="line-number">603</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1091,7 +1255,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">maxLen</span> (line <span class="line-number">429</span>)
+		<span class="method-title">maxLen</span> (line <span class="line-number">454</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1116,7 +1280,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">maxVal</span> (line <span class="line-number">487</span>)
+		<span class="method-title">maxVal</span> (line <span class="line-number">512</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1141,7 +1305,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">minLen</span> (line <span class="line-number">405</span>)
+		<span class="method-title">minLen</span> (line <span class="line-number">430</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1166,7 +1330,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">minVal</span> (line <span class="line-number">463</span>)
+		<span class="method-title">minVal</span> (line <span class="line-number">488</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1191,7 +1355,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">setAnswerValues</span> (line <span class="line-number">193</span>)
+		<span class="method-title">setAnswerValues</span> (line <span class="line-number">216</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1220,7 +1384,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setInvalidTypes</span> (line <span class="line-number">94</span>)
+		<span class="method-title">setInvalidTypes</span> (line <span class="line-number">117</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1249,7 +1413,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">setQuestionnaire</span> (line <span class="line-number">100</span>)
+		<span class="method-title">setQuestionnaire</span> (line <span class="line-number">123</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1262,74 +1426,13 @@
 		<span class="method-name">
 			setQuestionnaire
 		</span>
-					(<span class="var-type"><a href="../../Webenq/Models/Questionnaire.html">Questionnaire</a></span>&nbsp;<span class="var-name">$questionnaire</span>)
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$questionnaire</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type"><a href="../../Webenq/Models/Questionnaire.html">Questionnaire</a></span>
+				<span class="var-type">Questionnaire</span>
 				<span class="var-name">$questionnaire</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetQuestionText" id="setQuestionText"><!-- --></a>
-<div class="oddrow">
-	
-	<div class="method-header">
-		<span class="method-title">setQuestionText</span> (line <span class="line-number">217</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Sets the question text for a given language</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">self</span>
-		<span class="method-name">
-			setQuestionText
-		</span>
-					(<span class="var-type">string</span>&nbsp;<span class="var-name">$language</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$text</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$language</span><span class="var-description">: The language to set the text for</span>			</li>
-					<li>
-				<span class="var-type">string</span>
-				<span class="var-name">$text</span><span class="var-description">: The question text for the given language</span>			</li>
-				</ul>
-		
-			
-	</div>
-<a name="methodsetQuestionTexts" id="setQuestionTexts"><!-- --></a>
-<div class="evenrow">
-	
-	<div class="method-header">
-		<span class="method-title">setQuestionTexts</span> (line <span class="line-number">231</span>)
-	</div> 
-	
-	<!-- ========== Info from phpDoc block ========= -->
-<p class="short-description">Sets the question texts for every language</p>
-	<ul class="tags">
-				<li><span class="field">access:</span> public</li>
-			</ul>
-	
-	<div class="method-signature">
-		<span class="method-result">self</span>
-		<span class="method-name">
-			setQuestionTexts
-		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$texts</span>)
-			</div>
-	
-			<ul class="parameters">
-					<li>
-				<span class="var-type">array</span>
-				<span class="var-name">$texts</span><span class="var-description">: Array with language codes as keys and question texts as values</span>			</li>
 				</ul>
 		
 			
@@ -1338,7 +1441,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">setValidTypes</span> (line <span class="line-number">83</span>)
+		<span class="method-title">setValidTypes</span> (line <span class="line-number">106</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1367,7 +1470,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">_determineType</span> (line <span class="line-number">244</span>)
+		<span class="method-title">_determineType</span> (line <span class="line-number">269</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -1396,17 +1499,10 @@
 							<h4>Inherited Methods</h4>
 				<a name='inherited_methods'><!-- --></a>	
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/Question.html">Question</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/Webenq_Model_Base_Question.html">Webenq_Model_Base_Question</a></span></p>
 					<blockquote>
-													<span class="method-name"><a href="../../Webenq/Models/Question.html#method__construct">Question::__construct()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/Question.html#methodautocomplete">Question::autocomplete()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/Question.html#methodsearch">Question::search()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/BaseQuestion.html">BaseQuestion</a></span></p>
-					<blockquote>
-													<span class="method-name"><a href="../../Webenq/Models/BaseQuestion.html#methodsetTableDefinition">BaseQuestion::setTableDefinition()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/BaseQuestion.html#methodsetUp">BaseQuestion::setUp()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Base_Question.html#methodsetTableDefinition">Webenq_Model_Base_Question::setTableDefinition()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Base_Question.html#methodsetUp">Webenq_Model_Base_Question::setUp()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -1414,7 +1510,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 05 Jul 2011 13:13:00 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 16 Aug 2011 17:24:27 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>

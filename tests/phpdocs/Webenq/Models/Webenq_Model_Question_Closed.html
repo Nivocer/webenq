@@ -26,22 +26,20 @@
 <p class="short-description">Class definition for closed question data types</p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Bart Huttinga &lt;<a href="mailto:b.huttinga@nivocer.com">b.huttinga@nivocer.com</a>&gt;</li>
-				<li><span class="field">version:</span> SVN: $Id: Webenq_Model_Question_Closed.html,v 1.1 2011/07/05 12:46:02 bart Exp $</li>
+				<li><span class="field">version:</span> SVN: $Id: Webenq_Model_Question_Closed.html,v 1.2 2011/08/16 15:28:45 bart Exp $</li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_application---models---Question---Closed.php.html">/application/models/Question/Closed.php</a> (line <span class="field">5</span>)
+			Located in <a class="field" href="_models---Question---Closed.php.html">/models/Question/Closed.php</a> (line <span class="field">5</span>)
 		</p>
 		
 				
 		<pre>Doctrine_Record
    |
-   --<a href="../../Webenq/Models/BaseQuestion.html">BaseQuestion</a>
+   --<a href="../../Webenq/Models/Webenq_Model_Base_Question.html">Webenq_Model_Base_Question</a>
       |
-      --<a href="../../Webenq/Models/Question.html">Question</a>
+      --<a href="../../Webenq/Models/Webenq_Model_Question.html">Webenq_Model_Question</a>
          |
-         --<a href="../../Webenq/Models/Webenq_Model_Question.html">Webenq_Model_Question</a>
-            |
-            --Webenq_Model_Question_Closed</pre>
+         --Webenq_Model_Question_Closed</pre>
 	
 			</div>
 </div>
@@ -61,12 +59,6 @@
 				<tr>
 					<th class="class-table-header">Class</th>
 					<th class="class-table-header">Description</th>
-				</tr>
-								<tr>
-					<td style="padding-right: 2em"><a href="../../Webenq/Models/Webenq_Model_Question_Closed_Number.html">Webenq_Model_Question_Closed_Number</a></td>
-					<td>
-											Class definition for the closed question data type number
-										</td>
 				</tr>
 								<tr>
 					<td style="padding-right: 2em"><a href="../../Webenq/Models/Webenq_Model_Question_Closed_Percentage.html">Webenq_Model_Question_Closed_Percentage</a></td>
@@ -150,7 +142,7 @@
 		<span class="var-title">
 			<span class="var-type">array</span>
 			<span class="var-name">$children</span>
-			 = <span class="var-default">array('Number', 'Scale', 'Percentage')</span>			(line <span class="line-number">12</span>)
+			 = <span class="var-default">array('Scale', 'Percentage')</span>			(line <span class="line-number">12</span>)
 		</span>
 	</div>
 
@@ -171,10 +163,6 @@
 			<hr class="separator" />
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
-					<li>
-				<a href="../../Webenq/Models/Webenq_Model_Question_Closed_Number.html#var$children">Webenq_Model_Question_Closed_Number::$children</a>
-								: Child classes
-							</li>
 					<li>
 				<a href="../../Webenq/Models/Webenq_Model_Question_Closed_Percentage.html#var$children">Webenq_Model_Question_Closed_Percentage::$children</a>
 								: Child classes
@@ -284,10 +272,6 @@
 		<div class="notes">Redefined in descendants as:</div>
 		<ul class="redefinitions">
 					<li>
-				<a href="../../Webenq/Models/Webenq_Model_Question_Closed_Number.html#methodisType">Webenq_Model_Question_Closed_Number::isType()</a>
-								: Checks if the given result set validates for this type
-							</li>
-					<li>
 				<a href="../../Webenq/Models/Webenq_Model_Question_Closed_Percentage.html#methodisType">Webenq_Model_Question_Closed_Percentage::isType()</a>
 								: Checks if the given result set validates for this type
 							</li>
@@ -327,21 +311,25 @@
 									<!-- =========== Summary =========== -->
 					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/Webenq_Model_Question.html">Webenq_Model_Question</a></span></p>
 					<blockquote>
-													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#method__construct">Webenq_Model_Question::__construct()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddAnswer">Webenq_Model_Question::addAnswer()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddAnswers">Webenq_Model_Question::addAnswers()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddInvalidType">Webenq_Model_Question::addInvalidType()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddInvalidTypes">Webenq_Model_Question::addInvalidTypes()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddQuestionText">Webenq_Model_Question::addQuestionText()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddQuestionTexts">Webenq_Model_Question::addQuestionTexts()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddValidType">Webenq_Model_Question::addValidType()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodaddValidTypes">Webenq_Model_Question::addValidTypes()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodanswersGiven">Webenq_Model_Question::answersGiven()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodautocomplete">Webenq_Model_Question::autocomplete()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodcount">Webenq_Model_Question::count()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodcountUnique">Webenq_Model_Question::countUnique()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodcountUniqueExcludingNullValues">Webenq_Model_Question::countUniqueExcludingNullValues()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methoddiffLen">Webenq_Model_Question::diffLen()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodfactory">Webenq_Model_Question::factory()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodfindByQuestionText">Webenq_Model_Question::findByQuestionText()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodgetAnswerValues">Webenq_Model_Question::getAnswerValues()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodgetInvalidTypes">Webenq_Model_Question::getInvalidTypes()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodgetQuestionText">Webenq_Model_Question::getQuestionText()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodgetUniqueValues">Webenq_Model_Question::getUniqueValues()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodgetValidTypes">Webenq_Model_Question::getValidTypes()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodisNumeric">Webenq_Model_Question::isNumeric()</a></span><br>
@@ -350,26 +338,18 @@
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodmaxVal">Webenq_Model_Question::maxVal()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodminLen">Webenq_Model_Question::minLen()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodminVal">Webenq_Model_Question::minVal()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodsearch">Webenq_Model_Question::search()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodsetAnswerValues">Webenq_Model_Question::setAnswerValues()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodsetInvalidTypes">Webenq_Model_Question::setInvalidTypes()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodsetQuestionnaire">Webenq_Model_Question::setQuestionnaire()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodsetQuestionText">Webenq_Model_Question::setQuestionText()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodsetQuestionTexts">Webenq_Model_Question::setQuestionTexts()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#methodsetValidTypes">Webenq_Model_Question::setValidTypes()</a></span><br>
 													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Question.html#method_determineType">Webenq_Model_Question::_determineType()</a></span><br>
 											</blockquote>
 									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/Question.html">Question</a></span></p>
+					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/Webenq_Model_Base_Question.html">Webenq_Model_Base_Question</a></span></p>
 					<blockquote>
-													<span class="method-name"><a href="../../Webenq/Models/Question.html#method__construct">Question::__construct()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/Question.html#methodautocomplete">Question::autocomplete()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/Question.html#methodsearch">Question::search()</a></span><br>
-											</blockquote>
-									<!-- =========== Summary =========== -->
-					<p>Inherited From <span class="classname"><a href="../../Webenq/Models/BaseQuestion.html">BaseQuestion</a></span></p>
-					<blockquote>
-													<span class="method-name"><a href="../../Webenq/Models/BaseQuestion.html#methodsetTableDefinition">BaseQuestion::setTableDefinition()</a></span><br>
-													<span class="method-name"><a href="../../Webenq/Models/BaseQuestion.html#methodsetUp">BaseQuestion::setUp()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Base_Question.html#methodsetTableDefinition">Webenq_Model_Base_Question::setTableDefinition()</a></span><br>
+													<span class="method-name"><a href="../../Webenq/Models/Webenq_Model_Base_Question.html#methodsetUp">Webenq_Model_Base_Question::setUp()</a></span><br>
 											</blockquote>
 										
 		</div>
@@ -377,7 +357,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 05 Jul 2011 13:12:51 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Tue, 16 Aug 2011 17:24:18 +0200 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</div></body>
 </html>
