@@ -96,7 +96,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             ->leftJoin('apg.AnswerPossibility ap')
             ->leftJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $language)
             ->leftJoin('qq.Question qn')
-            ->leftJoin('qn.QuestionText qt ON qn.id = qt.question_id AND qt.language = ?', $language)
+            ->leftJoin('qn.QuestionText qt WITH qt.language = ?', $language)
             ->leftJoin('qq.CollectionPresentation cp')
             ->andWhere('qe.id = ?', $id)
             ->andWhere('cp.parent_id IS NULL')

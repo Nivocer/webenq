@@ -185,11 +185,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             }
 
             // add label
-            if (isset($this->Question->QuestionText[0])) {
-                $element->setLabel($this->Question->QuestionText[0]->text);
-            } else {
-                $element->setLabel(_('No question text available for the current language'));
-            }
+            $element->setLabel($this->Question->getQuestionText());
 
             // add answer possibilities
             if ($element instanceof Zend_Form_Element_Multi) {

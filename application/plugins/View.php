@@ -142,21 +142,22 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 
     protected function _getLanguageSelector($view)
     {
-        /* set default language */
+        // set default language
         $session = new Zend_Session_Namespace();
         if ($session->language) {
             $language = $session->language;
-            Zend_Registry::set('language', $language);
+            Zend_Registry::set('language', $session->language);
+            Zend_Registry::get('Zend_Locale')->setLocale($session->language);
         } else {
-            $language = 'nl';
+            $language = Zend_Registry::get('Zend_Locale')->getLanguage();
             $session->language = $language;
             Zend_Registry::set('language', $language);
         }
 
-        /* get all languages */
+        // get all languages
         $languages = Webenq_Language::getLanguages();
 
-        /* return html for language selector */
+        // return html for language selector
         $html = '<ul id="language_selector">';
         foreach ($languages as $l) {
             $html .= ($l == $language) ? '<li class="active">' : '<li>';

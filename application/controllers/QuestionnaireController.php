@@ -32,7 +32,7 @@ class QuestionnaireController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->ajaxContext()->initContext();
-        $this->_language = Zend_Registry::get('language');
+        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
     }
 
     /**
@@ -117,14 +117,8 @@ class QuestionnaireController extends Zend_Controller_Action
             $this->_redirect($this->_request->getPathInfo());
         }
 
-        $questionsToBeRendered = array();
-        foreach ($questionnaire['QuestionnaireQuestion'] as $qq) {
-            $questionsToBeRendered[] = $qq;
-        }
-
         $this->view->form = $form;
         $this->view->questionnaire = $questionnaire;
-        $this->view->questions = $questionsToBeRendered;
         $this->view->totalPages = Webenq_Model_Questionnaire::getTotalPages($questionnaire['id']);
     }
 

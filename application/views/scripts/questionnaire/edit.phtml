@@ -35,12 +35,11 @@
             <div class="questions">
                 <ul class="questions-list sortable droppable">
                     <?php
-                        foreach ($this->questions as $key => $qq) {
+                        foreach ($this->questionnaire->QuestionnaireQuestion as $qq) {
                             if (($page === 1 && !isset($qq['CollectionPresentation'][0])) ||
                                 $page === (int) $qq['CollectionPresentation'][0]['page'])
                             {
                                 echo $this->questionElement($qq, $this->totalPages);
-                                unset($this->questions[$key]);
                             }
                         }
                     ?>
