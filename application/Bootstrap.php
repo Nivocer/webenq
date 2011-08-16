@@ -10,7 +10,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initResourceAutoLoading()
     {
-        $loader = new Zend_Application_Module_Autoloader(array(
+        $loader = new Zend_Loader_Autoloader_Resource(array(
             'basePath'  => APPLICATION_PATH,
             'namespace' => 'Webenq',
         ));
