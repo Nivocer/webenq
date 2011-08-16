@@ -10,12 +10,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initResourceAutoLoading()
     {
-        $resourceLoader = new Zend_Loader_Autoloader_Resource(array(
+        $loader = new Zend_Application_Module_Autoloader(array(
             'basePath'  => APPLICATION_PATH,
             'namespace' => 'Webenq',
         ));
-        $resourceLoader->addResourceType('doctrine', 'models/generated/Base', 'Model_Base');
-        $resourceLoader->addResourceType('model', 'models/', 'Model');
+        $loader->addResourceType('doctrine', 'models/generated/Base', 'Model_Base');
+        $loader->addResourceType('model', 'models', 'Model');
     }
 
     protected function _initDoctrine()
