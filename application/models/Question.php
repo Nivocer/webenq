@@ -602,18 +602,12 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      */
     public function isNumeric()
     {
-        if (!is_array($this->_answerValues)) {
-            return false;
-        }
+        if (!is_array($this->_answerValues)) return false;
 
-        $isNumeric = new Zend_Validate_Regex('/^[-+]?[0-9]*\.?[0-9]+$/');
-
+        $validator = new Zend_Validate_Regex('/^[\+-]?([0-9]*)((,|\.)[0-9]{3})*((,|\.)[0-9]*){0,1}$/');
         foreach ($this->_answerValues as $value) {
-            if ($value && !$isNumeric->isValid($value)) {
-                return false;
-            }
+            if ($value && !$validator->isValid($value)) return false;
         }
-
         return true;
     }
 
