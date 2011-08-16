@@ -143,9 +143,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
     protected function _orderPagesAndQuestions(array $data)
     {
-        if (count($data) === 0) {
-            return;
-        }
+        if (count($data) === 0) return;
 
         foreach ($data as $key => $val) {
 
@@ -156,6 +154,8 @@ class QuestionnaireController extends Zend_Controller_Action
                 $id = (int) str_replace('qq_', null, $id);
                 $qqIds[] = $id;
             }
+
+            if (empty($qqIds)) continue;
 
             // reset all questions on this page
             Doctrine_Query::create()
