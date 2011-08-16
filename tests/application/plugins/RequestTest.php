@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Plugin_RequestTest extends Webenq_Test_Plugin
+class Webenq_Test_Plugin_RequestTest extends Webenq_Test_Case_Plugin
 {
     public function testRequestIsUnquotedWhenMagicQuotesAreEnabled()
     {

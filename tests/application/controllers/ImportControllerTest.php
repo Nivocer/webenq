@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_ControllerTestCase_ImportControllerTest extends Webenq_Test_Controller
+class Webenq_Test_ControllerTestCase_ImportControllerTest extends Webenq_Test_Case_Controller
 {
     public function test() {}
 

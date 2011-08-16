@@ -6,24 +6,12 @@ define('APPLICATION_ENV', 'testing');
 // initialize
 require_once realpath(dirname(__FILE__) . '/../public/init.php');
 
-// set up auto-loading
-require_once "Zend/Loader/Autoloader.php";
-$autoloader = Zend_Loader_Autoloader::getInstance();
-$autoloader->registerNamespace('Webenq_');
-$resourceLoader = new Zend_Loader_Autoloader_Resource(array(
-	'basePath'  => APPLICATION_PATH,
-	'namespace' => 'Webenq',
-));
-//$resourceLoader->addResourceType('model', 'models', 'Model');
-//$resourceLoader->addResourceType('form', 'forms', 'Form');
-$resourceLoader->addResourceType('tests', '../tests/application', 'Test');
-$resourceLoader->addResourceType('controllerTestCases', '../tests/application/controllers', 'Test_Controller');
-$resourceLoader->addResourceType('modelTestCases', '../tests/application/models', 'Test_Model');
-$resourceLoader->addResourceType('formTestCases', '../tests/application/forms', 'Test_Form');
-$resourceLoader->addResourceType('pluginTestCases', '../tests/application/plugins', 'Test_Plugin');
-
-// load test-cases
-require_once 'cases/Controller.php';
-require_once 'cases/Model.php';
-require_once 'cases/Form.php';
-require_once 'cases/Plugin.php';
+// set up auto-loading for tests
+$loader = Zend_Loader_Autoloader::getInstance();
+$namespaceLoaders = $loader->getNamespaceAutoloaders('Webenq_');
+$webenqLoader = $namespaceLoaders[0];
+$webenqLoader->addResourceType('testCases', '../tests/cases', 'Test_Case');
+$webenqLoader->addResourceType('testControllers', '../tests/application/controllers', 'Test_Controller');
+$webenqLoader->addResourceType('testForms', '../tests/application/forms', 'Test_Form');
+$webenqLoader->addResourceType('testModels', '../tests/application/models', 'Test_Model');
+$webenqLoader->addResourceType('testPlugins', '../tests/application/plugins', 'Test_Plugin');

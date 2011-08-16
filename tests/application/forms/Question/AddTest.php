@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Form_Question_AddTest extends Webenq_Test_Form
+class Webenq_Test_Form_Question_AddTest extends Webenq_Test_Case_Form
 {
     protected $_form;
 

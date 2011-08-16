@@ -1,6 +1,5 @@
 <?php
-
-class Webenq_Test_ControllerTestCase_UserControllerTest extends Webenq_Test_Controller
+class Webenq_Test_ControllerTestCase_UserControllerTest extends Webenq_Test_Case_Controller
 {
     public function testLoginFormIsRendered()
     {
@@ -9,19 +8,16 @@ class Webenq_Test_ControllerTestCase_UserControllerTest extends Webenq_Test_Cont
         $this->assertQuery('input#password');
     }
 
-//    public function testUserCanLoginAndLogout()
-//    {
-//        $this->request->setMethod('POST');
-//        $this->request->setParams(array(
-//            'username' => 'test',
-//            'password' => 'test'
-//        ));
-//        $this->dispatch('user/login');
-//        $this->assertTrue(Zend_Auth::getInstance()->hasIdentity());
-//        $this->assertTrue(Zend_Auth::getInstance()->getIdentity() == 'test');
-//
-//        $this->dispatch('user/logout');
-//        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
-//        $this->assertFalse(Zend_Auth::getInstance()->getIdentity() == 'test');
-//    }
+    public function testUserCanLoginAndLogout()
+    {
+        $this->getRequest()->setMethod('POST')->setPost(array(
+            'username' => 'test',
+            'password' => 'test'
+        ));
+        $this->dispatch('user/login');
+        $this->assertTrue(Zend_Auth::getInstance()->hasIdentity());
+
+        $this->dispatch('user/logout');
+        $this->assertFalse(Zend_Auth::getInstance()->hasIdentity());
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Model_CollectionPresentationTest extends Webenq_Test_Model
+class Webenq_Test_Model_CollectionPresentationTest extends Webenq_Test_Case_Model
 {
     /**
      * Creates a questionnaire-question and tests if the default element

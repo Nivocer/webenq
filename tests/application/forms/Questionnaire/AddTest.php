@@ -1,5 +1,5 @@
 <?php
-class Webenq_Form_Questionnaire_AddTest extends Webenq_Test_Form
+class Webenq_Form_Questionnaire_AddTest extends Webenq_Test_Case_Form
 {
     public function testTitleIsRequired()
     {

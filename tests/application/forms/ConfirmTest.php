@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Form_ConfirmTest extends Webenq_Test_Form
+class Webenq_Test_Form_ConfirmTest extends Webenq_Test_Case_Form
 {
     protected $_id = 123;
 

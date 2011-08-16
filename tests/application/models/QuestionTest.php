@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Model_QuestionTest extends Webenq_Test_Model
+class Webenq_Test_Model_QuestionTest extends Webenq_Test_Case_Model
 {
     public function testAnswersCanBeAddedToQuestion()
     {
