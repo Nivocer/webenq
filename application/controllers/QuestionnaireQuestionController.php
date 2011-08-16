@@ -112,19 +112,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             }
         }
 
-        $this->view->repositoryQuestions = Doctrine_Query::create()
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->innerJoin('qq.CollectionPresentation cp')
-            ->where('qq.id != ?', $questionnaireQuestion->id)
-            ->andWhere('cp.parent_id IS NULL')
-            ->execute();
         $this->view->form = $form;
         $this->view->questionnaireQuestion = $questionnaireQuestion;
-        $this->view->cols = $cols = 1 + $questionnaireQuestion->CollectionPresentation[0]
-            ->CollectionPresentation[0]
-            ->CollectionPresentation
-            ->count();
-        $this->view->subQuestions = $this->_getSubQuestions($questionnaireQuestion);
     }
 
     /**
