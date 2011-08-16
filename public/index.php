@@ -7,5 +7,5 @@ defined('APPLICATION_ENV')
 // initialize
 require_once realpath(dirname(__FILE__) . '/init.php');
 
-// run application
-$application->run();
+// bootstrap and run application
+$application->bootstrap()->run();

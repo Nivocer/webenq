@@ -11,8 +11,8 @@ defined('APPLICATION_PATH')
 
 // set include paths
 set_include_path(implode(PATH_SEPARATOR, array(
+	realpath(APPLICATION_PATH . '/classes'),
 	realpath(APPLICATION_PATH . '/../libraries'),
-	realpath(APPLICATION_PATH . '/../classes'),
     get_include_path(),
 )));
 
@@ -27,7 +27,6 @@ if (!$config->{APPLICATION_ENV}) {
     throw new Exception('No configuration found for application environment "' . APPLICATION_ENV . '"');
 }
 
-// bootstrap application
+// create application
 require_once 'Zend/Application.php';
 $application = new Zend_Application(APPLICATION_ENV, $config->{APPLICATION_ENV});
-$application->bootstrap();
