@@ -132,7 +132,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
 
             // set default element type if not yet set
             if (!$this->CollectionPresentation[0]->type) {
-                $this->CollectionPresentation[0]->setDefaults();
+                $this->CollectionPresentation[0]->setDefaults($this);
                 $this->CollectionPresentation[0]->save();
             }
 

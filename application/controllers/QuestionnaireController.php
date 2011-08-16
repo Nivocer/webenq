@@ -277,15 +277,16 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function collectAction()
     {
-        /* get session */
+        // get session
         $session = new Zend_Session_Namespace();
 
-        /* reset respondent in session if other questionnaire */
+        // reset respondent in session if other questionnaire
         if ($session->questionnaire_id != $this->_request->id) {
             $session->respondent_id = null;
+            $session->page = null;
         }
 
-        /* set respondent */
+        // get or create respondent
         if ($this->_request->respondent_id) {
             $respondent = Doctrine_Core::getTable('Webenq_Model_Respondent')
                 ->find($this->_request->respondent_id);
@@ -298,57 +299,47 @@ class QuestionnaireController extends Zend_Controller_Action
             $respondent->save();
         }
 
-        /* store respondent id to session and reload page */
+        // get current page
+        if ($session->page) {
+            $page = $session->page;
+        } else {
+            $page = $session->page = 1;
+        }
+
+        // store respondent's id and questionnaire's id to session
         $session->respondent_id = $respondent->id;
         $session->questionnaire_id = $this->_request->id;
 
-        try {
-            // get current page
-            $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')->find($this->_request->id);
-            $pageNr = Webenq_Model_Questionnaire::getCurrentPage($questionnaire, $respondent);
-        } catch (Exception $e) {
-            /* redirect if no more questions */
+        // get questions for current page
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
+            $this->_request->id, $this->_language, $page, $respondent, true);
+        if ($questionnaire) {
+            $qqs = $questionnaire->QuestionnaireQuestion;
+        } else {
+            // redirect if no more questions
             $this->_redirect('/questionnaire');
         }
 
-        /* get questions for current page */
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, $respondent);
-        $qqs = $questionnaire['QuestionnaireQuestion'];
-
-        /* redirect if no more questions */
-        if (!isset($qqs[0])) $this->_redirect('/questionnaire');
-
-        /* get form */
+        // get and populate form
         $form = new Webenq_Form_Questionnaire_Collect($qqs);
 
-        /* get progress data */
-        $totalQuestions = (int) Doctrine_Query::create()
-            ->select('COUNT(qq.id) AS count')
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->where('qq.questionnaire_id = ?', $this->_request->id)
-            ->execute()->getFirst()->count;
+        // get progress data
+        $totalQuestions = $questionnaire->getTotalQuestions();
+        $answeredQuestions = $questionnaire->getAnsweredQuestions($respondent);
 
-        $answeredQuestions = (int) Doctrine_Query::create()
-            ->select('COUNT(qq.id) AS count')
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
-            ->where('a.id IS NOT NULL')
-            ->andWhere('qq.questionnaire_id = ?', $this->_request->id)
-            ->execute()->getFirst()->count;
-
-        /* process posted data */
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+            // process posted data
             foreach ($form->getValues() as $key => $value) {
                 $this->_processPostedValue($key, $value, $respondent);
             }
-
-            // reload page
+            // increase page number and reload page
+            $session->page = $page + 1;
             $this->_redirect($this->_request->getPathInfo());
         }
 
         // display form
         $this->view->form = $form;
-        $this->view->pageNr = $pageNr;
+        $this->view->pageNr = $page;
         $this->view->progress = array(
             'total' => $totalQuestions,
             'ready' => $answeredQuestions,
@@ -381,8 +372,24 @@ class QuestionnaireController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * Removes all answers for the given question and respondent combination
+     *
+     * @param Webenq_Model_QuestionnaireQuestion $qq
+     * @param Webenq_Model_Respondent $respondent
+     */
+    protected function _removeAnswers(Webenq_Model_QuestionnaireQuestion $qq, Webenq_Model_Respondent $respondent)
+    {
+        Doctrine_Query::create()
+            ->delete('Webenq_Model_Answer a')
+            ->where('a.respondent_id = ?', $respondent->id)
+            ->andWhere('a.questionnaire_question_id = ?', $qq->id)
+            ->execute();
+    }
+
     protected function _saveEmptyAnswer(Webenq_Model_QuestionnaireQuestion $qq, Webenq_Model_Respondent $respondent)
     {
+        $this->_removeAnswers($qq, $respondent);
         try {
             $answer = new Webenq_Model_Answer();
             $answer->respondent_id = $respondent->id;
@@ -397,6 +404,8 @@ class QuestionnaireController extends Zend_Controller_Action
     protected function _saveAnswerId(Webenq_Model_QuestionnaireQuestion $qq, $answerIds,
         Webenq_Model_Respondent $respondent)
     {
+        $this->_removeAnswers($qq, $respondent);
+
         if (!is_array($answerIds)) {
             $answerIds = array($answerIds);
         }
@@ -418,6 +427,8 @@ class QuestionnaireController extends Zend_Controller_Action
     protected function _saveAnswerText(Webenq_Model_QuestionnaireQuestion $qq, $answerValues,
         Webenq_Model_Respondent $respondent)
     {
+        $this->_removeAnswers($qq, $respondent);
+
         if (!is_array($answerValues)) {
             $answerValues = array($answerValues);
         }
