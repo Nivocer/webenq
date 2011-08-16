@@ -202,13 +202,24 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
                 $question->save();
                 $qq->Question = $question;
             } else {
+                // update or delete existing translations
+                $texts = $values['general']['text'];
                 foreach ($qq->Question->QuestionText as $qt) {
-                    if (!isset($values['general']['text'][$qt->language])) {
+                    if (!isset($texts[$qt->language])) {
                         $qt->delete();
                     } else {
-                        $qt->text = $values['general']['text'][$qt->language];
+                        $qt->text = $texts[$qt->language];
                         $qt->save();
+                        unset($texts[$qt->language]);
                     }
+                }
+                // save new translations
+                foreach ($texts as $language => $text) {
+                    $qt = new Webenq_Model_QuestionText();
+                    $qt->language = $language;
+                    $qt->text = $text;
+                    $qt->question_id = $qq->question_id;
+                    $qt->save();
                 }
             }
         }
