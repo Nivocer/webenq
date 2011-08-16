@@ -14,6 +14,7 @@ class QuestionnaireController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
+        'add' => array('html'),
     );
 
     /**
@@ -84,16 +85,15 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function addAction()
     {
-        $this->_helper->actionStack('index', 'questionnaire');
-
         $form = new Webenq_Form_Questionnaire_Add();
+        $form->setAction($this->_request->getRequestUri());
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             $questionnaire = new Webenq_Model_Questionnaire();
             $questionnaire->fromArray($form->getValues());
             $questionnaire->meta = serialize(array('timestamp' => time()));
             $questionnaire->save();
-            $this->_redirect('/questionnaire');
+            $this->_helper->json(array('reload' => true));
         }
 
         $this->view->form = $form;
@@ -337,37 +337,61 @@ class QuestionnaireController extends Zend_Controller_Action
             ->execute()->getFirst()->count;
 
         /* process posted data */
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getPost())) {
-                // iterate filtered/validated values
-                foreach ($form->getValues() as $id => $value) {
-                    // check for range
-                    if (isset($this->_request->{"$id-1"})) {
-                        $value = array($value, $this->_request->{"$id-1"});
-                    }
-
-                    // save answer-id or text
-                    $qq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
-                        ->find(str_replace('qq_', null, $id));
-                    if ($qq->answerPossibilityGroup_id) {
-                        $this->_saveAnswerId($qq, $value, $respondent);
-                    } else {
-                        $this->_saveAnswerText($qq, $value, $respondent);
-                    }
-                }
-
-                /* reload page */
-                $this->_redirect($this->_request->getPathInfo());
+        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+            foreach ($form->getValues() as $key => $value) {
+                $this->_processPostedValue($key, $value, $respondent);
             }
+
+            // reload page
+            $this->_redirect($this->_request->getPathInfo());
         }
 
-        /* display form */
+        // display form
         $this->view->form = $form;
         $this->view->pageNr = $pageNr;
         $this->view->progress = array(
             'total' => $totalQuestions,
             'ready' => $answeredQuestions,
         );
+    }
+
+    protected function _processPostedValue($key, $value, Webenq_Model_Respondent $respondent)
+    {
+        // process recursively
+        if (is_array($value)) {
+            foreach ($value as $k => $v) {
+                $this->_processPostedValue($k, $v, $respondent);
+            }
+        }
+
+        // check for range
+        if (isset($this->_request->{"$key-1"})) {
+            $value = array($value, $this->_request->{"$id-1"});
+        }
+
+        // save answer-id or text
+        $qq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
+            ->find(str_replace('qq_', null, $key));
+        if (!$value || is_array($value)) {
+            $this->_saveEmptyAnswer($qq, $respondent);
+        } elseif ($qq->answerPossibilityGroup_id) {
+            $this->_saveAnswerId($qq, $value, $respondent);
+        } else {
+            $this->_saveAnswerText($qq, $value, $respondent);
+        }
+    }
+
+    protected function _saveEmptyAnswer(Webenq_Model_QuestionnaireQuestion $qq, Webenq_Model_Respondent $respondent)
+    {
+        try {
+            $answer = new Webenq_Model_Answer();
+            $answer->respondent_id = $respondent->id;
+            $answer->questionnaire_question_id = $qq->id;
+            $answer->save();
+        } catch(Exception $e) {
+            return false;
+        }
+        return true;
     }
 
     protected function _saveAnswerId(Webenq_Model_QuestionnaireQuestion $qq, $answerIds,
