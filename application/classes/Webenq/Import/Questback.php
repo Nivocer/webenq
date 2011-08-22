@@ -88,6 +88,7 @@ class Webenq_Import_Questback extends Webenq_Import_Default
 
             // create and save parent question
             $parentQuestion = new Webenq_Model_Question_Open();
+            $parentQuestion->created = date('Y-m-d H:i:s');
             $parentQuestion->QuestionText[0]->language = $this->_language;
             $parentQuestion->QuestionText[0]->text = $groupNames[$id];
             $parentQuestion->save();

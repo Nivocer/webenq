@@ -344,6 +344,7 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
 
         // instantiate and return question object
         $question = new $validTypes[0]();
+        $question->created = date('Y-m-d H:i:s');
         $question->setValidTypes($validTypes);
         $question->setInvalidTypes($invalidTypes);
         return $question;

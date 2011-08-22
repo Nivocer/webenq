@@ -187,4 +187,9 @@ class Webenq
 			),
 		);
 	}
+
+    static public function Xmlify($value)
+    {
+        return preg_replace('/[^A-Za-z]/', null, $value);
+    }
 }
