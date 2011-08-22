@@ -31,23 +31,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //        $manager->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
         $manager->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, true);
 
-//        $config = $this->getOption('doctrine');
-//        Doctrine_Core::loadModels($config['models_path'] . '/generated', null, 'Webenq_Model_Base');
-//        Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model');
-
         $config = $this->getOption('doctrine');
+        Doctrine_Core::loadModels($config['models_path'] . '/generated', null, 'Webenq_Model_Base');
+        Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model');
+
         if (isset($config['dsn'])) {
             // connect by data source name
-            $conn = Doctrine_Manager::connection($config['dsn'], 'doctrine');
+            $dsn = $config['dsn'];
         } else {
             // connect by database parameters
             $config = $this->getOption('resources');
             $db = $config['db']['params'];
             $dsn = 'mysql://' . $db['username'] . ':' . $db['password'] . '@' . $db['host'] . ':' . $db['port'] .
                 '/' .  $db['dbname'];
-            $conn = Doctrine_Manager::connection($dsn, 'doctrine');
         }
+        Doctrine_Manager::connection($dsn, 'doctrine');
 
         return $manager;
+    }
+
+    protected function _initDatabaseSchemaVersion()
+    {
+        $config = $this->getOption('doctrine');
+        $migration = new Doctrine_Migration($config['migrations_path']);
+        $current = (int) $migration->getCurrentVersion();
+        $latest = (int) $migration->getLatestVersion();
+        if ($current !== $latest) {
+            throw new Exception('Database schema out of date!');
+        }
     }
 }
