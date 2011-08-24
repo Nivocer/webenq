@@ -8,6 +8,22 @@
  */
 class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_QuestionnaireQuestion
 {
+    public function getAnswer(Webenq_Model_Respondent $respondent)
+    {
+        $answers = Doctrine_Query::create()
+            ->from('Webenq_Model_Answer a')
+            ->where('a.respondent_id = ?', $respondent->id)
+            ->andWhere('a.questionnaire_question_id = ?', $this->id)
+            ->limit(1)
+            ->execute();
+
+        if (count($answers) === 1) {
+            return $answers->getFirst();
+        }
+
+        return false;
+    }
+
     public function getXformsElement(DOMDocument $xml, DOMElement $group = null)
     {
         $meta = unserialize($this->meta);
@@ -146,6 +162,33 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         }
 
         return $elms;
+    }
+
+    public function getXformsData(Webenq_Model_Respondent $respondent, DOMDocument $xml, DOMElement $group = null)
+    {
+        // add element for current question
+        $elm = $xml->createElement(Webenq::Xmlify($this->Question->QuestionText[0]->text));
+
+        // add answer, if any
+        $answer = $this->getAnswer($respondent);
+        if ($answer) {
+            if ($answer->answerPossibility_id) {
+                $elm->nodeValue = $answer->answerPossibility_id;
+            } else {
+                $elm->nodeValue = $answer->text;
+            }
+        }
+
+        // add subquestions
+        $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
+        if ($subQqs->count() > 0) {
+            foreach ($subQqs as $subQq) {
+                $subElm = $subQq->getXformsData($respondent, $xml, $elm);
+                $elm->appendChild($subElm);
+            }
+        }
+
+        return $elm;
     }
 
     /**

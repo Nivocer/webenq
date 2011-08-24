@@ -109,6 +109,42 @@ class QuestionnaireController extends Zend_Controller_Action
             ->setBody($xml->saveXML());
     }
 
+    public function xformDataAction()
+    {
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+
+        $xml = new DOMDocument('1.0', 'utf-8');
+        $xml->formatOutput = true;
+
+        $root = $xml->createElement('respondenten');
+        $xml->appendChild($root);
+
+        foreach ($questionnaire->Respondent as $respondent) {
+
+            // respondent
+            $r = $xml->createElement('respondent');
+            $r->setAttribute('id', $respondent->id);
+            $root->appendChild($r);
+
+            // questionnaire
+            $qn = $xml->createElement(Webenq::Xmlify($questionnaire->title));
+            $qn->setAttribute('id', Webenq::Xmlify($questionnaire->title));
+            $r->appendChild($qn);
+
+            // answers
+            foreach ($questionnaire->QuestionnaireQuestion as $qq) {
+                $elm = $qq->getXformsData($respondent, $xml);
+                $qn->appendChild($elm);
+            }
+        }
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_response
+            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->setBody($xml->saveXML());
+    }
+
     /**
      * Renders the form for adding a questionnaire
      *
