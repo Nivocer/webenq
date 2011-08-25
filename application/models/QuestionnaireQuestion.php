@@ -8,6 +8,32 @@
  */
 class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_QuestionnaireQuestion
 {
+    /**
+     * The question text in the current language
+     *
+     * @var string
+     */
+    protected $_questionText;
+
+    public function getQuestionText()
+    {
+        if (!$this->_questionText) {
+            // find text in current language
+            $language = Zend_Registry::get('language');
+            foreach ($this->Question->QuestionText as $text) {
+                if ($text->language === $language) {
+                    $this->_questionText = $text->text;
+                    break;
+                }
+            }
+            // or get default
+            if (!$this->_questionText) {
+                $this->_questionText = $this->Question->QuestionText[0]->text;
+            }
+        }
+        return $this->_questionText;
+    }
+
     public function getAnswer(Webenq_Model_Respondent $respondent)
     {
         $answers = Doctrine_Query::create()
@@ -24,11 +50,18 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         return false;
     }
 
-    public function getXformsElement(DOMDocument $xml, DOMElement $group = null)
+    /**
+     * Returns a xform element or nested group of xform elements, to be used
+     * in the html body of a html/xform document
+     *
+     * @param DOMDocument $xml
+     * @param DOMElement $group
+     * @return DOMElement
+     */
+    public function getXformElement(DOMDocument $xml, DOMElement $group = null)
     {
         $meta = unserialize($this->meta);
         switch ($meta['class']) {
-
             case 'Webenq_Model_Question_Closed_Scale_Two':
             case 'Webenq_Model_Question_Closed_Scale_Three':
             case 'Webenq_Model_Question_Closed_Scale_Four':
@@ -36,54 +69,59 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Closed_Scale_Six':
             case 'Webenq_Model_Question_Closed_Scale_Seven':
             case 'Webenq_Model_Question_Closed_Percentage':
-                $elm = $xml->createElement('select1');
-                $elm->setAttribute('ref', $this->getXpath());
+                $element = $xml->createElement('select1');
+                $element->setAttribute('ref', $this->getXpath());
                 $label = $xml->createElement('label', Webenq::Xmlify($this->Question->QuestionText[0]->text));
-                $elm->appendChild($label);
+                $element->appendChild($label);
                 foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $ap) {
                     $item = $xml->createElement('item');
                     $label = $xml->createElement('label', Webenq::Xmlify($ap->AnswerPossibilityText[0]->text));
                     $value = $xml->createElement('value', $ap->value);
                     $item->appendChild($label);
                     $item->appendChild($value);
-                    $elm->appendChild($item);
+                    $element->appendChild($item);
                 }
                 break;
-
             case null:
             case 'Webenq_Model_Question_Open_Text':
             case 'Webenq_Model_Question_Open_Email':
             case 'Webenq_Model_Question_Open_Date':
             case 'Webenq_Model_Question_Open_Number':
-                $elm = $xml->createElement('input');
-                $elm->setAttribute('ref', $this->getXpath());
+                $element = $xml->createElement('input');
+                $element->setAttribute('ref', $this->getXpath());
                 $label = $xml->createElement('label', Webenq::Xmlify($this->Question->QuestionText[0]->text));
-                $elm->appendChild($label);
+                $element->appendChild($label);
                 break;
-
             default:
                 throw new Exception(__METHOD__ . ' not yet implemented for ' . $meta['class']);
         }
 
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
-
-            $originalElm = $elm;
-            $elm = $xml->createElement('group');
-            $elm->setAttribute('ref', $this->getXpath());
+            $originalElm = $element;
+            $element = $xml->createElement('group');
+            $element->setAttribute('ref', $this->getXpath());
             foreach ($originalElm->childNodes as $item) {
-                $elm->appendChild($item);
+                $element->appendChild($item);
             }
 
             foreach ($subQqs as $subQq) {
-                $subElm = $subQq->getXformsElement($xml, $elm);
-                $elm->appendChild($subElm);
+                $subElm = $subQq->getXformElement($xml, $element);
+                $element->appendChild($subElm);
             }
         }
-        return $elm;
+        return $element;
     }
 
-    public function getXformsInstanceElement(DOMDocument $xml, DOMElement $group = null)
+    /**
+     * Returns a xform instance element or nested group of xform instance
+     * elements, to be used in the html head of a html/xform document
+     *
+     * @param DOMDocument $xml
+     * @param DOMElement $group
+     * @return DOMElement
+     */
+    public function getXformInstanceElement(DOMDocument $xml, DOMElement $group = null)
     {
         $meta = unserialize($this->meta);
         switch ($meta['class']) {
@@ -95,7 +133,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Closed_Scale_Six':
             case 'Webenq_Model_Question_Closed_Scale_Seven':
             case 'Webenq_Model_Question_Closed_Percentage':
-                $elm = $xml->createElement(Webenq::Xmlify($this->Question->QuestionText[0]->text));
+                $element = $xml->createElement(Webenq::Xmlify($this->getQuestionText(), 'tag'));
                 break;
 
             case null:
@@ -103,7 +141,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Open_Email':
             case 'Webenq_Model_Question_Open_Date':
             case 'Webenq_Model_Question_Open_Number':
-                $elm = $xml->createElement(Webenq::Xmlify($this->Question->QuestionText[0]->text));
+                $element = $xml->createElement(Webenq::Xmlify($this->getQuestionText(), 'tag'));
                 break;
 
             default:
@@ -113,19 +151,25 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
             foreach ($subQqs as $subQq) {
-                $subElm = $subQq->getXformsInstanceElement($xml, $elm);
-                $elm->appendChild($subElm);
+                $subElm = $subQq->getXformInstanceElement($xml, $element);
+                $element->appendChild($subElm);
             }
         }
-        return $elm;
+        return $element;
     }
 
-    public function getXformsBindElements(DOMDocument $xml, array $elms = array())
+    /**
+     * Returns a xform bind element, to be used in the html head of a
+     * html/xform document
+     *
+     * @param DOMDocument $xml
+     * @param array $elements
+     * @return DOMElement
+     */
+    public function getXformBindElements(DOMDocument $xml, array $elements = array())
     {
-        $elms = array();
         $meta = unserialize($this->meta);
         switch ($meta['class']) {
-
             case 'Webenq_Model_Question_Closed_Scale_Two':
             case 'Webenq_Model_Question_Closed_Scale_Three':
             case 'Webenq_Model_Question_Closed_Scale_Four':
@@ -133,49 +177,46 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Closed_Scale_Six':
             case 'Webenq_Model_Question_Closed_Scale_Seven':
             case 'Webenq_Model_Question_Closed_Percentage':
-                $elm = $xml->createElement('bind');
-                $elm->setAttribute('nodeset', $this->getXpath());
-                $elm->setAttribute('type', 'select1');
+                $element = $xml->createElement('bind');
+                $element->setAttribute('nodeset', $this->getXpath());
+                $element->setAttribute('type', 'select1');
                 break;
-
             case null:
             case 'Webenq_Model_Question_Open_Text':
             case 'Webenq_Model_Question_Open_Email':
             case 'Webenq_Model_Question_Open_Date':
             case 'Webenq_Model_Question_Open_Number':
-                $elm = $xml->createElement('bind');
-                $elm->setAttribute('nodeset', $this->getXpath());
-                $elm->setAttribute('readonly', 'true()');
-                $elm->setAttribute('type', 'string');
+                $element = $xml->createElement('bind');
+                $element->setAttribute('nodeset', $this->getXpath());
+                $element->setAttribute('readonly', 'true()');
+                $element->setAttribute('type', 'string');
                 break;
-
             default:
                 throw new Exception(__METHOD__ . ' not yet implemented for ' . $meta['class']);
         }
-        $elms[] = $elm;
+        $elements[] = $element;
 
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
             foreach ($subQqs as $subQq) {
-                $elms = array_merge($subQq->getXformsBindElements($xml, $elms), $elms);
+                $elements = array_merge($subQq->getXformBindElements($xml, $elements), $elements);
             }
         }
-
-        return $elms;
+        return $elements;
     }
 
-    public function getXformsData(Webenq_Model_Respondent $respondent, DOMDocument $xml, DOMElement $group = null)
+    public function getXformData(Webenq_Model_Respondent $respondent, DOMDocument $xml, DOMElement $group = null)
     {
         // add element for current question
-        $elm = $xml->createElement(Webenq::Xmlify($this->Question->QuestionText[0]->text));
+        $element = $xml->createElement(Webenq::Xmlify($this->getQuestionText(), 'tag'));
 
         // add answer, if any
         $answer = $this->getAnswer($respondent);
         if ($answer) {
             if ($answer->answerPossibility_id) {
-                $elm->nodeValue = $answer->answerPossibility_id;
+                $element->nodeValue = $answer->answerPossibility_id;
             } else {
-                $elm->nodeValue = $answer->text;
+                $element->nodeValue = $answer->text;
             }
         }
 
@@ -183,12 +224,12 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
             foreach ($subQqs as $subQq) {
-                $subElm = $subQq->getXformsData($respondent, $xml, $elm);
-                $elm->appendChild($subElm);
+                $subElm = $subQq->getXformData($respondent, $xml, $element);
+                $element->appendChild($subElm);
             }
         }
 
-        return $elm;
+        return $element;
     }
 
     /**
@@ -212,11 +253,11 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             // add child questions to subform
             foreach ($subQuestions as $subQuestion) {
                 $name = "qq_$subQuestion->id";
-                $elm = $subQuestion->getFormElement();
-                if ($elm instanceof Zend_Form_Element) {
-                    $subForm->addElement($elm, $name);
+                $element = $subQuestion->getFormElement();
+                if ($element instanceof Zend_Form_Element) {
+                    $subForm->addElement($element, $name);
                 } else {
-                    $subForm->addSubForm($elm, $name);
+                    $subForm->addSubForm($element, $name);
                 }
             }
             return $subForm;
@@ -381,29 +422,33 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         return 'test';
     }
 
-    public function getXpath()
+    /**
+     * @todo It now returns the parents of the current questionnaire-quesiton,
+     * following the hierarchy of the data collection. In the future this should
+     * be changed to reporting hierarchy. Data collection and data reporting
+     * do not need to follow the same structure.
+     *
+     * @return array
+     */
+    protected function _getParents()
     {
-        $questionnaire = $this->Questionnaire;
-        $title = Webenq::Xmlify($questionnaire->title);
-
-        $xpath = '';
-        $parents = $this->_getParents($this->CollectionPresentation[0]);
-        while (count($parents) > 0) {
-            $parent = array_pop($parents);
-            $text = Webenq::Xmlify($parent->QuestionnaireQuestion->Question->QuestionText[0]->text);
-            $xpath .= "$text/";
-        }
-        $xpath .= Webenq::Xmlify($this->Question->QuestionText[0]->text);
-        return "/$title/$xpath";
+        return $this->CollectionPresentation[0]->getParents();
     }
 
-    protected function _getParents(Webenq_Model_CollectionPresentation $cp, array $parents = array())
+    /**
+     * Returns the xpath to the current question for use in a xform
+     *
+     * @return string
+     */
+    public function getXpath()
     {
-        $parent = $cp->Parent;
-        if ($parent->id) {
-            $parents[] = $parent;
-            $this->_getParents($parent, $parents);
+        $xpath = '/' . Webenq::Xmlify($this->Questionnaire->title, 'tag');
+        $parents = $this->_getParents();
+        while (count($parents) > 0) {
+            $parent = array_pop($parents);
+            $xpath .= '/' . Webenq::Xmlify($parent->QuestionnaireQuestion->getQuestionText(), 'tag');
         }
-        return $parents;
+        $xpath .= '/' . Webenq::Xmlify($this->getQuestionText(), 'tag');
+        return $xpath;
     }
 }

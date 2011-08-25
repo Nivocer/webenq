@@ -204,4 +204,94 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             ->andWhere('qq.questionnaire_id = ?', $this->id)
             ->execute()->getFirst()->count;
     }
+
+    /**
+     * Returns an xform
+     *
+     * @return DOMDocument
+     */
+    public function getXform()
+    {
+        $xml = new DOMDocument('1.0', 'utf-8');
+        $xml->formatOutput = true;
+
+        $html = $xml->createElementNS('http://www.w3.org/1999/xhtml', 'h:html');
+        $html->setAttribute('xlsns', 'http://www.w3.org/2002/xforms');
+//        $html->setAttribute('xlsns:ev', 'http://www.w3.org/2001/xml-events');
+//        $html->setAttribute('xlsns:jr', 'http://openrosa.org/javarosa');
+//        $html->setAttribute('xlsns:xsd', 'http://www.w3.org/2001/XMLSchema');
+        $xml->appendChild($html);
+
+        // generate head
+        $head = $xml->createElement('h:head');
+        $html->appendChild($head);
+        $title = $xml->createElement('h:title', Webenq::Xmlify($this->title));
+        $head->appendChild($title);
+
+        $model = $xml->createElement('model');
+        $head->appendChild($model);
+
+        $instance = $xml->createElement('instance');
+        $model->appendChild($instance);
+
+        $namedInstance = $xml->createElement(Webenq::Xmlify($this->title, 'tag'));
+        $instance->appendChild($namedInstance);
+
+        $id = $xml->createElement('id', Webenq::Xmlify($this->title));
+        $namedInstance->appendChild($id);
+
+        foreach ($this->QuestionnaireQuestion as $qq) {
+            $namedInstance->appendChild($qq->getXformInstanceElement($xml));
+        }
+
+        foreach ($this->QuestionnaireQuestion as $qq) {
+            $elms = $qq->getXformBindElements($xml);
+            foreach ($elms as $elm) {
+                $model->appendChild($elm);
+            }
+        }
+
+        // generate body
+        $body = $xml->createElement('h:body');
+        $html->appendChild($body);
+
+        foreach ($this->QuestionnaireQuestion as $qq) {
+            $body->appendChild($qq->getXformElement($xml));
+        }
+
+        return $xml;
+    }
+
+    /**
+     * Returns xform data
+     *
+     * @return DOMDocument
+     */
+    public function getXformData()
+    {
+        $xml = new DOMDocument('1.0', 'utf-8');
+        $xml->formatOutput = true;
+
+        $root = $xml->createElement('respondenten');
+        $xml->appendChild($root);
+
+        foreach ($this->Respondent as $respondent) {
+            // respondent
+            $r = $xml->createElement('respondent');
+            $r->setAttribute('id', $respondent->id);
+            $root->appendChild($r);
+
+            // questionnaire
+            $qn = $xml->createElement(Webenq::Xmlify($this->title, 'tag'));
+            $qn->setAttribute('id', Webenq::Xmlify($this->title, 'attr'));
+            $r->appendChild($qn);
+
+            // answers
+            foreach ($this->QuestionnaireQuestion as $qq) {
+                $elm = $qq->getXformData($respondent, $xml);
+                $qn->appendChild($elm);
+            }
+        }
+        return $xml;
+    }
 }

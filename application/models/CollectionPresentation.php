@@ -46,4 +46,43 @@ class Webenq_Model_CollectionPresentation extends Webenq_Model_Base_CollectionPr
                 throw new Exception('No question type set!');
         }
     }
+
+    /**
+     * Returns the parent of the current collection presentation object, or false
+     * if there isn't one
+     *
+     * @return Webenq_Model_CollectionPresentation
+     */
+    public function getParent()
+    {
+        return Doctrine_Core::getTable('Webenq_Model_CollectionPresentation')
+            ->find($this->parent_id);
+    }
+
+    /**
+     * Returns the children of the current collection presentation object
+     *
+     * @return Doctrine_Collection
+     */
+    public function getChildren()
+    {
+        return Doctrine_Core::getTable('Webenq_Model_CollectionPresentation')
+            ->findByParent_id($this->id);
+    }
+
+    /**
+     * Returns an array of all the ancestors of the current collection presentation
+     * object, or an empty array if there aren't any
+     *
+     * @return array
+     */
+    public function getParents(array $parents = array())
+    {
+        $parent = $this->getParent();
+        if ($parent) {
+            $parents[] = $parent;
+            $parent->getParents($parents);
+        }
+        return $parents;
+    }
 }

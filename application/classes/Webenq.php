@@ -188,8 +188,32 @@ class Webenq
 		);
 	}
 
-    static public function Xmlify($value)
+    /**
+     * Return the given value converted for use with XML. The second parameter
+     * indicates the type of xml entity. Valid values are: tag, attribute, value.
+     *
+     * @param string $value
+     * @param string $type
+     * @return string
+     */
+	static public function Xmlify($value, $type = 'value')
     {
-        return preg_replace('/[^A-Za-z]/', null, $value);
+        switch ($type) {
+            case 'tag':
+            case 'attr':
+            case 'attribute':
+                $value = preg_replace('/[^A-Za-z0-9_]/', '_', $value);
+                $value = preg_replace('/_{2,}/', '_', $value);
+                $value = preg_replace('/_*$/', null, $value);
+                while (preg_match('/^[^A-Za-z]/', $value)) $value = substr($value, 1);
+                break;
+            case 'val':
+            case 'value':
+                $value = htmlspecialchars($value);
+                break;
+            default:
+                throw new Exception('No valid type given');
+        }
+        return $value;
     }
 }

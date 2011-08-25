@@ -50,57 +50,15 @@ class QuestionnaireController extends Zend_Controller_Action
             ->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
     }
 
+    /**
+     * Renders an xform
+     *
+     * @return void
+     */
     public function xformAction()
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
-
-        $xml = new DOMDocument('1.0', 'utf-8');
-        $xml->formatOutput = true;
-
-        $html = $xml->createElementNS('http://www.w3.org/1999/xhtml', 'h:html');
-        $html->setAttribute('xlsns', 'http://www.w3.org/2002/xforms');
-//        $html->setAttribute('xlsns:ev', 'http://www.w3.org/2001/xml-events');
-//        $html->setAttribute('xlsns:jr', 'http://openrosa.org/javarosa');
-//        $html->setAttribute('xlsns:xsd', 'http://www.w3.org/2001/XMLSchema');
-
-        // generate head
-        $head = $xml->createElement('h:head');
-        $title = $xml->createElement('h:title', Webenq::Xmlify($questionnaire->title));
-        $head->appendChild($title);
-
-        $model = $xml->createElement('model');
-        $head->appendChild($model);
-
-        $instance = $xml->createElement('instance');
-        $model->appendChild($instance);
-
-        $namedInstance = $xml->createElement(Webenq::Xmlify($questionnaire->title));
-        $instance->appendChild($namedInstance);
-
-        $id = $xml->createElement('id', Webenq::Xmlify($questionnaire->title));
-        $namedInstance->appendChild($id);
-
-        foreach ($questionnaire->QuestionnaireQuestion as $qq) {
-            $namedInstance->appendChild($qq->getXformsInstanceElement($xml));
-        }
-
-        foreach ($questionnaire->QuestionnaireQuestion as $qq) {
-            $elms = $qq->getXformsBindElements($xml);
-            foreach ($elms as $elm) {
-                $model->appendChild($elm);
-            }
-        }
-
-        // generate body
-        $body = $xml->createElement('h:body');
-
-        foreach ($questionnaire->QuestionnaireQuestion as $qq) {
-            $body->appendChild($qq->getXformsElement($xml));
-        }
-
-        $html->appendChild($head);
-        $html->appendChild($body);
-        $xml->appendChild($html);
+        $xml = $questionnaire->getXform();
 
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
@@ -109,34 +67,15 @@ class QuestionnaireController extends Zend_Controller_Action
             ->setBody($xml->saveXML());
     }
 
+    /**
+     * Renders xform data
+     *
+     * @return void
+     */
     public function xformDataAction()
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
-
-        $xml = new DOMDocument('1.0', 'utf-8');
-        $xml->formatOutput = true;
-
-        $root = $xml->createElement('respondenten');
-        $xml->appendChild($root);
-
-        foreach ($questionnaire->Respondent as $respondent) {
-
-            // respondent
-            $r = $xml->createElement('respondent');
-            $r->setAttribute('id', $respondent->id);
-            $root->appendChild($r);
-
-            // questionnaire
-            $qn = $xml->createElement(Webenq::Xmlify($questionnaire->title));
-            $qn->setAttribute('id', Webenq::Xmlify($questionnaire->title));
-            $r->appendChild($qn);
-
-            // answers
-            foreach ($questionnaire->QuestionnaireQuestion as $qq) {
-                $elm = $qq->getXformsData($respondent, $xml);
-                $qn->appendChild($elm);
-            }
-        }
+        $xml = $questionnaire->getXformData();
 
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
