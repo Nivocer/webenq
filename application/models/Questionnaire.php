@@ -234,14 +234,13 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         $instance = $xml->createElement('instance');
         $model->appendChild($instance);
 
-        $namedInstance = $xml->createElement(Webenq::Xmlify($this->title, 'tag'));
-        $instance->appendChild($namedInstance);
-
-        $id = $xml->createElement('id', Webenq::Xmlify($this->title));
-        $namedInstance->appendChild($id);
+        $questionnaire = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
+        $questionnaire->setAttribute('id', Webenq::Xmlify($this->title, 'attr'));
+        $questionnaire->setAttribute('timestamp', date('Y-m-d H:i:s'));
+        $instance->appendChild($questionnaire);
 
         foreach ($this->QuestionnaireQuestion as $qq) {
-            $namedInstance->appendChild($qq->getXformInstanceElement($xml));
+            $questionnaire->appendChild($qq->getXformInstanceElement($xml));
         }
 
         foreach ($this->QuestionnaireQuestion as $qq) {

@@ -133,7 +133,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Closed_Scale_Six':
             case 'Webenq_Model_Question_Closed_Scale_Seven':
             case 'Webenq_Model_Question_Closed_Percentage':
-                $element = $xml->createElement(Webenq::Xmlify($this->getQuestionText(), 'tag'));
+                $element = $xml->createElement(Webenq::Xmlify('q' . $this->id, 'tag'));
                 break;
 
             case null:
@@ -141,7 +141,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Open_Email':
             case 'Webenq_Model_Question_Open_Date':
             case 'Webenq_Model_Question_Open_Number':
-                $element = $xml->createElement(Webenq::Xmlify($this->getQuestionText(), 'tag'));
+                $element = $xml->createElement(Webenq::Xmlify('q' . $this->id, 'tag'));
                 break;
 
             default:
@@ -442,13 +442,13 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     public function getXpath()
     {
-        $xpath = '/' . Webenq::Xmlify($this->Questionnaire->title, 'tag');
+        $xpath = '/' . Webenq::Xmlify('questionnaire', 'tag');
         $parents = $this->_getParents();
         while (count($parents) > 0) {
             $parent = array_pop($parents);
-            $xpath .= '/' . Webenq::Xmlify($parent->QuestionnaireQuestion->getQuestionText(), 'tag');
+            $xpath .= '/' . Webenq::Xmlify('q' . $parent->QuestionnaireQuestion->id, 'tag');
         }
-        $xpath .= '/' . Webenq::Xmlify($this->getQuestionText(), 'tag');
+        $xpath .= '/' . Webenq::Xmlify('q' . $this->id, 'tag');
         return $xpath;
     }
 }
