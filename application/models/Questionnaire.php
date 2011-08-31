@@ -281,8 +281,9 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             $root->appendChild($r);
 
             // questionnaire
-            $qn = $xml->createElement(Webenq::Xmlify($this->title, 'tag'));
+            $qn = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
             $qn->setAttribute('id', Webenq::Xmlify($this->title, 'attr'));
+            $qn->setAttribute('timestamp', date('Y-m-d H:i:s'));
             $r->appendChild($qn);
 
             // answers

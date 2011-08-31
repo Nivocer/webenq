@@ -208,7 +208,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
     public function getXformData(Webenq_Model_Respondent $respondent, DOMDocument $xml, DOMElement $group = null)
     {
         // add element for current question
-        $element = $xml->createElement(Webenq::Xmlify($this->getQuestionText(), 'tag'));
+        $element = $xml->createElement(Webenq::Xmlify("q$this->id", 'tag'));
 
         // add answer, if any
         $answer = $this->getAnswer($respondent);
