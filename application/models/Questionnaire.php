@@ -235,8 +235,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         $model->appendChild($instance);
 
         $questionnaire = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
-        $questionnaire->setAttribute('id', Webenq::Xmlify($this->title, 'attr'));
-        $questionnaire->setAttribute('timestamp', date('Y-m-d H:i:s'));
+        $questionnaire->setAttribute('id', Webenq::Xmlify($this->title . ' ' . date('YmdHis'), 'attr'));
         $instance->appendChild($questionnaire);
 
         foreach ($this->QuestionnaireQuestion as $qq) {
@@ -282,8 +281,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
             // questionnaire
             $qn = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
-            $qn->setAttribute('id', Webenq::Xmlify($this->title, 'attr'));
-            $qn->setAttribute('timestamp', date('Y-m-d H:i:s'));
+            $qn->setAttribute('id', Webenq::Xmlify($this->title . ' ' . date('YmdHis'), 'attr'));
             $r->appendChild($qn);
 
             // answers

@@ -188,7 +188,6 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Open_Number':
                 $element = $xml->createElement('bind');
                 $element->setAttribute('nodeset', $this->getXpath());
-                $element->setAttribute('readonly', 'true()');
                 $element->setAttribute('type', 'string');
                 break;
             default:
