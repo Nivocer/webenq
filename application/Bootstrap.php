@@ -30,6 +30,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $manager = Doctrine_Manager::getInstance();
 //        $manager->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
         $manager->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, true);
+        $manager->setAttribute(Doctrine_Core::ATTR_USE_NATIVE_ENUM, true);
 
         $config = $this->getOption('doctrine');
         Doctrine_Core::loadModels($config['models_path'] . '/generated', null, 'Webenq_Model_Base');
@@ -57,7 +58,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $current = (int) $migration->getCurrentVersion();
         $latest = (int) $migration->getLatestVersion();
         if ($current !== $latest) {
-            throw new Exception('Database schema out of date!');
+            throw new Exception('Database schema out of date! Current version is '
+                . $migration->getCurrentVersion() . ', latest version is '
+                . $migration->getLatestVersion());
         }
     }
 }
