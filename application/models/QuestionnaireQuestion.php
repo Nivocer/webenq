@@ -197,6 +197,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
 
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
+            $element->setAttribute('readonly', 'true()');
             foreach ($subQqs as $subQq) {
                 $elements = array_merge($subQq->getXformBindElements($xml, $elements), $elements);
             }
