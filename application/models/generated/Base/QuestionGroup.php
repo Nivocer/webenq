@@ -13,8 +13,8 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_QuestionGroup', 'do
  * 
  * @package    Webenq
  * @subpackage Models
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: QuestionGroup.php,v 1.1 2011/07/12 12:14:19 bart Exp $
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ * @version    SVN: $Id: QuestionGroup.php,v 1.4 2011/10/27 16:37:43 bart Exp $
  */
 abstract class Webenq_Model_Base_QuestionGroup extends Doctrine_Record
 {

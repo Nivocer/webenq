@@ -10,13 +10,14 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_Questionnaire', 'do
  * @property integer $id
  * @property string $title
  * @property string $meta
+ * @property Doctrine_Collection $QuestionnaireText
  * @property Doctrine_Collection $QuestionnaireQuestion
  * @property Doctrine_Collection $Respondent
  * 
  * @package    Webenq
  * @subpackage Models
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Questionnaire.php,v 1.1 2011/07/12 12:14:20 bart Exp $
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ * @version    SVN: $Id: Questionnaire.php,v 1.3 2011/09/01 11:13:22 bart Exp $
  */
 abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
 {
@@ -53,6 +54,10 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Webenq_Model_QuestionnaireText as QuestionnaireText', array(
+             'local' => 'id',
+             'foreign' => 'questionnaire_id'));
+
         $this->hasMany('Webenq_Model_QuestionnaireQuestion as QuestionnaireQuestion', array(
              'local' => 'id',
              'foreign' => 'questionnaire_id'));

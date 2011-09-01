@@ -14,8 +14,8 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_Respondent', 'doctr
  * 
  * @package    Webenq
  * @subpackage Models
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Respondent.php,v 1.1 2011/07/12 12:14:20 bart Exp $
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ * @version    SVN: $Id: Respondent.php,v 1.5 2011/10/28 13:01:38 bart Exp $
  */
 abstract class Webenq_Model_Base_Respondent extends Doctrine_Record
 {

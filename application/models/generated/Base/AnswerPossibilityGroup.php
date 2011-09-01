@@ -9,14 +9,15 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityGr
  * 
  * @property integer $id
  * @property string $name
- * @property enum $measurement_level
+ * @property integer $number
+ * @property string $measurement_level
  * @property Doctrine_Collection $AnswerPossibility
  * @property Doctrine_Collection $QuestionnaireQuestion
  * 
  * @package    Webenq
  * @subpackage Models
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: AnswerPossibilityGroup.php,v 1.1 2011/07/12 12:14:19 bart Exp $
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ * @version    SVN: $Id: AnswerPossibilityGroup.php,v 1.2 2011/09/01 10:01:31 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
 {
@@ -36,6 +37,15 @@ abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
              'length' => 64,
              'fixed' => false,
              'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('number', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => true,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,

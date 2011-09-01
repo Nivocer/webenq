@@ -14,8 +14,8 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_ReportPresentation'
  * 
  * @package    Webenq
  * @subpackage Models
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: ReportPresentation.php,v 1.1 2011/07/12 12:14:19 bart Exp $
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ * @version    SVN: $Id: ReportPresentation.php,v 1.5 2011/10/28 13:01:38 bart Exp $
  */
 abstract class Webenq_Model_Base_ReportPresentation extends Doctrine_Record
 {
