@@ -10,8 +10,9 @@
         <thead>
             <tr>
                 <th><?php echo _('groep'); ?></th>
-                <th><?php echo _('mogelijkheden'); ?></th>
-                <th><?php echo _('gebruikt in questionnaire'); ?></th>
+                <th><?php echo _('toegestaan'); ?></th>
+                <th><?php echo _('in gebruik'); ?></th>
+                <th><?php echo _('questionnaire(s)'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -21,6 +22,12 @@
                     <td>
                         <a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">
                             <?php echo $answerPossibilityGroup->name; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">
+                            <?php echo $answerPossibilityGroup->number; ?>
+                            <?php echo _('mogelijkheden'); ?>
                         </a>
                     </td>
                     <td>

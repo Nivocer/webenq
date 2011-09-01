@@ -45,6 +45,11 @@ class Webenq_Form_AnswerPossibilityGroup_Edit extends Zend_Form
                 'label' => 'Naam:',
                 'value' => $this->_answerPossibilityGroup->name,
             )),
+            $this->createElement('text', 'number', array(
+                'label' => 'Aantal toegestane antwoorden:',
+                'value' => $this->_answerPossibilityGroup->number,
+                'validators' => array('Int'),
+            )),
             $this->createElement('radio', 'measurement_level', array(
                 'label' => 'Meetniveau:',
                 'multiOptions' => array(
