@@ -81,6 +81,12 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
                 // store answers
                 foreach ($answers as $indexAnswer => $answerText) {
 
+                    // cleanup answer
+                    $answerText = preg_replace('/\s{2,}/', ' ', $answerText);
+
+                    // ignore empty answers
+                    if ($answerText === '') continue;
+
                     // get or create answer possibility
                     $answerPossibility = $answerPossibilityGroup->findAnswerPossibility($answerText, $this->_language);
                     if (!$answerPossibility) {
