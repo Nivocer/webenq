@@ -151,7 +151,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
 
                 $this->_redirect($url);
 
-            } elseif (key_exists('submitedit', $this->_request->getPost())) {
+            } else {
                 // store possibility
                 $answerPossibility->fromArray($data);
                 try {
@@ -161,23 +161,30 @@ class AnswerPossibilityController extends Zend_Controller_Action
                     $errors[] = $e->getMessage();
                 }
 
-                /* store text */
-                $answerPossibilityText = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityText')
-                    ->findOneByAnswerPossibility_idAndLanguage($answerPossibility->id, $this->_language);
-
-                if (!$answerPossibilityText) {
-                    $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
-                    $answerPossibilityText->language = $this->language;
-                    $answerPossibilityText->answerPossibility_id = $answerPossibility->id;
-                }
-
-                $answerPossibilityText->text = $data['text'];
-
-                try {
-                    $answerPossibilityText->save();
-                }
-                catch (Exception $e) {
-                    $errors[] = $e->getMessage();
+                // store texts
+                $translations = $data['edit'];
+                unset($translations['value']);
+                unset($translations['answerPossibilityGroup_id']);
+                foreach ($translations as $language => $translation) {
+                    // ignore empty values
+                    if (!$translation) continue;
+                    // try to find existing translation
+                    $answerPossibilityText = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityText')
+                        ->findOneByAnswerPossibility_idAndLanguage($answerPossibility->id, $language);
+                    // or create new one
+                    if (!$answerPossibilityText) {
+                        $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
+                        $answerPossibilityText->language = $language;
+                        $answerPossibilityText->answerPossibility_id = $answerPossibility->id;
+                    }
+                    // assign translation and save
+                    $answerPossibilityText->text = $translation;
+                    try {
+                        $answerPossibilityText->save();
+                    }
+                    catch (Exception $e) {
+                        $errors[] = $e->getMessage();
+                    }
                 }
 
                 if (count($errors) == 0) {

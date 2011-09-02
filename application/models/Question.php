@@ -221,11 +221,14 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
     /**
      * Gets the question text in the current language
      *
+     * @param string $language
      * @return string
      */
-    public function getQuestionText()
+    public function getQuestionText($language = null)
     {
-        $language = Zend_Registry::get('Zend_Locale')->getLanguage();
+        if (!$language) {
+            $language = Zend_Registry::get('Zend_Locale')->getLanguage();
+        }
         foreach ($this->QuestionText as $qt) {
             if ($qt->language === $language) return $qt->text;
         }

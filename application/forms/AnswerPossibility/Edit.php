@@ -75,25 +75,28 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
             $this->createElement('hidden', 'id', array(
                 'value' => $this->_answerPossibility->id,
             )),
-            $this->createElement('select', 'language', array(
-                'label' => 'Taal:',
-                'multiOptions' => array(
-                    'nl' => 'nl',
-                ),
-                'value' => $this->_answerPossibility->AnswerPossibilityText[0]->language,
-            )),
-            $this->createElement('text', 'text', array(
-                'label' => 'Tekst:',
-                'value' => $this->_answerPossibility->AnswerPossibilityText[0]->text,
-                'required' => true,
-            )),
+        ));
+
+        $edit = new Zend_Form_SubForm(array('legend' => 'Bewerken'));
+        $this->addSubForm($edit, 'edit');
+
+        $languages = Webenq_Language::getLanguages();
+        foreach ($languages as $language) {
+            $edit->addElement($this->createElement('text', $language, array(
+                'label' => 'Tekst (' . $language . '):',
+                'size' => 60,
+                'maxlength' => 255,
+                'autocomplete' => 'off',
+                'value' => $this->_answerPossibility->getAnswerPossibilityText($language),
+            )));
+        }
+
+        $edit->addElements(array(
             $this->createElement('text', 'value', array(
                 'label' => 'Waarde:',
                 'value' => $this->_answerPossibility->value,
                 'required' => true,
-                'validators' => array(
-                    'Int',
-                ),
+                'validators' => array('Int'),
             )),
             $this->createElement('select', 'answerPossibilityGroup_id', array(
                 'label' => 'Groep:',
@@ -103,6 +106,9 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
             $this->createElement('submit', 'submitedit', array(
                 'label' => 'opslaan',
             )),
+        ));
+
+        $this->addElements(array(
             $this->createElement('select', 'answerPossibility_id', array(
                 'label' => 'Antwoordmogelijkheden:',
                 'multiOptions' => $this->_answerPossibilities,
@@ -116,14 +122,9 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
         ));
 
         $this->addDisplayGroup(
-            array('language', 'value', 'answerPossibilityGroup_id', 'text', 'submitedit'),
-            'edit',
-            array('legend' => 'Bewerken')
-        );
-        $this->addDisplayGroup(
             array('answerPossibility_id', 'submitmove'),
             'move',
-            array('legend' => 'Verplaatsen')
+            array('legend' => 'Synoniem maken')
         );
         $this->addDisplayGroup(
             array('submitnull'),
@@ -139,7 +140,6 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
                 $elm->setRequired(false);
             }
         }
-
         return parent::isValid($values);
     }
 }
