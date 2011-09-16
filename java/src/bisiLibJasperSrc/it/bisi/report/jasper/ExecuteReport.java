@@ -481,18 +481,8 @@ public class ExecuteReport {
 					if (group_rows.equals("")){
 						page_orientation="portrait";
 					} else {
-					Statement stmt_number_group_split=conn.createStatement();
-					//@TODO change for new datamodel
-					stmt_number_group_split.execute("select distinct "+group_rows+ " from values_"+identifier );
-					ResultSet rs_number_group_split=stmt_number_group_split.getResultSet();
-					rs_number_group_split.last();
-					int number_group_split=rs_number_group_split.getRow();
-					if (number_group_split>11){
-						page_orientation="landscape";
-					}else{
-						page_orientation="portrait";
-					} else {
 						Statement stmt_number_group_split=conn.createStatement();
+						//@TODO change for new datamodel
 						stmt_number_group_split.execute("select distinct "+group_rows+ " from values_"+identifier );
 						ResultSet rs_number_group_split=stmt_number_group_split.getResultSet();
 						rs_number_group_split.last();
