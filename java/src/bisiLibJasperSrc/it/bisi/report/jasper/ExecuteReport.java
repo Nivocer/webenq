@@ -1,6 +1,7 @@
 package it.bisi.report.jasper;
 
 import it.bisi.Utils;
+import it.bisi.report.jasper.datasource.EmptyDatasource;
 
 
 import java.io.InputStream;
@@ -63,9 +64,6 @@ public class ExecuteReport {
 	 */
 	public static void main(String[] args) {
 			runReport(args[0],args[1],args[2],args[3],args[4]);
-			String reportId= args[0];
-			String outputDir=args[1];
-			//runReport(reportId, outputDir);
 	}
 	
 	/** 
@@ -97,7 +95,7 @@ public class ExecuteReport {
 			//hack location of files, needs to be interactive.
 			String xformLocation="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml";
 			String dataLocation="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml";
-			String reportDefinitionLocation="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/simpleQuest.jrxml";
+			String reportDefinitionLocation="/org/webenq/resources/simpleQuest.jasper";
 			
 			Connection conn = connectDB(databaseName, userName, password);
 			InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
@@ -115,17 +113,24 @@ public class ExecuteReport {
 			String getReportDefinitionQuery="select * from report_definitions where id=?";
 		    try {
 			      //con.setAutoCommit(false);
-			      stmt_getReportDefinition = conn.prepareStatement(getReportDefinitionQuery);
-			      stmt_getReportDefinition.setString(1, report_identifier);
-			      stmt_getReportDefinition.execute();
-			      ResultSet rs_getReportDefinition = stmt_getReportDefinition.getResultSet();
-			      rs_getReportDefinition.next();
-			      split_question_id=rs_getReportDefinition.getString("split_question_id");
-			      customer = rs_getReportDefinition.getString("customer");
-			      language = rs_getReportDefinition.getString("language");
-			      output_file_name=output_dir + '/' + rs_getReportDefinition.getString("output_filename");
-			      output_format=rs_getReportDefinition.getString("output_format");
-			      			
+//			      stmt_getReportDefinition = conn.prepareStatement(getReportDefinitionQuery);
+//			      stmt_getReportDefinition.setString(1, report_identifier);
+//			      stmt_getReportDefinition.execute();
+//			      ResultSet rs_getReportDefinition = stmt_getReportDefinition.getResultSet();
+//			      rs_getReportDefinition.next();
+//			      split_question_id=rs_getReportDefinition.getString("split_question_id");
+//			      customer = rs_getReportDefinition.getString("customer");
+//			      language = rs_getReportDefinition.getString("language");
+//			      output_file_name=output_dir + '/' + rs_getReportDefinition.getString("output_filename");
+//			      output_format=rs_getReportDefinition.getString("output_format");
+//	
+			      split_question_id="";
+			      customer="leeuwenburg";
+			      language="nl";
+			      output_file_name="test";
+			      output_file_name=output_dir + '/' +output_file_name;
+			      output_format="pdf";
+			      
 			      prms.put("REPORT_IDENTIFIER", report_identifier);//only needed for hacks in jrxml....
 			      prms.put("CUSTOMER", customer); //resource bundle and needed for hacks in jrxml
 			      prms.put("SPLIT_QUESTION_ID", split_question_id ); //not yet implemented
@@ -135,7 +140,7 @@ public class ExecuteReport {
 		        System.err.println(connectMsg); 
 				//ex.printStackTrace();
 			} finally {
-		      stmt_getReportDefinition.close();
+//		      stmt_getReportDefinition.close();
 		      //conn.setAutoCommit(true);
 		    }
 			Locale locale = new Locale("nl", "NL");
@@ -149,10 +154,10 @@ public class ExecuteReport {
 			//@TODO nicer handling missing files
 			// eg http://jasperforge.org/plugins/espforum/view.php?group_id=102&forumid=103&topicid=65623
 			if (customer.equals("fraijlemaborg")) {
-				ResourceBundle myresources = ResourceBundle.getBundle("it.bisi.resources.fraijlemaborg",locale);
+				ResourceBundle myresources = ResourceBundle.getBundle("org.webenq.resources.fraijlemaborg",locale);
 				prms.put(JRParameter.REPORT_RESOURCE_BUNDLE, myresources);
 			}else {
-				ResourceBundle myresources = ResourceBundle.getBundle("it.bisi.resources.default",locale);
+				ResourceBundle myresources = ResourceBundle.getBundle("org.webenq.resources.default",locale);
 				prms.put(JRParameter.REPORT_RESOURCE_BUNDLE, myresources);
 			}
 
@@ -167,6 +172,7 @@ public class ExecuteReport {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(fXmlFile);
+			
 			// do something with it
 			XPathFactory factory = XPathFactory.newInstance();
 		    XPath xpath = factory.newXPath();
@@ -178,7 +184,7 @@ public class ExecuteReport {
 		    Object result = expr.evaluate(doc, XPathConstants.NODESET);
 		    NodeList nodes = (NodeList) result;
 		    for (int i = 0; i < nodes.getLength(); i++) {
-		        System.out.println(nodes.item(i).getNodeName()); 
+		        //System.out.println(nodes.item(i).getNodeName()); 
 		    }
 			
 											 
@@ -188,7 +194,6 @@ public class ExecuteReport {
 			 * @todo need to change this for new datamodel
 			 */
 			if (split_question_id !=null && split_question_id.length()>0 ) {
-				String temp="temp";
 				//get split_values
 				//uit xpath.
 //				Statement stmt_rows_values=conn.createStatement();
@@ -239,8 +244,9 @@ public class ExecuteReport {
 			}else{
 				//no split value
 				prms.put("SPLIT_VALUE", "");
-							
-				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
+				// we need an empty datasource to display the report...
+				//we can extend this to encapsulated subreports into reports (i think)
+				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, new EmptyDatasource());
 				/* Create output in directory public/reports */
 				
 				if(output_format.equals("pdf")) {

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<respondenten>
+<respondent id="1">
+  <HVA-oo-simpleQuest id="hva-oo-simpleQuest 2011-07-25_06-41-39">
+    <Introductie/>
+    <Module-docent>1.0 2.0 3.0 4.0 5.0</Module-docent>
+    <g3-between/>
+    <g3-Tevredenheid>
+      <g3-DoelenDuidelijk>4.0</g3-DoelenDuidelijk>
+      <g3-DoelenBereikt>3.0</g3-DoelenBereikt>
+      <g3-InhoudRelevant>5.0</g3-InhoudRelevant>
+      <g3-BijeenkomstenOnmisbaar>5.0</g3-BijeenkomstenOnmisbaar>
+      <g3-Effectief>3.0</g3-Effectief>
+      <g3-studiemateriaal>3.0</g3-studiemateriaal>
+      <g3-beoordeling>4.0</g3-beoordeling>
+      <g3-NiveauTempo>4.0</g3-NiveauTempo>
+      <g3-InstructieDocent>3.0</g3-InstructieDocent>
+      <g3-BegeleidingDocent>3.0</g3-BegeleidingDocent>
+      <g3-Uren>3.0</g3-Uren>
+      <g3-GoedVoorbereid>2.0</g3-GoedVoorbereid>
+    </g3-Tevredenheid>
+    <g3-Opmerkingen> </g3-Opmerkingen>
+    <g3-Rapportcijfer>6</g3-Rapportcijfer>
+    <g6-between/>
+    <g6-Tevredenheid>
+      <g6-DoelenDuidelijk>4.0</g6-DoelenDuidelijk>
+      <g6-DoelenBereikt>2.0</g6-DoelenBereikt>
+      <g6-InhoudRelevant>4.0</g6-InhoudRelevant>
+      <g6-BijeenkomstenOnmisbaar>3.0</g6-BijeenkomstenOnmisbaar>
+      <g6-Effectief>1.0</g6-Effectief>
+      <g6-studiemateriaal>2.0</g6-studiemateriaal>
+      <g6-beoordeling>5.0</g6-beoordeling>
+      <g6-NiveauTempo>4.0</g6-NiveauTempo>
+      <g6-InstructieDocent>4.0</g6-InstructieDocent>
+      <g6-BegeleidingDocent>4.0</g6-BegeleidingDocent>
+      <g6-Uren>2.0</g6-Uren>
+      <g6-GoedVoorbereid>3.0</g6-GoedVoorbereid>
+    </g6-Tevredenheid>
+    <g6-Opmerkingen> </g6-Opmerkingen>
+    <g6-Rapportcijfer>8</g6-Rapportcijfer>
+  </HVA-oo-simpleQuest>
+</respondent>
+  <respondent id="2">
+  <HVA-oo-simpleQuest id="hva-oo-simpleQuest 2011-07-25_06-41-39">
+    <Introductie/>
+    <Module-docent>1.0 3.0 4.0 5.0</Module-docent>
+    <g3-between/>
+    <g3-Tevredenheid>
+      <g3-DoelenDuidelijk>5.0</g3-DoelenDuidelijk>
+      <g3-DoelenBereikt>4.0</g3-DoelenBereikt>
+      <g3-InhoudRelevant>4.0</g3-InhoudRelevant>
+      <g3-BijeenkomstenOnmisbaar>4.0</g3-BijeenkomstenOnmisbaar>
+      <g3-Effectief>4.0</g3-Effectief>
+      <g3-studiemateriaal>4.0</g3-studiemateriaal>
+      <g3-beoordeling>4.0</g3-beoordeling>
+      <g3-NiveauTempo>4.0</g3-NiveauTempo>
+      <g3-InstructieDocent>4.0</g3-InstructieDocent>
+      <g3-BegeleidingDocent>4.0</g3-BegeleidingDocent>
+      <g3-Uren>4.0</g3-Uren>
+      <g3-GoedVoorbereid>4.0</g3-GoedVoorbereid>
+    </g3-Tevredenheid>
+    <g3-Opmerkingen> </g3-Opmerkingen>
+    <g3-Rapportcijfer>4</g3-Rapportcijfer>
+    <g6-between/>
+    <g6-Tevredenheid>
+      <g6-DoelenDuidelijk>9.0</g6-DoelenDuidelijk>
+      <g6-DoelenBereikt>9.0</g6-DoelenBereikt>
+      <g6-InhoudRelevant>9.0</g6-InhoudRelevant>
+      <g6-BijeenkomstenOnmisbaar>9.0</g6-BijeenkomstenOnmisbaar>
+      <g6-Effectief>9.0</g6-Effectief>
+      <g6-studiemateriaal>9.0</g6-studiemateriaal>
+      <g6-beoordeling>9.0</g6-beoordeling>
+      <g6-NiveauTempo>9.0</g6-NiveauTempo>
+      <g6-InstructieDocent>9.0</g6-InstructieDocent>
+      <g6-BegeleidingDocent>9.0</g6-BegeleidingDocent>
+      <g6-Uren>9.0</g6-Uren>
+      <g6-GoedVoorbereid>9.0</g6-GoedVoorbereid>
+    </g6-Tevredenheid>
+    <g6-Opmerkingen> </g6-Opmerkingen>
+    <g6-Rapportcijfer>0</g6-Rapportcijfer>
+  </HVA-oo-simpleQuest>
+  </respondent>
+  <respondent id="3">
+  <HVA-oo-simpleQuest id="hva-oo-simpleQuest 2011-07-25_06-41-39">
+    <Introductie/>
+    <Module-docent>1.0 2.0 3.0 4.0 5.0</Module-docent>
+    <g3-between/>
+    <g3-Tevredenheid>
+      <g3-DoelenDuidelijk>1.0</g3-DoelenDuidelijk>
+      <g3-DoelenBereikt>1.0</g3-DoelenBereikt>
+      <g3-InhoudRelevant>1.0</g3-InhoudRelevant>
+      <g3-BijeenkomstenOnmisbaar>1.0</g3-BijeenkomstenOnmisbaar>
+      <g3-Effectief>1.0</g3-Effectief>
+      <g3-studiemateriaal>1.0</g3-studiemateriaal>
+      <g3-beoordeling>1.0</g3-beoordeling>
+      <g3-NiveauTempo>1.0</g3-NiveauTempo>
+      <g3-InstructieDocent>1.0</g3-InstructieDocent>
+      <g3-BegeleidingDocent>1.0</g3-BegeleidingDocent>
+      <g3-Uren>1.0</g3-Uren>
+      <g3-GoedVoorbereid>1.0</g3-GoedVoorbereid>
+    </g3-Tevredenheid>
+    <g3-Opmerkingen>Bereid de studenten goed voor op de gegeven toetsen en maak duidelijke afspraken</g3-Opmerkingen>
+    <g3-Rapportcijfer>1</g3-Rapportcijfer>
+    <g6-between/>
+    <g6-Tevredenheid>
+      <g6-DoelenDuidelijk>4.0</g6-DoelenDuidelijk>
+      <g6-DoelenBereikt>2.0</g6-DoelenBereikt>
+      <g6-InhoudRelevant>3.0</g6-InhoudRelevant>
+      <g6-BijeenkomstenOnmisbaar>1.0</g6-BijeenkomstenOnmisbaar>
+      <g6-Effectief>2.0</g6-Effectief>
+      <g6-studiemateriaal>5.0</g6-studiemateriaal>
+      <g6-beoordeling>4.0</g6-beoordeling>
+      <g6-NiveauTempo>4.0</g6-NiveauTempo>
+      <g6-InstructieDocent>2.0</g6-InstructieDocent>
+      <g6-BegeleidingDocent>4.0</g6-BegeleidingDocent>
+      <g6-Uren>2.0</g6-Uren>
+      <g6-GoedVoorbereid>4.0</g6-GoedVoorbereid>
+    </g6-Tevredenheid>
+    <g6-Opmerkingen> </g6-Opmerkingen>
+    <g6-Rapportcijfer>9</g6-Rapportcijfer>
+  </HVA-oo-simpleQuest>
+</respondent>
+</respondenten>
