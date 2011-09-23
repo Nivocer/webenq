@@ -2,15 +2,15 @@
 
     <description>Compile the jrxml and java files with ANT.</description>
 
-    <property name="tmp.dir"	value="./src/bisiResources/it/bisi/resources" />
+    <property name="tmp.dir"	value="./src/webenqResources/org/webenq/resources" />
     <property name="jar.dir"	value="./lib" />
 
 
-<!--   <property name="src.dirJrxml"	value="./src/bisiResources/it/bisi/resources" /> -->
-    <property name="src.dirJrxml"	value="./src/bisiResources" /> 
+<!--   <property name="src.dirJrxml"	value="./src/webenqResources/org/webenq/resources" /> -->
+    <property name="src.dirJrxml"	value="./src/webenqResources" /> 
 
-    <property name="dest.dirJrxml"	value="./src/bisiResources" />
-    <property name="name.jrxml"	value="bisiResources" />
+    <property name="dest.dirJrxml"	value="./src/webenqResources" />
+    <property name="name.jrxml"	value="webenqResources" />
 
 
     <property name="src.dirJava"	value="./src/bisiLibJasperSrc" />
@@ -99,8 +99,8 @@
 		<echo message="==================================="/>
 		<echo message=" Ant Compile Reports and Code"/>
 		<echo message="==================================="/>
-		<antcall target="jrxml" />
 		<antcall target="java" />
+		<antcall target="jrxml" />
 	</target>
 
 	<target name="jrxml" description="compile and jar jrxml">
