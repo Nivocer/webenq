@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="5" whenResourceMissingType="Key">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" pageWidth="555" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="10" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="573"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
@@ -23,7 +23,7 @@
 		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xpath2">
-		<![CDATA[/respondenten/respondent/*/g3-Opmerkingen	]]>
+		<![CDATA[]]>
 	</queryString>
 	<field name="answers" class="java.lang.String">
 		<fieldDescription><![CDATA[.]]></fieldDescription>
@@ -38,9 +38,9 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="15" splitType="Stretch">
+		<band height="12" splitType="Stretch">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="555" height="15"/>
+				<reportElement x="0" y="0" width="595" height="12"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
@@ -49,16 +49,11 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement x="278" y="0" width="277" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+		<band height="12" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="555" height="12" isRemoveLineWhenBlank="true"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{answers}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="555" height="20" isPrintWhenDetailOverflows="true"/>
-				<textElement markup="none"/>
-				<textFieldExpression><![CDATA[$P{DATA_LOCATION}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
