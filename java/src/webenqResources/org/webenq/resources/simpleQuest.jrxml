@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="45"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
+	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
+		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
+	</scriptlet>
 	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -13,12 +16,27 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["org/webenq/resources/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="CUSTOMER" class="java.lang.String">
+	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["leeuwenburg"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SPLIT_QUESTION_ID" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="SPLIT_VALUE" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="REPORT_IDENTIFIER" class="java.lang.String"/>
+	<parameter name="REPORT_IDENTIFIER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="XFORM_LOCATION" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUESTION_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA["g6-Tevredenheid/g6-DoelenDuidelijk"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="VALUE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FORM_NAME" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["HVA-oo-simpleQuest"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATA_LOCATION" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -32,7 +50,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Immediate">
+		<band height="100" splitType="Immediate">
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
@@ -49,6 +67,36 @@
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.EmptyDatasource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="20" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="DATA_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="XML_DATA_DOCUMENT">
+					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="XFORM_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FORM_NAME">
+					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="VALUE">
+					<subreportParameterExpression><![CDATA[$P{VALUE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="QUESTION_ID">
+					<subreportParameterExpression><![CDATA["g3-Opmerkingen"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[(new net.sf.jasperreports.engine.data.JRXmlDataSource($P{DATA_LOCATION}))
+    ]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
