@@ -1,51 +1,31 @@
 package it.bisi.report.jasper;
 
-import it.bisi.Utils;
-import it.bisi.report.jasper.datasource.EmptyDatasource;
-
-
+//import it.bisi.Utils;
 import java.io.InputStream;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
 //import java.sql.ResultSetMetaData;
-import java.sql.Statement;
-import java.text.NumberFormat;
+//import java.sql.Statement;
+//import java.text.NumberFormat;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.export.*;
-
-
-import org.apache.commons.lang.StringEscapeUtils;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.xpath.*;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-
-import java.io.File;
 
 
 /**
- * @todo better use of functions
+ * @todo better use of methods
  * @author jaapandre
  *
  */
@@ -97,10 +77,12 @@ public class ExecuteReport {
 			String dataLocation="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml";
 			String reportDefinitionLocation="/org/webenq/resources/simpleQuest.jasper";
 			
-			Connection conn = connectDB(databaseName, userName, password);
+			//Connection conn = connectDB(databaseName, userName, password);
 			InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
 			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", output_dir);
+			prms.put("DATA_LOCATION", dataLocation);
+			prms.put("XFORM_LOCATION", xformLocation);
 			
 			//@todo dit moeten we nog aanpassen aan nieuw datamodel versie in webenq_4_5 #4986
 		      	String split_question_id=null;
@@ -109,8 +91,8 @@ public class ExecuteReport {
 				String language=null;
 				String customer=null;
 				
-			PreparedStatement stmt_getReportDefinition = null;
-			String getReportDefinitionQuery="select * from report_definitions where id=?";
+			//PreparedStatement stmt_getReportDefinition = null;
+			//String getReportDefinitionQuery="select * from report_definitions where id=?";
 		    try {
 			      //con.setAutoCommit(false);
 //			      stmt_getReportDefinition = conn.prepareStatement(getReportDefinitionQuery);
@@ -124,7 +106,8 @@ public class ExecuteReport {
 //			      output_file_name=output_dir + '/' + rs_getReportDefinition.getString("output_filename");
 //			      output_format=rs_getReportDefinition.getString("output_format");
 //	
-			      split_question_id="";
+		    	  //hack development, needs to get this information from somewhere
+		    	  split_question_id="";
 			      customer="leeuwenburg";
 			      language="nl";
 			      output_file_name="test";
@@ -165,29 +148,7 @@ public class ExecuteReport {
 			// some values are overriden in resource bundle (eg fmb barchart introduction text)
 			//default texts to resource bundles, report text in jrxml.
 			
-			//read xform info and do something with it 
-			// @TODO determine what to do with it
-			//read file and put it in dom-object
-			File fXmlFile = new File(xformLocation);
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-			
-			// do something with it
-			XPathFactory factory = XPathFactory.newInstance();
-		    XPath xpath = factory.newXPath();
-		    XPathExpression expr 
-		    //= xpath.compile("/html/body/*");
-		    = xpath.compile("/html/body/*[ref='*/HVA-oo-simpleQuest/g6-Rapportcijfer']");
-		    					//				/HVA-oo-simpleQuest/g6-Rapportcijfer
-
-		    Object result = expr.evaluate(doc, XPathConstants.NODESET);
-		    NodeList nodes = (NodeList) result;
-		    for (int i = 0; i < nodes.getLength(); i++) {
-		        //System.out.println(nodes.item(i).getNodeName()); 
-		    }
-			
-											 
+								 
 			//looping through possible split by values (multiple reports for subset of respondents)
 			/* split question_id is from report_definition*/
 			/*
@@ -246,7 +207,8 @@ public class ExecuteReport {
 				prms.put("SPLIT_VALUE", "");
 				// we need an empty datasource to display the report...
 				//we can extend this to encapsulated subreports into reports (i think)
-				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, new EmptyDatasource());
+				//JasperPrint print = JasperFillManager.fillReport(inputStream, prms, new EmptyDatasource());
+				JasperPrint print = JasperFillManager.fillReport(inputStream, prms, new JREmptyDataSource());
 				/* Create output in directory public/reports */
 				
 				if(output_format.equals("pdf")) {
@@ -254,7 +216,7 @@ public class ExecuteReport {
 					net.sf.jasperreports.engine.export.JRPdfExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter(); 
 					exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + ".pdf");
 					exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
-					exporter.setParameter(JRPdfExporterParameter.FORCE_LINEBREAK_POLICY, Boolean.TRUE);
+					//exporter.setParameter(JRPdfExporterParameter.FORCE_LINEBREAK_POLICY, Boolean.TRUE);
 					exporter.exportReport();
 				} else if(output_format.equals("odt")) {
 					net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
