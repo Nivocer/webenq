@@ -93,37 +93,37 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
     {
         $pages = array(
             array(
-                'label' => _('Home'),
+                'label' => t('Home'),
                 'controller' => 'index',
                 'action' => 'index',
             ),
             array(
-                'label' => _('Questionnaires'),
+                'label' => t('Questionnaires'),
                 'controller' => 'questionnaire',
                 'action' => 'index',
             ),
             array(
-                'label' => _('Import'),
+                'label' => t('Import'),
                 'controller' => 'import',
                 'action' => 'index',
             ),
             array(
-                'label' => _('Vragen'),
+                'label' => t('Vragen'),
                 'controller' => 'question',
                 'action' => 'index',
             ),
             array(
-                'label' => _('Antwoordmogelijkheden'),
+                'label' => t('Antwoordmogelijkheden'),
                 'controller' => 'answer-possibility-group',
                 'action' => 'index',
             ),
 //            array(
-//                'label' => _('Test'),
+//                'label' => t('Test'),
 //                'controller' => 'test',
 //                'action' => 'index',
 //            ),
             array(
-                'label' => _('Gebruikersbeheer'),
+                'label' => t('Gebruikersbeheer'),
                 'controller' => 'user',
                 'action' => 'user',
             ),
@@ -131,7 +131,7 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 
         if (Zend_Auth::getInstance()->hasIdentity()) {
             $pages[] = array(
-                'label' => _('Uitloggen'),
+                'label' => t('Uitloggen'),
                 'controller' => 'user',
                 'action' => 'logout',
             );

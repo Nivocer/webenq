@@ -63,4 +63,29 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 . $migration->getLatestVersion());
         }
     }
+
+    protected function _initI18n()
+    {
+        $translate = new Zend_Translate(array(
+            'adapter' => 'array',
+            'content' => APPLICATION_PATH . '/translations/en/',
+            'locale'  => 'en',
+        ));
+        $translate->addTranslation(array(
+            'content' => APPLICATION_PATH . '/translations/nl/',
+            'locale'  => 'nl',
+        ));
+        Zend_Registry::set('Zend_Translate', $translate);
+
+        /**
+         * global function that can be used in templates to translate strings
+         */
+        function t($string)
+        {
+            $translate = Zend_Registry::get('Zend_Translate');
+            $locale = Zend_Registry::get('Zend_Locale');
+            $translate->setLocale($locale);
+            return $translate->translate($string, $locale);
+        }
+    }
 }

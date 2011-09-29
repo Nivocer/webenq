@@ -1,12 +1,11 @@
-<a href="<?= $this->baseUrl('/answer-possibility/edit/id/' . $this->synonym->AnswerPossibilityText->AnswerPossibility->id); ?>">
-    terug naar antwoord "<?= $this->synonym->AnswerPossibilityText->text; ?>"
+<a href="<?php echo $this->baseUrl('/answer-possibility/edit/id/' . $this->synonym->AnswerPossibilityText->AnswerPossibility->id); ?>">
+    <?php echo t('back to answer possibility') . ' "' . $this->synonym->AnswerPossibilityText->text . '"'; ?>
 </a>
-
 <?php echo $this->form; ?>
 
 <?php if ($this->answerPossibility): ?>
     <a href="<?php echo $this->baseUrl('/answer-possibility-synonym/add/id/' . $this->answerPossibility->AnswerPossibilityText[0]->id); ?>">
-        <?= _('synoniem toevoegen'); ?>
+        <?php echo t('add synonym'); ?>
     </a>
     <table>
         <thead>
@@ -22,11 +21,11 @@
                         <?php echo $synonym->text; ?>
                     </td>
                     <td>
-                        <a href="<?= $this->baseUrl('/answer-possibility-synonym/edit/id/' . $synonym->id); ?>">
-                            <?= _('bewerken'); ?>
+                        <a href="<?php echo $this->baseUrl('/answer-possibility-synonym/edit/id/' . $synonym->id); ?>">
+                            <?php echo t('bewerken'); ?>
                         </a>
-                        <a href="<?= $this->baseUrl('/answer-possibility-synonym/delete/id/' . $synonym->id); ?>">
-                            <?= _('verwijderen'); ?>
+                        <a href="<?php echo $this->baseUrl('/answer-possibility-synonym/delete/id/' . $synonym->id); ?>">
+                            <?php echo t('verwijderen'); ?>
                         </a>
                     </td>
                 </tr>

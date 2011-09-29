@@ -1,15 +1,15 @@
-<a class="icon add" title="<?php echo _('vraag toevoegen'); ?>" href="<?= $this->baseUrl('/question/add') ?>">&nbsp;</a>
-<a href="<?= $this->baseUrl('/question/add') ?>"><?php echo _('vraag toevoegen'); ?></a>
+<a class="icon add" title="<?php echo t('vraag toevoegen'); ?>" href="<?php echo $this->baseUrl('/question/add') ?>">&nbsp;</a>
+<a href="<?php echo $this->baseUrl('/question/add') ?>"><?php echo t('vraag toevoegen'); ?></a>
 
 <?php if (!$this->questions || $this->questions->count() == 0): ?>
-    <p><?php echo _('Er zijn nog geen vragen aangemaakt'); ?></p>
+    <p><?php echo t('Er zijn nog geen vragen aangemaakt'); ?></p>
 <?php else: ?>
     <table>
         <thead>
             <tr>
-                <th><?php echo _('vraag'); ?></th>
-                <th><?php echo _('datum toegevoegd'); ?></th>
-                <th><?php echo _('in gebruik in questionnaires'); ?></th>
+                <th><?php echo t('vraag'); ?></th>
+                <th><?php echo t('datum toegevoegd'); ?></th>
+                <th><?php echo t('in gebruik in questionnaires'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -28,9 +28,9 @@
                         <?php endforeach;?>
                     </td>
                     <td>
-                        <a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);    ?>">&nbsp;</a>
+                        <a class="icon edit" title="<?php echo t('bewerken'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);    ?>">&nbsp;</a>
                         <?php if($question->QuestionnaireQuestion->count() == 0): ?>
-                            <a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
+                            <a class="icon delete" title="<?php echo t('verwijderen'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
                         <?php endif; ?>                    
                     </td>
                 </tr>

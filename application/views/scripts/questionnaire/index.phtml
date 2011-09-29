@@ -1,13 +1,13 @@
-<a class="ajax link add" href="<?= $this->baseUrl('/questionnaire/add') ?>"><?php echo _('questionnaire toevoegen'); ?></a>
+<a class="ajax link add" href="<?php echo $this->baseUrl('/questionnaire/add') ?>"><?php echo t('questionnaire toevoegen'); ?></a>
 
 <?php if (isset($this->questionnaires[0])): ?>
     <table>
         <thead>
             <tr>
-                <th><?php echo _('id'); ?></th>
-                <th><?php echo _('titel'); ?></th>
-                <th><?php echo _('datum'); ?></th>
-                <th><?php echo _('bestand'); ?></th>
+                <th><?php echo t('id'); ?></th>
+                <th><?php echo t('titel'); ?></th>
+                <th><?php echo t('datum'); ?></th>
+                <th><?php echo t('bestand'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -33,20 +33,20 @@
                     </td>
                     <td>
                         <?php if ($questionnaire['count_qqs'] > 0): ?>
-                            <a class="icon collect" title="<?php echo _('verzamelen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon check" title="<?php echo _('controleren'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon report" title="<?php echo _('rapporteren'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon download" title="<?php echo _('downloaden'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon collect" title="<?php echo t('verzamelen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon check" title="<?php echo t('controleren'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon report" title="<?php echo t('rapporteren'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon download" title="<?php echo t('downloaden'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                             <br/>
-                            <a title="<?php echo _('jrxml'); ?>" href="<?php echo $this->baseUrl("/questionnaire/jrxml/id/" . $questionnaire['id']); ?>"><?php echo _('jrxml'); ?></a>
-                            <a title="<?php echo _('xform'); ?>" href="<?php echo $this->baseUrl("/questionnaire/xform/id/" . $questionnaire['id']); ?>"><?php echo _('xform'); ?></a>
-                            <a title="<?php echo _('xform-data'); ?>" href="<?php echo $this->baseUrl("/questionnaire/xform-data/id/" . $questionnaire['id']); ?>"><?php echo _('xform-data'); ?></a>
+                            <a title="<?php echo t('jrxml'); ?>" href="<?php echo $this->baseUrl("/questionnaire/jrxml/id/" . $questionnaire['id']); ?>"><?php echo t('jrxml'); ?></a>
+                            <a title="<?php echo t('xform'); ?>" href="<?php echo $this->baseUrl("/questionnaire/xform/id/" . $questionnaire['id']); ?>"><?php echo t('xform'); ?></a>
+                            <a title="<?php echo t('xform-data'); ?>" href="<?php echo $this->baseUrl("/questionnaire/xform-data/id/" . $questionnaire['id']); ?>"><?php echo t('xform-data'); ?></a>
                         <?php endif; ?>
                         <!--
-                            <a class="icon print" title="<?php echo _('printen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon print" title="<?php echo t('printen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                         -->
-                        <a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
-                        <a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                        <a class="icon edit" title="<?php echo t('bewerken'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
+                        <a class="icon delete" title="<?php echo t('verwijderen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

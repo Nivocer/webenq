@@ -1,18 +1,18 @@
-<a class="icon add" title="<?php echo _('antwoordmogelijkhedengroep toevoegen'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/add"); ?>">&nbsp;</a>
+<a class="icon add" title="<?php echo t('add answerpossibility group'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/add"); ?>">&nbsp;</a>
 <a href="<?php echo $this->baseUrl("/answer-possibility-group/add"); ?>">
-    <?php echo _('antwoordmogelijkhedengroep toevoegen'); ?>
+    <?php echo t('add answerpossibility group'); ?>
 </a>
 
 <?php if (!$this->answerPossibilityGroups || $this->answerPossibilityGroups->count() == 0): ?>
-    <p><?php echo _('Er zijn nog geen antwoordmogelijkheden'); ?></p>
+    <p><?php echo t('There aren\'t any answer possibilities yet'); ?></p>
 <?php else: ?>
     <table>
         <thead>
             <tr>
-                <th><?php echo _('groep'); ?></th>
-                <th><?php echo _('toegestaan'); ?></th>
-                <th><?php echo _('in gebruik'); ?></th>
-                <th><?php echo _('questionnaire(s)'); ?></th>
+                <th><?php echo t('group'); ?></th>
+                <th><?php echo t('allowed'); ?></th>
+                <th><?php echo t('used'); ?></th>
+                <th><?php echo t('questionnaire(s)'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -27,13 +27,13 @@
                     <td>
                         <a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">
                             <?php echo $answerPossibilityGroup->number; ?>
-                            <?php echo _('mogelijkheden'); ?>
+                            <?php echo t('possibilities'); ?>
                         </a>
                     </td>
                     <td>
                         <a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">
                             <?php echo $answerPossibilityGroup->AnswerPossibility->count(); ?>
-                            <?php echo _('mogelijkheden'); ?>
+                            <?php echo t('possibilities'); ?>
                         </a>
                     </td>
                     <td>
@@ -52,9 +52,9 @@
                         ?>
                     </td>
                     <td>
-                        <a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
+                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
                         <?php if ($answerPossibilityGroup->QuestionnaireQuestion->count() == 0): ?>
-                            <a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/delete/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
+                            <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/delete/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
                         <?php endif; ?>
                     </td>
                 </tr>

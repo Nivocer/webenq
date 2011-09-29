@@ -4,18 +4,18 @@
 <br clear="all" />
 
 <div class="clear">
-    <a class="ajax link add" href="<?= $this->baseUrl('/question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo _('nieuwe vraag toevoegen'); ?>">
-        <?php echo _('nieuwe vraag toevoegen'); ?>
+    <a class="ajax link add" href="<?php echo $this->baseUrl('/question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo t('nieuwe vraag toevoegen'); ?>">
+        <?php echo t('nieuwe vraag toevoegen'); ?>
     </a>
 </div>
 <div class="clear">
-    <a class="ajax link add" href="<?= $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo _('bestaande vraag toevoegen'); ?>">
-        <?php echo _('bestaande vraag toevoegen'); ?>
+    <a class="ajax link add" href="<?php echo $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo t('bestaande vraag toevoegen'); ?>">
+        <?php echo t('bestaande vraag toevoegen'); ?>
     </a>
 </div>
 <div class="clear">
-    <a class="link add add_page" href="#" title="<?php echo _('pagina toevoegen'); ?>">
-        <?php echo _('pagina toevoegen'); ?>
+    <a class="link add add_page" href="#" title="<?php echo t('pagina toevoegen'); ?>">
+        <?php echo t('pagina toevoegen'); ?>
     </a>
 </div>
 
@@ -24,7 +24,7 @@
         <?php for($page = 1; $page <= $this->totalPages; $page++): ?>
             <li>
                 <a href="#page-<?php echo $page; ?>">
-                    <?php echo _('pagina') . ' ' . $page; ?>
+                    <?php echo t('pagina') . ' ' . $page; ?>
                 </a>
             </li>
         <?php endfor; ?>

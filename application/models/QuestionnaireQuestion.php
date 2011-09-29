@@ -332,7 +332,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                         $options[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
                     } else {
                         $options[$possibility->id] =
-                            _('No answer possibility text available for the current language');
+                            t('No answer possibility text available for the current language');
                     }
                 }
                 $element->setMultiOptions($options);

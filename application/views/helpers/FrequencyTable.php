@@ -20,10 +20,10 @@ class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
             <table>
                 <tbody>
                     <tr>
-                        <th>' . _('id') . '</th>
-                        <th>' . _('label') . '</th>
-                        <th>' . _('waarde') . '</th>
-                        <th>' . _('aantal') . '</th>
+                        <th>' . t('id') . '</th>
+                        <th>' . t('label') . '</th>
+                        <th>' . t('waarde') . '</th>
+                        <th>' . t('aantal') . '</th>
                     </tr>';
 
         $hasRows = false;

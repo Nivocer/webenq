@@ -1,14 +1,14 @@
 <a class="link add" href="<?php echo $this->baseUrl("/answer-possibility-null-value/add"); ?>">
-    <?php echo _('nulwaarde-antwoordmogelijkheid toevoegen'); ?>
+    <?php echo t('add null value answer possibility'); ?>
 </a>
 
 <?php if (!$this->answerPossibilityNullValues || $this->answerPossibilityNullValues->count() == 0): ?>
-    <p><?php echo _('Er zijn nog geen nulwaarde-antwoordmogelijkheden'); ?></p>
+    <p><?php echo t('There aren\'t any null value answer possibilities yet'); ?></p>
 <?php else: ?>
     <table>
         <thead>
             <tr>
-                <th><?php echo _('label'); ?></th>
+                <th><?php echo t('label'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -21,8 +21,8 @@
                         </a>
                     </td>
                     <td>
-                        <a class="icon edit" title="<?php echo _('bewerken'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
-                        <a class="icon delete" title="<?php echo _('verwijderen'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/delete/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
+                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
+                        <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/delete/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
