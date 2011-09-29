@@ -33,7 +33,7 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
             ->innerJoin('qq.CollectionPresentation cp WITH qq.questionnaire_id = ?',
                 $questionnaireQuestion->questionnaire_id)
             ->innerJoin('qq.Question q')
-            ->innerJoin('q.QuestionText qt WITH qt.language = ?', Zend_Registry::get('language'))
+            ->leftJoin('q.QuestionText qt WITH qt.language = ?', Zend_Registry::get('language'))
             ->andWhere('qq.id != ?', $questionnaireQuestion['id'])
             ->andWhere('cp.parent_id IS NULL OR cp.parent_id = 0')
             ->orderBy('cp.page, cp.weight')
@@ -41,7 +41,7 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         $rootQuestionsMultiOptions = array(0 => '---');
         foreach ($rootQuestions as $question) {
             $rootQuestionsMultiOptions[$question['CollectionPresentation'][0]['id']] =
-                $question['Question']['QuestionText'][0]['text'];
+                @$question['Question']['QuestionText'][0]['text'];
         }
         $this->_rootQuestionsMultiOptions = $rootQuestionsMultiOptions;
 
