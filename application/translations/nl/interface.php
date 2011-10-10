@@ -15,4 +15,6 @@
     'value' => 'waarde',
     'synonym' => 'synoniem',
     'synonyms' => 'synoniemen',
+    'translation' => 'vertaling',
+    'translations' => 'vertalingen',
 );
