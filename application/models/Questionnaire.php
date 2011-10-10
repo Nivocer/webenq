@@ -86,7 +86,8 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     {
         $query = Doctrine_Query::create()
             ->from('Webenq_Model_Questionnaire qe')
-            ->leftJoin('qe.QuestionnaireQuestion qq');
+            ->innerJoin('qe.QuestionnaireQuestion qq')
+            ->innerJoin('qq.Question qn');
 
         if ($respondent) {
             $query->leftJoin('qq.Answer a WITH a.respondent_id = ?', $respondent->id);
@@ -95,25 +96,29 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         $query->leftJoin('qq.AnswerPossibilityGroup apg')
             ->leftJoin('apg.AnswerPossibility ap')
             ->leftJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $language)
-            ->leftJoin('qq.Question qn')
             ->leftJoin('qn.QuestionText qt WITH qt.language = ?', $language)
             ->leftJoin('qq.CollectionPresentation cp')
-            ->andWhere('qe.id = ?', $id)
+            ->where('qe.id = ?', $id)
             ->andWhere('cp.parent_id IS NULL')
-            ->orderBy('cp.page, cp.weight, qq.id')
-            ->limit(1);
+            ->orderBy('cp.page, cp.weight, qq.id');
 
         if ($page) $query->addWhere('cp.page = ?', $page);
 
         if ($includeAnswers) {
-            $query->leftJoin('qq.Answer an')
-                ->leftJoin('an.AnswerPossibility anp')
-                ->leftJoin('anp.AnswerPossibilityText anpt');
+            if ($respondent) {
+                $query->leftJoin('a.AnswerPossibility anp')
+                    ->leftJoin('anp.AnswerPossibilityText anpt');
+            } else {
+                $query->leftJoin('qq.Answer a')
+                    ->leftJoin('a.AnswerPossibility anp')
+                    ->leftJoin('anp.AnswerPossibilityText anpt');
+            }
         }
 
         if ($query->count() === 1) {
             return $query->execute()->getFirst();
         }
+
         return false;
     }
 
