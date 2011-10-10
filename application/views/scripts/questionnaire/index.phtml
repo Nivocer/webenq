@@ -37,10 +37,6 @@
                             <a class="icon check" title="<?php echo t('controleren'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                             <a class="icon report" title="<?php echo t('rapporteren'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                             <a class="icon download" title="<?php echo t('downloaden'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <br/>
-                            <a title="<?php echo t('jrxml'); ?>" href="<?php echo $this->baseUrl("/questionnaire/jrxml/id/" . $questionnaire['id']); ?>"><?php echo t('jrxml'); ?></a>
-                            <a title="<?php echo t('xform'); ?>" href="<?php echo $this->baseUrl("/questionnaire/xform/id/" . $questionnaire['id']); ?>"><?php echo t('xform'); ?></a>
-                            <a title="<?php echo t('xform-data'); ?>" href="<?php echo $this->baseUrl("/questionnaire/xform-data/id/" . $questionnaire['id']); ?>"><?php echo t('xform-data'); ?></a>
                         <?php endif; ?>
                         <!--
                             <a class="icon print" title="<?php echo t('printen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>

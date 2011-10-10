@@ -58,12 +58,19 @@ class QuestionnaireController extends Zend_Controller_Action
     public function xformAction()
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+
+        $filename = preg_replace('/[^A-Za-z0-9-]/', null, implode('-', array(
+            $questionnaire->id, $questionnaire->title, date('YmdHis'))))
+            . '-xform.xml';
+
         $xml = $questionnaire->getXform();
 
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->setHeader('Content-Transfer-Encoding', 'binary')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
             ->setBody($xml->saveXML());
     }
 
@@ -75,12 +82,19 @@ class QuestionnaireController extends Zend_Controller_Action
     public function xformDataAction()
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+
+        $filename = preg_replace('/[^A-Za-z0-9-]/', null, implode('-', array(
+            $questionnaire->id, $questionnaire->title, date('YmdHis'))))
+            . '-xform-data.xml';
+
         $xml = $questionnaire->getXformData();
 
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->setHeader('Content-Transfer-Encoding', 'binary')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
             ->setBody($xml->saveXML());
     }
 
@@ -493,9 +507,6 @@ class QuestionnaireController extends Zend_Controller_Action
             throw new Exception('No ID given!');
         }
 
-        /* disable view renderer */
-        $this->_helper->viewRenderer->setNoRender();
-
         $form = new Zend_Form();
         $form->addElements(array(
             $form->createElement('radio', 'format', array(
@@ -515,8 +526,9 @@ class QuestionnaireController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
 
-                /* disable layout */
+                // disable layout and view renderer
                 $this->_helper->layout->disableLayout();
+                $this->_helper->viewRenderer->setNoRender();
 
                 $format = $form->format->getValue();
                 $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($id, $this->_language, null, null, true);
@@ -527,8 +539,9 @@ class QuestionnaireController extends Zend_Controller_Action
             }
         }
 
-        /* display form */
-        $this->_response->setBody($form->render());
+        // view
+        $this->view->id = $id;
+        $this->view->form = $form;
     }
 
     public function printAction()
@@ -573,6 +586,12 @@ class QuestionnaireController extends Zend_Controller_Action
 
     public function jrxmlAction()
     {
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+
+        $filename = preg_replace('/[^A-Za-z0-9-]/', null, implode('-', array(
+            $questionnaire->id, $questionnaire->title, date('YmdHis'))))
+            . '.jrxml';
+
         // config settings
         // @todo get this from database
         $this->view->pageWidth = 595;
@@ -594,6 +613,8 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->setHeader('Content-Transfer-Encoding', 'binary')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
             ->setBody($dom->saveXML());
     }
 }
