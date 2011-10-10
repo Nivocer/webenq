@@ -153,7 +153,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
 
             } else {
                 // store possibility
-                $answerPossibility->fromArray($data);
+                $answerPossibility->fromArray($data['edit']);
                 try {
                     $answerPossibility->save();
                 }
