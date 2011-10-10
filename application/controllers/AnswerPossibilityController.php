@@ -217,6 +217,8 @@ class AnswerPossibilityController extends Zend_Controller_Action
             ->execute()
             ->getFirst();
 
+        $answerPossibilityGroupId = $answerPossibility->answerPossibilityGroup_id;
+
         /* get form */
         $form = new Webenq_Form_Confirm($answerPossibility->id,
             'Weet u zeker dat u het antwoord "' . $answerPossibility->AnswerPossibilityText[0]->text .
@@ -228,7 +230,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
             if ($this->_request->yes) {
                 $answerPossibility->delete();
             }
-            $this->_redirect('/answer-possibility-group');
+            $this->_redirect('/answer-possibility-group/edit/id/' . $answerPossibilityGroupId);
         }
 
         /* render view */
