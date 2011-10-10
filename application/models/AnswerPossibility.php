@@ -9,10 +9,11 @@
 class Webenq_Model_AnswerPossibility extends Webenq_Model_Base_AnswerPossibility
 {
     /**
-     * Gets the answer possibility text in the given or current language
+     * Gets the answer possibility text in the given, current or preferred language
      *
      * @param string $language
-     * @return Webenq_Model_AnswerPossibilityText|boolean
+     * @return Webenq_Model_AnswerPossibilityText
+     * @throws Exception
      */
     public function getAnswerPossibilityText($language = null)
     {
@@ -43,8 +44,9 @@ class Webenq_Model_AnswerPossibility extends Webenq_Model_Base_AnswerPossibility
         // return any found language
         return $this->AnswerPossibilityText[0];
 
-        // return false if no translation was found
-        return false;
+        // throw Exception if no translation was found
+        throw new Exception('No translation was found for ' . get_class($this)
+            . ' with ID ' . $this->id);
     }
 
     /**

@@ -93,10 +93,11 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             $query->leftJoin('qq.Answer a WITH a.respondent_id = ?', $respondent->id);
         }
 
-        $query->leftJoin('qq.AnswerPossibilityGroup apg')
-            ->leftJoin('apg.AnswerPossibility ap')
-            ->leftJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $language)
-            ->leftJoin('qn.QuestionText qt WITH qt.language = ?', $language)
+        $query
+//            ->leftJoin('qq.AnswerPossibilityGroup apg')
+//            ->leftJoin('apg.AnswerPossibility ap')
+//            ->leftJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $language)
+//            ->leftJoin('qn.QuestionText qt WITH qt.language = ?', $language)
             ->leftJoin('qq.CollectionPresentation cp')
             ->where('qe.id = ?', $id)
             ->andWhere('cp.parent_id IS NULL')

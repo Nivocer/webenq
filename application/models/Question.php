@@ -219,20 +219,44 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
     }
 
     /**
-     * Gets the question text in the current language
+     * Gets the question text in the given, current or preferred language
      *
      * @param string $language
-     * @return string
+     * @return Webenq_Model_QuestionText
+     * @throws Exception
      */
     public function getQuestionText($language = null)
     {
+        // get curren language if not given
         if (!$language) {
             $language = Zend_Registry::get('Zend_Locale')->getLanguage();
         }
-        foreach ($this->QuestionText as $qt) {
-            if ($qt->language === $language) return $qt->text;
+
+        // build array with available languages
+        $available = array();
+        foreach ($this->QuestionText as $text) {
+            $available[$text->language] = $text;
         }
-        return 'No question text available for the current language';
+
+        // return current language if set
+        if (key_exists($language, $available)) {
+            return $available[$language];
+        }
+
+        // return the first preferred language that is set
+        $preferredLanguages = Zend_Registry::get('preferredLanguages');
+        foreach ($preferredLanguages as $preferredLanguage) {
+            if (key_exists($preferredLanguage, $available)) {
+                return $available[$preferredLanguage];
+            }
+        }
+
+        // return any found language
+        return $this->QuestionText[0];
+
+        // throw Exception if no translation was found
+        throw new Exception('No translation was found for ' . get_class($this)
+            . ' with ID ' . $this->id);
     }
 
     /**
