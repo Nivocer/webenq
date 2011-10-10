@@ -15,24 +15,24 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     protected $_questionText;
 
-    public function getQuestionText()
-    {
-        if (!$this->_questionText) {
-            // find text in current language
-            $language = Zend_Registry::get('language');
-            foreach ($this->Question->QuestionText as $text) {
-                if ($text->language === $language) {
-                    $this->_questionText = $text->text;
-                    break;
-                }
-            }
-            // or get default
-            if (!$this->_questionText) {
-                $this->_questionText = $this->Question->QuestionText[0]->text;
-            }
-        }
-        return $this->_questionText;
-    }
+//    public function getQuestionText()
+//    {
+//        if (!$this->_questionText) {
+//            // find text in current language
+//            $language = Zend_Registry::get('language');
+//            foreach ($this->Question->QuestionText as $text) {
+//                if ($text->language === $language) {
+//                    $this->_questionText = $text->text;
+//                    break;
+//                }
+//            }
+//            // or get default
+//            if (!$this->_questionText) {
+//                $this->_questionText = $this->Question->QuestionText[0]->text;
+//            }
+//        }
+//        return $this->_questionText;
+//    }
 
     public function getAnswer(Webenq_Model_Respondent $respondent)
     {
@@ -247,7 +247,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
 
             // create subform
             $subForm = new Zend_Form_SubForm();
-            $subForm->setLegend($this->Question->QuestionText[0]->text)
+            $subForm->setLegend($this->Question->getQuestionText()->text)
                 ->removeDecorator('DtDdWrapper');
 
             // add child questions to subform
@@ -319,21 +319,16 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             }
 
             // add label
-            $element->setLabel($this->Question->getQuestionText());
+            $element->setLabel($this->Question->getQuestionText()->text);
 
             // add answer possibilities
             if ($element instanceof Zend_Form_Element_Multi) {
                 $options = array();
                 if ($element instanceof Zend_Form_Element_Select) {
-                    $options[''] = '--- selecteer ---';
+                    $options[''] = '--- ' . t('select') . ' ---';
                 }
                 foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $possibility) {
-                    if (isset($possibility->AnswerPossibilityText[0])) {
-                        $options[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
-                    } else {
-                        $options[$possibility->id] =
-                            t('No answer possibility text available for the current language');
-                    }
+                    $options[$possibility->id] = $possibility->getAnswerPossibilityText()->text;
                 }
                 $element->setMultiOptions($options);
             }
