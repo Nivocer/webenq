@@ -66,6 +66,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initI18n()
     {
+        Zend_Registry::set('preferredLanguages', $this->getOption('preferredLanguages'));
+
         $translate = new Zend_Translate(array(
             'adapter' => 'array',
             'content' => APPLICATION_PATH . '/translations/en/',

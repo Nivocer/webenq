@@ -33,7 +33,7 @@ class Webenq_Model_AnswerPossibility extends Webenq_Model_Base_AnswerPossibility
         }
 
         // return the first preferred language that is set
-        $preferredLanguages = array('en', 'fr', 'es', 'nl');
+        $preferredLanguages = Zend_Registry::get('preferredLanguages');
         foreach ($preferredLanguages as $preferredLanguage) {
             if (key_exists($preferredLanguage, $available)) {
                 return $available[$preferredLanguage];
