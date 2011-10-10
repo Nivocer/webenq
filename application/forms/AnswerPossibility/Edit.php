@@ -87,7 +87,7 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
                 'size' => 60,
                 'maxlength' => 255,
                 'autocomplete' => 'off',
-                'value' => $this->_answerPossibility->getAnswerPossibilityText($language),
+                'value' => $this->_answerPossibility->getAnswerPossibilityText($language)->text,
             )));
         }
 

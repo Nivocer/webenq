@@ -208,20 +208,15 @@ class AnswerPossibilityController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        /* get group */
-        $answerPossibility = Doctrine_Query::create()
-            ->from('Webenq_Model_AnswerPossibility ap')
-            ->innerJoin('ap.AnswerPossibilityText apt')
-            ->where('ap.id = ?', $this->_request->id)
-            ->andWhere('apt.language = ?', $this->_language)
-            ->execute()
-            ->getFirst();
+        // get answer possibility
+        $answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
+            ->find($this->_request->id);
 
         $answerPossibilityGroupId = $answerPossibility->answerPossibilityGroup_id;
 
         /* get form */
         $form = new Webenq_Form_Confirm($answerPossibility->id,
-            'Weet u zeker dat u het antwoord "' . $answerPossibility->AnswerPossibilityText[0]->text .
+            'Weet u zeker dat u het antwoord "' . $answerPossibility->getAnswerPossibilityText()->text .
                 '" wilt verwijderen?'
         );
 

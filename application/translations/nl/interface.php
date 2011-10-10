@@ -17,4 +17,5 @@
     'synonyms' => 'synoniemen',
     'translation' => 'vertaling',
     'translations' => 'vertalingen',
+    'available languages' => 'beschikbare talen',
 );
