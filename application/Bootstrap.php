@@ -66,8 +66,51 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initI18n()
     {
-        Zend_Registry::set('preferredLanguages', $this->getOption('preferredLanguages'));
+        $languages = array();
 
+        // get preferred languages from $_SERVER variable
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+
+            // break up string into pieces (languages and q factors)
+            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $parts);
+
+            if (count($parts[1]) > 0) {
+                // create a list like "en" => 0.8
+                $languages = array_combine($parts[1], $parts[4]);
+
+                // set default to 1 for any without q factor
+                foreach ($languages as $language => $value) {
+                    if ($value === '') $languages[$language] = 1;
+                }
+
+                // sort list based on value
+                arsort($languages, SORT_NUMERIC);
+
+                // build array with languages as values
+                $languages = array_keys($languages);
+
+                // remove countries ("en-US" becomes "en")
+                foreach ($languages as $key => $language) {
+                    if (strlen($language) > 2) {
+                        $languages[$key] = substr($language, 0, 2);
+                    }
+                }
+
+                // remove double values and reset keys
+                $languages = array_merge(array_unique($languages), array());
+            }
+        }
+
+        // add preferred languages from config file
+        $languages = array_merge($languages, $this->getOption('preferredLanguages'));
+
+        // remove double values and reset keys
+        $languages = array_merge(array_unique($languages), array());
+
+        // store array with preferred languages to registry
+        Zend_Registry::set('preferredLanguages', $languages);
+
+        // init translations
         $translate = new Zend_Translate(array(
             'adapter' => 'array',
             'content' => APPLICATION_PATH . '/translations/en/',
@@ -80,7 +123,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Registry::set('Zend_Translate', $translate);
 
         /**
-         * global function that can be used in templates to translate strings
+         * Global function that can be used in templates to translate strings
+         *
+         * @param string $string String to translate
+         * @return string Translated string
          */
         function t($string)
         {
