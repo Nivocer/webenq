@@ -86,8 +86,8 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     {
         $query = Doctrine_Query::create()
             ->from('Webenq_Model_Questionnaire qe')
-            ->innerJoin('qe.QuestionnaireQuestion qq')
-            ->innerJoin('qq.Question qn');
+            ->leftJoin('qe.QuestionnaireQuestion qq')
+            ->leftJoin('qq.Question qn');
 
         if ($respondent) {
             $query->leftJoin('qq.Answer a WITH a.respondent_id = ?', $respondent->id);
