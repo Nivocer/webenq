@@ -28,9 +28,6 @@
 	<parameter name="QUESTION_ID" class="java.lang.String">
 		<defaultValueExpression><![CDATA["g6-Tevredenheid/g6-DoelenDuidelijk"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="VALUE" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<parameter name="FORM_NAME" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["HVA-oo-simpleQuest"]]></defaultValueExpression>
 	</parameter>
@@ -71,20 +68,17 @@
 			</subreport>
 			<subreport>
 				<reportElement positionType="Float" x="0" y="20" width="555" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="DATA_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="XFORM_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="FORM_NAME">
 					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="VALUE">
-					<subreportParameterExpression><![CDATA[$P{VALUE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="QUESTION_ID">
 					<subreportParameterExpression><![CDATA["g6-Opmerkingen"]]></subreportParameterExpression>
