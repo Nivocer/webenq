@@ -163,8 +163,13 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
         for ($i=0; $i<$count; $i++) {
             $questionnaireQuestion = new Webenq_Model_QuestionnaireQuestion();
 
-            // factor correct question type (based on given answers)
+            // get and cleanup answers
             $answers = $questionsAndAnswers[$questionTexts[$i]];
+            array_map('strtolower', $answers);
+            array_map('trim', $answers);
+            $answers = preg_replace('/\s{2,}/', ' ', $answers);
+
+            // factor correct question type (based on given answers)
             $question = Webenq_Model_Question::factory($answers, $language);
             $question->addQuestionText($this->_language, $questionTexts[$i]);
             $questionnaireQuestion->Question = $question;
@@ -183,7 +188,9 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
                 if (!$answerPossibilityGroup) {
                     $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers, $this->_language);
                 }
-                $questionnaireQuestion->AnswerPossibilityGroup = $answerPossibilityGroup;
+                if ($answerPossibilityGroup) {
+                    $questionnaireQuestion->AnswerPossibilityGroup = $answerPossibilityGroup;
+                }
             }
 
             // set defaults for collection-presentation

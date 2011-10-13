@@ -215,6 +215,9 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      */
     public function setAnswerValues(array $answers = array())
     {
+        array_map('strtolower', $answers);
+        array_map('trim', $answers);
+        $answers = preg_replace('/\s{2,}/', ' ', $answers);
         $this->_answerValues = $answers;
     }
 
@@ -438,8 +441,31 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      */
     public function getUniqueValues()
     {
-        return array_unique($this->getAnswerValues());
+        $answers = $this->getAnswerValues();
+        array_map('strtolower', $answers);
+        array_map('trim', $answers);
+        return array_unique($answers);
     }
+
+    /**
+     * Returns unique values
+     *
+     * @return array
+     */
+    public function getUniqueValuesExcludingNullValues()
+    {
+        $answers = $this->getUniqueValues();
+        $nullValues = Webenq_Model_AnswerPossibilityNullValue::getNullValues();
+
+        foreach ($answers as $key => $val) {
+            if (in_array(strtolower($val), $nullValues)) {
+                unset($answers[$key]);
+            }
+        }
+
+        return array_unique($answers);
+    }
+
 
     /**
      * Checks if the given set of answers validates for this question type

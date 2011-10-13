@@ -41,7 +41,7 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Question_Closed
     static public function isType(Webenq_Model_Question $question, $language)
     {
         /* are all values present in an answer-possibility-group? */
-        $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues(), $language);
+        $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValuesExcludingNullValues(), $language);
         if (!$group) {
             return false;
         }

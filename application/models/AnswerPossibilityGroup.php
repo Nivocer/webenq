@@ -219,7 +219,7 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
         $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
 
         foreach ($uniqueValues as $key => $value) {
-            if (!$value) {
+            if (empty($value)) {
                 unset($uniqueValues[$key]);
             } else {
                 $answerPossibility = new Webenq_Model_AnswerPossibility();
