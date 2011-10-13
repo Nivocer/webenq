@@ -345,6 +345,7 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
         // if no answers: type defaults to open text
         if (!self::answersGiven($answers)) {
             $question = new Webenq_Model_Question_Open_Text();
+            $question->created = date('Y-m-d H:i:s');
             return $question;
         }
 
