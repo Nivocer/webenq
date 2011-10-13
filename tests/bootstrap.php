@@ -11,6 +11,7 @@ $loader = Zend_Loader_Autoloader::getInstance();
 $namespaceLoaders = $loader->getNamespaceAutoloaders('Webenq_');
 $webenqLoader = $namespaceLoaders[0];
 $webenqLoader->addResourceType('testCases', '../tests/cases', 'Test_Case');
+$webenqLoader->addResourceType('testClasses', '../tests/application/classes', 'Test_Class');
 $webenqLoader->addResourceType('testControllers', '../tests/application/controllers', 'Test_Controller');
 $webenqLoader->addResourceType('testForms', '../tests/application/forms', 'Test_Form');
 $webenqLoader->addResourceType('testModels', '../tests/application/models', 'Test_Model');
