@@ -4,7 +4,7 @@
  *
  * @author Bart Huttinga
  */
-class Webenq_Model_Chart_Pie_ThreeDimensional extends Webenq_Model_Chart_Pie
+class Webenq_Chart_Pie_ThreeDimensional extends Webenq_Chart_Pie
 {
     /** @var string Chart type */
     protected $_type = "p3";

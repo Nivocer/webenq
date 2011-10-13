@@ -4,7 +4,7 @@
  *
  * @author Bart Huttinga
  */
-class Webenq_Model_Chart_Bar_GroupedVertical extends Webenq_Model_Chart_Bar
+class Webenq_Chart_Bar_GroupedVertical extends Webenq_Chart_Bar
 {
     /** @var string Chart type */
     protected $_type = "bvg";

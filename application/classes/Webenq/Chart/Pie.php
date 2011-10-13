@@ -4,7 +4,7 @@
  *
  * @author Bart Huttinga
  */
-abstract class Webenq_Model_Chart_Pie extends Webenq_Model_Chart
+abstract class Webenq_Chart_Pie extends Webenq_Chart
 {
     public static function factory($type=null)
     {
@@ -14,14 +14,14 @@ abstract class Webenq_Model_Chart_Pie extends Webenq_Model_Chart
             "Concentric");
 
         if (isset($type)) {
-            $class = "Webenq_Model_Chart_Pie_" . $type;
+            $class = "Webenq_Chart_Pie_" . $type;
             if (class_exists($class)) {
                 return new $class();
             } else {
                 throw new Exception("Wrong type given");
             }
         } else {
-            return new Webenq_Model_Chart_Pie_ThreeDimensional();
+            return new Webenq_Chart_Pie_ThreeDimensional();
         }
     }
 

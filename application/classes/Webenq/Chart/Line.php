@@ -4,7 +4,7 @@
  *
  * @author Bart Huttinga
  */
-abstract class Webenq_Model_Chart_Line extends Webenq_Model_Chart
+abstract class Webenq_Chart_Line extends Webenq_Chart
 {
     public static function factory($type=null)
     {
@@ -15,13 +15,13 @@ abstract class Webenq_Model_Chart_Line extends Webenq_Model_Chart
 
         if (isset($type)) {
             if (in_array($type, $chartTypes)) {
-                $class = "Webenq_Model_Chart_Line_" . $type;
+                $class = "Webenq_Chart_Line_" . $type;
                 return new $class();
             } else {
                 throw new Exception("Wrong type given");
             }
         } else {
-            return new Webenq_Model_Chart_Line_Normal();
+            return new Webenq_Chart_Line_Normal();
         }
     }
 
