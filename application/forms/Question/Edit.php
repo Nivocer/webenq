@@ -19,7 +19,7 @@ class Webenq_Form_Question_Edit extends Webenq_Form_Question_Add
      * Class constructor
      *
      */
-    public function __construct($question, $options = null)
+    public function __construct(Webenq_Model_Question $question, $options = null)
     {
         $this->_question = $question;
         parent::__construct($options);
