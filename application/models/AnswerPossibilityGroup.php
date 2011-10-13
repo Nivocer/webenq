@@ -107,11 +107,6 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
             }
         }
 
-        // lowercase values
-        foreach ($uniqueValues as $key => $value) {
-            $uniqueValues[$key] = trim(strtolower($value));
-        }
-
         // remove empty values
         foreach ($uniqueValues as $key => $value) {
             if (empty($value)) unset($uniqueValues[$key]);
@@ -254,6 +249,7 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
     static public function createByAnswerValues($values, $language)
     {
         $values = array_map('strtolower', $values);
+        $values = array_map('trim', $values);
         $uniqueValues = array_unique($values);
         return self::createByUniqueValues($uniqueValues, $language);
     }

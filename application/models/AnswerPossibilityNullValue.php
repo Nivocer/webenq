@@ -8,7 +8,7 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityNullValue.php,v 1.1 2011/07/12 12:14:18 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityNullValue.php,v 1.2 2011/10/13 10:42:18 bart Exp $
  */
 class Webenq_Model_AnswerPossibilityNullValue extends Webenq_Model_Base_AnswerPossibilityNullValue
 {
@@ -16,7 +16,7 @@ class Webenq_Model_AnswerPossibilityNullValue extends Webenq_Model_Base_AnswerPo
 
     static public function getNullValues()
     {
-        if (count(self::$_nullValues) == 0) {
+        if (count(self::$_nullValues) === 0) {
 
             self::$_nullValues[] = '';
 
@@ -25,7 +25,7 @@ class Webenq_Model_AnswerPossibilityNullValue extends Webenq_Model_Base_AnswerPo
                 ->execute(null, Doctrine_Core::HYDRATE_ARRAY);
 
             foreach ($nullValues as $nullValue) {
-                self::$_nullValues[] = $nullValue['value'];
+                self::$_nullValues[] = strtolower($nullValue['value']);
             }
         }
 

@@ -69,10 +69,15 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             } elseif ($questionnaireQuestion->Question instanceof Webenq_Model_Question_Closed) {
 
-                // find answer-possibility-group
-                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues($answers, $this->_language);
+                // set answer-possibility-group if not set yet
+                $answerPossibilityGroup = $questionnaireQuestion->AnswerPossibilityGroup;
                 if (!$answerPossibilityGroup) {
-                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers, $this->_language);
+                    // find answer-possibility-group
+                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues($answers, $this->_language);
+                    if (!$answerPossibilityGroup) {
+                        // create answer-possibility-group
+                        $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers, $this->_language);
+                    }
                 }
 
                 // store answers
@@ -174,10 +179,9 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             // find and connect a matching answer possibility group
             if ($question instanceof Webenq_Model_Question_Closed) {
-                $uniqueValues = array_unique($answers);
-                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($uniqueValues, $this->_language);
+                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues($answers, $this->_language);
                 if (!$answerPossibilityGroup) {
-                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByUniqueValues($uniqueValues, $this->_language);
+                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers, $this->_language);
                 }
                 $questionnaireQuestion->AnswerPossibilityGroup = $answerPossibilityGroup;
             }
