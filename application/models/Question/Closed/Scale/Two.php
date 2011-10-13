@@ -16,9 +16,10 @@ class Webenq_Model_Question_Closed_Scale_Two extends Webenq_Model_Question_Close
      * Checks if the given result set validates for this type
      *
      * @param Webenq_Model_Question $question Question containing the answervalues to test against
+     * @param string $language
      * @return bool True if is this type, false otherwise
      */
-    static public function isType(Webenq_Model_Question $question)
+    static public function isType(Webenq_Model_Question $question, $language)
     {
         /* any values? */
         if ($question->countUnique() == 0) {
@@ -31,7 +32,7 @@ class Webenq_Model_Question_Closed_Scale_Two extends Webenq_Model_Question_Close
         }
 
         /* are all values present in an answer-possibility-group? */
-        $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues());
+        $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues(), $language);
         if ($group->AnswerPossibility[0]->value != 2) {
             return false;
         }

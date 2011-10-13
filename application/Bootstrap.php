@@ -122,18 +122,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
         Zend_Registry::set('Zend_Translate', $translate);
 
-        /**
-         * Global function that can be used in templates to translate strings
-         *
-         * @param string $string String to translate
-         * @return string Translated string
-         */
-        function t($string)
-        {
-            $translate = Zend_Registry::get('Zend_Translate');
-            $locale = Zend_Registry::get('Zend_Locale');
-            $translate->setLocale($locale);
-            return $translate->translate($string, $locale);
+        if (!function_exists('t')) {
+            /**
+             * Global function that can be used in templates to translate strings
+             *
+             * @param string $string String to translate
+             * @return string Translated string
+             */
+            function t($string)
+            {
+                $translate = Zend_Registry::get('Zend_Translate');
+                $locale = Zend_Registry::get('Zend_Locale');
+                $translate->setLocale($locale);
+                return $translate->translate($string, $locale);
+            }
         }
     }
 }

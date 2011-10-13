@@ -291,9 +291,10 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      * Determines the question type based on the data provided
      *
      * @param Webenq_Model_Question $callingObject The calling object
+     * @param string $language
      * @return Webenq_Model_Question An instance of Webenq_Model_Question
      */
-    protected function _determineType(Webenq_Model_Question $callingObject)
+    protected function _determineType(Webenq_Model_Question $callingObject, $language)
     {
         // get answer values
         $values = $this->getAnswerValues();
@@ -311,9 +312,9 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
 
             // if the current child object validates, continue with children if any,
             // or add this type to the array with valid types
-            if (call_user_func(get_class($object).'::isType', $object)) {
+            if (call_user_func(get_class($object).'::isType', $object, $language)) {
                 if (count($object->children) > 0) {
-                    $this->_determineType($object);
+                    $this->_determineType($object, $language);
                 } else {
                     $this->addValidType(get_class($object));
                 }
@@ -333,9 +334,10 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      * (which is beyond the scope of this factory).
      *
      * @param array $answers Array of answer values to test against
+     * @param string $language
      * @return Webenq_Model_Question
      */
-    static public function factory(array $answers)
+    static public function factory(array $answers, $language)
     {
         // if no answers: type defaults to open text
         if (!self::answersGiven($answers)) {
@@ -346,7 +348,7 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
         // determine question valid question types
         $baseQuestion = new self();
         $baseQuestion->setAnswerValues($answers);
-        $question = $baseQuestion->_determineType($baseQuestion);
+        $question = $baseQuestion->_determineType($baseQuestion, $language);
         $validTypes = $question->getValidTypes();
         $invalidTypes = $question->getInvalidTypes();
 
@@ -443,9 +445,10 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      * Checks if the given set of answers validates for this question type
      *
      * @param Webenq_Model_Question $question A question object containing the data to test against
+     * @param string $language
      * @return bool True if is this type, false otherwise
      */
-    static public function isType(Webenq_Model_Question $question)
+    static public function isType(Webenq_Model_Question $question, $language)
     {
         throw new Exception(__FUNCTION__ . " is not implemented");
     }

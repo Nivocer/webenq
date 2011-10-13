@@ -94,9 +94,10 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
      * of unique values.
      *
      * @param array $uniqueValues
+     * @param string $language
      * @return Webenq_Model_AnswerPossibilityGroup
      */
-    static public function findByUniqueValues($uniqueValues)
+    static public function findByUniqueValues($uniqueValues, $language)
     {
         // remove null values
         $nullValues = Webenq_Model_AnswerPossibilityNullValue::getNullValues();
@@ -106,38 +107,93 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
             }
         }
 
-        /* search possibility synonyms */
-        $query = Doctrine_Query::create()->from('Webenq_Model_AnswerPossibilityTextSynonym s');
-        foreach ($uniqueValues as $value) $query->orWhere('s.text = ?', strtolower($value));
-        $synonyms = $query->execute();
+        // lowercase values
+        foreach ($uniqueValues as $key => $value) {
+            $uniqueValues[$key] = trim(strtolower($value));
+        }
 
-        /* search possibilities */
-        $query = Doctrine_Query::create()->from('Webenq_Model_AnswerPossibilityText t');
-        foreach ($uniqueValues as $value) $query->orWhere('t.text = ?', strtolower($value));
-        $texts = $query->execute();
+        // remove empty values
+        foreach ($uniqueValues as $key => $value) {
+            if (empty($value)) unset($uniqueValues[$key]);
+        }
 
-        /* combine results */
-        $groupIds = array();
+        // search possibility synonyms
+        $synonyms = Doctrine_Query::create()
+            ->from('Webenq_Model_AnswerPossibilityTextSynonym s')
+            ->innerJoin('s.AnswerPossibilityText t WITH t.language = ?', $language)
+            ->whereIn('s.text', $uniqueValues)
+            ->execute();
+
+        // search possibilities
+        $texts = Doctrine_Query::create()
+            ->from('Webenq_Model_AnswerPossibilityText t')
+            ->where('t.language = ?', $language)
+            ->andWhereIn('t.text', $uniqueValues)
+            ->execute();
+
+        // return if nothing found
+        if ($synonyms->count() === 0 && $texts->count() === 0) {
+            return false;
+        }
+
+        // combine results
+        $combined = array();
         foreach ($synonyms as $synonym) {
-            $groupIds[] = $synonym->AnswerPossibilityText->AnswerPossibility->answerPossibilityGroup_id;
+            $groupId = $synonym->AnswerPossibilityText->AnswerPossibility->answerPossibilityGroup_id;
+            if (key_exists($groupId, $combined)) {
+                $combined[$groupId][] = $synonym->text;
+            } else {
+                $combined[$groupId] = array($synonym->text);
+            }
         }
         foreach ($texts as $text) {
-            $groupIds[] = $text->AnswerPossibility->answerPossibilityGroup_id;
+            $groupId = $text->AnswerPossibility->answerPossibilityGroup_id;
+            if (key_exists($groupId, $combined)) {
+                $combined[$groupId][] = $text->text;
+            } else {
+                $combined[$groupId] = array($text->text);
+            }
         }
 
-        /* find most apropriate group */
-        if (count($groupIds) > 0) {
-            $countedGroupIds = array_count_values($groupIds);
-            arsort($countedGroupIds);
-            $bestGroupId = key($countedGroupIds);
-            $groups = Doctrine_Query::create()
-                ->from('Webenq_Model_AnswerPossibilityGroup g')
-                ->innerJoin('g.AnswerPossibility p')
-                ->where('g.id = ?', $bestGroupId)
-                ->orderBy('p.value DESC')
-                ->execute();
-            if ($groups->count() > 0) return $groups->getFirst();
+        // check if number of given values fits in number of found values
+        $countUniqueValues = count($uniqueValues);
+        foreach ($combined as $groupId => $group) {
+            if ($countUniqueValues > count($group)) {
+                unset($combined[$groupId]);
+            }
         }
+
+        // return false if no groups left
+        if (count($combined) === 0) return false;
+
+        // return group if just one left
+        if (count($combined) === 1) {
+            reset($combined);
+            $groupId = key($combined);
+            $group = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
+                ->find($groupId);
+            return $group;
+        }
+
+        // count items per group
+        $counted = array();
+        foreach ($combined as $groupId => $group) {
+            $counted[$groupId] = Doctrine_Query::create()
+                ->from('Webenq_Model_AnswerPossibility p')
+                ->innerJoin('p.AnswerPossibilityGroup g WITH g.id = ?', $groupId)
+                ->count();
+        }
+
+        // sort by value, keep index
+        asort($counted);
+
+        // get best group
+        $groupId = key($counted);
+        $group = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
+            ->find(key($counted));
+        return $group;
+
+        return false;
     }
 
     /**
@@ -145,13 +201,15 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
      * of answer values.
      *
      * @param array $values
+     * @param string $language
      * @return Webenq_Model_AnswerPossibilityGroup
      */
-    static public function findByAnswerValues($values)
+    static public function findByAnswerValues($values, $language)
     {
         $values = array_map('strtolower', $values);
+        $values = array_map('trim', $values);
         $uniqueValues = array_unique($values);
-        return self::findByUniqueValues($uniqueValues);
+        return self::findByUniqueValues($uniqueValues, $language);
     }
 
     /**
@@ -161,7 +219,7 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
      * @param array $uniqueValues
      * @return self
      */
-    static public function createByUniqueValues($uniqueValues)
+    static public function createByUniqueValues($uniqueValues, $language)
     {
         $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
 
@@ -171,7 +229,7 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
             } else {
                 $answerPossibility = new Webenq_Model_AnswerPossibility();
                 $answerPossibility->AnswerPossibilityText[0]->text = $value;
-                $answerPossibility->AnswerPossibilityText[0]->language = 'nl';
+                $answerPossibility->AnswerPossibilityText[0]->language = $language;
                 $answerPossibilityGroup->AnswerPossibility[] = $answerPossibility;
             }
         }
@@ -190,12 +248,13 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
      * set of answer answers
      *
      * @param array $values
+     * @param string $language
      * @return self
      */
-    static public function createByAnswerValues($values)
+    static public function createByAnswerValues($values, $language)
     {
         $values = array_map('strtolower', $values);
         $uniqueValues = array_unique($values);
-        return self::createByUniqueValues($uniqueValues);
+        return self::createByUniqueValues($uniqueValues, $language);
     }
 }

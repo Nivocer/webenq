@@ -46,7 +46,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
         $respondents = $this->_getRespondents($questionsAndAnswers);
 
         // get questionnaire-questions objects
-        $questionnaireQuestions = $this->_getQuestionnaireQuestions($questionsAndAnswers);
+        $questionnaireQuestions = $this->_getQuestionnaireQuestions($questionsAndAnswers, $this->_language);
 
         // add answers to questions
         $indexQuestion = 0;
@@ -69,13 +69,10 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             } elseif ($questionnaireQuestion->Question instanceof Webenq_Model_Question_Closed) {
 
-                // set answer-possibility-group if not set yet
-                $answerPossibilityGroup = $questionnaireQuestion->AnswerPossibilityGroup;
+                // find answer-possibility-group
+                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues($answers, $this->_language);
                 if (!$answerPossibilityGroup) {
-                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues($answers);
-                    if (!$answerPossibilityGroup) {
-                        $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers);
-                    }
+                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers, $this->_language);
                 }
 
                 // store answers
@@ -146,9 +143,10 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
      * provided array with questions and ansers
      *
      * @param array $questionsAndAnswers
+     * @param string $language
      * @return Doctrine_Collection Collection of questionnaire-question objects
      */
-    protected function _getQuestionnaireQuestions(array $questionsAndAnswers)
+    protected function _getQuestionnaireQuestions(array $questionsAndAnswers, $language)
     {
         // get number of questions
         $count = count($questionsAndAnswers);
@@ -162,7 +160,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             // factor correct question type (based on given answers)
             $answers = $questionsAndAnswers[$questionTexts[$i]];
-            $question = Webenq_Model_Question::factory($answers);
+            $question = Webenq_Model_Question::factory($answers, $language);
             $question->addQuestionText($this->_language, $questionTexts[$i]);
             $questionnaireQuestion->Question = $question;
             $question->save();
@@ -177,9 +175,9 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
             // find and connect a matching answer possibility group
             if ($question instanceof Webenq_Model_Question_Closed) {
                 $uniqueValues = array_unique($answers);
-                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($uniqueValues);
+                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($uniqueValues, $this->_language);
                 if (!$answerPossibilityGroup) {
-                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByUniqueValues($uniqueValues);
+                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByUniqueValues($uniqueValues, $this->_language);
                 }
                 $questionnaireQuestion->AnswerPossibilityGroup = $answerPossibilityGroup;
             }
