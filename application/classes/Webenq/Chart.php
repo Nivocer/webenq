@@ -4,7 +4,7 @@
  *
  * @author Bart Huttinga
  */
-abstract class Webenq_Model_Output_Chart
+abstract class Webenq_Model_Chart
 {
     /** @var array Associative array of chart data (key will be used for the legend) */
     protected $_rawData = array();

@@ -4,19 +4,19 @@
  *
  * @author Bart Huttinga
  */
-abstract class Webenq_Model_Output_Chart_Bar extends Webenq_Model_Output_Chart
+abstract class Webenq_Model_Chart_Bar extends Webenq_Model_Chart
 {
     public static function factory($type=null)
     {
         if (isset($type)) {
-            $class = "Webenq_Model_Output_Chart_Bar_" . $type;
+            $class = "Webenq_Model_Chart_Bar_" . $type;
             if (class_exists($class)) {
                 return new $class();
             } else {
                 throw new Exception("Wrong type given");
             }
         } else {
-            return new Webenq_Model_Output_Chart_Bar_Vertical();
+            return new Webenq_Model_Chart_Bar_Vertical();
         }
     }
 
