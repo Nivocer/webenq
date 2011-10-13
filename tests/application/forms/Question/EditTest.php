@@ -1,17 +1,16 @@
 <?php
 class Webenq_Test_Form_Question_EditTest extends Webenq_Test_Form_Question_AddTest
 {
-    public function setUp()
-    {
-        $question = Doctrine_Query::create()
-            ->from('Question')->limit(1)
-            ->execute()->getFirst();
-        $this->_form = new Webenq_Form_Question_Edit($question);
-        parent::setUp();
-    }
-
     public function testOneLanguageIsRequired()
     {
+        $question = Doctrine_Query::create()
+            ->from('Webenq_Model_Question')
+            ->limit(1)
+            ->execute()
+            ->getFirst();
+
+        $this->_form = new Webenq_Form_Question_Edit($question);
+
         $form = $this->_form;
 
         // invalid without languages

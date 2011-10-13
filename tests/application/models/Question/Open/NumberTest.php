@@ -6,7 +6,7 @@ class Webenq_Test_Model_Question_Open_NumberTest extends Webenq_Test_Model_Quest
      */
     public function testFactoryWithValidDataReturnsType($data)
     {
-        $question = Webenq_Model_Question::factory($data);
+        $question = Webenq_Model_Question::factory($data, 'nl');
     	$this->assertTrue($question instanceof Webenq_Model_Question_Open_Number);
     }
 
@@ -15,7 +15,7 @@ class Webenq_Test_Model_Question_Open_NumberTest extends Webenq_Test_Model_Quest
      */
     public function testFactoryWithInvalidDataDoesNotReturnType($data)
     {
-        $question = Webenq_Model_Question::factory($data);
+        $question = Webenq_Model_Question::factory($data, 'nl');
     	$this->assertFalse($question instanceof Webenq_Model_Question_Open_Number);
     }
 
@@ -44,7 +44,7 @@ class Webenq_Test_Model_Question_Open_NumberTest extends Webenq_Test_Model_Quest
     public function testPeriodsAndCommasAreInterpretedCorrectly()
     {
         $validNumbers = array('1.0', '2,1', '2.100', '3,514.00', '+50', -50, 3.5, '-50.578,12');
-        $question = Webenq_Model_Question::factory($validNumbers);
+        $question = Webenq_Model_Question::factory($validNumbers, 'nl');
         $this->assertTrue($question instanceof Webenq_Model_Question_Open_Number);
     }
 }

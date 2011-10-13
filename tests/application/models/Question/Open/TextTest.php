@@ -6,7 +6,7 @@ class Webenq_Test_Model_Question_Open_TextTest extends Webenq_Test_Model_Questio
      */
     public function testFactoryWithValidDataReturnsType($data)
     {
-        $question = Webenq_Model_Question::factory($data);
+        $question = Webenq_Model_Question::factory($data, 'nl');
     	$this->assertTrue($question instanceof Webenq_Model_Question_Open_Text);
     }
 }

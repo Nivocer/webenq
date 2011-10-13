@@ -6,7 +6,7 @@ class Webenq_Test_Model_Question_Open_DateTest extends Webenq_Test_Model_Questio
      */
     public function testFactoryWithValidDataReturnsType($data)
     {
-        $question = Webenq_Model_Question::factory($data);
+        $question = Webenq_Model_Question::factory($data, 'nl');
     	$this->assertTrue($question instanceof Webenq_Model_Question_Open_Date);
     }
 
@@ -15,7 +15,7 @@ class Webenq_Test_Model_Question_Open_DateTest extends Webenq_Test_Model_Questio
      */
     public function testFactoryWithInvalidDataDoesNotReturnType($data)
     {
-        $question = Webenq_Model_Question::factory($data);
+        $question = Webenq_Model_Question::factory($data, 'nl');
     	$this->assertFalse($question instanceof Webenq_Model_Question_Open_Date);
     }
 
