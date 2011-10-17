@@ -20,7 +20,7 @@
 		<defaultValueExpression><![CDATA["leeuwenburg"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SPLIT_QUESTION_ID" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="SPLIT_VALUE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SPLIT_QUESTION_VALUE" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XFORM_LOCATION" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml"]]></defaultValueExpression>
@@ -48,7 +48,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="100" splitType="Immediate">
+		<band height="129" splitType="Immediate">
 			<subreport>
 				<reportElement positionType="Float" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
@@ -110,6 +110,64 @@
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.EmptyDatasource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="80" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="REPORT_QUESTION_ID">
+					<subreportParameterExpression><![CDATA["g6-Tevredenheid/g6-InhoudRelevant"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATA_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="XFORM_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FORM_NAME">
+					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, "g6-Tevredenheid/g6-InhoudRelevant","g6-Tevredenheid/g6-DoelenBereikt", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="100" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="REPORT_QUESTION_ID">
+					<subreportParameterExpression><![CDATA["g6-Tevredenheid/g6-InhoudRelevant"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATA_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="XFORM_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FORM_NAME">
+					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, "g6-Tevredenheid/g6-InhoudRelevant",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
