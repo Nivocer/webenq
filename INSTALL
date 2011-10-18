@@ -1,0 +1,74 @@
+WEBENQ4
+
+REQUIREMENTS
+============
+
+For the application:
+
+* PHP 5.2+ (5.3+ preferred) 
+
+
+For the test suite:
+
+* PHPUnit 3.5+
+
+Can be installed via PEAR from the PHPUnit channel:
+
+  * Make sure you have the channels for PHPUnit and dependencies
+  
+    pear channel-discover pear.phpunit.de
+    pear channel-discover components.ez.no
+    pear channel-discover pear.symfony-project.com
+  
+  * Install PHPUnit
+  
+    pear install phpunit/PHPUnit
+
+* PHP Sqlite module
+
+    apt-get install php5-sqlite
+    
+
+
+INSTALLATION
+============
+
+Command-line instructions to get webenq up and running.
+
+PUT THE CODE IN THE RIGHT PLACE
+===============================
+
+In a directory of choice:
+	cvs -d /home/cvs/nivocer co webenq4
+	cd webenq4
+	
+Edit application/configs/application.ini and set the database parameters and
+other configuration options right, for instance by creating a new runtime
+environment for your instance:
+
+	[my-sandbox : production]
+	resources.db.params.host = "127.0.0.1"
+	resources.db.params.port = "3306"
+	resources.db.params.dbname = "webenq4"
+	resources.db.params.username = "myname"
+	resources.db.params.password = "secret"
+	 
+
+PREPARE THE DATABASE
+====================
+
+Create the database for your instance and set it up.
+
+	./bin/doctrine
+	
+
+RUN THE TEST SUITE
+==================
+
+To check the test suite:
+
+	cd tests
+    phpunit
+    
+The results will be available via .../tests/ at web location of your 
+installation.
