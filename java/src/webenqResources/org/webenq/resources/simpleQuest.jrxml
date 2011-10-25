@@ -137,7 +137,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, "g6-Tevredenheid/g6-InhoudRelevant","g6-Tevredenheid/g6-DoelenBereikt", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, $P{XFORM_LOCATION},$P{FORM_NAME},"g6-Tevredenheid/g6-InhoudRelevant","g6-Tevredenheid/g6-DoelenBereikt", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
@@ -166,7 +166,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, "g6-Tevredenheid/g6-InhoudRelevant",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-InhoudRelevant",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
