@@ -45,9 +45,9 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="66" splitType="Stretch">
+		<band height="62" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="20" width="555" height="45">
+				<reportElement x="0" y="12" width="555" height="45">
 					<property name="net.sf.jasperreports.export.pdf.tag.table" value="full"/>
 				</reportElement>
 				<crosstabParameter name="REPORT_QUESTION_ID"/>
@@ -156,7 +156,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement verticalAlignment="Top">
-									<font size="6"/>
+									<font size="7"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
 $V{col}:
@@ -312,7 +312,7 @@ $V{col}:
 				</crosstabCell>
 			</crosstab>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="595" height="20"/>
+				<reportElement x="0" y="0" width="595" height="12"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
