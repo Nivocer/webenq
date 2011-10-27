@@ -20,16 +20,18 @@ class Webenq_Plugin_Schema extends Zend_Controller_Plugin_Abstract
         $config = Zend_Controller_Front::getInstance()
             ->getParam('bootstrap')->getOption('installation');
 
+        $frontController = Zend_Controller_Front::getInstance();
+
         $canAccessInstaller = isset($config['canAccessInstaller']) ?
             (bool) $config['canAccessInstaller'] : false;
 
         // check if installer is requested
         if ($request->getModuleName() === 'default' && $request->getControllerName() === 'install') {
             if ($canAccessInstaller) {
-                $frontController = Zend_Controller_Front::getInstance();
                 foreach ($frontController->getPlugins() as $plugin) {
                     $frontController->unregisterPlugin($plugin);
                 }
+                return;
             } else {
                 die('Database schema out of date! Please run the installer.');
             }
@@ -46,7 +48,7 @@ class Webenq_Plugin_Schema extends Zend_Controller_Plugin_Abstract
         // get required db schema version
         $latest = (int) $migration->getLatestVersion();
 
-        if ($current !== $latest) {
+        if ($current == $latest) {
             $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
             $redirector->gotoSimpleAndExit('index', 'install', 'default');
         }
