@@ -63,10 +63,10 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             }
         } else {
             $answer = $respondent->getAnswer($parent);
-            if (!empty($answer->text)) {
+            if ($answer && $answer->text !== '') {
                 $value = $answer->text;
-            } elseif (!empty($answer->AnswerPossibility->AnswerPossibilityText[0]->text)) {
-                $value = $answer->AnswerPossibility->AnswerPossibilityText[0]->text;
+            } elseif ($answer && $answer->AnswerPossibility) {
+                $value = $answer->AnswerPossibility->getAnswerPossibilityText()->text;
             } else {
                 $value = '';
             }
