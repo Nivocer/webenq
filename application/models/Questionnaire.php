@@ -62,13 +62,14 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
                 $this->_getAnswerCell($subQuestion, $respondent, $row);
             }
         } else {
+            $value = '';
             $answer = $respondent->getAnswer($parent);
-            if ($answer && $answer->text !== '') {
-                $value = $answer->text;
-            } elseif ($answer && $answer->AnswerPossibility) {
-                $value = $answer->AnswerPossibility->getAnswerPossibilityText()->text;
-            } else {
-                $value = '';
+            if ($answer instanceof Webenq_Model_Answer) {
+                if (isset($answer->answerPossibility_id)) {
+                    $value = $answer->AnswerPossibility->getAnswerPossibilityText()->text;
+                } elseif ($answer && $answer->text !== '') {
+                    $value = $answer->text;
+                }
             }
             $row[] = $value;
         }
