@@ -71,7 +71,8 @@ public class XformJRDataSource {
 			String report_question_id="";
 			StringTokenizer st = new StringTokenizer(report_question_ids,","); 
 			while (st.hasMoreTokens()){
-				report_question_id=st.nextToken();
+				report_question_id=st.nextToken().trim();
+				String report_question_text=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, null);
 
 				//String question_field=rsh_questions.getString(1); //question_id
 				//create the xpath expressions
@@ -106,7 +107,7 @@ public class XformJRDataSource {
 						group_question_value=groupQuestionNode.getTextContent();
 						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
 					}
-					XformBean ra=new XformBean(report_question_id, report_question_value, report_question_label, group_question_id, group_question_value, group_question_label);
+					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_value, group_question_label);
 					reportRows.add(ra);
 				}
 				

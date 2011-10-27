@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 //import java.text.NumberFormat;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -117,7 +118,10 @@ public class ExecuteReport {
 			      prms.put("REPORT_IDENTIFIER", report_identifier);//only needed for hacks in jrxml....
 			      prms.put("CUSTOMER", customer); //resource bundle and needed for hacks in jrxml
 			      prms.put("SPLIT_QUESTION_ID", split_question_id ); //not yet implemented
-	      
+			      HashMap<String,Map<String,Double>> color_range_map=it.bisi.Utils.getColorRangeMaps(customer);
+			      prms.put("COLOR_RANGE_MAP",color_range_map);
+			      		      		        
+			      
 		    }catch(Exception ex) {
 				String connectMsg = "Could not report definition information: " + ex.getMessage();
 		        System.err.println(connectMsg); 

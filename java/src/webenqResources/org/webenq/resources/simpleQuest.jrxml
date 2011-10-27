@@ -35,11 +35,12 @@
 		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DOC_DATA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<title>
-		<band height="20" splitType="Stretch"/>
+		<band height="25" splitType="Stretch"/>
 	</title>
 	<pageHeader>
 		<band height="20" splitType="Stretch"/>
@@ -48,7 +49,7 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="129" splitType="Immediate">
+		<band height="141" splitType="Immediate">
 			<subreport>
 				<reportElement positionType="Float" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
@@ -90,26 +91,12 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="60" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="40" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[(new net.sf.jasperreports.engine.data.JRXmlDataSource($P{DATA_LOCATION}, "/respondenten/respondent/*/g6-Opmerkingen"))]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement positionType="Float" x="0" y="40" width="555" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["g6-Opmerkingen staat hieronder."]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.EmptyDatasource()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement positionType="Float" x="0" y="80" width="555" height="20" isRemoveLineWhenBlank="true"/>
@@ -141,7 +128,7 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="100" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="60" width="555" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="REPORT_QUESTION_ID">
 					<subreportParameterExpression><![CDATA["g6-Tevredenheid/g6-InhoudRelevant"]]></subreportParameterExpression>
 				</subreportParameter>
@@ -169,15 +156,79 @@
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-InhoudRelevant",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="100" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATA_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="XFORM_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FORM_NAME">
+					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CROSSTAB_HEADER_TEXT_ID">
+					<subreportParameterExpression><![CDATA["g6-Tevredenheid"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COLOR_RANGE">
+					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-DoelenDuidelijk, g6-Tevredenheid/g6-DoelenBereikt,g6-Tevredenheid/g6-InhoudRelevant,g6-Tevredenheid/g6-BijeenkomstenOnmisbaar,g6-Tevredenheid/g6-Effectief,g6-Tevredenheid/g6-studiemateriaal,g6-Tevredenheid/g6-beoordeling,g6-Tevredenheid/g6-NiveauTempo,g6-Tevredenheid/g6-InstructieDocent,g6-Tevredenheid/g6-BegeleidingDocent,g6-Tevredenheid/g6-Uren,g6-Tevredenheid/g6-GoedVoorbereid",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="120" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DATA_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="XFORM_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FORM_NAME">
+					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CROSSTAB_HEADER_TEXT_ID">
+					<subreportParameterExpression><![CDATA["g6-Tevredenheid"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COLOR_RANGE">
+					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-DoelenDuidelijk, g6-Tevredenheid/g6-DoelenBereikt,g6-Tevredenheid/g6-InhoudRelevant,g6-Tevredenheid/g6-BijeenkomstenOnmisbaar,g6-Tevredenheid/g6-Effectief,g6-Tevredenheid/g6-studiemateriaal,g6-Tevredenheid/g6-beoordeling,g6-Tevredenheid/g6-NiveauTempo,g6-Tevredenheid/g6-InstructieDocent,g6-Tevredenheid/g6-BegeleidingDocent,g6-Tevredenheid/g6-Uren,g6-Tevredenheid/g6-GoedVoorbereid","g6-Rapportcijfer", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="48"/>
+		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="30" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="20" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
