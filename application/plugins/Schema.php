@@ -48,7 +48,9 @@ class Webenq_Plugin_Schema extends Zend_Controller_Plugin_Abstract
         // get required db schema version
         $latest = (int) $migration->getLatestVersion();
 
-        if ($current == $latest) {
+        if ($current !== $latest) {
+//            header('Location: ' . $frontController->getBaseUrl() . '/install/');
+//            die;
             $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
             $redirector->gotoSimpleAndExit('index', 'install', 'default');
         }
