@@ -41,7 +41,7 @@ class Webenq_Import_Questback extends Webenq_Import_Default
 		/* get current meta, add to it, and save */
 		$newMeta = isset($this->_questionnaire->meta) ? unserialize($this->_questionnaire->meta) : array();
 		$newMeta += $meta;
-		$this->_questionnaire->title = $data[0][1];
+		$this->_questionnaire->addQuestionnaireTitle($this->_language, $data[0][1]);
 		$this->_questionnaire->meta = serialize($newMeta);
 		$this->_questionnaire->save();
 

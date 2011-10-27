@@ -19,7 +19,7 @@
                         <?php echo $questionnaire['id']; ?>
                     </td>
                     <td>
-                        <?php echo $questionnaire['title']; ?>
+                        <?php echo $questionnaire->getQuestionnaireTitle()->text; ?>
                     </td>
                     <td>
                         <?php if (isset($meta['timestamp']))

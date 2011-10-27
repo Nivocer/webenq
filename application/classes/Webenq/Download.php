@@ -79,8 +79,8 @@ abstract class Webenq_Download extends Webenq
 	 */
 	public function getDownloadFilename()
 	{
-	    if ($this->_questionnaire['title']) {
-	        $filename = strtolower(preg_replace('/[^a-zA-Z0-9]/', null, $this->_questionnaire['title']));
+	    if ($title = $this->_questionnaire->getQuestionnaireTitle()->title) {
+	        $filename = strtolower(preg_replace('/[^a-zA-Z0-9]/', null, $title));
 	    } else {
 	        $filename = 'notitle';
 	    }

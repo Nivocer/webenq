@@ -35,10 +35,19 @@ class Webenq_Form_Questionnaire_Edit extends Webenq_Form_Questionnaire_Add
     public function init()
     {
         $this->setName(get_class($this));
-        $this->addElements(array(
-            $this->createElement('hidden', 'id'),
-        ));
+//        $this->addElements(array(
+//            $this->createElement('hidden', 'id'),
+//        ));
         parent::init();
-        $this->populate($this->_questionnaire->toArray());
+        $this->setDefaults($this->_questionnaire->toArray());
+    }
+
+    public function setDefaults(array $values)
+    {
+        if (isset($values['QuestionnaireTitle'])) {
+            foreach ($values['QuestionnaireTitle'] as $translation) {
+                $this->getElement($translation['language'])->setValue($translation['text']);
+            }
+        }
     }
 }
