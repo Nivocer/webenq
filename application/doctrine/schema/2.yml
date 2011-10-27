@@ -1,0 +1,735 @@
+Answer:
+  connection: doctrine
+  tableName: answer
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    answerpossibility_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    text:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    respondent_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    questionnaire_question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    timestamp:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibility:
+      local: answerpossibility_id
+      foreign: id
+      type: one
+    QuestionnaireQuestion:
+      local: questionnaire_question_id
+      foreign: id
+      type: one
+    Respondent:
+      local: respondent_id
+      foreign: id
+      type: one
+AnswerPossibility:
+  connection: doctrine
+  tableName: answerPossibility
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    active:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+    answerpossibilitygroup_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    value:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    AnswerPossibilityGroup:
+      local: answerpossibilitygroup_id
+      foreign: id
+      type: one
+    Answer:
+      local: id
+      foreign: answerpossibility_id
+      type: many
+    AnswerPossibilityText:
+      local: id
+      foreign: answerpossibility_id
+      type: many
+AnswerPossibilityGroup:
+  connection: doctrine
+  tableName: answerPossibilityGroup
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    name:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    measurement_level:
+      type: string(10)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: non-metric
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibility:
+      local: id
+      foreign: answerpossibilitygroup_id
+      type: many
+    QuestionnaireQuestion:
+      local: id
+      foreign: answerpossibilitygroup_id
+      type: many
+AnswerPossibilityNullValue:
+  connection: doctrine
+  tableName: answerPossibilityNullValue
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    value:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+AnswerPossibilityText:
+  connection: doctrine
+  tableName: answerPossibilityText
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    answerpossibility_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibility:
+      local: answerpossibility_id
+      foreign: id
+      type: one
+    AnswerPossibilityTextSynonym:
+      local: id
+      foreign: answerpossibilitytext_id
+      type: many
+AnswerPossibilityTextSynonym:
+  connection: doctrine
+  tableName: answerPossibilityTextSynonym
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    answerpossibilitytext_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibilityText:
+      local: answerpossibilitytext_id
+      foreign: id
+      type: one
+CollectionPresentation:
+  connection: doctrine
+  tableName: collectionPresentation
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    parent_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    questionnaire_question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    type:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    filters:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    validators:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    page:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+    weight:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '0'
+      notnull: true
+      autoincrement: false
+  relations:
+    QuestionnaireQuestion:
+      local: questionnaire_question_id
+      foreign: id
+      type: one
+MigrationVersion:
+  connection: doctrine
+  tableName: migration_version
+  columns:
+    id:
+      type: integer(8)
+      autoincrement: true
+      primary: true
+    version:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+Question:
+  connection: doctrine
+  tableName: question
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    created:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    QuestionText:
+      local: id
+      foreign: question_id
+      type: many
+    QuestionnaireQuestion:
+      local: id
+      foreign: question_id
+      type: many
+QuestionGroup:
+  connection: doctrine
+  tableName: questionGroup
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    name:
+      type: string(63)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    QuestionnaireQuestion:
+      local: id
+      foreign: questiongroup_id
+      type: many
+QuestionText:
+  connection: doctrine
+  tableName: questionText
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Question:
+      local: question_id
+      foreign: id
+      type: one
+Questionnaire:
+  connection: doctrine
+  tableName: questionnaire
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    title:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    meta:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    QuestionnaireQuestion:
+      local: id
+      foreign: questionnaire_id
+      type: many
+    Respondent:
+      local: id
+      foreign: questionnaire_id
+      type: many
+QuestionnaireQuestion:
+  connection: doctrine
+  tableName: questionnaire_question
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    questionnaire_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    answerpossibilitygroup_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    questiongroup_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    type:
+      type: string(8)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: open
+      notnull: true
+      autoincrement: false
+    meta:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    Questionnaire:
+      local: questionnaire_id
+      foreign: id
+      type: one
+    Question:
+      local: question_id
+      foreign: id
+      type: one
+    AnswerPossibilityGroup:
+      local: answerpossibilitygroup_id
+      foreign: id
+      type: one
+    QuestionGroup:
+      local: questiongroup_id
+      foreign: id
+      type: one
+    Answer:
+      local: id
+      foreign: questionnaire_question_id
+      type: many
+    CollectionPresentation:
+      local: id
+      foreign: questionnaire_question_id
+      type: many
+    ReportPresentation:
+      local: id
+      foreign: questionnaire_question_id
+      type: many
+ReportPresentation:
+  connection: doctrine
+  tableName: reportPresentation
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    questionnaire_question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    type:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    QuestionnaireQuestion:
+      local: questionnaire_question_id
+      foreign: id
+      type: one
+Resource:
+  connection: doctrine
+  tableName: resource
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    RoleResource:
+      local: id
+      foreign: resource_id
+      type: many
+Respondent:
+  connection: doctrine
+  tableName: respondent
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    questionnaire_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Questionnaire:
+      local: questionnaire_id
+      foreign: id
+      type: one
+    Answer:
+      local: id
+      foreign: respondent_id
+      type: many
+Role:
+  connection: doctrine
+  tableName: role
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    name:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    RoleResource:
+      local: id
+      foreign: role_id
+      type: many
+    User:
+      local: id
+      foreign: role_id
+      type: many
+RoleResource:
+  connection: doctrine
+  tableName: role_resource
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    role_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    resource_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Role:
+      local: role_id
+      foreign: id
+      type: one
+    Resource:
+      local: resource_id
+      foreign: id
+      type: one
+ScaleValues:
+  connection: doctrine
+  tableName: scaleValues
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    label:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    value:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    question_type:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: nl
+      notnull: true
+      autoincrement: false
+User:
+  connection: doctrine
+  tableName: user
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    username:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    password:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    fullname:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    created:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    lastlogin:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    role_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Role:
+      local: role_id
+      foreign: id
+      type: one

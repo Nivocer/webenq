@@ -51,19 +51,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         return $manager;
     }
 
-    protected function _initDatabaseSchemaVersion()
-    {
-        $config = $this->getOption('doctrine');
-        $migration = new Doctrine_Migration($config['migrations_path']);
-        $current = (int) $migration->getCurrentVersion();
-        $latest = (int) $migration->getLatestVersion();
-        if ($current !== $latest) {
-            throw new Exception('Database schema out of date! Current version is '
-                . $migration->getCurrentVersion() . ', latest version is '
-                . $migration->getLatestVersion());
-        }
-    }
-
     protected function _initI18n()
     {
         $languages = array();
