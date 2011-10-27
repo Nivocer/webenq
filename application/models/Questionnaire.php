@@ -65,7 +65,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             $value = '';
             $answer = $respondent->getAnswer($parent);
             if ($answer instanceof Webenq_Model_Answer) {
-                if (isset($answer->answerPossibility_id)) {
+                if ((int) $answer->answerPossibility_id > 0) {
                     $value = $answer->AnswerPossibility->getAnswerPossibilityText()->text;
                 } elseif ($answer && $answer->text !== '') {
                     $value = $answer->text;
