@@ -64,20 +64,26 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     */
     public function addQuestionnaireTitle($language, $title)
     {
-        // get translation
-        $translation = Doctrine_Core::getTable('Webenq_Model_QuestionnaireTitle')
-            ->findOneByQuestionnaireIdAndLanguage($this->id, $language);
-
-        // or create new one
-        if (!$translation) {
+        if ($this->id) {
+            // get translation
+            $translation = Doctrine_Core::getTable('Webenq_Model_QuestionnaireTitle')
+                ->findOneByQuestionnaireIdAndLanguage($this->id, $language);
+            // or create new one
+            if (!$translation) {
+                $translation = new Webenq_Model_QuestionnaireTitle();
+                $translation->questionnaire_id = $this->id;
+                $translation->language = $language;
+            }
+            // save changes
+            $translation->text = $title;
+            $translation->save();
+        } else {
+            // create new and attatch translation
             $translation = new Webenq_Model_QuestionnaireTitle();
-            $translation->questionnaire_id = $this->id;
             $translation->language = $language;
+            $translation->text = $title;
+            $this->QuestionnaireTitle[] = $translation;
         }
-
-        // save changes
-        $translation->text = $title;
-        $translation->save();
     }
 
     /**
