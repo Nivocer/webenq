@@ -300,15 +300,23 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             ->execute()->getFirst()->count;
     }
 
-    public function getAnsweredQuestions(Webenq_Model_Respondent $respondent)
+    public function countAnsweredQuestions(Webenq_Model_Respondent $respondent)
     {
         return (int) Doctrine_Query::create()
-            ->select('COUNT(qq.id) AS count')
             ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?', $respondent->id)
-            ->where('a.id IS NOT NULL')
-            ->andWhere('qq.questionnaire_id = ?', $this->id)
-            ->execute()->getFirst()->count;
+            ->innerJoin('qq.Answer a WITH a.respondent_id = ?', $respondent->id)
+            ->where('qq.questionnaire_id = ?', $this->id)
+            ->count();
+    }
+
+    /**
+     * @deprecated
+     * @todo This method has been renamed to countAnsweredQuestions, so this one
+     * should be removed when all calls have been renamed as well
+     */
+    public function getAnsweredQuestions(Webenq_Model_Respondent $respondent)
+    {
+        return $this->countAnsweredQuestions($respondent);
     }
 
     /**
