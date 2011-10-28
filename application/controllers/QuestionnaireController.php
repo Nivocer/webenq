@@ -294,8 +294,8 @@ class QuestionnaireController extends Zend_Controller_Action
         // get session
         $session = new Zend_Session_Namespace();
 
-        // reset respondent in session if other questionnaire
-        if ($session->questionnaire_id != $this->_request->id) {
+        // reset respondent in session if coming from another questionnaire
+        if ((int) $session->questionnaire_id !== (int) $this->_request->id) {
             $session->respondent_id = null;
             $session->page = null;
         }
@@ -335,7 +335,7 @@ class QuestionnaireController extends Zend_Controller_Action
         }
 
         // get and populate form
-        $form = new Webenq_Form_Questionnaire_Collect($qqs);
+        $form = new Webenq_Form_Questionnaire_Collect($qqs, $respondent);
 
         // get progress data
         $totalQuestions = $questionnaire->getTotalQuestions();

@@ -16,13 +16,24 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
     protected $_questions;
 
     /**
+     * Respondent
+     *
+     * @var Webenq_Model_Respondent
+     */
+    protected $_respondent;
+
+    /**
+     * Class constructor
      *
      * @param Doctrine_Collection $questions
+     * @param Webenq_Model_Respondent $respondent (optional) If provided the form elements are filled with the respondent's answers
      * @param array $options
      */
-    public function __construct(Doctrine_Collection $questions, $options = null)
+    public function __construct(Doctrine_Collection $questions,
+        Webenq_Model_Respondent $respondent, $options = null)
     {
         $this->_questions = $questions;
+        $this->_respondent = $respondent;
         parent::__construct($options);
     }
 
@@ -30,14 +41,11 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
     {
         // add questions
         foreach ($this->_questions as $question) {
+
             $name = "qq_$question->id";
-            $elm = $question->getFormElement();
+            $elm = $question->getFormElement($this->_respondent);
+
             if ($elm instanceof Zend_Form_Element) {
-                if ($elm instanceof Zend_Form_Element_Multi) {
-                    $elm->setValue($question->answerPossibilityGroup_id);
-                } else {
-                    $elm->setValue($question->Answer[0]->text);
-                }
                 $this->addElement($elm, $name);
             } elseif ($elm instanceof Zend_Form_SubForm) {
                 $this->addSubform($elm, $name);

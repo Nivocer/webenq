@@ -236,9 +236,10 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      * Returns an instance of Zend_Form_SubForm if it has sub-questions,
      * and an instance of Zend_Form_Element otherwise.
      *
+     * @param Webenq_Model_Respondent $respondent (optional) If provided the form element is filled with the respondent's answer
      * @return Zend_Form_SubForm|Zend_Form_Element
      */
-    public function getFormElement()
+    public function getFormElement(Webenq_Model_Respondent $respondent = null)
     {
         $name = "qq_$this->id";
         $subQuestions = self::getSubQuestions($this);
@@ -253,7 +254,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             // add child questions to subform
             foreach ($subQuestions as $subQuestion) {
                 $name = "qq_$subQuestion->id";
-                $element = $subQuestion->getFormElement();
+                $element = $subQuestion->getFormElement($respondent);
                 if ($element instanceof Zend_Form_Element) {
                     $subForm->addElement($element, $name);
                 } else {
@@ -357,8 +358,32 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                     }
                 }
             }
+
+            // add answer (if any)
+            if ($this->hasAnswer($respondent)) {
+                $answer = $this->getAnswer($respondent);
+                if ($element instanceof Zend_Form_Element_Multi) {
+                    $element->setValue($answer->answerPossibility_id);
+                } else {
+                    $element->setValue($answer->text);
+                }
+            }
+
             return $element;
         }
+    }
+
+    public function hasAnswer(Webenq_Model_Respondent $respondent = null)
+    {
+        if (!$respondent) return false;
+
+        $count = Doctrine_Query::create()
+            ->from('Webenq_Model_Answer a')
+            ->where('a.questionnaire_question_id = ?', $this->id)
+            ->andWhere('a.respondent_id = ?', $respondent->id)
+            ->count();
+
+        return ($count > 0);
     }
 
     /**
