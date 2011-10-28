@@ -7,7 +7,7 @@ class Webenq_Session_SaveHandler implements Zend_Session_SaveHandler_Interface
      * @param string $save_path
      * @param string $name
      */
-    public function open($save_path = null, $name = null)
+    public function open($save_path, $name)
     {
         return true;
     }
