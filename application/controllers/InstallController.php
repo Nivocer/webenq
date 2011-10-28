@@ -24,12 +24,12 @@ class InstallController extends Zend_Controller_Action
 
 //        Doctrine_Core::generateMigrationsFromDiff(
 //            $config['migrations_path'],
-//            $config['schema_path'] . '/4.yml',
-//            $config['schema_path'] . '/5.yml');
+//            $config['schema_path'] . '/5.yml',
+//            $config['schema_path'] . '/6.yml');
 //        die('Success!');
 
 //        try {
-//            $migration->migrate(5);
+//            $migration->migrate(6);
 //        }
 //        catch(Doctrine_Migration_Exception $exception) {
 //            die('<pre>' . $exception->getMessage() . '</pre>');
