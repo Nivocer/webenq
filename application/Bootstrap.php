@@ -48,9 +48,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
         Doctrine_Manager::connection($dsn, 'doctrine');
 
-        $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->registerNamespace('sfYaml')->pushAutoloader(array('Doctrine', 'autoload'), 'sfYaml');
-
         return $manager;
     }
 
