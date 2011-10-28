@@ -30,3 +30,11 @@ if (!$config->{APPLICATION_ENV}) {
 // create application
 require_once 'Zend/Application.php';
 $application = new Zend_Application(APPLICATION_ENV, $config->{APPLICATION_ENV});
+
+/**
+ * Calling Zend_Session::start() before bootstrapping should prevent getting the
+ * "session already started" error.
+ *
+ * @see http://stackoverflow.com/questions/2418124/zend-framework-problem
+ */
+Zend_Session::start();
