@@ -36,26 +36,40 @@ class InstallController extends Zend_Controller_Action
 //        }
 //        die('Success!');
 
-        if ($current !== $latest) {
+        $form = new Zend_Form();
 
-            $form = new Zend_Form();
-            $form->addElement($form->createElement('submit', 'migrate', array(
-            	'label' => 'Migrate to latest version')));
-
-            if ($this->_request->isPost()) {
-                if ($this->_request->migrate) {
-                    try {
-                        $migration->migrate($latest);
-                    }
-                    catch(Doctrine_Migration_Exception $exception) {
-                        die('<pre>' . $exception->getMessage() . '</pre>');
-                    }
-                    $this->_redirect($this->_request->getPathInfo());
-                }
+        if ($current === $latest) {
+            $count = Doctrine_Query::create()->from('Webenq_Model_AnswerPossibility')->count();
+            if ($count === 0) {
+                $form->addElement($form->createElement('submit', 'fixtures', array(
+                	'label' => 'Load test data')));
             }
-            $this->view->form = $form;
+        } else {
+            $form->addElement($form->createElement('submit', 'migrate', array(
+                'label' => 'Migrate to latest version')));
         }
 
+        if ($this->_request->isPost()) {
+            if ($this->_request->migrate) {
+                try {
+                    $migration->migrate($latest);
+                }
+                catch(Doctrine_Migration_Exception $exception) {
+                    die('<pre>' . $exception->getMessage() . '</pre>');
+                }
+                $this->_redirect($this->_request->getPathInfo());
+            } elseif ($this->_request->fixtures) {
+                try {
+                    Doctrine_Core::loadData($config['fixtures_path'], true);
+                }
+                catch(Doctrine_Exception $exception) {
+                    die('<pre>' . $exception->getMessage() . '</pre>');
+                }
+                $this->_redirect($this->_request->getPathInfo());
+            }
+        }
+
+        $this->view->form = $form;
         $this->view->current = $current;
         $this->view->latest = $latest;
     }
