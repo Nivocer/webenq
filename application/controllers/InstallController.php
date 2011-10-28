@@ -24,11 +24,17 @@ class InstallController extends Zend_Controller_Action
 
 //        Doctrine_Core::generateMigrationsFromDiff(
 //            $config['migrations_path'],
-//            $config['schema_path'] . '/4.yml',
-//            $config['schema_path'] . '/6.yml');
+//            $config['schema_path'] . '/7.yml',
+//            $config['schema_path'] . '/8.yml');
+//        die('Success!');
 
-//        $migration->migrate(4);
-//        die;
+//        try {
+//            $migration->migrate(8);
+//        }
+//        catch(Doctrine_Migration_Exception $exception) {
+//            die('<pre>' . $exception->getMessage() . '</pre>');
+//        }
+//        die('Success!');
 
         if ($current !== $latest) {
 
@@ -38,7 +44,12 @@ class InstallController extends Zend_Controller_Action
 
             if ($this->_request->isPost()) {
                 if ($this->_request->migrate) {
-                    $migration->migrate($latest);
+                    try {
+                        $migration->migrate($latest);
+                    }
+                    catch(Doctrine_Migration_Exception $exception) {
+                        die('<pre>' . $exception->getMessage() . '</pre>');
+                    }
                     $this->_redirect($this->_request->getPathInfo());
                 }
             }
