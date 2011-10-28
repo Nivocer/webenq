@@ -10,13 +10,13 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_RoleResource', 'doc
  * @property integer $id
  * @property integer $role_id
  * @property integer $resource_id
- * @property Webenq_Model_Role $Role
  * @property Webenq_Model_Resource $Resource
+ * @property Webenq_Model_Role $Role
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: RoleResource.php,v 1.4 2011/10/27 16:37:42 bart Exp $
+ * @version    SVN: $Id: RoleResource.php,v 1.5 2011/10/28 13:01:38 bart Exp $
  */
 abstract class Webenq_Model_Base_RoleResource extends Doctrine_Record
 {
@@ -54,12 +54,12 @@ abstract class Webenq_Model_Base_RoleResource extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Webenq_Model_Role as Role', array(
-             'local' => 'role_id',
-             'foreign' => 'id'));
-
         $this->hasOne('Webenq_Model_Resource as Resource', array(
              'local' => 'resource_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Webenq_Model_Role as Role', array(
+             'local' => 'role_id',
              'foreign' => 'id'));
     }
 }

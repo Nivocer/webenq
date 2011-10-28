@@ -9,7 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibility',
  * 
  * @property integer $id
  * @property integer $active
- * @property integer $answerPossibilityGroup_id
+ * @property integer $answerpossibilitygroup_id
  * @property integer $value
  * @property Webenq_Model_AnswerPossibilityGroup $AnswerPossibilityGroup
  * @property Doctrine_Collection $Answer
@@ -18,7 +18,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibility',
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibility.php,v 1.4 2011/10/27 16:37:43 bart Exp $
+ * @version    SVN: $Id: AnswerPossibility.php,v 1.5 2011/10/28 13:01:38 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibility extends Doctrine_Record
 {
@@ -43,7 +43,7 @@ abstract class Webenq_Model_Base_AnswerPossibility extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('answerPossibilityGroup_id', 'integer', 4, array(
+        $this->hasColumn('answerpossibilitygroup_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -67,15 +67,15 @@ abstract class Webenq_Model_Base_AnswerPossibility extends Doctrine_Record
     {
         parent::setUp();
         $this->hasOne('Webenq_Model_AnswerPossibilityGroup as AnswerPossibilityGroup', array(
-             'local' => 'answerPossibilityGroup_id',
+             'local' => 'answerpossibilitygroup_id',
              'foreign' => 'id'));
 
         $this->hasMany('Webenq_Model_Answer as Answer', array(
              'local' => 'id',
-             'foreign' => 'answerPossibility_id'));
+             'foreign' => 'answerpossibility_id'));
 
         $this->hasMany('Webenq_Model_AnswerPossibilityText as AnswerPossibilityText', array(
              'local' => 'id',
-             'foreign' => 'answerPossibility_id'));
+             'foreign' => 'answerpossibility_id'));
     }
 }

@@ -10,14 +10,14 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityTe
  * @property integer $id
  * @property string $text
  * @property string $language
- * @property integer $answerPossibility_id
+ * @property integer $answerpossibility_id
  * @property Webenq_Model_AnswerPossibility $AnswerPossibility
  * @property Doctrine_Collection $AnswerPossibilityTextSynonym
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityText.php,v 1.4 2011/10/27 16:37:43 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityText.php,v 1.5 2011/10/28 13:01:38 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityText extends Doctrine_Record
 {
@@ -50,7 +50,7 @@ abstract class Webenq_Model_Base_AnswerPossibilityText extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('answerPossibility_id', 'integer', 4, array(
+        $this->hasColumn('answerpossibility_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -65,11 +65,11 @@ abstract class Webenq_Model_Base_AnswerPossibilityText extends Doctrine_Record
     {
         parent::setUp();
         $this->hasOne('Webenq_Model_AnswerPossibility as AnswerPossibility', array(
-             'local' => 'answerPossibility_id',
+             'local' => 'answerpossibility_id',
              'foreign' => 'id'));
 
         $this->hasMany('Webenq_Model_AnswerPossibilityTextSynonym as AnswerPossibilityTextSynonym', array(
              'local' => 'id',
-             'foreign' => 'answerPossibilityText_id'));
+             'foreign' => 'answerpossibilitytext_id'));
     }
 }

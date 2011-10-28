@@ -10,14 +10,14 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_QuestionnaireQuesti
  * @property integer $id
  * @property integer $questionnaire_id
  * @property integer $question_id
- * @property integer $answerPossibilityGroup_id
- * @property integer $questionGroup_id
+ * @property integer $answerpossibilitygroup_id
+ * @property integer $questiongroup_id
  * @property enum $type
  * @property string $meta
- * @property Webenq_Model_Questionnaire $Questionnaire
- * @property Webenq_Model_Question $Question
  * @property Webenq_Model_AnswerPossibilityGroup $AnswerPossibilityGroup
  * @property Webenq_Model_QuestionGroup $QuestionGroup
+ * @property Webenq_Model_Questionnaire $Questionnaire
+ * @property Webenq_Model_Question $Question
  * @property Doctrine_Collection $Answer
  * @property Doctrine_Collection $CollectionPresentation
  * @property Doctrine_Collection $ReportPresentation
@@ -25,7 +25,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_QuestionnaireQuesti
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: QuestionnaireQuestion.php,v 1.4 2011/10/27 16:37:43 bart Exp $
+ * @version    SVN: $Id: QuestionnaireQuestion.php,v 1.5 2011/10/28 13:01:38 bart Exp $
  */
 abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
 {
@@ -58,7 +58,7 @@ abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
-        $this->hasColumn('answerPossibilityGroup_id', 'integer', 4, array(
+        $this->hasColumn('answerpossibilitygroup_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -67,7 +67,7 @@ abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
              'notnull' => false,
              'autoincrement' => false,
              ));
-        $this->hasColumn('questionGroup_id', 'integer', 4, array(
+        $this->hasColumn('questiongroup_id', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
              'fixed' => false,
@@ -106,20 +106,20 @@ abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Webenq_Model_AnswerPossibilityGroup as AnswerPossibilityGroup', array(
+             'local' => 'answerpossibilitygroup_id',
+             'foreign' => 'id'));
+
+        $this->hasOne('Webenq_Model_QuestionGroup as QuestionGroup', array(
+             'local' => 'questiongroup_id',
+             'foreign' => 'id'));
+
         $this->hasOne('Webenq_Model_Questionnaire as Questionnaire', array(
              'local' => 'questionnaire_id',
              'foreign' => 'id'));
 
         $this->hasOne('Webenq_Model_Question as Question', array(
              'local' => 'question_id',
-             'foreign' => 'id'));
-
-        $this->hasOne('Webenq_Model_AnswerPossibilityGroup as AnswerPossibilityGroup', array(
-             'local' => 'answerPossibilityGroup_id',
-             'foreign' => 'id'));
-
-        $this->hasOne('Webenq_Model_QuestionGroup as QuestionGroup', array(
-             'local' => 'questionGroup_id',
              'foreign' => 'id'));
 
         $this->hasMany('Webenq_Model_Answer as Answer', array(

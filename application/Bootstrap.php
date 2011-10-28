@@ -54,6 +54,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         return $manager;
     }
 
+    protected function _initSession()
+    {
+        /**
+         * We're using a custom savehandler that saves session data to a MySQL database
+         * (using Doctrine) to prevent configuration-related problems on the server
+         * (such as permissions, openbasedir).
+         */
+        Zend_Session::setSaveHandler(new Webenq_Session_SaveHandler());
+        Zend_Session::start();
+    }
+
     protected function _initI18n()
     {
         $languages = array();

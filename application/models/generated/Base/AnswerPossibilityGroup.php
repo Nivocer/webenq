@@ -9,15 +9,15 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityGr
  * 
  * @property integer $id
  * @property string $name
- * @property integer $number
  * @property enum $measurement_level
+ * @property integer $number
  * @property Doctrine_Collection $AnswerPossibility
  * @property Doctrine_Collection $QuestionnaireQuestion
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityGroup.php,v 1.4 2011/10/27 16:37:43 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityGroup.php,v 1.5 2011/10/28 13:01:38 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
 {
@@ -41,15 +41,6 @@ abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
              'notnull' => false,
              'autoincrement' => false,
              ));
-        $this->hasColumn('number', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => true,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
-             ));
         $this->hasColumn('measurement_level', 'enum', 10, array(
              'type' => 'enum',
              'length' => 10,
@@ -65,6 +56,15 @@ abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              ));
+        $this->hasColumn('number', 'integer', 4, array(
+             'type' => 'integer',
+             'length' => 4,
+             'fixed' => false,
+             'unsigned' => true,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             ));
     }
 
     public function setUp()
@@ -72,10 +72,10 @@ abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
         parent::setUp();
         $this->hasMany('Webenq_Model_AnswerPossibility as AnswerPossibility', array(
              'local' => 'id',
-             'foreign' => 'answerPossibilityGroup_id'));
+             'foreign' => 'answerpossibilitygroup_id'));
 
         $this->hasMany('Webenq_Model_QuestionnaireQuestion as QuestionnaireQuestion', array(
              'local' => 'id',
-             'foreign' => 'answerPossibilityGroup_id'));
+             'foreign' => 'answerpossibilitygroup_id'));
     }
 }
