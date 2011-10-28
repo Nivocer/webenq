@@ -297,7 +297,6 @@ class QuestionnaireController extends Zend_Controller_Action
         // reset respondent in session if coming from another questionnaire
         if ((int) $session->questionnaire_id !== (int) $this->_request->id) {
             $session->respondent_id = null;
-            $session->page = null;
         }
 
         // get or create respondent
@@ -314,11 +313,7 @@ class QuestionnaireController extends Zend_Controller_Action
         }
 
         // get current page
-        if ($session->page) {
-            $page = $session->page;
-        } else {
-            $page = $session->page = 1;
-        }
+        $page = isset($this->_request->page) ? (int) $this->_request->page : 1;
 
         // store respondent's id and questionnaire's id to session
         $session->respondent_id = $respondent->id;
@@ -331,7 +326,7 @@ class QuestionnaireController extends Zend_Controller_Action
             $qqs = $questionnaire->QuestionnaireQuestion;
         } else {
             // redirect if no more questions
-            $this->_redirect('/questionnaire');
+            $this->_redirect('questionnaire');
         }
 
         // get and populate form
@@ -339,7 +334,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
         // get progress data
         $totalQuestions = $questionnaire->getTotalQuestions();
-        $answeredQuestions = $questionnaire->getAnsweredQuestions($respondent);
+        $answeredQuestions = $questionnaire->countAnsweredQuestions($respondent);
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
             // process posted data
@@ -347,8 +342,8 @@ class QuestionnaireController extends Zend_Controller_Action
                 $this->_processPostedValue($key, $value, $respondent);
             }
             // increase page number and reload page
-            $session->page = $page + 1;
-            $this->_redirect($this->_request->getPathInfo());
+            $page++;
+            $this->_redirect("questionnaire/collect/id/$questionnaire->id/page/$page");
         }
 
         // display form
@@ -377,7 +372,7 @@ class QuestionnaireController extends Zend_Controller_Action
         // save answer-id or text
         $qq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
             ->find(str_replace('qq_', null, $key));
-        if (!$value || is_array($value)) {
+        if ($value === '' || is_array($value)) {
             $this->_saveEmptyAnswer($qq, $respondent);
         } elseif ($qq->answerPossibilityGroup_id) {
             $this->_saveAnswerId($qq, $value, $respondent);
