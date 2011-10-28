@@ -29,7 +29,7 @@ class InstallController extends Zend_Controller_Action
 //        die('Success!');
 
 //        try {
-//            $migration->migrate(8);
+//            $migration->migrate(4);
 //        }
 //        catch(Doctrine_Migration_Exception $exception) {
 //            die('<pre>' . $exception->getMessage() . '</pre>');

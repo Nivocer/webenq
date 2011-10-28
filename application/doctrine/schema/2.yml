@@ -43,19 +43,6 @@ Answer:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    AnswerPossibility:
-      local: answerpossibility_id
-      foreign: id
-      type: one
-    QuestionnaireQuestion:
-      local: questionnaire_question_id
-      foreign: id
-      type: one
-    Respondent:
-      local: respondent_id
-      foreign: id
-      type: one
 AnswerPossibility:
   connection: doctrine
   tableName: answerPossibility
@@ -88,19 +75,6 @@ AnswerPossibility:
       primary: false
       notnull: false
       autoincrement: false
-  relations:
-    AnswerPossibilityGroup:
-      local: answerpossibilitygroup_id
-      foreign: id
-      type: one
-    Answer:
-      local: id
-      foreign: answerpossibility_id
-      type: many
-    AnswerPossibilityText:
-      local: id
-      foreign: answerpossibility_id
-      type: many
 AnswerPossibilityGroup:
   connection: doctrine
   tableName: answerPossibilityGroup
@@ -126,15 +100,6 @@ AnswerPossibilityGroup:
       default: non-metric
       notnull: true
       autoincrement: false
-  relations:
-    AnswerPossibility:
-      local: id
-      foreign: answerpossibilitygroup_id
-      type: many
-    QuestionnaireQuestion:
-      local: id
-      foreign: answerpossibilitygroup_id
-      type: many
 AnswerPossibilityNullValue:
   connection: doctrine
   tableName: answerPossibilityNullValue
@@ -183,15 +148,6 @@ AnswerPossibilityText:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    AnswerPossibility:
-      local: answerpossibility_id
-      foreign: id
-      type: one
-    AnswerPossibilityTextSynonym:
-      local: id
-      foreign: answerpossibilitytext_id
-      type: many
 AnswerPossibilityTextSynonym:
   connection: doctrine
   tableName: answerPossibilityTextSynonym
@@ -216,11 +172,6 @@ AnswerPossibilityTextSynonym:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    AnswerPossibilityText:
-      local: answerpossibilitytext_id
-      foreign: id
-      type: one
 CollectionPresentation:
   connection: doctrine
   tableName: collectionPresentation
@@ -282,11 +233,6 @@ CollectionPresentation:
       default: '0'
       notnull: true
       autoincrement: false
-  relations:
-    QuestionnaireQuestion:
-      local: questionnaire_question_id
-      foreign: id
-      type: one
 MigrationVersion:
   connection: doctrine
   tableName: migration_version
@@ -319,15 +265,6 @@ Question:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    QuestionText:
-      local: id
-      foreign: question_id
-      type: many
-    QuestionnaireQuestion:
-      local: id
-      foreign: question_id
-      type: many
 QuestionGroup:
   connection: doctrine
   tableName: questionGroup
@@ -345,11 +282,6 @@ QuestionGroup:
       primary: false
       notnull: false
       autoincrement: false
-  relations:
-    QuestionnaireQuestion:
-      local: id
-      foreign: questiongroup_id
-      type: many
 QuestionText:
   connection: doctrine
   tableName: questionText
@@ -381,11 +313,6 @@ QuestionText:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    Question:
-      local: question_id
-      foreign: id
-      type: one
 Questionnaire:
   connection: doctrine
   tableName: questionnaire
@@ -410,15 +337,37 @@ Questionnaire:
       primary: false
       notnull: false
       autoincrement: false
-  relations:
-    QuestionnaireQuestion:
-      local: id
-      foreign: questionnaire_id
-      type: many
-    Respondent:
-      local: id
-      foreign: questionnaire_id
-      type: many
+QuestionnaireText:
+  connection: doctrine
+  tableName: questionnaireText
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    questionnaire_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
 QuestionnaireQuestion:
   connection: doctrine
   tableName: questionnaire_question
@@ -472,35 +421,6 @@ QuestionnaireQuestion:
       primary: false
       notnull: false
       autoincrement: false
-  relations:
-    Questionnaire:
-      local: questionnaire_id
-      foreign: id
-      type: one
-    Question:
-      local: question_id
-      foreign: id
-      type: one
-    AnswerPossibilityGroup:
-      local: answerpossibilitygroup_id
-      foreign: id
-      type: one
-    QuestionGroup:
-      local: questiongroup_id
-      foreign: id
-      type: one
-    Answer:
-      local: id
-      foreign: questionnaire_question_id
-      type: many
-    CollectionPresentation:
-      local: id
-      foreign: questionnaire_question_id
-      type: many
-    ReportPresentation:
-      local: id
-      foreign: questionnaire_question_id
-      type: many
 ReportPresentation:
   connection: doctrine
   tableName: reportPresentation
@@ -525,11 +445,6 @@ ReportPresentation:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    QuestionnaireQuestion:
-      local: questionnaire_question_id
-      foreign: id
-      type: one
 Resource:
   connection: doctrine
   tableName: resource
@@ -547,11 +462,6 @@ Resource:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    RoleResource:
-      local: id
-      foreign: resource_id
-      type: many
 Respondent:
   connection: doctrine
   tableName: respondent
@@ -569,15 +479,6 @@ Respondent:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    Questionnaire:
-      local: questionnaire_id
-      foreign: id
-      type: one
-    Answer:
-      local: id
-      foreign: respondent_id
-      type: many
 Role:
   connection: doctrine
   tableName: role
@@ -595,15 +496,6 @@ Role:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    RoleResource:
-      local: id
-      foreign: role_id
-      type: many
-    User:
-      local: id
-      foreign: role_id
-      type: many
 RoleResource:
   connection: doctrine
   tableName: role_resource
@@ -628,15 +520,6 @@ RoleResource:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    Role:
-      local: role_id
-      foreign: id
-      type: one
-    Resource:
-      local: resource_id
-      foreign: id
-      type: one
 ScaleValues:
   connection: doctrine
   tableName: scaleValues
@@ -728,8 +611,3 @@ User:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    Role:
-      local: role_id
-      foreign: id
-      type: one

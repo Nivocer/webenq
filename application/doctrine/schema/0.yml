@@ -30,11 +30,6 @@ Resource:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    RoleResource:
-      local: id
-      foreign: resource_id
-      type: many
 Role:
   connection: doctrine
   tableName: role
@@ -52,15 +47,6 @@ Role:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    RoleResource:
-      local: id
-      foreign: role_id
-      type: many
-    User:
-      local: id
-      foreign: role_id
-      type: many
 RoleResource:
   connection: doctrine
   tableName: role_resource
@@ -85,15 +71,6 @@ RoleResource:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    Role:
-      local: role_id
-      foreign: id
-      type: one
-    Resource:
-      local: resource_id
-      foreign: id
-      type: one
 User:
   connection: doctrine
   tableName: user
@@ -146,8 +123,3 @@ User:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    Role:
-      local: role_id
-      foreign: id
-      type: one
