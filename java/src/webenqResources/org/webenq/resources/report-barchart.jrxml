@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-barchart" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key" isIgnorePagination="true">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="36"/>
 	<property name="ireport.y" value="0"/>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
 		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
@@ -29,6 +29,9 @@
 	<field name="report_question_text" class="java.lang.String"/>
 	<sortField name="report_question_text"/>
 	<sortField name="report_question_value"/>
+	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Count">
+		<variableExpression><![CDATA[$F{report_question_value}]]></variableExpression>
+	</variable>
 	<variable name="average" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Average">
 		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
 	</variable>
@@ -49,22 +52,28 @@
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band height="20" splitType="Prevent">
+			<band height="25" splitType="Prevent">
 				<textField isStretchWithOverflow="true">
-					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="182" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="182" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
 					<textElement verticalAlignment="Middle" markup="html">
 						<font size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{report_question_text}]]></textFieldExpression>
 				</textField>
 				<stackedBarChart>
-					<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="question" theme="barchart">
-						<reportElement x="182" y="0" width="350" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="question">
+						<reportElement x="182" y="0" width="350" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF"/>
 						<box>
-							<topPen lineWidth="0.5"/>
-							<leftPen lineWidth="0.5"/>
-							<bottomPen lineWidth="0.5"/>
-							<rightPen lineWidth="0.5"/>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<leftPen lineWidth="0.5" lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineWidth="0.5" lineColor="#000000"/>
 						</box>
 						<chartTitle/>
 						<chartSubtitle/>
@@ -75,19 +84,29 @@
 						<categorySeries>
 							<seriesExpression><![CDATA[$V{valueRecoded}]]></seriesExpression>
 							<categoryExpression><![CDATA[$F{report_question_text}]]></categoryExpression>
-							<valueExpression><![CDATA[$V{value_COUNT}]]></valueExpression>
+							<valueExpression><![CDATA[$V{count}]]></valueExpression>
 						</categorySeries>
 					</categoryDataset>
 					<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
-						<plot orientation="Horizontal"/>
+						<plot orientation="Horizontal">
+							<seriesColor seriesOrder="0" color="#FF0000"/>
+							<seriesColor seriesOrder="1" color="#FFFF00"/>
+							<seriesColor seriesOrder="2" color="#00FF00"/>
+						</plot>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF">
-							<font size="8"/>
+							<font size="3"/>
 						</itemLabel>
 					</barPlot>
 				</stackedBarChart>
 				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
-					<reportElement x="532" y="0" width="23" height="20" isPrintInFirstWholeBand="true"/>
-					<textElement verticalAlignment="Middle">
+					<reportElement x="532" y="0" width="23" height="25" isPrintInFirstWholeBand="true"/>
+					<box leftPadding="0">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{average}]]></textFieldExpression>
@@ -117,7 +136,7 @@
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},"")		]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},"")]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
