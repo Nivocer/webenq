@@ -9,6 +9,17 @@
 class AnswerPossibilityController extends Zend_Controller_Action
 {
     /**
+     * Controller actions that are ajaxable
+     *
+     * @var array
+     */
+    public $ajaxable = array(
+        'add' => array('html'),
+        'edit' => array('html'),
+        'delete' => array('html'),
+    );
+
+    /**
      * Handles the adding of an answer-possibility
      *
      * @return void
@@ -34,7 +45,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
 
             try {
                 $answerPossibility->save();
-                $this->_redirect('/answer-possibility-group/edit/id/' . $answerPossibilityGroup->id);
+                $this->_helper->json(array('reload' => true));
             }
             catch (Exception $e) {
                 $form->value->addError($e->getMessage());
@@ -42,8 +53,14 @@ class AnswerPossibilityController extends Zend_Controller_Action
         }
 
         // render view
-        $this->view->form = $form;
-        $this->view->answerPossibilityGroup = $answerPossibilityGroup;
+        $this->_helper->form->render($form);
+    }
+
+    public function viewAction()
+    {
+        // get possibility
+        $this->view->answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
+            ->find($this->_request->id);
     }
 
     /**
@@ -53,90 +70,69 @@ class AnswerPossibilityController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        /* get possibility */
+        // get possibility
         $answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
             ->find($this->_request->id);
 
-        /* get form */
-        $form = new Webenq_Form_AnswerPossibility_Edit($answerPossibility, $this->_helper->language());
+        // get form
+        $form = new Webenq_Form_AnswerPossibility_Edit(
+            $answerPossibility, $this->_helper->language());
 
-        /* process posted data */
+        // process posted data
         if ($this->_helper->form->isPostedAndValid($form)) {
 
             $errors = array();
-            $data = $form->getValues();
 
             if (key_exists('submitnull', $this->_request->getPost())) {
 
-                // get answer possibility
-                $answerPossibility = Doctrine_Query::create()
-                    ->from('Webenq_Model_AnswerPossibility ap')
-                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_helper->language())
-                    ->where('ap.id = ?', $data['id'])
-                    ->execute()
-                    ->getFirst();
-
                 // create new null value
                 $nullValue = new Webenq_Model_AnswerPossibilityNullValue();
-                $nullValue->value = strtolower($answerPossibility->AnswerPossibilityText[0]->text);
+                $nullValue->value = strtolower($answerPossibility->getAnswerPossibilityText()->text);
                 $nullValue->save();
 
-                // remove all answers
+                // remove all answers with this answer possibility
                 Doctrine_Query::create()
                     ->delete('Webenq_Model_Answer a')
                     ->where('a.answerPossibility_id = ?', $answerPossibility->id)
                     ->execute();
 
-                // get redirect url before deleting possibility
-                $url = 'answer-possibility-group/edit/id/' . $answerPossibility->answerPossibilityGroup_id;
-
-                // remove original
-                $answerPossibility->delete();
-
-                $this->_redirect($url);
+                // remove answer possibility
+                try {
+                    $answerPossibility->delete();
+                } catch (Exception $e) {
+                    $errors[] = $e->getMessage();
+                }
 
             } elseif (key_exists('submitmove', $this->_request->getPost())) {
 
-                // get original answer possibility
-                $originalAnswerPossibility = Doctrine_Query::create()
-                    ->from('Webenq_Model_AnswerPossibility ap')
-                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_helper->language())
-                    ->where('ap.id = ?', $data['id'])
-                    ->execute()
-                    ->getFirst();
-
                 // get target answer possibility
-                $targetAnswerPossibility = Doctrine_Query::create()
-                    ->from('Webenq_Model_AnswerPossibility ap')
-                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_helper->language())
-                    ->where('ap.id = ?', $data['answerPossibility_id'])
-                    ->execute()
-                    ->getFirst();
+                $targetAnswerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
+                    ->find($form->synonym->getValue('answerPossibility_id'));
 
                 // make original synonym of target
                 $answerPossibilityTextSynonym = new Webenq_Model_AnswerPossibilityTextSynonym();
-                $answerPossibilityTextSynonym->text = strtolower($originalAnswerPossibility->AnswerPossibilityText[0]->text);
-                $targetAnswerPossibility->AnswerPossibilityText[0]->AnswerPossibilityTextSynonym[] = $answerPossibilityTextSynonym;
+                $answerPossibilityTextSynonym->text = strtolower($answerPossibility->getAnswerPossibilityText()->text);
+                $targetAnswerPossibility->getAnswerPossibilityText()->AnswerPossibilityTextSynonym[] = $answerPossibilityTextSynonym;
                 $targetAnswerPossibility->save();
 
                 // update all answers
                 Doctrine_Query::create()
                     ->update('Webenq_Model_Answer a')
                     ->set('a.answerPossibility_id', '?', $targetAnswerPossibility->id)
-                    ->where('a.answerPossibility_id = ?', $originalAnswerPossibility->id)
+                    ->where('a.answerPossibility_id = ?', $answerPossibility->id)
                     ->execute();
 
-                // get redirect url before deleting possibility
-                $url = 'answer-possibility-group/edit/id/' . $originalAnswerPossibility->answerPossibilityGroup_id;
+                // remove answer possibility
+                try {
+                    $answerPossibility->delete();
+                } catch (Exception $e) {
+                    $errors[] = $e->getMessage();
+                }
 
-                // remove original
-                $originalAnswerPossibility->delete();
+            } elseif (key_exists('submitedit', $this->_request->getPost())) {
 
-                $this->_redirect($url);
-
-            } else {
                 // store possibility
-                $answerPossibility->fromArray($data['edit']);
+                $answerPossibility->fromArray($form->edit->getValues());
                 try {
                     $answerPossibility->save();
                 }
@@ -145,7 +141,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
                 }
 
                 // store texts
-                $translations = $data['edit'];
+                $translations = $form->edit->getValues();
                 unset($translations['value']);
                 unset($translations['answerPossibilityGroup_id']);
                 foreach ($translations as $language => $translation) {
@@ -169,19 +165,17 @@ class AnswerPossibilityController extends Zend_Controller_Action
                         $errors[] = $e->getMessage();
                     }
                 }
+            }
 
-                if (count($errors) == 0) {
-                    $this->_redirect('/answer-possibility-group/edit/id/' .
-                        $answerPossibility->AnswerPossibilityGroup->id);
-                } else {
-                    $form->value->addErrors($errors);
-                }
+            if (count($errors) > 0) {
+                $form->value->addErrors($errors);
+            } else {
+                $this->_helper->json(array('reload' => true));
             }
         }
 
-        /* assign to view */
-        $this->view->form = $form;
-        $this->view->answerPossibility = $answerPossibility;
+        // assign to view
+        $this->_helper->form->render($form);
     }
 
     /**

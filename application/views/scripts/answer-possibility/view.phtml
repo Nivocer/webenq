@@ -1,0 +1,32 @@
+<a class="link back" href="<?php echo $this->baseUrl('/answer-possibility-group/view/id/' . $this->answerPossibility->AnswerPossibilityGroup->id); ?>">
+    <?php echo t('back to answer possibility group'); ?>
+</a>
+<a class="link add" href="<?php echo $this->baseUrl('/answer-possibility-synonym/add/id/' . $this->answerPossibility->AnswerPossibilityText[0]->id); ?>">
+<?php echo t('add synonym'); ?>
+</a>
+
+<?php if ($this->answerPossibility->getAnswerPossibilityText()->AnswerPossibilityTextSynonym->count() > 0): ?>
+    <table>
+        <thead>
+            <tr>
+                <th><?php echo t('synonym'); ?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->answerPossibility->getAnswerPossibilityText()->AnswerPossibilityTextSynonym as $synonym): ?>
+                <tr>
+                    <td>
+                        <a href="<?php echo $this->baseUrl('/answer-possibility-synonym/edit/id/' . $synonym->id); ?>">
+                            <?php echo $synonym->text; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl('/answer-possibility-synonym/edit/id/' . $synonym->id); ?>">&nbsp;</a>
+                        <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl('/answer-possibility-synonym/delete/id/' . $synonym->id); ?>">&nbsp;</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>

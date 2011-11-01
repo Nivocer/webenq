@@ -6,7 +6,7 @@
  * @subpackage  Forms
  * @author      Bart Huttinga <b.huttinga@nivocer.com>
  */
-class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
+class Webenq_Form_AnswerPossibility_Edit extends ZendX_JQuery_Form
 {
     /**
      * Current answer-possibility
@@ -56,7 +56,7 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
             ->andWhere('ap.id != ?', $answerPossibility->id)
             ->orderBy('ap.value, apt.text')
             ->execute();
-        $this->_answerPossibilities = array('--- selecteer ---');
+        $this->_answerPossibilities = array('' => '--- selecteer ---');
         foreach ($possibilities as $possibility) {
             $this->_answerPossibilities[$possibility->id] = $possibility->AnswerPossibilityText[0]->text;
         }
@@ -71,19 +71,50 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
      */
     public function init()
     {
-        $this->addElements(array(
-            $this->createElement('hidden', 'id', array(
-                'value' => $this->_answerPossibility->id,
-            )),
+        $this->setAttrib('id', 'mainForm')->setDecorators(array(
+            'FormElements',
+            array('TabContainer', array('class' => 'tabs')),
+            'Form',
         ));
 
-        $edit = new Zend_Form_SubForm(array('legend' => 'Bewerken'));
-        $this->addSubForm($edit, 'edit');
+        $this->addSubForm($this->_getEditSubform(), 'edit');
+        $this->addSubForm($this->_getSynonymSubform(), 'synonym');
+        $this->addSubForm($this->_getNullValueSubform(), 'nullvalue');
+    }
 
-        $languages = Webenq_Language::getLanguages();
-        foreach ($languages as $language) {
-            $edit->addElement($this->createElement('text', $language, array(
-                'label' => 'text (' . $language . '):',
+    public function isValid($values)
+    {
+        if (key_exists('submitmove', $values) || key_exists('submitnull', $values)) {
+            foreach ($this->edit->getElements() as $elm) {
+                $elm->setRequired(false);
+            }
+        }
+
+        if (key_exists('submitedit', $values) || key_exists('submitnull', $values)) {
+            foreach ($this->synonym->getElements() as $elm) {
+                $elm->setRequired(false);
+            }
+        }
+
+        return parent::isValid($values);
+    }
+
+    protected function _getEditSubForm()
+    {
+        $form = new ZendX_JQuery_Form(array(
+            'decorators' => array(
+                'FormElements',
+                array('HtmlTag', array('tag' => 'dl')),
+                array('TabPane', array('jQueryParams' => array(
+                    'containerId' => 'mainForm',
+                    'title' => 'Edit',
+                ))),
+            ),
+        ));
+
+        foreach (Webenq_Language::getLanguages() as $language) {
+            $form->addElement($this->createElement('text', $language, array(
+                'label' => t('text') . " ($language)",
                 'size' => 60,
                 'maxlength' => 255,
                 'autocomplete' => 'off',
@@ -91,7 +122,7 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
             )));
         }
 
-        $edit->addElements(array(
+        $form->addElements(array(
             $this->createElement('text', 'value', array(
                 'label' => 'value',
                 'value' => $this->_answerPossibility->value,
@@ -108,38 +139,63 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
             )),
         ));
 
-        $this->addElements(array(
+//        foreach ($form->getElements() as $element) {
+//            $element->setBelongsTo('edit');
+//        }
+
+        return $form;
+    }
+
+    protected function _getSynonymSubForm()
+    {
+        $form = new ZendX_JQuery_Form(array(
+            'decorators' => array(
+                'FormElements',
+                array('HtmlTag', array('tag' => 'dl')),
+                array('TabPane', array('jQueryParams' => array(
+                    'containerId' => 'mainForm',
+                    'title' => 'Synonym',
+                ))),
+            ),
+        ));
+
+        $form->addElements(array(
             $this->createElement('select', 'answerPossibility_id', array(
                 'label' => 'answer possibilities',
+                'required' => true,
                 'multiOptions' => $this->_answerPossibilities,
             )),
             $this->createElement('submit', 'submitmove', array(
                 'label' => 'move',
             )),
+        ));
+
+        return $form;
+    }
+
+    protected function _getNullValueSubForm()
+    {
+        $form = new ZendX_JQuery_Form(array(
+            'decorators' => array(
+                'FormElements',
+                array('HtmlTag', array('tag' => 'dl')),
+                array('TabPane', array('jQueryParams' => array(
+                    'containerId' => 'mainForm',
+                    'title' => 'Null value',
+                ))),
+            ),
+        ));
+
+        $form->addElements(array(
             $this->createElement('submit', 'submitnull', array(
                 'label' => 'make null-value',
             )),
         ));
 
-        $this->addDisplayGroup(
-            array('answerPossibility_id', 'submitmove'),
-            'move',
-            array('legend' => 'make synonym')
-        );
-        $this->addDisplayGroup(
-            array('submitnull'),
-            'null',
-            array('legend' => 'mark as null-value')
-        );
-    }
+//        foreach ($form->getElements() as $element) {
+//            $element->setBelongsTo('nullvalue');
+//        }
 
-    public function isValid($values)
-    {
-        if (key_exists('submitmove', $values) || key_exists('submitnull', $values)) {
-            foreach ($this->edit->getElements() as $elm) {
-                $elm->setRequired(false);
-            }
-        }
-        return parent::isValid($values);
+        return $form;
     }
 }

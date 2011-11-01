@@ -11,6 +11,12 @@ class Webenq_Controller_Action_Helper_Form
     public function render(Zend_Form $form)
     {
         $controller = $this->getActionController();
+
+        if (!$form->getAction()) {
+            $request = $controller->getRequest();
+            $form->setAction($request->getRequestUri());
+        }
+
         $controller->getHelper('viewRenderer')->setNoRender(true);
         $controller->getResponse()->setBody($form->render());
     }

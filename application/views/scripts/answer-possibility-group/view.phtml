@@ -1,0 +1,46 @@
+<a class="link back" href="<?php echo $this->baseUrl('/answer-possibility-group'); ?>">
+    <?php echo t('back to all answer possibilities'); ?>
+</a>
+<a class="link add ajax" href="<?php echo $this->baseUrl('/answer-possibility/add/id/' . $this->answerPossibilityGroup->id); ?>" title="<?php echo t('add answer possibility'); ?>">
+    <?php echo t('add answer possibility'); ?>
+</a>
+
+<?php if ($this->answerPossibilityGroup && $this->answerPossibilityGroup->count() > 0): ?>
+    <table>
+        <thead>
+            <tr>
+                <th><?php echo t('value'); ?></th>
+                <th><?php echo t('answer possibility'); ?></th>
+                <th><?php echo t('available languages'); ?></th>
+                <th><?php echo t('synonyms'); ?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->answerPossibilityGroup->AnswerPossibility as $answerPossibility): ?>
+                <?php $answerPossibilityText = $answerPossibility->getAnswerPossibilityText(); ?>
+                <tr>
+                    <td>
+                        <?php echo $answerPossibility->value; ?>
+                    </td>
+                    <td>
+                        <?php echo $answerPossibilityText->text; ?>
+                    </td>
+                    <td>
+                        <?php echo implode(', ', $answerPossibility->getAvailableLanguages()); ?>
+                    </td>
+                    <td>
+                        <a href="<?php echo $this->baseUrl("/answer-possibility/view/id/" . $answerPossibility->id); ?>">
+                            <?php echo $answerPossibilityText->AnswerPossibilityTextSynonym->count(); ?>
+                            <?php echo t('synonyms'); ?>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="icon edit ajax" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/answer-possibility/edit/id/" . $answerPossibility->id);    ?>">&nbsp;</a>
+                        <a class="icon delete ajax" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/answer-possibility/delete/id/" . $answerPossibility->id);    ?>">&nbsp;</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>

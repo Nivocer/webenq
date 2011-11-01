@@ -19,21 +19,17 @@
             <?php foreach ($this->answerPossibilityGroups as $answerPossibilityGroup): ?>
                 <tr>
                     <td>
-                        <a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">
+                        <a href="<?php echo $this->baseUrl("/answer-possibility-group/view/id/" . $answerPossibilityGroup->id);    ?>">
                             <?php echo $answerPossibilityGroup->name; ?>
                         </a>
                     </td>
                     <td>
-                        <a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">
-                            <?php echo $answerPossibilityGroup->number; ?>
-                            <?php echo t('possibilities'); ?>
-                        </a>
+                        <?php echo $answerPossibilityGroup->number; ?>
+                        <?php echo t('possibilities'); ?>
                     </td>
                     <td>
-                        <a href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">
-                            <?php echo $answerPossibilityGroup->AnswerPossibility->count(); ?>
-                            <?php echo t('possibilities'); ?>
-                        </a>
+                        <?php echo $answerPossibilityGroup->AnswerPossibility->count(); ?>
+                        <?php echo t('possibilities'); ?>
                     </td>
                     <td>
                         <?php
@@ -43,17 +39,14 @@
                             endforeach;
                             $usedIn = array_unique($usedIn);
                             sort($usedIn);
-                            foreach ($usedIn as $id):
-                        ?>
-                                <a href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $id);    ?>"><?php echo $id; ?></a>
-                        <?php
-                            endforeach;
+                            foreach ($usedIn as $id) echo $id;
                         ?>
                     </td>
                     <td>
-                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
+                        <a class="icon view" title="<?php echo t('view'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/view/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
+                        <a class="icon edit ajax" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/edit/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
                         <?php if ($answerPossibilityGroup->QuestionnaireQuestion->count() == 0): ?>
-                            <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/delete/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
+                            <a class="icon delete ajax" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-group/delete/id/" . $answerPossibilityGroup->id);    ?>">&nbsp;</a>
                         <?php endif; ?>
                     </td>
                 </tr>

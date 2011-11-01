@@ -27,7 +27,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
             try {
                 $answerPossibilityTextSynonym->save();
                 $id = $answerPossibilityTextSynonym->AnswerPossibilityText->AnswerPossibility->id;
-                $this->_redirect("answer-possibility/edit/id/$id");
+                $this->_redirect("answer-possibility/view/id/$id");
             }
             catch (Exception $e) {
                    $form->text->addError($e->getMessage());
@@ -59,7 +59,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
                 try {
                     $synonym->save();
                     $id = $synonym->AnswerPossibilityText->AnswerPossibility->id;
-                    $this->_redirect("/answer-possibility/edit/id/$id");
+                    $this->_redirect("/answer-possibility/view/id/$id");
                 }
                 catch (Exception $e) {
                        $form->text->addError($e->getMessage());

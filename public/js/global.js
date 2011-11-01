@@ -1,3 +1,7 @@
+$(document).ajaxComplete(function() {
+	$('.tabs').tabs();
+});
+
 $(function() {
 	
 	/**
@@ -17,10 +21,6 @@ $(function() {
 				modal: true,
 				width: .67 * $(window).width(),
 				height: .67 * $(window).height()
-			});
-			// set form action if not set yet
-			$.each($('#dialog form'), function(index, form) {
-				if (!$(form).attr('action')) $(form).attr('action', $href);
 			});
 			postOpenDialog();			
 		});

@@ -15,6 +15,8 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      */
     public $ajaxable = array(
         'add' => array('html'),
+        'edit' => array('html'),
+        'delete' => array('html'),
     );
 
     /**
@@ -37,6 +39,18 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     }
 
     /**
+     * Handles the editing of an answer-possibility-group
+     *
+     * @return void
+     */
+    public function viewAction()
+    {
+        // get group
+        $this->view->answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
+            ->find($this->_request->id);
+    }
+
+    /**
      * Handles the adding of an answer-possibility-group
      *
      * @return void
@@ -55,7 +69,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
         }
 
         // render view
-        $this->view->form = $form;
+        $this->_helper->form->render($form);
     }
 
     /**
@@ -65,31 +79,22 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        /* get group */
-        $answerPossibilityGroup = Doctrine_Query::create()
-            ->from('Webenq_Model_AnswerPossibilityGroup apg')
-            ->leftJoin('apg.AnswerPossibility ap')
-            ->where('apg.id = ?', $this->_request->id)
-            ->orderBy('ap.value')
-            ->execute()
-            ->getFirst();
+        // get group
+        $answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
+            ->find($this->_request->id);
 
-        /* get form */
+        // get form
         $form = new Webenq_Form_AnswerPossibilityGroup_Edit($answerPossibilityGroup);
 
-        /* process posted data */
-        if ($this->_request->isPost()) {
-            $data = $this->_request->getPost();
-            if ($form->isValid($data)) {
-                $answerPossibilityGroup->fromArray($data);
-                $answerPossibilityGroup->save();
-                $this->_redirect('/answer-possibility-group');
-            }
+        // process posted data
+        if ($this->_helper->form->isPostedAndValid($form)) {
+            $answerPossibilityGroup->fromArray($form->getValues());
+            $answerPossibilityGroup->save();
+            $this->_helper->json(array('reload' => true));
         }
 
-        /* render view */
-        $this->view->form = $form;
-        $this->view->answerPossibilityGroup = $answerPossibilityGroup;
+        // render view
+        $this->_helper->form->render($form);
     }
 
     /**
@@ -99,29 +104,26 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        $this->_helper->actionStack('index', 'answer-possibility-group');
-
-        /* get group */
+        // get group
         $answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
             ->find($this->_request->id);
 
-        /* get form */
+        // get form
         $form = new Webenq_Form_Confirm(
             $answerPossibilityGroup->id,
             'Weet u zeker dat u antwoordengroep "' . $answerPossibilityGroup->name . '" wilt verwijderen?'
         );
 
         /* process posted data */
-        if ($this->_request->isPost()) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             if ($this->_request->yes) {
                 $answerPossibilityGroup->delete();
+                $this->_helper->json(array('reload' => true));
             }
-            $this->_redirect('/answer-possibility-group');
+            $this->_helper->json(array('reload' => false));
         }
 
-        /* render view */
-        $this->_helper->viewRenderer->setNoRender(true);
-        $this->view->form = $form;
-        $this->_response->setBody($this->view->render('confirm.phtml'));
+        // render view
+        $this->_helper->form->render($form);
     }
 }

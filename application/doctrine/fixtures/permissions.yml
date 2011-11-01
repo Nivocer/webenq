@@ -97,6 +97,9 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_33:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_19
+  Webenq_Model_RoleResource_34:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_21
   Webenq_Model_RoleResource_40:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_26
@@ -232,6 +235,9 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_91:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_76
+  Webenq_Model_RoleResource_92:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_20
 Webenq_Model_Resource:
   Webenq_Model_Resource_1:
     name: error/error
@@ -290,6 +296,12 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_19:
     name: answer-possibility-synonym/delete
     description: 'Delete answer possibility synonym'
+  Webenq_Model_Resource_20:
+    name: answer-possibility-group/view
+    description: 'View answer possibility group'
+  Webenq_Model_Resource_21:
+    name: answer-possibility/view
+    description: 'View answer possibility'
   Webenq_Model_Resource_26:
     name: interpretation/debug
     description: ''

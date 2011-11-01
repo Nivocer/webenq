@@ -194,6 +194,7 @@ a.link {
 	background: no-repeat;
 }
 
+a.view { background-image: url("../images/details.gif"); }
 a.add { background-image: url("../images/add.gif"); }
 a.edit { background-image: url("../images/edit.gif"); }
 a.delete { background-image: url("../images/delete.gif"); }
