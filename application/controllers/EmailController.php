@@ -82,7 +82,7 @@ class EmailController extends Zend_Controller_Action
         $subDirs = $this->_findDirs(realpath('reports'));
         $form = new Webenq_Form_Email_Index($subDirs);
 
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
 
             $dir = realpath('reports/' . $this->_request->selectDir);
             $relativeDir = preg_replace('#^'.realpath('.').'/#', '', $dir);

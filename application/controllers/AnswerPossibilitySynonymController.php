@@ -18,7 +18,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
         $form = new Webenq_Form_AnswerPossibilitySynonym_Add($answerPossibilityText);
 
         // process posted data
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
 
             // store synonym
             $answerPossibilityTextSynonym = new Webenq_Model_AnswerPossibilityTextSynonym();

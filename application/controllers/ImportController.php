@@ -22,7 +22,7 @@ class ImportController extends Zend_Controller_Action
         $form->language->setValue($session->language);
         $errors = array();
 
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
 
             $data = $form->getValues();
             $session->language = $data['language'];

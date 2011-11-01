@@ -18,7 +18,7 @@ class UserController extends Zend_Controller_Action
         $form = new Webenq_Form_User_Login();
         $form->redirect->setValue($this->_request->redirect);
 
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             if (Webenq_Model_User::login($form->username->getValue(), $form->password->getValue())) {
                 if ($this->_request->redirect) {
                     $this->_redirect(base64_decode($this->_request->redirect));

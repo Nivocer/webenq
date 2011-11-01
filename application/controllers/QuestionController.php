@@ -58,7 +58,7 @@ class QuestionController extends Zend_Controller_Action
                 'value' => $this->_request->questionnaire_id)));
         }
 
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
 
             // get clean values
             $values = $form->getValues();
@@ -109,7 +109,7 @@ class QuestionController extends Zend_Controller_Action
         $form = new Webenq_Form_Question_Edit($question);
         $form->setAction($this->view->baseUrl('/question/edit/id/' . $this->_request->id));
 
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             $values = $form->getValues();
             foreach ($values['text'] as $language => $text) {
                 // get existing question-text

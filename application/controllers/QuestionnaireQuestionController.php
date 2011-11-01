@@ -72,7 +72,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         // process form
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
 
             // store the posted values
             $form->storeValues();

@@ -113,7 +113,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
         $form = new Webenq_Form_Questionnaire_Edit($questionnaire);
 
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             $questionnaire->fromArray($form->getValues());
             $questionnaire->save();
             $this->_redirect($this->_request->getPathInfo());
@@ -318,7 +318,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $totalQuestions = $questionnaire->getTotalQuestions();
         $answeredQuestions = $questionnaire->countAnsweredQuestions($respondent);
 
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             // process posted data
             foreach ($form->getValues() as $key => $value) {
                 $this->_processPostedValue($key, $value, $respondent);

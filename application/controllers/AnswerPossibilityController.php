@@ -23,7 +23,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
         $form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $this->_helper->language());
 
         // process posted data
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
 
             $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
             $answerPossibilityText->fromArray($form->getValues());
@@ -61,7 +61,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
         $form = new Webenq_Form_AnswerPossibility_Edit($answerPossibility, $this->_helper->language());
 
         /* process posted data */
-        if ($this->_helper->form(isPostedAndValid($form))) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
 
             $errors = array();
             $data = $form->getValues();
