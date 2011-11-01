@@ -58,7 +58,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
          * (using Doctrine) to prevent configuration-related problems on the server
          * (such as permissions, openbasedir).
          */
-        Zend_Session::setSaveHandler(new Webenq_Session_SaveHandler());
+        if (version_compare(phpversion(), '5.3', '>=')) {
+            Zend_Session::setSaveHandler(new Webenq_Session_SaveHandler());
+        }
         try {
             Zend_Session::start();
         } catch (Zend_Session_Exception $e) {
