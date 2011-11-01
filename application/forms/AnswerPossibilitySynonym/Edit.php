@@ -40,12 +40,12 @@ class Webenq_Form_AnswerPossibilitySynonym_Edit extends Zend_Form
                 'value' => $this->_synonym->id,
             )),
             $this->createElement('text', 'text', array(
-                'label' => 'Tekst:',
+                'label' => 'text',
                 'value' => $this->_synonym->text,
                 'required' => true,
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
+                'label' => 'save',
             )),
         ));
     }

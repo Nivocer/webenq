@@ -54,7 +54,7 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
 
         // add submit button
         $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'verder',
+            'label' => 'continue',
         )));
     }
 

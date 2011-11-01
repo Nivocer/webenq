@@ -1,3 +1,9 @@
 <?php return array(
-    'save' => 'opslaan',
+    'name' => 'naam',
+	'language' => 'taal',
+    'text' => 'tekst',
+    'value' => 'waarde',
+	'group' => 'groep',
+	'save' => 'opslaan',
+	'continue' => 'verder',
 );

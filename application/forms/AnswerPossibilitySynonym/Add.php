@@ -40,11 +40,11 @@ class Webenq_Form_AnswerPossibilitySynonym_Add extends Zend_Form
                 'value' => $this->_answerPossibilityText->id,
             )),
             $this->createElement('text', 'text', array(
-                'label' => 'Synoniem voor "' . $this->_answerPossibilityText->text . '":',
+                'label' => t('synonym for') . ' "' . $this->_answerPossibilityText->text . '"',
                 'required' => true,
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
+                'label' => 'save',
             )),
         ));
     }

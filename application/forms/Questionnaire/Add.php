@@ -13,7 +13,7 @@ class Webenq_Form_Questionnaire_Add extends Zend_Form
         foreach (Webenq_Language::getLanguages() as $language) {
             $this->addElement($this->createElement('text', $language, array(
                 'belongsTo' => 'title',
-                'label' => "Titel ($language):",
+                'label' => t('title') . " ($language)",
                 'filters' => array('StringTrim'),
                 'validators' => array(
                     new Zend_Validate_NotEmpty(),
@@ -23,7 +23,7 @@ class Webenq_Form_Questionnaire_Add extends Zend_Form
         }
 
         $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'opslaan',
+            'label' => 'save',
         )));
     }
 

@@ -17,7 +17,7 @@ class Webenq_Form_AnswerPossibilityNullValue_Add extends Zend_Form
     {
         $this->addElements(array(
             $this->createElement('text', 'value', array(
-                'label' => 'Naam:',
+                'label' => 'name',
                 'required' => true,
                 'validators' => array(
                     new Zend_Validate_NotEmpty(),
@@ -27,7 +27,7 @@ class Webenq_Form_AnswerPossibilityNullValue_Add extends Zend_Form
                 ),
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
+                'label' => 'save',
             )),
         ));
     }

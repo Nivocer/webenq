@@ -50,25 +50,25 @@ class Webenq_Form_AnswerPossibility_Add extends Zend_Form
                 'value' => $this->_answerPossibilityGroup->id,
             )),
             $this->createElement('select', 'language', array(
-                'label' => 'Taal:',
+                'label' => 'language',
                 'multiOptions' => array(
                     'nl' => 'nl',
                 ),
                 'value' => $this->_language,
             )),
             $this->createElement('text', 'text', array(
-                'label' => 'Tekst:',
+                'label' => 'text',
                 'required' => true,
             )),
             $this->createElement('text', 'value', array(
-                'label' => 'Waarde:',
+                'label' => 'value',
                 'required' => true,
                 'validators' => array(
                     'Int',
                 ),
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
+                'label' => 'save',
             )),
         ));
     }

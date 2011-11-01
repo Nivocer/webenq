@@ -22,7 +22,7 @@ class Webenq_Form_Question_Add extends Zend_Form
         $languages = Webenq_Language::getLanguages();
         foreach ($languages as $language) {
             $text->addElement($this->createElement('text', $language, array(
-                'label' => 'Tekst (' . $language . '):',
+                'label' => t('text') . ' (' . $language . '):',
                 'size' => 60,
                 'maxlength' => 255,
                 'autocomplete' => 'off',
@@ -34,7 +34,7 @@ class Webenq_Form_Question_Add extends Zend_Form
         }
 
         $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'Opslaan',
+            'label' => 'save',
         )));
     }
 

@@ -83,7 +83,7 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
         $languages = Webenq_Language::getLanguages();
         foreach ($languages as $language) {
             $edit->addElement($this->createElement('text', $language, array(
-                'label' => 'Tekst (' . $language . '):',
+                'label' => 'text (' . $language . '):',
                 'size' => 60,
                 'maxlength' => 255,
                 'autocomplete' => 'off',
@@ -93,43 +93,43 @@ class Webenq_Form_AnswerPossibility_Edit extends Zend_Form
 
         $edit->addElements(array(
             $this->createElement('text', 'value', array(
-                'label' => 'Waarde:',
+                'label' => 'value',
                 'value' => $this->_answerPossibility->value,
                 'required' => true,
                 'validators' => array('Int'),
             )),
             $this->createElement('select', 'answerPossibilityGroup_id', array(
-                'label' => 'Groep:',
+                'label' => 'group',
                 'value' => $this->_answerPossibility->answerPossibilityGroup_id,
                 'multiOptions' => $this->_answerPossibilityGroups,
             )),
             $this->createElement('submit', 'submitedit', array(
-                'label' => 'opslaan',
+                'label' => 'save',
             )),
         ));
 
         $this->addElements(array(
             $this->createElement('select', 'answerPossibility_id', array(
-                'label' => 'Antwoordmogelijkheden:',
+                'label' => 'answer possibilities',
                 'multiOptions' => $this->_answerPossibilities,
             )),
             $this->createElement('submit', 'submitmove', array(
-                'label' => 'verplaatsen',
+                'label' => 'move',
             )),
             $this->createElement('submit', 'submitnull', array(
-                'label' => 'nul-waarde van maken',
+                'label' => 'make null-value',
             )),
         ));
 
         $this->addDisplayGroup(
             array('answerPossibility_id', 'submitmove'),
             'move',
-            array('legend' => 'Synoniem maken')
+            array('legend' => 'make synonym')
         );
         $this->addDisplayGroup(
             array('submitnull'),
             'null',
-            array('legend' => 'Markeren als nul-waarde')
+            array('legend' => 'mark as null-value')
         );
     }
 
