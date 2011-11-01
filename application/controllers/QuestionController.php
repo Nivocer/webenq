@@ -27,24 +27,6 @@ class QuestionController extends Zend_Controller_Action
     protected $_question;
 
     /**
-     * Current language
-     *
-     * @var string
-     */
-    protected $_language;
-
-    /**
-     * Initializes the class
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_helper->ajaxContext()->initContext();
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
-
-    /**
      * Renders the overview of question types
      *
      * @return void
@@ -54,7 +36,7 @@ class QuestionController extends Zend_Controller_Action
         // get questions
         $questions = Doctrine_Query::create()
             ->from('Webenq_Model_Question q')
-            ->leftJoin('q.QuestionText qt WITH qt.language = ?', $this->_language)
+            ->leftJoin('q.QuestionText qt WITH qt.language = ?', $this->_helper->language())
             ->orderBy('q.created DESC, qt.text')
             ->execute();
 
@@ -76,7 +58,7 @@ class QuestionController extends Zend_Controller_Action
                 'value' => $this->_request->questionnaire_id)));
         }
 
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
 
             // get clean values
             $values = $form->getValues();
@@ -127,7 +109,7 @@ class QuestionController extends Zend_Controller_Action
         $form = new Webenq_Form_Question_Edit($question);
         $form->setAction($this->view->baseUrl('/question/edit/id/' . $this->_request->id));
 
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
             $values = $form->getValues();
             foreach ($values['text'] as $language => $text) {
                 // get existing question-text

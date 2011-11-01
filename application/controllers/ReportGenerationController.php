@@ -110,7 +110,7 @@ class ReportGenerationController extends Zend_Controller_Action
     {
         $form = new Webenq_Form_ReportGeneration_Index($this->_getSubDirs());
 
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
             if ($this->_request->createDir) {
                 $destination = realpath('reports/') . '/' . $this->_request->createDir;
                  @mkdir($destination);

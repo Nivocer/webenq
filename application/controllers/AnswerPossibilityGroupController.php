@@ -9,21 +9,13 @@
 class AnswerPossibilityGroupController extends Zend_Controller_Action
 {
     /**
-     * Current language
+     * Controller actions that are ajaxable
      *
-     * @var string
+     * @var array
      */
-    protected $_language;
-
-    /**
-     * Initializes the class
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
+    public $ajaxable = array(
+        'add' => array('html'),
+    );
 
     /**
      * Renders the overview of question types
@@ -55,11 +47,11 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
         $form = new Webenq_Form_AnswerPossibilityGroup_Add();
 
         // process posted data
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
             $answerPossibilityGroup->fromArray($form->getValues());
             $answerPossibilityGroup->save();
-            $this->_redirect('/answer-possibility-group');
+            $this->_helper->json(array('reload' => true));
         }
 
         // render view

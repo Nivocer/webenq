@@ -1,4 +1,4 @@
-<a class="link add" href="<?php echo $this->baseUrl("/answer-possibility-null-value/add"); ?>">
+<a class="link add ajax" href="<?php echo $this->baseUrl("/answer-possibility-null-value/add"); ?>" title="<?php echo t('add null value answer possibility'); ?>">
     <?php echo t('add null value answer possibility'); ?>
 </a>
 
@@ -16,13 +16,11 @@
             <?php foreach ($this->answerPossibilityNullValues as $answerPossibilityNullValue): ?>
                 <tr>
                     <td>
-                        <a href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);    ?>">
-                            <?php echo $answerPossibilityNullValue->value; ?>
-                        </a>
+                        <?php echo $answerPossibilityNullValue->value; ?>
                     </td>
                     <td>
-                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
-                        <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/delete/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
+                        <a class="icon edit ajax" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/edit/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
+                        <a class="icon delete ajax" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/answer-possibility-null-value/delete/id/" . $answerPossibilityNullValue->id);    ?>">&nbsp;</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

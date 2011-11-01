@@ -18,6 +18,10 @@ $(function() {
 				width: .67 * $(window).width(),
 				height: .67 * $(window).height()
 			});
+			// set form action if not set yet
+			$.each($('#dialog form'), function(index, form) {
+				if (!$(form).attr('action')) $(form).attr('action', $href);
+			});
 			postOpenDialog();			
 		});
 		return false;
@@ -104,21 +108,16 @@ $(function() {
  * May be overridden for custom logic.
  */
 function saveState(event, ui) {
-	console.log(event, ui);
 	return false;
 }
 
-function resetDialog() {
-	/* create dialog */
-	if ($('#dialog').length == 0) {
-		$('<div id="dialog"></div>').appendTo('body');
+function resetDialog()
+{
+	if ($('#dialog').length === 0) {
+		return $('<div id="dialog"></div>').appendTo('body');
+	} else {
+		return $('#dialog').dialog('destroy');
 	}
-	/* or empty dialog */
-	else {
-		$('#dialog').html('');
-	}
-	
-	return $('#dialog');
 }
 
 /**

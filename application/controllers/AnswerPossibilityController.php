@@ -9,23 +9,6 @@
 class AnswerPossibilityController extends Zend_Controller_Action
 {
     /**
-     * Current language
-     *
-     * @var string
-     */
-    protected $_language;
-
-    /**
-     * Initializes the class
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
-
-    /**
      * Handles the adding of an answer-possibility
      *
      * @return void
@@ -37,10 +20,10 @@ class AnswerPossibilityController extends Zend_Controller_Action
             ->find($this->_request->id);
 
         // get form
-        $form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $this->_language);
+        $form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $this->_helper->language());
 
         // process posted data
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
 
             $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
             $answerPossibilityText->fromArray($form->getValues());
@@ -75,10 +58,10 @@ class AnswerPossibilityController extends Zend_Controller_Action
             ->find($this->_request->id);
 
         /* get form */
-        $form = new Webenq_Form_AnswerPossibility_Edit($answerPossibility, $this->_language);
+        $form = new Webenq_Form_AnswerPossibility_Edit($answerPossibility, $this->_helper->language());
 
         /* process posted data */
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
 
             $errors = array();
             $data = $form->getValues();
@@ -88,7 +71,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
                 // get answer possibility
                 $answerPossibility = Doctrine_Query::create()
                     ->from('Webenq_Model_AnswerPossibility ap')
-                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_language)
+                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_helper->language())
                     ->where('ap.id = ?', $data['id'])
                     ->execute()
                     ->getFirst();
@@ -117,7 +100,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
                 // get original answer possibility
                 $originalAnswerPossibility = Doctrine_Query::create()
                     ->from('Webenq_Model_AnswerPossibility ap')
-                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_language)
+                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_helper->language())
                     ->where('ap.id = ?', $data['id'])
                     ->execute()
                     ->getFirst();
@@ -125,7 +108,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
                 // get target answer possibility
                 $targetAnswerPossibility = Doctrine_Query::create()
                     ->from('Webenq_Model_AnswerPossibility ap')
-                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_language)
+                    ->innerJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $this->_helper->language())
                     ->where('ap.id = ?', $data['answerPossibility_id'])
                     ->execute()
                     ->getFirst();

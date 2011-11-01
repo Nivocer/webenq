@@ -18,24 +18,6 @@ class QuestionnaireController extends Zend_Controller_Action
     );
 
     /**
-     * Current language
-     *
-     * @var string
-     */
-    protected $_language;
-
-    /**
-     * Initializes the class
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_helper->ajaxContext()->initContext();
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
-
-    /**
      * Renders the overview of questoinnaires
      *
      * @return void
@@ -57,7 +39,7 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function xformAction()
     {
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
         $filename = preg_replace('/[^A-Za-z0-9-]/', null, implode('-', array(
             $questionnaire->id, $questionnaire->getQuestionnaireTitle()->title, date('YmdHis'))))
@@ -81,7 +63,7 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function xformDataAction()
     {
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
         $filename = preg_replace('/[^A-Za-z0-9-]/', null, implode('-', array(
             $questionnaire->id, $questionnaire->getQuestionnaireTitle()->title, date('YmdHis'))))
@@ -108,7 +90,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $form = new Webenq_Form_Questionnaire_Add();
         $form->setAction($this->_request->getRequestUri());
 
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             $questionnaire = new Webenq_Model_Questionnaire();
             $questionnaire->fromArray($form->getValues());
             $questionnaire->meta = serialize(array('timestamp' => time()));
@@ -126,12 +108,12 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
         if (!$questionnaire) $this->_redirect('questionnaire');
 
         $form = new Webenq_Form_Questionnaire_Edit($questionnaire);
 
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
             $questionnaire->fromArray($form->getValues());
             $questionnaire->save();
             $this->_redirect($this->_request->getPathInfo());
@@ -321,7 +303,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
         // get questions for current page
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
-            $this->_request->id, $this->_language, $page, $respondent, true);
+            $this->_request->id, $this->_helper->language(), $page, $respondent, true);
         if ($questionnaire) {
             $qqs = $questionnaire->QuestionnaireQuestion;
         } else {
@@ -336,7 +318,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $totalQuestions = $questionnaire->getTotalQuestions();
         $answeredQuestions = $questionnaire->countAnsweredQuestions($respondent);
 
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
             // process posted data
             foreach ($form->getValues() as $key => $value) {
                 $this->_processPostedValue($key, $value, $respondent);
@@ -465,10 +447,10 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         /* get questions for current page */
         $pageNr = $this->_request->page ? $this->_request->page : null;
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language, $pageNr, null, true);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language(), $pageNr, null, true);
 
         /* display */
-        $this->view->language = $this->_language;
+        $this->view->language = $this->_helper->language();
         $this->view->questionnaire = $questionnaire;
     }
 
@@ -526,7 +508,7 @@ class QuestionnaireController extends Zend_Controller_Action
                 $this->_helper->viewRenderer->setNoRender();
 
                 $format = $form->format->getValue();
-                $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($id, $this->_language, null, null, true);
+                $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($id, $this->_helper->language(), null, null, true);
                 $download = Webenq_Download::factory($format, $questionnaire);
                 $download->send($this->_response);
 
@@ -567,7 +549,7 @@ class QuestionnaireController extends Zend_Controller_Action
                 $this->_helper->layout->disableLayout();
 
                 $format = $form->format->getValue();
-                $questionnaire = Questionnaire::getQuestionnaire($id, $this->_language, null, null, false);
+                $questionnaire = Questionnaire::getQuestionnaire($id, $this->_helper->language(), null, null, false);
                 $download = Webenq_Print::factory($format, $questionnaire);
                 $download->send($this->_response);
 
@@ -581,7 +563,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
     public function jrxmlAction()
     {
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_language);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
         $filename = preg_replace('/[^A-Za-z0-9-]/', null, implode('-', array(
             $questionnaire->id, $questionnaire->getQuestionnaireTitle()->title, date('YmdHis'))))

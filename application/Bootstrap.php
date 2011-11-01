@@ -16,6 +16,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
         $loader->addResourceType('doctrine', 'models/generated/Base', 'Model_Base');
         $loader->addResourceType('model', 'models', 'Model');
+        $loader->addResourceType('actionHelper', 'controllers/helpers', 'Controller_Action_Helper');
     }
 
     protected function _initDoctrine()
@@ -140,6 +141,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 $translate->setLocale($locale);
                 return $translate->translate($string, $locale);
             }
+        }
+    }
+
+    protected function _initActionHelpers()
+    {
+        $helpers = array(
+            new Webenq_Controller_Action_Helper_Language(),
+            new Webenq_Controller_Action_Helper_AjaxContext(),
+            new Webenq_Controller_Action_Helper_Form(),
+        );
+
+        foreach ($helpers as $helper) {
+            Zend_Controller_Action_HelperBroker::addHelper($helper);
         }
     }
 }

@@ -8,23 +8,6 @@
  */
 class AnswerPossibilitySynonymController extends Zend_Controller_Action
 {
-    /**
-     * Current language
-     *
-     * @var string
-     */
-    protected $_language;
-
-    /**
-     * Initializes the class
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
-
     public function addAction()
     {
         /* get possibility */
@@ -35,7 +18,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
         $form = new Webenq_Form_AnswerPossibilitySynonym_Add($answerPossibilityText);
 
         // process posted data
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
 
             // store synonym
             $answerPossibilityTextSynonym = new Webenq_Model_AnswerPossibilityTextSynonym();

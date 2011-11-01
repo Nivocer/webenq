@@ -9,21 +9,15 @@
 class AnswerPossibilityNullValueController extends Zend_Controller_Action
 {
     /**
-     * Current language
+     * Controller actions that are ajaxable
      *
-     * @var string
+     * @var array
      */
-    protected $_language;
-
-    /**
-     * Initializes the class
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
+    public $ajaxable = array(
+        'add' => array('html'),
+        'edit' => array('html'),
+        'delete' => array('html'),
+    );
 
     /**
      * Renders the overview of question types
@@ -32,13 +26,13 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        /* get answer possibility groups */
+        // get answer possibility groups
         $answerPossibilityNullValues = Doctrine_Query::create()
             ->from('Webenq_Model_AnswerPossibilityNullValue apnv')
             ->orderBy('apnv.value')
             ->execute();
 
-        /* render view */
+        // render view
         $this->view->answerPossibilityNullValues = $answerPossibilityNullValues;
     }
 
@@ -49,24 +43,19 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
      */
     public function addAction()
     {
-        /* add index-action to stack */
-        $this->_helper->actionStack('index', 'answer-possibility-null-value');
-
-        /* get form */
+        // get form
         $form = new Webenq_Form_AnswerPossibilityNullValue_Add();
 
-        /* process posted data */
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getPost())) {
-                $answerPossibilityNullValue = new AnswerPossibilityNullValue();
-                $answerPossibilityNullValue->fromArray($form->getValues());
-                $answerPossibilityNullValue->save();
-                $this->_redirect('/answer-possibility-group');
-            }
+        // process posted data
+        if ($this->_helper->form->isPostedAndValid($form)) {
+            $answerPossibilityNullValue = new Webenq_Model_AnswerPossibilityNullValue();
+            $answerPossibilityNullValue->fromArray($form->getValues());
+            $answerPossibilityNullValue->save();
+            $this->_helper->json(array('reload' => true));
         }
 
-        /* render view */
-        $this->view->form = $form;
+        // render view
+        $this->_helper->form->render($form);
     }
 
     /**
@@ -76,28 +65,22 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        /* add index-action to stack */
-        $this->_helper->actionStack('index', 'answer-possibility-null-value');
-
-        /* get record */
+        // get record
         $answerPossibilityNullValue = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityNullValue')
             ->find($this->_request->id);
 
-        /* get form */
+        // get form
         $form = new Webenq_Form_AnswerPossibilityNullValue_Edit($answerPossibilityNullValue);
 
-        /* process posted data */
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getPost())) {
-                $answerPossibilityNullValue->fromArray($form->getValues());
-                $answerPossibilityNullValue->save();
-                $this->_redirect('/answer-possibility-group');
-            }
+        // process posted data
+        if ($this->_helper->form->isPostedAndValid($form)) {
+            $answerPossibilityNullValue->fromArray($form->getValues());
+            $answerPossibilityNullValue->save();
+            $this->_helper->json(array('reload' => true));
         }
 
-        /* render view */
-        $this->view->form = $form;
-        $this->view->answerPossibilityNullValue = $answerPossibilityNullValue;
+        // render view
+        $this->_helper->form->render($form);
     }
 
     /**
@@ -107,13 +90,11 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        $this->_helper->actionStack('index', 'answer-possibility-null-value');
-
-        /* get record */
+        // get record
         $answerPossibilityNullValue = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityNullValue')
             ->find($this->_request->id);
 
-        /* get form */
+        // get form
         $form = new Webenq_Form_Confirm(
             $answerPossibilityNullValue->id,
             'Weet u zeker dat u nulwaarde-antwoordmogelijkheid "' . $answerPossibilityNullValue->value .
@@ -121,16 +102,15 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
         );
 
         /* process posted data */
-        if ($this->_request->isPost()) {
+        if ($this->_helper->form->isPostedAndValid($form)) {
             if ($this->_request->yes) {
                 $answerPossibilityNullValue->delete();
+                $this->_helper->json(array('reload' => true));
             }
-            $this->_redirect('/answer-possibility-group');
+            $this->_helper->json(array('reload' => false));
         }
 
-        /* render view */
-        $this->_helper->viewRenderer->setNoRender(true);
-        $this->view->form = $form;
-        $this->_response->setBody($this->view->render('confirm.phtml'));
+        // render view
+        $this->_helper->form->render($form);
     }
 }

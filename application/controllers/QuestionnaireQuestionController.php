@@ -21,24 +21,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     );
 
     /**
-     * Current language
-     *
-     * @var string
-     */
-    protected $_language;
-
-    /**
-     * Initializes the object
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_helper->ajaxContext()->initContext();
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
-
-    /**
      * Renders the form for adding an existing question to a questionnaire
      */
     public function addAction()
@@ -69,7 +51,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             ->select('q.id, qt.text')
             ->from('Webenq_Model_Question q')
             ->innerJoin('q.QuestionText qt')
-            ->where('qt.language = ?', $this->_language)
+            ->where('qt.language = ?', $this->_helper->language())
             ->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
         $this->view->form = $form;
         $this->view->questions = $questions;
@@ -90,7 +72,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         // process form
-        if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
+        if ($this->_helper->form(isPostedAndValid($form))) {
 
             // store the posted values
             $form->storeValues();
@@ -128,7 +110,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             ->from('Webenq_Model_QuestionnaireQuestion qq')
             ->innerJoin('qq.Question q WITH qq.id = ?', $this->_request->id)
             ->leftJoin('q.QuestionText qt')
-            ->where('qt.language = ?', $this->_language)
+            ->where('qt.language = ?', $this->_helper->language())
             ->execute()
             ->getFirst();
 

@@ -9,22 +9,6 @@
 class ScaleValuesController extends Zend_Controller_Action
 {
     /**
-     * Current language
-     */
-    protected $_language;
-
-    /**
-     * Initialisation
-     *
-     * @return void
-     */
-    public function init()
-    {
-        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
-    }
-
-
-    /**
      * Renders the overview of export options
      */
     public function indexAction()
@@ -36,7 +20,7 @@ class ScaleValuesController extends Zend_Controller_Action
             $this->view->scaleValues = $scale->fetchAll($scale->select()
                 ->order("question_type")
                 ->order("value")
-                ->where("language = ?", $this->_language));
+                ->where("language = ?", $this->_helper->language()));
         }
         catch (Zend_Db_Statement_Exception $e) {
                throw $e;
@@ -51,7 +35,7 @@ class ScaleValuesController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 if (true === $this->_processAdd()) {
-                    $this->_redirect("/scale-values/index/langauge/" . $this->_language);
+                    $this->_redirect("/scale-values/index/langauge/" . $this->_helper->language());
                 }
             }
         }
@@ -67,7 +51,7 @@ class ScaleValuesController extends Zend_Controller_Action
                 'label'            => $data['label'],
                 'value'            => $data['value'],
                 'question_type'    => $data['question_type'],
-                'language'        => $this->_language,
+                'language'        => $this->_helper->language(),
             ));
         }
         catch (Exception $e) {
@@ -87,7 +71,7 @@ class ScaleValuesController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 if (true === $this->_processEdit($id)) {
-                    $this->_redirect("/scale-values/index/langauge/" . $this->_language);
+                    $this->_redirect("/scale-values/index/langauge/" . $this->_helper->language());
                 }
             }
         }
@@ -103,7 +87,7 @@ class ScaleValuesController extends Zend_Controller_Action
                 'label'            => $data['label'],
                 'value'            => $data['value'],
                 'question_type'    => $data['question_type'],
-                'language'        => $this->_language,
+                'language'        => $this->_helper->language(),
             ), "id = $id");
         }
         catch (Exception $e) {
@@ -123,7 +107,7 @@ class ScaleValuesController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
                 $this->_processDel($id);
-                $this->_redirect("/scale-values/index/language/" . $this->_language);
+                $this->_redirect("/scale-values/index/language/" . $this->_helper->language());
             }
         }
     }
