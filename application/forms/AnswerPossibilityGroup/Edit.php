@@ -61,7 +61,7 @@ class Webenq_Form_AnswerPossibilityGroup_Edit extends Zend_Form
                 'validators' => array('NotEmpty'),
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
+                'label' => 'save',
             )),
         ));
     }

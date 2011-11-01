@@ -17,11 +17,11 @@ class Webenq_Form_AnswerPossibilityGroup_Add extends Zend_Form
     {
         $this->addElements(array(
             $this->createElement('text', 'name', array(
-                'label' => 'Naam:',
+                'label' => 'name',
                 'required' => true,
             )),
             $this->createElement('radio', 'measurement_level', array(
-                'label' => 'Meetniveau:',
+                'label' => 'measurement level',
                 'multiOptions' => array(
                     'metric' => 'metric',
                     'non-metric' => 'non-metric',
@@ -31,7 +31,7 @@ class Webenq_Form_AnswerPossibilityGroup_Add extends Zend_Form
                 'validators' => array('NotEmpty'),
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
+                'label' => 'save',
             )),
         ));
     }
