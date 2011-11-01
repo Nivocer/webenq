@@ -19,7 +19,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
 //    {
 //        if (!$this->_questionText) {
 //            // find text in current language
-//            $language = Zend_Registry::get('language');
+//            $language = Zend_Registry::get('Zend_Locale')->getLanguage();
 //            foreach ($this->Question->QuestionText as $text) {
 //                if ($text->language === $language) {
 //                    $this->_questionText = $text->text;

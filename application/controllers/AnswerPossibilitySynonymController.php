@@ -22,7 +22,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_language = Zend_Registry::get('language');
+        $this->_language = Zend_Registry::get('Zend_Locale')->getLanguage();
     }
 
     public function addAction()
