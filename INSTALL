@@ -35,32 +35,54 @@ INSTALLATION
 
 Command-line instructions to get webenq up and running.
 
-PUT THE CODE IN THE RIGHT PLACE
-===============================
+PUT THE CODE IN THE RIGHT PLACE AND CONFIGURE YOUR INSTANCE
+===========================================================
 
 In a directory of choice:
 	cvs -d /home/cvs/nivocer co webenq4
 	cd webenq4
 	
-Edit application/configs/application.ini and set the database parameters and
-other configuration options right, for instance by creating a new runtime
-environment for your instance:
+Choose a name for your instance and set an environment variable APPLICATION_ENV
+to that name. If APPLICATION_ENV is not set, 'production' will be used by default.
+To set the APPLICATION_ENV variable put this in public/.htaccess
 
+    SetEnv APPLICATION_ENV my-sandbox
+
+Now set up the configuration for your instance. To do so, do NOT modify
+application/configs/application.ini, but create a file named
+application/configs/override.ini to set or overide configuration settings:
+
+    [my-sandbox : production]
+    db.dsn = "mysql://myname:secret@127.0.0.1:3306/webenq4"
+	
+or:
+	
 	[my-sandbox : production]
-	resources.db.params.host = "127.0.0.1"
-	resources.db.params.port = "3306"
-	resources.db.params.dbname = "webenq4"
-	resources.db.params.username = "myname"
-	resources.db.params.password = "secret"
-	 
+	db.host     = "127.0.0.1"
+	db.port     = "3306"
+	db.dbname   = "webenq4"
+	db.username = "myname"
+	db.password = "secret"
+	
+These examples will take the configuration settings from the section 'production' in
+application/config/application.ini, then override it with the settigns from the section
+'production' in application/config/override.ini, and then override it with the settings
+in the section 'my-sandbox' in application/config/override.ini.
+
+Note that if db.dsn is set all other db.* settigns will be ignored.
+
 
 PREPARE THE DATABASE
 ====================
 
-Create the database for your instance and set it up.
+Manually create the database for your instance. Then populate it with an initial
+set of data by running:
 
-	./bin/doctrine
+	cd bin
+	./install
 	
+PLEASE NOTE THAT THIS WILL DELETE ALL DATA FROM YOUR DATABASE!
+
 
 RUN THE TEST SUITE
 ==================

@@ -12,7 +12,7 @@ class Webenq_Test_Case_Form extends PHPUnit_Framework_TestCase
 
         $config = $application->getBootstrap()->getOption('doctrine');
         Doctrine_Core::createTablesFromModels($config['models_path']);
-        Doctrine_Core::loadData($config['fixtures_path'] . '/testing.yml');
+        Doctrine_Core::loadData($config['data_fixtures_path']);
     }
 
     public function getForm()
