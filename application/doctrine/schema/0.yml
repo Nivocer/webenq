@@ -1,5 +1,310 @@
+Answer:
+  tableName: answer
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    answerPossibility_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    text:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    respondent_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    questionnaire_question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    timestamp:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibility:
+      local: answerPossibility_id
+      foreign: id
+      type: one
+      onUpdate: RESTRICT
+      onDelete: RESTRICT
+    QuestionnaireQuestion:
+      local: questionnaire_question_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    Respondent:
+      local: respondent_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+AnswerPossibility:
+  tableName: answerPossibility
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    active:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+    answerPossibilityGroup_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    value:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    AnswerPossibilityGroup:
+      local: answerPossibilityGroup_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    Answer:
+      local: id
+      foreign: answerPossibility_id
+      type: many
+    AnswerPossibilityText:
+      local: id
+      foreign: answerPossibility_id
+      type: many
+AnswerPossibilityGroup:
+  tableName: answerPossibilityGroup
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    name:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    number:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    measurement_level:
+      type: enum(10)
+      fixed: false
+      unsigned: false
+      values:
+        - metric
+        - non-metric
+      primary: false
+      default: non-metric
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibility:
+      local: id
+      foreign: answerPossibilityGroup_id
+      type: many
+    QuestionnaireQuestion:
+      local: id
+      foreign: answerPossibilityGroup_id
+      type: many
+AnswerPossibilityNullValue:
+  tableName: answerPossibilityNullValue
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    value:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+AnswerPossibilityText:
+  tableName: answerPossibilityText
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    answerPossibility_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibility:
+      local: answerPossibility_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    AnswerPossibilityTextSynonym:
+      local: id
+      foreign: answerPossibilityText_id
+      type: many
+AnswerPossibilityTextSynonym:
+  tableName: answerPossibilityTextSynonym
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    answerPossibilityText_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    AnswerPossibilityText:
+      local: answerPossibilityText_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+CollectionPresentation:
+  tableName: collectionPresentation
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    parent_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    questionnaire_question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    type:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    filters:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    validators:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    page:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+    weight:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '0'
+      notnull: true
+      autoincrement: false
+  relations:
+    QuestionnaireQuestion:
+      local: questionnaire_question_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
 MigrationVersion:
-  connection: doctrine
   tableName: migration_version
   columns:
     id:
@@ -13,8 +318,280 @@ MigrationVersion:
       primary: false
       notnull: false
       autoincrement: false
+Question:
+  tableName: question
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    created:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    QuestionText:
+      local: id
+      foreign: question_id
+      type: many
+    QuestionnaireQuestion:
+      local: id
+      foreign: question_id
+      type: many
+QuestionGroup:
+  tableName: questionGroup
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    name:
+      type: string(63)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    QuestionnaireQuestion:
+      local: id
+      foreign: questionGroup_id
+      type: many
+QuestionText:
+  tableName: questionText
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Question:
+      local: question_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+Questionnaire:
+  tableName: questionnaire
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    meta:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    QuestionnaireTitle:
+      local: id
+      foreign: questionnaire_id
+      type: many
+    QuestionnaireQuestion:
+      local: id
+      foreign: questionnaire_id
+      type: many
+    Respondent:
+      local: id
+      foreign: questionnaire_id
+      type: many
+QuestionnaireQuestion:
+  tableName: questionnaire_question
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    questionnaire_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    answerPossibilityGroup_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    questionGroup_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    type:
+      type: enum(8)
+      fixed: false
+      unsigned: false
+      values:
+        - open
+        - single
+        - multiple
+        - hidden
+      primary: false
+      default: open
+      notnull: true
+      autoincrement: false
+    meta:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    Questionnaire:
+      local: questionnaire_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    Question:
+      local: question_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    AnswerPossibilityGroup:
+      local: answerPossibilityGroup_id
+      foreign: id
+      type: one
+      onUpdate: RESTRICT
+      onDelete: RESTRICT
+    QuestionGroup:
+      local: questionGroup_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    Answer:
+      local: id
+      foreign: questionnaire_question_id
+      type: many
+    CollectionPresentation:
+      local: id
+      foreign: questionnaire_question_id
+      type: many
+    ReportPresentation:
+      local: id
+      foreign: questionnaire_question_id
+      type: many
+QuestionnaireTitle:
+  tableName: questionnaireTitle
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    questionnaire_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Questionnaire:
+      local: questionnaire_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+ReportPresentation:
+  tableName: reportPresentation
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    questionnaire_question_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    type:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    QuestionnaireQuestion:
+      local: questionnaire_question_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
 Resource:
-  connection: doctrine
   tableName: resource
   columns:
     id:
@@ -30,8 +607,41 @@ Resource:
       primary: false
       notnull: true
       autoincrement: false
+  relations:
+    RoleResource:
+      local: id
+      foreign: resource_id
+      type: many
+      onUpdate: CASCADE
+      onDelete: CASCADE
+Respondent:
+  tableName: respondent
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    questionnaire_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Questionnaire:
+      local: questionnaire_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    Answer:
+      local: id
+      foreign: respondent_id
+      type: many
 Role:
-  connection: doctrine
   tableName: role
   columns:
     id:
@@ -47,8 +657,16 @@ Role:
       primary: false
       notnull: true
       autoincrement: false
+  relations:
+    RoleResource:
+      local: id
+      foreign: role_id
+      type: many
+    User:
+      local: id
+      foreign: role_id
+      type: many
 RoleResource:
-  connection: doctrine
   tableName: role_resource
   columns:
     id:
@@ -71,8 +689,20 @@ RoleResource:
       primary: false
       notnull: true
       autoincrement: false
+  relations:
+    Role:
+      local: role_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    Resource:
+      local: resource_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
 User:
-  connection: doctrine
   tableName: user
   columns:
     id:
@@ -118,6 +748,36 @@ User:
       autoincrement: false
     role_id:
       type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Role:
+      local: role_id
+      foreign: id
+      type: one
+      onUpdate: RESTRICT
+      onDelete: RESTRICT
+Session:
+  tableName: session
+  columns:
+    id:
+      type: string(64)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: false
+    value:
+      type: blob
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    timestamp:
+      type: timestamp(25)
       fixed: false
       unsigned: false
       primary: false
