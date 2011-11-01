@@ -23,7 +23,7 @@
 	<parameter name="SPLIT_QUESTION_VALUE" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XFORM_LOCATION" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="QUESTION_ID" class="java.lang.String">
 		<defaultValueExpression><![CDATA["g6-Tevredenheid/g6-DoelenDuidelijk"]]></defaultValueExpression>
@@ -32,7 +32,7 @@
 		<defaultValueExpression><![CDATA["HVA-oo-simpleQuest"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DATA_LOCATION" class="java.lang.String">
-		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DOC_DATA" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap"/>
