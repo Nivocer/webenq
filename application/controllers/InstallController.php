@@ -22,10 +22,21 @@ class InstallController extends Zend_Controller_Action
         $current = (int) $migration->getCurrentVersion();
         $latest = (int) $migration->getLatestVersion();
 
-//        Doctrine_Core::generateMigrationsFromDiff(
-//            $config['migrations_path'],
-//            $config['schema_path'] . '/5.yml',
-//            $config['schema_path'] . '/6.yml');
+//        try {
+//            Doctrine_Core::generateModelsFromYaml($config['yaml_schema_path'], $config['models_path']);
+//        } catch(Exception $exception) {
+//            die('<pre>' . $exception->getMessage() . '</pre>');
+//        }
+//        die('Success!');
+
+//        try {
+//            Doctrine_Core::generateMigrationsFromDiff(
+//                $config['migrations_path'],
+//                $config['yaml_schema_versions_path'] . '/6.yml',
+//                $config['yaml_schema_versions_path'] . '/7.yml');
+//        } catch (Exception $e) {
+//            die($e->getMessage());
+//        }
 //        die('Success!');
 
 //        try {

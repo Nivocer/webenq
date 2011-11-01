@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityGroup', 'doctrine');
 
 /**
  * Webenq_Model_Base_AnswerPossibilityGroup
@@ -9,15 +7,15 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityGr
  * 
  * @property integer $id
  * @property string $name
- * @property enum $measurement_level
  * @property integer $number
+ * @property enum $measurement_level
  * @property Doctrine_Collection $AnswerPossibility
  * @property Doctrine_Collection $QuestionnaireQuestion
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityGroup.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityGroup.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
 {
@@ -26,25 +24,33 @@ abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
         $this->setTableName('answerPossibilityGroup');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 64, array(
              'type' => 'string',
-             'length' => 64,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '64',
+             ));
+        $this->hasColumn('number', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => true,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('measurement_level', 'enum', 10, array(
              'type' => 'enum',
-             'length' => 10,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'values' => 
              array(
@@ -55,15 +61,7 @@ abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
              'default' => 'non-metric',
              'notnull' => true,
              'autoincrement' => false,
-             ));
-        $this->hasColumn('number', 'integer', 4, array(
-             'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
-             'unsigned' => true,
-             'primary' => false,
-             'notnull' => false,
-             'autoincrement' => false,
+             'length' => '10',
              ));
     }
 
@@ -72,10 +70,10 @@ abstract class Webenq_Model_Base_AnswerPossibilityGroup extends Doctrine_Record
         parent::setUp();
         $this->hasMany('Webenq_Model_AnswerPossibility as AnswerPossibility', array(
              'local' => 'id',
-             'foreign' => 'answerpossibilitygroup_id'));
+             'foreign' => 'answerPossibilityGroup_id'));
 
         $this->hasMany('Webenq_Model_QuestionnaireQuestion as QuestionnaireQuestion', array(
              'local' => 'id',
-             'foreign' => 'answerpossibilitygroup_id'));
+             'foreign' => 'answerPossibilityGroup_id'));
     }
 }

@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityNullValue', 'doctrine');
 
 /**
  * Webenq_Model_Base_AnswerPossibilityNullValue
@@ -13,7 +11,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityNu
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityNullValue.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityNullValue.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityNullValue extends Doctrine_Record
 {
@@ -22,20 +20,20 @@ abstract class Webenq_Model_Base_AnswerPossibilityNullValue extends Doctrine_Rec
         $this->setTableName('answerPossibilityNullValue');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('value', 'string', 64, array(
              'type' => 'string',
-             'length' => 64,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '64',
              ));
     }
 

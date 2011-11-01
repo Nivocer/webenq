@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_RoleResource', 'doctrine');
 
 /**
  * Webenq_Model_Base_RoleResource
@@ -10,13 +8,13 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_RoleResource', 'doc
  * @property integer $id
  * @property integer $role_id
  * @property integer $resource_id
- * @property Webenq_Model_Resource $Resource
  * @property Webenq_Model_Role $Role
+ * @property Webenq_Model_Resource $Resource
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: RoleResource.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: RoleResource.php,v 1.12 2011/12/16 11:22:47 bart Exp $
  */
 abstract class Webenq_Model_Base_RoleResource extends Doctrine_Record
 {
@@ -25,41 +23,45 @@ abstract class Webenq_Model_Base_RoleResource extends Doctrine_Record
         $this->setTableName('role_resource');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('role_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('resource_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Webenq_Model_Resource as Resource', array(
-             'local' => 'resource_id',
-             'foreign' => 'id'));
-
         $this->hasOne('Webenq_Model_Role as Role', array(
              'local' => 'role_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE',
+             'onUpdate' => 'CASCADE'));
+
+        $this->hasOne('Webenq_Model_Resource as Resource', array(
+             'local' => 'resource_id',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE',
+             'onUpdate' => 'CASCADE'));
     }
 }

@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_Question', 'doctrine');
 
 /**
  * Webenq_Model_Base_Question
@@ -15,7 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_Question', 'doctrin
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: Question.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: Question.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_Question extends Doctrine_Record
 {
@@ -24,19 +22,20 @@ abstract class Webenq_Model_Base_Question extends Doctrine_Record
         $this->setTableName('question');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
-        $this->hasColumn('created', 'timestamp', null, array(
+        $this->hasColumn('created', 'timestamp', 25, array(
              'type' => 'timestamp',
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '25',
              ));
     }
 

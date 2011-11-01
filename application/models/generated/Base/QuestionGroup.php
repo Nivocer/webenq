@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_QuestionGroup', 'doctrine');
 
 /**
  * Webenq_Model_Base_QuestionGroup
@@ -14,7 +12,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_QuestionGroup', 'do
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: QuestionGroup.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: QuestionGroup.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_QuestionGroup extends Doctrine_Record
 {
@@ -23,20 +21,20 @@ abstract class Webenq_Model_Base_QuestionGroup extends Doctrine_Record
         $this->setTableName('questionGroup');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('name', 'string', 63, array(
              'type' => 'string',
-             'length' => 63,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '63',
              ));
     }
 
@@ -45,6 +43,6 @@ abstract class Webenq_Model_Base_QuestionGroup extends Doctrine_Record
         parent::setUp();
         $this->hasMany('Webenq_Model_QuestionnaireQuestion as QuestionnaireQuestion', array(
              'local' => 'id',
-             'foreign' => 'questiongroup_id'));
+             'foreign' => 'questionGroup_id'));
     }
 }

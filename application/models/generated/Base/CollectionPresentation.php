@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_CollectionPresentation', 'doctrine');
 
 /**
  * Webenq_Model_Base_CollectionPresentation
@@ -20,7 +18,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_CollectionPresentat
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: CollectionPresentation.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: CollectionPresentation.php,v 1.12 2011/12/16 11:22:47 bart Exp $
  */
 abstract class Webenq_Model_Base_CollectionPresentation extends Doctrine_Record
 {
@@ -29,74 +27,76 @@ abstract class Webenq_Model_Base_CollectionPresentation extends Doctrine_Record
         $this->setTableName('collectionPresentation');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('parent_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('questionnaire_question_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('type', 'string', 64, array(
              'type' => 'string',
-             'length' => 64,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '64',
              ));
         $this->hasColumn('filters', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('validators', 'string', null, array(
              'type' => 'string',
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,
+             'length' => '',
              ));
         $this->hasColumn('page', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'default' => '1',
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
         $this->hasColumn('weight', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'default' => '0',
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -105,6 +105,8 @@ abstract class Webenq_Model_Base_CollectionPresentation extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Webenq_Model_QuestionnaireQuestion as QuestionnaireQuestion', array(
              'local' => 'questionnaire_question_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE',
+             'onUpdate' => 'CASCADE'));
     }
 }

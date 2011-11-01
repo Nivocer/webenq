@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityTextSynonym', 'doctrine');
 
 /**
  * Webenq_Model_Base_AnswerPossibilityTextSynonym
@@ -9,13 +7,13 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_AnswerPossibilityTe
  * 
  * @property integer $id
  * @property string $text
- * @property integer $answerpossibilitytext_id
+ * @property integer $answerPossibilityText_id
  * @property Webenq_Model_AnswerPossibilityText $AnswerPossibilityText
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityTextSynonym.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityTextSynonym.php,v 1.12 2011/12/16 11:22:47 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityTextSynonym extends Doctrine_Record
 {
@@ -24,29 +22,29 @@ abstract class Webenq_Model_Base_AnswerPossibilityTextSynonym extends Doctrine_R
         $this->setTableName('answerPossibilityTextSynonym');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('text', 'string', 255, array(
              'type' => 'string',
-             'length' => 255,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '255',
              ));
-        $this->hasColumn('answerpossibilitytext_id', 'integer', 4, array(
+        $this->hasColumn('answerPossibilityText_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -54,7 +52,9 @@ abstract class Webenq_Model_Base_AnswerPossibilityTextSynonym extends Doctrine_R
     {
         parent::setUp();
         $this->hasOne('Webenq_Model_AnswerPossibilityText as AnswerPossibilityText', array(
-             'local' => 'answerpossibilitytext_id',
-             'foreign' => 'id'));
+             'local' => 'answerPossibilityText_id',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE',
+             'onUpdate' => 'CASCADE'));
     }
 }

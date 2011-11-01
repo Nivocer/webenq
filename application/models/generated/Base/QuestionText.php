@@ -1,6 +1,4 @@
 <?php
-// Connection Component Binding
-Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_QuestionText', 'doctrine');
 
 /**
  * Webenq_Model_Base_QuestionText
@@ -16,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('Webenq_Model_QuestionText', 'doc
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: QuestionText.php,v 1.5 2011/10/28 13:01:38 bart Exp $
+ * @version    SVN: $Id: QuestionText.php,v 1.12 2011/12/16 11:22:47 bart Exp $
  */
 abstract class Webenq_Model_Base_QuestionText extends Doctrine_Record
 {
@@ -25,38 +23,38 @@ abstract class Webenq_Model_Base_QuestionText extends Doctrine_Record
         $this->setTableName('questionText');
         $this->hasColumn('id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => true,
              'autoincrement' => true,
+             'length' => '4',
              ));
         $this->hasColumn('text', 'string', 255, array(
              'type' => 'string',
-             'length' => 255,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '255',
              ));
         $this->hasColumn('language', 'string', 2, array(
              'type' => 'string',
-             'length' => 2,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '2',
              ));
         $this->hasColumn('question_id', 'integer', 4, array(
              'type' => 'integer',
-             'length' => 4,
-             'fixed' => false,
+             'fixed' => 0,
              'unsigned' => true,
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
+             'length' => '4',
              ));
     }
 
@@ -65,6 +63,8 @@ abstract class Webenq_Model_Base_QuestionText extends Doctrine_Record
         parent::setUp();
         $this->hasOne('Webenq_Model_Question as Question', array(
              'local' => 'question_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE',
+             'onUpdate' => 'CASCADE'));
     }
 }
