@@ -49,8 +49,6 @@ class Webenq_Plugin_Schema extends Zend_Controller_Plugin_Abstract
         $latest = (int) $migration->getLatestVersion();
 
         if ($current !== $latest) {
-//            header('Location: ' . $frontController->getBaseUrl() . '/install/');
-//            die;
             $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
             $redirector->gotoSimpleAndExit('index', 'install', 'default');
         }
