@@ -7,12 +7,13 @@
  * 
  * @property integer $id
  * @property string $name
+ * @property string $description
  * @property Doctrine_Collection $RoleResource
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: Resource.php,v 1.7 2011/11/01 09:58:52 bart Exp $
+ * @version    SVN: $Id: Resource.php,v 1.8 2011/11/01 13:28:29 bart Exp $
  */
 abstract class Webenq_Model_Base_Resource extends Doctrine_Record
 {
@@ -35,6 +36,16 @@ abstract class Webenq_Model_Base_Resource extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              'length' => '64',
+             ));
+        $this->hasColumn('description', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             ));
+
+
+        $this->index('unique-name', array(
+             'fields' => 'name',
+             'type' => 'unique',
              ));
     }
 

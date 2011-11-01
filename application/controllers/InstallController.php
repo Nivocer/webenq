@@ -32,8 +32,8 @@ class InstallController extends Zend_Controller_Action
 //        try {
 //            Doctrine_Core::generateMigrationsFromDiff(
 //                $config['migrations_path'],
-//                $config['yaml_schema_versions_path'] . '/6.yml',
-//                $config['yaml_schema_versions_path'] . '/7.yml');
+//                $config['yaml_schema_versions_path'] . '/0.yml',
+//                $config['yaml_schema_versions_path'] . '/2.yml');
 //        } catch (Exception $e) {
 //            die($e->getMessage());
 //        }

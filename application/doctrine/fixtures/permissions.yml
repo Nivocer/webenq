@@ -97,24 +97,6 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_33:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_19
-  Webenq_Model_RoleResource_34:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_20
-  Webenq_Model_RoleResource_35:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_21
-  Webenq_Model_RoleResource_36:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_22
-  Webenq_Model_RoleResource_37:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_23
-  Webenq_Model_RoleResource_38:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_24
-  Webenq_Model_RoleResource_39:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_25
   Webenq_Model_RoleResource_40:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_26
@@ -178,18 +160,6 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_60:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_48
-  Webenq_Model_RoleResource_61:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_49
-  Webenq_Model_RoleResource_62:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_50
-  Webenq_Model_RoleResource_63:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_51
-  Webenq_Model_RoleResource_64:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_52
   Webenq_Model_RoleResource_65:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_53
@@ -253,15 +223,9 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_86:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_67
-  Webenq_Model_RoleResource_87:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_68
   Webenq_Model_RoleResource_88:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_69
-  Webenq_Model_RoleResource_89:
-    Role: Webenq_Model_Role_2
-    Resource: Webenq_Model_Resource_72
   Webenq_Model_RoleResource_90:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_75
@@ -271,146 +235,181 @@ Webenq_Model_RoleResource:
 Webenq_Model_Resource:
   Webenq_Model_Resource_1:
     name: error/error
+    description: 'View errors'
   Webenq_Model_Resource_2:
     name: questionnaire/index
+    description: 'List questionnaires'
   Webenq_Model_Resource_3:
     name: index/index
+    description: 'View home-page'
   Webenq_Model_Resource_4:
     name: import/index
+    description: 'Import'
   Webenq_Model_Resource_5:
     name: user/login
+    description: 'Log in'
   Webenq_Model_Resource_6:
     name: user/logout
+    description: 'Log out'
   Webenq_Model_Resource_7:
     name: user/user
+    description: 'Manage users'
   Webenq_Model_Resource_8:
     name: user/role
+    description: 'Manage roles'
   Webenq_Model_Resource_9:
     name: user/permission
+    description: 'Manage permissions'
   Webenq_Model_Resource_10:
     name: answer-possibility/add
+    description: 'Add answer possibility'
   Webenq_Model_Resource_11:
     name: answer-possibility/edit
+    description: 'Edit answer possibility'
   Webenq_Model_Resource_12:
     name: answer-possibility/delete
+    description: 'Delete answer possibility'
   Webenq_Model_Resource_13:
     name: answer-possibility-group/index
+    description: 'List answer possibility groups'
   Webenq_Model_Resource_14:
     name: answer-possibility-group/add
+    description: 'Add answer possibility group'
   Webenq_Model_Resource_15:
     name: answer-possibility-group/edit
+    description: 'Edit answer possibility group'
   Webenq_Model_Resource_16:
     name: answer-possibility-group/delete
+    description: 'Delete answer possibility group'
   Webenq_Model_Resource_17:
     name: answer-possibility-synonym/add
+    description: 'Add answer possibility synonym'
   Webenq_Model_Resource_18:
     name: answer-possibility-synonym/edit
+    description: 'Edit answer possibility synonym'
   Webenq_Model_Resource_19:
     name: answer-possibility-synonym/delete
-  Webenq_Model_Resource_20:
-    name: email/index
-  Webenq_Model_Resource_21:
-    name: email/send-all
-  Webenq_Model_Resource_22:
-    name: email/merge-teacher
-  Webenq_Model_Resource_23:
-    name: email/merge-course
-  Webenq_Model_Resource_24:
-    name: email/del
-  Webenq_Model_Resource_25:
-    name: email/send
+    description: 'Delete answer possibility synonym'
   Webenq_Model_Resource_26:
     name: interpretation/debug
+    description: ''
   Webenq_Model_Resource_27:
     name: interpretation/index
+    description: ''
   Webenq_Model_Resource_28:
     name: jasper/index
+    description: ''
   Webenq_Model_Resource_29:
     name: management/index
+    description: ''
   Webenq_Model_Resource_30:
     name: management/edit
+    description: ''
   Webenq_Model_Resource_31:
     name: question/index
+    description: 'List questions'
   Webenq_Model_Resource_32:
     name: question/add
+    description: 'Add question'
   Webenq_Model_Resource_33:
     name: question/edit
+    description: 'Edit question'
   Webenq_Model_Resource_34:
     name: question/delete
+    description: 'Delete question'
   Webenq_Model_Resource_35:
     name: questionnaire/add
+    description: 'Add questionnaire'
   Webenq_Model_Resource_36:
     name: questionnaire/edit
+    description: 'Edit questionnaire'
   Webenq_Model_Resource_37:
     name: questionnaire/order
+    description: 'Order questionnaires'
   Webenq_Model_Resource_38:
     name: questionnaire/add-question
+    description: 'Add question to questionnaire'
   Webenq_Model_Resource_39:
     name: questionnaire/delete
+    description: 'Delete questionnaire'
   Webenq_Model_Resource_40:
     name: questionnaire/collect
+    description: 'Fill out questionnaire'
   Webenq_Model_Resource_41:
     name: questionnaire/report
+    description: 'Report questionnaire data'
   Webenq_Model_Resource_42:
     name: questionnaire/group
+    description: ''
   Webenq_Model_Resource_43:
     name: questionnaire-question/edit
+    description: 'Edit question in questionnaire'
   Webenq_Model_Resource_44:
     name: report-definition/index
+    description: 'List report definitions'
   Webenq_Model_Resource_45:
     name: report-definition/add
+    description: 'Add report definition'
   Webenq_Model_Resource_46:
     name: report-definition/edit
+    description: 'Edit report definition'
   Webenq_Model_Resource_47:
     name: report-definition/del
+    description: 'Delete report definition'
   Webenq_Model_Resource_48:
     name: report-generation/index
-  Webenq_Model_Resource_49:
-    name: scale-values/index
-  Webenq_Model_Resource_50:
-    name: scale-values/add
-  Webenq_Model_Resource_51:
-    name: scale-values/edit
-  Webenq_Model_Resource_52:
-    name: scale-values/del
+    description: ''
   Webenq_Model_Resource_53:
     name: test/index
+    description: ''
   Webenq_Model_Resource_54:
     name: questionnaire-question/order
+    description: 'Re-order questions in a questionnaire'
   Webenq_Model_Resource_55:
     name: questionnaire-question/add-subquestion
+    description: 'Add sub-question to question in questionnaire'
   Webenq_Model_Resource_56:
     name: questionnaire-question/save-state
+    description: ''
   Webenq_Model_Resource_57:
     name: question/autocomplete
+    description: ''
   Webenq_Model_Resource_58:
     name: language/select
+    description: 'Select language'
   Webenq_Model_Resource_59:
     name: questionnaire-question/add
+    description: 'Add question to questionnaire'
   Webenq_Model_Resource_60:
     name: questionnaire-question/delete
+    description: 'Delete question from questionnaire'
   Webenq_Model_Resource_61:
     name: answer-possibility-null-value/index
+    description: 'List answer possibility null values'
   Webenq_Model_Resource_62:
     name: answer-possibility-null-value/add
+    description: 'Add answer possibility null value'
   Webenq_Model_Resource_63:
     name: answer-possibility-null-value/edit
+    description: 'Edit answer possibility null value'
   Webenq_Model_Resource_64:
     name: answer-possibility-null-value/delete
+    description: 'Delete answer possibility null value'
   Webenq_Model_Resource_65:
     name: questionnaire/download
+    description: 'Download questionnaire'
   Webenq_Model_Resource_66:
     name: questionnaire/print
+    description: 'Print questionnaire'
   Webenq_Model_Resource_67:
     name: test/test
-  Webenq_Model_Resource_68:
-    name: questionnaire/generate-jrxml
+    description: ''
   Webenq_Model_Resource_69:
     name: questionnaire/xform
-  Webenq_Model_Resource_72:
-    name: questionnaire/jasper
+    description: 'Download questionnaire as XForm'
   Webenq_Model_Resource_75:
     name: questionnaire/jrxml
+    description: 'Download questionnaire as JRXML'
   Webenq_Model_Resource_76:
     name: questionnaire/xform-data
-    
+    description: 'Download questionnaire data for XForm'

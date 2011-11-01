@@ -24,8 +24,7 @@ class Webenq_Form_User_Permission extends ZendX_JQuery_Form
         $roles = $acl->getRoles();
         $resources = $this->_resources;
 
-        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
-        $this->setAction("$baseUrl/user/permission");
+        $this->setAction($this->getView()->baseUrl('user/permission'));
 
         $this->setAttrib('id', 'mainForm')
             ->setDecorators(array(
@@ -52,6 +51,8 @@ class Webenq_Form_User_Permission extends ZendX_JQuery_Form
 
                 try {
                     $isAllowed = $acl->isAllowed($role, $resource);
+                    $r = Doctrine_Core::getTable('Webenq_Model_Resource')
+                        ->findOneByName($resource);
                 } catch (Zend_Acl_Exception $e) {
                     $isAllowed = false;
                     try {
@@ -64,7 +65,7 @@ class Webenq_Form_User_Permission extends ZendX_JQuery_Form
                 }
 
                 $element = $this->createElement('checkbox', base64_encode($resource), array(
-                    'label' => $resource,
+                    'label' => $r->description ? $r->description : $r->name,
                     'value' => $isAllowed,
                     'belongsTo' => $role,
                 ));
