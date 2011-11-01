@@ -1,0 +1,3 @@
+./doctrine generate-models-yaml
+./doctrine rebuild-db
+./doctrine load-data
