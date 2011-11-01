@@ -258,12 +258,10 @@ Webenq_Model_AnswerPossibilityTextSynonym:
     answerPossibilityText_id: '14'
 Webenq_Model_AnswerPossibilityNullValue:
   Webenq_Model_AnswerPossibilityNullValue_1:
-    value: '0'
-  Webenq_Model_AnswerPossibilityNullValue_2:
     value: 'weet niet / nvt'
-  Webenq_Model_AnswerPossibilityNullValue_3:
+  Webenq_Model_AnswerPossibilityNullValue_2:
     value: 'weet niet'
-  Webenq_Model_AnswerPossibilityNullValue_4:
+  Webenq_Model_AnswerPossibilityNullValue_3:
     value: nvt
-  Webenq_Model_AnswerPossibilityNullValue_5:
+  Webenq_Model_AnswerPossibilityNullValue_4:
     value: 'niet van toepassing'
