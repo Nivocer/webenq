@@ -108,12 +108,12 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
                 'action' => 'index',
             ),
             array(
-                'label' => t('Vragen'),
+                'label' => t('Questions'),
                 'controller' => 'question',
                 'action' => 'index',
             ),
             array(
-                'label' => t('Antwoordmogelijkheden'),
+                'label' => t('Answer-possibilities'),
                 'controller' => 'answer-possibility-group',
                 'action' => 'index',
             ),
@@ -123,7 +123,7 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 //                'action' => 'index',
 //            ),
             array(
-                'label' => t('Gebruikersbeheer'),
+                'label' => t('Users'),
                 'controller' => 'user',
                 'action' => 'user',
             ),
@@ -131,7 +131,7 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 
         if (Zend_Auth::getInstance()->hasIdentity()) {
             $pages[] = array(
-                'label' => t('Uitloggen'),
+                'label' => t('Log out'),
                 'controller' => 'user',
                 'action' => 'logout',
             );
@@ -142,26 +142,17 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 
     protected function _getLanguageSelector($view)
     {
-        // set default language
-        $session = new Zend_Session_Namespace();
-        if ($session->language) {
-            $language = $session->language;
-            Zend_Registry::set('language', $session->language);
-            Zend_Registry::get('Zend_Locale')->setLocale($session->language);
-        } else {
-            $language = Zend_Registry::get('Zend_Locale')->getLanguage();
-            $session->language = $language;
-            Zend_Registry::set('language', $language);
-        }
+        // get current locale settings
+        $locale = Zend_Registry::get('Zend_Locale');
 
         // get all languages
         $languages = Webenq_Language::getLanguages();
 
         // return html for language selector
         $html = '<ul id="language_selector">';
-        foreach ($languages as $l) {
-            $html .= ($l == $language) ? '<li class="active">' : '<li>';
-            $html .= '<a href="' . $view->baseUrl('/language/select/language/' . $l) . '">' . $l . '</a>';
+        foreach ($languages as $language) {
+            $html .= ($language === $locale->getLanguage()) ? '<li class="active">' : '<li>';
+            $html .= '<a href="' . $view->baseUrl('/language/select/language/' . $language) . '">' . $language . '</a>';
             $html .= '</li>';
         }
         $html .= '</ul>';

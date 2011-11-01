@@ -18,4 +18,12 @@
     'translation' => 'vertaling',
     'translations' => 'vertalingen',
     'available languages' => 'beschikbare talen',
+
+    // navigatie
+	'Questionnaires' => 'Vragenlijsten',
+	'Import' => 'Importeren',
+	'Questions' => 'Vragen',
+	'Answer-possibilities' => 'Antwoordmogelijkheden',
+	'Users' => 'Gebruikers',
+    'Log out' => 'Uitloggen',
 );
