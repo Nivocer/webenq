@@ -52,23 +52,25 @@
 		<band height="107" splitType="Immediate">
 			<subreport>
 				<reportElement positionType="Float" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
 					<subreportParameterExpression><![CDATA["<b>we need some adjustments to the barchart:</b><br>"+
-"-we need percentage as label in the graph in stead of number<br>"+
 "-colors are not correct, at this moment red is always shown, but it must only be used for negative labels (see below)<br>"+
+"-we need percentage as label in the graph in stead of number<br>"+
+"-font size of label in bar is to big"+
 "-the questions are alphabetical sorted, but it should be sorted according to the list in simplequestBarchart.jrxml (subreport parameter)<br>"+
 "-white space to much whitespace around the bar (we can adjust the space at the right by setting a good max axis value)<br>"+
+
 "<br>"+
 "Below are some frequencies to show values in the data, below that we see the current barchart.<br>"+
-"'zeer mee oneens' and 'mee oneens' should become red<br>"+
+"'helemaal mee oneens' and 'mee oneens' should become red<br>"+
 "'neutraal' should become green<br>"+
-"'mee eens' and 'zeer mee eens' should become green<br>"]]></subreportParameterExpression>
+"'mee eens' and 'helemaal mee eens' should become green<br>"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
