@@ -19,7 +19,7 @@
       <g3-Uren>3.0</g3-Uren>
       <g3-GoedVoorbereid>2.0</g3-GoedVoorbereid>
     </g3-Tevredenheid>
-    <g3-Opmerkingen>Pietje puk</g3-Opmerkingen>
+    <g3-Opmerkingen> </g3-Opmerkingen>
     <g3-Rapportcijfer>6</g3-Rapportcijfer>
     <g6-between/>
     <g6-Tevredenheid>
@@ -59,24 +59,24 @@
       <g3-Uren>4.0</g3-Uren>
       <g3-GoedVoorbereid>4.0</g3-GoedVoorbereid>
     </g3-Tevredenheid>
-    <g3-Opmerkingen></g3-Opmerkingen>
+    <g3-Opmerkingen> </g3-Opmerkingen>
     <g3-Rapportcijfer>4</g3-Rapportcijfer>
     <g6-between/>
     <g6-Tevredenheid>
-      <g6-DoelenDuidelijk>1.0</g6-DoelenDuidelijk>
-      <g6-DoelenBereikt>2.0</g6-DoelenBereikt>
-      <g6-InhoudRelevant>1.0</g6-InhoudRelevant>
-      <g6-BijeenkomstenOnmisbaar>3.0</g6-BijeenkomstenOnmisbaar>
-      <g6-Effectief>3.0</g6-Effectief>
-      <g6-studiemateriaal>2.0</g6-studiemateriaal>
-      <g6-beoordeling>2.0</g6-beoordeling>
-      <g6-NiveauTempo>2.0</g6-NiveauTempo>
-      <g6-InstructieDocent>3.0</g6-InstructieDocent>
-      <g6-BegeleidingDocent>3.0</g6-BegeleidingDocent>
-      <g6-Uren>3.0</g6-Uren>
-      <g6-GoedVoorbereid>3.0</g6-GoedVoorbereid>
+      <g6-DoelenDuidelijk>9.0</g6-DoelenDuidelijk>
+      <g6-DoelenBereikt>9.0</g6-DoelenBereikt>
+      <g6-InhoudRelevant>9.0</g6-InhoudRelevant>
+      <g6-BijeenkomstenOnmisbaar>9.0</g6-BijeenkomstenOnmisbaar>
+      <g6-Effectief>9.0</g6-Effectief>
+      <g6-studiemateriaal>9.0</g6-studiemateriaal>
+      <g6-beoordeling>9.0</g6-beoordeling>
+      <g6-NiveauTempo>9.0</g6-NiveauTempo>
+      <g6-InstructieDocent>9.0</g6-InstructieDocent>
+      <g6-BegeleidingDocent>9.0</g6-BegeleidingDocent>
+      <g6-Uren>9.0</g6-Uren>
+      <g6-GoedVoorbereid>9.0</g6-GoedVoorbereid>
     </g6-Tevredenheid>
-    <g6-Opmerkingen>Opmerkingen</g6-Opmerkingen>
+    <g6-Opmerkingen> </g6-Opmerkingen>
     <g6-Rapportcijfer>0</g6-Rapportcijfer>
   </HVA-oo-simpleQuest>
   </respondent>
@@ -104,7 +104,7 @@
     <g6-between/>
     <g6-Tevredenheid>
       <g6-DoelenDuidelijk>4.0</g6-DoelenDuidelijk>
-      <g6-DoelenBereikt>3.0</g6-DoelenBereikt>
+      <g6-DoelenBereikt>2.0</g6-DoelenBereikt>
       <g6-InhoudRelevant>3.0</g6-InhoudRelevant>
       <g6-BijeenkomstenOnmisbaar>1.0</g6-BijeenkomstenOnmisbaar>
       <g6-Effectief>2.0</g6-Effectief>

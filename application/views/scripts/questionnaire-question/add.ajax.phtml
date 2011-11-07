@@ -1,9 +1,0 @@
-<?php echo $this->form; ?>
-
-<ul class="selectable filterable">
-    <?php foreach ($this->questions as $question): ?>
-        <li id="q_<?php echo $question['id']; ?>" class="ui-widget-content">
-            <?php echo $question['QuestionText'][0]['text']; ?>
-        </li>
-    <?php endforeach; ?>
-</ul>

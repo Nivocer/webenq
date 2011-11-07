@@ -1,8 +1,6 @@
 package it.bisi.report.jasper.datasource;
 
 import it.bisi.report.jasper.datasource.object.XformBean;
-import it.bisi.*;
-import it.bisi.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,13 +25,10 @@ import org.xml.sax.SAXException;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-
 //import org.apache.commons.lang.StringEscapeUtils;
 
 public class XformJRDataSource {
 	private String data_location;
-	private String xform_location;
-	private String xform_name;
 	private String report_question_ids;
 	private String group_question_id;
 	private String split_question_id;
@@ -41,11 +36,9 @@ public class XformJRDataSource {
 
 
 
-	public XformJRDataSource(String data_location, String xform_location, String xform_name, String report_question_ids, String group_question_id, String split_question_id, String split_question_value) {
+	public XformJRDataSource(String data_location, String report_question_ids, String group_question_id, String split_question_id, String split_question_value) {
 
 		this.data_location=data_location;
-		this.xform_location=xform_location;
-		this.xform_name=xform_name;
 		this.report_question_ids=report_question_ids;
 		this.group_question_id=group_question_id;
 		this.split_question_id=split_question_id;
@@ -71,8 +64,7 @@ public class XformJRDataSource {
 			String report_question_id="";
 			StringTokenizer st = new StringTokenizer(report_question_ids,","); 
 			while (st.hasMoreTokens()){
-				report_question_id=st.nextToken().trim();
-				String report_question_text=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, null);
+				report_question_id=st.nextToken();
 
 				//String question_field=rsh_questions.getString(1); //question_id
 				//create the xpath expressions
@@ -96,18 +88,16 @@ public class XformJRDataSource {
 					expression = report_question_id;
 					Node reportQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 					report_question_value=reportQuestionNode.getTextContent();
-					String report_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, report_question_value);
 
 					//get group_question_value
-					group_question_value=null;
-					String group_question_label=null;
+					group_question_value=null; 
 					if (group_question_id !=null){
 						expression=group_question_id;
 						Node groupQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 						group_question_value=groupQuestionNode.getTextContent();
-						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
 					}
-					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_value, group_question_label);
+					System.out.println(group_question_id+":"+group_question_value);
+					XformBean ra=new XformBean(report_question_id, report_question_value, group_question_id, group_question_value);
 					reportRows.add(ra);
 				}
 				

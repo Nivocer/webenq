@@ -1,6 +1,0 @@
-#!/usr/bin/env php
-<?php
-
-define('BASEPATH', '.');
-chdir(dirname(__FILE__));
-include('doctrine.php');

@@ -4,7 +4,6 @@ public class Record {
 	
 	private String title_row;
 	private String title_col;
-	private String question_field;
 	private String row;
 	private String col;
 	private String val;
@@ -12,10 +11,9 @@ public class Record {
 	public Record(){
 		
 	}
-	public Record(String title_row,String title_col,String question_field, String row,String col,String val){
+	public Record(String title_row,String title_col,String row,String col,String val){
 		this.title_row=title_row;
 		this.title_col=title_col;
-		this.question_field=question_field;
 		this.row=row;
 		this.col=col;
 		this.val=val;
@@ -31,12 +29,6 @@ public class Record {
 	}
 	public void setTitle_col(String titleCol) {
 		title_col = titleCol;
-	}
-	public String getQuestion_field() {
-		return question_field;
-	}
-	public void setQuestion_field(String questionField) {
-		question_field = questionField;
 	}
 	public String getRow() {
 		return row;
