@@ -80,13 +80,13 @@
 
 
 	<target name="compileJava">
-          <javac srcdir="${src.dirJava}" destdir="${dest.dirJava}" classpathref="classpath"/>
+          <javac srcdir="${src.dirJava}" destdir="${dest.dirJava}" classpathref="classpath" />
 	</target>
 
 
 
 	 <target name="jarJava" depends="compileJava">
-        	<jar destfile="${jar.dir}/${name.java}.jar" basedir="${src.dirJava}">
+        	<jar destfile="${jar.dir}/${name.java}.jar" basedir="${src.dirJava}" excludes="it/bisi/report/jasper/chartTheme/**" >
         	    <manifest>
         	        <attribute name="Main-Class" value="${main-class}"/>
         	    </manifest>
