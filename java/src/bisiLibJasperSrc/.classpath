@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path=""/>
+	<classpathentry kind="src" path="">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="webenq4/java/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/Arial.jar"/>
 	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/bisiLibJasper.jar"/>
@@ -18,6 +22,10 @@
 	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/poi-3.5-FINAL-20090928.jar"/>
 	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/Tamu_kadambri.jar"/>
 	<classpathentry kind="lib" path="/webenq4/java/lib/jasperreports-4.1.2.jar"/>
-	<classpathentry kind="lib" path="/webenq4/java/lib/jasperreports-4.0.2.jar"/>
+	<classpathentry kind="lib" path="/webenq4/java/lib/webenqResources.jar"/>
+	<classpathentry kind="lib" path="/lib"/>
+	<classpathentry kind="lib" path="/webenq4/java/lib/jcommon-1.0.15.jar"/>
+	<classpathentry kind="lib" path="/webenq4/java/lib/jfreechart-1.0.12.jar"/>
+	<classpathentry kind="lib" path="/webenq4/java/lib/xalan-2.7.1.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
