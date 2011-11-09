@@ -16,17 +16,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
-// get configuration
-require_once 'Zend/Config/Ini.php';
-$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', null, array('allowModifications' => true));
-if (file_exists(APPLICATION_PATH . '/configs/override.ini')) {
-    $override = new Zend_Config_Ini(APPLICATION_PATH . '/configs/override.ini');
-    $config->merge($override)->setReadOnly();
-}
-if (!$config->{APPLICATION_ENV}) {
-    throw new Exception('No configuration found for application environment "' . APPLICATION_ENV . '"');
-}
-
-// create application
-require_once 'Zend/Application.php';
-$application = new Zend_Application(APPLICATION_ENV, $config->{APPLICATION_ENV});
+// set-up application with the right environment and configuration
+require_once APPLICATION_PATH . '/classes/Webenq/Application.php';
+Webenq_Application::$defaultConfig = APPLICATION_PATH . '/configs/application.ini';
+Webenq_Application::$overrideConfig = APPLICATION_PATH . '/configs/override.ini';
+$application = new Webenq_Application(APPLICATION_ENV);
