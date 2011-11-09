@@ -14,11 +14,11 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     }
 
    /**
-    * Gets the questionnaire title in the given, current or preferred language
+    * Gets the questionnaire title in the given, current or preferred language. Creates
+    * an empty translation if nothing was found.
     *
     * @param string $language
     * @return Webenq_Model_QuestionnaireText
-    * @throws Exception
     */
     public function getQuestionnaireTitle($language = null)
     {
@@ -50,9 +50,12 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         if (count($this->QuestionnaireTitle) > 0)
             return $this->QuestionnaireTitle[0];
 
-        // throw Exception if no translation was found
-        throw new Exception('No translation was found for ' . get_class($this)
-            . ' with ID ' . $this->id);
+        // create empty translation if nothing was found
+        $title = new Webenq_Model_QuestionnaireTitle();
+        $title->language = $language;
+        $title->Questionnaire = $this;
+        $title->save();
+        return $title;
     }
 
     /**
