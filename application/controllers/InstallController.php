@@ -9,6 +9,44 @@
 class InstallController extends Zend_Controller_Action
 {
     /**
+     * Webenq thirdparty dependencies that should be in the include path
+     *
+     * @var array Class name as key and file name as value
+     */
+    protected static  $_dependencies = array(
+    	'FPDF' => 'fpdf/fpdf.php',
+    	'ODS' => 'ods-php/ods.php',
+    	'PHPExcel' => 'PHPExcel/PHPExcel.php',
+    );
+
+    public function testAction()
+    {
+        $messages = array('success' => array(), 'failure' => array());
+
+        foreach (self::$_dependencies as $class => $file) {
+            @include_once $file;
+            if (class_exists($class)) {
+                $messages['success'][] = "Found class <strong>$class</strong>.";
+            } else {
+                $messages['failure'][] = "Could not find class <strong>$class</strong>. Make sure the file <strong>$file</strong> is in the include path.";
+            }
+        }
+
+        // get current and latest db schema version
+        $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('doctrine');
+        $migration = new Doctrine_Migration($config['migrations_path']);
+        $current = (int) $migration->getCurrentVersion();
+        $latest = (int) $migration->getLatestVersion();
+        if ($current === $latest) {
+            $messages['success'][] = "Database schema is up to date.";
+        } else {
+            $messages['failure'][] = "Database schema is out of date: current version is $current, lates version is $latest.";
+        }
+
+        $this->view->messages = $messages;
+    }
+
+    /**
      * Renders the installer
      */
     public function indexAction()

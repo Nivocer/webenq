@@ -1,0 +1,24 @@
+<style>
+	ul li {
+		color: #333;
+		padding: 5px;
+	}
+	ul.success {
+		background: lightGreen;
+		border: 1px solid green;
+	}
+	ul.failure {
+		background: red;
+		border: 1px solid darkRed;
+	}
+</style>
+
+<?php foreach ($this->messages as $class => $messages): ?>
+	<ul class="<?php echo $class; ?>">
+	    <?php foreach ($messages as $message): ?>
+   	    	<li>
+   	    	    <?php echo t($message); ?>
+   	    	</li>
+   	    <?php endforeach; ?>
+	</ul>
+<?php endforeach; ?>
