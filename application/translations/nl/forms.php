@@ -6,4 +6,6 @@
 	'group' => 'groep',
 	'save' => 'opslaan',
 	'continue' => 'verder',
+	'yes' => 'ja',
+	'no' => 'nee',
 );

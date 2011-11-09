@@ -15,7 +15,7 @@ class Webenq_Form_User_User_Add extends Zend_Form
 
         $this->addElements(array(
             $this->createElement('text', 'username', array(
-                'label' => 'Gebruikersnaam:',
+                'label' => 'username',
                 'required' => true,
                 'filters' => array(
                     'StringToLower',
@@ -27,13 +27,13 @@ class Webenq_Form_User_User_Add extends Zend_Form
                 'size' => 20,
             )),
             $this->createElement('password', 'password', array(
-                'label' => 'Wachtwoord:',
+                'label' => 'password',
                 'required' => true,
                 'maxlength' => 64,
                 'size' => 20,
             )),
             $this->createElement('password', 'repeat_password', array(
-                'label' => 'Herhaal wachtwoord:',
+                'label' => 'repeat password',
                 'required' => true,
                 'validators' => array(
                     new Zend_Validate_Identical(
@@ -45,7 +45,7 @@ class Webenq_Form_User_User_Add extends Zend_Form
                 'size' => 20,
             )),
             $this->createElement('text', 'fullname', array(
-                'label' => 'Volledige naam:',
+                'label' => 'full name',
                 'required' => true,
                 'validators' => array(
                     new Zend_Validate_Alpha(true),
@@ -54,12 +54,12 @@ class Webenq_Form_User_User_Add extends Zend_Form
                 'size' => 20,
             )),
             $this->createElement('select', 'role_id', array(
-                'label' => 'Rol:',
+                'label' => 'role',
                 'required' => true,
                 'multiOptions' => Webenq_Model_Role::getAllAsArray(),
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'toevoegen',
+                'label' => 'add',
             )),
         ));
     }
@@ -76,9 +76,9 @@ class Webenq_Form_User_User_Add extends Zend_Form
         }
         catch (Doctrine_Connection_Mysql_Exception $e) {
             if ($e->getCode() == 23000) {
-                $this->username->addError('Deze gebruikersnaam is al in gebruik voor een andere gebruiker');
+                $this->username->addError('This username is already used by another user');
             } else {
-                $this->username->addError('Er is een onbekende fout opgetreden');
+                $this->username->addError('An unknown error occurred');
             }
             return false;
         }

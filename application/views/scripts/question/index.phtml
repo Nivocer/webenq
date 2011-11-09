@@ -1,5 +1,6 @@
-<a class="icon add" title="<?php echo t('vraag toevoegen'); ?>" href="<?php echo $this->baseUrl('/question/add') ?>">&nbsp;</a>
-<a href="<?php echo $this->baseUrl('/question/add') ?>"><?php echo t('vraag toevoegen'); ?></a>
+<a class="ajax link add" title="<?php echo t('add question'); ?>" href="<?php echo $this->baseUrl('/question/add') ?>">
+	<?php echo t('add question'); ?>
+</a>
 
 <?php if (!$this->questions || $this->questions->count() == 0): ?>
     <p><?php echo t('Er zijn nog geen vragen aangemaakt'); ?></p>
@@ -7,9 +8,9 @@
     <table>
         <thead>
             <tr>
-                <th><?php echo t('vraag'); ?></th>
-                <th><?php echo t('datum toegevoegd'); ?></th>
-                <th><?php echo t('in gebruik in questionnaires'); ?></th>
+                <th><?php echo t('question'); ?></th>
+                <th><?php echo t('date added'); ?></th>
+                <th><?php echo t('used in questionnaires'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -17,10 +18,13 @@
             <?php foreach ($this->questions as $question): ?>
                 <tr>
                     <td>
-                        <?php echo $question->QuestionText[0]->text; ?>
+                        <?php echo $question->getQuestionText()->text; ?>
                     </td>
                     <td>
-                        <?php echo $question->created; ?>
+                        <?php
+                            $date = new Zend_Date($question->created);
+                            echo $date->get(Zend_Date::DATETIME);
+                        ?>
                     </td>
                     <td>
                         <?php foreach ($question->QuestionnaireQuestion as $qq): ?>
@@ -28,10 +32,10 @@
                         <?php endforeach;?>
                     </td>
                     <td>
-                        <a class="icon edit" title="<?php echo t('bewerken'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);    ?>">&nbsp;</a>
+                        <a class="ajax icon edit" title="<?php echo t('bewerken'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);    ?>">&nbsp;</a>
                         <?php if($question->QuestionnaireQuestion->count() == 0): ?>
-                            <a class="icon delete" title="<?php echo t('verwijderen'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
-                        <?php endif; ?>                    
+                            <a class="ajax icon delete" title="<?php echo t('verwijderen'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -1,18 +1,15 @@
-<p>
-    <a class="icon edit" title="<?php echo t('gebruikers beheren'); ?>" href="<?php echo $this->baseUrl('/user/user') ?>">&nbsp;</a>
-    <a href="<?php echo $this->baseUrl('/user/user') ?>"><?php echo t('gebruikers beheren'); ?></a>
-</p>
-
-<p>
-    <a class="icon edit" title="<?php echo t('rechten beheren'); ?>" href="<?php echo $this->baseUrl('/user/permission') ?>">&nbsp;</a>
-    <a href="<?php echo $this->baseUrl('/user/permission') ?>"><?php echo t('rechten beheren'); ?></a>
-</p>
+<a class="link edit" title="<?php echo t('manage users'); ?>" href="<?php echo $this->baseUrl('/user/user') ?>">
+	<?php echo t('manage users'); ?>
+</a>
+<a class="link edit" title="<?php echo t('manage permissions'); ?>" href="<?php echo $this->baseUrl('/user/permission') ?>">
+	<?php echo t('manage permissions'); ?>
+</a>
 
 <table>
     <thead>
         <tr>
-            <th>rol</th>
-            <th class="actions">acties</th>
+            <th><?php echo t('role'); ?></th>
+            <th class="actions">&nbsp;</th>
         </tr>
     </thead>
     <tbody>

@@ -3,18 +3,18 @@ class Webenq_Form_Confirm extends Zend_Form
 {
     /**
      * Id of the record
-     * 
+     *
      * @var int $_id
      */
     protected $_id;
-    
+
     /**
      * Text to display
-     * 
+     *
      * @var string $_text
      */
     protected $_text;
-    
+
     /**
      * Constructor
      *
@@ -31,7 +31,7 @@ class Webenq_Form_Confirm extends Zend_Form
         $this->_text = $text;
         parent::__construct($options);
     }
-    
+
     /**
      * Initialises the form
      *
@@ -44,8 +44,8 @@ class Webenq_Form_Confirm extends Zend_Form
                 'value' => $this->_id,
                 'label' => $this->_text,
             )),
-            $this->createElement('submit', 'yes', array('label' => 'ja')),
-            $this->createElement('submit', 'no', array('label' => 'nee')),
+            $this->createElement('submit', 'yes', array('label' => 'yes')),
+            $this->createElement('submit', 'no', array('label' => 'no')),
         ));
     }
 }

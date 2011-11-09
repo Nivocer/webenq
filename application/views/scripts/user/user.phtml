@@ -1,18 +1,17 @@
-<p>
-    <a class="icon edit" title="<?php echo t('rollen beheren'); ?>" href="<?php echo $this->baseUrl('/user/role') ?>">&nbsp;</a>
-    <a href="<?php echo $this->baseUrl('/user/role') ?>"><?php echo t('rollen beheren'); ?></a>
-</p>
-<p>
-    <a class="icon edit" title="<?php echo t('rechten beheren'); ?>" href="<?php echo $this->baseUrl('/user/permission') ?>">&nbsp;</a>
-    <a href="<?php echo $this->baseUrl('/user/permission') ?>"><?php echo t('rechten beheren'); ?></a>
-</p>
+<a class="link edit" title="<?php echo t('manage roles'); ?>" href="<?php echo $this->baseUrl('/user/role') ?>">
+    <?php echo t('manage roles'); ?>
+</a>
+<a class="link edit" title="<?php echo t('manage permissions'); ?>" href="<?php echo $this->baseUrl('/user/permission') ?>">
+	<?php echo t('manage permissions'); ?>
+</a>
+
 <table>
     <thead>
         <tr>
-            <th><?php echo t('gebruikersnaam'); ?></th>
-            <th><?php echo t('naam'); ?></th>
-            <th><?php echo t('rol'); ?></th>
-            <th class="actions"><?php echo t('acties'); ?></th>
+            <th><?php echo t('username'); ?></th>
+            <th><?php echo t('name'); ?></th>
+            <th><?php echo t('role'); ?></th>
+            <th class="actions">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -38,8 +37,8 @@
                     </td>
                 <?php endif; ?>
                 <td>
-                    <a class="icon edit" href="<?php echo $this->baseUrl('/user/user/edit/' . $user->id); ?>"></a>
-                    <a class="icon delete" href="<?php echo $this->baseUrl('/user/user/delete/' . $user->id); ?>"></a>
+                    <a class="icon edit" href="<?php echo $this->baseUrl('/user/user/edit/' . $user->id); ?>" title="<?php echo t('edit'); ?>"></a>
+                    <a class="icon delete" href="<?php echo $this->baseUrl('/user/user/delete/' . $user->id); ?>" title="<?php echo t('delete'); ?>"></a>
                 </td>
             </tr>
         <?php endforeach; ?>

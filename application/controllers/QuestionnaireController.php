@@ -247,8 +247,9 @@ class QuestionnaireController extends Zend_Controller_Action
         $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
             ->find($this->_request->id);
 
-        $confirmationText = 'Weet u zeker dat u questionnaire ' . $questionnaire->id .
-            ' (inclusief alle vragen en antwoorden) wilt verwijderen?';
+        $confirmationText = t('Are you sure you want to delete questionnaire')
+            . " $questionnaire->id "
+            . t('(including all questions and answers)?');
 
         $form = new Webenq_Form_Confirm($questionnaire->id, $confirmationText);
 

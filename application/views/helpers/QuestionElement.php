@@ -99,7 +99,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
                 <div class="handle" title="Sleep de vraag naar een andere positie of andere pagina"></div>
                 <div class="options">';
 
-        if (!$isSubQuestion) $html .= 'Naar pagina: ' . $pageSelect;
+        if (!$isSubQuestion) $html .= t('move to page') . $pageSelect;
 
         $html .= '  <a class="ajax icon edit" title="bewerken" href="' .
             $view->baseUrl('/questionnaire-question/edit/id/' . $qq->id) . '">&nbsp;</a>

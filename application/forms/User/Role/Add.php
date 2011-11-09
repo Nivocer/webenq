@@ -15,13 +15,13 @@ class Webenq_Form_User_Role_Add extends Zend_Form
 
         $this->addElements(array(
             $this->createElement('text', 'name', array(
-                'label' => 'Nieuwe rol:',
+                'label' => 'new role',
                 'required' => true,
                 'filters' => array('StringToLower'),
                 'validators' => array('Alpha'),
             )),
             $this->createElement('submit', 'submit', array(
-                'label' => 'toevoegen',
+                'label' => 'add',
             )),
         ));
     }

@@ -41,23 +41,19 @@ class Webenq_Form_Import extends Zend_Form
         $file = $this->createElement('file', 'file');
         $file
             ->setRequired(true)
-            ->setLabel('Selecteer het te importeren databestand: ')
-            ->setDescription('De volgende bestandsindelingen worden ondersteund: ' .
-                implode(', ', $this->_supportedFormats))
-            ->addValidators(array(
-                $notEmpty,
-                $count,
-                $extension
-            ));
+            ->setLabel('select the file to import')
+            ->setDescription(t('supported formats') . ': '
+            	. implode(', ', $this->_supportedFormats))
+            ->addValidators(array($notEmpty, $count, $extension));
 
         $type = $this->createElement('radio', 'type', array(
-            'label' => 'Type:',
+            'label' => 'type',
             'value' => 'default',
             'multiOptions' => Webenq_Import_Abstract::$supportedTypes,
         ));
 
         $language = $this->createElement('radio', 'language', array(
-            'label' => 'Taal:',
+            'label' => 'language',
             'multiOptions' => Webenq_Language::getLanguages(),
             'required' => true,
         ));

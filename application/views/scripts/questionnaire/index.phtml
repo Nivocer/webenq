@@ -1,13 +1,15 @@
-<a class="ajax link add" href="<?php echo $this->baseUrl('/questionnaire/add') ?>"><?php echo t('questionnaire toevoegen'); ?></a>
+<a class="ajax link add" href="<?php echo $this->baseUrl('/questionnaire/add') ?>" title="<?php echo t('add questionnaire'); ?>">
+    <?php echo t('add questionnaire'); ?>
+</a>
 
 <?php if (isset($this->questionnaires[0])): ?>
     <table>
         <thead>
             <tr>
                 <th><?php echo t('id'); ?></th>
-                <th><?php echo t('titel'); ?></th>
-                <th><?php echo t('datum'); ?></th>
-                <th><?php echo t('bestand'); ?></th>
+                <th><?php echo t('title'); ?></th>
+                <th><?php echo t('date'); ?></th>
+                <th><?php echo t('file'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -22,9 +24,10 @@
                         <?php echo $questionnaire->getQuestionnaireTitle()->text; ?>
                     </td>
                     <td>
-                        <?php if (isset($meta['timestamp']))
-                            echo date('d-m-Y H:i', $meta['timestamp']);
-                        ?>
+                        <?php if (isset($meta['timestamp'])) {
+                            $date = new Zend_Date($meta['timestamp']);
+                            echo $date->get(Zend_Date::DATETIME);
+                        } ?>
                     </td>
                     <td>
                         <?php if (isset($meta['filename']))
@@ -33,21 +36,21 @@
                     </td>
                     <td>
                         <?php if ($questionnaire['count_qqs'] > 0): ?>
-                            <a class="icon collect" title="<?php echo t('verzamelen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon check" title="<?php echo t('controleren'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon report" title="<?php echo t('rapporteren'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon download" title="<?php echo t('downloaden'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon collect" title="<?php echo t('collect'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon check" title="<?php echo t('check'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon report" title="<?php echo t('report'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon download" title="<?php echo t('download'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                         <?php endif; ?>
                         <!--
-                            <a class="icon print" title="<?php echo t('printen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon print" title="<?php echo t('print'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                         -->
-                        <a class="icon edit" title="<?php echo t('bewerken'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
-                        <a class="icon delete" title="<?php echo t('verwijderen'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
+                        <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php else: ?>
-    Er zijn nog geen data-bestanden geimporteerd.
+    <?php echo t('No questionnaires have been imported yet') ?>
 <?php endif; ?>
