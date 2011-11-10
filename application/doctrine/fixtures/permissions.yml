@@ -31,6 +31,9 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_1:
     Role: Webenq_Model_Role_1
     Resource: Webenq_Model_Resource_1
+  Webenq_Model_RoleResource_2:
+    Role: Webenq_Model_Role_1
+    Resource: Webenq_Model_Resource_58
   Webenq_Model_RoleResource_3:
     Role: Webenq_Model_Role_1
     Resource: Webenq_Model_Resource_3
