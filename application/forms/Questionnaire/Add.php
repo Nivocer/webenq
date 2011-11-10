@@ -17,7 +17,7 @@ class Webenq_Form_Questionnaire_Add extends Zend_Form
                 'filters' => array('StringTrim'),
                 'validators' => array(
                     new Zend_Validate_NotEmpty(),
-                    new Zend_Validate_Alnum(true),
+                    new Zend_Validate_Regex('/^[\w\d\s\?\.\+\-_,=\'"]*$/'),
                 ),
             )));
         }
