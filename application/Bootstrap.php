@@ -34,7 +34,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $manager->setAttribute(Doctrine_Core::ATTR_USE_NATIVE_ENUM, true);
 
         $config = $this->getOption('doctrine');
-        Doctrine_Core::loadModels($config['models_path'] . '/generated', null, 'Webenq_Model_Base');
+        Doctrine_Core::loadModels($config['models_path'] . '/generated/Base', null, 'Webenq_Model_Base');
         Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model');
 
         $config = $this->getOption('db');
