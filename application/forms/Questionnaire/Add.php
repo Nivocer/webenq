@@ -31,10 +31,12 @@ class Webenq_Form_Questionnaire_Add extends Zend_Form
     {
         // at least one language is required
         $hasAtLeastOneLanguage = false;
-        foreach ($values['title'] as $language) {
-            if (!empty($language)) {
-                $hasAtLeastOneLanguage = true;
-                break;
+        if (isset($values['title'])) {
+            foreach ($values['title'] as $language) {
+                if (!empty($language)) {
+                    $hasAtLeastOneLanguage = true;
+                    break;
+                }
             }
         }
         if (!$hasAtLeastOneLanguage) {
