@@ -13,7 +13,7 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: Resource.php,v 1.8 2011/11/01 13:28:29 bart Exp $
+ * @version    SVN: $Id: Resource.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_Resource extends Doctrine_Record
 {
@@ -44,7 +44,10 @@ abstract class Webenq_Model_Base_Resource extends Doctrine_Record
 
 
         $this->index('unique-name', array(
-             'fields' => 'name',
+             'fields' => 
+             array(
+              0 => 'name',
+             ),
              'type' => 'unique',
              ));
     }
