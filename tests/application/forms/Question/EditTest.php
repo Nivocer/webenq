@@ -3,11 +3,7 @@ class Webenq_Test_Form_Question_EditTest extends Webenq_Test_Form_Question_AddTe
 {
     public function testOneLanguageIsRequired()
     {
-        $question = Doctrine_Query::create()
-            ->from('Webenq_Model_Question')
-            ->limit(1)
-            ->execute()
-            ->getFirst();
+        $question = new Webenq_Model_Question();
 
         $this->_form = new Webenq_Form_Question_Edit($question);
 
