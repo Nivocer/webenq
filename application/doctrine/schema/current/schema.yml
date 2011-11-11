@@ -611,7 +611,7 @@ Resource:
       type: string(255)
   indexes:
     unique-name:
-      fields: name
+      fields: [name]
       type: unique      
   relations:
     RoleResource:
