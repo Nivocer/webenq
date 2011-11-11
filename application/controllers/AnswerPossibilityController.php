@@ -196,13 +196,29 @@ class AnswerPossibilityController extends Zend_Controller_Action
             'Weet u zeker dat u het antwoord "' . $answerPossibility->getAnswerPossibilityText()->text .
                 '" wilt verwijderen?'
         );
+        $form->setAction($this->_request->getRequestUri());
 
         /* process posted data */
         if ($this->_request->isPost()) {
             if ($this->_request->yes) {
-                $answerPossibility->delete();
+                try {
+                    $answerPossibility->delete();
+                } catch(Doctrine_Connection_Mysql_Exception $e) {
+                    switch ($e->getCode()) {
+                        case 23000:
+                            $message = t('This answer possibility is used in one or more questionnaires and cannot be deleted.');
+                            break;
+                        default:
+                            $message = $e->getMessage();
+                            break;
+                    }
+                    $this->_helper->viewRenderer->setNoRender();
+                    $this->_response->setBody($message);
+                    return;
+                }
+                $this->_helper->json(array('reload' => true));
             }
-            $this->_redirect('/answer-possibility-group/edit/id/' . $answerPossibilityGroupId);
+            $this->_helper->json(array('reload' => false));
         }
 
         /* render view */
