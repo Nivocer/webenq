@@ -9,6 +9,16 @@
 class InstallController extends Zend_Controller_Action
 {
     /**
+     * Messages of success and failure to show after installation-test has run
+     *
+     * @var array
+     */
+    protected $_messages = array(
+    	'success' => array(),
+    	'failure' => array()
+    );
+
+    /**
      * Webenq thirdparty dependencies that should be in the include path
      *
      * @var array Class name as key and file name as value
@@ -21,29 +31,48 @@ class InstallController extends Zend_Controller_Action
 
     public function testAction()
     {
-        $messages = array('success' => array(), 'failure' => array());
+        $this->_testTempDir();
+        $this->_testDependencies();
+        $this->_testDatabaseSchema();
+        $this->view->messages = $this->_messages;
+    }
 
+    protected function _testTempDir()
+    {
+        $cacheBackend = new Zend_Cache_Backend();
+        try {
+            $tmpDir = $cacheBackend->getTmpDir();
+        } catch (Zend_Cache_Exception $e) {
+            $this->_messages['failure'][] = "No temp. dir could be detected.";
+            return;
+        }
+        $this->_messages['success'][] = "Temp. dir is set to <strong>$tmpDir</strong>.";
+    }
+
+    protected function _testDependencies()
+    {
         foreach (self::$_dependencies as $class => $file) {
             @include_once $file;
             if (class_exists($class)) {
-                $messages['success'][] = "Found class <strong>$class</strong>.";
+                $this->_messages['success'][] = "Found class <strong>$class</strong>.";
             } else {
-                $messages['failure'][] = "Could not find class <strong>$class</strong>. Make sure the file <strong>$file</strong> is in the include path.";
+                $this->_messages['failure'][] = "Could not find class <strong>$class</strong>. Make sure the file <strong>$file</strong> is in the include path.";
             }
         }
+    }
 
+    protected function _testDatabaseSchema()
+    {
         // get current and latest db schema version
         $config = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('doctrine');
         $migration = new Doctrine_Migration($config['migrations_path']);
         $current = (int) $migration->getCurrentVersion();
         $latest = (int) $migration->getLatestVersion();
         if ($current === $latest) {
-            $messages['success'][] = "Database schema is up to date.";
+            $this->_messages['success'][] = "Database schema is up to date.";
         } else {
-            $messages['failure'][] = "Database schema is out of date: current version is $current, lates version is $latest.";
+            $this->_messages['failure'][] = "Database schema is out of date: current version is $current, lates version is $latest.";
         }
-
-        $this->view->messages = $messages;
     }
 
     /**
