@@ -28,6 +28,21 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
         return $retVal;
     }
 
+    /**
+     * Returns the answer possibilities for the current group, ordered by value and label
+     *
+     * @return Doctrine_Collection
+     */
+    public function getAnswerPossibilities()
+    {
+        return Doctrine_Query::create()
+            ->from('Webenq_Model_AnswerPossibility ap')
+            ->innerJoin('ap.AnswerPossibilityText apt')
+            ->where('ap.answerPossibilityGroup_id = ?', $this->id)
+            ->orderBy('ap.value, apt.text')
+            ->execute();
+    }
+
     public function findAnswerPossibility($answerText, $currentLanguage = null)
     {
         $answerText = strtolower(trim($answerText));

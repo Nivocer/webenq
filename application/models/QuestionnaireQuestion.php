@@ -328,7 +328,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                 if ($element instanceof Zend_Form_Element_Select) {
                     $options[''] = '--- ' . t('select') . ' ---';
                 }
-                foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $possibility) {
+                foreach ($this->AnswerPossibilityGroup->getAnswerPossibilities() as $possibility) {
                     $options[$possibility->id] = $possibility->getAnswerPossibilityText()->text;
                 }
                 $element->setMultiOptions($options);

@@ -46,8 +46,15 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     public function viewAction()
     {
         // get group
-        $this->view->answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
-            ->find($this->_request->id);
+        $groups = Doctrine_Query::create()
+            ->from('Webenq_Model_AnswerPossibilityGroup apg')
+            ->innerJoin('apg.AnswerPossibility ap')
+            ->innerJoin('ap.AnswerPossibilityText apt')
+            ->where('apg.id = ?', $this->_request->id)
+            ->orderBy('ap.value, apt.text')
+            ->execute();
+
+        $this->view->answerPossibilityGroup = count($groups) === 1 ? $groups->getFirst() : false;
     }
 
     /**
