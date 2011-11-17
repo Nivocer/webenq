@@ -76,8 +76,8 @@ public class ExecuteReport {
 			//hack location of files, needs to be interactive.
 			String xformLocation="src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml";
 			String dataLocation="src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml";
-			String reportDefinitionLocation="/org/webenq/resources/simpleQuestBarchart.jasper";
-			
+			//String reportDefinitionLocation="/org/webenq/resources/simpleQuestBarchart.jasper";
+			String reportDefinitionLocation="/org/webenq/resources/simpleQuest.jasper";
 			//Connection conn = connectDB(databaseName, userName, password);
 			InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
 			Map<String,Object> prms = new HashMap<String,Object>();
