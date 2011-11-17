@@ -216,4 +216,22 @@ class Webenq
         }
         return $value;
     }
+
+    public static function setMemoryLimit($value)
+    {
+        $key = 'memory_limit';
+        @ini_set($key, $value);
+        if (ini_get($key) != $value) {
+            throw new Exception("PHP-settings $key could not be set to $value!");
+        }
+    }
+
+    public static function setMaxExecutionTime($value)
+    {
+        $key = 'max_execution_time';
+        @ini_set($key, $value);
+        if (ini_get($key) != $value) {
+            throw new Exception("PHP-settings $key could not be set to $value!");
+        }
+    }
 }

@@ -32,7 +32,7 @@ abstract class Webenq_Download extends Webenq
 	 * @param string $format
 	 * @param Webenq_Model_Questionnaire $questionnaire
 	 */
-	static public function factory($format, Webenq_Model_Questionnaire $questionnaire)
+	static public function factory($format, Webenq_Model_Questionnaire $questionnaire = null)
 	{
 		$class = 'Webenq_Download_' . ucfirst(strtolower($format));
 		return new $class($questionnaire);
@@ -47,11 +47,34 @@ abstract class Webenq_Download extends Webenq
 	 *
 	 * @param Webenq_Model_Questionnaire $questionnaire
 	 */
-	public function __construct(Webenq_Model_Questionnaire $questionnaire)
+	public function __construct(Webenq_Model_Questionnaire $questionnaire = null)
 	{
-		$this->_questionnaire = $questionnaire;
-        $this->_data = $questionnaire->getDataAsSpreadsheetArray();
-		$this->init();
+	    if ($questionnaire) {
+    		$this->_questionnaire = $questionnaire;
+            $this->_data = $questionnaire->getDataAsSpreadsheetArray();
+            $this->init();
+	    } else {
+	        $questionnaire = new Webenq_Model_Questionnaire();
+	        $this->_questionnaire = $questionnaire;
+	    }
+	}
+
+	/**
+	 * Manually sets the data
+	 *
+	 * This method can be used when a questionnaire has not been provided
+	 * to the constructor, or when the provided questionnaire was empty
+	 *
+	 * @param array Multidimensional array with questionnaire data (only the first sheet)
+	 * @return $this
+	 */
+	public function setData(array $data)
+	{
+	    if (!empty($this->_data)) {
+	        throw new Exception('Data was already set!');
+	    }
+	    $this->_data = $data;
+	    return $this;
 	}
 
 	/**

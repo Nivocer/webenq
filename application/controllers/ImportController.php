@@ -24,33 +24,26 @@ class ImportController extends Zend_Controller_Action
 
         if ($this->_helper->form->isPostedAndValid($form)) {
 
+            // make sure enough resources are assigned
+            try {
+                Webenq::setMemoryLimit('512M');
+                Webenq::setMaxExecutionTime(0);
+            } catch (Exception $e) {
+                $errors[] = $e->getMessage();
+            }
+
+            // get form data
             $data = $form->getValues();
             $session->language = $data['language'];
 
+            // get uploaded file
             if ($form->file->receive()) {
                 $filename = $form->file->getFileName();
             } else {
                 $errors[] = 'Error receiving the file';
             }
 
-            if (!$errors) {
-
-                /* set memory_limit */
-                $key = 'memory_limit';
-                $value = '512M';
-                @ini_set($key, $value);
-                if (!ini_get($key) == $value) {
-                    throw new Exception("PHP-settings $key could not be set to $value!");
-                }
-
-                /* set max_execution_time */
-                $key = 'max_execution_time';
-                $value = 0;
-                @ini_set($key, $value);
-                if (!ini_get($key) == $value) {
-                    throw new Exception("PHP-settings $key could not be set to $value!");
-                }
-
+            if (empty($errors)) {
                 $adapter = Webenq_Import_Adapter_Abstract::factory($filename);
                 $importer = Webenq_Import_Abstract::factory($data['type'], $adapter, $data['language']);
                 $importer->import();

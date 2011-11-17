@@ -15,7 +15,8 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
    /**
     * Gets the questionnaire title in the given, current or preferred language. Creates
-    * an empty translation if nothing was found.
+    * an empty translation if nothing was found and the questionnaire exists in the
+    * database.
     *
     * @param string $language
     * @return Webenq_Model_QuestionnaireText
@@ -51,11 +52,15 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             return $this->QuestionnaireTitle[0];
 
         // create empty translation if nothing was found
-        $title = new Webenq_Model_QuestionnaireTitle();
-        $title->language = $language;
-        $title->Questionnaire = $this;
-        $title->save();
-        return $title;
+        if ($this->id) {
+            $title = new Webenq_Model_QuestionnaireTitle();
+            $title->language = $language;
+            $title->Questionnaire = $this;
+            $title->save();
+            return $title;
+        }
+
+        return new Webenq_Model_QuestionnaireTitle();
     }
 
     /**
