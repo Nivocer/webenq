@@ -100,14 +100,16 @@ public class XformJRDataSource {
 
 					//get group_question_value
 					group_question_value=null;
+					String group_question_text=null;
 					String group_question_label=null;
 					if (group_question_id !=null){
+						group_question_text=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, null);
 						expression=group_question_id;
 						Node groupQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 						group_question_value=groupQuestionNode.getTextContent();
 						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
 					}
-					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_value, group_question_label);
+					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_text, group_question_value, group_question_label);
 					reportRows.add(ra);
 				}
 				
