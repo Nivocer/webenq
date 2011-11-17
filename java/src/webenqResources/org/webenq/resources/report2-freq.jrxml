@@ -11,9 +11,6 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="CUSTOMER" class="java.lang.String"/>
-	<parameter name="REPORT_QUESTION_ID" class="java.lang.String"/>
-	<parameter name="XFORM_LOCATION" class="java.lang.String"/>
-	<parameter name="FORM_NAME" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -23,6 +20,7 @@
 	<field name="group_question_id" class="java.lang.String"/>
 	<field name="report_question_label" class="java.lang.String"/>
 	<field name="group_question_label" class="java.lang.String"/>
+	<field name="report_question_text" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -50,7 +48,6 @@
 				<reportElement x="0" y="12" width="555" height="45">
 					<property name="net.sf.jasperreports.export.pdf.tag.table" value="full"/>
 				</reportElement>
-				<crosstabParameter name="REPORT_QUESTION_ID"/>
 				<crosstabHeaderCell>
 					<cellContents>
 						<box>
@@ -316,7 +313,7 @@ $V{col}:
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{REPORT_QUESTION_ID},"")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{report_question_text}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
