@@ -76,7 +76,7 @@ class ToolController extends Zend_Controller_Action
     protected function _getModules(array $data)
     {
         $modules = array();
-        $moduleNamePattern = '/^1:\s([^\s]*)/';
+        $moduleNamePattern = '/^1:\s(.*)/';
         foreach ($data[0][0] as $column => $header) {
             if (preg_match($moduleNamePattern, $header, $matches)) {
                 $modules[$column] = $matches[1];
@@ -185,6 +185,9 @@ class ToolController extends Zend_Controller_Action
             }
         }
 
+        // merge modules (if they have the same questions)
+        $this->_mergeModules($new, $moduleDataColumns);
+
         // add module header to first row
         $new[0][0][] = 'module';
 
@@ -197,6 +200,69 @@ class ToolController extends Zend_Controller_Action
         }
 
         return $new;
+    }
+
+    /**
+     * Merges the modules if the question texts are the same
+     *
+     * @param array &$data
+     * @param array &$moduleDataColumns
+     * @return array
+     */
+    protected function _mergeModules(array &$data, array &$moduleDataColumns)
+    {
+        $questions = $data[0][0];
+        foreach ($moduleDataColumns as $module => &$columns) {
+            foreach ($questions as $column => &$question) {
+                if (preg_match("/^(\d*:\s*)$module:\s*(.*)$/", $question, $matches)) {
+                    $question = $matches[1] . $matches[2];
+                    if ($column === 1 + $columns['end']) $columns['end']++;
+                }
+            }
+        }
+
+        // find double questions
+        $uniqueModuleQuestions = array();
+        foreach ($questions as $column => $question) {
+            if ($this->_isModuleColumn($column, $moduleDataColumns, $data)) {
+                if (preg_match('/d*:\s*(.*)$/', $question, $matches)) {
+                    if (isset($uniqueModuleQuestions[$matches[1]])) {
+                        $uniqueModuleQuestions[$matches[1]][] = $column;
+                    } else {
+                        $uniqueModuleQuestions[$matches[1]] = array($column);
+                    }
+                }
+            }
+        }
+
+        // merge questions
+        $row = &$data[0][0];
+        foreach ($uniqueModuleQuestions as $question => $columns) {
+            $first = current($columns);
+            foreach ($columns as $column) {
+                if ($column === $first) {
+                    $row[$column] = $question;
+                } else {
+                    unset($row[$column]);
+                }
+            }
+        }
+
+        // merge answers
+        foreach ($data[0] as $i => &$row) {
+            if ($i === 0) continue;
+            foreach ($uniqueModuleQuestions as $question => $columns) {
+                $first = current($columns);
+                foreach ($columns as $column) {
+                    if ($column > $first) {
+                        if (!$row[$first] && $row[$column]) {
+                            $row[$first] = $row[$column];
+                        }
+                        unset($row[$column]);
+                    }
+                }
+            }
+        }
     }
 
     /**
