@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="80" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="352"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
@@ -41,9 +41,6 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 	</scriptlet>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE" class="java.util.Map" isForPrompting="false"/>
-	<parameter name="TYPE" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["AVG"]]></defaultValueExpression>
-	</parameter>
 	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
@@ -57,6 +54,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 	<field name="report_question_label" class="java.lang.String"/>
 	<field name="group_question_label" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
+	<field name="group_question_text" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -79,9 +77,9 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="46" splitType="Stretch">
+		<band height="56" splitType="Stretch">
 			<crosstab ignoreWidth="false">
-				<reportElement x="0" y="12" width="555" height="30" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+				<reportElement positionType="Float" x="0" y="24" width="555" height="30" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
 				<crosstabParameter name="GROUP_ROWS_C">
 					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
 				</crosstabParameter>
@@ -90,9 +88,6 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 				</crosstabParameter>
 				<crosstabParameter name="CUSTOMER">
 					<parameterValueExpression><![CDATA[$P{CUSTOMER}]]></parameterValueExpression>
-				</crosstabParameter>
-				<crosstabParameter name="TYPE">
-					<parameterValueExpression><![CDATA[$P{TYPE}]]></parameterValueExpression>
 				</crosstabParameter>
 				<crosstabDataset isDataPreSorted="true"/>
 				<crosstabHeaderCell>
@@ -327,11 +322,18 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 				</crosstabCell>
 			</crosstab>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="595" height="12"/>
+				<reportElement x="0" y="0" width="555" height="12"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},"")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{group_question_text}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

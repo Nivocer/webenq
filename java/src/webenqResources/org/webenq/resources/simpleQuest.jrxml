@@ -119,17 +119,11 @@
 			</subreport>
 			<subreport>
 				<reportElement positionType="Float" x="0" y="100" width="555" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="DATA_LOCATION">
-					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="XFORM_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
@@ -151,17 +145,11 @@
 			</subreport>
 			<subreport>
 				<reportElement positionType="Float" x="0" y="120" width="555" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="SUBREPORT_DIR">
-					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="DATA_LOCATION">
-					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="XFORM_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
