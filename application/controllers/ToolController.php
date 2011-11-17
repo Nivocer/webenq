@@ -62,7 +62,7 @@ class ToolController extends Zend_Controller_Action
         // return file for download
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        $download = new Webenq_Download_Xlsx();
+        $download = new Webenq_Download_Xls();
         $download->setData($newFirstSheet)->init();
         $download->send($this->_response);
     }
