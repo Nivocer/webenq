@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-bc2" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key" isIgnorePagination="true">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
@@ -30,15 +30,17 @@
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band height="35" splitType="Prevent">
-				<textField evaluationTime="Group" evaluationGroup="question">
-					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="160" height="35" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression class="java.lang.String"><![CDATA[$F{row}]]></textFieldExpression>
+			<band height="20" splitType="Prevent">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="73" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<textElement verticalAlignment="Top" markup="html">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{row}]]></textFieldExpression>
 				</textField>
 				<stackedBarChart>
 					<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="question" theme="aegean">
-						<reportElement stretchType="RelativeToTallestObject" x="160" y="0" width="350" height="35" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+						<reportElement x="160" y="0" width="350" height="20" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
 						<chartTitle/>
 						<chartSubtitle/>
 						<chartLegend/>
@@ -54,24 +56,12 @@
 					<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
 						<plot orientation="Horizontal"/>
 						<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
-						<categoryAxisFormat>
-							<axisFormat verticalTickLabels="false">
-								<labelFont/>
-								<tickLabelFont/>
-							</axisFormat>
-						</categoryAxisFormat>
-						<valueAxisFormat>
-							<axisFormat verticalTickLabels="false">
-								<labelFont/>
-								<tickLabelFont/>
-							</axisFormat>
-						</valueAxisFormat>
 					</barPlot>
 				</stackedBarChart>
 				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
-					<reportElement stretchType="RelativeToTallestObject" x="510" y="0" width="23" height="35" isPrintInFirstWholeBand="true"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression class="java.lang.Double"><![CDATA[$V{average}]]></textFieldExpression>
+					<reportElement stretchType="RelativeToTallestObject" x="510" y="0" width="23" height="20" isPrintInFirstWholeBand="true"/>
+					<textElement verticalAlignment="Top"/>
+					<textFieldExpression><![CDATA[$V{average}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
