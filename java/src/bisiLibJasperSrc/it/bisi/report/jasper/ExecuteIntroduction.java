@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.Statement;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +18,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.export.*;
 
+import org.apache.commons.lang.StringEscapeUtils;
 
 public class ExecuteIntroduction {
 
@@ -33,10 +34,11 @@ public class ExecuteIntroduction {
 		Connection jdbcConnection = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			String host="jdbc:mysql://"+databaseName;
+			//String host="jdbc:mysql://"+databaseName;
 			//System.out.println("host="+host);
 			jdbcConnection = DriverManager.getConnection("jdbc:mysql://"+databaseName,userName,password);
 		}catch(Exception ex) {
+			@SuppressWarnings("unused")
 			String connectMsg = "Could not connect to the database: " + ex.getMessage() + " " + ex.getLocalizedMessage();
 	         
 			ex.printStackTrace();
@@ -48,35 +50,68 @@ public class ExecuteIntroduction {
 	{
 		try {
 			Connection conn = connectDB(databaseName, userName, password);
-//todo next line
 			InputStream inputStream = Utils.class.getResourceAsStream("/it/bisi/resources/report-introduction.jasper");
-			Map prms = new HashMap();
+			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", output_dir);
 			
 			//hardcoded....
+			//some defaults
+			String page_orientation = "portrait"; 
+			String output_format="pdf";
+			output_format="odt";
+			
+			//language
 			String language;
-			if (period_identifier.equals("3") || period_identifier.equals("5")){
+			if (period_identifier.equals("3") || period_identifier.equals("5") || period_identifier.equals("7") || period_identifier.equals("15")){
 					language="en";
 			}else{
 				language = "nl";
 			}
+			
+			//customer
 			String customer = "fraijlemaborg";
-			String page_orientation = "portrait"; 
-			//String output_format="pdf";
-			String output_format="odt";
+			if (period_identifier.equals("8") || period_identifier.equals("9")) {
+				customer ="hvaoo";
+			}
+			if (period_identifier.equals("10")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("11")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("112")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("113")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("114")) {
+				customer="hvaoo";
+			}
+			if (period_identifier.equals("115")) {
+				customer="hvaoo";
+			}			
+
+			//output file name adjustments
 			String output_file_name=output_dir + "/introduction_" + report_type;			
 			if (period_identifier.equals("5") || period_identifier.equals("4")){
 				output_file_name+="2";
 			}
+			if (period_identifier.equals("6") || period_identifier.equals("7") || period_identifier.equals("13") || period_identifier.equals("15") ){
+				output_file_name+="_"+language;
+			}
+			//end hardcoded config
 			
 			prms.put("REPORT_TYPE", report_type);
 			prms.put("CUSTOMER", customer);
+			prms.put("PERIOD_IDENTIFIER",period_identifier);
+			prms.put("LANGUAGE", language);
 			
 				
 			/* get key/value pairs for current language/customer-combination */
 			String key = "";
 			String val = "";
-			Map texts = new HashMap();
+			Map<String,String> texts = new HashMap<String,String>();
 			Statement stmt_texts = conn.createStatement();
 			stmt_texts.execute("SELECT `key`, `value` FROM `text` WHERE `language` = '" + language + "' AND `customer` = '" + customer + "';");
 			ResultSet rs_keyValPairs = stmt_texts.getResultSet();
@@ -90,6 +125,10 @@ public class ExecuteIntroduction {
 			
 			//updaten reponse
 			//get all rows for this period_identifier/report_identifier
+			
+			/*
+			 * @todo need to change this for new datamodel
+			 */
 			String update_query1="SELECT * from population where period_id="+period_identifier;
 			Statement stmt_update1 = conn.createStatement();
 			stmt_update1.execute(update_query1);
@@ -101,17 +140,30 @@ public class ExecuteIntroduction {
 				String split_question_id=rs_update1.getString("split_question_id");
 				String split_value=rs_update1.getString("split_value");
 				String update_query2;
-				if (!split_question_id.equals(null) && !split_question_id.equals("")){
+				/*
+				 * @todo need to change this for new datamodel
+				 * @todo check next if statement
+				 */
+				if ((split_question_id !=null) && !split_question_id.equals("")){
 					update_query2=update_query2="UPDATE population set response=" +
-					"(select count(*) from data_"+dataset_id+" where "+split_question_id+"='"+split_value+"')" +
+					"(select count(*) from values_"+dataset_id+" where "+split_question_id+"='"+split_value+"')" +
 					" where period_id="+period_identifier +
 					" and dataset_id="+dataset_id+
 					" and split_question_id='"+split_question_id+"'" +
 					" and split_value='"+split_value+"'";
-					
+					// ugly hack: als split_question_id 0_respondent is, dan geen echte split
+					if (split_question_id.equals("0_respondent")){
+						update_query2="UPDATE population set response=" +
+						"(select count(*) from values_"+dataset_id+") " +
+							" where period_id="+period_identifier +
+							" and dataset_id="+dataset_id+
+							" and split_question_id='0_respondent'";
+						//System.out.println(update_query2);
+					}
+					//System.out.println(update_query2);
 				} else {
 					update_query2="UPDATE population set response=" +
-					"(select count(*) from data_"+dataset_id+") " +
+					"(select count(*) from values_"+dataset_id+") " +
 						" where period_id="+period_identifier +
 						" and dataset_id="+dataset_id+
 						" and (split_question_id=null or split_question_id='')" +
@@ -123,6 +175,9 @@ public class ExecuteIntroduction {
 			
 			//looping through possible split by values (multiple reports for subset of respondents)
 			//get split_values
+			/*
+			 * @todo need to change this for new datamodel
+			 */
 			Statement stmt_rows_values=conn.createStatement();
 			stmt_rows_values.execute("select distinct split_value as split_values FROM population where period_id="+period_identifier);
 			ResultSet rs_rows_values = stmt_rows_values.getResultSet();
@@ -132,6 +187,10 @@ public class ExecuteIntroduction {
 			
 			
 			if (split_row_count>0 ) {
+				//we have at least one row.... but for now we want to use this one, the no split value gives an error...
+				/*
+				 * @todo need to change this for new datamodel
+				 */
 				while (rs_rows_values.next()) {
 					String split_value=rs_rows_values.getString("split_values");
 					//needed for displaying content
@@ -139,7 +198,9 @@ public class ExecuteIntroduction {
 					String query="select * from population" +
 						" where period_id="+period_identifier +
 						" and split_value='"+split_value+"'"+
-						" order by dataset_id DESC";
+						" and response>0"+
+						" order by dataset_id ASC";
+					//System.out.println(query);
 					prms.put("QUERY", query);
 					
 					if (page_orientation != null && page_orientation.equals("landscape")) {
@@ -150,25 +211,42 @@ public class ExecuteIntroduction {
 					
 					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
 
+					// first step better path handling: cleaning of split_value (is data input).
+					String split_value_clean=split_value.replace("/","_");
+					split_value_clean=split_value_clean.replace(" ","_");
+					split_value_clean=split_value_clean.replace(",","");
+					split_value_clean=split_value_clean.replace("*","");
+					split_value_clean=split_value_clean.toLowerCase();
+					split_value_clean=StringEscapeUtils.escapeJava(split_value_clean);
+					
 					// Create output in directory public/reports  
 					if(output_format.equals("pdf")) {
-						JasperExportManager.exportReportToPdfFile(print, output_file_name + "_" + split_value + ".pdf");
+						//JasperExportManager.exportReportToPdfFile(print, output_file_name + "_" + split_value_clean + ".pdf");
+						net.sf.jasperreports.engine.export.JRPdfExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter(); 
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name+ "-" + split_value_clean + ".pdf");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+						exporter.setParameter(JRPdfExporterParameter.FORCE_LINEBREAK_POLICY, Boolean.TRUE);
+						exporter.exportReport();
 					} else if(output_format.equals("odt")) {
 						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "_" + split_value+ ".odt");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "_" + split_value_clean+ ".odt");
 						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 						exporter.exportReport();
 					} else if(output_format.equals("html")) {
-						JasperExportManager.exportReportToHtmlFile(print, output_file_name +"_"+split_value+ ".html");
+						JasperExportManager.exportReportToHtmlFile(print, output_file_name +"_"+split_value_clean+ ".html");
 					} else if(output_format.equals("xml")) {
-						JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_value+ ".xml", false);
+						JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_value_clean+ ".xml", false);
 					} else { 
 						JasperViewer.viewReport(print);
 					}
 				}
 			}else{
 				//no split value
+				// throws error unkown 'column name title' by generation of introduction (6,7) 
 				//response (not percentage, but number of respondents in this report)
+				/*
+				 * @todo need to change this for new datamodel
+				 */
 				String query="select * from population" +
 					" where period_id="+period_identifier;
 				prms.put("QUERY", query);
@@ -199,6 +277,7 @@ public class ExecuteIntroduction {
 			}
 		}
 		catch(Exception ex) {
+			@SuppressWarnings("unused")
 			String connectMsg = "Could not create the report " + ex.getMessage() + " " + ex.getLocalizedMessage();
 			ex.printStackTrace();
 		}

@@ -1,11 +1,14 @@
 package it.bisi.report.jasper.datasource;
 
 import it.bisi.report.jasper.datasource.object.XformBean;
+import it.bisi.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -25,10 +28,13 @@ import org.xml.sax.SAXException;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
+
 //import org.apache.commons.lang.StringEscapeUtils;
 
 public class XformJRDataSource {
 	private String data_location;
+	private String xform_location;
+	private String xform_name;
 	private String report_question_ids;
 	private String group_question_id;
 	private String split_question_id;
@@ -36,9 +42,11 @@ public class XformJRDataSource {
 
 
 
-	public XformJRDataSource(String data_location, String report_question_ids, String group_question_id, String split_question_id, String split_question_value) {
+	public XformJRDataSource(String data_location, String xform_location, String xform_name, String report_question_ids, String group_question_id, String split_question_id, String split_question_value) {
 
 		this.data_location=data_location;
+		this.xform_location=xform_location;
+		this.xform_name=xform_name;
 		this.report_question_ids=report_question_ids;
 		this.group_question_id=group_question_id;
 		this.split_question_id=split_question_id;
@@ -64,7 +72,8 @@ public class XformJRDataSource {
 			String report_question_id="";
 			StringTokenizer st = new StringTokenizer(report_question_ids,","); 
 			while (st.hasMoreTokens()){
-				report_question_id=st.nextToken();
+				report_question_id=st.nextToken().trim();
+				String report_question_text=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, null);
 
 				//String question_field=rsh_questions.getString(1); //question_id
 				//create the xpath expressions
@@ -88,19 +97,27 @@ public class XformJRDataSource {
 					expression = report_question_id;
 					Node reportQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 					report_question_value=reportQuestionNode.getTextContent();
+					String report_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, report_question_value);
 
 					//get group_question_value
-					group_question_value=null; 
+					group_question_value=null;
+					String group_question_label=null;
 					if (group_question_id !=null){
 						expression=group_question_id;
 						Node groupQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 						group_question_value=groupQuestionNode.getTextContent();
+						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
 					}
-					System.out.println(group_question_id+":"+group_question_value);
-					XformBean ra=new XformBean(report_question_id, report_question_value, group_question_id, group_question_value);
+					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_value, group_question_label);
 					reportRows.add(ra);
 				}
-				
+				if ( group_question_id != null && group_question_id.length() > 0 )
+				{
+					// Populate the percentages.
+					ArrayList hm = new ArrayList();
+					it.bisi.Utils.hmPercentages.put( report_question_text, hm);
+					CalculatePercetage( reportRows, report_question_text ,hm );
+				}				
 			}
 			
 			
@@ -120,6 +137,41 @@ public class XformJRDataSource {
 		dataSource = new JRBeanCollectionDataSource(reportRows);
 		return dataSource;
 
+	}
+
+	private void CalculatePercetage(Collection<XformBean> reportRows,
+			String report_question_text, ArrayList hm) 
+	{
+		ArrayList al = Utils.alPercentages ;
+		float mee_eens_count = 0 , helememaal_mee_oneens_count = 0 , neutraal_count = 0 , mee_oneens_count = 0;
+		float total = 0;
+		for ( int i =0 ; i < reportRows.size(); i ++ )
+		{
+			XformBean bn = (XformBean)((ArrayList<XformBean>) reportRows).get(i);
+			if ( bn.getReport_question_text().equals(report_question_text)  ) 
+			{
+				if ( bn.getReport_question_label().equals("mee eens") ) 
+					mee_eens_count++;
+				if ( bn.getReport_question_label().equals("helememaal mee oneens") ) 
+					helememaal_mee_oneens_count++;
+				if ( bn.getReport_question_label().equals("neutraal") ) 
+					neutraal_count++;
+				if ( bn.getReport_question_label().equals("mee oneens") ) 
+					mee_oneens_count++;
+				total++;			
+			}			
+		}
+		DecimalFormat df = new java.text.DecimalFormat("###.##");
+		
+		if ( helememaal_mee_oneens_count > 0 )
+			al.add(  df.format (  ( helememaal_mee_oneens_count/total ) * 100 )  );
+		if ( mee_oneens_count > 0 )
+			al.add( df.format (  ( mee_oneens_count/total) * 100 ) );
+		if ( neutraal_count > 0 )
+			al.add( df.format (  ( neutraal_count/total) * 100) );
+		if ( mee_eens_count > 0 )
+			al.add( df.format (  ( mee_eens_count/total) * 100) );
+		
 	}	
 
 }

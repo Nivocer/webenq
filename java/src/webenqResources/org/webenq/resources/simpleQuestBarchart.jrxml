@@ -23,7 +23,7 @@
 	<parameter name="SPLIT_QUESTION_VALUE" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="REPORT_IDENTIFIER" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XFORM_LOCATION" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="QUESTION_ID" class="java.lang.String">
 		<defaultValueExpression><![CDATA["g6-Tevredenheid/g6-DoelenDuidelijk"]]></defaultValueExpression>
@@ -32,7 +32,7 @@
 		<defaultValueExpression><![CDATA["HVA-oo-simpleQuest"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DATA_LOCATION" class="java.lang.String">
-		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="DOC_DATA" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap"/>
@@ -52,28 +52,30 @@
 		<band height="107" splitType="Immediate">
 			<subreport>
 				<reportElement positionType="Float" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
 					<subreportParameterExpression><![CDATA["<b>we need some adjustments to the barchart:</b><br>"+
-"-we need percentage as label in the graph in stead of number<br>"+
 "-colors are not correct, at this moment red is always shown, but it must only be used for negative labels (see below)<br>"+
+"-we need percentage as label in the graph in stead of number<br>"+
+"-font size of label in bar is to big"+
 "-the questions are alphabetical sorted, but it should be sorted according to the list in simplequestBarchart.jrxml (subreport parameter)<br>"+
 "-white space to much whitespace around the bar (we can adjust the space at the right by setting a good max axis value)<br>"+
+
 "<br>"+
 "Below are some frequencies to show values in the data, below that we see the current barchart.<br>"+
-"'zeer mee oneens' and 'mee oneens' should become red<br>"+
+"'helemaal mee oneens' and 'mee oneens' should become red<br>"+
 "'neutraal' should become green<br>"+
-"'mee eens' and 'zeer mee eens' should become green<br>"]]></subreportParameterExpression>
+"'mee eens' and 'helemaal mee eens' should become green<br>"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.EmptyDatasource()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
@@ -192,7 +194,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-InhoudRelevant,g6-Tevredenheid/g6-DoelenDuidelijk, g6-Tevredenheid/g6-DoelenBereikt","g6-Rapportcijfer", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-InhoudRelevant, g6-Tevredenheid/g6-DoelenBereikt,g6-Tevredenheid/g6-DoelenDuidelijk","g6-Rapportcijfer", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report-barchart.jasper"]]></subreportExpression>
 			</subreport>
 		</band>

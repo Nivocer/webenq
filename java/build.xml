@@ -1,0 +1,131 @@
+<project name="webenq4" default="all" basedir=".">
+
+    <description>Compile the jrxml and java files with ANT.</description>
+
+    <property name="tmp.dir"	value="./src/webenqResources/org/webenq/resources" />
+    <property name="jar.dir"	value="./lib" />
+
+
+<!--   <property name="src.dirJrxml"	value="./src/webenqResources/org/webenq/resources" /> -->
+    <property name="src.dirJrxml"	value="./src/webenqResources" /> 
+
+    <property name="dest.dirJrxml"	value="./src/webenqResources" />
+    <property name="name.jrxml"	value="webenqResources" />
+
+
+    <property name="src.dirJava"	value="./src/bisiLibJasperSrc" />
+    <property name="dest.dirJava"	value="./src/bisiLibJasperSrc" />
+    <property name="name.java"	value="bisiLibJasper" />
+    <property name="main-class"  value="bisiLibJasper.ExecuteReport"/>
+
+
+
+<!--
+    <property name="build.dir"   value="build"/>
+
+-->
+
+
+	<path id="classpath">
+		<pathelement location="./lib"/>
+		<fileset dir="./lib">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<!-- waarschijnlijk kan je hier include paths neerzetten, de fonts staat er nog van de sample build.xml -->
+	<!-- met andere woorden dit begrijp ik nog niet -->
+	<!-- wordt gebruikt bij het compileren van jrxml -->
+	<path id="runClasspath">
+		<path refid="classpath"/>
+		<pathelement location="../../fonts"/>
+	</path>
+
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask"> 
+		<classpath refid="classpath"/>
+	</taskdef>
+
+	<target name ="cleanJrxml" description="clean jrxml">
+	    <delete>
+	        <fileset dir="${dest.dirJrxml}" includes="**/*.jasper"/>
+	    </delete>
+	</target>
+
+
+
+	<target name="compileJrxml"> 
+		<jrc 
+			srcdir="${src.dirJrxml}"
+			destdir="${dest.dirJrxml}"
+			tempdir="${tmp.dir}"
+			keepjava="false"
+			xmlvalidation="true">
+			<classpath refid="runClasspath"/>
+			<include name="**/*.jrxml"/>
+		</jrc>
+	</target> 
+
+
+
+	 <target name="jarJrxml" depends="compileJrxml">
+        	<jar destfile="${jar.dir}/${name.jrxml}.jar" basedir="${src.dirJrxml}">
+        	</jar>
+	</target>
+
+
+	<target name ="cleanJava" description="clean compiled java files">
+	    <delete>
+	        <fileset dir="${dest.dirJava}" includes="**/*.class"/>
+	     </delete>
+	</target>
+
+
+	<target name="compileJava">
+          <javac srcdir="${src.dirJava}" destdir="${dest.dirJava}" classpathref="classpath" />
+	</target>
+
+
+
+	 <target name="jarJava" depends="compileJava">
+        	<jar destfile="${jar.dir}/${name.java}.jar" basedir="${src.dirJava}" excludes="it/bisi/report/jasper/chartTheme/**" >
+        	    <manifest>
+        	        <attribute name="Main-Class" value="${main-class}"/>
+        	    </manifest>
+        	</jar>
+	</target>
+		
+
+<!-- combination of jobs -->	
+	<target name="all" description="Compile the code and the reports.">
+		<echo message="==================================="/>
+		<echo message=" Ant Compile Reports and Code"/>
+		<echo message="==================================="/>
+		<antcall target="java" />
+		<antcall target="jrxml" />
+	</target>
+
+	<target name="jrxml" description="compile and jar jrxml">
+		<echo message="==================================="/>
+		<echo message=" Ant Compile Reports"/>
+		<echo message="==================================="/>
+		<antcall target="jarJrxml" />
+	</target>
+
+
+	<target name="java" description="compile and jar java">
+		<echo message="==================================="/>
+		<echo message=" Ant Compile Code"/>
+		<echo message="==================================="/>
+		<antcall target="jarJava" />
+	</target>
+
+	<target name="clean" description="clean compiled files">
+		<echo message="==================================="/>
+		<echo message=" Delete compiled file (not the jars)"/>
+		<echo message="==================================="/>
+		<antcall target="cleanJrxml" />
+		<antcall target="cleanJava" />
+	</target>
+
+
+
+</project>
