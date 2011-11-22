@@ -139,13 +139,13 @@ public class ExecuteReport {
 			Locale locale = new Locale("nl", "NL");
 			if (language.equals("nl")){
 				locale = new Locale("nl", "NL");
-				prop.put( "Report_Label_Format", ",");
+				//prop.put( "Report_Label_Format", ",");
 			}else {
 				locale = new Locale("en", "US");
-				prop.put( "Report_Label_Format", ".");
+				//prop.put( "Report_Label_Format", ".");
 			}
 			prms.put(JRParameter.REPORT_LOCALE, locale);
-
+			Locale.setDefault(locale);
 			//@TODO nicer handling missing files
 			// eg http://jasperforge.org/plugins/espforum/view.php?group_id=102&forumid=103&topicid=65623
 			if (customer.equals("fraijlemaborg")) {

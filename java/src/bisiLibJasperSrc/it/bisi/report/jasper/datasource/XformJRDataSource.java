@@ -164,16 +164,16 @@ public class XformJRDataSource {
 				total++;			
 			}			
 		}
-		DecimalFormat df = new java.text.DecimalFormat("###.#");
+		DecimalFormat df = new java.text.DecimalFormat("#.#%");
 		
 		if ( helememaal_mee_oneens_count > 0 )
-			al.add(  df.format (  ( helememaal_mee_oneens_count/total ) * 100 )  );
+			al.add(  df.format (  helememaal_mee_oneens_count/total )  );
 		if ( mee_oneens_count > 0 )
-			al.add( df.format (  ( mee_oneens_count/total) * 100 ) );
+			al.add( df.format (  mee_oneens_count/total)  );
 		if ( neutraal_count > 0 )
-			al.add( df.format (  ( neutraal_count/total) * 100) );
+			al.add( df.format (   neutraal_count/total ) );
 		if ( mee_eens_count > 0 )
-			al.add( df.format (  ( mee_eens_count/total) * 100) );
+			al.add( df.format (   mee_eens_count/total ) );
 		
 	}	
 
