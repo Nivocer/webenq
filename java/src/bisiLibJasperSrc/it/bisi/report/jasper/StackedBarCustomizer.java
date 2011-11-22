@@ -31,7 +31,7 @@ public class StackedBarCustomizer implements JRChartCustomizer
 		
 		boolean isPer = renderer.getRenderAsPercentages();
 		// renderer.setRenderAsPercentages(true);
-		renderer.setItemLabelFont( new Font("TimesRoman", Font.PLAIN,  8) );
+		renderer.setBaseItemLabelFont( new Font("TimesRoman", Font.PLAIN,  6) );
 		// List li1 = chart.getCategoryPlot().getCategories();
 
 		CategoryPlot plot = chart.getCategoryPlot();
