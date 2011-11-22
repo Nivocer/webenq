@@ -71,10 +71,11 @@ public class XformJRDataSource {
 			//loop through report_questions
 			String report_question_id="";
 			StringTokenizer st = new StringTokenizer(report_question_ids,","); 
+			int group_seq_number = 0;
 			while (st.hasMoreTokens()){
 				report_question_id=st.nextToken().trim();
 				String report_question_text=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, null);
-
+				group_seq_number++;
 				//String question_field=rsh_questions.getString(1); //question_id
 				//create the xpath expressions
 				//@todo split_value in searchString
@@ -108,7 +109,7 @@ public class XformJRDataSource {
 						group_question_value=groupQuestionNode.getTextContent();
 						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
 					}
-					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_value, group_question_label);
+					XformBean ra = new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_value, group_question_label, new Integer( group_seq_number) );
 					reportRows.add(ra);
 				}
 				if ( group_question_id != null && group_question_id.length() > 0 )
@@ -134,6 +135,8 @@ public class XformJRDataSource {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		
 		dataSource = new JRBeanCollectionDataSource(reportRows);
 		return dataSource;
 
@@ -161,7 +164,7 @@ public class XformJRDataSource {
 				total++;			
 			}			
 		}
-		DecimalFormat df = new java.text.DecimalFormat("###.##");
+		DecimalFormat df = new java.text.DecimalFormat("###.#");
 		
 		if ( helememaal_mee_oneens_count > 0 )
 			al.add(  df.format (  ( helememaal_mee_oneens_count/total ) * 100 )  );

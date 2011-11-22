@@ -8,12 +8,12 @@ public class XformBean {
 	private String group_question_value;
 	private String group_question_id;
 	private String group_question_label;
-
+	private Integer group_seq_number = 0;
 
 	public XformBean(){
 
 	}
-	public XformBean(String report_question_id, String report_question_text, String report_question_value, String report_question_label, String group_question_id, String group_question_value, String group_question_label ){
+	public XformBean(String report_question_id, String report_question_text, String report_question_value, String report_question_label, String group_question_id, String group_question_value, String group_question_label , Integer i ){
 		this.report_question_id=report_question_id;
 		this.report_question_text=report_question_text;
 		this.report_question_value=report_question_value;
@@ -21,6 +21,7 @@ public class XformBean {
 		this.group_question_id=group_question_id;
 		this.group_question_value=group_question_value;
 		this.group_question_label=group_question_label;
+		this.group_seq_number = i;
 	}
 	public String getReport_question_text() {
 		return report_question_text;
@@ -63,6 +64,12 @@ public class XformBean {
 	}
 	public void setReport_question_value(String report_question_value) {
 		this.report_question_value = report_question_value;
+	}
+	public void setGroup_seq_number(Integer group_seq_number) {
+		this.group_seq_number = new Integer(group_seq_number);
+	}
+	public Integer getGroup_seq_number() {
+		return group_seq_number;
 	}
 
 }

@@ -17,7 +17,7 @@
 	</parameter>
 	<parameter name="CROSSTAB_HEADER_TEXT_ID" class="java.lang.String"/>
 	<parameter name="XFORM_LOCATION" class="java.lang.String"/>
-	<parameter name="FORM_NAME" class="java.lang.String"/>
+	<parameter name="FORM_NAME" class="java.lang.String"/>	
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -28,8 +28,9 @@
 	<field name="report_question_label" class="java.lang.String"/>
 	<field name="group_question_label" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
+	<field name="group_seq_number" class="java.lang.Integer"/>		
+	<sortField name="group_seq_number" />	
 	<sortField name="report_question_id" order="Descending" />
-	<sortField name="report_question_value"/>
 	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Count">
 		<variableExpression><![CDATA[$F{report_question_value}]]></variableExpression>
 	</variable>
@@ -70,12 +71,12 @@
 				</textField>
 				<stackedBarChart>
 					<chart isShowLegend="false"  customizerClass="it.bisi.report.jasper.StackedBarCustomizer"    >
-						<reportElement x="175" y="0" width="355" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
+						<reportElement x="170" y="0" width="360" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
 							<property name="pietje" value="&quot;jantje&quot;"/>
 						</reportElement>
 						<box>
 							<topPen lineWidth="0.5" lineColor="#000000"/>
-							<leftPen lineWidth="0.5" lineColor="#000000"/>
+
 							<bottomPen lineWidth="0.5" lineColor="#000000"/>
 							<rightPen lineWidth="0.5" lineColor="#000000"/>
 						</box>
@@ -91,15 +92,9 @@
 							<valueExpression><![CDATA[$V{count}]]></valueExpression>
 						</categorySeries>
 					</categoryDataset>
-					<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
+					<barPlot >
 						<plot orientation="Horizontal">
-							<seriesColor seriesOrder="0" color="#FF0000"/>
-							<seriesColor seriesOrder="1" color="#FFFF00"/>
-							<seriesColor seriesOrder="2" color="#00FF00"/>
 						</plot>
-						<itemLabel color="#000000" backgroundColor="#FFFFFF">
-							<font size="3"/>
-						</itemLabel>
 					</barPlot>
 				</stackedBarChart>
 				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
