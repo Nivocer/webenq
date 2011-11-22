@@ -12,12 +12,11 @@ public class MyStandardCategoryItemLabelGenerator extends StandardCategoryItemLa
 	{
 		String result = null;
 		String label = (String) Utils.alPercentages.get(i);
-		//@todo use DecimalFormat;
-		if ( ExecuteReport.prop.get("Report_Label_Format").equals(",") )
-			label = label.replace('.', ',');
+		//if ( ExecuteReport.prop.get("Report_Label_Format").equals(",") )
+			//label = label.replace('.', ',');
 		
 		i++;
-		return label + "%";
+		return label;
 		}
 		
 }
