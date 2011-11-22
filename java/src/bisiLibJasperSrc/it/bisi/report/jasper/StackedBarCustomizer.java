@@ -10,6 +10,8 @@ import net.sf.jasperreports.engine.JRChartCustomizer;
 import net.sf.jasperreports.engine.JRChartPlot;
 
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -28,24 +30,46 @@ public class StackedBarCustomizer implements JRChartCustomizer
 		// renderer.setSeriesPaint(1, Color.orange);
 		
 		boolean isPer = renderer.getRenderAsPercentages();
-		renderer.setRenderAsPercentages(true);
+		// renderer.setRenderAsPercentages(true);
 		renderer.setItemLabelFont( new Font("TimesRoman", Font.PLAIN,  8) );
-		List li1 = chart.getCategoryPlot().getCategories();
+		// List li1 = chart.getCategoryPlot().getCategories();
 
 		CategoryPlot plot = chart.getCategoryPlot();
+		
+		/*
 		CategoryDataset ds = plot.getDataset();
 		int r = ds.getRowCount();
 		int c = ds.getColumnCount();
 		DatasetGroup dsg = ds.getGroup();
 		String grpid = dsg.getID();
-		
+		*/
 		renderer.setBaseItemLabelsVisible(true);
-		(( StackedBarRenderer ) plot.getRenderer(0)).setRenderAsPercentages(true);		
+		// (( StackedBarRenderer ) plot.getRenderer(0)).setRenderAsPercentages(true);		
 		renderer.setBaseItemLabelGenerator(new MyStandardCategoryItemLabelGenerator());
-		isPer = renderer.getRenderAsPercentages();
-		renderer.setRenderAsPercentages(true);
+		// isPer = renderer.getRenderAsPercentages();
+		// renderer.setRenderAsPercentages(true);
+		
 
-
+		
+		ValueAxis vAxis = plot.getRangeAxis();
+		vAxis.setTickLabelsVisible(false);
+		vAxis.setTickMarksVisible(false);
+		vAxis.setMinorTickMarksVisible(false);
+		vAxis.setAxisLineVisible(false);
+		vAxis.setAutoTickUnitSelection(false);
+		vAxis.setVerticalTickLabels(false);
+		vAxis.setVisible(false);
+		
+		
+		CategoryAxis cAxis = plot.getDomainAxis();
+		cAxis.setTickLabelsVisible(false);
+		cAxis.setTickMarksVisible(false);
+		cAxis.setMinorTickMarksVisible(false);
+		cAxis.setAxisLineVisible(false);
+		cAxis.setVisible(false);
+		
+		
+		
 		/*
 	    StackedBarRenderer br = new StackedBarRenderer(true); //enable perc. display
 	    br.setBarPainter(new StandardBarPainter());
@@ -63,7 +87,9 @@ public class StackedBarCustomizer implements JRChartCustomizer
 		renderer.setSeriesPaint(1, Color.GREEN);
 		renderer.setSeriesPaint(2, Color.YELLOW);
 		
-		JRChartPlot  jrplot = jasperChart.getPlot();
+
+		
+		
 
 	}
 

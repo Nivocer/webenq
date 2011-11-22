@@ -12,6 +12,9 @@ public class MyStandardCategoryItemLabelGenerator extends StandardCategoryItemLa
 	{
 		String result = null;
 		String label = (String) Utils.alPercentages.get(i);
+		if ( ExecuteReport.prop.get("Report_Label_Format").equals(",") )
+			label = label.replace('.', ',');
+		
 		i++;
 		return label + "%";
 		}
