@@ -223,7 +223,7 @@ class Webenq
      * @param string $value
      * @return string
      */
-	static public function Filename($value)
+	static public function filename($value)
     {
         // remove unvalid charachters
         $value = preg_replace('/[^A-Za-z0-9_=\-\+\.]/', null, $value);

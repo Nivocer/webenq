@@ -41,7 +41,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
-        $filename = Webenq::Filename(implode('-', array(
+        $filename = Webenq::filename(implode('-', array(
             $questionnaire->id,
             $questionnaire->getQuestionnaireTitle()->text,
             date('YmdHis'))) . '-xform.xml');
@@ -66,7 +66,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
-        $filename = Webenq::Filename(implode('-', array(
+        $filename = Webenq::filename(implode('-', array(
             $questionnaire->id,
             $questionnaire->getQuestionnaireTitle()->text,
             date('YmdHis')))) . '-xform-data.xml';
@@ -568,7 +568,7 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
-        $filename = Webenq::Filename(implode('-', array(
+        $filename = Webenq::filename(implode('-', array(
             $questionnaire->id,
             $questionnaire->getQuestionnaireTitle()->text,
             date('YmdHis')))) . '.jrxml';
