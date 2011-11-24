@@ -115,11 +115,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // store array with preferred languages to registry
         Zend_Registry::set('preferredLanguages', $languages);
 
+        // bootstrap log resource
+        try {
+            $this->bootstrap('log');
+        } catch (Exception $e) {
+            die('Log file not writable! Please change the settings in your configuration file.');
+        }
+
         // init translations
         $translate = new Zend_Translate(array(
             'adapter' => 'array',
             'content' => APPLICATION_PATH . '/translations/en/',
-            'locale'  => 'en',
+            'locale' => 'en',
+            'log' => $this->getResource('log'),
+            'logUntranslated' => true,
         ));
         $translate->addTranslation(array(
             'content' => APPLICATION_PATH . '/translations/nl/',
