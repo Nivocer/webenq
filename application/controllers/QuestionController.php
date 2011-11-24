@@ -144,8 +144,8 @@ class QuestionController extends Zend_Controller_Action
         $question = Doctrine_Core::getTable('Webenq_Model_Question')
             ->find($this->_request->id);
 
-        $confirmationText = 'Weet u zeker dat u de vraag "' . $question->QuestionText[0]->text .
-            '" (inclusief alle vertalingen) wilt verwijderen?';
+        $confirmationText = 'Are you sure you want to delete the question "' . $question->QuestionText[0]->text .
+            '" (including all translations)?';
 
         $form = new Webenq_Form_Confirm($question->id, $confirmationText);
         $form->setAction($this->view->baseUrl('/question/delete/id/' . $this->_request->id));
