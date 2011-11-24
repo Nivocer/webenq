@@ -1,8 +1,6 @@
 package it.bisi.report.jasper.datasource;
 
 import it.bisi.report.jasper.datasource.object.XformBean;
-import it.bisi.*;
-import it.bisi.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,10 +68,11 @@ public class XformJRDataSource {
 			//loop through report_questions
 			String report_question_id="";
 			StringTokenizer st = new StringTokenizer(report_question_ids,","); 
+			int group_seq_number = 0;
 			while (st.hasMoreTokens()){
 				report_question_id=st.nextToken().trim();
 				String report_question_text=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, null);
-
+				group_seq_number++;
 				//String question_field=rsh_questions.getString(1); //question_id
 				//create the xpath expressions
 				//@todo split_value in searchString
@@ -109,10 +108,16 @@ public class XformJRDataSource {
 						group_question_value=groupQuestionNode.getTextContent();
 						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
 					}
-					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_text, group_question_value, group_question_label);
+					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_text, group_question_value, group_question_label,  new Integer( group_seq_number));
 					reportRows.add(ra);
 				}
-				
+				if ( group_question_id != null && group_question_id.length() > 0 )
+				{
+					// Populate the percentages.
+					//ArrayList hm = new ArrayList();
+					//it.bisi.Utils.hmPercentages.put( report_question_id, hm);
+					//CalculatePercetage( reportRows, report_question_id ,hm );*/
+				}				
 			}
 			
 			

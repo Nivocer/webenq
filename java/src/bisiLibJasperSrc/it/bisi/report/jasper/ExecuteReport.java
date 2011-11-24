@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -137,7 +138,7 @@ public class ExecuteReport {
 				locale = new Locale("en", "US");
 			}
 			prms.put(JRParameter.REPORT_LOCALE, locale);
-			
+			Locale.setDefault(locale);
 			//@TODO nicer handling missing files
 			// eg http://jasperforge.org/plugins/espforum/view.php?group_id=102&forumid=103&topicid=65623
 			if (customer.equals("fraijlemaborg")) {

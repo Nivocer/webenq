@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-barchart" printOrder="Horizontal" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key" isIgnorePagination="true">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-barchart" printOrder="Horizontal" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="23"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
 		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
 	</scriptlet>
@@ -27,9 +28,10 @@
 	<field name="report_question_label" class="java.lang.String"/>
 	<field name="group_question_label" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
-	<sortField name="report_question_text"/>
-	<sortField name="report_question_value"/>
-	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Count">
+	<field name="question_seq_number" class="java.lang.Integer"/>
+	<sortField name="question_seq_number"/>
+<sortField name="report_question_value"/>
+	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" incrementType="Group" incrementGroup="value" calculation="Count">
 		<variableExpression><![CDATA[$F{report_question_value}]]></variableExpression>
 	</variable>
 	<variable name="average" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Average">
@@ -41,11 +43,12 @@
 	<variable name="stddev" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="StandardDeviation">
 		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
 	</variable>
-	<variable name="valueRecoded" class="java.lang.String" resetType="Group" resetGroup="value">
-		<variableExpression><![CDATA[($F{report_question_value}.equals("1") || $F{report_question_value}.equals("2") ? "2" :
-($F{report_question_value}.equals("4") || $F{report_question_value}.equals("5") ? "4": $F{report_question_value})
-)
-]]></variableExpression>
+	<variable name="valueRecoded" class="java.lang.String">
+		<variableExpression><![CDATA[($F{report_question_value}.equals("1.0") || $F{report_question_value}.equals("2.0") ? "1.0" :
+($F{report_question_value}.equals("3.0")  ? "2.0":
+($F{report_question_value}.equals("4.0") || $F{report_question_value}.equals("5.0") ? "3.0":
+    $F{report_question_value})
+))]]></variableExpression>
 	</variable>
 	<group name="question">
 		<groupExpression><![CDATA[$F{report_question_text}]]></groupExpression>
@@ -55,7 +58,7 @@
 		<groupFooter>
 			<band height="25" splitType="Prevent">
 				<textField isStretchWithOverflow="true">
-					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="182" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="175" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
 					<box leftPadding="2">
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>
@@ -68,13 +71,12 @@
 					<textFieldExpression><![CDATA[$F{report_question_text}]]></textFieldExpression>
 				</textField>
 				<stackedBarChart>
-					<chart isShowLegend="false">
-						<reportElement x="182" y="0" width="350" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
+					<chart isShowLegend="false" customizerClass="it.bisi.report.jasper.StackedBarCustomizer">
+						<reportElement x="170" y="0" width="360" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
 							<property name="pietje" value="&quot;jantje&quot;"/>
 						</reportElement>
 						<box>
 							<topPen lineWidth="0.5" lineColor="#000000"/>
-							<leftPen lineWidth="0.5" lineColor="#000000"/>
 							<bottomPen lineWidth="0.5" lineColor="#000000"/>
 							<rightPen lineWidth="0.5" lineColor="#000000"/>
 						</box>
@@ -90,19 +92,14 @@
 							<valueExpression><![CDATA[$V{count}]]></valueExpression>
 						</categorySeries>
 					</categoryDataset>
-					<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
-						<plot orientation="Horizontal">
-							<seriesColor seriesOrder="0" color="#FF0000"/>
-							<seriesColor seriesOrder="1" color="#FFFF00"/>
-							<seriesColor seriesOrder="2" color="#00FF00"/>
-						</plot>
-						<itemLabel color="#000000" backgroundColor="#FFFFFF">
-							<font size="3"/>
-						</itemLabel>
+					<barPlot>
+						<plot orientation="Horizontal"/>
+						<itemLabel/>
+						<valueAxisLabelExpression><![CDATA[$V{valueRecoded}]]></valueAxisLabelExpression>
 					</barPlot>
 				</stackedBarChart>
 				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
-					<reportElement x="532" y="0" width="23" height="25" isPrintInFirstWholeBand="true"/>
+					<reportElement x="510" y="0" width="20" height="25" isPrintInFirstWholeBand="true"/>
 					<box leftPadding="0">
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>

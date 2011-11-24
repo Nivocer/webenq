@@ -3,6 +3,7 @@ package it.bisi;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,9 @@ public class Utils {
 	/**
 	 * @param args
 	 */
+	//public static HashMap hmPercentages = new HashMap();
+	public static ArrayList alPercentages = new ArrayList();
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println(getResource("/it/bisi/resources/logo.png"));

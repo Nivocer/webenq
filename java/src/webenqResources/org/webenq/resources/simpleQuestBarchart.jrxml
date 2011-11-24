@@ -194,7 +194,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-InhoudRelevant,g6-Tevredenheid/g6-DoelenDuidelijk, g6-Tevredenheid/g6-DoelenBereikt","g6-Rapportcijfer", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-InhoudRelevant, g6-Tevredenheid/g6-DoelenBereikt,g6-Tevredenheid/g6-DoelenDuidelijk","g6-Rapportcijfer", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report-barchart.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
