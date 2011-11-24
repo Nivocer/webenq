@@ -217,6 +217,23 @@ class Webenq
         return $value;
     }
 
+    /**
+     * Return the given value converted for use as filename.
+     *
+     * @param string $value
+     * @return string
+     */
+	static public function Filename($value)
+    {
+        // remove unvalid charachters
+        $value = preg_replace('/[^A-Za-z0-9_=\-\+\.]/', null, $value);
+
+        // space to underscore
+        $value = preg_replace('/\s+/', '_', $value);
+
+        return $value;
+    }
+
     public static function setMemoryLimit($value)
     {
         $key = 'memory_limit';
