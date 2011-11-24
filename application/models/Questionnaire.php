@@ -347,7 +347,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         // generate head
         $head = $xml->createElement('h:head');
         $html->appendChild($head);
-        $title = $xml->createElement('h:title', Webenq::Xmlify($this->title));
+        $title = $xml->createElement('h:title', Webenq::Xmlify($this->getQuestionnaireTitle()->text));
         $head->appendChild($title);
 
         $model = $xml->createElement('model');
@@ -357,7 +357,8 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         $model->appendChild($instance);
 
         $questionnaire = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
-        $questionnaire->setAttribute('id', Webenq::Xmlify($this->title . ' ' . date('YmdHis'), 'attr'));
+        $questionnaire->setAttribute('id', Webenq::Xmlify(
+            $this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'), 'attr'));
         $instance->appendChild($questionnaire);
 
         foreach ($this->QuestionnaireQuestion as $qq) {
