@@ -145,7 +145,7 @@ class QuestionController extends Zend_Controller_Action
             ->find($this->_request->id);
 
         $confirmationText = t('Are you sure you want to delete the question "')
-            . $question->QuestionText[0]->text
+            . $question->getQuestionText()->text
             . t('" (including all translations)?');
 
         $form = new Webenq_Form_Confirm($question->id, $confirmationText);
