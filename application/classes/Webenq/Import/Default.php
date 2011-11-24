@@ -173,17 +173,18 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
             // factor correct question type (based on given answers)
             $question = Webenq_Model_Question::factory($answers, $language);
 
-            // try to find existing question from repo
+            // try to find existing question from repo (ignoring the group number)
+            $text = preg_replace('/^(\d+\s*:\s*)/', null, $questionTexts[$i]);
             $repoQuestionText = Doctrine_Core::getTable('Webenq_Model_QuestionText')
-                ->findOneByTextAndLanguage($questionTexts[$i], $language);
+                ->findOneByTextAndLanguage($text, $language);
 
             // connect to found question or factored question
             if ($repoQuestionText) {
                 $questionnaireQuestion->question_id = $repoQuestionText->question_id;
             } else {
-                $question->addQuestionText($this->_language, $questionTexts[$i]);
-                $questionnaireQuestion->Question = $question;
+                $question->addQuestionText($this->_language, $text);
                 $question->save();
+                $questionnaireQuestion->question_id = $question->id;
             }
 
             // set default question type

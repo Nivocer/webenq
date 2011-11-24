@@ -55,23 +55,27 @@ class Webenq_Import_Questback extends Webenq_Import_Default
 	 */
 	protected function _storeGroups()
 	{
-		$sheets = $this->_adapter->getData();
+        // get data in spreadsheet format
+        $data = $this->_adapter->getData();
+        $firstWorkSheet = $data[0];
+        $secondWorkSheet = $data[1];
+        $questionsAndAnswers = $this->_getDataAsAnswers($firstWorkSheet);
 
 		$questionnaire = $this->_questionnaire;
 
 		// find questions per group
         $groups = array();
-		foreach ($questionnaire->QuestionnaireQuestion as $questionnaireQuestion) {
-			$question = $questionnaireQuestion->Question;
-			$text = $question->QuestionText[0]->text;
-			if (preg_match("#^(\d+):(.*)$#", $text, $matches)) {
-				$groups[$matches[1]][] = $questionnaireQuestion;
+        $i = 0;
+		foreach ($questionsAndAnswers as $question => $answers) {
+			if (preg_match("#^(\d+):(.*)$#", $question, $matches)) {
+				$groups[$matches[1]][] = $questionnaire->QuestionnaireQuestion[$i];
 			}
+			$i++;
 		}
 
 		// find group names
         $groupNames = array();
-		foreach ($sheets[1] as $row) {
+		foreach ($secondWorkSheet as $row) {
 			preg_match('#^(\d*):\s*=(.*)$#', $row[0], $matches);
 			$groupNames[$matches[1]] = trim($matches[2]);
 		}
@@ -86,12 +90,17 @@ class Webenq_Import_Questback extends Webenq_Import_Default
         // save groups
         foreach ($groups as $id => $group) {
 
-            // create and save parent question
-            $parentQuestion = new Webenq_Model_Question_Open();
-            $parentQuestion->created = date('Y-m-d H:i:s');
-            $parentQuestion->QuestionText[0]->language = $this->_language;
-            $parentQuestion->QuestionText[0]->text = $groupNames[$id];
-            $parentQuestion->save();
+            // find existing or create new parent question
+            $parentQuestionText = Doctrine_Core::getTable('Webenq_Model_QuestionText')
+                ->findOneByTextAndLanguage($groupNames[$id], $this->_language);
+            if ($parentQuestionText) {
+                $parentQuestion = $parentQuestionText->Question;
+            } else {
+                $parentQuestion = new Webenq_Model_Question_Open();
+                $parentQuestion->created = date('Y-m-d H:i:s');
+                $parentQuestion->addQuestionText($this->_language, $groupNames[$id]);
+                $parentQuestion->save();
+            }
 
             // connect parent question to current questionnaire
             $parentQuestionnaireQuestion = new Webenq_Model_QuestionnaireQuestion();
