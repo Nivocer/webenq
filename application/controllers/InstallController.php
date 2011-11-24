@@ -31,10 +31,46 @@ class InstallController extends Zend_Controller_Action
 
     public function testAction()
     {
+//        $this->_testMemoryLimit();
+        $this->_testMaxExecutionTime();
+        $this->_testMagicQuotesTurnedOff();
         $this->_testTempDir();
         $this->_testDependencies();
         $this->_testDatabaseSchema();
         $this->view->messages = $this->_messages;
+    }
+
+    protected function _testMemoryLimit()
+    {
+        try {
+            $value = '512MB';
+            Webenq::setMemoryLimit($value);
+        } catch(Exception $e) {
+            $this->_messages['failure'][] = "Memory limit could not be set to <strong>$value</strong>.";
+            return;
+        }
+        $this->_messages['success'][] = "Memory limit succesfully set to <strong>$value</strong>.";
+    }
+
+    protected function _testMaxExecutionTime()
+    {
+        try {
+            $value = '300';
+            Webenq::setMaxExecutionTime($value);
+        } catch(Exception $e) {
+            $this->_messages['failure'][] = "Maximum execution time could not be set to <strong>$value</strong>.";
+            return;
+        }
+        $this->_messages['success'][] = "Maximum execution time succesfully set to <strong>$value</strong>.";
+    }
+
+    protected function _testMagicQuotesTurnedOff()
+    {
+        if (get_magic_quotes_gpc() == 0) {
+            $this->_messages['success'][] = "Magic quotes are <strong>disabled</strong>";
+        } else {
+            $this->_messages['failure'][] = "Magic quotes are <strong>enabled</strong>, but should be disabled";
+        }
     }
 
     protected function _testTempDir()
@@ -99,8 +135,8 @@ class InstallController extends Zend_Controller_Action
 //        try {
 //            Doctrine_Core::generateMigrationsFromDiff(
 //                $config['migrations_path'],
-//                $config['yaml_schema_versions_path'] . '/0.yml',
-//                $config['yaml_schema_versions_path'] . '/2.yml');
+//                $config['yaml_schema_versions_path'] . '/2.yml',
+//                $config['yaml_schema_versions_path'] . '/current/schema.yml');
 //        } catch (Exception $e) {
 //            die($e->getMessage());
 //        }
