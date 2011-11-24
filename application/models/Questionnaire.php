@@ -404,7 +404,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
             // questionnaire
             $qn = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
-            $qn->setAttribute('id', Webenq::Xmlify($this->title . ' ' . date('YmdHis'), 'attr'));
+            $qn->setAttribute('id', Webenq::Xmlify($this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'), 'attr'));
             $r->appendChild($qn);
 
             // answers
