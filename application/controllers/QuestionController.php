@@ -36,8 +36,7 @@ class QuestionController extends Zend_Controller_Action
         // get questions
         $questions = Doctrine_Query::create()
             ->from('Webenq_Model_Question q')
-            ->leftJoin('q.QuestionText qt WITH qt.language = ?', $this->_helper->language())
-            ->orderBy('q.created DESC, qt.text')
+            ->orderBy('q.created DESC')
             ->execute();
 
         $this->view->questions = $questions;
