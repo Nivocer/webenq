@@ -66,7 +66,7 @@ class InstallController extends Zend_Controller_Action
 
     protected function _testMagicQuotesTurnedOff()
     {
-        if (get_magic_quotes_gpc() == 0) {
+        if (ini_get('magic_quotes_runtime') == 0) {
             $this->_messages['success'][] = "Magic quotes are <strong>disabled</strong>";
         } else {
             $this->_messages['failure'][] = "Magic quotes are <strong>enabled</strong>, but should be disabled";

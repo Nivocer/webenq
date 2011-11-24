@@ -25,7 +25,7 @@ class Webenq_Plugin_Request extends Zend_Controller_Plugin_Abstract
 
     protected function _unQuotePost($request)
     {
-        if ($request->isPost()) {
+        if ($request->isPost() && get_magic_quotes_runtime() == 1) {
             $unQuoted = $this->_unQuoteArrayRecursively($request->getPost());
             $request->setPost($unQuoted);
         }
