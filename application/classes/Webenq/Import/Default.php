@@ -54,9 +54,10 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             // get current questionnaire-question
             $questionnaireQuestion = $questionnaireQuestions[$indexQuestion];
+            $meta = unserialize($questionnaireQuestion->meta);
 
             // save answer texts or possibilities
-            if ($questionnaireQuestion->Question instanceof Webenq_Model_Question_Open) {
+            if (preg_match('/^Webenq_Model_Question_Open/', $meta['class'])) {
                 foreach ($answers as $indexAnswer => $answerText) {
                     // create answer object
                     $answer = new Webenq_Model_Answer();
@@ -67,8 +68,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
                     $questionnaireQuestion->Answer[$indexAnswer] = $answer;
                 }
 
-            } elseif ($questionnaireQuestion->Question instanceof Webenq_Model_Question_Closed) {
-
+            } elseif (preg_match('/^Webenq_Model_Question_Closed/', $meta['class'])) {
                 // set answer-possibility-group if not set yet
                 $answerPossibilityGroup = $questionnaireQuestion->AnswerPossibilityGroup;
                 if (!$answerPossibilityGroup) {
@@ -161,6 +161,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
         // create questionnaire-question objects
         for ($i=0; $i<$count; $i++) {
+
             $questionnaireQuestion = new Webenq_Model_QuestionnaireQuestion();
 
             // get and cleanup answers
@@ -171,9 +172,19 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             // factor correct question type (based on given answers)
             $question = Webenq_Model_Question::factory($answers, $language);
-            $question->addQuestionText($this->_language, $questionTexts[$i]);
-            $questionnaireQuestion->Question = $question;
-            $question->save();
+
+            // try to find existing question from repo
+            $repoQuestionText = Doctrine_Core::getTable('Webenq_Model_QuestionText')
+                ->findOneByTextAndLanguage($questionTexts[$i], $language);
+
+            // connect to found question or factored question
+            if ($repoQuestionText) {
+                $questionnaireQuestion->question_id = $repoQuestionText->question_id;
+            } else {
+                $question->addQuestionText($this->_language, $questionTexts[$i]);
+                $questionnaireQuestion->Question = $question;
+                $question->save();
+            }
 
             // set default question type
             if ($question instanceof Webenq_Model_Question_Closed) {
