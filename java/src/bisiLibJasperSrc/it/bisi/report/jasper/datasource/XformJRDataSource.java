@@ -79,7 +79,11 @@ public class XformJRDataSource {
 				//here we can select respondents based on split_value, date, whatever.
 				// example string, search respondents with id > 0 and split_question_id and split_value set, need to improve it
 				//String searchRespondents="//respondenten/respondent[@id>0]/*["+split_question_id+"="+split_value+"]";
+				//all respondents
 				String searchRespondents="//respondenten/respondent/*";
+				if (split_question_id != null && split_question_value != null ) {
+					searchRespondents="//respondenten/respondent/*["+split_question_id+"="+split_question_value+"]";
+				}
 
 				XPathFactory factory = XPathFactory.newInstance();
 				XPath xpath = factory.newXPath();

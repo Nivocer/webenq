@@ -1,6 +1,8 @@
 package it.bisi.report.jasper;
+//import net.sf.saxon.om.NamespaceConstant;  
 
 import it.bisi.Utils;
+
 import java.io.InputStream;
 
 import java.sql.Connection;
@@ -13,10 +15,19 @@ import java.sql.DriverManager;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Locale;
-import java.util.Properties;
 import java.util.ResourceBundle;
+
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
+import org.apache.commons.lang.StringEscapeUtils;
+import org.xml.sax.InputSource;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRParameter;
@@ -24,6 +35,9 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.saxon.lib.NamespaceConstant;
+import net.sf.saxon.om.NodeInfo;
+import net.sf.saxon.xpath.XPathEvaluator;
 
 
 /**
@@ -74,10 +88,14 @@ public class ExecuteReport {
 	public static void runReport(String databaseName, String userName, String password, String report_identifier, String output_dir)
 	{
 		try{
+			doTest();
 			//hack location of files, needs to be interactive.
 			String xformLocation="src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml";
 			String dataLocation="src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml";
 			//String reportDefinitionLocation="/org/webenq/resources/simpleQuestBarchart.jasper";
+			//more hardcoded config below try, line 114 at this moment
+			
+			
 			String reportDefinitionLocation="/org/webenq/resources/simpleQuest.jasper";
 			//Connection conn = connectDB(databaseName, userName, password);
 			InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
@@ -86,7 +104,6 @@ public class ExecuteReport {
 			prms.put("DATA_LOCATION", dataLocation);
 			prms.put("XFORM_LOCATION", xformLocation);
 			
-			//@todo dit moeten we nog aanpassen aan nieuw datamodel versie in webenq_4_5 #4986
 		      	String split_question_id=null;
 				String output_file_name=null;
 				String output_format=null;
@@ -109,7 +126,7 @@ public class ExecuteReport {
 //			      output_format=rs_getReportDefinition.getString("output_format");
 //	
 		    	  //hack development, needs to get this information from somewhere
-		    	  split_question_id="";
+		    	  split_question_id="g3-Rapportcijfer";
 			      customer="leeuwenburg";
 			      language="nl";
 			      output_file_name="test";
@@ -118,7 +135,7 @@ public class ExecuteReport {
 			      
 			      prms.put("REPORT_IDENTIFIER", report_identifier);//only needed for hacks in jrxml....
 			      prms.put("CUSTOMER", customer); //resource bundle and needed for hacks in jrxml
-			      prms.put("SPLIT_QUESTION_ID", split_question_id ); //not yet implemented
+			      prms.put("SPLIT_QUESTION_ID", split_question_id ); //not yet implemented #5395
 			      HashMap<String,Map<String,Double>> color_range_map=it.bisi.Utils.getColorRangeMaps(customer);
 			      prms.put("COLOR_RANGE_MAP",color_range_map);
 			      		      		        
@@ -154,59 +171,65 @@ public class ExecuteReport {
 			//default texts to resource bundles, report text in jrxml.
 			
 								 
-			//looping through possible split by values (multiple reports for subset of respondents)
-			/* split question_id is from report_definition*/
-			/*
-			 * @todo need to change this for new datamodel
-			 */
+			//looping through available split by values (seperate reports for subsets of respondents)
 			if (split_question_id !=null && split_question_id.length()>0 ) {
-				//get split_values
-				//uit xpath.
-//				Statement stmt_rows_values=conn.createStatement();
-//				stmt_rows_values.execute("select distinct "+split_question_id+" as split_values FROM values_"+identifier);
-//				ResultSet rs_rows_values = stmt_rows_values.getResultSet();
-//				while (rs_rows_values.next()) {
-//					String split_value=rs_rows_values.getString("split_values");
-//					//needed for displaying content
-//					prms.put("SPLIT_VALUE", split_value);
-//					
-//					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, conn);
-//					
-//					// first step better path handling: cleaning of split_value (is data input).
-//					String split_value_clean=split_value.replace("/","_");
-//					split_value_clean=split_value_clean.replace(" ","_");
-//					split_value_clean=split_value_clean.replace(",","");
-//					split_value_clean=split_value_clean.replace("*","");
-//					split_value_clean=split_value_clean.replace("'","_");
-//					split_value_clean=split_value_clean.toLowerCase();
-//					split_value_clean=StringEscapeUtils.escapeJava(split_value_clean);
-//				
-//					// Create output in directory public/reports  
-//					if(output_format.equals("pdf")) {
-//						//JasperExportManager.exportReportToPdfFile(print, output_file_name + "-" + split_value_clean + ".pdf");
-//						//JasperExportManager.exportReportToPdfFile(print, output_file_name + ".pdf");
-//						net.sf.jasperreports.engine.export.JRPdfExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter(); 
-//						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name+ "-" + split_value_clean + ".pdf");
-//						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
-//						exporter.setParameter(JRPdfExporterParameter.FORCE_LINEBREAK_POLICY, Boolean.TRUE);
-//						exporter.exportReport();
-//					} else if(output_format.equals("odt")) {
-//						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-//						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "-" + split_value_clean+ ".odt");
-//						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
-//						exporter.exportReport();
-//					} else if(output_format.equals("html")) {
-//						JasperExportManager.exportReportToHtmlFile(print, output_file_name +"-"+split_value_clean+ ".html");
-//					} else if(output_format.equals("xml")) {
-//						JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_value_clean+ ".xml", false);
-//					} else if(output_format.equals("xls")) {
-//						net.sf.jasperreports.engine.export.JRXlsExporter exporter = new net.sf.jasperreports.engine.export.JRXlsExporter();
-//						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name +"_"+split_value_clean+".xls");
-//						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
-//						exporter.exportReport();
-//					} else { 
-//						JasperViewer.viewReport(print);
-//					}
+				//get distinct split_values
+				// use xpath2 (saxon)
+				String searchSplitValues="distinct-values(//respondenten/respondent/*/"+split_question_id+")";
+
+				XPathFactory factory = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
+		        XPath xpath = factory.newXPath();
+		        InputSource is = new InputSource(dataLocation);
+		        SAXSource ss = new SAXSource(is);
+		        NodeInfo doc = ((XPathEvaluator)xpath).setSource(ss);
+				XPathExpression expr = xpath.compile(searchSplitValues);
+				Object result=expr.evaluate(doc, XPathConstants.NODESET);
+
+				List splitValuesList = (List) result;
+				String split_question_value;
+				for (Iterator iter = splitValuesList.iterator(); iter.hasNext();) {
+					split_question_value = (String) iter.next();
+					//needed for displaying content
+					prms.put("SPLIT_QUESTION_VALUE", split_question_value);
+					inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
+					JasperPrint print = JasperFillManager.fillReport(inputStream, prms, new JREmptyDataSource());
+					
+					// first step better path handling: cleaning of split_value (is data input).
+					String split_value_clean=split_question_value.replace("/","_");
+					split_value_clean=split_value_clean.replace(" ","_");
+					split_value_clean=split_value_clean.replace(",","");
+					split_value_clean=split_value_clean.replace("*","");
+					split_value_clean=split_value_clean.replace("'","_");
+					split_value_clean=split_value_clean.toLowerCase();
+					split_value_clean=StringEscapeUtils.escapeJava(split_value_clean);
+				
+					// Create output in directory public/reports  
+					if(output_format.equals("pdf")) {
+						//JasperExportManager.exportReportToPdfFile(print, output_file_name + "-" + split_value_clean + ".pdf");
+						//JasperExportManager.exportReportToPdfFile(print, output_file_name + ".pdf");
+						net.sf.jasperreports.engine.export.JRPdfExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter(); 
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name+ "-" + split_value_clean + ".pdf");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+						//exporter.setParameter(JRPdfExporterParameter.FORCE_LINEBREAK_POLICY, Boolean.TRUE);
+						exporter.exportReport();
+					} else if(output_format.equals("odt")) {
+						net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "-" + split_value_clean+ ".odt");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+						exporter.exportReport();
+					} else if(output_format.equals("html")) {
+						JasperExportManager.exportReportToHtmlFile(print, output_file_name +"-"+split_value_clean+ ".html");
+					} else if(output_format.equals("xml")) {
+						JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_value_clean+ ".xml", false);
+					} else if(output_format.equals("xls")) {
+						net.sf.jasperreports.engine.export.JRXlsExporter exporter = new net.sf.jasperreports.engine.export.JRXlsExporter();
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name +"_"+split_value_clean+".xls");
+						exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+						exporter.exportReport();
+					} else { 
+						JasperViewer.viewReport(print);
+					}
+				}
 			}else{
 				//no split value
 				prms.put("SPLIT_VALUE", "");
@@ -250,4 +273,23 @@ public class ExecuteReport {
 			ex.printStackTrace();
 		}
 	}
+	
+    static void doTest() throws Exception {  
+        
+        String sxpath="current-time()";    //xpath 2.0 function; this provides a clean demo of xpath 2.0 support  
+      
+        String objectModel = NamespaceConstant.OBJECT_MODEL_SAXON;  
+        System.setProperty("javax.xml.xpath.XPathFactory:"+objectModel, "net.sf.saxon.xpath.XPathFactoryImpl");  
+          
+        XPathFactory xpathFactory=XPathFactory.newInstance(objectModel);  
+        XPath xpath = xpathFactory.newXPath();  
+              
+        XPathExpression expr=xpath.compile(sxpath);  
+        String result = (String)expr.evaluate(null, XPathConstants.STRING);    //null document  
+        System.out.println("<root>");  
+        System.out.println("\t<result>"+result+"</result>");  
+        System.out.println("</root>");  
+    }  
+
+
 }
