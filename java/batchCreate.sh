@@ -1,12 +1,12 @@
 rm createReport.error
-dir='test'
-settings='hva-local-lwb'
-reports="1"
+reportControlFiles="/home/jaapandre/workspace/webenq4/java/reportControl.xml"
 
-for repdef in `echo $reports` 
+for reportControlFile in `echo $reportControlFiles` 
 do 
 echo '---------'
-echo $repdef $dir $settings
-./createReport.sh $repdef $dir $settings
+echo "executing: $reportControlFile"
+./createReport.sh $reportControlFile
 done
+echo '---------'
+echo  "report creation output:"
 more createReport.error
