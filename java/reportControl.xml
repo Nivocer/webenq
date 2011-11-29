@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <reportConfig>
 <reportId>1</reportId>
+<!-- file location relative to webenq4/java -->
 <xformLocation>src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml</xformLocation>
 <dataLocation>src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml</dataLocation>
+<!-- next one is from jar -->
 <reportDefinitionLocation>/org/webenq/resources/simpleQuest.jrxml</reportDefinitionLocation>
 <customer>leeuwenburg</customer>
 <language>nl</language>
-<split_question_id>g6-Rapportcijfer</split_question_id>
-<output_dir>tempout/test</output_dir>
-<output_file_name>test</output_file_name>
-<output_format>pdf</output_format>
+<splitQuestionId>g6-Rapportcijfer</splitQuestionId>
+<outputDir>tempout/test</outputDir>
+<outputFileName>test</outputFileName>
+<outputFormat>pdf</outputFormat>
 </reportConfig>

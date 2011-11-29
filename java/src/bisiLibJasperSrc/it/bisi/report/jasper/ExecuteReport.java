@@ -58,20 +58,20 @@ public class ExecuteReport {
 			String xformLocation=reportConfig.get("xformLocation");
 			String dataLocation=reportConfig.get("dataLocation");
 			String reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
-			String split_question_id=reportConfig.get("split_question_id");
-			String output_dir=reportConfig.get("output_dir");
-			String output_file_name=reportConfig.get("output_file_name");
-			String output_format=reportConfig.get("output_format");
+			String splitQuestionId=reportConfig.get("splitQuestionId");
+			String outputDir=reportConfig.get("outputDir");
+			String outputFileName=reportConfig.get("outputFileName");
+			String outputFormat=reportConfig.get("outputFormat");
 			String language=reportConfig.get("language");
 			String customer=reportConfig.get("customer");
 
 			// create parameter map to send to jasper
 			Map<String,Object> prms = new HashMap<String,Object>();
-			prms.put("OUTPUT_DIR", output_dir);
+			prms.put("OUTPUT_DIR", outputDir);
 			prms.put("DATA_LOCATION", dataLocation);
 			prms.put("XFORM_LOCATION", xformLocation);
 			prms.put("CUSTOMER", customer); //resource bundle and needed for hacks in jrxml
-			prms.put("SPLIT_QUESTION_ID", split_question_id ); //not yet implemented #5395
+			prms.put("SPLIT_QUESTION_ID", splitQuestionId ); //not yet implemented #5395
 
 			//get map of colors of mean values
 			HashMap<String,Map<String,Double>> color_range_map=it.bisi.Utils.getColorRangeMaps(customer);
@@ -101,9 +101,9 @@ public class ExecuteReport {
 			}
 
 			//looping through available split by values (seperate reports for subsets of respondents)
-			if (split_question_id !=null && split_question_id.length()>0 ) {
+			if (splitQuestionId !=null && splitQuestionId.length()>0 ) {
 				//get distinct split_values, using xpath2 (saxon)
-				String searchSplitValues="distinct-values(//respondenten/respondent/*/"+split_question_id+")";
+				String searchSplitValues="distinct-values(//respondenten/respondent/*/"+splitQuestionId+")";
 
 				XPathFactory factory = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
 				XPath xpath = factory.newXPath();
@@ -114,38 +114,37 @@ public class ExecuteReport {
 				List splitValuesList=(List) expr.evaluate(doc, XPathConstants.NODESET);
 
 				// iterate through the split_question_values, and create report for each of them
-				String split_question_value;
+				String splitQuestionValue;
 				for (Iterator iter = splitValuesList.iterator(); iter.hasNext();) {
-					split_question_value = (String) iter.next();
+					splitQuestionValue = (String) iter.next();
 					//needed for displaying content
-					prms.put("SPLIT_QUESTION_VALUE", split_question_value);
+					prms.put("SPLIT_QUESTION_VALUE", splitQuestionValue);
 
-					generateReport(reportDefinitionLocation, prms, split_question_value, output_dir, output_file_name, output_format );
+					generateReport(reportDefinitionLocation, prms, splitQuestionValue, outputDir, outputFileName, outputFormat );
 
 				}
 			}else{
 				//no split value
 				prms.put("SPLIT_QUESTION_VALUE", "");
-				generateReport(reportDefinitionLocation, prms, "", output_dir,output_file_name, output_format );
+				generateReport(reportDefinitionLocation, prms, "", outputDir, outputFileName, outputFormat );
 			}
 		}
 
 		catch(Exception ex) {
-			String connectMsg = "Could not create the report " + ex.getMessage() + " " + ex.getLocalizedMessage();
 			ex.printStackTrace();
 		}
 	}
 
-	static void generateReport(String reportDefinitionLocation, Map<String,Object> prms, String split_question_value, String output_dir, String output_file_name, String output_format ) throws Exception{
+	static void generateReport(String reportDefinitionLocation, Map<String,Object> prms, String splitQuestionValue, String outputDir, String outputFileName, String outputFormat ) throws Exception{
 		//clean fileName
-		if (split_question_value.length()>0){
+		if (splitQuestionValue.length()>0){
 			// no slash in split part
-			//split_question_value=fileName(split_question_value, false);
-			//output_file_name=fileName(output_file_name+"-"+split_question_value, true);
-			output_file_name=fileName(output_dir,true)+"/"+fileName(output_file_name,false)+"-"+fileName(split_question_value,false);
+			
+			
+			outputFileName=fileName(outputDir,true)+"/"+fileName(outputFileName,false)+"-"+fileName(splitQuestionValue,false);
 		}else{
 			//output_file_name=fileName(output_file_name, true);
-			output_file_name=fileName(output_dir,true)+"/"+fileName(output_file_name,false);
+			outputFileName=fileName(outputDir,true)+"/"+fileName(outputFileName,false);
 		}
 		InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
 		JasperPrint print;
@@ -161,23 +160,23 @@ public class ExecuteReport {
 		}
 
 		// Create output in directory public/reports  
-		if(output_format.equals("pdf")) {
+		if(outputFormat.equals("pdf")) {
 			net.sf.jasperreports.engine.export.JRPdfExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter(); 
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + ".pdf");
+			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".pdf");
 			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 			exporter.exportReport();
-		} else if(output_format.equals("odt")) {
+		} else if(outputFormat.equals("odt")) {
 			net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name + "-" + split_question_value+ ".odt");
+			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + "-" + splitQuestionValue+ ".odt");
 			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 			exporter.exportReport();
-		} else if(output_format.equals("html")) {
-			JasperExportManager.exportReportToHtmlFile(print, output_file_name +"-"+split_question_value+ ".html");
-		} else if(output_format.equals("xml")) {
-			JasperExportManager.exportReportToXmlFile(print, output_file_name +"_"+split_question_value+ ".xml", false);
-		} else if(output_format.equals("xls")) {
+		} else if(outputFormat.equals("html")) {
+			JasperExportManager.exportReportToHtmlFile(print, outputFileName +"-"+splitQuestionValue+ ".html");
+		} else if(outputFormat.equals("xml")) {
+			JasperExportManager.exportReportToXmlFile(print, outputFileName +"_"+splitQuestionValue+ ".xml", false);
+		} else if(outputFormat.equals("xls")) {
 			net.sf.jasperreports.engine.export.JRXlsExporter exporter = new net.sf.jasperreports.engine.export.JRXlsExporter();
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, output_file_name +"_"+split_question_value+".xls");
+			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName +"_"+splitQuestionValue+".xls");
 			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 			exporter.exportReport();
 		} else { 
@@ -228,4 +227,3 @@ public class ExecuteReport {
 		return reportConfig;
 	}
 }
-
