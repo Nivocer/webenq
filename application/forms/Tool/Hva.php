@@ -32,19 +32,13 @@ class Webenq_Form_Tool_Hva extends Zend_Form
     {
         $this->setAttrib('enctype', 'multipart/form-data');
 
-        $notEmpty = new Zend_Validate_NotEmpty();
-        $count = new Zend_Validate_File_Count(array(
-            'min' => 1,
-            'max' => 1));
-        $extension = new Zend_Validate_File_Extension($this->_supportedFormats);
-
         $file = $this->createElement('file', 'file');
-        $file
-            ->setRequired(true)
-            ->setLabel('select the file to import')
+        $file->setMultiFile(5)
+            ->addValidator(new Zend_Validate_File_Count(array('min' => 1, 'max' => 5)))
+            ->addValidator(new Zend_Validate_File_Extension($this->_supportedFormats))
+            ->setLabel('select the file(s) to import')
             ->setDescription(t('supported formats') . ': '
-            	. implode(', ', $this->_supportedFormats))
-            ->addValidators(array($notEmpty, $count, $extension));
+            	. implode(', ', $this->_supportedFormats));
 
         $submit = $this->createElement('submit', 'submit', array('value' => 'Importeren'));
 

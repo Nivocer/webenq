@@ -73,6 +73,11 @@ class Webenq_Tool_Hva extends Webenq_Tool
         $this->_newData = $this->_getNewData();
     }
 
+    public function getNewData()
+    {
+        return $this->_getNewData();
+    }
+
     /**
      * Returns a downloadable object
      *
@@ -333,7 +338,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 $pattern = "/^$key:.*$/";
                 if (preg_match($pattern, $header, $matches)) {
                     if (!isset($columns[$name]))
-                        $columns[$name] = array('start' => $column);
+                    $columns[$name] = array('start' => $column);
                     $columns[$name]['end'] = $column;
                 }
             }
