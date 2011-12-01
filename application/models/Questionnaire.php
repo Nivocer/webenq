@@ -114,7 +114,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
         if (isset($array['title'])) {
             foreach ($array['title'] as $language => $title) {
-                $this->addQuestionnaireTitle($language, $title);
+                if ($title) $this->addQuestionnaireTitle($language, $title);
             }
         }
     }
