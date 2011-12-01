@@ -10,8 +10,8 @@ class Webenq_Form_Questionnaire_Add extends Zend_Form
 {
     public function init()
     {
-        $regex = new Zend_Validate_Regex('/^[\w\d\s]*$/');
-        $regex->setMessage('The title cannot contain these characters: _ - = + \' " . , ?', Zend_Validate_Regex::NOT_MATCH);
+        $regex = new Zend_Validate_Regex('/^[\w\d\s\?\.\+\-_,=\'"]*$/');
+        $regex->setMessage('The title contains invalid characters, valid characters are: a-z A-Z 1-9 _ - = + \' " . , ?', Zend_Validate_Regex::NOT_MATCH);
 
         foreach (Webenq_Language::getLanguages() as $language) {
             $this->addElement($this->createElement('text', $language, array(
