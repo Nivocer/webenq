@@ -120,9 +120,15 @@ class QuestionController extends Zend_Controller_Action
                     $questionText->question_id = $question->id;
                     $questionText->language = $language;
                 }
-                // set (new) text and save
-                $questionText->text = $text;
-                $questionText->save();
+                // only save when text is set
+                if ($text) {
+                    // set (new) text and save
+                    $questionText->text = $text;
+                    $questionText->save();
+                } else {
+                    // delete existing text if text is not set
+                    if ($questionText->id) $questionText->delete();
+                }
             }
             if ($this->_request->isXmlHttpRequest()) {
                 $this->_helper->json(array('reload' => true));
