@@ -30,7 +30,7 @@
 	<field name="report_question_text" class="java.lang.String"/>
 	<field name="question_seq_number" class="java.lang.Integer"/>
 	<sortField name="question_seq_number"/>
-<sortField name="report_question_value"/>
+	<sortField name="report_question_value"/>
 	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" incrementType="Group" incrementGroup="value" calculation="Count">
 		<variableExpression><![CDATA[$F{report_question_value}]]></variableExpression>
 	</variable>
@@ -68,7 +68,7 @@
 					<textElement verticalAlignment="Middle" markup="html">
 						<font size="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{report_question_text}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
 				</textField>
 				<stackedBarChart>
 					<chart isShowLegend="false" customizerClass="it.bisi.report.jasper.StackedBarCustomizer">
@@ -127,7 +127,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="10" splitType="Stretch"/>
+		<band height="1" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="12" splitType="Stretch">
@@ -136,7 +136,7 @@
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},"")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

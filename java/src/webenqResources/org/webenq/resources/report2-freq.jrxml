@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="555" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="555" pageHeight="80" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="109"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
@@ -46,7 +46,7 @@
 	<summary>
 		<band height="71" splitType="Stretch">
 			<crosstab>
-				<reportElement positionType="Float" x="0" y="24" width="555" height="45">
+				<reportElement positionType="Float" x="0" y="24" width="555" height="30">
 					<property name="net.sf.jasperreports.export.pdf.tag.table" value="full"/>
 				</reportElement>
 				<crosstabHeaderCell>
@@ -80,10 +80,10 @@
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
+								<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 									<font size="7"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{row}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[str($V{row})]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>
@@ -96,19 +96,19 @@
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<staticText>
+							<textField>
 								<reportElement x="0" y="0" width="190" height="10"/>
-								<box rightPadding="4">
+								<box rightPadding="6">
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Right" verticalAlignment="Middle">
-									<font size="7"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+									<font size="8"/>
 								</textElement>
-								<text><![CDATA[N]]></text>
-							</staticText>
+								<textFieldExpression><![CDATA[str("N")]]></textFieldExpression>
+							</textField>
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
@@ -140,12 +140,12 @@
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement verticalAlignment="Top">
+								<textElement verticalAlignment="Top" markup="html">
 									<font size="7"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
-$V{col}:
-"Totaal"
+str($V{col}):
+str("Total")
 )]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -159,21 +159,21 @@ $V{col}:
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
-							<staticText>
+							<textField>
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="10" isRemoveLineWhenBlank="true">
 									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 								</reportElement>
-								<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+								<box>
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Top" markup="none">
+								<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
 									<font size="7"/>
 								</textElement>
-								<text><![CDATA[Totaal]]></text>
-							</staticText>
+								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
+							</textField>
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
@@ -301,14 +301,14 @@ $V{col}:
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{report_question_text}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 				<textElement markup="html">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{group_question_text}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[str($F{group_question_text})]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

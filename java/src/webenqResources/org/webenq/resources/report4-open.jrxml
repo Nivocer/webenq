@@ -37,7 +37,7 @@
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{report_question_text}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

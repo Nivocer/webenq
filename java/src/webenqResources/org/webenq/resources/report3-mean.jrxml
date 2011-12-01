@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="80" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="352"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
@@ -122,7 +122,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 								<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 									<font size="7" isStrikeThrough="false"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{row}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[str($V{row})]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>
@@ -137,11 +137,11 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 							</box>
 							<textField>
 								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="190" height="12" isRemoveLineWhenBlank="true"/>
-								<box rightPadding="4"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
+								<box rightPadding="6"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
 									<font size="7"/>
 								</textElement>
-								<textFieldExpression><![CDATA["N "]]></textFieldExpression>
+								<textFieldExpression><![CDATA[str("N")]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabTotalRowHeader>
@@ -178,8 +178,8 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 									<font size="6"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
-    $V{col}:
-        "totaal")]]></textFieldExpression>
+    str($V{col}):
+        str("Total"))]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabColumnHeader>
@@ -192,7 +192,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<staticText>
+							<textField>
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="10" isRemoveLineWhenBlank="true">
 									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 								</reportElement>
@@ -203,10 +203,10 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Top" markup="none">
-									<font size="6" isBold="false" isPdfEmbedded="false"/>
+									<font size="8" isBold="false" isPdfEmbedded="false"/>
 								</textElement>
-								<text><![CDATA[Totaal]]></text>
-							</staticText>
+								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
+							</textField>
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
@@ -326,14 +326,14 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},"")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 				<textElement markup="html">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{group_question_text}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[str($F{group_question_text})]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
