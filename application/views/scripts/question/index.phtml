@@ -27,8 +27,8 @@
                         ?>
                     </td>
                     <td>
-                        <?php foreach ($question->QuestionnaireQuestion as $qq): ?>
-                            <a href="<?php echo $this->baseUrl('/questionnaire/edit/id/' . $qq->questionnaire_id); ?>"><?php echo $qq->questionnaire_id; ?></a>
+                        <?php foreach ($question->getQuestionnaires() as $q): ?>
+                            <a href="<?php echo $this->baseUrl('/questionnaire/edit/id/' . $q->id); ?>"><?php echo $q->id; ?></a>
                         <?php endforeach;?>
                     </td>
                     <td>

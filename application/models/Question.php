@@ -704,6 +704,22 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
     }
 
     /**
+     * Returns the questionnaires using this question
+     *
+     * @return Doctrine_Collection
+     */
+    public function getQuestionnaires()
+    {
+        return Doctrine_Query::create()
+            ->from('Webenq_Model_Questionnaire q')
+            ->innerJoin('q.QuestionnaireQuestion qq')
+            ->where('qq.question_id = ?', $this->id)
+            ->groupBy('q.id')
+            ->execute();
+    }
+
+
+    /**
      * Stores the question to db
      *
      * @param string $text Question text
