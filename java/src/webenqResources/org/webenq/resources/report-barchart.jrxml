@@ -44,11 +44,11 @@
 		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
 	</variable>
 	<variable name="valueRecoded" class="java.lang.String">
-		<variableExpression><![CDATA[($F{report_question_value}.equals("1.0") || $F{report_question_value}.equals("2.0") ? "1.0" :
-($F{report_question_value}.equals("3.0")  ? "2.0":
-($F{report_question_value}.equals("4.0") || $F{report_question_value}.equals("5.0") ? "3.0":
-    $F{report_question_value})
-))]]></variableExpression>
+		<variableExpression><![CDATA[(Double.parseDouble($F{report_question_value})<3.0)  ? "1.0" :
+(Double.parseDouble($F{report_question_value})==3.0)  ? "2.0":
+(Double.parseDouble($F{report_question_value})>3.0) &&  (Double.parseDouble($F{report_question_value})<6.0)? "3.0":
+    $F{report_question_value}
+]]></variableExpression>
 	</variable>
 	<group name="question">
 		<groupExpression><![CDATA[$F{report_question_text}]]></groupExpression>

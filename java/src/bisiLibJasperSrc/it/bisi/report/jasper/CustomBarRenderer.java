@@ -24,11 +24,12 @@ public CustomBarRenderer()
     CategoryDataset cd = getPlot().getDataset();
     if(cd != null)
     {
-      String l_rowKey = (String) cd.getRowKey(row);
-      return l_rowKey.equals("1.0")  ? Color.RED
-             : (l_rowKey.equals("2.0") ? Color.YELLOW
-             : (l_rowKey.equals("3.0")? Color.GREEN
-             : Color.ORANGE));
+      String s_rowKey = (String) cd.getRowKey(row);
+      double rowKey = Double.parseDouble(s_rowKey);
+      return rowKey == 1.0  ? Color.RED
+             : (rowKey==2.0 ? Color.YELLOW
+             : (rowKey==3.0 ? Color.GREEN
+             : Color.PINK));
     }
     
     return Color.WHITE;
