@@ -81,7 +81,8 @@ public class XformJRDataSource {
 				//String searchRespondents="//respondenten/respondent[@id>0]/*["+split_question_id+"="+split_value+"]";
 				//all respondents
 				String searchRespondents="//respondenten/respondent/*";
-				if (split_question_id != null && split_question_value != null ) {
+				
+				if (split_question_id != null && !split_question_id.isEmpty() &&split_question_value != null && !split_question_value.isEmpty()) {
 					searchRespondents="//respondenten/respondent/*["+split_question_id+"="+split_question_value+"]";
 				}
 
@@ -112,8 +113,12 @@ public class XformJRDataSource {
 						group_question_value=groupQuestionNode.getTextContent();
 						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
 					}
-					XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_text, group_question_value, group_question_label,  new Integer( group_seq_number));
-					reportRows.add(ra);
+					//TODO missing values implementation, now if it is empty, we don't put it in the bean
+					if (!report_question_value.isEmpty()){
+						//System.out.println(report_question_id+":;"+ report_question_text+":;"+ report_question_value+":;"+ report_question_label+":;"+ group_question_id+":;"+ group_question_text+":;"+ group_question_value+":;"+ group_question_label+":;"+ new Integer( group_seq_number));
+						XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_text, group_question_value, group_question_label,  new Integer( group_seq_number));
+						reportRows.add(ra);
+					}
 				}
 				if ( group_question_id != null && group_question_id.length() > 0 )
 				{
