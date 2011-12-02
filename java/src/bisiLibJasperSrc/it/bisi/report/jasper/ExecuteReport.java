@@ -56,6 +56,7 @@ public class ExecuteReport {
 			//get report config information (location, language, customer, etc)
 			Map<String,String> reportConfig=getReportControlFile(configFileName);
 			String xformLocation=reportConfig.get("xformLocation");
+			String xformName=reportConfig.get("xformName");
 			String dataLocation=reportConfig.get("dataLocation");
 			String reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
 			String splitQuestionId=reportConfig.get("splitQuestionId");
@@ -70,6 +71,7 @@ public class ExecuteReport {
 			prms.put("OUTPUT_DIR", outputDir);
 			prms.put("DATA_LOCATION", dataLocation);
 			prms.put("XFORM_LOCATION", xformLocation);
+			prms.put("FORM_NAME", xformName);
 			prms.put("CUSTOMER", customer); //resource bundle and needed for hacks in jrxml
 			prms.put("SPLIT_QUESTION_ID", splitQuestionId ); //not yet implemented #5395
 
