@@ -1,7 +1,6 @@
 <?php
 /**
- * Helper class that returns the right language from a collection
- * of doctrine objects
+ * Helper class for rendering a frequency table
  */
 class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
 {
