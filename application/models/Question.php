@@ -718,6 +718,12 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
             ->execute();
     }
 
+    public function preInsert($event)
+    {
+        $invoker = $event->getInvoker();
+        $invoker->created = date('Y-m-d H:i:s');
+    }
+
 
     /**
      * Stores the question to db

@@ -103,6 +103,11 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
                 'action' => 'index',
             ),
             array(
+                'label' => t('Reports'),
+                'controller' => 'report',
+                'action' => 'index',
+            ),
+            array(
                 'label' => t('Import'),
                 'controller' => 'import',
                 'action' => 'index',

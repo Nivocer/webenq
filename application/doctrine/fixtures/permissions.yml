@@ -1,19 +1,19 @@
 Webenq_Model_User:
-  Webenq_Model_User_1:
+  Admin:
     username: admin
     password: 50eb7337364c629709d979712838d82d
     fullname: 'Admin 1'
     created: '2010-12-20 17:20:21'
     lastlogin: '2011-10-28 10:37:32'
     Role: Admin
-  Webenq_Model_User_3:
+  Admin2:
     username: admin2
     password: 50eb7337364c629709d979712838d82d
     fullname: 'Admin 2'
     created: '2011-01-10 11:54:24'
     lastlogin: '2011-10-13 14:40:01'
     Role: Admin
-  Webenq_Model_User_4:
+  Admin3:
     username: admin3
     password: 50eb7337364c629709d979712838d82d
     fullname: 'Admin 3'
@@ -244,6 +244,36 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_92:
     Role: Admin
     Resource: Webenq_Model_Resource_20
+  AdminListReports:
+    Role: Admin
+    Resource: ListReports
+  AdminViewReport:
+    Role: Admin
+    Resource: ViewReport
+  AdminAddReport:
+    Role: Admin
+    Resource: AddReport
+  AdminEditReport:
+    Role: Admin
+    Resource: EditReport
+  AdminDeleteReport:
+    Role: Admin
+    Resource: DeleteReport
+  AdminListReportElements:
+    Role: Admin
+    Resource: ListReportElements
+  AdminViewReportElement:
+    Role: Admin
+    Resource: ViewReportElement
+  AdminAddReportElement:
+    Role: Admin
+    Resource: AddReportElement
+  AdminEditReportElement:
+    Role: Admin
+    Resource: EditReportElement
+  AdminDeleteReportElement:
+    Role: Admin
+    Resource: DeleteReportElement
 Webenq_Model_Resource:
   Webenq_Model_Resource_1:
     name: error/error
@@ -434,4 +464,34 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_77:
     name: tool/hva
     description: 'Conversion of HVA input files'
+  ListReports:
+    name: report/index
+    description: 'List reports'
+  AddReport:
+    name: report/add
+    description: 'Add report'
+  EditReport:
+    name: report/edit
+    description: 'Edit report'
+  DeleteReport:
+    name: report/delete
+    description: 'Delete report'
+  ViewReport:
+    name: report/view
+    description: 'View report'
+  ListReportElements:
+    name: report-element/index
+    description: 'List report elements'
+  AddReportElement:
+    name: report-element/add
+    description: 'Add report element'
+  EditReportElement:
+    name: report-element/edit
+    description: 'Edit report element'
+  DeleteReportElement:
+    name: report-element/delete
+    description: 'Delete report element'
+  ViewReportElement:
+    name: report-element/view
+    description: 'View report element'
     

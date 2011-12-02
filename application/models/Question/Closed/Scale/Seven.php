@@ -32,7 +32,7 @@ class Webenq_Model_Question_Closed_Scale_Seven extends Webenq_Model_Question_Clo
 
         /* are all values present in an answer-possibility-group? */
         $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues(), $language);
-        if ($group->AnswerPossibility[0]->value != 7) {
+        if (!$group) {
             return false;
         }
 

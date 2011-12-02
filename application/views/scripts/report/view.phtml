@@ -1,0 +1,16 @@
+<h2>
+    <?php echo t('Report'); ?>
+    "<?php echo $this->report->getReportTitle()->text; ?>"
+    <?php echo t('for questionnaire'); ?>
+    "<?php echo $this->report->Questionnaire->getQuestionnaireTitle()->text; ?>"
+</h2>
+
+<a class="ajax link add" href="<?php echo $this->baseUrl('report-element/add/report/' . $this->report->id) ?>" title="<?php echo t('add report element'); ?>">
+    <?php echo t('add report element'); ?>
+</a>
+
+<ul>
+    <?php foreach ($this->report->ReportElement as $element): ?>
+    	<li><?php echo $this->reportElement($element); ?></li>
+	<?php endforeach; ?>
+</ul>

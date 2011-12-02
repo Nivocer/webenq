@@ -430,6 +430,10 @@ Questionnaire:
       local: id
       foreign: questionnaire_id
       type: many
+    Report:
+      local: id
+      foreign: questionnaire_id
+      type: many
 QuestionnaireQuestion:
   tableName: questionnaire_question
   columns:
@@ -557,6 +561,101 @@ QuestionnaireTitle:
   relations:
     Questionnaire:
       local: questionnaire_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+Report:
+  tableName: report
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    questionnaire_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    ReportTitle:
+      local: id
+      foreign: report_id
+      type: many
+    Questionnaire:
+      local: questionnaire_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+    ReportElement:
+      local: id
+      foreign: report_id
+      type: many
+ReportTitle:
+  tableName: reportTitle
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    report_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Report:
+      local: report_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
+ReportElement:
+  tableName: reportElement
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    report_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+    data:
+      type: text
+      notnull: false
+      default: null
+  relations:
+    Report:
+      local: report_id
       foreign: id
       type: one
       onUpdate: CASCADE

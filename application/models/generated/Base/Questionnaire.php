@@ -10,11 +10,12 @@
  * @property Doctrine_Collection $QuestionnaireTitle
  * @property Doctrine_Collection $QuestionnaireQuestion
  * @property Doctrine_Collection $Respondent
+ * @property Doctrine_Collection $Report
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: Questionnaire.php,v 1.9 2011/11/11 11:14:01 bart Exp $
+ * @version    SVN: $Id: Questionnaire.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
 {
@@ -52,6 +53,10 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
              'foreign' => 'questionnaire_id'));
 
         $this->hasMany('Webenq_Model_Respondent as Respondent', array(
+             'local' => 'id',
+             'foreign' => 'questionnaire_id'));
+
+        $this->hasMany('Webenq_Model_Report as Report', array(
              'local' => 'id',
              'foreign' => 'questionnaire_id'));
     }

@@ -8,6 +8,29 @@
  */
 class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 {
+    /**
+     * Returns an array with ids as keys and titles as values
+     *
+     * If a language is provided the corresponding translation of the
+     * title is used. If not provided, the current language is used. Else
+     * one of the preferred languages is used. Otherwise just any language.
+     *
+     * @param string $language
+     * @return array
+     */
+    public static function getKeyValuePairs($language = null)
+    {
+        $questionnaires = Doctrine_Query::create()
+            ->from('Webenq_Model_Questionnaire')
+            ->execute();
+
+        $pairs = array();
+        foreach ($questionnaires as $questionnaire) {
+            $pairs[$questionnaire->id] = $questionnaire->getQuestionnaireTitle($language)->text;
+        }
+        return $pairs;
+    }
+
     public function getQuestionsAndAnswersAsArray()
     {
         return $this->toArray();
@@ -64,12 +87,12 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     }
 
     /**
-    * Sets the questionnaire title for a given language
-    *
-    * @param string $language The language to set the title for
-    * @param string $title The questionnaire title for the given language
-    * @return self
-    */
+     * Sets the questionnaire title for a given language
+     *
+     * @param string $language The language to set the title for
+     * @param string $title The questionnaire title for the given language
+     * @return self
+     */
     public function addQuestionnaireTitle($language, $title)
     {
         if ($this->id) {
@@ -92,6 +115,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             $translation->text = $title;
             $this->QuestionnaireTitle[] = $translation;
         }
+        return $this;
     }
 
     /**
@@ -108,6 +132,14 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     }
 
 
+    /**
+     * Fills record with data in array and fills related objects with
+     * translations
+     *
+     * @param array $array
+     * @param bool $deep
+     * @see Doctrine_Record::fromArray()
+     */
     public function fromArray(array $array, $deep = true)
     {
         parent::fromArray($array, $deep);

@@ -1,0 +1,38 @@
+<a class="ajax link add" href="<?php echo $this->baseUrl('report/add') ?>" title="<?php echo t('add report'); ?>">
+    <?php echo t('add report'); ?>
+</a>
+
+<?php if (count($this->reports) === 0): ?>
+    <?php echo t('No reports have been defined yet'); ?>
+<?php else: ?>
+    <table>
+        <thead>
+            <tr>
+                <th><?php echo t('id'); ?></th>
+                <th><?php echo t('rapport'); ?></th>
+                <th><?php echo t('questionnaire'); ?></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->reports as $report): ?>
+                <tr>
+                    <td>
+                        <?php echo $report->id; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->getReportTitle()->text; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->Questionnaire->getQuestionnaireTitle()->text; ?>
+                    </td>
+                    <td>
+                        <a class="icon view" title="<?php echo t('view'); ?>" href="<?php echo $this->baseUrl("report/view/id/$report->id"); ?>">&nbsp;</a>
+                        <a class="icon edit ajax" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("report/edit/id/$report->id"); ?>">&nbsp;</a>
+                        <a class="icon delete ajax" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("report/delete/id/$report->id"); ?>">&nbsp;</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>

@@ -32,7 +32,7 @@ class Webenq_Model_Question_Closed_Scale_Four extends Webenq_Model_Question_Clos
 
         /* are all values present in an answer-possibility-group? */
         $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues(), $language);
-        if ($group->AnswerPossibility[0]->value != 4) {
+        if (!$group) {
             return false;
         }
 

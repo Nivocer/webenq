@@ -234,3 +234,17 @@ ul.selectable {
 #dialog form dt label {
 	margin: 0;
 }
+
+.report-element-wrapper {
+    clear: both;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid;
+}
+
+.report-element-wrapper .report-element {
+}
+
+.report-element-wrapper .actions {
+    height: 20px;
+}
