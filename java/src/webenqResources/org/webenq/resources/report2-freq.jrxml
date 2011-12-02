@@ -177,11 +177,8 @@ str("Total")
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
-				<measure name="valMeasure" class="java.lang.Double" calculation="Sum">
-					<measureExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></measureExpression>
-				</measure>
 				<measure name="valCount" class="java.lang.Double" calculation="Count">
-					<measureExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></measureExpression>
+					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
 				</measure>
 				<measure name="report_question_value_measure" class="java.lang.String">
 					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
@@ -260,12 +257,12 @@ str("Total")
 							<textElement verticalAlignment="Middle">
 								<font size="7"/>
 							</textElement>
-							<textFieldExpression><![CDATA[($V{valMeasure_row_col_ALL}>0
+							<textFieldExpression><![CDATA[($V{valCount_row_ALL}>0
     ?
-    $V{valMeasure}/$V{valMeasure_row_col_ALL}
+    $V{valCount}/$V{valCount_row_ALL}
     :
     new Double(0)
-)]]></textFieldExpression>
+    )]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
