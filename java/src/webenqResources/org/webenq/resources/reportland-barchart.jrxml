@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-barchart" printOrder="Horizontal" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
+	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
+		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
+	</scriptlet>
+	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE" class="java.util.Map" isForPrompting="false"/>
+	<parameter name="TYPE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["AVG"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["defaultStyle.jrtx"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CROSSTAB_HEADER_TEXT_ID" class="java.lang.String"/>
+	<parameter name="XFORM_LOCATION" class="java.lang.String"/>
+	<parameter name="FORM_NAME" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="report_question_id" class="java.lang.String"/>
+	<field name="group_question_value" class="java.lang.String"/>
+	<field name="report_question_value" class="java.lang.String"/>
+	<field name="group_question_id" class="java.lang.String"/>
+	<field name="report_question_label" class="java.lang.String"/>
+	<field name="group_question_label" class="java.lang.String"/>
+	<field name="report_question_text" class="java.lang.String"/>
+	<field name="question_seq_number" class="java.lang.Integer"/>
+	<sortField name="question_seq_number"/>
+	<sortField name="report_question_value"/>
+	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" incrementType="Group" incrementGroup="value" calculation="Count">
+		<variableExpression><![CDATA[$F{report_question_value}]]></variableExpression>
+	</variable>
+	<variable name="average" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Average">
+		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
+	</variable>
+	<variable name="count" class="java.lang.Double" resetType="Group" resetGroup="value" calculation="Count">
+		<variableExpression><![CDATA[$F{report_question_value}]]></variableExpression>
+	</variable>
+	<variable name="stddev" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="StandardDeviation">
+		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
+	</variable>
+	<variable name="valueRecoded" class="java.lang.String">
+		<variableExpression><![CDATA[($F{report_question_value}.equals("1.0") || $F{report_question_value}.equals("2.0") ? "1.0" :
+($F{report_question_value}.equals("3.0")  ? "2.0":
+($F{report_question_value}.equals("4.0") || $F{report_question_value}.equals("5.0") ? "3.0":
+    $F{report_question_value})
+))]]></variableExpression>
+	</variable>
+	<group name="question">
+		<groupExpression><![CDATA[$F{report_question_text}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="25" splitType="Prevent">
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="175" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
+				</textField>
+				<stackedBarChart>
+					<chart isShowLegend="false" customizerClass="it.bisi.report.jasper.StackedBarCustomizer">
+						<reportElement x="170" y="0" width="360" height="25" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
+							<property name="pietje" value="&quot;jantje&quot;"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.5" lineColor="#000000"/>
+							<bottomPen lineWidth="0.5" lineColor="#000000"/>
+							<rightPen lineWidth="0.5" lineColor="#000000"/>
+						</box>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="question"/>
+						<categorySeries>
+							<seriesExpression><![CDATA[$V{valueRecoded}]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{report_question_text}]]></categoryExpression>
+							<valueExpression><![CDATA[$V{count}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot>
+						<plot orientation="Horizontal"/>
+						<itemLabel/>
+						<valueAxisLabelExpression><![CDATA[$V{valueRecoded}]]></valueAxisLabelExpression>
+					</barPlot>
+				</stackedBarChart>
+				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
+					<reportElement x="510" y="0" width="20" height="25" isPrintInFirstWholeBand="true"/>
+					<box leftPadding="0">
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{average}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="value">
+		<groupExpression><![CDATA[$V{valueRecoded}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="12"/>
+				<textElement markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
