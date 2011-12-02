@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="555" pageHeight="80" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="802" pageHeight="80" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -46,7 +46,7 @@
 	<summary>
 		<band height="71" splitType="Stretch">
 			<crosstab>
-				<reportElement positionType="Float" x="0" y="24" width="555" height="30">
+				<reportElement positionType="Float" x="0" y="24" width="802" height="30">
 					<property name="net.sf.jasperreports.export.pdf.tag.table" value="full"/>
 				</reportElement>
 				<crosstabHeaderCell>
@@ -297,14 +297,14 @@ str("Total")
 				</crosstabCell>
 			</crosstab>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="595" height="12"/>
+				<reportElement x="0" y="0" width="802" height="12"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="150" y="12" width="652" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 				<textElement markup="html">
 					<font size="8"/>
 				</textElement>

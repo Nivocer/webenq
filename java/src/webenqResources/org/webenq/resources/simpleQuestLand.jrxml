@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="59"/>
+	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
 		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
@@ -51,7 +51,7 @@
 	<detail>
 		<band height="170" splitType="Immediate">
 			<subreport>
-				<reportElement positionType="Float" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="0" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -65,10 +65,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="20" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="20" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -76,10 +76,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g3-Opmerkingen",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4land-open.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="40" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="40" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -87,10 +87,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Opmerkingen",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4land-open.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="80" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="80" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -101,10 +101,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, $P{XFORM_LOCATION},$P{FORM_NAME},"g6-Tevredenheid/g6-InhoudRelevant","g6-Tevredenheid/g6-DoelenBereikt", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2land-freq.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="60" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="60" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -115,10 +115,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-InhoudRelevant",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2land-freq.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="100" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="100" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -141,10 +141,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-DoelenDuidelijk, g6-Tevredenheid/g6-DoelenBereikt,g6-Tevredenheid/g6-InhoudRelevant,g6-Tevredenheid/g6-BijeenkomstenOnmisbaar,g6-Tevredenheid/g6-Effectief,g6-Tevredenheid/g6-studiemateriaal,g6-Tevredenheid/g6-beoordeling,g6-Tevredenheid/g6-NiveauTempo,g6-Tevredenheid/g6-InstructieDocent,g6-Tevredenheid/g6-BegeleidingDocent,g6-Tevredenheid/g6-Uren,g6-Tevredenheid/g6-GoedVoorbereid",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3land-mean.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="120" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="120" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -167,10 +167,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-DoelenDuidelijk, g6-Tevredenheid/g6-DoelenBereikt,g6-Tevredenheid/g6-InhoudRelevant,g6-Tevredenheid/g6-BijeenkomstenOnmisbaar,g6-Tevredenheid/g6-Effectief,g6-Tevredenheid/g6-studiemateriaal,g6-Tevredenheid/g6-beoordeling,g6-Tevredenheid/g6-NiveauTempo,g6-Tevredenheid/g6-InstructieDocent,g6-Tevredenheid/g6-BegeleidingDocent,g6-Tevredenheid/g6-Uren,g6-Tevredenheid/g6-GoedVoorbereid","g6-Rapportcijfer", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3land-mean.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="140" width="555" height="20" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="140" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -199,7 +199,7 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g6-Tevredenheid/g6-DoelenDuidelijk, g6-Tevredenheid/g6-DoelenBereikt,g6-Tevredenheid/g6-InhoudRelevant,g6-Tevredenheid/g6-BijeenkomstenOnmisbaar,g6-Tevredenheid/g6-Effectief,g6-Tevredenheid/g6-studiemateriaal,g6-Tevredenheid/g6-beoordeling,g6-Tevredenheid/g6-NiveauTempo,g6-Tevredenheid/g6-InstructieDocent,g6-Tevredenheid/g6-BegeleidingDocent,g6-Tevredenheid/g6-Uren,g6-Tevredenheid/g6-GoedVoorbereid","g6-Rapportcijfer", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report-barchart.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"reportland-barchart.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
