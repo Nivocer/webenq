@@ -121,13 +121,14 @@ public class ExecuteReport {
 					splitQuestionValue = (String) iter.next();
 					//needed for displaying content
 					prms.put("SPLIT_QUESTION_VALUE", splitQuestionValue);
-
+					System.out.println("split values");
 					generateReport(reportDefinitionLocation, prms, splitQuestionValue, outputDir, outputFileName, outputFormat );
 
 				}
 			}else{
 				//no split value
 				prms.put("SPLIT_QUESTION_VALUE", "");
+				System.out.println("no split values");
 				generateReport(reportDefinitionLocation, prms, "", outputDir, outputFileName, outputFormat );
 			}
 		}
@@ -141,8 +142,6 @@ public class ExecuteReport {
 		//clean fileName
 		if (splitQuestionValue.length()>0){
 			// no slash in split part
-			
-			
 			outputFileName=fileName(outputDir,true)+"/"+fileName(outputFileName,false)+"-"+fileName(splitQuestionValue,false);
 		}else{
 			//output_file_name=fileName(output_file_name, true);
@@ -150,7 +149,8 @@ public class ExecuteReport {
 		}
 		InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
 		JasperPrint print;
-		if (reportDefinitionLocation.endsWith(".jrxml")){
+		
+		if (reportDefinitionLocation.endsWith("jrxml")){
 			//need to compile the report
 			JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 			// we need an empty datasource to display the report...
