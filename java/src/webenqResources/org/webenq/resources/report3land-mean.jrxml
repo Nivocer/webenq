@@ -6,8 +6,8 @@
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$V{valMeasure} >=(Double)$P{COLOR_RANGE}.get("lowRed") &&
-$V{valMeasure}<(Double)$P{COLOR_RANGE}.get("highRed")]]></conditionExpression>
+			<conditionExpression><![CDATA[$V{averageMeasure} >=(Double)$P{COLOR_RANGE}.get("lowRed") &&
+$V{averageMeasure}<(Double)$P{COLOR_RANGE}.get("highRed")]]></conditionExpression>
 			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -16,8 +16,8 @@ $V{valMeasure}<(Double)$P{COLOR_RANGE}.get("highRed")]]></conditionExpression>
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$V{valMeasure} >=(Double)$P{COLOR_RANGE}.get("lowYellow") &&
-$V{valMeasure}<(Double)$P{COLOR_RANGE}.get("highYellow")]]></conditionExpression>
+			<conditionExpression><![CDATA[$V{averageMeasure} >=(Double)$P{COLOR_RANGE}.get("lowYellow") &&
+$V{averageMeasure}<(Double)$P{COLOR_RANGE}.get("highYellow")]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#FFFF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -26,8 +26,8 @@ $V{valMeasure}<(Double)$P{COLOR_RANGE}.get("highYellow")]]></conditionExpression
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$V{valMeasure} >=(Double)$P{COLOR_RANGE}.get("lowGreen") &&
-$V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression>
+			<conditionExpression><![CDATA[$V{averageMeasure} >=(Double)$P{COLOR_RANGE}.get("lowGreen") &&
+$V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#00FF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -48,13 +48,16 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 	<parameter name="XFORM_LOCATION" class="java.lang.String"/>
 	<parameter name="FORM_NAME" class="java.lang.String"/>
 	<field name="report_question_id" class="java.lang.String"/>
-	<field name="group_question_value" class="java.lang.String"/>
-	<field name="report_question_value" class="java.lang.String"/>
-	<field name="group_question_id" class="java.lang.String"/>
-	<field name="report_question_label" class="java.lang.String"/>
-	<field name="group_question_label" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
+	<field name="report_question_value" class="java.lang.String"/>
+	<field name="report_question_label" class="java.lang.String"/>
+	<field name="group_question_id" class="java.lang.String"/>
 	<field name="group_question_text" class="java.lang.String"/>
+	<field name="group_question_value" class="java.lang.String"/>
+	<field name="group_question_label" class="java.lang.String"/>
+	<field name="question_seq_number" class="java.lang.Integer"/>
+	<sortField name="question_seq_number"/>
+	<sortField name="group_question_value"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -79,17 +82,10 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 	<summary>
 		<band height="56" splitType="Stretch">
 			<crosstab ignoreWidth="false">
-				<reportElement positionType="Float" x="0" y="24" width="802" height="30" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
-				<crosstabParameter name="GROUP_ROWS_C">
-					<parameterValueExpression><![CDATA[]]></parameterValueExpression>
-				</crosstabParameter>
+				<reportElement positionType="Float" x="0" y="24" width="555" height="30" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
 				<crosstabParameter name="COLOR_RANGE" class="java.util.HashMap">
 					<parameterValueExpression><![CDATA[$P{COLOR_RANGE}]]></parameterValueExpression>
 				</crosstabParameter>
-				<crosstabParameter name="CUSTOMER">
-					<parameterValueExpression><![CDATA[$P{CUSTOMER}]]></parameterValueExpression>
-				</crosstabParameter>
-				<crosstabDataset isDataPreSorted="true"/>
 				<crosstabHeaderCell>
 					<cellContents>
 						<box>
@@ -103,6 +99,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 				<rowGroup name="row" width="190" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{report_question_text}]]></bucketExpression>
+						<orderByExpression><![CDATA[$V{report_question_order}]]></orderByExpression>
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque">
@@ -149,7 +146,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 				<columnGroup name="col" height="10" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{group_question_label}]]></bucketExpression>
-						<orderByExpression><![CDATA[$V{group_question_value_measure}]]></orderByExpression>
+						<orderByExpression><![CDATA[$V{group_question_order}]]></orderByExpression>
 					</bucket>
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque">
@@ -210,19 +207,16 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
-				<measure name="valMeasure" class="java.lang.Double" calculation="Average">
+				<measure name="averageMeasure" class="java.lang.Double" calculation="Average">
 					<measureExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></measureExpression>
 				</measure>
 				<measure name="countMeasure" class="java.lang.Integer" calculation="Count">
-					<measureExpression><![CDATA[$F{report_question_label}]]></measureExpression>
-				</measure>
-				<measure name="m_customer" class="java.lang.String">
-					<measureExpression><![CDATA[$P{CUSTOMER}.toString()]]></measureExpression>
-				</measure>
-				<measure name="report_question_value_measure" class="java.lang.String">
 					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
 				</measure>
-				<measure name="group_question_value_measure" class="java.lang.String">
+				<measure name="report_question_order" class="java.lang.Integer">
+					<measureExpression><![CDATA[$F{question_seq_number}]]></measureExpression>
+				</measure>
+				<measure name="group_question_order" class="java.lang.String">
 					<measureExpression><![CDATA[$F{group_question_value}]]></measureExpression>
 				</measure>
 				<crosstabCell width="30" height="12">
@@ -236,14 +230,14 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 						</box>
 						<textField pattern="###0.0" isBlankWhenNull="true">
 							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isPrintWhenDetailOverflows="true">
-								<printWhenExpression><![CDATA[!$V{valMeasure}.equals(null)]]></printWhenExpression>
+								<printWhenExpression><![CDATA[!$V{averageMeasure}.equals(null)]]></printWhenExpression>
 							</reportElement>
 							<box>
 								<leftPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{valMeasure}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
@@ -257,9 +251,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
-								<printWhenExpression><![CDATA[!$V{m_customer}.equals("fraijlemaborg")]]></printWhenExpression>
-							</reportElement>
+							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true"/>
 							<box>
 								<leftPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.5"/>
@@ -289,7 +281,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{valMeasure}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
@@ -304,7 +296,7 @@ $V{valMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression
 						</box>
 						<textField pattern="###0">
 							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
-								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1 && !$V{m_customer}.equals("fraijlemaborg")]]></printWhenExpression>
+								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 							</reportElement>
 							<box>
 								<pen lineWidth="0.0"/>
