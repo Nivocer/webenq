@@ -172,6 +172,11 @@ public class ExecuteReport {
 			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + "-" + splitQuestionValue+ ".odt");
 			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
 			exporter.exportReport();
+		}else if(outputFormat.equals("rtf")) {
+				net.sf.jasperreports.engine.export.JRRtfExporter exporter = new net.sf.jasperreports.engine.export.JRRtfExporter(); 
+				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".rtf");
+				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+				exporter.exportReport();
 		} else if(outputFormat.equals("html")) {
 			JasperExportManager.exportReportToHtmlFile(print, outputFileName +"-"+splitQuestionValue+ ".html");
 		} else if(outputFormat.equals("xml")) {
