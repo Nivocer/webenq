@@ -31,6 +31,19 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+
+
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.export.JExcelApiExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+//import net.sf.jasperreports.engine.export.JRPdfExporterParameter;
+import net.sf.jasperreports.engine.export.JRRtfExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+
 
 
 public class ExecuteReport {
@@ -121,14 +134,12 @@ public class ExecuteReport {
 					splitQuestionValue = (String) iter.next();
 					//needed for displaying content
 					prms.put("SPLIT_QUESTION_VALUE", splitQuestionValue);
-					System.out.println("split values");
 					generateReport(reportDefinitionLocation, prms, splitQuestionValue, outputDir, outputFileName, outputFormat );
 
 				}
 			}else{
 				//no split value
 				prms.put("SPLIT_QUESTION_VALUE", "");
-				System.out.println("no split values");
 				generateReport(reportDefinitionLocation, prms, "", outputDir, outputFileName, outputFormat );
 			}
 		}
@@ -163,28 +174,50 @@ public class ExecuteReport {
 
 		// Create output in directory public/reports  
 		if(outputFormat.equals("pdf")) {
-			net.sf.jasperreports.engine.export.JRPdfExporter exporter = new net.sf.jasperreports.engine.export.JRPdfExporter(); 
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".pdf");
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+			JRPdfExporter exporter = new JRPdfExporter(); 
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".pdf");
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
 			exporter.exportReport();
 		} else if(outputFormat.equals("odt")) {
-			net.sf.jasperreports.engine.export.oasis.JROdtExporter exporter = new net.sf.jasperreports.engine.export.oasis.JROdtExporter();
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + "-" + splitQuestionValue+ ".odt");
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+			JROdtExporter exporter = new JROdtExporter();
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".odt");
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
 			exporter.exportReport();
 		}else if(outputFormat.equals("rtf")) {
-				net.sf.jasperreports.engine.export.JRRtfExporter exporter = new net.sf.jasperreports.engine.export.JRRtfExporter(); 
-				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".rtf");
-				exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+			//untested
+				JRRtfExporter exporter = new JRRtfExporter(); 
+				exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".rtf");
+				exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
 				exporter.exportReport();
+		}else if (outputFormat.equals("docx")){
+			//untested from jasper report sample
+			JRDocxExporter exporter = new JRDocxExporter();
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".docx");
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+			exporter.exportReport();
 		} else if(outputFormat.equals("html")) {
 			JasperExportManager.exportReportToHtmlFile(print, outputFileName +"-"+splitQuestionValue+ ".html");
 		} else if(outputFormat.equals("xml")) {
 			JasperExportManager.exportReportToXmlFile(print, outputFileName +"_"+splitQuestionValue+ ".xml", false);
 		} else if(outputFormat.equals("xls")) {
-			net.sf.jasperreports.engine.export.JRXlsExporter exporter = new net.sf.jasperreports.engine.export.JRXlsExporter();
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.OUTPUT_FILE_NAME, outputFileName +"_"+splitQuestionValue+".xls");
-			exporter.setParameter(net.sf.jasperreports.engine.JRExporterParameter.JASPER_PRINT, print);
+			JRXlsExporter exporter = new JRXlsExporter();
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName +".xls");
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+			exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+			exporter.exportReport();
+		}else if (outputFormat.equals("jxl")) {
+			//untested other xls creator? form jasper-report sample
+			JExcelApiExporter exporter = new JExcelApiExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName +".xls");
+			exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+			exporter.exportReport();
+		}else if (outputFormat.equals("xlsx")){
+			//untested form jasper-report sample
+			JRXlsxExporter exporter = new JRXlsxExporter();
+			exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName +".xlsx");
 			exporter.exportReport();
 		} else { 
 			JasperViewer.viewReport(print);
