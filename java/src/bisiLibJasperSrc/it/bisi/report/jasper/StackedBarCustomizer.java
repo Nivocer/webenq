@@ -30,9 +30,8 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
 	{
 		StackedBarRenderer renderer = new CustomBarRenderer();
 		chart.getCategoryPlot().setRenderer(renderer);
-		
-		renderer.setBaseItemLabelFont( new Font("TimesRoman", Font.PLAIN,  6) );
-			    	      
+		renderer.setBaseItemLabelFont( new Font("Arial", Font.PLAIN,  7) );
+					    	      
 		CategoryPlot plot = chart.getCategoryPlot();
 		plot.setRangeGridlinePaint(Color.white);
 		CategoryDataset cd = (CategoryDataset) plot.getDataset();
@@ -78,6 +77,9 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
 		vAxis.setAutoTickUnitSelection(false);
 		vAxis.setVerticalTickLabels(false);
 		vAxis.setVisible(false);
+		vAxis.setUpperMargin(0.0);
+		vAxis.setLowerMargin(0.0);
+		
 				
 		CategoryAxis cAxis = plot.getDomainAxis();
 		cAxis.setTickLabelsVisible(false);
@@ -85,6 +87,10 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
 		cAxis.setMinorTickMarksVisible(false);
 		cAxis.setAxisLineVisible(false);
 		cAxis.setVisible(false);
+		cAxis.setUpperMargin(0.0);
+		cAxis.setLowerMargin(0.0);
+		
+		vAxis.setLowerMargin(0.0001);
 		
 
 		
