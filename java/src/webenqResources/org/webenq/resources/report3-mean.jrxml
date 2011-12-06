@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="80" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="215"/>
+	<property name="ireport.x" value="129"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
@@ -171,11 +171,11 @@ $V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpres
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement verticalAlignment="Top">
+								<textElement verticalAlignment="Top" markup="html">
 									<font size="6"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
-    str($V{col}):
+    str($V{col}.replace("_",": ")):
         str("Total"))]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -199,7 +199,7 @@ $V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpres
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Top" markup="none">
+								<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
 									<font size="8" isBold="false" isPdfEmbedded="false"/>
 								</textElement>
 								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
