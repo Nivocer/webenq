@@ -93,6 +93,8 @@ class ToolController extends Zend_Controller_Action
                 // return file for download
                 $download = new Webenq_Download_Xls();
                 $download->setData($data[0][0])->init();
+                $download->addWorkingSheet($data[0][1]);
+                $download->addWorkingSheet($data[0][2]);
                 $download->send($this->_response);
             }
         }

@@ -57,6 +57,18 @@ class Webenq_Download_Xls extends Webenq_Download
 		return $this;
 	}
 
+	public function addWorkingSheet(array $data)
+	{
+	    $sheet = $this->_document->createSheet();
+
+        // add data from array to xls
+		foreach ($data as $indexRow => $row) {
+		    foreach ($row as $indexCol => $value) {
+                $sheet->setCellValueByColumnAndRow($indexCol, $indexRow+1, $value);
+		    }
+		}
+	}
+
 	/**
 	 * Sends the document
 	 *
