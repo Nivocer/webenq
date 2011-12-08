@@ -10,7 +10,7 @@ class ToolController extends Zend_Controller_Action
 {
     public function hvaAction()
     {
-        $form = new Webenq_Form_Tool_Hva(array('xls', 'xlsx'));
+        $form = new Webenq_Form_Tool_Hva();
         $errors = array();
         $lastRespondentId = 1;
 
@@ -26,22 +26,42 @@ class ToolController extends Zend_Controller_Action
 
             // receive the file
             if ($form->file->receive()) {
-                $filenames = $form->file->getFileName();
+                $archiveInfo = $form->file->getFileInfo();
+                $parts = explode('.', $archiveInfo['file']['name']);
+                $extension = array_pop($parts);
             } else {
                 $errors[] = 'Error receiving the file';
             }
 
             if (empty($errors)) {
 
-                // process data
+                // extract archive to tmp dir
+                $target = $archiveInfo['file']['destination']
+                    . '/' . md5(microtime(true) . mt_rand(0, 10000));
+                mkdir($target);
+                $filter = new Zend_Filter_Decompress(array(
+                	'adapter' => $extension,
+                	'options' => array('target' => $target)));
+
+                // process files
                 $data = array();
-                foreach ($filenames as $filename) {
-                    $tool = new Webenq_Tool_Hva($filename);
-                    $tool->setFirstRespondentId($lastRespondentId);
-                    $tool->process();
-                    $data[] = $tool->getNewData();
-                    $lastRespondentId += $tool->countRespondents();
+                if ($filter->filter($archiveInfo['file']['tmp_name'])) {
+                    $filenames = scandir($target);
+                    foreach ($filenames as $filename) {
+
+                        // skip non-xls and non-xlsx files
+                        if (!preg_match('/\.(xls|xlsx)$/', strtolower($filename))) continue;
+
+                        $tool = new Webenq_Tool_Hva("$target/$filename");
+                        $tool->setFirstRespondentId($lastRespondentId);
+                        $tool->process();
+                        $data[] = $tool->getNewData();
+                        $lastRespondentId += $tool->countRespondents();
+
+                        unlink("$target/$filename");
+                    }
                 }
+                rmdir($target);
 
                 // compare structures
                 $equalStructure = true;
