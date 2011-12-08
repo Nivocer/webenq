@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+.report-element-wrapper {
+    clear: both;
+    background: white;
+    border: 1px solid #B20000;
+    margin: 10px;
+    padding: 10px;
+}
+
+.report-element-wrapper:hover {
+    cursor: pointer;
+}
+
+.report-element-wrapper .report-element {
+}
+
+.report-element-wrapper .actions {
+    height: 20px;
+}

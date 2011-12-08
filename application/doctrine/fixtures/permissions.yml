@@ -259,6 +259,9 @@ Webenq_Model_RoleResource:
   AdminDeleteReport:
     Role: Admin
     Resource: DeleteReport
+  AdminSaveReportState:
+    Role: Admin
+    Resource: SaveReportState
   AdminListReportElements:
     Role: Admin
     Resource: ListReportElements
@@ -479,6 +482,9 @@ Webenq_Model_Resource:
   ViewReport:
     name: report/view
     description: 'View report'
+  SaveReportState:
+    name: report/save-state
+    description: 'Save report state'
   ListReportElements:
     name: report-element/index
     description: 'List report elements'

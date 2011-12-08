@@ -9,8 +9,10 @@
     <?php echo t('add report element'); ?>
 </a>
 
-<ul>
+<ul class="sortable">
     <?php foreach ($this->report->ReportElement as $element): ?>
-    	<li><?php echo $this->reportElement($element); ?></li>
+    	<li id="re_<?php echo $element->id; ?>">
+    	    <?php echo $this->reportElement($element); ?>
+	    </li>
 	<?php endforeach; ?>
 </ul>

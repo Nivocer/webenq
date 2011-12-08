@@ -8,12 +8,13 @@
  * @property integer $id
  * @property integer $report_id
  * @property text $data
+ * @property integer $sort
  * @property Webenq_Model_Report $Report
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: ReportElement.php,v 1.1 2011/12/02 09:40:33 bart Exp $
+ * @version    SVN: $Id: ReportElement.php,v 1.3 2011/12/16 11:22:47 bart Exp $
  */
 abstract class Webenq_Model_Base_ReportElement extends Doctrine_Record
 {
@@ -40,6 +41,11 @@ abstract class Webenq_Model_Base_ReportElement extends Doctrine_Record
         $this->hasColumn('data', 'text', null, array(
              'type' => 'text',
              'notnull' => false,
+             ));
+        $this->hasColumn('sort', 'integer', 4, array(
+             'type' => 'integer',
+             'default' => 0,
+             'length' => '4',
              ));
     }
 

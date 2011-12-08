@@ -653,6 +653,9 @@ ReportElement:
       type: text
       notnull: false
       default: null
+    sort:
+      type: integer(4)
+      default: 0
   relations:
     Report:
       local: report_id

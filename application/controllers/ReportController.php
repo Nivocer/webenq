@@ -54,8 +54,14 @@ class ReportController extends Zend_Controller_Action
      */
     public function viewAction()
     {
-        $report = $this->view->report = Doctrine_Core::getTable('Webenq_Model_Report')
-            ->find($this->_request->id);
+        $reports = Doctrine_Query::create()
+            ->from('Webenq_Model_Report r')
+            ->leftJoin('r.ReportElement e')
+            ->where('r.id = ?', $this->_request->id)
+            ->orderBY('e.sort ASC, e.id DESC')
+            ->execute();
+
+        $this->view->report = $reports->getFirst();
     }
 
     /**
@@ -109,6 +115,24 @@ class ReportController extends Zend_Controller_Action
             } else {
                 $this->_redirect('report');
             }
+        }
+    }
+
+    /**
+     * Saves the current state of the given report
+     */
+    public function saveStateAction()
+    {
+        // disable view/layout rendering
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+
+        // save new order of elements
+        foreach ($this->_request->getPost('re') as $sort => $reportElementId) {
+            $reportElement = Doctrine_Core::getTable('Webenq_Model_ReportElement')
+                ->find($reportElementId);
+            $reportElement->sort = $sort;
+            $reportElement->save();
         }
     }
 }
