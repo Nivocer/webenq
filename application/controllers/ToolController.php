@@ -12,6 +12,7 @@ class ToolController extends Zend_Controller_Action
     {
         $form = new Webenq_Form_Tool_Hva(array('xls', 'xlsx'));
         $errors = array();
+        $lastRespondentId = 1;
 
         if ($this->_helper->form->isPostedAndValid($form)) {
 
@@ -36,8 +37,10 @@ class ToolController extends Zend_Controller_Action
                 $data = array();
                 foreach ($filenames as $filename) {
                     $tool = new Webenq_Tool_Hva($filename);
+                    $tool->setFirstRespondentId($lastRespondentId);
                     $tool->process();
                     $data[] = $tool->getNewData();
+                    $lastRespondentId += $tool->countRespondents();
                 }
 
                 // compare structures

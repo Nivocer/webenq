@@ -56,6 +56,8 @@ class Webenq_Tool_Hva extends Webenq_Tool
      */
     protected $_newData = array();
 
+    protected $_firstRespondentId = 1;
+
     public function __construct($filename)
     {
         $this->_filename = preg_replace('#(.*/)*#', null, $filename);
@@ -224,7 +226,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
 
                 // add some extra data
                 $newRow[] = $module;
-                $newRow[] = (int) 1 + array_search($respondent, $this->_respondents);
+                $newRow[] = $this->_firstRespondentId + array_search($respondent, $this->_respondents);
                 foreach ($extraData as $key => $value) $newRow[] = $value;
                 $newRow[] = $this->_filename;
                 $new[0][] = $newRow;
@@ -335,8 +337,14 @@ class Webenq_Tool_Hva extends Webenq_Tool
         $columns = array();
         foreach ($this->_data[0][0] as $column => $header) {
             foreach ($groups as $key => $name) {
-                $pattern = "/^$key:.*$/";
-                if (preg_match($pattern, $header, $matches)) {
+                // search by group number
+                if (preg_match("/^$key:.*$/", $header, $matches)) {
+                    if (!isset($columns[$name]))
+                    $columns[$name] = array('start' => $column);
+                    $columns[$name]['end'] = $column;
+                }
+                // search by group number
+                elseif (preg_match("/\d*:\s$name:\s.+/", $header, $matches)) {
                     if (!isset($columns[$name]))
                     $columns[$name] = array('start' => $column);
                     $columns[$name]['end'] = $column;
@@ -382,5 +390,15 @@ class Webenq_Tool_Hva extends Webenq_Tool
             }
         }
         return array();
+    }
+
+    public function countRespondents()
+    {
+        return count($this->_respondents);
+    }
+
+    public function setFirstRespondentId($id)
+    {
+        $this->_firstRespondentId = (int) $id;
     }
 }
