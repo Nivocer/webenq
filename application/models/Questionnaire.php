@@ -187,7 +187,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
                 $this->_getQuestionCell($subQuestion, $row);
             }
         } else {
-            $row[] = $parent->Question->QuestionText[0]->text;
+            $row[] = $parent->Question->getQuestionText()->text;
         }
     }
 

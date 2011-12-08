@@ -71,12 +71,12 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Closed_Percentage':
                 $element = $xml->createElement('select1');
                 $element->setAttribute('ref', $this->getXpath());
-                $label = $xml->createElement('label', Webenq::Xmlify($this->Question->QuestionText[0]->text));
+                $label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
                 $element->appendChild($label);
                 foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $ap) {
                     $item = $xml->createElement('item');
-                    $label = $xml->createElement('label', Webenq::Xmlify($ap->AnswerPossibilityText[0]->text));
-                    $value = $xml->createElement('value', $ap->value);
+                    $label = $xml->createElement('label', Webenq::Xmlify($ap->getAnswerPossibilityText()->text));
+                    $value = $xml->createElement('value', ($ap->value ? $ap->value : $ap->id));
                     $item->appendChild($label);
                     $item->appendChild($value);
                     $element->appendChild($item);
@@ -89,7 +89,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'Webenq_Model_Question_Open_Number':
                 $element = $xml->createElement('input');
                 $element->setAttribute('ref', $this->getXpath());
-                $label = $xml->createElement('label', Webenq::Xmlify($this->Question->QuestionText[0]->text));
+                $label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
                 $element->appendChild($label);
                 break;
             default:
