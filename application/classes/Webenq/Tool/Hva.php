@@ -237,10 +237,10 @@ class Webenq_Tool_Hva extends Webenq_Tool
         $this->_mergeModules($new, $moduleDataColumns);
 
         // add headers for extra data
-        $new[0][0][] = '1: Module';
-        $new[0][0][] = '1: Respondent ID';
-        foreach ($extraData as $key => $value) $new[0][0][] = "1: $key";
-        $new[0][0][] = '1: Filename';
+        $new[0][0][] = '9999: Module';
+        $new[0][0][] = '9999: Respondent ID';
+        foreach ($extraData as $key => $value) $new[0][0][] = "9999: $key";
+        $new[0][0][] = '9999: Filename';
 
         // remove all module atendency columns and reset keys for all rows
         foreach ($new[0] as $row => $void) {
@@ -248,6 +248,13 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 unset($new[0][$row][$column]);
             }
             $new[0][$row] = array_merge($new[0][$row], array());
+        }
+
+        // add group numbers to questions
+        foreach ($new[0][0] as $key => &$header) {
+            if (!preg_match('/^\d+:\s/', $header)) {
+                $header = (1 + $key) . ': ' . $header;
+            }
         }
 
         return $new;
