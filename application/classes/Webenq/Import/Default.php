@@ -226,7 +226,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
 	/**
 	 * Calculates the number of answers and returns a colllection of
-	 * respondent obecjts corresponding with the number of answers.
+	 * respondent objects corresponding with the number of answers.
 	 *
 	 * @param array $questionsAndAnswers
 	 * @return Doctrine_Collection Collection of respondent objects
