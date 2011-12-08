@@ -251,9 +251,9 @@ class Webenq_Tool_Hva extends Webenq_Tool
         }
 
         // add group numbers to questions
-        foreach ($new[0][0] as $key => &$header) {
+        foreach ($new[0][0] as $key => $header) {
             if (!preg_match('/^\d+:\s/', $header)) {
-                $header = (1 + $key) . ': ' . $header;
+                $new[0][0][$key] = (1 + $key) . ': ' . $header;
             }
         }
 
