@@ -74,7 +74,7 @@
 					<chart isShowLegend="false" customizerClass="it.bisi.report.jasper.StackedBarCustomizer">
 						<reportElement x="175" y="0" width="335" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
 							<property name="pietje" value="&quot;jantje&quot;"/>
-							<printWhenExpression><![CDATA[$P{NO_BARCHART}.indexOf($F{report_question_id} )<0 ]]></printWhenExpression>
+							<printWhenExpression><![CDATA[$P{NO_BARCHART}.indexOf($F{report_question_id} )<0]]></printWhenExpression>
 						</reportElement>
 						<box>
 							<topPen lineWidth="0.0" lineColor="#000000"/>
@@ -176,7 +176,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
 					<font size="7" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[str("Score")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[str("barchartScore")]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement stretchType="RelativeToBandHeight" x="0" y="13" width="1" height="12" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
