@@ -1,0 +1,16 @@
+<detail>
+	<band height="<?php echo 20 * count($this->report->ReportElement); ?>" splitType="Immediate">
+		<?php
+		    foreach ($this->report->ReportElement as $key => $element) {
+		        $this->y = 20 * $key;
+		        $this->element = $element;
+		        $this->data = unserialize($element->data);
+		        $template = 'subreport/' . $this->data['type'] . '.phtml';
+		        while (preg_match('/\s(.)/', $template, $matches)) {
+		            $template = preg_replace('/\s(.)/', strtoupper($matches[1]), $template, 1);
+		        }
+	            echo $this->render("report/jrxml/$template");
+		    }
+	    ?>
+	</band>
+</detail>

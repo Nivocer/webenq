@@ -8,8 +8,15 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: ReportElement.php,v 1.1 2011/12/02 09:40:37 bart Exp $
+ * @version    SVN: $Id: ReportElement.php,v 1.2 2011/12/09 10:19:00 bart Exp $
  */
 class Webenq_Model_ReportElement extends Webenq_Model_Base_ReportElement
 {
+    public function getXpath($questionnaireQuestionId)
+    {
+        $questionnaireQuestion = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
+            ->find($questionnaireQuestionId);
+
+        return $questionnaireQuestion->getXpath();
+    }
 }

@@ -262,6 +262,9 @@ Webenq_Model_RoleResource:
   AdminSaveReportState:
     Role: Admin
     Resource: SaveReportState
+  AdminReportJrxml:
+    Role: Admin
+    Resource: ReportJrxml
   AdminListReportElements:
     Role: Admin
     Resource: ListReportElements
@@ -485,6 +488,9 @@ Webenq_Model_Resource:
   SaveReportState:
     name: report/save-state
     description: 'Save report state'
+  ReportJrxml:
+    name: report/jrxml
+    description: 'Download report as JRXML'
   ListReportElements:
     name: report-element/index
     description: 'List report elements'
