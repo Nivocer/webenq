@@ -28,7 +28,7 @@
 			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="0" width="802" height="15" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 				<textElement verticalAlignment="Bottom" markup="html">
-					<font isBold="false" isUnderline="false"/>
+					<font size="9" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[str($P{Q_TEXT})]]></textFieldExpression>
 			</textField>
