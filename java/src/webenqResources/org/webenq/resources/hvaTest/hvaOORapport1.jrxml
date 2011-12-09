@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1DocentRapport" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1DocentRapport" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="150"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
@@ -36,30 +36,31 @@
 	</parameter>
 	<parameter name="DOC_DATA" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap"/>
+	<parameter name="SPLIT_QUESTION_LABEL" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<title>
-		<band height="25" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="20" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="121" splitType="Immediate">
-			<subreport>
+		<band height="140" splitType="Immediate">
+			<subreport isUsingCache="false">
 				<reportElement positionType="Float" x="0" y="0" width="802" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["<b>Resultaten Onderwijsevaluaties blok 1 2011-2012 – Opleiding Pabo</b>"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["<b><font size=3>Resultaten Onderwijsevaluaties blok 1 2011-2012 – Opleiding Pabo</font></b>"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -67,9 +68,9 @@
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
 			</subreport>
-			<subreport>
+			<subreport isUsingCache="false">
 				<reportElement positionType="Float" x="0" y="20" width="802" height="20" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[!$P{SPLIT_QUESTION_VALUE}.isEmpty()]]></printWhenExpression>
+					<printWhenExpression><![CDATA[!$P{SPLIT_QUESTION_LABEL}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
@@ -78,7 +79,7 @@
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["Naam module: "+$P{SPLIT_QUESTION_VALUE}]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["<b>Naam module:</b> "+$P{SPLIT_QUESTION_LABEL}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -86,8 +87,32 @@
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
 			</subreport>
-			<subreport>
+			<subreport isUsingCache="false">
 				<reportElement positionType="Float" x="0" y="40" width="802" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Q_TEXT">
+					<subreportParameterExpression><![CDATA["Dit formulier bevat<ol>"+
+"<li>Het aantal respondenten</li>"+
+"<li>De uitkomsten van de studentevaluatie. In het rood staat het percentage studenten dat ‘oneens’ heeft geantwoord op een bepaalde stelling. In het geel ‘neutraal’ en in het groen ‘eens’. Daarnaast staat de gemiddelde score van deze groep (van een 5-punts schaal). De rechterkolom (opmerkingen docent) wordt door de docent ingevuld.</li>"+
+"<li>Een overzicht van de open antwoorden.</li>"+
+"<li>Extra vragen over de uitvoering van het onderwijs (in te vullen door docent)</li>"+
+"<li>Studieresultaten (in te vullen door docent)</li>"+
+"<li>Verbetervoorstel (in te vullen door docent)</li>"+
+"</ol>"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="60" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -95,33 +120,27 @@
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["Dit formulier bevat<br>"+
-"1. Het aantal respondenten<br>"+
-"2. De uitkomsten van de studentevaluatie. In het rood staat het percentage studenten dat ‘oneens’ heeft geantwoord op een bepaalde stelling. In het geel ‘neutraal’ en in het groen ‘eens’. Daarnaast staat de gemiddelde score van deze groep (van een 5-punts schaal). De rechterkolom (opmerkingen docent) wordt door de docent ingevuld.<br>"+
-"3. Een overzicht van de open antwoorden<br>"+
-"4. Extra vragen over de uitvoering van het onderwijs (in te vullen door docent)<br>"+
-"5. Studieresultaten (in te vullen door docent)<br>"+
-"6.  Verbetervoorstel (in te vullen door docent)"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["<b>1. Aantal respondenten: [count]</b><br>"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q748",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report6land-number.jasper"]]></subreportExpression>
 			</subreport>
-			<subreport>
-				<reportElement positionType="Float" x="0" y="71" width="802" height="20" isRemoveLineWhenBlank="true"/>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="80" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				<subreportParameter name="DATA_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="DATA_LOCATION">
-					<subreportParameterExpression><![CDATA[$P{DATA_LOCATION}]]></subreportParameterExpression>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="XFORM_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
@@ -130,7 +149,7 @@
 					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="CROSSTAB_HEADER_TEXT_ID">
-					<subreportParameterExpression><![CDATA["Tevredenheid (naast deze tabel komt nog ruimte voor commentaar door de docent)"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["2. Uitkomsten studentevaluatie / opmerkingen docent"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE">
 					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
@@ -144,19 +163,39 @@
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q783/q749,q783/q750,q783/q751,q783/q752,q783/q753,q783/q754,q783/q755,q756,q757",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"reportland-barchart.jasper"]]></subreportExpression>
 			</subreport>
-			<subreport>
-				<reportElement positionType="Float" x="0" y="101" width="802" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="100" width="802" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EMPTY_QUESTION_TEXT">
+					<subreportParameterExpression><![CDATA["3. Open antwoorden"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q758",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4land-open.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="120" width="802" height="20" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q758",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4land-open.jasper"]]></subreportExpression>
+				<subreportParameter name="Q_TEXT">
+					<subreportParameterExpression><![CDATA[]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"hvaTest/hva-report1-uitleiding.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
