@@ -21,12 +21,12 @@
 	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/mysql-connector-java-5.1.6-bin.jar"/>
 	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/poi-3.5-FINAL-20090928.jar"/>
 	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/Tamu_kadambri.jar"/>
-	<classpathentry kind="lib" path="/webenq4/java/lib/jasperreports-4.1.2.jar"/>
-	<classpathentry kind="lib" path="/webenq4/java/lib/webenqResources.jar"/>
-	<classpathentry kind="lib" path="/lib"/>
-	<classpathentry kind="lib" path="/webenq4/java/lib/jcommon-1.0.15.jar"/>
-	<classpathentry kind="lib" path="/webenq4/java/lib/jfreechart-1.0.12.jar" sourcepath="/home/jaapandre/Documents/java/jfreechart-1.0.0-rc1/src"/>
-	<classpathentry kind="lib" path="/webenq4/java/lib/xalan-2.7.1.jar"/>
-	<classpathentry kind="lib" path="/webenq4/java/lib/saxon9he.jar"/>
+	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/jasperreports-4.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/webenqResources.jar"/>
+	<classpathentry exported="true" kind="lib" path="/lib"/>
+	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/jcommon-1.0.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/jfreechart-1.0.12.jar" sourcepath="/home/jaapandre/Documents/java/jfreechart-1.0.0-rc1/src"/>
+	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/xalan-2.7.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/webenq4/java/lib/saxon9he.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
