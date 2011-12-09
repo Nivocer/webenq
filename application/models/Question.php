@@ -271,10 +271,12 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
      */
     public function addQuestionText($language, $text)
     {
-        $questionText = new Webenq_Model_QuestionText();
-        $questionText->language = $language;
-        $questionText->text = $text;
-        $this->QuestionText[] = $questionText;
+        if ($text) {
+            $questionText = new Webenq_Model_QuestionText();
+            $questionText->language = $language;
+            $questionText->text = $text;
+            $this->QuestionText[] = $questionText;
+        }
     }
 
     /**
