@@ -93,28 +93,18 @@ public class ExecuteReport {
 			prms.put("COLOR_RANGE_MAP",color_range_map);
 
 			//localization
-			Locale locale = new Locale("nl", "NL");
-			if (language.equals("nl")){
-				locale = new Locale("nl", "NL");
-			}else {
-				locale = new Locale("en", "US");
+			Locale locale = new Locale("nl", "NL", customer);
+			if (language.equals("en")){
+				locale = new Locale("en", "US", customer);
 			}
-			prms.put(JRParameter.REPORT_LOCALE, locale);
 			Locale.setDefault(locale);
-
-
-			//Get resource bundles with general texts
-			//TODO put general text in resource bundles 
-			//TODO nicer handling missing files
-			// eg http://jasperforge.org/plugins/espforum/view.php?group_id=102&forumid=103&topicid=65623
-			if (customer.equals("fraijlemaborg")) {
-				ResourceBundle myresources = ResourceBundle.getBundle("org.webenq.resources.fraijlemaborg",locale);
-				prms.put(JRParameter.REPORT_RESOURCE_BUNDLE, myresources);
-			}else {
-				ResourceBundle myresources = ResourceBundle.getBundle("org.webenq.resources.default",locale);
-				prms.put(JRParameter.REPORT_RESOURCE_BUNDLE, myresources);
-			}
-
+			prms.put(JRParameter.REPORT_LOCALE, locale);
+			
+			//Get localized resource bundles with general texts
+			ResourceBundle myresources = ResourceBundle.getBundle("org.webenq.resources.webenq4",locale);
+			prms.put(JRParameter.REPORT_RESOURCE_BUNDLE, myresources);
+			
+						
 			//looping through available split by values (seperate reports for subsets of respondents)
 			if (splitQuestionId !=null && splitQuestionId.length()>0 ) {
 				//get distinct split_values, using xpath2 (saxon)
@@ -133,13 +123,18 @@ public class ExecuteReport {
 				for (Iterator iter = splitValuesList.iterator(); iter.hasNext();) {
 					splitQuestionValue = (String) iter.next();
 					//needed for displaying content
+					
+					String splitQuestionLabel=it.bisi.Utils.getXformLabel(xformLocation, xformName, splitQuestionId, splitQuestionValue);
 					prms.put("SPLIT_QUESTION_VALUE", splitQuestionValue);
-					generateReport(reportDefinitionLocation, prms, splitQuestionValue, outputDir, outputFileName, outputFormat );
+					prms.put("SPLIT_QUESTION_LABEL", splitQuestionLabel);
+					generateReport(reportDefinitionLocation, prms, splitQuestionLabel, outputDir, outputFileName, outputFormat );
 
 				}
 			}else{
 				//no split value
 				prms.put("SPLIT_QUESTION_VALUE", "");
+				prms.put("SPLIT_QUESTION_LABEL", "");
+				
 				generateReport(reportDefinitionLocation, prms, "", outputDir, outputFileName, outputFormat );
 			}
 		}
