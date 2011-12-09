@@ -8,7 +8,7 @@
 		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
 	</scriptlet>
 	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="CUSTOMER" class="java.lang.String"/>
 	<queryString>
