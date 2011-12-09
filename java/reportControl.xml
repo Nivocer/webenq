@@ -5,11 +5,12 @@
 <xformLocation>src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml</xformLocation>
 <dataLocation>src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml</dataLocation>
 <!-- next one is from jar -->
-<reportDefinitionLocation>/org/webenq/resources/simpleQuest.jrxml</reportDefinitionLocation>
+<!--reportDefinitionLocation>/org/webenq/resources/simpleQuest.jrxml</reportDefinitionLocation-->
+<reportDefinitionLocation>/org/webenq/resources/simpleQuest.jasper</reportDefinitionLocation>
 <customer>leeuwenburg</customer>
 <language>nl</language>
-<splitQuestionId>g6-Rapportcijfer</splitQuestionId>
+<!--splitQuestionId>g6-Rapportcijfer</splitQuestionId-->
 <outputDir>tempout/test</outputDir>
 <outputFileName>test</outputFileName>
-<outputFormat>pdf</outputFormat>
+<outputFormat>odt</outputFormat>
 </reportConfig>

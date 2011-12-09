@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<reportConfig>
+<reportId>2</reportId>
+<!-- file location relative to webenq4/java -->
+<xformLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/5-hvatestbestand-20111202140227-xform.xml</xformLocation>
+<dataLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/5-hvatestbestand-20111202162319-xform-data.xml</dataLocation>
+<!-- next one is from jar -->
+<xformName>questionnaire</xformName>
+<reportDefinitionLocation>/org/webenq/resources/sampleHvA1.jrxml</reportDefinitionLocation>
+<customer>pietje</customer>
+<language>nl</language>
+<splitQuestionId></splitQuestionId>
+<outputDir>tempout/test</outputDir>
+<outputFileName>testHva</outputFileName>
+<outputFormat>pdf</outputFormat>
+</reportConfig>
