@@ -92,7 +92,7 @@ $V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpres
 							<topPen lineWidth="0.5"/>
 							<leftPen lineWidth="0.5"/>
 							<bottomPen lineWidth="0.5"/>
-							<rightPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.0"/>
 						</box>
 					</cellContents>
 				</crosstabHeaderCell>
@@ -103,18 +103,18 @@ $V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpres
 					</bucket>
 					<crosstabRowHeader>
 						<cellContents mode="Opaque">
-							<box leftPadding="0">
+							<box leftPadding="0" rightPadding="0">
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 								<topPen lineWidth="0.0"/>
-								<leftPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.5"/>
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="190" height="12"/>
 								<box leftPadding="1">
-									<leftPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 									<font size="7" isStrikeThrough="false"/>
