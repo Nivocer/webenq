@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="10" whenResourceMissingType="Key">
-	<property name="ireport.zoom" value="1.5"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" pageWidth="802" pageHeight="29" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="5" whenResourceMissingType="Key">
+	<property name="ireport.zoom" value="5.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
@@ -11,6 +11,7 @@
 		<defaultValueExpression><![CDATA["defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="CUSTOMER" class="java.lang.String"/>
+	<parameter name="EMPTY_QUESTION_TEXT" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -31,26 +32,34 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="12" splitType="Stretch">
+		<band height="12" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
 				<reportElement x="0" y="0" width="802" height="12"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{report_question_text}==null?
+    str($P{EMPTY_QUESTION_TEXT}) :
+    str($F{report_question_text})
+    )]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="12" splitType="Stretch">
+		<band height="12" splitType="Immediate">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="20" y="0" width="782" height="12" isRemoveLineWhenBlank="true"/>
-				<textElement/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="20" height="12"/>
-				<textElement/>
+				<box topPadding="1" leftPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA["*"]]></textFieldExpression>
 			</textField>
 		</band>
