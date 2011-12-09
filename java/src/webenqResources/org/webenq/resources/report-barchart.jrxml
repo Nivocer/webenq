@@ -58,7 +58,7 @@
 		<groupFooter>
 			<band height="25" splitType="Prevent">
 				<textField isStretchWithOverflow="true">
-					<reportElement stretchType="RelativeToBandHeight" x="1" y="1" width="174" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="174" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
 					<box leftPadding="2">
 						<topPen lineWidth="0.0"/>
 						<leftPen lineWidth="0.0"/>
@@ -72,7 +72,7 @@
 				</textField>
 				<stackedBarChart>
 					<chart isShowLegend="false" customizerClass="it.bisi.report.jasper.StackedBarCustomizer">
-						<reportElement x="175" y="1" width="335" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
+						<reportElement x="175" y="0" width="335" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
 							<property name="pietje" value="&quot;jantje&quot;"/>
 							<printWhenExpression><![CDATA[$P{NO_BARCHART}.indexOf($F{report_question_id} )<0 ]]></printWhenExpression>
 						</reportElement>
@@ -100,7 +100,7 @@
 					</barPlot>
 				</stackedBarChart>
 				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
-					<reportElement stretchType="RelativeToBandHeight" x="510" y="1" width="20" height="23" isPrintInFirstWholeBand="true"/>
+					<reportElement stretchType="RelativeToBandHeight" x="510" y="0" width="25" height="23" isPrintInFirstWholeBand="true"/>
 					<box leftPadding="0">
 						<topPen lineWidth="0.0"/>
 						<leftPen lineWidth="0.0"/>
@@ -113,19 +113,19 @@
 					<textFieldExpression><![CDATA[$V{average}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="1" y="24" width="530" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
-					<graphicElement>
-						<pen lineWidth="0.5"/>
-					</graphicElement>
-				</line>
-				<line>
 					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
 				</line>
 				<line>
-					<reportElement stretchType="RelativeToBandHeight" x="531" y="0" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+					<reportElement stretchType="RelativeToBandHeight" x="536" y="0" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="1" y="24" width="535" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
 					<graphicElement>
 						<pen lineWidth="0.5"/>
 					</graphicElement>
@@ -149,7 +149,7 @@
 		<band height="1" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="13" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="555" height="12"/>
 				<textElement markup="html">
@@ -158,7 +158,40 @@
 				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="0" y="12" width="532" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="0" y="12" width="537" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="175" y="13" width="335" height="12"/>
+				<box leftPadding="0" bottomPadding="1" rightPadding="0"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[str("barchartColumnHeader")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="13" width="25" height="12" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[str("Score")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="13" width="1" height="12" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement stretchType="RelativeToBandHeight" x="536" y="13" width="1" height="12" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="0" y="25" width="537" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
