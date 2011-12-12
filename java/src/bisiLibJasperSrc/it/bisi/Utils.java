@@ -32,6 +32,17 @@ public class Utils {
 		System.out.println(getResource("/it/bisi/resources/logo.png"));
 
 	}
+	
+	public static boolean isNum(String s) {
+		try {
+		Double.parseDouble(s);
+		}
+		catch (NumberFormatException nfe) {
+		return false;
+		}
+		return true;
+		}
+	
 	public static URL getResource(String path){
 		return Utils.class.getResource(path);
 	}
@@ -42,6 +53,7 @@ public class Utils {
 	 * @param searchValue
 	 * @return
 	 */
+	
 	public static String getXformLabel(String xformLocation, String formName, String searchQuestion, String searchValue){
 
 		//String xformLocation="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml";
@@ -233,5 +245,6 @@ public class Utils {
 		return returnMap;
 		
 	}
+	
 	
 }

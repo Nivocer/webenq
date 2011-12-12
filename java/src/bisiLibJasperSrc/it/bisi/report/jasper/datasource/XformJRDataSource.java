@@ -100,7 +100,10 @@ public class XformJRDataSource {
 					expression = report_question_id;
 					Node reportQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 					report_question_value=reportQuestionNode.getTextContent();
-					String report_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, report_question_value);
+					String report_question_label=null;
+					if (it.bisi.Utils.isNum(report_question_value)){
+						report_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, report_question_value);
+					}
 
 					//get group_question_value
 					group_question_value=null;
