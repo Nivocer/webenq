@@ -30,8 +30,8 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
 	{
 		StackedBarRenderer renderer = new CustomBarRenderer();
 		chart.getCategoryPlot().setRenderer(renderer);
-		renderer.setBaseItemLabelFont( new Font("Arial", Font.PLAIN,  7) );
-					    	      
+		renderer.setBaseItemLabelFont( new Font("Arial", Font.PLAIN,  8) );
+							    	      
 		CategoryPlot plot = chart.getCategoryPlot();
 		plot.setRangeGridlinePaint(Color.white);
 		CategoryDataset cd = (CategoryDataset) plot.getDataset();
