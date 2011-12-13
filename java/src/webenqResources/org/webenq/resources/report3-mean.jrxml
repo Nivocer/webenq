@@ -6,8 +6,16 @@
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$V{averageMeasure} >=(Double)$P{COLOR_RANGE}.get("lowRed") &&
-$V{averageMeasure}<(Double)$P{COLOR_RANGE}.get("highRed")]]></conditionExpression>
+			<conditionExpression><![CDATA[(
+$P{COLOR_RANGE_MEAN5}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowRed") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highRed")
+)||
+(
+$P{COLOR_RANGE_MEAN10}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowRed") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highRed")
+)]]></conditionExpression>
 			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -16,8 +24,16 @@ $V{averageMeasure}<(Double)$P{COLOR_RANGE}.get("highRed")]]></conditionExpressio
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$V{averageMeasure} >=(Double)$P{COLOR_RANGE}.get("lowYellow") &&
-$V{averageMeasure}<(Double)$P{COLOR_RANGE}.get("highYellow")]]></conditionExpression>
+			<conditionExpression><![CDATA[(
+$P{COLOR_RANGE_MEAN5}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowYellow") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highYellow")
+)||
+(
+$P{COLOR_RANGE_MEAN10}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowYellow") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highYellow")
+)]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#FFFF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -26,8 +42,16 @@ $V{averageMeasure}<(Double)$P{COLOR_RANGE}.get("highYellow")]]></conditionExpres
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$V{averageMeasure} >=(Double)$P{COLOR_RANGE}.get("lowGreen") &&
-$V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpression>
+			<conditionExpression><![CDATA[(
+$P{COLOR_RANGE_MEAN5}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowGreen") &&
+$V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highGreen")
+)||
+(
+$P{COLOR_RANGE_MEAN10}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowGreen") &&
+$V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
+)]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#00FF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -47,6 +71,9 @@ $V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpres
 	<parameter name="CROSSTAB_HEADER_TEXT_ID" class="java.lang.String"/>
 	<parameter name="XFORM_LOCATION" class="java.lang.String"/>
 	<parameter name="FORM_NAME" class="java.lang.String"/>
+	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE_MEAN5" class="java.lang.String"/>
+	<parameter name="COLOR_RANGE_MEAN10" class="java.lang.String"/>
 	<field name="report_question_id" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
 	<field name="report_question_value" class="java.lang.String"/>
@@ -85,6 +112,15 @@ $V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpres
 				<reportElement positionType="Float" x="0" y="24" width="555" height="30" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
 				<crosstabParameter name="COLOR_RANGE" class="java.util.HashMap">
 					<parameterValueExpression><![CDATA[$P{COLOR_RANGE}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="COLOR_RANGE_MAP" class="java.util.HashMap">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="COLOR_RANGE_MEAN5">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_MEAN5}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="COLOR_RANGE_MEAN10">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_MEAN10}]]></parameterValueExpression>
 				</crosstabParameter>
 				<crosstabHeaderCell>
 					<cellContents>
@@ -218,6 +254,9 @@ $V{averageMeasure}<=(Double)$P{COLOR_RANGE}.get("highGreen")]]></conditionExpres
 				</measure>
 				<measure name="group_question_order" class="java.lang.String">
 					<measureExpression><![CDATA[$F{group_question_value}]]></measureExpression>
+				</measure>
+				<measure name="reportQuestionId" class="java.lang.String">
+					<measureExpression><![CDATA[$F{report_question_id}]]></measureExpression>
 				</measure>
 				<crosstabCell width="30" height="12">
 					<cellContents>
