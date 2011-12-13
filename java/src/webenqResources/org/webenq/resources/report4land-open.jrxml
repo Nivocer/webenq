@@ -32,9 +32,27 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="12" splitType="Prevent">
+		<band splitType="Immediate"/>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Immediate">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="20" y="12" width="782" height="12" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="12" width="20" height="12"/>
+				<box topPadding="1" leftPadding="3"/>
+				<textElement verticalAlignment="Top">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["*"]]></textFieldExpression>
+			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="802" height="12"/>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="802" height="12" isRemoveLineWhenBlank="true"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
@@ -42,25 +60,6 @@
     str($P{EMPTY_QUESTION_TEXT}) :
     str($F{report_question_text})
     )]]></textFieldExpression>
-			</textField>
-		</band>
-	</columnHeader>
-	<detail>
-		<band height="12" splitType="Immediate">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="20" y="0" width="782" height="12" isRemoveLineWhenBlank="true"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="20" height="12"/>
-				<box topPadding="1" leftPadding="3"/>
-				<textElement verticalAlignment="Top">
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA["*"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
