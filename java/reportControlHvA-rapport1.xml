@@ -12,7 +12,7 @@
 <language>nl</language>
 <!-- no split yet for the test -->
 <splitQuestionId>q237/q224</splitQuestionId>
-<outputDir>tempout/test</outputDir>
+<outputDir>tempout/rapport1</outputDir>
 <outputFileName>Module-evaluatie</outputFileName>
 <outputFormat>odt</outputFormat>
 </reportConfig>

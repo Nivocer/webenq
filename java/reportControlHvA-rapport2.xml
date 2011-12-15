@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <reportConfig>
 <reportId>2</reportId>
-<xformLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/blok1/6-Module-evaluatie2011-2012blok1-test1-xform.xml</xformLocation>
-<dataLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/blok1/6-Module-evaluatie2011-2012blok1-test1-xform-data.xml</dataLocation>
+<xformLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/blok1/8-Module-evaluatie2011-2012blok1PaboDagAvond1-def2-xform.xml</xformLocation>
+<!--dataLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/blok1/8-Module-evaluatie2011-2012blok1PaboDagAvond1-def2-xform-data-test.xml</dataLocation-->
+<dataLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/blok1/8-Module-evaluatie2011-2012blok1PaboDagAvond1-def2-xform-data.xml</dataLocation>
 <xformName>questionnaire</xformName>
 <reportDefinitionLocation>/org/webenq/resources/hvaTest/hvaOORapport2.jasper</reportDefinitionLocation>
-
 <customer>hvaoo</customer>
 <language>nl</language>
-<!-- actually split on type_jaar -->
-<splitQuestionId>q782/q772</splitQuestionId>
-<outputDir>tempout/test</outputDir>
+<splitQuestionId>q328/q315</splitQuestionId>
+<outputDir>tempout/rapport2</outputDir>
 <outputFileName>Module-evaluatie</outputFileName>
 <outputFormat>pdf</outputFormat>
 </reportConfig>
+
