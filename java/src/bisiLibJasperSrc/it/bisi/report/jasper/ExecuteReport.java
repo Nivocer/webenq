@@ -122,9 +122,10 @@ public class ExecuteReport {
 				String splitQuestionValue;
 				for (Iterator iter = splitValuesList.iterator(); iter.hasNext();) {
 					splitQuestionValue = (String) iter.next();
+
 					//needed for displaying content
-					
 					String splitQuestionLabel=it.bisi.Utils.getXformLabel(xformLocation, xformName, splitQuestionId, splitQuestionValue);
+					System.out.println(splitQuestionLabel);
 					prms.put("SPLIT_QUESTION_VALUE", splitQuestionValue);
 					prms.put("SPLIT_QUESTION_LABEL", splitQuestionLabel);
 					generateReport(reportDefinitionLocation, prms, splitQuestionLabel, outputDir, outputFileName, outputFormat );
