@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2-means" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
-	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2-means" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="45"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
@@ -36,6 +36,7 @@
 	</parameter>
 	<parameter name="DOC_DATA" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap"/>
+	<parameter name="SPLIT_QUESTION_LABEL" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -43,15 +44,15 @@
 		<band height="6" splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="20" splitType="Stretch"/>
+		<band height="5" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="101" splitType="Immediate">
-			<subreport>
-				<reportElement positionType="Float" x="0" y="0" width="802" height="20" isRemoveLineWhenBlank="true"/>
+		<band height="40" splitType="Immediate">
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="0" width="802" height="10" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -59,7 +60,26 @@
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["rapport 2: Hier komt de inleiding"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["<b><font size=3>Resultaten Onderwijsevaluaties blok 1 2011-2012</font></b>"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="10" width="802" height="10" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[!$P{SPLIT_QUESTION_LABEL}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Q_TEXT">
+					<subreportParameterExpression><![CDATA["<b>Opleiding/type/jaargroep:</b> "+$P{SPLIT_QUESTION_LABEL}.replaceAll("^([^_]+_){5}","").replaceAll("(_[^_]+){2}$","").replaceAll("_"," ")]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -68,15 +88,15 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="0" y="20" width="802" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
+				<reportElement positionType="Float" x="0" y="20" width="555" height="10" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE_MEAN5">
-					<subreportParameterExpression><![CDATA["q233/q192, q233/q193,q233/q194,q233/q195,q233/q195,q233/q196,q233/q197,q233/q198,q233/q199"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["q324/q282, q324/q283,q324/q284,q324/q285,q324/q286,q324/q287,q324/q288,q324/q289"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="XFORM_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
@@ -85,56 +105,21 @@
 					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="CROSSTAB_HEADER_TEXT_ID">
-					<subreportParameterExpression><![CDATA["Tevredenheid"]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="COLOR_RANGE">
-					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["Gemiddelde scores per vak-docent-klas"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE_MAP">
 					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="COLOR_RANGE_MEAN10">
-					<subreportParameterExpression><![CDATA["q234/q200"]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q233/q192, q233/q193,q233/q194,q233/q195,q233/q195,q233/q196,q233/q197,q233/q198,q233/q199,q234/q200","q237/q228", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3land-mean.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement positionType="Float" x="0" y="40" width="802" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="COLOR_RANGE_MEAN5">
-					<subreportParameterExpression><![CDATA["q233/q192, q233/q193,q233/q194,q233/q195,q233/q195,q233/q196,q233/q197,q233/q198,q233/q199"]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="XFORM_LOCATION">
-					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="FORM_NAME">
-					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="CROSSTAB_HEADER_TEXT_ID">
-					<subreportParameterExpression><![CDATA["Tevredenheid"]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE">
 					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="COLOR_RANGE_MAP">
-					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE_MEAN10">
-					<subreportParameterExpression><![CDATA["q234/q200"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["q325/q290"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q233/q192, q233/q193,q233/q194,q233/q195,q233/q195,q233/q196,q233/q197,q233/q198,q233/q199,q234/q200","q237/q228", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME},"q324/q282, q324/q283,q324/q284,q324/q285,q324/q286,q324/q287,q324/q288,q324/q289,q325/q290","q328/q318",$P{SPLIT_QUESTION_ID},$P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
