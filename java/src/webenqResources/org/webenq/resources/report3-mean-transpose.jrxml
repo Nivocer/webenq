@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="59" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="5" whenResourceMissingType="Key">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
+	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(
+$P{COLOR_RANGE_MEAN5}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowRed") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highRed")
+)||
+(
+$P{COLOR_RANGE_MEAN10}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowRed") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highRed")
+)]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000">
+				<pen lineWidth="0.0"/>
+				<box topPadding="0">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(
+$P{COLOR_RANGE_MEAN5}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowYellow") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highYellow")
+)||
+(
+$P{COLOR_RANGE_MEAN10}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowYellow") &&
+$V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highYellow")
+)]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#FFFF00">
+				<box>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[(
+$P{COLOR_RANGE_MEAN5}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowGreen") &&
+$V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highGreen")
+)||
+(
+$P{COLOR_RANGE_MEAN10}.indexOf($V{reportQuestionId} )>-1 &&
+$V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowGreen") &&
+$V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
+)]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#00FF00">
+				<box>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</style>
+		</conditionalStyle>
+	</style>
+	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
+		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
+	</scriptlet>
+	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE" class="java.util.Map" isForPrompting="false"/>
+	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["defaultStyle.jrtx"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CROSSTAB_HEADER_TEXT_ID" class="java.lang.String"/>
+	<parameter name="XFORM_LOCATION" class="java.lang.String"/>
+	<parameter name="FORM_NAME" class="java.lang.String"/>
+	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE_MEAN5" class="java.lang.String"/>
+	<parameter name="COLOR_RANGE_MEAN10" class="java.lang.String"/>
+	<field name="report_question_id" class="java.lang.String"/>
+	<field name="report_question_text" class="java.lang.String"/>
+	<field name="report_question_value" class="java.lang.String"/>
+	<field name="report_question_label" class="java.lang.String"/>
+	<field name="group_question_id" class="java.lang.String"/>
+	<field name="group_question_text" class="java.lang.String"/>
+	<field name="group_question_value" class="java.lang.String"/>
+	<field name="group_question_label" class="java.lang.String"/>
+	<field name="question_seq_number" class="java.lang.Integer"/>
+	<sortField name="question_seq_number"/>
+	<sortField name="group_question_value"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="54" splitType="Stretch">
+			<crosstab ignoreWidth="false">
+				<reportElement positionType="Float" x="0" y="24" width="555" height="30" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+				<crosstabParameter name="COLOR_RANGE" class="java.util.HashMap">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="COLOR_RANGE_MAP" class="java.util.HashMap">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="COLOR_RANGE_MEAN5">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_MEAN5}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="COLOR_RANGE_MEAN10">
+					<parameterValueExpression><![CDATA[$P{COLOR_RANGE_MEAN10}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabParameter name="CUSTOMER">
+					<parameterValueExpression><![CDATA[$P{CUSTOMER}]]></parameterValueExpression>
+				</crosstabParameter>
+				<crosstabHeaderCell>
+					<cellContents>
+						<box>
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="row" width="190" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{group_question_label}]]></bucketExpression>
+						<orderByExpression><![CDATA[$V{group_question_order}]]></orderByExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque">
+							<box leftPadding="0" rightPadding="0">
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="190" height="12"/>
+								<box leftPadding="1">
+									<leftPen lineWidth="0.0"/>
+									<rightPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
+									<font size="7" isStrikeThrough="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[str($V{row})]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque">
+							<box rightPadding="0">
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField>
+								<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="190" height="12" isRemoveLineWhenBlank="true">
+									<printWhenExpression><![CDATA[$V{ROW_COUNT} >1]]></printWhenExpression>
+								</reportElement>
+								<box rightPadding="6"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
+									<font size="7"/>
+								</textElement>
+								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="col" height="120" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{report_question_text}]]></bucketExpression>
+						<orderByExpression><![CDATA[$V{report_question_order}]]></orderByExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque">
+							<box leftPadding="0" rightPadding="0">
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="defaultStyle" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="120">
+									<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+									<property name="net.sf.jasperreports.text.truncate.suffix" value="..."/>
+									<property name="net.sf.jasperreports.export.html.wrap.break.word" value="true"/>
+									<property name="net.sf.jasperreports.export.pdf.force.linebreak.policy" value="true"/>
+									<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
+								</reportElement>
+								<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement verticalAlignment="Top" rotation="Left" markup="html">
+									<font size="6"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($V{col} !=null?
+    str($V{col}.replace("_",": ")):
+        str("Total"))]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.0"/>
+								<bottomPen lineWidth="0.0"/>
+								<rightPen lineWidth="0.0"/>
+							</box>
+							<textField>
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="120" isRemoveLineWhenBlank="true"/>
+								<box>
+									<topPen lineWidth="0.5"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
+									<font size="8" isBold="false" isPdfEmbedded="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[str("N")]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="averageMeasure" class="java.lang.Double" calculation="Average">
+					<measureExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></measureExpression>
+				</measure>
+				<measure name="countMeasure" class="java.lang.Double" calculation="Count">
+					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
+				</measure>
+				<measure name="report_question_order" class="java.lang.Integer">
+					<measureExpression><![CDATA[$F{question_seq_number}]]></measureExpression>
+				</measure>
+				<measure name="group_question_order" class="java.lang.String">
+					<measureExpression><![CDATA[$F{group_question_label}]]></measureExpression>
+				</measure>
+				<measure name="reportQuestionId" class="java.lang.String">
+					<measureExpression><![CDATA[$F{report_question_id}]]></measureExpression>
+				</measure>
+				<crosstabCell width="30" height="12">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textField pattern="###0.0" isBlankWhenNull="true">
+							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isPrintWhenDetailOverflows="true">
+								<printWhenExpression><![CDATA[!$V{averageMeasure}.equals(null)]]></printWhenExpression>
+							</reportElement>
+							<box>
+								<leftPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="30" height="12" rowTotalGroup="row">
+					<cellContents mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textField pattern="###0.0">
+							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isPrintWhenDetailOverflows="true">
+								<printWhenExpression><![CDATA[$V{ROW_COUNT} >1]]></printWhenExpression>
+							</reportElement>
+							<box>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="30" height="12" columnTotalGroup="col">
+					<cellContents mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textField pattern="###0">
+							<reportElement style="defaultStyle" positionType="Float" mode="Opaque" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true"/>
+							<box>
+								<leftPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="7" isBold="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{countMeasure} /($V{COLUMN_COUNT} +1)]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="30" height="12" rowTotalGroup="row" columnTotalGroup="col">
+					<cellContents mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							<topPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.0"/>
+							<bottomPen lineWidth="0.0"/>
+							<rightPen lineWidth="0.0"/>
+						</box>
+						<textField pattern="###0">
+							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
+								<printWhenExpression><![CDATA[$V{ROW_COUNT} >1]]></printWhenExpression>
+							</reportElement>
+							<box>
+								<pen lineWidth="0.0"/>
+								<topPen lineWidth="0.0"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font size="7" isBold="false" isStrikeThrough="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{countMeasure}  /($V{COLUMN_COUNT}.doubleValue() +1.0)]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="555" height="12"/>
+				<textElement markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<textElement markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[str($F{group_question_text})]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
