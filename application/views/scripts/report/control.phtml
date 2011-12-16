@@ -1,0 +1,13 @@
+<reportConfig>
+    <reportId><?php echo $this->report->id; ?></reportId>
+    <xformName>questionnaire</xformName>
+    <xformLocation>src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml</xformLocation>
+    <dataLocation>src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml</dataLocation>
+    <reportDefinitionLocation>/org/webenq/resources/simpleQuest.jrxml</reportDefinitionLocation>
+    <customer>leeuwenburg</customer>
+    <language><?php echo $this->report->language; ?></language>
+    <splitQuestionId><?php if ($this->report->QuestionnaireQuestion) echo $this->report->QuestionnaireQuestion->getXPath(); ?></splitQuestionId>
+    <outputDir><?php echo $this->report->output_dir; ?></outputDir>
+    <outputFileName><?php echo $this->report->output_name; ?></outputFileName>
+    <outputFormat><?php echo $this->report->output_format; ?></outputFormat>
+</reportConfig>

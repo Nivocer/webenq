@@ -11,6 +11,12 @@
                 <th><?php echo t('id'); ?></th>
                 <th><?php echo t('rapport'); ?></th>
                 <th><?php echo t('questionnaire'); ?></th>
+                <th><?php echo t('customer'); ?></th>
+                <th><?php echo t('language'); ?></th>
+                <th><?php echo t('split id'); ?></th>
+                <th><?php echo t('output directory'); ?></th>
+                <th><?php echo t('output file name'); ?></th>
+                <th><?php echo t('output format'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -25,6 +31,24 @@
                     </td>
                     <td>
                         <?php echo $report->Questionnaire->getQuestionnaireTitle()->text; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->customer; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->language; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->split_qq_id; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->output_dir; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->output_name; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->output_format; ?>
                     </td>
                     <td>
                         <a class="icon view" title="<?php echo t('view'); ?>" href="<?php echo $this->baseUrl("report/view/id/$report->id"); ?>">&nbsp;</a>

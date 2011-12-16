@@ -7,14 +7,21 @@
  * 
  * @property integer $id
  * @property integer $questionnaire_id
+ * @property string $language
+ * @property string $customer
+ * @property integer $split_qq_id
+ * @property string $output_dir
+ * @property string $output_name
+ * @property string $output_format
  * @property Doctrine_Collection $ReportTitle
  * @property Webenq_Model_Questionnaire $Questionnaire
+ * @property Webenq_Model_QuestionnaireQuestion $QuestionnaireQuestion
  * @property Doctrine_Collection $ReportElement
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: Report.php,v 1.2 2011/12/08 13:52:57 bart Exp $
+ * @version    SVN: $Id: Report.php,v 1.3 2011/12/16 11:22:47 bart Exp $
  */
 abstract class Webenq_Model_Base_Report extends Doctrine_Record
 {
@@ -38,6 +45,38 @@ abstract class Webenq_Model_Base_Report extends Doctrine_Record
              'autoincrement' => false,
              'length' => '4',
              ));
+        $this->hasColumn('language', 'string', 5, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '5',
+             ));
+        $this->hasColumn('customer', 'string', 64, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '64',
+             ));
+        $this->hasColumn('split_qq_id', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => true,
+             'notnull' => false,
+             'length' => '4',
+             ));
+        $this->hasColumn('output_dir', 'string', 255, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '255',
+             ));
+        $this->hasColumn('output_name', 'string', 255, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '255',
+             ));
+        $this->hasColumn('output_format', 'string', 5, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '5',
+             ));
     }
 
     public function setUp()
@@ -52,6 +91,12 @@ abstract class Webenq_Model_Base_Report extends Doctrine_Record
              'foreign' => 'id',
              'onDelete' => 'CASCADE',
              'onUpdate' => 'CASCADE'));
+
+        $this->hasOne('Webenq_Model_QuestionnaireQuestion as QuestionnaireQuestion', array(
+             'local' => 'split_qq_id',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL',
+             'onUpdate' => 'SET NULL'));
 
         $this->hasMany('Webenq_Model_ReportElement as ReportElement', array(
              'local' => 'id',

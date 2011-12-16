@@ -72,13 +72,20 @@ class ReportController extends Zend_Controller_Action
         $report = $this->view->report = Doctrine_Core::getTable('Webenq_Model_Report')
             ->find($this->_request->id);
 
+        $splitQuestionMultiOptions = array('' => '');
+        foreach ($report->Questionnaire->QuestionnaireQuestion as $qq) {
+            $splitQuestionMultiOptions[$qq->id] = $qq->Question->getQuestionText()->text;
+        }
+
         $form = $this->view->form = new Webenq_Form_Report_Edit();
         $form->setAction($this->_request->getRequestUri());
+        $form->getElement('split_qq_id')->setMultiOptions($splitQuestionMultiOptions);
         $form->populate($report->toArray());
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
 
             $report->fromArray($form->getValues());
+            if (empty($report->split_qq_id)) $report->split_qq_id = null;
             $report->save();
 
             if ($this->_request->isXmlHttpRequest()) {
@@ -175,6 +182,42 @@ class ReportController extends Zend_Controller_Action
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
             ->setHeader('Content-Transfer-Encoding', 'binary')
             ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->setBody($dom->saveXML());
+    }
+
+    public function controlAction()
+    {
+        $reports = Doctrine_Query::create()
+            ->from('Webenq_Model_Report r')
+            ->leftJoin('r.ReportElement e')
+            ->leftJoin('r.QuestionnaireQuestion qq')
+            ->where('r.id = ?', $this->_request->id)
+            ->orderBY('e.sort ASC, e.id DESC')
+            ->execute();
+
+        $report = $this->view->report = $reports->getFirst();
+
+        $filename = Webenq::filename(implode('-', array(
+            $report->id,
+            $report->getReportTitle()->text,
+            date('YmdHis')))) . '.jrxml';
+
+        $this->render();
+
+        // create new dom document
+        $dom = new DOMDocument('1.0', 'utf-8');
+        $dom->formatOutput = true;
+
+        // append rendered xml to dom
+        $fragment = $dom->createDocumentFragment();
+        $fragment->appendXML($this->_response->getBody());
+        $dom->appendChild($fragment);
+
+        // output
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_response
+            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
             ->setBody($dom->saveXML());
     }
 }

@@ -265,6 +265,9 @@ Webenq_Model_RoleResource:
   AdminReportJrxml:
     Role: Admin
     Resource: ReportJrxml
+  AdminReportControl:
+    Role: Admin
+    Resource: ReportControl
   AdminListReportElements:
     Role: Admin
     Resource: ListReportElements
@@ -506,4 +509,7 @@ Webenq_Model_Resource:
   ViewReportElement:
     name: report-element/view
     description: 'View report element'
+  ReportControl:
+    name: report/control
+    description: 'Get report control file'
     

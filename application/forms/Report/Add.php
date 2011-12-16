@@ -37,6 +37,34 @@ class Webenq_Form_Report_Add extends Zend_Form
             'multiOptions' => Webenq_Model_Questionnaire::getKeyValuePairs(),
         )));
 
+        $this->addElement($this->createElement('select', 'language', array(
+            'label' => 'language',
+        	'required' => true,
+            'multiOptions' => $languages,
+        )));
+
+        $this->addElement($this->createElement('select', 'customer', array(
+            'label' => 'customer',
+        	'required' => true,
+            'multiOptions' => array('leeuwenburg' => 'leeuwenburg'),
+        )));
+
+        $this->addElement($this->createElement('select', 'output_dir', array(
+            'label' => 'output directory',
+        	'required' => true,
+            'multiOptions' => array('tmpout/test' => 'tmpout/test'),
+        )));
+
+        $this->addElement($this->createElement('text', 'output_name', array(
+            'label' => 'output file name',
+        	'required' => true,
+        )));
+
+        $this->addElement($this->createElement('select', 'output_format', array(
+            'label' => 'output format',
+        	'required' => true,
+            'multiOptions' => array('pdf' => 'pdf'),
+        )));
 
         $this->addElement($this->createElement('submit', 'submit', array(
             'label' => 'save',

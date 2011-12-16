@@ -524,6 +524,10 @@ QuestionnaireQuestion:
       local: id
       foreign: questionnaire_question_id
       type: many
+    Report:
+      local: id
+      foreign: split_qq_id
+      type: many
     ReportPresentation:
       local: id
       foreign: questionnaire_question_id
@@ -581,6 +585,26 @@ Report:
       primary: false
       notnull: true
       autoincrement: false
+    language:
+      type: string(5)
+      notnull: true
+    customer:
+      type: string(64)
+      notnull: true
+    split_qq_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      notnull: false
+    output_dir:
+      type: string(255)
+      notnull: true
+    output_name:
+      type: string(255)
+      notnull: true
+    output_format:
+      type: string(5)
+      notnull: true
   relations:
     ReportTitle:
       local: id
@@ -592,6 +616,12 @@ Report:
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
+    QuestionnaireQuestion:
+      local: split_qq_id
+      foreign: id
+      type: one
+      onUpdate: SET NULL
+      onDelete: SET NULL
     ReportElement:
       local: id
       foreign: report_id

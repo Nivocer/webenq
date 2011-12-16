@@ -18,12 +18,13 @@
  * @property Webenq_Model_QuestionGroup $QuestionGroup
  * @property Doctrine_Collection $Answer
  * @property Doctrine_Collection $CollectionPresentation
+ * @property Doctrine_Collection $Report
  * @property Doctrine_Collection $ReportPresentation
  * 
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: QuestionnaireQuestion.php,v 1.11 2011/12/08 13:52:57 bart Exp $
+ * @version    SVN: $Id: QuestionnaireQuestion.php,v 1.12 2011/12/16 11:22:47 bart Exp $
  */
 abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
 {
@@ -136,6 +137,10 @@ abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
         $this->hasMany('Webenq_Model_CollectionPresentation as CollectionPresentation', array(
              'local' => 'id',
              'foreign' => 'questionnaire_question_id'));
+
+        $this->hasMany('Webenq_Model_Report as Report', array(
+             'local' => 'id',
+             'foreign' => 'split_qq_id'));
 
         $this->hasMany('Webenq_Model_ReportPresentation as ReportPresentation', array(
              'local' => 'id',
