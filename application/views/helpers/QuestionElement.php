@@ -9,7 +9,7 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
      * @param Webenq_Model_QuestionnaireQuestion $qq Questionnaire-question
      * @param int $totalPages Total number of pages
      * @param bool $deep Indicating if childs elements should be rendered as well
-     * @return Zend_Form_Element or string
+     * @return Zend_Form_Element
      * @todo make recursive
      */
     public function questionElement(Webenq_Model_QuestionnaireQuestion $qq, $totalPages, $deep = true)

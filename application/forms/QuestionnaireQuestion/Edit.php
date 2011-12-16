@@ -172,10 +172,7 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         /* check if the question texts have been modified */
         $isModifiedText = false;
         foreach ($qq->Question->QuestionText as $qt) {
-            if (count($values['general']['text']) != $qq->Question->QuestionText->count()) {
-                $isModifiedText = true;
-                break;
-            } elseif (!isset($values['general']['text'][$qt->language])) {
+            if (!key_exists($qt->language, $values['general']['text'])) {
                 $isModifiedText = true;
                 break;
             } elseif ($values['general']['text'][$qt->language] !== $qt->text) {
@@ -205,8 +202,9 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
                 // update or delete existing translations
                 $texts = $values['general']['text'];
                 foreach ($qq->Question->QuestionText as $qt) {
-                    if (!isset($texts[$qt->language])) {
+                    if (!key_exists($qt->language, $texts) || empty($texts[$qt->language])) {
                         $qt->delete();
+                        unset($texts[$qt->language]);
                     } else {
                         $qt->text = $texts[$qt->language];
                         $qt->save();
@@ -215,11 +213,13 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
                 }
                 // save new translations
                 foreach ($texts as $language => $text) {
-                    $qt = new Webenq_Model_QuestionText();
-                    $qt->language = $language;
-                    $qt->text = $text;
-                    $qt->question_id = $qq->question_id;
-                    $qt->save();
+                    if (!empty($text)) {
+                        $qt = new Webenq_Model_QuestionText();
+                        $qt->language = $language;
+                        $qt->text = $text;
+                        $qt->question_id = $qq->question_id;
+                        $qt->save();
+                    }
                 }
             }
         }

@@ -39,7 +39,7 @@
                             if (($page === 1 && !isset($qq['CollectionPresentation'][0])) ||
                                 $page === (int) $qq['CollectionPresentation'][0]['page'])
                             {
-                                echo $this->questionElement($qq, $this->totalPages);
+                                echo $this->questionElement($qq, $this->totalPages)->render();
                             }
                         }
                     ?>

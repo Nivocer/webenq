@@ -413,8 +413,8 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             default:
                 return Doctrine_Query::create()
                     ->from('Webenq_Model_QuestionnaireQuestion qq')
-                    ->leftJoin('qq.Question q')
-                    ->leftJoin('q.QuestionText qt ON q.id = qt.question_id AND qt.language = ?', $language)
+//                    ->leftJoin('qq.Question q')
+//                    ->leftJoin('q.QuestionText qt ON q.id = qt.question_id AND qt.language = ?', $language)
                     ->innerJoin('qq.CollectionPresentation cp')
                     ->where('cp.parent_id = ?', $qq['CollectionPresentation'][0]['id'])
                     ->orderBy('cp.weight')
