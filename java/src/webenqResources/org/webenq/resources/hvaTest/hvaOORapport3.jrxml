@@ -124,14 +124,14 @@
 			</subreport>
 			<subreport isUsingCache="false">
 				<reportElement positionType="Float" x="0" y="30" width="555" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="DEFAULT_STYLE_FILE">
-					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["N = het totaal aantal respondenten per vak. Cijfers met waarden achter de komma treden op als studenten sommige vragen niet hebben beantwoord."]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["<font size=1>N = het totaal aantal respondenten per vak. Cijfers met waarden achter de komma treden op als studenten sommige vragen niet hebben beantwoord.</font>"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
