@@ -39,7 +39,7 @@
                             endforeach;
                             $usedIn = array_unique($usedIn);
                             sort($usedIn);
-                            foreach ($usedIn as $id) echo $id;
+                            echo implode(', ', $usedIn);
                         ?>
                     </td>
                     <td>
