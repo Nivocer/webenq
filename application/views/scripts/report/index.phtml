@@ -13,7 +13,7 @@
                 <th><?php echo t('questionnaire'); ?></th>
                 <th><?php echo t('customer'); ?></th>
                 <th><?php echo t('language'); ?></th>
-                <th><?php echo t('split id'); ?></th>
+                <th><?php echo t('split question'); ?></th>
                 <th><?php echo t('output directory'); ?></th>
                 <th><?php echo t('output file name'); ?></th>
                 <th><?php echo t('output format'); ?></th>
@@ -39,7 +39,8 @@
                         <?php echo $report->language; ?>
                     </td>
                     <td>
-                        <?php echo $report->split_qq_id; ?>
+                        <?php if ($report->QuestionnaireQuestion)
+                            echo $report->QuestionnaireQuestion->Question->getQuestionText()->text; ?>
                     </td>
                     <td>
                         <?php echo $report->output_dir; ?>
