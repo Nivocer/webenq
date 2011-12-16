@@ -181,7 +181,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 								<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
 									<font size="7"/>
 								</textElement>
-								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
+								<textFieldExpression><![CDATA[str("Total mean transpose")]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabTotalRowHeader>
@@ -240,10 +240,10 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Bottom" markup="html">
-									<font size="8" isBold="false" isPdfEmbedded="false"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left" markup="html">
+									<font size="6" isBold="false" isPdfEmbedded="false"/>
 								</textElement>
-								<textFieldExpression><![CDATA[str("N")]]></textFieldExpression>
+								<textFieldExpression><![CDATA[str("Average N")]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabTotalColumnHeader>
@@ -298,9 +298,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 								<printWhenExpression><![CDATA[$V{ROW_COUNT} >1]]></printWhenExpression>
 							</reportElement>
 							<box>
-								<leftPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.25"/>
 								<bottomPen lineWidth="0.5"/>
-								<rightPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.25"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
@@ -321,12 +321,12 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<box>
 								<leftPen lineWidth="0.25"/>
 								<bottomPen lineWidth="0.25"/>
-								<rightPen lineWidth="0.25"/>
+								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
 								<font size="7" isBold="false"/>
 							</textElement>
-							<textFieldExpression><![CDATA[($V{countMeasure}/($V{COLUMN_COUNT} +1))]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{countMeasure}/$V{COLUMN_COUNT}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
@@ -339,22 +339,40 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
-						<textField pattern="###0.#">
-							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
-								<printWhenExpression><![CDATA[$V{ROW_COUNT} >1]]></printWhenExpression>
-							</reportElement>
-							<box>
-								<pen lineWidth="0.0"/>
-								<topPen lineWidth="0.0"/>
-								<leftPen lineWidth="0.5"/>
-								<bottomPen lineWidth="0.5"/>
-								<rightPen lineWidth="0.5"/>
-							</box>
-							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font size="7" isBold="false" isStrikeThrough="false"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$V{countMeasure}  /($V{COLUMN_COUNT}.doubleValue() +1.0)]]></textFieldExpression>
-						</textField>
+						<elementGroup>
+							<textField pattern="###0.#">
+								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
+									<printWhenExpression><![CDATA[$V{ROW_COUNT} >1 && !$P{CUSTOMER}.equals("hvaoo")]]></printWhenExpression>
+								</reportElement>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="5" isBold="false" isStrikeThrough="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{countMeasure}  /$V{COLUMN_COUNT}]]></textFieldExpression>
+							</textField>
+							<textField pattern="###0.#">
+								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12">
+									<printWhenExpression><![CDATA[$V{ROW_COUNT} >1 ]]></printWhenExpression>
+								</reportElement>
+								<box>
+									<pen lineWidth="0.0"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.25"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="5" isBold="false" isStrikeThrough="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[" "]]></textFieldExpression>
+							</textField>
+						</elementGroup>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
