@@ -16,7 +16,7 @@ $P{COLOR_RANGE_MEAN10}.indexOf($V{reportQuestionId} )>-1 &&
 $V{averageMeasure} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowRed") &&
 $V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highRed")
 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000">
+			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000" pattern="">
 				<pen lineWidth="0.0"/>
 				<box topPadding="0">
 					<topPen lineWidth="0.0"/>
@@ -154,9 +154,8 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							</box>
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="190" height="12"/>
-								<box leftPadding="1">
-									<leftPen lineWidth="0.0"/>
-									<rightPen lineWidth="0.0"/>
+								<box>
+									<bottomPen lineWidth="0.25"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
 									<font size="7" isStrikeThrough="false"/>
@@ -278,8 +277,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 								<printWhenExpression><![CDATA[!$V{averageMeasure}.equals(null)]]></printWhenExpression>
 							</reportElement>
 							<box>
-								<leftPen lineWidth="0.5"/>
-								<rightPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.25"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
 							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
@@ -318,16 +316,17 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
-						<textField pattern="###0">
+						<textField pattern="###0.#">
 							<reportElement style="defaultStyle" positionType="Float" mode="Opaque" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true"/>
 							<box>
-								<leftPen lineWidth="0.5"/>
-								<rightPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.25"/>
+								<bottomPen lineWidth="0.25"/>
+								<rightPen lineWidth="0.25"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
 								<font size="7" isBold="false"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$V{countMeasure} /($V{COLUMN_COUNT} +1)]]></textFieldExpression>
+							<textFieldExpression><![CDATA[($V{countMeasure}/($V{COLUMN_COUNT} +1))]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
@@ -340,7 +339,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
-						<textField pattern="###0">
+						<textField pattern="###0.#">
 							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
 								<printWhenExpression><![CDATA[$V{ROW_COUNT} >1]]></printWhenExpression>
 							</reportElement>
