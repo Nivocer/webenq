@@ -24,7 +24,7 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: QuestionnaireQuestion.php,v 1.12 2011/12/16 11:22:47 bart Exp $
+ * @version    SVN: $Id: QuestionnaireQuestion.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
 {
@@ -110,25 +110,29 @@ abstract class Webenq_Model_Base_QuestionnaireQuestion extends Doctrine_Record
              'local' => 'questionnaire_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE',
-             'onUpdate' => 'CASCADE'));
+             'onUpdate' => 'CASCADE',
+             'foreignKeyName' => 'questionnaire_question_questionnaire_id_fk'));
 
         $this->hasOne('Webenq_Model_Question as Question', array(
              'local' => 'question_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE',
-             'onUpdate' => 'CASCADE'));
+             'onUpdate' => 'CASCADE',
+             'foreignKeyName' => 'questionnaire_question_question_id_fk'));
 
         $this->hasOne('Webenq_Model_AnswerPossibilityGroup as AnswerPossibilityGroup', array(
              'local' => 'answerPossibilityGroup_id',
              'foreign' => 'id',
              'onDelete' => 'RESTRICT',
-             'onUpdate' => 'RESTRICT'));
+             'onUpdate' => 'RESTRICT',
+             'foreignKeyName' => 'questionnaire_question_answerPossibilityGroup_id_fk'));
 
         $this->hasOne('Webenq_Model_QuestionGroup as QuestionGroup', array(
              'local' => 'questionGroup_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE',
-             'onUpdate' => 'CASCADE'));
+             'onUpdate' => 'CASCADE',
+             'foreignKeyName' => 'questionnaire_question_questionGroup_id_fk'));
 
         $this->hasMany('Webenq_Model_Answer as Answer', array(
              'local' => 'id',

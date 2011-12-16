@@ -13,7 +13,7 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: Respondent.php,v 1.12 2011/12/16 11:22:48 bart Exp $
+ * @version    SVN: $Id: Respondent.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_Respondent extends Doctrine_Record
 {
@@ -46,7 +46,8 @@ abstract class Webenq_Model_Base_Respondent extends Doctrine_Record
              'local' => 'questionnaire_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE',
-             'onUpdate' => 'CASCADE'));
+             'onUpdate' => 'CASCADE',
+             'foreignKeyName' => 'respondent_questionnaire_id_fk'));
 
         $this->hasMany('Webenq_Model_Answer as Answer', array(
              'local' => 'id',

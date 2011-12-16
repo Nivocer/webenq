@@ -186,4 +186,75 @@ class InstallController extends Zend_Controller_Action
         $this->view->current = $current;
         $this->view->latest = $latest;
     }
+
+    /**
+     * Renders the installer
+     */
+    public function migrateAction()
+    {
+        // get doctrine config settings
+        $bootstrap = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+        $config = $bootstrap->getOption('doctrine');
+
+//        Doctrine_Core::dropDatabases();
+//        Doctrine_Core::createDatabases();
+
+        // get current and latest db schema version
+        $migration = new Doctrine_Migration($config['migrations_path']);
+        $current = (int) $migration->getCurrentVersion();
+        $latest = (int) $migration->getLatestVersion();
+
+        // migrate database to latest known migration
+        if ($latest > $current) {
+            try {
+                $migration->migrate();
+            } catch (Exception $e) {
+                die(nl2br($e->getMessage()));
+            }
+        }
+
+        // calculate differences between current database structure
+        // and YAML file with current schema
+        $from = 'doctrine';
+        $to = $config['yaml_schema_path'] . '/schema.yml';
+        $diff = new Doctrine_Migration_Diff($from, $to, $migration);
+        $changes = $diff->generateChanges();
+        $hasChanges = false;
+        foreach ($changes as $key => $values) {
+            $oppositeKey = preg_match('/^created_/', $key)
+                ? preg_replace('/^created_/', 'dropped_', $key)
+                : preg_replace('/^dropped_/', 'created_', $key);
+            if (count(array_diff_assoc($changes[$oppositeKey], $changes[$key])) > 0
+                || count(array_diff_assoc($changes[$key], $changes[$oppositeKey])) > 0)
+            {
+                $hasChanges = true;
+                break;
+            }
+        }
+
+        if ($hasChanges) {
+            // generate migration classes from database to current
+            try {
+                $diff->generateMigrationClasses();
+            } catch (Exception $e) {
+                die(nl2br($e->getMessage()));
+            }
+
+            // generate models from YAML file with current schema
+            Doctrine_Core::generateModelsFromYaml(
+                $config['yaml_schema_path'],
+                $config['models_path'],
+                $config['generate_models_options']);
+
+            // perform migration
+            try {
+                $migration->migrate();
+            } catch (Exception $e) {
+                die(nl2br($e->getMessage()));
+            }
+        }
+
+        $current = (int) $migration->getCurrentVersion();
+        die('Mirgated to db schema version ' . $current);
+    }
 }

@@ -46,18 +46,21 @@ Answer:
     AnswerPossibility:
       local: answerPossibility_id
       foreign: id
+      foreignKeyName: answer_answerPossibility_answerPossibility_id_fk
       type: one
       onUpdate: RESTRICT
       onDelete: RESTRICT
     QuestionnaireQuestion:
       local: questionnaire_question_id
       foreign: id
+      foreignKeyName: answer_questionnaire_question_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     Respondent:
       local: respondent_id
       foreign: id
+      foreignKeyName: answer_respondent_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -75,7 +78,7 @@ AnswerPossibility:
       fixed: false
       unsigned: false
       primary: false
-      default: '1'
+      default: 1
       notnull: true
       autoincrement: false
     answerPossibilityGroup_id:
@@ -96,6 +99,7 @@ AnswerPossibility:
     AnswerPossibilityGroup:
       local: answerPossibilityGroup_id
       foreign: id
+      foreignKeyName: answerPossibility_answerPossibilityGroup_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -200,12 +204,13 @@ AnswerPossibilityText:
     AnswerPossibility:
       local: answerPossibility_id
       foreign: id
+      foreignKeyName: answerPossibilityText_answerPossibility_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     AnswerPossibilityTextSynonym:
       local: id
-      foreign: answerPossibilityText_id
+      foreign: answerPossibilityText_answerPossibilityText_id
       type: many
 AnswerPossibilityTextSynonym:
   tableName: answerPossibilityTextSynonym
@@ -234,6 +239,7 @@ AnswerPossibilityTextSynonym:
     AnswerPossibilityText:
       local: answerPossibilityText_id
       foreign: id
+      foreignKeyName: answerPossibilityTextSynonym_answerPossibilityText_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -286,7 +292,7 @@ CollectionPresentation:
       fixed: false
       unsigned: false
       primary: false
-      default: '1'
+      default: 1
       notnull: true
       autoincrement: false
     weight:
@@ -294,13 +300,14 @@ CollectionPresentation:
       fixed: false
       unsigned: false
       primary: false
-      default: '0'
+      default: 0
       notnull: true
       autoincrement: false
   relations:
     QuestionnaireQuestion:
       local: questionnaire_question_id
       foreign: id
+      foreignKeyName: collectionPresentation_questionnaire_question_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -398,6 +405,7 @@ QuestionText:
     Question:
       local: question_id
       foreign: id
+      foreignKeyName: questionText_question_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -495,24 +503,28 @@ QuestionnaireQuestion:
     Questionnaire:
       local: questionnaire_id
       foreign: id
+      foreignKeyName: questionnaire_question_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     Question:
       local: question_id
       foreign: id
+      foreignKeyName: questionnaire_question_question_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     AnswerPossibilityGroup:
       local: answerPossibilityGroup_id
       foreign: id
+      foreignKeyName: questionnaire_question_answerPossibilityGroup_id_fk
       type: one
       onUpdate: RESTRICT
       onDelete: RESTRICT
     QuestionGroup:
       local: questionGroup_id
       foreign: id
+      foreignKeyName: questionnaire_question_questionGroup_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -566,6 +578,7 @@ QuestionnaireTitle:
     Questionnaire:
       local: questionnaire_id
       foreign: id
+      foreignKeyName: questionnaireTitle_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -613,12 +626,14 @@ Report:
     Questionnaire:
       local: questionnaire_id
       foreign: id
+      foreignKeyName: report_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     QuestionnaireQuestion:
       local: split_qq_id
       foreign: id
+      foreignKeyName: report_split_qq_id_fk
       type: one
       onUpdate: SET NULL
       onDelete: SET NULL
@@ -660,6 +675,7 @@ ReportTitle:
     Report:
       local: report_id
       foreign: id
+      foreignKeyName: reportTitle_report_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -680,9 +696,8 @@ ReportElement:
       notnull: true
       autoincrement: false
     data:
-      type: text
+      type: string
       notnull: false
-      default: null
     sort:
       type: integer(4)
       default: 0
@@ -690,6 +705,7 @@ ReportElement:
     Report:
       local: report_id
       foreign: id
+      foreignKeyName: reportElement_report_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -720,6 +736,7 @@ ReportPresentation:
     QuestionnaireQuestion:
       local: questionnaire_question_id
       foreign: id
+      foreignKeyName: reportPresentation_questionnaire_question_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -772,6 +789,7 @@ Respondent:
     Questionnaire:
       local: questionnaire_id
       foreign: id
+      foreignKeyName: respondent_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -831,12 +849,14 @@ RoleResource:
     Role:
       local: role_id
       foreign: id
+      foreignKeyName: role_resource_role_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     Resource:
       local: resource_id
       foreign: id
+      foreignKeyName: role_resource_resource_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
@@ -895,6 +915,7 @@ User:
     Role:
       local: role_id
       foreign: id
+      foreignKeyName: user_role_id_fk
       type: one
       onUpdate: RESTRICT
       onDelete: RESTRICT

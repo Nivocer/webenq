@@ -13,7 +13,7 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityTextSynonym.php,v 1.12 2011/12/16 11:22:47 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityTextSynonym.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityTextSynonym extends Doctrine_Record
 {
@@ -55,6 +55,7 @@ abstract class Webenq_Model_Base_AnswerPossibilityTextSynonym extends Doctrine_R
              'local' => 'answerPossibilityText_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE',
-             'onUpdate' => 'CASCADE'));
+             'onUpdate' => 'CASCADE',
+             'foreignKeyName' => 'answerPossibilityTextSynonym_answerPossibilityText_id_fk'));
     }
 }

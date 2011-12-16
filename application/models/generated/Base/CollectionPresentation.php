@@ -18,7 +18,7 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: CollectionPresentation.php,v 1.12 2011/12/16 11:22:47 bart Exp $
+ * @version    SVN: $Id: CollectionPresentation.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_CollectionPresentation extends Doctrine_Record
 {
@@ -83,7 +83,7 @@ abstract class Webenq_Model_Base_CollectionPresentation extends Doctrine_Record
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'default' => '1',
+             'default' => 1,
              'notnull' => true,
              'autoincrement' => false,
              'length' => '4',
@@ -93,7 +93,7 @@ abstract class Webenq_Model_Base_CollectionPresentation extends Doctrine_Record
              'fixed' => 0,
              'unsigned' => false,
              'primary' => false,
-             'default' => '0',
+             'default' => 0,
              'notnull' => true,
              'autoincrement' => false,
              'length' => '4',
@@ -107,6 +107,7 @@ abstract class Webenq_Model_Base_CollectionPresentation extends Doctrine_Record
              'local' => 'questionnaire_question_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE',
-             'onUpdate' => 'CASCADE'));
+             'onUpdate' => 'CASCADE',
+             'foreignKeyName' => 'collectionPresentation_questionnaire_question_id_fk'));
     }
 }
