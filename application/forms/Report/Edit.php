@@ -11,6 +11,7 @@ class Webenq_Form_Report_Edit extends Webenq_Form_Report_Add
     public function init()
     {
         parent::init();
+        $this->removeElement('questionnaire_id');
         $this->addElement($this->createElement('select', 'split_qq_id', array(
             'label' => 'split question',
             'order' => 2,
