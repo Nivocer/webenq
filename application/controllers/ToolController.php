@@ -63,6 +63,67 @@ class ToolController extends Zend_Controller_Action
                 }
                 rmdir($target);
 
+                // calculate data for third working sheet
+                foreach ($data as $i => $set) {
+
+                    if (!isset($thirdWorkingSheet)) $thirdWorkingSheet = $set[2];
+
+                    $value = $set[2][1][1];
+                    if (isset($startDate)) {
+                        if ($startDate > new Zend_Date($value)) {
+                            $startDate = new Zend_Date($value);
+                        }
+                    } else {
+                        $startDate = new Zend_Date($value);
+                    }
+
+                    $value = $set[2][2][1];
+                    if (isset($endDate)) {
+                        if ($endDate < new Zend_Date($value)) {
+                            $endDate = new Zend_Date($value);
+                        }
+                    } else {
+                        $endDate = new Zend_Date($value);
+                    }
+
+                    $value = $set[2][3][1];
+                    if (isset($respondentCount)) {
+                        $respondentCount += $value;
+                    } else {
+                        $respondentCount = $value;
+                    }
+
+                    $value = $set[2][4][1];
+                    if (isset($emailInvitationCount)) {
+                        $emailInvitationCount += $value;
+                    } else {
+                        $emailInvitationCount = $value;
+                    }
+
+                    $value = $set[2][5][1];
+                    if (isset($emailResponseCount)) {
+                        $emailResponseCount += $value;
+                    } else {
+                        $emailResponseCount = $value;
+                    }
+
+                    $value = $set[2][6][1];
+                    if (isset($totalResponseCount)) {
+                        $totalResponseCount += $value;
+                    } else {
+                        $totalResponseCount = $value;
+                    }
+                }
+                $thirdWorkingSheet[0][1] = 'Module-evaluatie';
+                $thirdWorkingSheet[1][1] = $startDate->get('Y-MM-dd HH:mm:ss');
+                $thirdWorkingSheet[2][1] = $endDate->get('Y-MM-dd HH:mm:ss');
+                $thirdWorkingSheet[3][1] = $respondentCount;
+                $thirdWorkingSheet[4][1] = $emailInvitationCount;
+                $thirdWorkingSheet[5][1] = $emailResponseCount;
+                $thirdWorkingSheet[6][1] = $totalResponseCount;
+                $thirdWorkingSheet[7][1] = $emailResponseCount / $emailInvitationCount * 100;
+                $thirdWorkingSheet[8][1] = 'divers';
+
                 // compare structures
                 $equalStructure = true;
                 while ($current = current($data)) {
@@ -98,10 +159,10 @@ class ToolController extends Zend_Controller_Action
                                     $newRow[$k] = null;
                                 $newRow = array_merge($newRow, $values);
                                 $data[0][0][] = $newRow;
-
                             }
                         }
                     }
+
                     // remove after processing
                     unset($data[$i]);
                 }
@@ -114,7 +175,7 @@ class ToolController extends Zend_Controller_Action
                 $download = new Webenq_Download_Xls();
                 $download->setData($data[0][0])->init();
                 $download->addWorkingSheet($data[0][1]);
-                $download->addWorkingSheet($data[0][2]);
+                $download->addWorkingSheet($thirdWorkingSheet);
                 $download->send($this->_response);
             }
         }

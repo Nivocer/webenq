@@ -23,7 +23,7 @@ class Webenq_Form_Tool_Hva extends Zend_Form
         $file = $this->createElement('file', 'file');
         $file->addValidator(new Zend_Validate_File_Count(array('min' => 1, 'max' => 1)))
             ->addValidator(new Zend_Validate_File_Extension($this->_supportedFormats))
-            ->setLabel('select the file(s) to import')
+            ->setLabel('select the archive file to process')
             ->setDescription(t('supported formats') . ': '
             	. implode(', ', $this->_supportedFormats));
 
