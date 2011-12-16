@@ -1,4 +1,6 @@
 <?php return array(
+	'nl' => 'nl',
+	'en' => 'en',
 	'one moment please...' => 'een moment geduld aub...',
     'back' => 'terug',
     'back to' => 'terug naar',

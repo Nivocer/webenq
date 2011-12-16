@@ -34,8 +34,8 @@ class Webenq_Form_ReportElement_Edit_MeanTable extends Webenq_Form_ReportElement
 
         $this->addElement($this->createElement('select', 'group_qq_id', array(
             'label' => 'grouping question',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
+        	'required' => false,
+        	'multiOptions' => array_merge(array('' => ''), $multiOptions),
         )));
 
         $this->addElement($this->createElement('select', 'color_schema', array(

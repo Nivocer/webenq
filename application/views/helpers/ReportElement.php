@@ -70,7 +70,7 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             $html .= '<strong>' . $rqq->Question->getQuestionText()->text . '</strong><br/>';
         }
 
-        if (isset($this->_data['group_qq_id'])) {
+        if (isset($this->_data['group_qq_id']) && !empty($this->_data['group_qq_id'])) {
             $gqq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
                 ->find($this->_data['group_qq_id']);
             $html .= t('grouped by')
@@ -97,7 +97,7 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             }
         }
 
-        if (isset($this->_data['group_qq_id'])) {
+        if (isset($this->_data['group_qq_id']) && !empty($this->_data['group_qq_id'])) {
             $gqq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
                 ->find($this->_data['group_qq_id']);
             $html .= t('grouped by')

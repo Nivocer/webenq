@@ -28,8 +28,8 @@ class Webenq_Form_ReportElement_Edit_PercentageTable extends Webenq_Form_ReportE
 
         $this->addElement($this->createElement('select', 'group_qq_id', array(
             'label' => 'grouping question',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
+        	'required' => false,
+        	'multiOptions' => array_merge(array('' => ''), $multiOptions),
         )));
 
         $this->addElement($this->createElement('submit', 'submit', array(
