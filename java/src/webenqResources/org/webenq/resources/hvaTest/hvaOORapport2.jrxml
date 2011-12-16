@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2-means" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
-	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="45"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
@@ -52,7 +52,7 @@
 	<detail>
 		<band height="40" splitType="Immediate">
 			<subreport isUsingCache="false">
-				<reportElement positionType="Float" x="0" y="0" width="802" height="10" isRemoveLineWhenBlank="true"/>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="10" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="CUSTOMER">
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -66,10 +66,10 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
-				<reportElement positionType="Float" x="0" y="10" width="802" height="10" isRemoveLineWhenBlank="true">
+				<reportElement positionType="Float" x="0" y="10" width="555" height="10" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[!$P{SPLIT_QUESTION_LABEL}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
@@ -85,7 +85,7 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement positionType="Float" x="0" y="20" width="555" height="10" isRemoveLineWhenBlank="true"/>
@@ -122,13 +122,30 @@
 				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME},"q324/q282, q324/q283,q324/q284,q324/q285,q324/q286,q324/q287,q324/q288,q324/q289,q325/q290","q328/q318",$P{SPLIT_QUESTION_ID},$P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>
 			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="30" width="555" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Q_TEXT">
+					<subreportParameterExpression><![CDATA["N = het aantal respondenten per vak-docent combinatie. Cijfers met waarden achter de komma treden op als studenten sommige vragen niet hebben beantwoord."]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<columnFooter>
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band splitType="Stretch"/>
+		<band splitType="Immediate"/>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
