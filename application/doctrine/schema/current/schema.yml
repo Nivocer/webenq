@@ -210,7 +210,7 @@ AnswerPossibilityText:
       onDelete: CASCADE
     AnswerPossibilityTextSynonym:
       local: id
-      foreign: answerPossibilityText_answerPossibilityText_id
+      foreign: answerPossibilityText_id
       type: many
 AnswerPossibilityTextSynonym:
   tableName: answerPossibilityTextSynonym

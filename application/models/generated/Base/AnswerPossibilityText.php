@@ -15,7 +15,7 @@
  * @package    Webenq
  * @subpackage Models
  * @author     Bart Huttinga <b.huttinga@nivocer.com>
- * @version    SVN: $Id: AnswerPossibilityText.php,v 1.13 2011/12/16 16:05:28 bart Exp $
+ * @version    SVN: $Id: AnswerPossibilityText.php,v 1.14 2011/12/22 11:28:27 bart Exp $
  */
 abstract class Webenq_Model_Base_AnswerPossibilityText extends Doctrine_Record
 {
@@ -71,6 +71,6 @@ abstract class Webenq_Model_Base_AnswerPossibilityText extends Doctrine_Record
 
         $this->hasMany('Webenq_Model_AnswerPossibilityTextSynonym as AnswerPossibilityTextSynonym', array(
              'local' => 'id',
-             'foreign' => 'answerPossibilityText_answerPossibilityText_id'));
+             'foreign' => 'answerPossibilityText_id'));
     }
 }
