@@ -48,11 +48,7 @@ class ReportElementController extends Zend_Controller_Action
             $element->sort = 1 + $report->ReportElement->count();
             $element->save();
 
-            if ($this->_request->isXmlHttpRequest()) {
-                $this->_helper->json(array('reload' => true));
-            } else {
-                $this->_redirect('report/edit/id/' . $report->id);
-            }
+            $this->_redirect('report-element/edit/id/' . $element->id);
         }
     }
 
