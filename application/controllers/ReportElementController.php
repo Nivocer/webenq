@@ -45,6 +45,7 @@ class ReportElementController extends Zend_Controller_Action
             $element->data = serialize(array(
                 'type' => $form->getValue('type'),
             ));
+            $element->sort = 1 + $report->ReportElement->count();
             $element->save();
 
             if ($this->_request->isXmlHttpRequest()) {
