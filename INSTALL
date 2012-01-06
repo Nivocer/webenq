@@ -24,6 +24,12 @@ Can be installed via PEAR from the PHPUnit channel:
   
     pear install phpunit/PHPUnit
 
+* OTHER Testing/developing Tools
+   http://pear.pdepend.org/
+   pear install PHP_CodeSniffer
+   pecl install xdebug
+   pear install pear/PHPDocumentor
+   
 * PHP Sqlite module
 
     apt-get install php5-sqlite
