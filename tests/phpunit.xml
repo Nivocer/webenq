@@ -7,6 +7,7 @@
             <directory suffix=".php">../application/</directory>
             <exclude>
                 <directory>../application/views/</directory>
+                <directory>../application/models/</directory>
                 <file>../application/Bootstrap.php</file>
             </exclude>
         </whitelist>
