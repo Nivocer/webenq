@@ -1,10 +1,11 @@
 <reportConfig>
     <reportId><?php echo $this->report->id; ?></reportId>
     <xformName>questionnaire</xformName>
-    <xformLocation>src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml</xformLocation>
-    <dataLocation>src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml</dataLocation>
-    <reportDefinitionLocation>/org/webenq/resources/simpleQuest.jrxml</reportDefinitionLocation>
-    <customer>leeuwenburg</customer>
+    <!--  todo improve servername/pathToApplication  (https) -->
+    <xformLocation>http://<?php echo $_SERVER['SERVER_NAME']; echo $this->baseUrl("questionnaire/xform/id/"); echo $this->report->questionnaire_id; ?></xformLocation>
+    <dataLocation>http://<?php echo $_SERVER['SERVER_NAME']; echo $this->baseUrl("questionnaire/xform-data/id/"); echo $this->report->questionnaire_id; ?></dataLocation>
+    <reportDefinitionLocation>http://<?php echo $_SERVER['SERVER_NAME']; echo $this->baseUrl("report/jrxml/id/"); echo $this->report->id; ?></reportDefinitionLocation>
+    <customer><?php echo $this->report->customer; ?></customer>
     <language><?php echo $this->report->language; ?></language>
     <splitQuestionId><?php if ($this->report->QuestionnaireQuestion) echo $this->report->QuestionnaireQuestion->getXPath(); ?></splitQuestionId>
     <outputDir><?php echo $this->report->output_dir; ?></outputDir>
