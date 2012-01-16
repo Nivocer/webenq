@@ -4,6 +4,9 @@ import it.bisi.*;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,11 +18,14 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPathFactoryConfigurationException;
 
 import org.xml.sax.InputSource;
 import net.sf.saxon.lib.NamespaceConstant;
 import net.sf.saxon.om.NodeInfo;
+import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.xpath.XPathEvaluator;
 
 
@@ -46,6 +52,10 @@ import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 
 
 
+/**
+ * @author jaapandre
+ *
+ */
 public class ExecuteReport {
 
 	/**
@@ -68,17 +78,32 @@ public class ExecuteReport {
 		try{
 			//get report config information (location, language, customer, etc)
 			Map<String,String> reportConfig=getReportControlFile(configFileName);
+			System.out.println(reportConfig);
 			String xformLocation=reportConfig.get("xformLocation");
 			String xformName=reportConfig.get("xformName");
 			String dataLocation=reportConfig.get("dataLocation");
 			String reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
 			String splitQuestionId=reportConfig.get("splitQuestionId");
 			String outputDir=reportConfig.get("outputDir");
+			if (outputDir==null){
+				outputDir=".";
+			}
 			String outputFileName=reportConfig.get("outputFileName");
+			if (outputFileName==null){
+				outputFileName="emptyFileName";
+			}
 			String outputFormat=reportConfig.get("outputFormat");
+			if (outputFormat==null) {
+				outputFormat="pdf";
+			}
 			String language=reportConfig.get("language");
+			if (language == null){
+				language="en";
+			}
 			String customer=reportConfig.get("customer");
-
+			if (customer == null){
+				customer="hva-oo";
+			}
 			// create parameter map to send to jasper
 			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", outputDir);
@@ -99,12 +124,12 @@ public class ExecuteReport {
 			}
 			Locale.setDefault(locale);
 			prms.put(JRParameter.REPORT_LOCALE, locale);
-			
+
 			//Get localized resource bundles with general texts
 			ResourceBundle myresources = ResourceBundle.getBundle("org.webenq.resources.webenq4",locale);
 			prms.put(JRParameter.REPORT_RESOURCE_BUNDLE, myresources);
-			
-						
+
+
 			//looping through available split by values (seperate reports for subsets of respondents)
 			if (splitQuestionId !=null && splitQuestionId.length()>0 ) {
 				//get distinct split_values, using xpath2 (saxon)
@@ -135,7 +160,7 @@ public class ExecuteReport {
 				//no split value
 				prms.put("SPLIT_QUESTION_VALUE", "");
 				prms.put("SPLIT_QUESTION_LABEL", "");
-				
+
 				generateReport(reportDefinitionLocation, prms, "", outputDir, outputFileName, outputFormat );
 			}
 		}
@@ -156,7 +181,7 @@ public class ExecuteReport {
 		}
 		InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
 		JasperPrint print;
-		
+
 		if (reportDefinitionLocation.endsWith("jrxml")){
 			//need to compile the report
 			JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
@@ -181,10 +206,10 @@ public class ExecuteReport {
 			exporter.exportReport();
 		}else if(outputFormat.equals("rtf")) {
 			//untested
-				JRRtfExporter exporter = new JRRtfExporter(); 
-				exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".rtf");
-				exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
-				exporter.exportReport();
+			JRRtfExporter exporter = new JRRtfExporter(); 
+			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".rtf");
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+			exporter.exportReport();
 		}else if (outputFormat.equals("docx")){
 			//untested from jasper report sample
 			JRDocxExporter exporter = new JRDocxExporter();
@@ -232,34 +257,59 @@ public class ExecuteReport {
 		return fileName;
 
 	}
-	
+
 	/**
 	 * @param configFilename
 	 * @return	file with the reportconfiguration (one at this moment)
 	 * @throws Exception
 	 */
-	public static Map<String,String> getReportControlFile(String configFilename) throws Exception {
+	public static Map<String,String> getReportControlFile(String configFileLocation)  {
 		//define return variable
 		Map<String,String> reportConfig = new HashMap<String,String>();
+		List reportConfigResult;
 
-		//create saxon stuff
-		XPathFactory xpf = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
-		XPath xpe = xpf.newXPath();
-		InputSource is = new InputSource(new File(configFilename).toURI().toURL().toString());
-		SAXSource ss = new SAXSource(is);
-		NodeInfo doc = ((XPathEvaluator)xpe).setSource(ss);
-
-		String searchConfig="/reportConfig/*";
-		XPathExpression expr = xpe.compile(searchConfig);
-
-		List reportConfigResult = (List)expr.evaluate(doc, XPathConstants.NODESET);
-		if (reportConfigResult != null) {
-			for (Iterator iter = reportConfigResult.iterator(); iter.hasNext();) {
-				// put the next control parameter in the return variable
-				NodeInfo line = (NodeInfo)iter.next();
-				reportConfig.put(line.getDisplayName(), line.getStringValue());
+			try {
+				XPathFactory xpf = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
+				XPath xpe = xpf.newXPath();
+				InputSource is;
+				File inputFile=new File(configFileLocation);
+				if (inputFile.canRead()){
+					//we can read the configFile, let us parse it as file
+					is = new InputSource(inputFile.toURI().toURL().toString());
+				}else {
+					//we cannot read the configfile, let us assume it is a valid URI
+					//TODO add some test to determin if it is a valid uri.
+					is = new InputSource((new URI(configFileLocation)).toString());					
+				}
+								
+				SAXSource ss = new SAXSource(is);
+				NodeInfo doc = ((XPathEvaluator)xpe).setSource(ss);
+				String searchConfig="/reportConfig/*";
+				XPathExpression expr = xpe.compile(searchConfig);
+				reportConfigResult = (List)expr.evaluate(doc, XPathConstants.NODESET);
+				if (reportConfigResult != null) {
+					for (Iterator iter = reportConfigResult.iterator(); iter.hasNext();) {
+						// put the next control parameter in the return variable
+						NodeInfo line = (NodeInfo)iter.next();
+						reportConfig.put(Utils.removeEol(line.getDisplayName()), Utils.removeEol(line.getStringValue()));
+					}
+				}
+			} catch (XPathFactoryConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPathException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (XPathExpressionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
 		return reportConfig;
 	}
 }

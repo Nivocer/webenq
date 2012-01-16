@@ -32,6 +32,10 @@ public class Utils {
 		System.out.println(getResource("/it/bisi/resources/logo.png"));
 
 	}
+	public static String removeEol(String input){
+		return input.replace("\r","").replace("\n","");
+	}
+	
 	
 	public static boolean isNum(String s) {
 		try {
