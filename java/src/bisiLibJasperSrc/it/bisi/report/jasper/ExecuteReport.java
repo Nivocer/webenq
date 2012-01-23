@@ -50,6 +50,7 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 
+//import it.bisi.report.GetData;
 
 
 /**
@@ -57,7 +58,7 @@ import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
  *
  */
 public class ExecuteReport {
-
+	
 	/**
 	 * @param args
 	 *   
@@ -69,25 +70,25 @@ public class ExecuteReport {
 	 * 4 output dir  
 	 */
 	public static void main(String[] args) {
+		
 		runReport(args[0]);
 	}
 
 
-	public static void runReport(String configFileName)
-	{
+	public static void runReport(String configFileName)	{
+		
+		
 		try{
 			//get report config information (location, language, customer, etc)
 			Map<String,String> reportConfig=getReportControlFile(configFileName);
 			System.out.println(reportConfig);
-			String xformLocation=reportConfig.get("xformLocation");
+			
 			String xformName=reportConfig.get("xformName");
-			String dataLocation=reportConfig.get("dataLocation");
-			String reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
-			String splitQuestionId=reportConfig.get("splitQuestionId");
 			String outputDir=reportConfig.get("outputDir");
 			if (outputDir==null){
 				outputDir=".";
 			}
+			String splitQuestionId=reportConfig.get("splitQuestionId");
 			String outputFileName=reportConfig.get("outputFileName");
 			if (outputFileName==null){
 				outputFileName="emptyFileName";
@@ -102,8 +103,31 @@ public class ExecuteReport {
 			}
 			String customer=reportConfig.get("customer");
 			if (customer == null){
-				customer="hva-oo";
+				customer="default";
 			}
+			
+			//if no local file retrieve data form url
+			String dataLocation;
+			if (new File(reportConfig.get("dataLocation")).canRead()){
+				dataLocation=reportConfig.get("dataLocation");
+			} else {
+				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), outputDir, (long) 3600);
+			}
+			String xformLocation;
+			
+			if (new File(reportConfig.get("xformLocation")).canRead()){
+				xformLocation=reportConfig.get("xformLocation");
+			} else {
+				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), outputDir, (long) 3600);
+			}
+			String reportDefinitionLocation;
+			System.out.println(reportConfig.get("reportDefinitionLocation"));
+			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
+				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
+			} else {
+				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), outputDir, (long) 3600);
+			}
+			
 			// create parameter map to send to jasper
 			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", outputDir);
