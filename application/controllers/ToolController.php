@@ -126,6 +126,7 @@ class ToolController extends Zend_Controller_Action
 
                 // compare structures
                 $equalStructure = true;
+                reset($data);
                 while ($current = current($data)) {
                     for ($i = 0; $i < count($data); $i++) {
                         if ($current[0][0] !== $data[$i][0][0]) {
