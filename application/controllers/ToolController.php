@@ -50,7 +50,7 @@ class ToolController extends Zend_Controller_Action
                     foreach ($filenames as $filename) {
 
                         // skip non-xls and non-xlsx files
-                        if (!preg_match('/\.(xls|xlsx)$/', strtolower($filename))) continue;
+                        if (!preg_match('/\.(xls|xlsx|ods)$/', strtolower($filename))) continue;
 
                         $tool = new Webenq_Tool_Hva("$target/$filename");
                         $tool->setFirstRespondentId($lastRespondentId);
@@ -124,7 +124,8 @@ class ToolController extends Zend_Controller_Action
                 $thirdWorkingSheet[7][1] = $emailResponseCount / $emailInvitationCount * 100;
                 $thirdWorkingSheet[8][1] = 'divers';
 
-                // compare structures
+                //check to see if the structure (kolom headers) of the files are the same
+                // if one file is different, $equalStructure is false
                 $equalStructure = true;
                 reset($data);
                 while ($current = current($data)) {
@@ -151,6 +152,7 @@ class ToolController extends Zend_Controller_Action
                             // add to first set of data
                             $data[0][0][] = $values;
                         } else {
+                        	// headers are not the same @todo: try to merge same questions.
                             if ($j === 0) {
                                 $firstEmptyColumn = count($data[0][0][$j]);
                                 $data[0][0][$j] = array_merge($data[0][0][$j], $values);
