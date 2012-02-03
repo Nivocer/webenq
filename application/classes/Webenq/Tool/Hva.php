@@ -207,9 +207,13 @@ class Webenq_Tool_Hva extends Webenq_Tool
             foreach ($respondentModules as $key => $module) {
 
                 $newRow = array();
-
-                $startColumn = $moduleDataColumns[$module]['start'];
-                $endColumn = $moduleDataColumns[$module]['end'];
+                //if we don't have a module, we also don't have start/end column of that module
+				if (isset($moduleDataColumns[$module]['start'])){
+                	$startColumn = $moduleDataColumns[$module]['start'];
+				}
+                if (isset($moduleDataColumns[$module]['end'])){
+                	$endColumn = $moduleDataColumns[$module]['end'];
+                }
 
                 $row = $this->_getRespondentRow($respondent, $data);
                 foreach ($row as $column => $value) {
@@ -224,7 +228,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
                     }
                 }
 
-                // add some extra data
+                // add some extra data (titel questionnaire, startdate, end date response)
                 $newRow[] = $module;
                 $newRow[] = $this->_firstRespondentId + array_search($respondent, $this->_respondents);
                 foreach ($extraData as $key => $value) $newRow[] = $value;
