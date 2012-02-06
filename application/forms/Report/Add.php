@@ -46,13 +46,13 @@ class Webenq_Form_Report_Add extends Zend_Form
         $this->addElement($this->createElement('select', 'customer', array(
             'label' => 'customer',
         	'required' => true,
-            'multiOptions' => array('leeuwenburg' => 'leeuwenburg'),
+            'multiOptions' => array('default'=>'Other', 'leeuwenburg' => 'Leeuwenburg', 'hvaoo'=>'HvA-OO'),
         )));
 
         $this->addElement($this->createElement('select', 'output_dir', array(
             'label' => 'output directory',
         	'required' => true,
-            'multiOptions' => array('tmpout/test' => 'tmpout/test'),
+            'multiOptions' => array('tempout/test' => 'tempout/test'),
         )));
 
         $this->addElement($this->createElement('text', 'output_name', array(
@@ -63,7 +63,18 @@ class Webenq_Form_Report_Add extends Zend_Form
         $this->addElement($this->createElement('select', 'output_format', array(
             'label' => 'output format',
         	'required' => true,
-            'multiOptions' => array('pdf' => 'pdf'),
+            'multiOptions' => array(
+            	'pdf'	=> 'pdf', 
+            	'doc'	=> 'doc', 
+            	'odt'	=>'odt', 
+            	'rtf'	=>'rtf', 
+        		'docx'	=>'docx (untested)',
+        		'html'	=>'html',
+        		'xml'	=>'xml',
+        		'xls'	=>'xls',
+        		'jxl'	=>'jxl (untested)',
+        		'xlsx'	=>'xlsx (untested)',
+        		'print'	=>'print'),
         )));
 
         $this->addElement($this->createElement('submit', 'submit', array(
