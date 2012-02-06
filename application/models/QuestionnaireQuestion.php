@@ -468,9 +468,9 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         $parents = $this->_getParents();
         while (count($parents) > 0) {
             $parent = array_pop($parents);
-            $xpath .= '/' . Webenq::Xmlify('q' . $parent->QuestionnaireQuestion->id, 'tag');
+            $xpath .=  Webenq::Xmlify('q' . $parent->QuestionnaireQuestion->id, 'tag');
         }
-        $xpath .= '/' . Webenq::Xmlify('q' . $this->id, 'tag');
+        $xpath .=  Webenq::Xmlify('q' . $this->id, 'tag');
         return $xpath;
     }
 }
