@@ -55,7 +55,7 @@ public class GetData {
 				e.printStackTrace();
 			}
 		}
-		return fileName; 
+		return outputDir+"/"+fileName; 
 	}
 	
 	/**
