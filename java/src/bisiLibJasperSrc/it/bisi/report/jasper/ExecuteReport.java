@@ -3,10 +3,12 @@ package it.bisi.report.jasper;
 import it.bisi.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -81,7 +83,7 @@ public class ExecuteReport {
 		try{
 			//get report config information (location, language, customer, etc)
 			Map<String,String> reportConfig=getReportControlFile(configFileName);
-			System.out.println(reportConfig);
+			//System.out.println(reportConfig);
 			
 			String xformName=reportConfig.get("xformName");
 			String outputDir=reportConfig.get("outputDir");
@@ -114,19 +116,21 @@ public class ExecuteReport {
 			} else {
 				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), outputDir, (long) 3600);
 			}
+			//System.out.println(dataLocation);
 			String xformLocation;
 			if (new File(reportConfig.get("xformLocation")).canRead()){
 				xformLocation=reportConfig.get("xformLocation");
 			} else {
 				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), outputDir, (long) 3600);
 			}
+			//System.out.println(xformLocation);
 			String reportDefinitionLocation;
 			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
 				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
 			} else {
 				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), outputDir, (long) 3600);
 			}
-			
+			//System.out.println(reportDefinitionLocation);
 			// create parameter map to send to jasper
 			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", outputDir);
@@ -183,7 +187,6 @@ public class ExecuteReport {
 				//no split value
 				prms.put("SPLIT_QUESTION_VALUE", "");
 				prms.put("SPLIT_QUESTION_LABEL", "");
-
 				generateReport(reportDefinitionLocation, prms, "", outputDir, outputFileName, outputFormat );
 			}
 		}
@@ -202,10 +205,16 @@ public class ExecuteReport {
 			//output_file_name=fileName(output_file_name, true);
 			outputFileName=cleanFileName(outputDir,true)+"/"+cleanFileName(outputFileName,false);
 		}
-		InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
+		//System.out.println(reportDefinitionLocation);
+		File inputFile=new File(reportDefinitionLocation);
+		
+		URL url;
+		url =new URL(inputFile.toURI().toURL().toString());
+		InputStream inputStream =url.openStream();
+		
 		JasperPrint print;
 
-		if (reportDefinitionLocation.endsWith("jrxml")){
+		if (!reportDefinitionLocation.endsWith("jasper")){
 			//need to compile the report
 			JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 			// we need an empty datasource to display the report...
@@ -289,28 +298,40 @@ public class ExecuteReport {
 	/**
 	 * @param configFilename
 	 * @return	file with the reportconfiguration (one at this moment)
+	 * @throws IOException 
 	 * @throws Exception
 	 */
-	public static Map<String,String> getReportControlFile(String configFileLocation)  {
+	public static Map<String,String> getReportControlFile(String configFileLocation){
 		//define return variable
 		Map<String,String> reportConfig = new HashMap<String,String>();
 		List reportConfigResult;
 
 			try {
-				XPathFactory xpf = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
-				XPath xpe = xpf.newXPath();
-				InputSource is;
+				//System.setProperty("javax.xml.xpath.XPathFactory:"+NamespaceConstant.OBJECT_MODEL_SAXON,
+				//	"net.sf.saxon.xpath.XPathFactoryImpl");
+				
+				//InputSource is;
 				File inputFile=new File(configFileLocation);
+				
+				URL url;
 				if (inputFile.canRead()){
 					//we can read the configFile, let us parse it as file
-					is = new InputSource(inputFile.toURI().toURL().toString());
+					url =new URL(inputFile.toURI().toURL().toString());
 				}else {
 					//we cannot read the configfile, let us assume it is a valid URI
 					//TODO add some test to determin if it is a valid uri.
-					is = new InputSource((new URI(configFileLocation)).toString());					
+					url = new URL(configFileLocation);
+					//is = new org.xml.sax.InputSource(url.openStream());
+					//URL url = new URL(urlString);
+									
 				}
-								
+				InputSource is = new org.xml.sax.InputSource(url.openStream());
+				//InputSource in = url.openStream();
 				SAXSource ss = new SAXSource(is);
+				XPathFactory xpf = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
+				XPath xpe = xpf.newXPath();
+				//System.out.println("Loaded XPath Provider " + xpe.getClass().getName());
+			
 				NodeInfo doc = ((XPathEvaluator)xpe).setSource(ss);
 				String searchConfig="/reportConfig/*";
 				XPathExpression expr = xpe.compile(searchConfig);
@@ -334,7 +355,7 @@ public class ExecuteReport {
 			} catch (XPathExpressionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (URISyntaxException e) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
