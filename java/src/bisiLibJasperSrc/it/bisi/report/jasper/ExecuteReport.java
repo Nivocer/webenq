@@ -107,6 +107,7 @@ public class ExecuteReport {
 			}
 			
 			//if no local file retrieve data form url
+			//@todo files from a jar are not readable, so not able to use 
 			String dataLocation;
 			if (new File(reportConfig.get("dataLocation")).canRead()){
 				dataLocation=reportConfig.get("dataLocation");
@@ -114,14 +115,12 @@ public class ExecuteReport {
 				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), outputDir, (long) 3600);
 			}
 			String xformLocation;
-			
 			if (new File(reportConfig.get("xformLocation")).canRead()){
 				xformLocation=reportConfig.get("xformLocation");
 			} else {
 				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), outputDir, (long) 3600);
 			}
 			String reportDefinitionLocation;
-			System.out.println(reportConfig.get("reportDefinitionLocation"));
 			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
 				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
 			} else {
@@ -198,10 +197,10 @@ public class ExecuteReport {
 		//clean fileName
 		if (splitQuestionValue.length()>0){
 			// no slash in split part
-			outputFileName=fileName(outputDir,true)+"/"+fileName(outputFileName,false)+"-"+fileName(splitQuestionValue,false);
+			outputFileName=cleanFileName(outputDir,true)+"/"+cleanFileName(outputFileName,false)+"-"+cleanFileName(splitQuestionValue,false);
 		}else{
 			//output_file_name=fileName(output_file_name, true);
-			outputFileName=fileName(outputDir,true)+"/"+fileName(outputFileName,false);
+			outputFileName=cleanFileName(outputDir,true)+"/"+cleanFileName(outputFileName,false);
 		}
 		InputStream inputStream = Utils.class.getResourceAsStream(reportDefinitionLocation);
 		JasperPrint print;
@@ -268,10 +267,15 @@ public class ExecuteReport {
 			JasperViewer.viewReport(print);
 		}	
 	}
-	static String fileName(String fileName, Boolean keepPath){
+	/*
+	 * Clean file name, only keep certain characters (A-Z a-z 0-9 _=/-+.)
+	 * if keepPath=false / will also be replaced by _
+	 * @todo move to utils
+	 */
+	static String cleanFileName(String fileName, Boolean keepPath){
 		//replace whitespaces with underscore
 		fileName=fileName.replaceAll("\\p{javaWhitespace}","_");
-		//replace some other character to underscore
+		//replace other character to underscore (except A-Z a-z 0-9 _=/-+.
 		fileName=fileName.replaceAll("[^A-Za-z0-9_=\\/\\-\\+\\.]", "_");
 		if (!keepPath){
 			fileName=fileName.replaceAll("/", "_");
