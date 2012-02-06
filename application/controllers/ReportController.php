@@ -216,8 +216,15 @@ class ReportController extends Zend_Controller_Action
         // output
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        $this->_response
+         $this->_response
+            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+            ->setHeader('Content-Transfer-Encoding', 'binary')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+            ->setBody($dom->saveXML());
+        
+        /*$this->_response
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
             ->setBody($dom->saveXML());
+            */
     }
 }
