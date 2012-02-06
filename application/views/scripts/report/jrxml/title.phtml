@@ -1,29 +1,3 @@
 <title>
-	<band height="20" splitType="Stretch">
-		<subreport>
-			<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
-			<subreportParameter name="SUBREPORT_DIR">
-				<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
-			</subreportParameter>
-			<subreportParameter name="DEFAULT_STYLE_FILE">
-				<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-			</subreportParameter>
-			<subreportParameter name="CUSTOMER">
-				<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-			</subreportParameter>
-			<subreportParameter name="REPORT_TYPE">
-				<subreportParameterExpression><![CDATA[$P{REPORT_TYPE}]]></subreportParameterExpression>
-			</subreportParameter>
-			<subreportParameter name="TEXTS">
-				<subreportParameterExpression><![CDATA[$P{TEXTS}]]></subreportParameterExpression>
-			</subreportParameter>
-			<subreportParameter name="TITLE">
-				<subreportParameterExpression><![CDATA[$P{TITLE}]]></subreportParameterExpression>
-			</subreportParameter>
-			<subreportParameter name="IMAGE_DIR">
-				<subreportParameterExpression><![CDATA[$P{IMAGE_DIR}]]></subreportParameterExpression>
-			</subreportParameter>
-			<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR}+"main_title_"+$P{CUSTOMER}+".jasper"]]></subreportExpression>
-		</subreport>
-	</band>
+		<band splitType="Stretch"/>
 </title>
