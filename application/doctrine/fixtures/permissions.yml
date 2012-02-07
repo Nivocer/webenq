@@ -31,12 +31,27 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_1:
     Role: Visitor
     Resource: Webenq_Model_Resource_1
-  Webenq_Model_RoleResource_2:
-    Role: Visitor
-    Resource: Webenq_Model_Resource_58
   Webenq_Model_RoleResource_3:
     Role: Visitor
     Resource: Webenq_Model_Resource_3
+  Webenq_Model_RoleResource_2:
+    Role: Visitor
+    Resource: Webenq_Model_Resource_50
+  Webenq_Model_RoleResource_86:
+    Role: Visitor
+    Resource: Webenq_Model_Resource_60
+  Webenq_Model_RoleResource_88:
+    Role: Visitor
+    Resource: Webenq_Model_Resource_61
+  Webenq_Model_RoleResource_87:
+    Role: Visitor
+    Resource: Webenq_Model_Resource_62
+  Webenq_Model_RoleResource_89:
+    Role: Visitor
+    Resource: Webenq_Model_Resource_70
+  Webenq_Model_RoleResource_91:
+    Role: Visitor
+    Resource: Webenq_Model_Resource_76
   Webenq_Model_RoleResource_11:
     Role: Editor
     Resource: Webenq_Model_Resource_3
