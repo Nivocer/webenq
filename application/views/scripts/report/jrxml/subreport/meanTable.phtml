@@ -37,7 +37,7 @@
     			        $xpaths[] = $this->element->getXpath($id);
     			    echo implode(',', $xpaths);
     		    ?>",
-    		    <?php echo isset($this->data['group_qq_id']) ? '"' . $this->element->getXpath($this->data['group_qq_id']) . '"' : 'null'; ?>,
+    		    <?php echo isset($this->data['group_qq_id']) && !empty($this->data['group_qq_id']) ? '"' . $this->element->getXpath($this->data['group_qq_id']) . '"' : 'null'; ?>,
     			$P{SPLIT_QUESTION_ID},
     			$P{SPLIT_QUESTION_VALUE}).getRecords()
     		]]>
