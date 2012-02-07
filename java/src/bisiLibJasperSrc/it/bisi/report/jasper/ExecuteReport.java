@@ -6,9 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.AccessControlException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -16,18 +15,24 @@ import java.util.Map;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import javax.xml.xpath.XPathFactoryConfigurationException;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import net.sf.saxon.lib.NamespaceConstant;
 import net.sf.saxon.om.NodeInfo;
-import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.xpath.XPathEvaluator;
 
 
@@ -110,6 +115,11 @@ public class ExecuteReport {
 			
 			//if no local file retrieve data form url
 			//@todo files from a jar are not readable, so not able to use 
+			
+			if (reportConfig.get("dataLocation")==null){
+				System.out.println("No data location defined, possible you don't have the right permission to get the file");
+				System.err.println("No data location defined");
+			}
 			String dataLocation;
 			if (new File(reportConfig.get("dataLocation")).canRead()){
 				dataLocation=reportConfig.get("dataLocation");
@@ -298,22 +308,16 @@ public class ExecuteReport {
 	/**
 	 * @param configFilename
 	 * @return	file with the reportconfiguration (one at this moment)
-	 * @throws IOException 
-	 * @throws Exception
+	 *
 	 */
 	public static Map<String,String> getReportControlFile(String configFileLocation){
 		//define return variable
 		Map<String,String> reportConfig = new HashMap<String,String>();
-		List reportConfigResult;
-
-			try {
-				//System.setProperty("javax.xml.xpath.XPathFactory:"+NamespaceConstant.OBJECT_MODEL_SAXON,
-				//	"net.sf.saxon.xpath.XPathFactoryImpl");
-				
-				//InputSource is;
-				File inputFile=new File(configFileLocation);
-				
+		try {
+				//begin new method (get info from xml location?)
+				//create dom doc object
 				URL url;
+				File inputFile=new File(configFileLocation);
 				if (inputFile.canRead()){
 					//we can read the configFile, let us parse it as file
 					url =new URL(inputFile.toURI().toURL().toString());
@@ -321,42 +325,46 @@ public class ExecuteReport {
 					//we cannot read the configfile, let us assume it is a valid URI
 					//TODO add some test to determin if it is a valid uri.
 					url = new URL(configFileLocation);
-					//is = new org.xml.sax.InputSource(url.openStream());
-					//URL url = new URL(urlString);
-									
 				}
-				InputSource is = new org.xml.sax.InputSource(url.openStream());
-				//InputSource in = url.openStream();
-				SAXSource ss = new SAXSource(is);
-				XPathFactory xpf = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
-				XPath xpe = xpf.newXPath();
-				//System.out.println("Loaded XPath Provider " + xpe.getClass().getName());
-			
-				NodeInfo doc = ((XPathEvaluator)xpe).setSource(ss);
+				InputStream is=url.openStream();
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				//don't validate dtd at w3.org (if for some reason we would)
+				dbFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(is);
+										
+				//read config using xpath
 				String searchConfig="/reportConfig/*";
-				XPathExpression expr = xpe.compile(searchConfig);
-				reportConfigResult = (List)expr.evaluate(doc, XPathConstants.NODESET);
-				if (reportConfigResult != null) {
-					for (Iterator iter = reportConfigResult.iterator(); iter.hasNext();) {
+				XPathFactory factory = XPathFactory.newInstance();
+				XPath xpath = factory.newXPath();
+				XPathExpression expr = null;
+				expr = xpath.compile(searchConfig);
+				Object reportConfigResult = expr.evaluate(doc, XPathConstants.NODESET);
+				// end new method?
+				NodeList resultNodes = (NodeList) reportConfigResult;
+							
+				if (resultNodes.getLength()>0) {
+					for (int i = 0; i < resultNodes.getLength(); i++) {
 						// put the next control parameter in the return variable
-						NodeInfo line = (NodeInfo)iter.next();
-						reportConfig.put(Utils.removeEol(line.getDisplayName()), Utils.removeEol(line.getStringValue()));
+						Node resultNode=resultNodes.item(i);
+						reportConfig.put(Utils.removeEol(resultNode.getNodeName()), Utils.removeEol(resultNode.getTextContent()));
 					}
+				} else {
+					// not able to read config
+					String errorMessage="Cannot access config information";
+					throw new AccessControlException(errorMessage);
 				}
-			} catch (XPathFactoryConfigurationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (XPathException e) {
-				// TODO Auto-generated catch block
+			} catch (AccessControlException e) {
 				e.printStackTrace();
 			} catch (XPathExpressionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				e.printStackTrace();
+			} catch (SAXException e) {
 				e.printStackTrace();
 			}
 		return reportConfig;
