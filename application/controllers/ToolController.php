@@ -49,7 +49,7 @@ class ToolController extends Zend_Controller_Action
                     $filenames = scandir($target);
                     foreach ($filenames as $filename) {
 
-                        // skip non-xls and non-xlsx files
+                        // skip non-xls, non-xlsx and non-ods files
                         if (!preg_match('/\.(xls|xlsx|ods)$/', strtolower($filename))) continue;
 
                         $tool = new Webenq_Tool_Hva("$target/$filename");
@@ -123,6 +123,7 @@ class ToolController extends Zend_Controller_Action
                 $thirdWorkingSheet[6][1] = $totalResponseCount;
                 $thirdWorkingSheet[7][1] = $emailResponseCount / $emailInvitationCount * 100;
                 $thirdWorkingSheet[8][1] = 'divers';
+
 
                 //check to see if the structure (kolom headers) of the files are the same
                 // if one file is different, $equalStructure is false
