@@ -64,13 +64,32 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
 	public function getData()
 	{
 		if ($this->_data) return $this->_data;
-
 		/* iterate over sheets */
 		$data = array();
 		foreach ($this->_sheets as $sheet) {
-			$data[] = array_merge($sheet->toArray(), array());
+			//if many questions, data from questback are on multiple work sheets
+			//if so sheet title is questback with a number, we should add this to $data[0]
+			$sheetTitle=$sheet->getTitle();
+			if ($sheetTitle<>str_replace("QuestBack", "", $sheetTitle)){
+				//sheetTitle is a questback-data sheet, is it the first one
+				$questBackSheetNumber=str_replace("QuestBack", "", $sheetTitle);
+				if (empty($questBackSheetNumber)){
+					//we do a array_merge to be sure, the data start in $array[0];
+					$data[] = array_merge($sheet->toArray(), array());
+				}else {
+					// add values of the second and further datasheets to $data[0]
+					foreach (array_merge($sheet->toArray(),array()) as $key=>$valueArray){
+						foreach ($valueArray as $value){
+							$data[0][$key][]=$value;
+						}
+					}
+				}
+			}else {
+				//no questback data sheet
+				$data[] = array_merge($sheet->toArray(), array());
+			}
 		}
-
+		
 		// convert date fields
 		foreach ($data as $sheetId => $sheet) {
 		    foreach ($sheet as $rowId => $row) {
