@@ -210,9 +210,13 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 //if we don't have a module, we also don't have start/end column of that module
 				if (isset($moduleDataColumns[$module]['start'])){
                 	$startColumn = $moduleDataColumns[$module]['start'];
+				} else {
+					$startColumn=0;
 				}
                 if (isset($moduleDataColumns[$module]['end'])){
                 	$endColumn = $moduleDataColumns[$module]['end'];
+                }else {
+                	$endColumn=999999999;
                 }
 
                 $row = $this->_getRespondentRow($respondent, $data);
@@ -294,7 +298,9 @@ class Webenq_Tool_Hva extends Webenq_Tool
         $questions = $data[0][0];
         foreach ($moduleDataColumns as $module => &$columns) {
             foreach ($questions as $column => &$question) {
-                if (preg_match("/^(\d*:\s*)$module:\s*(.*)$/", $question, $matches)) {
+            	$moduleQuote=preg_quote($module, '/');
+            	$pattern="/^(\d*:\s*)$moduleQuote:\s*(.*)$/";
+                if (preg_match($pattern, $question, $matches)) {
                     $question = $matches[1] . $matches[2];
                     if ($column === 1 + $columns['end']) $columns['end']++;
                 }
@@ -356,7 +362,8 @@ class Webenq_Tool_Hva extends Webenq_Tool
         foreach ($this->_data[1] as $row) {
             $definition = $row[0];
             foreach ($this->_modules as $name) {
-                $pattern = "/^(\d*):.*($name)/";
+            	$nameQuote=preg_quote($name, '/');
+                $pattern = "/^(\d*):.*($nameQuote)/";
                 if (preg_match($pattern, $definition, $matches)) {
                     $groups[$matches[1]] = $matches[2];
                 }
@@ -367,13 +374,15 @@ class Webenq_Tool_Hva extends Webenq_Tool
         foreach ($this->_data[0][0] as $column => $header) {
             foreach ($groups as $key => $name) {
                 // search by group number
-                if (preg_match("/^$key:.*$/", $header, $matches)) {
+                $keyQuote=preg_quote($key, '/');
+                $nameQuote=preg_quote($name, '/');
+                if (preg_match("/^$keyQuote:.*$/", $header, $matches)) {
                     if (!isset($columns[$name]))
                     $columns[$name] = array('start' => $column);
                     $columns[$name]['end'] = $column;
                 }
                 // search by group number
-                elseif (preg_match("/\d*:\s$name:\s.+/", $header, $matches)) {
+                elseif (preg_match("/\d*:\s$nameQuote:\s.+/", $header, $matches)) {
                     if (!isset($columns[$name]))
                     $columns[$name] = array('start' => $column);
                     $columns[$name]['end'] = $column;
