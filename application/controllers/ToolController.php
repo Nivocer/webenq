@@ -13,12 +13,15 @@ class ToolController extends Zend_Controller_Action
         $form = new Webenq_Form_Tool_Hva();
         $errors = array();
         $lastRespondentId = 1;
+	$config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini", APPLICATION_ENV);
+
 
         if ($this->_helper->form->isPostedAndValid($form)) {
 
             // make sure enough resources are assigned
             try {
-                Webenq::setMemoryLimit('512M');
+		//add test if setMemory lower than 512M
+                //Webenq::setMemoryLimit('512M');
                 Webenq::setMaxExecutionTime(0);
             } catch (Exception $e) {
                 $errors[] = $e->getMessage();
@@ -180,7 +183,7 @@ class ToolController extends Zend_Controller_Action
                 $download->setData($data[0][0])->init();
                 $download->addWorkingSheet($data[0][1]);
                 $download->addWorkingSheet($thirdWorkingSheet);
-                $download->send($this->_response);
+                $download->save($archiveInfo['file']['name']);
             }
         }
 
