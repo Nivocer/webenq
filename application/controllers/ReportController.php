@@ -200,7 +200,7 @@ class ReportController extends Zend_Controller_Action
         $filename = Webenq::filename(implode('-', array(
             $report->id,
             $report->getReportTitle()->text,
-            date('YmdHis')))) . '.jrxml';
+            date('YmdHis')))) . '.xml';
 
         $this->render();
 
