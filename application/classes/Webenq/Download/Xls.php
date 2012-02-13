@@ -92,11 +92,12 @@ class Webenq_Download_Xls extends Webenq_Download
 
 
 
-	public function save()
+	public function save($fileNameBase)
 	{
 		$writer = $this->_getWriter();
-		$writer->save('/tmp/'.$this->getDownloadFilename());
-		echo $this->getDownloadFilename()." is gegenereerd";
+		$fileName='outputs/'.$fileNameBase.$this->getDownloadFilename();
+		$writer->save($fileName);
+		echo "<a href=/$fileName>$fileName is gegenereerd<br></a>";
 	}
 
 
