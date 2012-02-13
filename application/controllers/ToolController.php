@@ -128,52 +128,14 @@ class ToolController extends Zend_Controller_Action
                 $thirdWorkingSheet[8][1] = 'divers';
 
 
-                //check to see if the structure (kolom headers) of the files are the same
-                // if one file is different, $equalStructure is false
-                $equalStructure = true;
-                reset($data);
-                while ($current = current($data)) {
-                    for ($i = 0; $i < count($data); $i++) {
-                        if ($current[0][0] !== $data[$i][0][0]) {
-                            $equalStructure = false;
-                            break 2;
-                        }
-                    }
-                    next($data);
+                
+                //merge data:
+                foreach ($data as $setId => $dataSheet){
+                	if ($setId ===0) continue;
+                 	$data[0]=$this->_mergeData($data[0],$dataSheet);
+                 	unset ($data[$setId]);
                 }
-
-                foreach ($data as $i => $set) {
-                    // ignore first set of data, because this is where the
-                    // other data will be merged into
-                    if ($i === 0) continue;
-
-                    //combine data
-                    $sheet = $set[0];
-                    foreach ($sheet as $j => $values) {
-                        if ($equalStructure) {
-                            // ignore headers
-                            if ($j === 0) continue;
-                            // add to first set of data
-                            $data[0][0][] = $values;
-                        } else {
-                        	// headers are not the same @todo: try to merge same questions.
-                            if ($j === 0) {
-                                $firstEmptyColumn = count($data[0][0][$j]);
-                                $data[0][0][$j] = array_merge($data[0][0][$j], $values);
-                            } else {
-                                $newRow = array();
-                                for ($k = 0; $k < $firstEmptyColumn; $k++)
-                                    $newRow[$k] = null;
-                                $newRow = array_merge($newRow, $values);
-                                $data[0][0][] = $newRow;
-                            }
-                        }
-                    }
-
-                    // remove after processing
-                    unset($data[$i]);
-                }
-
+                
                 // disabled layout and viewRenderer
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender();
@@ -190,4 +152,99 @@ class ToolController extends Zend_Controller_Action
         $this->view->errors = $errors;
         $this->view->form = $form;
     }
+
+
+    /**
+     * Merges data array if the question texts are the same
+     * 
+     * Both input arrays are 'spreadsheet2array'
+     * only the first sheet is merged
+     *
+     * @param array &$data
+     * @param array &$newData
+     * @return array
+     */
+    protected function _mergeData(array &$data, array &$newData)
+    {
+    	$questions = $data[0][0];
+    	$questionsNew=$newData[0][0];
+    	//test if new data has same questions as old data, if so, just add the data and we are done
+    	if ($questions==$questionsNew){
+    		//just add the values
+    		foreach ($newData[0] as $key=>$answers){
+    			//skip first 'row'
+    			if ($key === 0) continue;
+    			$data[0][]=$answers;
+    		}
+    	}else {
+    		//newData has other questions than old data.
+    		//create array with question as value and 'column' as key
+    		foreach ($questions as $column => &$question) {
+    			//questions start with number and :
+    			$pattern="/^(\d*:\s*)*(.*)$/";
+    			if (preg_match($pattern, $question, $matches)){
+    				$questionsClean[$column]=$matches[2];
+    			}else {
+    				$questionsClean[$column]=$question;
+    			}
+       		}
+       		if (count($questionsClean)<>count($questions)){
+       			//questions are not unique!!!!
+       			echo 'questions are not unique';
+       		}
+       		//create array with questionsNew as value and 'column' as key 
+    		foreach ($questionsNew as $column => &$question) {
+    			//questions start with number and :
+    			$pattern="/^(\d*:\s*)*(.*)$/";
+    			if (preg_match($pattern, $question, $matches)){
+    				$questionsNewClean[$column]=$matches[2];
+    			}else {
+    				$questionsNewClean[$column]=$question;
+    			}
+       		}
+       		if (count($questionsClean)<>count($questions)){
+       			//questions are not unique!!!!
+       			echo 'questions are not unique';
+       			return false;
+       		}
+       		
+       		
+       		//add questions (headers) that are not in $data[0]
+    		foreach ($questionsNew as $columnNew => &$questionNew) {
+    			//questions start with number and :
+    			$pattern="/^(\d*:\s*)*(.*)$/";
+    			if (preg_match($pattern, $questionNew, $matches)){
+    				//is it a new question, add it to questionsClean
+    				if (!in_array($matches[2], $questionsClean)){
+    					$questionsClean[]=$matches[2];
+    					$data[0][0][]=$questionNew;
+    				}
+    			}else {
+    				//question has no 'number:'
+    				if (!in_array($questionNew, $questionsClean)){
+    					$questionsClean[]=$questionNew;
+    					$data[0][0][]=$questionNew;
+    				}
+    			}
+       		}
+       		//add answers to $data[0]
+       		foreach ($newData[0] as $key=>$answers){
+    			//skip first 'row'
+    			if ($key === 0) continue;
+    			$i=0;
+    			foreach ($questionsNewClean as $questionNew){
+    				
+    				$targetColumn=array_search($questionNew, $questionsClean);
+    				$row[$targetColumn]=$answers[$i];
+    				$i++;	
+    			}
+    			
+    			$data[0][]=$row;
+    			//make certain no data from previous respondent with new respondent
+    			unset ($row);
+    		} 
+	    }
+    return $data;
+    }
+
 }
