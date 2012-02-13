@@ -90,6 +90,16 @@ class Webenq_Download_Xls extends Webenq_Download
 		$writer->save('php://output');
 	}
 
+
+
+	public function save()
+	{
+		$writer = $this->_getWriter();
+		$writer->save('/tmp/'.$this->getDownloadFilename());
+		echo $this->getDownloadFilename()." is gegenereerd";
+	}
+
+
 	/**
 	 * Returns a writer instance for the given document
 	 * type.
