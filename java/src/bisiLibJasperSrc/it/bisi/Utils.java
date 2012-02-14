@@ -93,9 +93,10 @@ public class Utils {
 		//String  searchString="/html/body/descendant::*[@ref='/"+searchQuestion+"']/item[value='1.0']/label";
 		String searchString=null;
 		if (searchValue != null && !searchValue.equals("")){
-			searchString="/html/body/descendant::*[@ref='/"+formName+"/"+searchQuestion+"']/item[value='"+searchValue+"']/label";	
+			searchString="/html/body/descendant::*[@ref='"+searchQuestion+"']/item[value='"+searchValue+"']/label";
+			//System.out.println(searchString);
 		} else {
-			searchString="/html/body/descendant::*[@ref='/"+formName+"/"+searchQuestion+"']/label";
+			searchString="/html/body/descendant::*[@ref='"+searchQuestion+"']/label";
 		}
 
 		XPathExpression expr = null;
