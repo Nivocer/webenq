@@ -445,6 +445,7 @@ class QuestionnaireController extends Zend_Controller_Action
      * Reports the collected data for the given questionnaire
      *
      * @return void
+     * @obsolete ?
      */
     public function reportAction()
     {
