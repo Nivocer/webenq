@@ -163,7 +163,7 @@ class ReportController extends Zend_Controller_Action
         // @todo get this from database/or customer info
         $this->view->pageWidth = 595;
         $this->view->pageHeight = 842;
-        $this->view->pageOrientation = 'portrait';
+        $this->view->pageOrientation = 'Portrait';
         $this->view->leftMargin =20;
         $this->view->rightMargin =20;
         $this->view->topMargin =20;
