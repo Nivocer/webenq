@@ -32,6 +32,35 @@
     			<![CDATA[$P{COLOR_RANGE_MAP}.get("<?php echo $this->data['color_schema']; ?>")]]>
     		</subreportParameterExpression>
     	</subreportParameter>
+    	<subreportParameter name="COLOR_RANGE_MAP">
+			<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></subreportParameterExpression>
+		</subreportParameter>
+		<subreportParameter name="COLOR_RANGE_MEAN10">
+			<subreportParameterExpression><![CDATA[
+			"<?php
+			if ($this->data['color_schema']=='mean10'){
+    			    $xpaths = array();
+    			    foreach ($this->data['report_qq_ids'] as $id)
+    			        $xpaths[] = $this->element->getXpath($id);
+    			    echo implode(',', $xpaths);
+    		}
+    		 ?>
+    		 "
+			]]></subreportParameterExpression>
+		</subreportParameter>
+    	<subreportParameter name="COLOR_RANGE_MEAN5">
+			<subreportParameterExpression><![CDATA[
+			"<?php
+			if ($this->data['color_schema']=='mean5'){
+    			    $xpaths = array();
+    			    foreach ($this->data['report_qq_ids'] as $id)
+    			        $xpaths[] = $this->element->getXpath($id);
+    			    echo implode(',', $xpaths);
+    		}
+    		 ?>
+    		 "
+			]]></subreportParameterExpression>
+		</subreportParameter>
 		<subreportParameter name="NO_BARCHART">
                     <subreportParameterExpression><![CDATA[<?php echo isset($this->data['no_barchart']) && !empty($this->data['no_barcharts']) ? '"'.$this->data['no_barcharts'].'"' : '""' ; ?>]]></subreportParameterExpression>
                 </subreportParameter>
