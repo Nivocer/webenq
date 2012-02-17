@@ -14,6 +14,7 @@ class Webenq_Form_ReportElement_Add extends Zend_Form
     	'percentages table' => 'percentages table',
     	'mean table' => 'mean table',
     	'barchart and mean' => 'barchart and mean',
+    	'response'=> 'response',
     );
 
     /**

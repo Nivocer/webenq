@@ -34,6 +34,9 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             case 'barchart and mean':
                 $html .= $this->_renderBarchartAndMeanElement();
                 break;
+            case 'response':
+                $html .= $this->_renderResponseElement();
+                break;
             default:
                 throw new Exception('Unknown element type ' . $this->_data['type']);
 
@@ -136,4 +139,24 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
 
         return $html;
     }
+    protected function _renderResponseElement()
+    {
+        $html = '';
+
+        if (isset($this->_data['report_qq_id'])) {
+            $rqq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
+                ->find($this->_data['report_qq_id']);
+            $html .= '<strong>' . $rqq->Question->getQuestionText()->text . '</strong><br/>';
+        }
+
+        if (isset($this->_data['group_qq_id']) && !empty($this->_data['group_qq_id'])) {
+            $gqq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
+                ->find($this->_data['group_qq_id']);
+            $html .= t('grouped by')
+            . ' <strong>' . $gqq->Question->getQuestionText()->text . '</strong>';
+        }
+
+        return $html;
+    }
+    
 }
