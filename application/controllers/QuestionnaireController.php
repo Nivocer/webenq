@@ -42,9 +42,10 @@ class QuestionnaireController extends Zend_Controller_Action
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
         $filename = Webenq::filename(implode('-', array(
-            $questionnaire->id,
+            'xform-def',
+        	$questionnaire->id,
             $questionnaire->getQuestionnaireTitle()->text,
-            date('YmdHis'))) . '-xform.xml');
+            date('YmdHis'))) . '.xml');
 
         $xml = $questionnaire->getXform();
 
@@ -67,19 +68,30 @@ class QuestionnaireController extends Zend_Controller_Action
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
         $filename = Webenq::filename(implode('-', array(
-            $questionnaire->id,
+            'xform-data',
+        	$questionnaire->id,
             $questionnaire->getQuestionnaireTitle()->text,
-            date('YmdHis')))) . '-xform-data.xml';
+            date('YmdHis')))) . '.xml';
 
         $xml = $questionnaire->getXformData();
-
+        //save file in case of large files and connection/keep-alive time-out
+        $tempPath=ini_get('upload_tmp_dir').'/';
+        if (empty($tempPath)){
+        	$tempPath='/tmp/';
+        }
+        $tempFile=$tempPath.$filename;
+        $xml->save($tempFile);
+                
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
             ->setHeader('Content-Transfer-Encoding', 'binary')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->setBody($xml->saveXML());
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+		$this->getResponse()->sendHeaders();
+		//reading file to setbody(readfile($fileTemp), returns also de size of the file in the xml file.
+		//@todo check to see if there is a better solution
+		readfile($tempFile);
     }
 
     /**
