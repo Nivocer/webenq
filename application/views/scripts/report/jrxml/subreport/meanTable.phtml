@@ -72,6 +72,17 @@
     			false).getRecords()
     		]]>
     	</dataSourceExpression>
-    	<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
+    	<?php switch ($this->data['variant']){ 
+case 1: 
+    	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>' ;
+    	break;
+case 2:
+    	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>' ;
+    	break;
+case 99: echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-countlow.jasper"]]></subreportExpression>' ;
+		break;
+    	}
+	?>
+
 	<?php endif; ?>
 </subreport>
