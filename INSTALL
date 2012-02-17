@@ -8,6 +8,12 @@ For the application:
 * PHP 5.2+ (5.3+ preferred) 
 
 
+For ANT (compiling java en jrxml) 
+* java vm
+* ant-optional
+* ant-nodeps
+* tools.jar in java.home/lib (determin via ant -diagnostics | grep java.home)
+
 For the test suite:
 
 * PHPUnit 3.5+
