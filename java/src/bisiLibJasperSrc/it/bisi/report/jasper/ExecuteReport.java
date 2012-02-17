@@ -116,6 +116,22 @@ public class ExecuteReport {
 			//if no local file retrieve data form url
 			//@todo files from a jar are not readable, so not able to use 
 			
+			String reportDefinitionLocation;
+			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
+				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
+			} else {
+				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), outputDir, (long) 3600);
+			}
+			//System.out.println(reportDefinitionLocation);
+			
+			String xformLocation;
+			if (new File(reportConfig.get("xformLocation")).canRead()){
+				xformLocation=reportConfig.get("xformLocation");
+			} else {
+				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), outputDir, (long) 3600);
+			}
+			//System.out.println(xformLocation);
+						
 			if (reportConfig.get("dataLocation")==null){
 				System.out.println("No data location defined, possible you don't have the right permission to get the file");
 				System.err.println("No data location defined");
@@ -127,20 +143,7 @@ public class ExecuteReport {
 				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), outputDir, (long) 3600);
 			}
 			//System.out.println(dataLocation);
-			String xformLocation;
-			if (new File(reportConfig.get("xformLocation")).canRead()){
-				xformLocation=reportConfig.get("xformLocation");
-			} else {
-				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), outputDir, (long) 3600);
-			}
-			//System.out.println(xformLocation);
-			String reportDefinitionLocation;
-			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
-				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
-			} else {
-				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), outputDir, (long) 3600);
-			}
-			//System.out.println(reportDefinitionLocation);
+			
 			// create parameter map to send to jasper
 			Map<String,Object> prms = new HashMap<String,Object>();
 			prms.put("OUTPUT_DIR", outputDir);
