@@ -77,6 +77,9 @@ class ReportElementController extends Zend_Controller_Action
             case 'barchart and mean':
                 $form = new Webenq_Form_ReportElement_Edit_BarchartAndMean($element);
                 break;
+            case 'response':
+            	$form = new Webenq_Form_ReportElement_Edit_Response($element);
+            	break;
             default:
                 throw new Exception('Unknown element type ' . $data['type']);
         }
