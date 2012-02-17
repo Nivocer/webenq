@@ -36,10 +36,11 @@ public class XformJRDataSource {
 	private String group_question_id;
 	private String split_question_id;
 	private String split_question_value;
+	private Boolean get_answer_labels;
 
 
 
-	public XformJRDataSource(String data_location, String xform_location, String xform_name, String report_question_ids, String group_question_id, String split_question_id, String split_question_value) {
+	public XformJRDataSource(String data_location, String xform_location, String xform_name, String report_question_ids, String group_question_id, String split_question_id, String split_question_value, Boolean get_answer_labels) {
 
 		this.data_location=data_location;
 		this.xform_location=xform_location;
@@ -48,6 +49,7 @@ public class XformJRDataSource {
 		this.group_question_id=group_question_id;
 		this.split_question_id=split_question_id;
 		this.split_question_value=split_question_value;
+		this.get_answer_labels=get_answer_labels;
 
 		//this.data_location="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml";
 		//this.report_question_ids="g6-Tevredenheid/g6-InhoudRelevant";
@@ -101,7 +103,8 @@ public class XformJRDataSource {
 					Node reportQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 					report_question_value=reportQuestionNode.getTextContent();
 					String report_question_label=null;
-					if (it.bisi.Utils.isNum(report_question_value)){
+					//get answer labels only when needed (get_answer_labels = true and answer=value 
+					if (get_answer_labels && it.bisi.Utils.isNum(report_question_value)){
 						report_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, report_question_id, report_question_value);
 					}
 
@@ -115,6 +118,8 @@ public class XformJRDataSource {
 						Node groupQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 						group_question_value=groupQuestionNode.getTextContent();
 						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);
+						
+							
 					}
 					//TODO missing values implementation, now if it is empty, we don't put it in the bean
 					if (!report_question_value.isEmpty()){

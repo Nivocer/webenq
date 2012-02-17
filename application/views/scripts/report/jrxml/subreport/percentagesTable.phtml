@@ -18,7 +18,8 @@
     			"<?php echo $this->element->getXpath($this->data['report_qq_id']); ?>",
     			<?php echo isset($this->data['group_qq_id']) && !empty($this->data['group_qq_id']) ? '"' . $this->element->getXpath($this->data['group_qq_id']) . '"' : 'null'; ?>,
     			$P{SPLIT_QUESTION_ID},
-    			$P{SPLIT_QUESTION_VALUE}).getRecords()
+    			$P{SPLIT_QUESTION_VALUE},
+    			true).getRecords()
     		]]>
     	</dataSourceExpression>
     	<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>

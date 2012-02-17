@@ -18,7 +18,8 @@
         		"<?php echo $this->element->getXpath($this->data['report_qq_id']); ?>",
         		null,
         		$P{SPLIT_QUESTION_ID},
-        		$P{SPLIT_QUESTION_VALUE}).getRecords()
+        		$P{SPLIT_QUESTION_VALUE},
+        		false).getRecords()
     		]]>
         </dataSourceExpression>
         <subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>

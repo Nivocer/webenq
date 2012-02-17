@@ -68,7 +68,8 @@
     		    ?>",
     		    <?php echo isset($this->data['group_qq_id']) && !empty($this->data['group_qq_id']) ? '"' . $this->element->getXpath($this->data['group_qq_id']) . '"' : 'null'; ?>,
     			$P{SPLIT_QUESTION_ID},
-    			$P{SPLIT_QUESTION_VALUE}).getRecords()
+    			$P{SPLIT_QUESTION_VALUE},
+    			false).getRecords()
     		]]>
     	</dataSourceExpression>
     	<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
