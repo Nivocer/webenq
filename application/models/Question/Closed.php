@@ -17,6 +17,7 @@ class Webenq_Model_Question_Closed extends Webenq_Model_Question
      * @param Webenq_Model_Question $question Question containing the answervalues to test against
      * @param string $language
      * @return bool True if is this type, false otherwise
+     * @todo make this numbers configurable
      */
     static public function isType(Webenq_Model_Question $question, $language)
     {
@@ -24,12 +25,17 @@ class Webenq_Model_Question_Closed extends Webenq_Model_Question
         if ($question->countUnique() == 0) {
             return false;
         }
+        
+		/* not too many different answers? */
+        if ($question->countUnique() > 50){
+            return false;
+        }       
 
         /* not too many different answers (absolute and relative to number of answers)? */
         if ($question->countUnique() > 7 && $question->countUnique() / $question->count() > .333) {
             return false;
         }
-
+        
         /* not too much difference in length of answers? */
         if ($question->diffLen() > 100) {
             return false;
