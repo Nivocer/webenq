@@ -49,6 +49,7 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
 
         $possibility = null;
         // try to find answerpossibility in current group
+        //@todo if we have a lot of answerpossibilities it takes a while till we find the right one.
         foreach ($this->AnswerPossibility as $possibility) {
             // try to find text in current possibility
             foreach ($possibility->AnswerPossibilityText as $answerPossibilityText) {
