@@ -17,22 +17,7 @@ class Webenq_Tool_Merge extends Webenq_Tool
      */
     protected $_data = array();
 
-    
-
-    /**
-     * The column number in which the respondent are stored
-     *
-     * @var int
-     */
-    protected $_respondentColumn;
-
-
-    /**
-     * @var array
-     */
-    protected $_respondents = array();
-
-    
+            
     /**
      * The converted data
      *
@@ -40,7 +25,8 @@ class Webenq_Tool_Merge extends Webenq_Tool
      */
     protected $_newData = array();
 
-    protected $_firstRespondentId = 1;
+    protected $_firstRespondentId = 0;
+    protected $_lastRespondentId = 1;
 
     public function __construct($filename)
     {
@@ -51,7 +37,6 @@ class Webenq_Tool_Merge extends Webenq_Tool
     public function process()
     {
         $this->_data = $this->getData();
-        $this->_respondents = $this->_getRespondents();
         $this->_newData = $this->_getNewData();
     }
 
@@ -88,37 +73,8 @@ class Webenq_Tool_Merge extends Webenq_Tool
         return $this->_data;
     }
 
-        /**
-     * Returns the respondents found in the data
-     *
-     * @return array Respondents
-     */
-    protected function _getRespondents()
-    {
-        $respondents = array();
-        foreach ($this->_data[0] as $i => $row) {
-            if ($i == 0) continue;
-            $respondents[] = $row[$this->_respondentColumn];
-        }
-        return $respondents;
-    }
-
-    /**
-     * Returns the column index that contains the respondents
-     *
-     * @return int
-     */
-    protected function _getRespondentColumn()
-    {
-        $respondentHeaderPattern = '/^Respondent$/';
-        foreach ($this->_data[0][0] as $respondentColumn => $header) {
-            if (preg_match($respondentHeaderPattern, $header)) {
-                return $respondentColumn;
-            }
-        }
-        return false;
-    }
-
+     
+    
 
     /**
      * Returns the new data
@@ -148,7 +104,7 @@ class Webenq_Tool_Merge extends Webenq_Tool
     		if ($t_key==0) continue;
     		// add some extra data (titel questionnaire, startdate, end date response)
     		$row[] = $this->_firstRespondentId + $t_key;
-    		
+    		$this->_lastRespondentId=$t_key;
     		//check: only questback?
     		foreach ($extraData as $key => $value) {
     			$row[] = $value;	
@@ -193,5 +149,13 @@ class Webenq_Tool_Merge extends Webenq_Tool
         //end only for questback
 
         return $new;
+    }
+public function setFirstRespondentId($id)
+    {
+        $this->_firstRespondentId = (int) $id;
+    }
+   public function countRespondents()
+    {
+        return $this->_lastRespondentId;
     }
 }
