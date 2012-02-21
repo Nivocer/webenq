@@ -77,7 +77,7 @@ class QuestionnaireController extends Zend_Controller_Action
         //save file in case of large files and connection/keep-alive time-out
         $tempPath=ini_get('upload_tmp_dir');
         if (empty($tempPath)){
-        	$tempPath='/tmp/';
+        	$tempPath='/tmp';
         }
         $tempFile=$tempPath.'/'.$filename;
         $xml->save($tempFile);
