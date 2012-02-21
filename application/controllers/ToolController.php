@@ -157,8 +157,8 @@ class ToolController extends Zend_Controller_Action
     {
         $form = new Webenq_Form_Tool_Hva();
         $errors = array();
-        $lastRespondentId = 1;
-	$config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini", APPLICATION_ENV);
+        $lastRespondentId = 0;
+		$config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini", APPLICATION_ENV);
 
 
         if ($this->_helper->form->isPostedAndValid($form)) {
