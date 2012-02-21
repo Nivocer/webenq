@@ -217,7 +217,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                 $element->nodeValue = $answer->AnswerPossibility->value;
                 if (!$element->nodeValue) $element->nodeValue = $answer->answerPossibility_id;
             } else {
-                $element->nodeValue = $answer->text;
+               	$element->nodeValue = Webenq::Xmlify($answer->text,'value');            	
             }
         }
 
