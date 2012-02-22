@@ -125,7 +125,18 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q1506/q1468",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+	<dataSourceExpression>
+        	<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
+        		$P{DATA_LOCATION},
+        		$P{XFORM_LOCATION},
+        		$P{FORM_NAME},
+        		"q1506/q1468",
+        		null,
+        		$P{SPLIT_QUESTION_ID},
+        		$P{SPLIT_QUESTION_VALUE},
+        		false).getRecords()
+    		]]>
+        </dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report6land-number.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
@@ -160,9 +171,18 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,
-"q1503/q1457,q1503/q1458,q1503/q1459,q1503/q1460,q1503/q1461,q1503/q1462,q1503/q1463,q1503/q1464,q1504/q1465,q1503",
-null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+	<dataSourceExpression>
+        	<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
+        		$P{DATA_LOCATION},
+        		$P{XFORM_LOCATION},
+        		$P{FORM_NAME},
+        		"q1506/q1468",
+        		null,
+        		$P{SPLIT_QUESTION_ID},
+        		$P{SPLIT_QUESTION_VALUE},
+        		false).getRecords()
+    		]]>
+        </dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"reportland-barchart.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
@@ -196,7 +216,18 @@ null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSour
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+	<dataSourceExpression>
+        	<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
+        		$P{DATA_LOCATION},
+        		$P{XFORM_LOCATION},
+        		$P{FORM_NAME},
+        		"q1506/q1468",
+        		null,
+        		$P{SPLIT_QUESTION_ID},
+        		$P{SPLIT_QUESTION_VALUE},
+        		false).getRecords()
+    		]]>
+        </dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"hvaTest/hva-report1-uitleiding.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
