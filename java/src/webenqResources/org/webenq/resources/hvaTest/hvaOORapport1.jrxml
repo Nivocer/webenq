@@ -14,7 +14,7 @@
 		<defaultValueExpression><![CDATA["org/webenq/resources/defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["org/webenq/resources/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/var/www/html/webenq4-demo/java/src/webenqResources/org/webenq/resources/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["leeuwenburg"]]></defaultValueExpression>
@@ -125,7 +125,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q231",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q1506/q1468",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report6land-number.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
@@ -152,15 +152,17 @@
 					<subreportParameterExpression><![CDATA["2. Uitkomsten studentevaluatie / opmerkingen docent"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE">
-					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("white")]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="NO_BARCHART">
-					<subreportParameterExpression><![CDATA["q234/q200"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["q1503"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q233/q192, q233/q193,q233/q194,q233/q195,q233/q195,q233/q196,q233/q197,q233/q198,q233/q199,q234/q200",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,
+"q1503/q1457,q1503/q1458,q1503/q1459,q1503/q1460,q1503/q1461,q1503/q1462,q1503/q1463,q1503/q1464,q1504/q1465,q1503",
+null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"reportland-barchart.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
@@ -177,7 +179,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q235/q201",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q1505/q1466", null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4land-open.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
