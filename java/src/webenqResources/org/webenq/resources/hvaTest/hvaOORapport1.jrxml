@@ -61,7 +61,10 @@
 				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
 					<subreportParameterExpression><![CDATA[
-			"<b><font size=3>Resultaten Onderwijsevaluaties blok 1 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+){9}$","")+"</font></b>"
+($P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+){9}$","").contains("Pabo") ?
+	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 blok 2 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+){9}$","")+"</font></b>":
+	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+){9}$","")+"</font></b>"
+)
 					]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
