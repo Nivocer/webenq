@@ -52,15 +52,18 @@
 	<detail>
 		<band height="40" splitType="Immediate">
 			<subreport isUsingCache="false">
-				<reportElement positionType="Float" x="0" y="0" width="802" height="10" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="10" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["<b><font size=3>Resultaten Onderwijsevaluaties blok 1 2011-2012</font></b>"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[($P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","").contains("Pabo") ?
+	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 blok 2 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","")+"</font></b>":
+	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","")+"</font></b>"
+)]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -69,7 +72,7 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5land-text.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
-				<reportElement positionType="Float" x="0" y="10" width="802" height="10" isRemoveLineWhenBlank="true">
+				<reportElement positionType="Float" x="0" y="10" width="555" height="10" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[!$P{SPLIT_QUESTION_LABEL}.isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<subreportParameter name="CUSTOMER">
@@ -96,7 +99,7 @@
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE_MEAN5">
-					<subreportParameterExpression><![CDATA["q324/q282, q324/q283,q324/q284,q324/q285,q324/q286,q324/q287,q324/q288,q324/q289"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[""]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="XFORM_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
@@ -114,12 +117,21 @@
 					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE_MEAN10">
-					<subreportParameterExpression><![CDATA["q325/q290"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["q1504/q1465"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME},"q325/q290","q328/q321",$P{SPLIT_QUESTION_ID},$P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
+    			$P{DATA_LOCATION},
+    			$P{XFORM_LOCATION},
+    			$P{FORM_NAME},
+    			"q1504/q1465",
+    		    "q1507/q1496",
+    			$P{SPLIT_QUESTION_ID},
+    			$P{SPLIT_QUESTION_VALUE},
+    			false).getRecords()
+    		]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-countlow.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
