@@ -5,7 +5,7 @@
 <!--dataLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/blok1/8-Module-evaluatie2011-2012blok1PaboDagAvond1-def2-xform-data-test.xml</dataLocation-->
 <dataLocation>/home/jaapandre/workspace/management/projects/1106-hva-oo-20112012sem1/outputs/blok1/8-Module-evaluatie2011-2012blok1PaboDagAvond1-def2-xform-data.xml</dataLocation>
 <xformName>questionnaire</xformName>
-<reportDefinitionLocation>/org/webenq/resources/hvaTest/hvaOORapport3.jasper</reportDefinitionLocation>
+<reportDefinitionLocation>org/webenq/resources/hvaTest/hvaOORapport3.jasper</reportDefinitionLocation>
 <customer>hvaoo</customer>
 <language>nl</language>
 <splitQuestionId>q328/q316</splitQuestionId>
