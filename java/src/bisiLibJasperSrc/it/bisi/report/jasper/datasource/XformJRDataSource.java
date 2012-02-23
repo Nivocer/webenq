@@ -17,6 +17,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -85,7 +86,7 @@ public class XformJRDataSource {
 				String searchRespondents="//respondenten/respondent/*";
 				
 				if (split_question_id != null && !split_question_id.isEmpty() &&split_question_value != null && !split_question_value.isEmpty()) {
-					searchRespondents="//respondenten/respondent/*["+split_question_id+"="+split_question_value+"]";
+					searchRespondents="//respondenten/respondent/*["+split_question_id+"='"+split_question_value+"']";
 				}
 
 				XPathFactory factory = XPathFactory.newInstance();
