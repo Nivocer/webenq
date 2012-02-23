@@ -14,7 +14,7 @@
 		<defaultValueExpression><![CDATA["org/webenq/resources/defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/var/www/html/webenq4-demo/java/src/webenqResources/org/webenq/resources/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["src/webenqResources/org/webenq/resources/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["leeuwenburg"]]></defaultValueExpression>
@@ -53,16 +53,16 @@
 		<band height="140" splitType="Immediate">
 			<subreport isUsingCache="false">
 				<reportElement positionType="Float" x="0" y="0" width="802" height="20" isRemoveLineWhenBlank="true"/>
-				<subreportParameter name="CUSTOMER">
-					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
-				</subreportParameter>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
 					<subreportParameterExpression><![CDATA[($P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","").contains("Pabo") ?
 	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 blok 2 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","")+"</font></b>":
-	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+){9}$","")+"</font></b>"
+	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","")+"</font></b>"
 )]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
