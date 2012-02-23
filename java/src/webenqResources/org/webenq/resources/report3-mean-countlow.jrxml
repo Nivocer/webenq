@@ -190,10 +190,8 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 					</textElement>
 					<textFieldExpression><![CDATA[$V{count}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement isPrintRepeatedValues="false" x="1" y="0" width="60" height="12">
-						<printWhenExpression><![CDATA[$P{CUSTOMER}.equals("hvaoo")]]></printWhenExpression>
-					</reportElement>
+				<textField evaluationTime="Auto" isBlankWhenNull="true">
+					<reportElement isPrintRepeatedValues="false" x="1" y="0" width="60" height="12"/>
 					<box leftPadding="1" rightPadding="1">
 						<leftPen lineWidth="0.0"/>
 						<bottomPen lineWidth="0.0"/>
@@ -201,7 +199,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 					<textElement verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[str("jaar"+$F{group_question_label}.split("_")[0])]]></textFieldExpression>
+					<textFieldExpression><![CDATA[( $P{CUSTOMER}.equals("hvaoo")?
+str("jaar"+$F{group_question_label}.split("_")[0]):
+"")]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="1" y="0" width="284" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true">
