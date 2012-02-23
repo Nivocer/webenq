@@ -60,7 +60,9 @@
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="Q_TEXT">
-					<subreportParameterExpression><![CDATA["<b><font size=3>Resultaten Onderwijsevaluaties blok 1 2011-2012 – Opleiding Pabo</font></b>"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA[
+			"<b><font size=3>Resultaten Onderwijsevaluaties blok 1 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+){9}$","")+"</font></b>"
+					]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -139,7 +141,7 @@
         </dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report6land-number.jasper"]]></subreportExpression>
 			</subreport>
-			<subreport isUsingCache="false">
+<subreport isUsingCache="false">
 				<reportElement positionType="Float" x="0" y="80" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="SUBREPORT_DIR">
 					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
@@ -162,31 +164,39 @@
 				<subreportParameter name="CROSSTAB_HEADER_TEXT_ID">
 					<subreportParameterExpression><![CDATA["2. Uitkomsten studentevaluatie / opmerkingen docent"]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="COLOR_RANGE">
-					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("white")]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="NO_BARCHART">
-					<subreportParameterExpression><![CDATA["q1503"]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
-					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
-				</subreportParameter>
-	<dataSourceExpression>
-    		<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
+	    	<subreportParameter name="COLOR_RANGE">
+    			<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("white")]]></subreportParameterExpression>
+    		</subreportParameter>
+	    	<subreportParameter name="COLOR_RANGE_MAP">
+			<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></subreportParameterExpression>
+		</subreportParameter>
+		<subreportParameter name="COLOR_RANGE_MEAN10">
+			<subreportParameterExpression><![CDATA[""]]></subreportParameterExpression>
+		</subreportParameter>
+	    	<subreportParameter name="COLOR_RANGE_MEAN5">
+			<subreportParameterExpression><![CDATA[""]]></subreportParameterExpression>
+		</subreportParameter>
+		<subreportParameter name="NO_BARCHART">
+			<subreportParameterExpression><![CDATA["q1504/q1465"]]></subreportParameterExpression>
+		</subreportParameter>
+		<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+			<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+		</subreportParameter>
+		<dataSourceExpression>
+    			<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
     			$P{DATA_LOCATION},
     			$P{XFORM_LOCATION},
     			$P{FORM_NAME},
-    			"q1503/q1457,q1503/q1458,q1503/q1459,q1503/q1460,q1503/q1461,q1503/q1462,q1503/q1463,q1503/q1464,q1504/q1465,q1503",
+    			"q1503/q1457,q1503/q1458,q1503/q1459,q1503/q1460,q1503/q1461,q1503/q1462,q1503/q1463,q1503/q1464,q1504/q1465",
     			null,
     			$P{SPLIT_QUESTION_ID},
     			$P{SPLIT_QUESTION_VALUE},false
     			).getRecords()
 			]]>
-    	</dataSourceExpression>
-
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"reportland-barchart.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport isUsingCache="false">
+	    	</dataSourceExpression>
+		<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"reportland-barchart.jasper"]]></subreportExpression>
+</subreport>
+<subreport isUsingCache="false">
 				<reportElement positionType="Float" x="0" y="100" width="802" height="20" isRemoveLineWhenBlank="true"/>
 				<subreportParameter name="DEFAULT_STYLE_FILE">
 					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
@@ -201,20 +211,19 @@
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
 
+    		
 	<dataSourceExpression>
         	<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
         		$P{DATA_LOCATION},
         		$P{XFORM_LOCATION},
         		$P{FORM_NAME},
-        		"q1506/q1468",
+        		"q1505/q1466",
         		null,
         		$P{SPLIT_QUESTION_ID},
         		$P{SPLIT_QUESTION_VALUE},
         		false).getRecords()
     		]]>
         </dataSourceExpression>
-
-
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4land-open.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport isUsingCache="false">
