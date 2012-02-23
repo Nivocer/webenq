@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<reportConfig>
+    <reportId>5</reportId>
+    <xformName>questionnaire</xformName>
+    <!--  todo improve servername/pathToApplication  (https) -->
+    <xformLocation>http://demo4.webenq.org/questionnaire/xform/id/4</xformLocation>
+    <dataLocation>http://demo4.webenq.org/questionnaire/xform-data/id/4</dataLocation>
+    <reportDefinitionLocation>src/webenqResources/org/webenq/resources/hvaTest/hvaOORapport4.jrxml</reportDefinitionLocation>
+    <customer>hvaoo</customer>
+    <language>nl</language>
+    <!--splitQuestionId/-->
+	<splitQuestionId>q1507/q1492</splitQuestionId>
+    <outputDir>tempout/test</outputDir>
+    <outputFileName>r4_</outputFileName>
+    <outputFormat>pdf</outputFormat>
+
+</reportConfig>
+
