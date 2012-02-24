@@ -16,6 +16,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -93,10 +94,10 @@ public class Utils {
 		//String  searchString="/html/body/descendant::*[@ref='/"+searchQuestion+"']/item[value='1.0']/label";
 		String searchString=null;
 		if (searchValue != null && !searchValue.equals("")){
-			searchString="/html/body/descendant::*[@ref='"+searchQuestion+"']/item[value='"+searchValue+"']/label";
+			searchString="/html/body/descendant::*[@ref='"+StringEscapeUtils.escapeXml(searchQuestion)+"']/item[value='"+StringEscapeUtils.escapeXml(searchValue)+"']/label";
 			//System.out.println(searchString);
 		} else {
-			searchString="/html/body/descendant::*[@ref='"+searchQuestion+"']/label";
+			searchString="/html/body/descendant::*[@ref='"+StringEscapeUtils.escapeXml(searchQuestion)+"']/label";
 		}
 
 		XPathExpression expr = null;
