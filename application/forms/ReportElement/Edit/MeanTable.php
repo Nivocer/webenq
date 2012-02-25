@@ -47,7 +47,7 @@ class Webenq_Form_ReportElement_Edit_MeanTable extends Webenq_Form_ReportElement
         $this->addElement($this->createElement('radio', 'variant', array(
             'label' => 'Variant of the table',
         	'required' => true,
-        	'multiOptions' => array('1' => 'questions in rows', 2=>'question in columns', 99=>'grade (special)'),
+        	'multiOptions' => array('1' => 'questions in rows', 2=>'question in columns', 98 => 'low scores (special)', 99=>'grade (special)'),
         )));
         
         $this->addElement($this->createElement('submit', 'submit', array(
