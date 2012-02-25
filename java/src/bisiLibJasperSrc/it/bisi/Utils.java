@@ -94,6 +94,7 @@ public class Utils {
 		//String  searchString="/html/body/descendant::*[@ref='/"+searchQuestion+"']/item[value='1.0']/label";
 		String searchString=null;
 		if (searchValue != null && !searchValue.equals("")){
+			//TODO test escaping &amp; becomes \&amp;?
 			searchString="/html/body/descendant::*[@ref='"+StringEscapeUtils.escapeXml(searchQuestion)+"']/item[value='"+StringEscapeUtils.escapeXml(searchValue)+"']/label";
 			//System.out.println(searchString);
 		} else {
