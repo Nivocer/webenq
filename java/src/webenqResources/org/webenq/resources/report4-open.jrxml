@@ -45,7 +45,7 @@
 		<band height="12" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="20" y="0" width="535" height="12" isRemoveLineWhenBlank="true"/>
-				<textElement/>
+				<textElement markup="html"/>
 				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
 			</textField>
 			<textField>

@@ -38,7 +38,7 @@
 		<band height="24" splitType="Immediate">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="20" y="12" width="782" height="12" isRemoveLineWhenBlank="true"/>
-				<textElement>
+				<textElement markup="html">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
