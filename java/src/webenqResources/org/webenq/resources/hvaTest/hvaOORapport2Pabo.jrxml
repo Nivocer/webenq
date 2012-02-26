@@ -99,10 +99,8 @@
 					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE_MEAN5">
-					<subreportParameterExpression><![CDATA["q1564/q1514,q1564/q1515,q1564/q1516,q1564/q1517,q1564/q1518,q1564/q1519,q1564/q1520,q1564/q1521,q1565/q1522"
-
-    		
-    		]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["q1564/q1514,q1564/q1515,q1564/q1516,q1564/q1517,q1564/q1518,q1564/q1519,q1564/q1520,q1564/q1521"]]>
+				</subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="XFORM_LOCATION">
 					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
@@ -120,7 +118,7 @@
 					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="COLOR_RANGE_MEAN10">
-					<subreportParameterExpression><![CDATA["q1568/q1542"]]></subreportParameterExpression>
+					<subreportParameterExpression><![CDATA["q1565/q1522"]]></subreportParameterExpression>
 				</subreportParameter>
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
@@ -129,7 +127,7 @@
     			$P{DATA_LOCATION},
     			$P{XFORM_LOCATION},
     			$P{FORM_NAME},
-    			"q1564/q1514,q1564/q1515,q1564/q1516,q1564/q1517,q1564/q1518,q1564/q1519,q1564/q1520,q1564/q1521,q1565/q1522,q1568/q1542",
+    			"q1564/q1514,q1564/q1515,q1564/q1516,q1564/q1517,q1564/q1518,q1564/q1519,q1564/q1520,q1564/q1521,q1565/q1522",
     		    "q1568/q1545",
     			$P{SPLIT_QUESTION_ID},
     			$P{SPLIT_QUESTION_VALUE},
