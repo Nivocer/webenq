@@ -102,10 +102,12 @@ public class XformJRDataSource {
 				NodeList nodes = (NodeList) result;
 				String expression;
 				for (int i = 0; i < nodes.getLength(); i++) {
+					String respondent_id=nodes.item(i).getParentNode().getAttributes().getNamedItem("id").getNodeValue();
 					//get report_question_value
 					expression = report_question_id;
 					Node reportQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 					report_question_value=reportQuestionNode.getTextContent();
+					
 					String report_question_label=null;
 					//get answer labels only when needed (get_answer_labels = true and answer=value 
 					if (get_answer_labels && it.bisi.Utils.isNum(report_question_value)){
@@ -128,7 +130,7 @@ public class XformJRDataSource {
 					//TODO missing values implementation, now if it is empty, we don't put it in the bean
 					if (!report_question_value.isEmpty()){
 						//System.out.println(report_question_id+":;"+ report_question_text+":;"+ report_question_value+":;"+ report_question_label+":;"+ group_question_id+":;"+ group_question_text+":;"+ group_question_value+":;"+ group_question_label+":;"+ new Integer( group_seq_number));
-						XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_text, group_question_value, group_question_label,  new Integer( group_seq_number));
+						XformBean ra=new XformBean(report_question_id, report_question_text, report_question_value, report_question_label, group_question_id, group_question_text, group_question_value, group_question_label,  new Integer( group_seq_number), respondent_id);
 						reportRows.add(ra);
 					}
 				}
