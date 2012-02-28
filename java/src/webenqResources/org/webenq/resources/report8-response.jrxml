@@ -27,6 +27,7 @@
 	<field name="group_question_value" class="java.lang.String"/>
 	<field name="group_question_label" class="java.lang.String"/>
 	<field name="question_seq_number" class="java.lang.Integer"/>
+	<field name="respondent_id" class="java.lang.String"/>
 	<sortField name="question_seq_number"/>
 	<sortField name="group_question_value"/>
 	<background>
@@ -191,7 +192,7 @@
 					<measureExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></measureExpression>
 				</measure>
 				<measure name="countResponse" class="java.lang.Double" calculation="Sum">
-					<measureExpression><![CDATA[ 1.0 / Double.parseDouble($F{report_question_value})]]></measureExpression>
+					<measureExpression><![CDATA[1.0 / Double.parseDouble($F{report_question_value})]]></measureExpression>
 				</measure>
 				<measure name="countMeasure" class="java.lang.Double" calculation="Count">
 					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
@@ -205,6 +206,9 @@
 				<measure name="reportQuestionId" class="java.lang.String">
 					<measureExpression><![CDATA[$F{report_question_id}]]></measureExpression>
 				</measure>
+				<measure name="numberOfrespondents" class="java.lang.Integer" calculation="DistinctCount">
+					<measureExpression><![CDATA[$F{respondent_id}]]></measureExpression>
+				</measure>
 				<crosstabCell width="30" height="12">
 					<cellContents>
 						<box>
@@ -214,7 +218,7 @@
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
-						<textField pattern="###0.0%" isBlankWhenNull="false">
+						<textField pattern="" isBlankWhenNull="false">
 							<reportElement stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
 							<box>
 								<leftPen lineWidth="0.25"/>
