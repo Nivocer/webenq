@@ -21,7 +21,11 @@
     			$P{DATA_LOCATION},
     			$P{XFORM_LOCATION},
     			$P{FORM_NAME},
-    			"<?php echo $this->element->getXpath($this->data['report_qq_id']); ?>",
+    			"<?php 
+    			echo isset($this->data['report_qq_id']) ? $this->element->getXpath($this->data['report_qq_id']) : null;
+    			echo ","; 
+    			echo isset($this->data['population_qq_id']) ? $this->element->getXpath($this->data['population_qq_id']) : null;
+    			?>",
     			<?php echo isset($this->data['group_qq_id']) && !empty($this->data['group_qq_id']) ? '"' . $this->element->getXpath($this->data['group_qq_id']) . '"' : 'null'; ?>,
     			$P{SPLIT_QUESTION_ID},
     			$P{SPLIT_QUESTION_VALUE},

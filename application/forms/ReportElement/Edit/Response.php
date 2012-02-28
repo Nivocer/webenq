@@ -19,11 +19,11 @@ class Webenq_Form_ReportElement_Edit_Response extends Webenq_Form_ReportElement_
         foreach ($this->_element->Report->Questionnaire->QuestionnaireQuestion as $qq) {
             $multiOptions[$qq->id] = $qq->Question->getQuestionText()->text;
         }
-
+                
         $this->addElement($this->createElement('select', 'report_qq_id', array(
-            'label' => 'question with response percentage or number of invited respondents',
+            'label' => 'Question with uniq respondent identifier (empty when internal)',
         	'required' => true,
-        	'multiOptions' => $multiOptions,
+        	'multiOptions' => array('' => '')+ $multiOptions,
         )));
 
         $this->addElement($this->createElement('select', 'group_qq_id', array(
@@ -32,6 +32,12 @@ class Webenq_Form_ReportElement_Edit_Response extends Webenq_Form_ReportElement_
         	'multiOptions' => array('' => '')+ $multiOptions,
         )));
 
+        $this->addElement($this->createElement('select', 'population_qq_id', array(
+            'label' => 'Question with population for this group',
+        	'required' => true,
+        	'multiOptions' => $multiOptions,
+        )));
+        
         $this->addElement($this->createElement('submit', 'submit', array(
             'label' => 'save',
         )));
