@@ -19,7 +19,14 @@ class Webenq_Form_ReportElement_Edit_Text extends Webenq_Form_ReportElement_Edit
             'label' => 'text',
         	'required' => true,
         )));
-
+        
+        $this->addElement($this->createElement('multiCheckbox', 'report_for_subgroup', array(
+            'label' => 'Display text if we create reports for subgroups (split)',
+        	'required' => false,
+        	'multiOptions' => array("onlyForSubGroups"=>"Only for subgroups"),
+        )));
+        
+        
         $this->addElement($this->createElement('submit', 'submit', array(
             'label' => 'save',
         )));

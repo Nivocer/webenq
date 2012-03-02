@@ -1,5 +1,9 @@
 <subreport>
-	<reportElement positionType="Float" x="0" y="<?php echo $this->y; ?>" width="555" height="20" isRemoveLineWhenBlank="true" />
+	<reportElement positionType="Float" x="0" y="<?php echo $this->y; ?>" width="555" height="20" isRemoveLineWhenBlank="true"> 
+	<?php echo (isset($this->data['report_for_subgroup']) && in_array('onlyForSubGroups', $this->data['report_for_subgroup'])?  '<printWhenExpression><![CDATA[!$P{SPLIT_QUESTION_LABEL}.isEmpty()]]></printWhenExpression>':"") ?>
+	
+	</reportElement>
+	
 	<subreportParameter name="CUSTOMER">
 		<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 	</subreportParameter>
