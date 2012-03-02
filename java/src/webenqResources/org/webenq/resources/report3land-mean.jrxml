@@ -259,7 +259,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 					<measureExpression><![CDATA[$F{report_question_id}]]></measureExpression>
 				</measure>
 				<measure name="distinctCountMeasure" class="java.lang.Integer" calculation="DistinctCount">
-					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
+					<measureExpression><![CDATA[$F{report_question_text}]]></measureExpression>
 				</measure>
 				<crosstabCell width="25" height="12">
 					<cellContents>
