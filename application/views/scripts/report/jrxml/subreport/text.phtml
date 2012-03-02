@@ -10,7 +10,7 @@
 		<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 	</subreportParameter>
 	<subreportParameter name="Q_TEXT">
-		<subreportParameterExpression><![CDATA[<?php echo $this->data['text']; ?>]]></subreportParameterExpression>
+		<subreportParameterExpression><![CDATA["<?php echo $this->data['text']; ?>"]]></subreportParameterExpression>
 	</subreportParameter>
     <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
     <subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
