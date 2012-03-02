@@ -258,6 +258,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 				<measure name="reportQuestionId" class="java.lang.String">
 					<measureExpression><![CDATA[$F{report_question_id}]]></measureExpression>
 				</measure>
+				<measure name="distinctCountMeasure" class="java.lang.Integer" calculation="DistinctCount">
+					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
+				</measure>
 				<crosstabCell width="30" height="12">
 					<cellContents>
 						<box>
@@ -298,7 +301,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<textElement verticalAlignment="Middle">
 								<font size="7" isBold="false"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$V{countMeasure}.doubleValue() /$V{ROW_COUNT}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{countMeasure}.doubleValue() /$V{distinctCountMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
@@ -347,7 +350,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<textElement verticalAlignment="Middle">
 								<font size="7" isBold="false" isStrikeThrough="false"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$V{countMeasure}.doubleValue() /$V{ROW_COUNT}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{countMeasure}.doubleValue() /$V{distinctCountMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
