@@ -219,8 +219,8 @@ $V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highRed
 	</background>
 	<pageHeader>
 		<band height="12" splitType="Stretch">
-			<textField>
-				<reportElement x="1" y="0" width="555" height="12"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="555" height="12" isRemoveLineWhenBlank="true"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>

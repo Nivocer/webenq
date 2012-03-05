@@ -225,8 +225,8 @@ str("jaar"+$F{group_question_label}.split("_")[0]):
 	</background>
 	<pageHeader>
 		<band height="12" splitType="Stretch">
-			<textField>
-				<reportElement x="1" y="0" width="555" height="12"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="555" height="12" isRemoveLineWhenBlank="true"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
