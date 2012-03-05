@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="59" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="5" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="381"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
@@ -86,6 +86,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 	<field name="group_question_value" class="java.lang.String"/>
 	<field name="group_question_label" class="java.lang.String"/>
 	<field name="question_seq_number" class="java.lang.Integer"/>
+	<field name="respondent_id" class="java.lang.String"/>
 	<sortField name="question_seq_number"/>
 	<sortField name="group_question_value"/>
 	<background>
@@ -263,6 +264,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 				<measure name="reportQuestionId" class="java.lang.String">
 					<measureExpression><![CDATA[$F{report_question_id}]]></measureExpression>
 				</measure>
+				<measure name="N" class="java.lang.Integer" calculation="DistinctCount">
+					<measureExpression><![CDATA[$F{respondent_id}]]></measureExpression>
+				</measure>
 				<crosstabCell width="30" height="12">
 					<cellContents>
 						<box>
@@ -326,7 +330,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<textElement textAlignment="Center" verticalAlignment="Middle">
 								<font size="7" isBold="false"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$V{countMeasure}/$V{COLUMN_COUNT}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{N}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
@@ -354,11 +358,11 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="5" isBold="false" isStrikeThrough="false"/>
 								</textElement>
-								<textFieldExpression><![CDATA[$V{countMeasure}  /$V{COLUMN_COUNT}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{N}]]></textFieldExpression>
 							</textField>
 							<textField pattern="###0.#">
 								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12">
-									<printWhenExpression><![CDATA[$V{ROW_COUNT} >1 ]]></printWhenExpression>
+									<printWhenExpression><![CDATA[$V{ROW_COUNT} >1]]></printWhenExpression>
 								</reportElement>
 								<box>
 									<pen lineWidth="0.0"/>
