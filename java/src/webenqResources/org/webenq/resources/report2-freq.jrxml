@@ -44,7 +44,7 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="71" splitType="Stretch">
+		<band height="54" splitType="Stretch">
 			<crosstab>
 				<reportElement positionType="Float" x="0" y="24" width="555" height="30">
 					<property name="net.sf.jasperreports.export.pdf.tag.table" value="full"/>
