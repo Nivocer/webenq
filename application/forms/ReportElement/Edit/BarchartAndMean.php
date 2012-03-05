@@ -22,8 +22,8 @@ class Webenq_Form_ReportElement_Edit_BarchartAndMean extends Webenq_Form_ReportE
 
         $this->addElement($this->createElement('select', 'header_qq_id', array(
             'label' => 'header question',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
+        	'required' => false,
+        	'multiOptions' => array('' => '')+$multiOptions,
         )));
 
         $this->addElement($this->createElement('multiCheckbox', 'report_qq_ids', array(
