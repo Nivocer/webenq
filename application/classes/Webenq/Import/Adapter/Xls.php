@@ -76,12 +76,23 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
 				if (empty($questBackSheetNumber)){
 					//we do a array_merge to be sure, the data start in $array[0];
 					$data[] = array_merge($sheet->toArray(), array());
+					$numberOfRowsValid=count($data[0]);
 				}else {
 					// add values of the second and further datasheets to $data[0]
-					foreach (array_merge($sheet->toArray(),array()) as $key=>$valueArray){
+					$dataNextSheet=array_merge($sheet->toArray(),array());
+
+					foreach ($dataNextSheet as $key=>$valueArray){
 						foreach ($valueArray as $value){
 							$data[0][$key][]=$value;
 						}
+					}
+					$headerArray=$dataNextSheet[0];
+					for ($i=$key+1; $i<$numberOfRowsValid;$i++){
+						//if this sheet has less rows, than the first one, we need to add them (empty rows for respondents)
+						foreach ($headerArray as $t_value){
+							$data[0][$i][]=null;
+						}
+						
 					}
 				}
 			}else {
