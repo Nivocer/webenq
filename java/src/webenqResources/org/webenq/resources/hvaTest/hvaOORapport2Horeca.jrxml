@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2-means" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
+	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
+		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
+	</scriptlet>
+	<parameter name="QUERY" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["org/webenq/resources/defaultStyle.jrtx"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["org/webenq/resources/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["leeuwenburg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SPLIT_QUESTION_ID" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SPLIT_QUESTION_VALUE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORT_IDENTIFIER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="XFORM_LOCATION" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="QUESTION_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA["g6-Tevredenheid/g6-DoelenDuidelijk"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FORM_NAME" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DATA_LOCATION" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DOC_DATA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap"/>
+	<parameter name="SPLIT_QUESTION_LABEL" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="6" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Immediate">
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="0" width="555" height="10" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Q_TEXT">
+					<subreportParameterExpression><![CDATA[($P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","").contains("Pabo") ?
+	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 blok 2 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","")+"</font></b>":
+	"<b><font size=3>Resultaten Onderwijsevaluaties semester 1 2011-2012 – "+$P{SPLIT_QUESTION_LABEL}.replaceAll("(_[^_]+)*$","")+"</font></b>"
+)]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="10" width="555" height="10" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[!$P{SPLIT_QUESTION_LABEL}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Q_TEXT">
+					<subreportParameterExpression><![CDATA["<b>Opleiding/type/jaargroep:</b> "+$P{SPLIT_QUESTION_LABEL}.replaceAll("^([^_]+_){5}","").replaceAll("(_[^_]+){2}$","").replaceAll("_"," ")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="20" width="555" height="10" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COLOR_RANGE_MEAN5">
+					<subreportParameterExpression><![CDATA["q1749/q1713,q1749/q1714,q1749/q1715,q1749/q1716,q1749/q1717,q1749/q1718,q1749/q1719,q1749/q1720"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="XFORM_LOCATION">
+					<subreportParameterExpression><![CDATA[$P{XFORM_LOCATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="FORM_NAME">
+					<subreportParameterExpression><![CDATA[$P{FORM_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CROSSTAB_HEADER_TEXT_ID">
+					<subreportParameterExpression><![CDATA["Gemiddelde scores per vak-docent-klas"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COLOR_RANGE_MAP">
+					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COLOR_RANGE">
+					<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}.get("mean5")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="COLOR_RANGE_MEAN10">
+					<subreportParameterExpression><![CDATA["q1750/q1721"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
+    			$P{DATA_LOCATION},
+    			$P{XFORM_LOCATION},
+    			$P{FORM_NAME},
+    			"q1749/q1713,q1749/q1714,q1749/q1715,q1749/q1716,q1749/q1717,q1749/q1718,q1749/q1719,q1749/q1720,q1750/q1721",
+    		    "q1753/q1744",
+    			$P{SPLIT_QUESTION_ID},
+    			$P{SPLIT_QUESTION_VALUE},
+    			false).getRecords()
+    		]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport isUsingCache="false">
+				<reportElement positionType="Float" x="0" y="30" width="555" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<subreportParameter name="CUSTOMER">
+					<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEFAULT_STYLE_FILE">
+					<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Q_TEXT">
+					<subreportParameterExpression><![CDATA["<font size=1>N = het aantal respondenten per vak-docent combinatie. Cijfers met waarden achter de komma treden op als studenten sommige vragen niet hebben beantwoord.</font>"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Immediate"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
