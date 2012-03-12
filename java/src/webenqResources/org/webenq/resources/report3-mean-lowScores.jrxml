@@ -172,7 +172,7 @@ $V{averageMeasure}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highRed
 					</textElement>
 					<textFieldExpression><![CDATA[$V{count}]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Auto" isBlankWhenNull="true">
+				<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
 					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="225" height="12">
 						<printWhenExpression><![CDATA[(
 $P{COLOR_RANGE_MEAN5}.indexOf($V{reportQuestionId} )>-1 &&
