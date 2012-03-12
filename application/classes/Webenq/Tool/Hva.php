@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Controllers
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Tool_Hva extends Webenq_Tool
 {
@@ -110,13 +110,20 @@ class Webenq_Tool_Hva extends Webenq_Tool
 
     /**
      * Returns the modules found in the data
+     * the multiple response column at the beginning of the data are used to determin the modules, they start with '1: '
+     * 
      *
      * @return array Modules
      */
     protected function _getModules()
     {
         $modules = array();
+        //first questback group (1: ), than module code
         $moduleNamePattern = '/^1:\s(.*)/';
+        //alternative: 
+        //1: aan het begin, vervolgens 4x: alles mag behalve _, afgesloten door _
+        //vervolgens nog een groep, waarbij alles mag behalve _
+        //$moduleNamePattern ='/^1:\s([^_]+_[^_]+_[^_]+_[^_]+_[^_]+)/'; 
         foreach ($this->_data[0][0] as $column => $header) {
             if (preg_match($moduleNamePattern, $header, $matches)) {
                 $modules[$column] = $matches[1];
@@ -178,6 +185,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
 
     /**
      * Returns the new data
+     * TODO function is processed twice, is that correct?
      *
      * @return array
      */
@@ -189,7 +197,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
         $modules = $this->_modules;
         $respondentsModules = $this->_respondentsModules;
         $moduleDataColumns = $this->_moduleDataColumns;
-
+        
         // get extra data from last working sheet
         $extraData = array();
         foreach ($data[2] as $row) {
@@ -198,14 +206,14 @@ class Webenq_Tool_Hva extends Webenq_Tool
             }
         }
 
-        // copy headers from original data
+        // copy headers from original data (all columns)
         $new = array();
         $new[0][0] = $data[0][0];
 
-        // add rows for each respondent/module
+        //duplicate respondent rows for each module and keep per row only data for one module (and the non-module variables), other module columns are set to null
+        //TODO check what happens when duplicate respondent (now respondent is emailadress (first column)
         foreach ($respondentsModules as $respondent => $respondentModules) {
             foreach ($respondentModules as $key => $module) {
-
                 $newRow = array();
                 //if we don't have a module, we also don't have start/end column of that module
 				if (isset($moduleDataColumns[$module]['start'])){
@@ -221,6 +229,10 @@ class Webenq_Tool_Hva extends Webenq_Tool
 
                 $row = $this->_getRespondentRow($respondent, $data);
                 foreach ($row as $column => $value) {
+                	//is the current column a module column and:
+                	// is it part of the current module: keep value, 
+                	//if not part of current module, set to null, 
+                	//if not part of a module at all: keep value
                     if ($this->_isModuleColumn($column, $moduleDataColumns, $data)) {
                         if ($column >= $startColumn && $column <= $endColumn) {
                             $newRow[$column] = $value;
@@ -233,19 +245,21 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 }
 
                 // add some extra data (titel questionnaire, startdate, end date response)
-                $newRow[] = $module;
+                //module column=last columnin orginal data
+               $moduleColumn=count($data[0][0]);
+                
+                $newRow[$moduleColumn] = $module;
                 $newRow[] = $this->_firstRespondentId + array_search($respondent, $this->_respondents);
                 foreach ($extraData as $key => $value) $newRow[] = $value;
                 $newRow[] = $this->_filename;
                 $new[0][] = $newRow;
             }
         }
-
         // merge modules (if they have the same questions)
         $this->_mergeModules($new, $moduleDataColumns);
 
         // add headers for extra data
-        $new[0][0][] = '9999: Module';
+        $new[0][0][$moduleColumn] = '9999: Module';
         $new[0][0][] = '9999: Respondent ID';
         foreach ($extraData as $key => $value) $new[0][0][] = "9999: $key";
         $new[0][0][] = '9999: Filename';
@@ -341,7 +355,8 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 $first = current($columns);
                 foreach ($columns as $column) {
                     if ($column > $first) {
-                        if (!$row[$first] && $row[$column]) {
+                        if (!$row[$first] && isset($row[$column]) && 
+                        	$row[$column]) {
                             $row[$first] = $row[$column];
                         }
                         unset($row[$column]);
