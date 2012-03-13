@@ -150,7 +150,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="190" height="12"/>
 								<box leftPadding="1">
+									<topPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
 									<leftPen lineWidth="0.0"/>
+									<bottomPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
 									<rightPen lineWidth="0.0"/>
 								</box>
 								<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
