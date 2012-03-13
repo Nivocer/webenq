@@ -45,12 +45,16 @@
 		<band height="12" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="20" y="0" width="535" height="12" isRemoveLineWhenBlank="true"/>
-				<textElement markup="html"/>
+				<textElement markup="html">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="20" height="12"/>
-				<textElement/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA["*"]]></textFieldExpression>
 			</textField>
 		</band>
