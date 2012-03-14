@@ -178,8 +178,8 @@ str("Total")
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
-				<measure name="valCount" class="java.lang.Double" calculation="Count">
-					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>
+				<measure name="valCount" class="java.lang.Integer" calculation="DistinctCount">
+					<measureExpression><![CDATA[$F{respondent_id}]]></measureExpression>
 				</measure>
 				<measure name="report_question_value_measure" class="java.lang.String">
 					<measureExpression><![CDATA[$F{report_question_value}]]></measureExpression>

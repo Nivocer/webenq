@@ -90,9 +90,6 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 	<field name="question_seq_number" class="java.lang.Integer"/>
 	<field name="respondent_id" class="java.lang.String"/>
 	<sortField name="group_question_label"/>
-	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" incrementType="Group" incrementGroup="question" calculation="Count">
-		<variableExpression><![CDATA[$F{report_question_value}]]></variableExpression>
-	</variable>
 	<variable name="averageMeasure" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Average">
 		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
 	</variable>
