@@ -76,7 +76,7 @@
 							</box>
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="190" height="10"/>
-								<box leftPadding="0">
+								<box leftPadding="1">
 									<leftPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
@@ -141,7 +141,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement verticalAlignment="Top" markup="html">
-									<font size="7"/>
+									<font size="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
 str($V{col}):
@@ -170,7 +170,7 @@ str("Total")
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
-									<font size="7"/>
+									<font size="6"/>
 								</textElement>
 								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
 							</textField>
