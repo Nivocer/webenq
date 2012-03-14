@@ -65,7 +65,8 @@ import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
  *
  */
 public class ExecuteReport {
-	
+	static String generatedFileNames="";
+
 	/**
 	 * @param args
 	 *   
@@ -83,9 +84,9 @@ public class ExecuteReport {
 
 
 	public static void runReport(String configFileName)	{
-		
-		
+				
 		try{
+			String tempDir="tempout/test";//storage of datafiles (xform data, def, reportdefinition)
 			//get report config information (location, language, customer, etc)
 			Map<String,String> reportConfig=getReportControlFile(configFileName);
 			//System.out.println(reportConfig);
@@ -95,6 +96,8 @@ public class ExecuteReport {
 			if (outputDir==null){
 				outputDir=".";
 			}
+			outputDir="../public/reports/"+outputDir;
+			
 			String splitQuestionId=reportConfig.get("splitQuestionId");
 			String outputFileName=reportConfig.get("outputFileName");
 			if (outputFileName==null){
@@ -120,7 +123,7 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
 				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
 			} else {
-				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), outputDir, (long) 3600);
+				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), tempDir, (long) 3600);
 			}
 			//System.out.println(reportDefinitionLocation);
 			
@@ -128,7 +131,7 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("xformLocation")).canRead()){
 				xformLocation=reportConfig.get("xformLocation");
 			} else {
-				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), outputDir, (long) 3600);
+				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), tempDir, (long) 3600);
 			}
 			//System.out.println(xformLocation);
 						
@@ -140,7 +143,7 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("dataLocation")).canRead()){
 				dataLocation=reportConfig.get("dataLocation");
 			} else {
-				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), outputDir, (long) 3600000);
+				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), tempDir, (long) 3600000);
 			}
 			//System.out.println(dataLocation);
 			
@@ -202,14 +205,19 @@ public class ExecuteReport {
 				prms.put("SPLIT_QUESTION_LABEL", "");
 				generateReport(reportDefinitionLocation, prms, "", outputDir, outputFileName, outputFormat );
 			}
+			System.out.println(generatedFileNames);
 		}
 
 		catch(Exception ex) {
 			ex.printStackTrace();
+			System.out.println("error generating report(s): \n");
+			System.out.print(ex);
+			System.exit(1);
 		}
+	
 	}
 
-	static void generateReport(String reportDefinitionLocation, Map<String,Object> prms, String splitQuestionValue, String outputDir, String outputFileName, String outputFormat ) throws Exception{
+	static String generateReport(String reportDefinitionLocation, Map<String,Object> prms, String splitQuestionValue, String outputDir, String outputFileName, String outputFormat ) throws Exception{
 		//clean fileName
 		if (splitQuestionValue.length()>0){
 			// no slash in split part
@@ -218,16 +226,19 @@ public class ExecuteReport {
 			//output_file_name=fileName(output_file_name, true);
 			outputFileName=cleanFileName(outputDir,true)+"/"+cleanFileName(outputFileName,false);
 		}
-		//System.out.println(reportDefinitionLocation);
-		File inputFile=new File(reportDefinitionLocation);
+		generatedFileNames+=outputFileName+"."+outputFormat+",";
 		
+		//System.out.println(reportDefinitionLocation);
+		//File inputFile=new File(reportDefinitionLocation);
+		File inputFile=new File(reportDefinitionLocation);
+						
 		URL url;
 		url =new URL(inputFile.toURI().toURL().toString());
 		InputStream inputStream =url.openStream();
 		
 		JasperPrint print;
-
 		if (!reportDefinitionLocation.endsWith("jasper")){
+			System.setProperty("jasper.reports.compile.temp","/tmp");
 			//need to compile the report
 			JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 			// we need an empty datasource to display the report...
@@ -237,9 +248,9 @@ public class ExecuteReport {
 			//report is already compiled
 			print = JasperFillManager.fillReport(inputStream, prms, new JREmptyDataSource());
 		}
-
 		// Create output in directory public/reports  
 		if(outputFormat.equals("pdf")) {
+		
 			JRPdfExporter exporter = new JRPdfExporter(); 
 			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, outputFileName + ".pdf");
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
@@ -288,6 +299,7 @@ public class ExecuteReport {
 		} else { 
 			JasperViewer.viewReport(print);
 		}	
+		return generatedFileNames;
 	}
 	/*
 	 * Clean file name, only keep certain characters (A-Z a-z 0-9 _=/-+.)
