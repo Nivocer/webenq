@@ -122,43 +122,4 @@ class ReportGenerationController extends Zend_Controller_Action
             $this->view->form = $form;
         }
     }
-
-    protected function _generateBarcharts($row, $dir)
-    {
-        /* make directory */
-        if (!is_dir("$dir/images")) {
-            mkdir("$dir/images");
-            system("chmod -R 774 $dir/images");
-        }
-
-        /* get questions */
-        $questionsModel = new Webenq_Model_DbTable_Questions("questions_" . $row->data_set_id);
-        $questions = $questionsModel->fetchAll("group_id > 0");
-        $splitBy = $row->split_question_id;
-        $ignoreQuestionIds = explode(',', $row->ignore_question_ids);
-
-        /* get answers */
-        foreach ($questions as $question) {
-
-            if (in_array('"' . $question->id . '"', $ignoreQuestionIds)) {
-                continue;
-            }
-
-            $answers = $questionsModel->getAnswers($question->id, $splitBy);
-            if ($answers instanceof Webenq_Model_Data_Question_Closed_Scale) {
-                $filename = "$dir/images/bar_report_" . $row->id . "_question_" . $question->id . ".png";
-                $answers->generateBarchart($filename);
-                system("chmod -R 774 $filename");
-            } elseif (is_array($answers)) {
-                foreach ($answers as $answer => $part) {
-                    if ($part instanceof Webenq_Model_Data_Question_Closed_Scale) {
-                        $filename = "$dir/images/bar_report_" . $row->id . "_question_$question->id" . "_splitanswer_" .
-                            "$answer.png";
-                        $part->generateBarchart($filename);
-                        system("chmod -R 774 $filename");
-                    }
-                }
-            }
-        }
-    }
 }
