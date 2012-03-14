@@ -89,6 +89,7 @@ $V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
 	<field name="group_question_label" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
 	<field name="question_seq_number" class="java.lang.Integer"/>
+	<field name="respondent_id" class="java.lang.String"/>
 	<sortField name="question_seq_number"/>
 	<sortField name="report_question_value"/>
 	<variable name="totalN" class="java.lang.Double" resetType="Group" resetGroup="question" incrementType="Group" incrementGroup="value" calculation="Count">

@@ -21,6 +21,7 @@
 	<field name="report_question_label" class="java.lang.String"/>
 	<field name="group_question_label" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
+	<field name="respondent_id" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
