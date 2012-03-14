@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Controllers
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class ReportController extends Zend_Controller_Action
 {
@@ -232,5 +232,62 @@ class ReportController extends Zend_Controller_Action
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
             ->setBody($dom->saveXML());
             */
+    }
+    
+    /*
+     * Generate the report 
+     * TODO use code from reportGeneratinoController.php for controlAction and generateAction 
+     * 
+     */ 
+     /**
+      * Let jasper report (via java) generate the reports and display the list of reports, reported back from jasper report
+      *  
+      *
+      */
+     public function generateAction()
+     {
+     $cwd = getcwd();
+     $output = array();
+     $returnVar = 0;
+    
+    $this->_id = $this->getRequest()->getParam("id");
+    if (!$this->_id) {
+        throw new Exception("No id given!");
+   	}
+	/* create the report(s) */
+        chdir(APPLICATION_PATH . "/../java");
+        $baseUrl=$this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/';
+        $reportControlUrl=$baseUrl.'report/control/id/'.$this->_id;
+        $cmd = "java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport $reportControlUrl";
+        ob_start();
+        passthru($cmd, $returnVar);
+        $output = ob_get_contents();
+        ob_end_clean();
+        chdir($cwd);
+        
+        //command returned error value
+        if ($returnVar > 0) {
+            $this->view->output = $output;
+            return;
+        }else{
+        	$generatedFiles=explode(',', $output);
+       		//remove ../public/
+       		$generatedFiles=str_replace('../public','',$generatedFiles);
+       		$this->view->file = $generatedFiles;		
+       	}
+        /*
+        //if $output contains: 'error generating report(s)' some error occured
+        $errorIndication='error generating report(s)';
+        if (stripos($errorIndication,$output)){
+        	  $this->view->output = $output;
+            return;
+        }else{
+        //else $output contains commaseperated list with generated report, relative to java starting with ../public/report/
+       		$generatedFiles=explode(',', $output);
+       		//remove ../public/
+       		$generatedFiles=str_replace('../public','',$generatedFiles);
+       		$this->view->file = $generatedFiles;		
+       	}
+       	*/
     }
 }

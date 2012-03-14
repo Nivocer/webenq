@@ -5,6 +5,7 @@
  * @package     Webenq
  * @subpackage  Controllers
  * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @deprecated 
  */
 class ReportGenerationController extends Zend_Controller_Action
 {
