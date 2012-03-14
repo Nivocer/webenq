@@ -210,7 +210,7 @@ $V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
 	<columnHeader>
 		<band height="26" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="555" height="12" isRemoveLineWhenBlank="true"/>
+				<reportElement x="0" y="0" width="555" height="12"/>
 				<textElement markup="html">
 					<font isBold="true"/>
 				</textElement>
