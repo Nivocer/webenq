@@ -1,11 +1,4 @@
-<a class="link download" href="<?php echo $this->baseUrl('report/control/id/' . $this->report->id) ?>" title="<?php echo t('download control file'); ?>">
-    <?php echo t('download control file'); ?>
-</a>
 
-<a class="link download" href="<?php echo $this->baseUrl('report/jrxml/id/' . $this->report->id) ?>" title="<?php echo t('download jrxml'); ?>">
-    <?php echo t('download jrxml'); ?>
-</a>
-<a class="link report"  href="<?php echo $this->baseUrl('report/generate/id/' .$this->report->id) ?>" title="<?php echo t('generate report'); ?>"><?php echo t('generate report'); ?></a>
 
 
 <h2>
@@ -14,6 +7,17 @@
     <?php echo t('for questionnaire'); ?>
     "<?php echo $this->report->Questionnaire->getQuestionnaireTitle()->text; ?>"
 </h2>
+
+<a class="link report"  href="<?php echo $this->baseUrl('report/generate/id/' .$this->report->id) ?>" title="<?php echo t('generate report'); ?>"><?php echo t('generate report'); ?></a>
+<a class="link edit"  href="<?php echo $this->baseUrl('report/edit/id/' .$this->report->id) ?>" title="<?php echo t('edit control file'); ?>"><?php echo t('edit control file'); ?></a>
+<a class="icon download" href="<?php echo $this->baseUrl('report/control/id/' . $this->report->id) ?>" title="<?php echo t('download control file'); ?>">
+    ?>
+</a>
+<a class="icon download" href="<?php echo $this->baseUrl('report/jrxml/id/' . $this->report->id) ?>" title="<?php echo t('download jrxml'); ?>">
+    ?>
+</a>
+</br>
+</br>
 
 <a class="ajax link add" href="<?php echo $this->baseUrl('report-element/add/report/' . $this->report->id) ?>" title="<?php echo t('add report element'); ?>">
     <?php echo t('add report element'); ?>
