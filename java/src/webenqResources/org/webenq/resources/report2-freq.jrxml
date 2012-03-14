@@ -186,7 +186,7 @@ str("Total")
 				<measure name="group_question_value_measure" class="java.lang.String">
 					<measureExpression><![CDATA[$F{group_question_value}]]></measureExpression>
 				</measure>
-				<crosstabCell width="31" height="10">
+				<crosstabCell width="30" height="10">
 					<cellContents>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -213,7 +213,7 @@ str("Total")
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="31" height="10" rowTotalGroup="row">
+				<crosstabCell width="30" height="10" rowTotalGroup="row">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -242,7 +242,7 @@ str("Total")
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
-							<leftPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.5"/>
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
@@ -271,7 +271,7 @@ str("Total")
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							<topPen lineWidth="0.0"/>
-							<leftPen lineWidth="0.0"/>
+							<leftPen lineWidth="0.5"/>
 							<bottomPen lineWidth="0.0"/>
 							<rightPen lineWidth="0.0"/>
 						</box>
