@@ -150,7 +150,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="190" height="12"/>
 								<box leftPadding="1">
-									<topPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
+									<topPen lineWidth="0.0" lineStyle="Dashed" lineColor="#000000"/>
 									<leftPen lineWidth="0.0"/>
 									<bottomPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
 									<rightPen lineWidth="0.0"/>
@@ -211,7 +211,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement verticalAlignment="Top" markup="html">
-									<font size="6"/>
+									<font size="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
     str($V{col}.replace("_",": ")):
@@ -239,7 +239,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
-									<font size="8" isBold="false" isPdfEmbedded="false"/>
+									<font size="6" isBold="false" isPdfEmbedded="false"/>
 								</textElement>
 								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
 							</textField>
@@ -281,7 +281,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 								<printWhenExpression><![CDATA[!$V{countMeasure}.equals(null)]]></printWhenExpression>
 							</reportElement>
 							<box>
+								<topPen lineWidth="0.0" lineStyle="Dashed"/>
 								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
@@ -325,7 +327,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 							</reportElement>
 							<box>
+								<topPen lineWidth="0.0" lineStyle="Dashed"/>
 								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
