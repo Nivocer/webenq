@@ -4,7 +4,7 @@
     <xformName>questionnaire</xformName>
     <!--  todo improve servername/pathToApplication  (https) -->
     <xformLocation>http://demo4.webenq.org/questionnaire/xform/id/4</xformLocation>
-    <dataLocation>http://demo4.webenq.org/questionnaire/xform-data/id/4</dataLocation>
+    <dataLocation>http://demo4.webenq.org/questionnaire/xform-data/id/4.TW.xml</dataLocation>
     <reportDefinitionLocation>src/webenqResources/org/webenq/resources/hvaTest/hvaOORapport1.jrxml</reportDefinitionLocation>
     <customer>hvaoo</customer>
     <language>nl</language>

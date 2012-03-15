@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<reportConfig>
+    <reportId>16</reportId>
+    <xformName>questionnaire</xformName>
+    <!--  todo improve servername/pathToApplication  (https) -->
+    <xformLocation>http://webenq4.localhost/questionnaire/xform/id/22</xformLocation>
+    <dataLocation>http://webenq4.localhost/questionnaire/xform-data/id/22</dataLocation>
+<reportDefinitionLocation>src/webenqResources/org/webenq/resources/hvaTest/hvaOORapport6Paboblok1.jasper</reportDefinitionLocation>
+    <customer>hvaoo</customer>
+    <language>nl</language>
+    <splitQuestionId>q969/q956</splitQuestionId>
+    <outputDir>tempout/test</outputDir>
+    <outputFileName>r6-</outputFileName>
+    <outputFormat>pdf</outputFormat>
+
+</reportConfig>
+
