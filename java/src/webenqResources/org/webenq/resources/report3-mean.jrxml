@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="80" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="129"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
@@ -149,8 +149,8 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							</box>
 							<textField isStretchWithOverflow="true">
 								<reportElement style="Crosstab Data Text" x="0" y="0" width="190" height="12"/>
-								<box leftPadding="1">
-									<topPen lineWidth="0.0" lineStyle="Dashed" lineColor="#000000"/>
+								<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+									<topPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
 									<leftPen lineWidth="0.0"/>
 									<bottomPen lineWidth="0.25" lineStyle="Dashed" lineColor="#000000"/>
 									<rightPen lineWidth="0.0"/>
@@ -280,10 +280,10 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isPrintWhenDetailOverflows="true">
 								<printWhenExpression><![CDATA[!$V{countMeasure}.equals(null)]]></printWhenExpression>
 							</reportElement>
-							<box>
-								<topPen lineWidth="0.0" lineStyle="Dashed"/>
+							<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+								<topPen lineWidth="0.25" lineStyle="Dashed"/>
 								<leftPen lineWidth="0.5"/>
-								<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
+								<bottomPen lineWidth="0.5" lineStyle="Dashed"/>
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
@@ -326,8 +326,8 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isPrintWhenDetailOverflows="true">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 							</reportElement>
-							<box>
-								<topPen lineWidth="0.0" lineStyle="Dashed"/>
+							<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+								<topPen lineWidth="0.25" lineStyle="Dashed"/>
 								<leftPen lineWidth="0.5"/>
 								<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
 								<rightPen lineWidth="0.5"/>
