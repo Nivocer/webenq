@@ -28,9 +28,9 @@ rm createReport.error
 #reportControlFiles=$reportControlFiles" http://webenq4.localhost/report/control/id/12"
 
 #werkplekleren
-#reportControlFiles=$reportControlFiles" ./semester1-reportControlHvA-rapport1Werkplekleren.xml"
+reportControlFiles=$reportControlFiles" ./semester1-reportControlHvA-rapport1Werkplekleren.xml"
 reportControlFiles=$reportControlFiles" ./semester1-reportControlHvA-rapport2Werkplekleren.xml"
-#reportControlFiles=$reportControlFiles" ./semester1-reportControlHvA-rapport3Werkplekleren.xml"
+reportControlFiles=$reportControlFiles" ./semester1-reportControlHvA-rapport3Werkplekleren.xml"
 #semester1-reportControlHvA-rapport1Werkplekleren.xml 
 
 #pabo blok 1
@@ -45,7 +45,7 @@ for reportControlFile in `echo $reportControlFiles`
 do 
 echo '---------'
 echo "executing: $reportControlFile"
-./createReport.sh $reportControlFile
+./createReport.sh $reportControlFile &
 done
 echo '---------'
 echo  "report creation output:"
