@@ -80,7 +80,7 @@
 
 
 	<target name="compileJava">
-          <javac srcdir="${src.dirJava}" destdir="${dest.dirJava}" classpathref="classpath" includeantruntime="false">
+          <javac srcdir="${src.dirJava}" destdir="${dest.dirJava}" classpathref="classpath" includeantruntime="false" debug="true">
 		  <compilerarg value="-Xlint"/>
 	 </javac>
 	</target>
