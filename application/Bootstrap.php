@@ -38,14 +38,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model');
 
         $config = $this->getOption('db');
-        if (isset($config['dsn'])) {
+
+        if (isset($config['params']['dsn'])) {
             // connect by data source name
-            $dsn = $config['dsn'];
+            $dsn = $config['params']['dsn'];
         } else {
             // connect by database parameters
-            $dsn = 'mysql://' . $config['username'] . ':' . $config['password']
-                . '@' . $config['host'] . ':' . $config['port'] .
-                '/' .  $config['dbname'];
+            $dsn = 'mysql://' . $config['params']['username'] . ':' . $config['params']['password']
+                . '@' . $config['params']['host'] . ':' . $config['params']['port'] .
+                '/' .  $config['params']['dbname'];
         }
         Doctrine_Manager::connection($dsn, 'doctrine');
 

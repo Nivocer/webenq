@@ -1,0 +1,13 @@
+[production]
+db.params.host = "127.0.0.1"
+db.params.port = "3306"
+db.params.dbname = "webenq4"
+db.params.username = "webenq4"
+db.params.password = "ChAnGeThIs"
+
+includePaths.thirdPartyLibs = APPLICATION_PATH "/../../3rdparty/"
+
+;need the next (empty) override, because we want to use the database settings defined above.
+[testing:production]
+
+[development:production]
