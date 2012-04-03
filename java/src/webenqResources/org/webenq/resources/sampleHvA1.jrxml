@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sampleReport" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="45"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
@@ -90,7 +90,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q724, q725, q726,q727,q728,q729,q730", "q746/q734", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q724, q725, q726,q727,q728,q729,q730", "q746/q734", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE},true).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
@@ -122,7 +122,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q724, q725,q726,q727,q728,q729,q730",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q724, q725,q726,q727,q728,q729,q730",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE},true).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report-barchart.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
@@ -136,7 +136,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, $P{XFORM_LOCATION},$P{FORM_NAME},"q731",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, $P{XFORM_LOCATION},$P{FORM_NAME},"q731",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE},true).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
@@ -150,7 +150,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, $P{XFORM_LOCATION},$P{FORM_NAME},"q731","q746/q734", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION}, $P{XFORM_LOCATION},$P{FORM_NAME},"q731","q746/q734", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE},true).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
@@ -161,7 +161,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q733",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q733",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE},true).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
@@ -187,7 +187,7 @@
 				<subreportParameter name="REPORT_RESOURCE_BUNDLE">
 					<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q732","q746/q734", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"q732","q746/q734", $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE},true).getRecords()]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
