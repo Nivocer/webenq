@@ -14,7 +14,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             'basePath'  => APPLICATION_PATH,
             'namespace' => 'Webenq',
         ));
-        $loader->addResourceType('doctrine', 'models/generated/Base', 'Model_Base');
         $loader->addResourceType('model', 'models', 'Model');
         $loader->addResourceType('actionHelper', 'controllers/helpers', 'Controller_Action_Helper');
     }
@@ -24,6 +23,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         require_once 'Doctrine.php';
 
         $loader = Zend_Loader_Autoloader::getInstance();
+//         $loader->setFallbackAutoloader(true);
+        $loader->suppressNotFoundWarnings(true);
         $loader->pushAutoloader(array('Doctrine', 'autoload'));
         $loader->registerNamespace('sfYaml')
             ->pushAutoloader(array('Doctrine', 'autoload'), 'sfYaml');
@@ -32,13 +33,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //        $manager->setAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE, true);
         $manager->setAttribute(Doctrine_Core::ATTR_QUOTE_IDENTIFIER, true);
         $manager->setAttribute(Doctrine_Core::ATTR_USE_NATIVE_ENUM, true);
+        $manager->setAttribute(Doctrine_Core::ATTR_MODEL_LOADING, Doctrine_Core::MODEL_LOADING_CONSERVATIVE);
+        $manager->setAttribute(Doctrine_Core::ATTR_MODEL_CLASS_PREFIX, 'Webenq_Model_');
 
         $config = $this->getOption('doctrine');
-        Doctrine_Core::loadModels($config['models_path'] . '/generated/Base', null, 'Webenq_Model_Base');
-        Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model');
+        Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model_');
 
         $config = $this->getOption('db');
-
         if (isset($config['params']['dsn'])) {
             // connect by data source name
             $dsn = $config['params']['dsn'];

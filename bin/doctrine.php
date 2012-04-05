@@ -6,8 +6,7 @@ define('APPLICATION_ENV', 'development');
 
 // initialize
 require_once realpath(dirname(__FILE__) . '/../public/init.php');
-$application->bootstrap();
+$application->bootstrap('doctrine');
 
-$bootstrap = $application->getBootstrap();
-$cli = new Doctrine_Cli($bootstrap->getOption('doctrine'));
+$cli = new Doctrine_Cli($application->getOption('doctrine'));
 $cli->run($_SERVER['argv']);
