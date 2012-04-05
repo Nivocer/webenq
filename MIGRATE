@@ -1,0 +1,10 @@
+Follow these steps if you want to make changes to the data model.
+
+1.  Change the application/doctrine/schema/schema.yml
+2.  Run "bin/doctrine generate-migrations-diff" on the command line
+    to automatically generate migrations classes in
+    application/doctrine/migrations. These classes reflect the changes
+    between the current models and the changed schema file (YAML). 
+3.  Run "bin/doctrine generate-models-yaml" to update the models in
+    application/models/Base.
+4.  Run "bin/doctrine migrate" to update the database.
