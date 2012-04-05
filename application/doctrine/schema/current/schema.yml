@@ -350,6 +350,48 @@ Question:
       local: id
       foreign: question_id
       type: many
+Question_Closed:
+  inheritance:
+    extends: Question
+Question_Closed_Percentage:
+  inheritance:
+    extends: Question_Closed
+Question_Closed_Scale:
+  inheritance:
+    extends: Question_Closed
+Question_Closed_Scale_Two:
+  inheritance:
+    extends: Question_Closed_Scale
+Question_Closed_Scale_Three:
+  inheritance:
+    extends: Question_Closed_Scale
+Question_Closed_Scale_Four:
+  inheritance:
+    extends: Question_Closed_Scale
+Question_Closed_Scale_Five:
+  inheritance:
+    extends: Question_Closed_Scale
+Question_Closed_Scale_Six:
+  inheritance:
+    extends: Question_Closed_Scale
+Question_Closed_Scale_Seven:
+  inheritance:
+    extends: Question_Closed_Scale
+Question_Open:
+  inheritance:
+    extends: Question
+Question_Open_Date:
+  inheritance:
+    extends: Question_Open
+Question_Open_Email:
+  inheritance: 
+    extends: Question_Open
+Question_Open_Number:
+  inheritance: 
+    extends: Question_Open
+Question_Open_Text:
+  inheritance:
+    extends: Question_Open
 QuestionGroup:
   tableName: questionGroup
   columns:

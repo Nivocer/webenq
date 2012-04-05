@@ -2,7 +2,7 @@
 /**
  * Class definition for the open question data type date
  */
-class Webenq_Model_Question_Open_Date extends Webenq_Model_Question_Open
+class Webenq_Model_Question_Open_Date extends Webenq_Model_Base_Question_Open_Date
 {
     /**
      * Child classes

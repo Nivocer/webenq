@@ -2,7 +2,7 @@
 /**
  * Class definition for the open question data type email
  */
-class Webenq_Model_Question_Open_Email extends Webenq_Model_Question_Open
+class Webenq_Model_Question_Open_Email extends Webenq_Model_Base_Question_Open_Email
 {
     /**
      * Child classes
