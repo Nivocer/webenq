@@ -7,7 +7,11 @@ db.params.password = "ChAnGeThIs"
 
 includePaths.thirdPartyLibs = APPLICATION_PATH "/../../3rdparty/"
 
-;need the next (empty) override, because we want to use the database settings defined above.
-[testing:production]
 
+;need the next (empty) override, because we want to use the database and thirdPartyLibs settings defined above.
 [development:production]
+
+;testing must not inherit the settings from production, because we want to use the sql-lite database,
+;however we need the thirdPartyLibs include path
+[testing]
+includePaths.thirdPartyLibs = APPLICATION_PATH "/../../3rdparty/"
