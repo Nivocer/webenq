@@ -1,10 +1,17 @@
 .buildpath
 .project
 .settings
+
 tests/log/*.svg
 tests/log/phpcs.xml
 tests/log/summary.xml
+tests/log/testdox.html
 tests/log/report/*.html
+tests/log/report/*.js
+tests/log/report/*.png
+tests/log/report/*.css
+tests/log/report/*.gif
 tests/phpdocs/*
+
 tests/init_testing.db:
 tests/testing.db:
