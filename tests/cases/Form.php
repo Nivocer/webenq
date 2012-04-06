@@ -22,7 +22,6 @@ class Webenq_Test_Case_Form extends PHPUnit_Framework_TestCase
     {
         global $testingDatabase;
         unlink($testingDatabase);
-        $this->reset();
         parent::tearDown();
     }
 
