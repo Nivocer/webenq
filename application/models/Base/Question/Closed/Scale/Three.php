@@ -13,12 +13,6 @@
  */
 abstract class Webenq_Model_Base_Question_Closed_Scale_Three extends Webenq_Model_Question_Closed_Scale
 {
-    public function setTableDefinition()
-    {
-        parent::setTableDefinition();
-        $this->setTableName('question__closed__scale__three');
-    }
-
     public function setUp()
     {
         parent::setUp();

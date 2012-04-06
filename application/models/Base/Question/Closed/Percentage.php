@@ -13,12 +13,6 @@
  */
 abstract class Webenq_Model_Base_Question_Closed_Percentage extends Webenq_Model_Question_Closed
 {
-    public function setTableDefinition()
-    {
-        parent::setTableDefinition();
-        $this->setTableName('question__closed__percentage');
-    }
-
     public function setUp()
     {
         parent::setUp();

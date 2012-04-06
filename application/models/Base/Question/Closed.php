@@ -13,12 +13,6 @@
  */
 abstract class Webenq_Model_Base_Question_Closed extends Webenq_Model_Question
 {
-    public function setTableDefinition()
-    {
-        parent::setTableDefinition();
-        $this->setTableName('question__closed');
-    }
-
     public function setUp()
     {
         parent::setUp();

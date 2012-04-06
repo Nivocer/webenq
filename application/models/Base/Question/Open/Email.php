@@ -13,12 +13,6 @@
  */
 abstract class Webenq_Model_Base_Question_Open_Email extends Webenq_Model_Question_Open
 {
-    public function setTableDefinition()
-    {
-        parent::setTableDefinition();
-        $this->setTableName('question__open__email');
-    }
-
     public function setUp()
     {
         parent::setUp();

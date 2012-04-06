@@ -13,12 +13,6 @@
  */
 abstract class Webenq_Model_Base_Question_Open extends Webenq_Model_Question
 {
-    public function setTableDefinition()
-    {
-        parent::setTableDefinition();
-        $this->setTableName('question__open');
-    }
-
     public function setUp()
     {
         parent::setUp();
