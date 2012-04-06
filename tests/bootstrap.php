@@ -5,7 +5,7 @@ define('APPLICATION_ENV', 'testing');
 
 // initialize
 require_once realpath(dirname(__FILE__) . '/../public/init.php');
-$application->bootstrap('doctrine');
+$application->bootstrap();
 
 // set up database for testing
 $doctrineConfig = $application->getBootstrap()->getOption('doctrine');
@@ -14,7 +14,7 @@ try {
 } catch (Exception $e) {}
 Doctrine_Core::createDatabases();
 Doctrine_Core::createTablesFromModels($doctrineConfig['models_path']);
-// Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
+Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
 
 // make copy of sqlite database file (if any) for better performance
 $dbConfig = $application->getBootstrap()->getOption('db');
