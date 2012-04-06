@@ -1,4 +1,8 @@
 .buildpath
 .project
 .settings
+tests/log/*.svg
+tests/log/phpcs.xml
+tests/log/summary.xml
 tests/log/report/*.html
+tests/phpdocs/*
