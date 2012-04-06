@@ -20,6 +20,7 @@ class Webenq_Test_Case_Model extends PHPUnit_Framework_TestCase
     {
         global $testingDatabase;
         unlink($testingDatabase);
+        $this->reset();
         parent::tearDown();
     }
 }
