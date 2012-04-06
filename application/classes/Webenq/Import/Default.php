@@ -166,9 +166,11 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             // get and cleanup answers
             $answers = $questionsAndAnswers[$questionTexts[$i]];
+            //TODO move all $answer cleaning here?
             array_map('strtolower', $answers);
             array_map('trim', $answers);
             $answers = preg_replace('/\s{2,}/', ' ', $answers);
+            //TODO improve performance, use array with answers as key, count as value? 
 
             // factor correct question type (based on given answers)
             $question = Webenq_Model_Question::factory($answers, $language);
@@ -187,7 +189,8 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
                 $questionnaireQuestion->question_id = $question->id;
             }
 
-            // set default question type
+            // set default question type for collectionPresentation
+            //TODO move this a few line below, to keep it together?
             if ($question instanceof Webenq_Model_Question_Closed) {
                 $questionnaireQuestion->type = 'single';
             } else {
@@ -206,6 +209,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
             }
 
             // set defaults for collection-presentation
+            //TODO merge with a few line above, to keep it together?
             $collectionPresentation = new Webenq_Model_CollectionPresentation();
             $collectionPresentation->setDefaults($questionnaireQuestion);
             $questionnaireQuestion->CollectionPresentation[] = $collectionPresentation;

@@ -29,7 +29,7 @@ class Webenq_Model_Question_Open_Email extends Webenq_Model_Base_Question_Open_E
         $validEmailAddress = new Zend_Validate_EmailAddress;
         $validValues = 0;
         $emptyValues = 0;
-
+//TODO performance check only distinct emailadresses
         foreach ($values as $value) {
             if ($validEmailAddress->isValid($value)) {
                 $validValues++;
