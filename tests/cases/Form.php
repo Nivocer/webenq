@@ -41,16 +41,16 @@ class Webenq_Test_Case_Form extends PHPUnit_Framework_TestCase
     /**
      * Scans all subforms and elements for errors
      *
-     * @param Zend_Form $element
+     * @param Zend_Form|Zend_Form_Element $form
      * @return boolean
      */
-    public function hasErrors(Zend_Form $form)
+    public function hasErrors($form)
     {
         if ($form instanceof Zend_Form_Element) {
             return $this->_elementHasErrors($form);
+        } elseif ($form instanceof Zend_Form) {
+            return $this->_formHasErrors($form);
         }
-
-        return $this->_formHasErrors($form);
     }
 
     protected function _formHasErrors(Zend_Form $form)
