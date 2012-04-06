@@ -6,3 +6,5 @@ tests/log/phpcs.xml
 tests/log/summary.xml
 tests/log/report/*.html
 tests/phpdocs/*
+tests/init_testing.db:
+tests/testing.db:
