@@ -1,9 +1,8 @@
 <?php
 class Webenq_Test_Class_Importer_AdapterTest extends Webenq_Test_Class_ImporterTest
 {
-    public function test()
+    public function testDummy()
     {
-
     }
 
     protected function _getPath()
