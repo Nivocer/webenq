@@ -9,7 +9,6 @@ class Webenq_Test_Class_Importer_Adapter_XlsTest extends Webenq_Test_Class_Impor
 
         $this->assertTrue(is_array($data));
         $this->assertTrue(count($data) === 1);
-        $this->assertTrue($data[0][0][0] === 'Emailadres');
     }
 
     public function testCanGetDataFromQuestbackFile()
@@ -20,6 +19,5 @@ class Webenq_Test_Class_Importer_Adapter_XlsTest extends Webenq_Test_Class_Impor
 
         $this->assertTrue(is_array($data));
         $this->assertTrue(count($data) === 3);
-        $this->assertTrue($data[0][0][0] === 'Emailadres');
     }
 }
