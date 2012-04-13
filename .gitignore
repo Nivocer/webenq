@@ -22,3 +22,4 @@ public/reports/test*
 public/reports/images
 public/reports/tempout
 
+public/outputs/*.xls
