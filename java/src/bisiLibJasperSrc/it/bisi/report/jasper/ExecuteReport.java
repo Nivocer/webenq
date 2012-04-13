@@ -193,7 +193,7 @@ public class ExecuteReport {
 
 					//needed for displaying content
 					String splitQuestionLabel=it.bisi.Utils.getXformLabel(xformLocation, xformName, splitQuestionId, splitQuestionValue);
-					System.out.println(splitQuestionLabel);
+					//System.out.println(splitQuestionLabel);
 					prms.put("SPLIT_QUESTION_VALUE", splitQuestionValue);
 					prms.put("SPLIT_QUESTION_LABEL", splitQuestionLabel);
 					generateReport(reportDefinitionLocation, prms, splitQuestionLabel, outputDir, outputFileName, outputFormat );
