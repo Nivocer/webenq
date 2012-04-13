@@ -15,3 +15,10 @@ tests/phpdocs/*
 
 tests/init_testing.db:
 tests/testing.db:
+
+public/reports/*.pdf
+public/reports/*.zip
+public/reports/test*
+public/reports/images
+public/reports/tempout
+
