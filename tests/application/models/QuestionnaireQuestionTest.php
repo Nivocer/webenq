@@ -3,8 +3,18 @@ class Webenq_Test_Model_QuestionnaireQuestionTest extends Webenq_Test_Case_Model
 {
     public function testFormElementIsGenerated()
     {
-        $qq = new Webenq_Model_QuestionnaireQuestion();
-        $elm = $qq->getFormElement();
-        $this->assertTrue($elm instanceof Zend_Form_Element);
+        $questionnaire = new Webenq_Model_Questionnaire();
+        $questionnaire->save();
+
+        $question = new Webenq_Model_Question();
+        $question->save();
+
+        $questionnaireQuestion = new Webenq_Model_QuestionnaireQuestion();
+        $questionnaireQuestion->Questionnaire = $questionnaire;
+        $questionnaireQuestion->Question = $question;
+        $questionnaireQuestion->save();
+
+        $element = $questionnaireQuestion->getFormElement();
+        $this->assertTrue($element instanceof Zend_Form_Element);
     }
 }
