@@ -1,46 +1,60 @@
 WEBENQ4
 
+WebEnq4 can be used to manage questionnaires and report definitions, import
+data sets, and generate reports in various formats. It is under active
+development to be extended with more import and export options.
+
+The application builds on a number of tools and technologies, most notably: 
+PHP, Zend, PEAR, Java, Jasper, Ant
+
+We use Xforms and Jasper's Jrxml to communicate between the core system and the
+Jasper report engine.
+
+
 REQUIREMENTS
 ============
 
+Requirements include Debian/Ubuntu package names.
+
 For the application:
 
-* PHP 5.2+ (5.3+ preferred) 
+* PHP 5.2+ (5.3+ preferred)
+	Packages: php
 
+* Java runtime engine and Java SDK
+	Packages: default-jre-headless and default-jdk or alternatives to those 
+* Ant 1.8+
+	Packages: ant, ant-optional  
 
-For ANT (compiling java en jrxml) 
-* java vm
-* ant-optional
-* ant-nodeps
-* tools.jar in java.home/lib (determin via ant -diagnostics | grep java.home)
 
 For the test suite:
 
-* PHPUnit 3.5+
+* PEAR
+	Packages: php-pear
 
-Can be installed via PEAR from the PHPUnit channel:
+* PHPUnit 3.5+ 
+	Can be installed via PEAR from the PHPUnit channel:
 
-  * Make sure you have the channels for PHPUnit and dependencies
+	* Make sure you have the channels for PHPUnit and dependencies
   
     pear channel-discover pear.phpunit.de
     pear channel-discover components.ez.no
     pear channel-discover pear.symfony-project.com
   
-  * Install PHPUnit
+    * Install PHPUnit
   
     pear install phpunit/PHPUnit
 
-* OTHER Testing/developing Tools
+Other testing/development tools
+
    http://pear.pdepend.org/
    pear install PHP_CodeSniffer
    pecl install xdebug
    pear install pear/PHPDocumentor
    
 * PHP Sqlite module
-
-    apt-get install php5-sqlite
+	Packages: php5-sqlite
     
-
 
 INSTALLATION
 ============
@@ -51,8 +65,7 @@ PUT THE CODE IN THE RIGHT PLACE AND CONFIGURE YOUR INSTANCE
 ===========================================================
 
 In a directory of choice:
-	git clone $user@nivocer.com:/home/group/nivocer/repo/webenq4 
-	(git clone https://github.com/Nivocer/webenq)
+	git clone https://github.com/Nivocer/webenq
 
 	
 Choose a name for your instance and set an environment variable APPLICATION_ENV
@@ -82,7 +95,7 @@ application/config/application.ini, then override it with the settings from the 
 'production' in application/config/override.ini, and then override it with the settings
 in the section 'my-sandbox' in application/config/override.ini.
 
-Note that if db.params.dsn is set all other db.params.* settigns will be ignored.
+Note: if db.params.dsn is set all other db.params.* settigns will be ignored.
 
 
 PREPARE THE DATABASE
