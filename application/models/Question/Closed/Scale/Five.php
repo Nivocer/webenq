@@ -31,13 +31,6 @@ class Webenq_Model_Question_Closed_Scale_Five extends Webenq_Model_Base_Question
             return false;
         }
 
-        /* are all values present in an answer-possibility-group? */
-        //TODO obsolete, this test fails in scale.php, so this test will never fail here. 
-        $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues(), $language);
-        if (!$group) {
-            return false;
-        }
-
         /* does it include other values than defined for this type? */
         if ($question->otherValuesThanDefinedValid()) {
             return false;
