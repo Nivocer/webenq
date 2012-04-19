@@ -17,7 +17,7 @@
 		<defaultValueExpression><![CDATA["org/webenq/resources/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["leeuwenburg"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["departmentB"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SPLIT_QUESTION_ID" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="SPLIT_QUESTION_VALUE" class="java.lang.String" isForPrompting="false"/>

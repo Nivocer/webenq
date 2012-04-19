@@ -1,12 +1,12 @@
 <?php
 /**
- * Tool class for converting HVA data
+ * Tool class for converting ClientA data
  *
  * @package     Webenq
  * @subpackage  Controllers
  * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Tool_Hva extends Webenq_Tool
+class Webenq_Tool_ClientA extends Webenq_Tool
 {
     protected $_filename;
 
@@ -111,7 +111,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
     /**
      * Returns the modules found in the data
      * the multiple response column at the beginning of the data are used to determin the modules, they start with '1: '
-     * 
+     *
      *
      * @return array Modules
      */
@@ -120,10 +120,10 @@ class Webenq_Tool_Hva extends Webenq_Tool
         $modules = array();
         //first questback group (1: ), than module code
         $moduleNamePattern = '/^1:\s(.*)/';
-        //alternative: 
+        //alternative:
         //1: aan het begin, vervolgens 4x: alles mag behalve _, afgesloten door _
         //vervolgens nog een groep, waarbij alles mag behalve _
-        //$moduleNamePattern ='/^1:\s([^_]+_[^_]+_[^_]+_[^_]+_[^_]+)/'; 
+        //$moduleNamePattern ='/^1:\s([^_]+_[^_]+_[^_]+_[^_]+_[^_]+)/';
         foreach ($this->_data[0][0] as $column => $header) {
             if (preg_match($moduleNamePattern, $header, $matches)) {
                 $modules[$column] = $matches[1];
@@ -197,7 +197,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
         $modules = $this->_modules;
         $respondentsModules = $this->_respondentsModules;
         $moduleDataColumns = $this->_moduleDataColumns;
-        
+
         // get extra data from last working sheet
         $extraData = array();
         foreach ($data[2] as $row) {
@@ -230,8 +230,8 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 $row = $this->_getRespondentRow($respondent, $data);
                 foreach ($row as $column => $value) {
                 	//is the current column a module column and:
-                	// is it part of the current module: keep value, 
-                	//if not part of current module, set to null, 
+                	// is it part of the current module: keep value,
+                	//if not part of current module, set to null,
                 	//if not part of a module at all: keep value
                     if ($this->_isModuleColumn($column, $moduleDataColumns, $data)) {
                         if ($column >= $startColumn && $column <= $endColumn) {
@@ -247,7 +247,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 // add some extra data (titel questionnaire, startdate, end date response)
                 //module column=last columnin orginal data
                $moduleColumn=count($data[0][0]);
-                
+
                 $newRow[$moduleColumn] = $module;
                 $newRow[] = $this->_firstRespondentId + array_search($respondent, $this->_respondents);
                 foreach ($extraData as $key => $value) $newRow[] = $value;
@@ -355,7 +355,7 @@ class Webenq_Tool_Hva extends Webenq_Tool
                 $first = current($columns);
                 foreach ($columns as $column) {
                     if ($column > $first) {
-                        if (!$row[$first] && isset($row[$column]) && 
+                        if (!$row[$first] && isset($row[$column]) &&
                         	$row[$column]) {
                             $row[$first] = $row[$column];
                         }

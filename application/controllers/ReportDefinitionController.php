@@ -64,40 +64,40 @@ class ReportDefinitionController extends Zend_Controller_Action
         $reportDefinitions = new Webenq_Model_DbTable_ReportDefinitions();
         $questions = new Webenq_Model_DbTable_Questions("questions_" . $this->_id);
 
-        $leewenburgDefaultGroupRow = $questions->fetchAll("title = 'basisgroep'");
-        if ($leewenburgDefaultGroupRow->count() === 1) {
-            $leewenburgDefaultGroupTitle = $leewenburgDefaultGroupRow->current()->id;
+        $departmentBDefaultGroupRow = $questions->fetchAll("title = 'basisgroep'");
+        if ($departmentBDefaultGroupRow->count() === 1) {
+            $departmentBDefaultGroupTitle = $departmentBDefaultGroupRow->current()->id;
         } else {
-            $leewenburgDefaultGroupTitle = '';
+            $departmentBDefaultGroupTitle = '';
         }
 
-        $fraijlemaborgDefaultSplitRow = $questions->fetchAll("title = 'docent'");
-        if ($fraijlemaborgDefaultSplitRow->count() === 1) {
-            $fraijlemaborgDefaultSplitTitle = $fraijlemaborgDefaultSplitRow->current()->id;
+        $departmentADefaultSplitRow = $questions->fetchAll("title = 'docent'");
+        if ($departmentADefaultSplitRow->count() === 1) {
+            $departmentADefaultSplitTitle = $departmentADefaultSplitRow->current()->id;
         } else {
-            $fraijlemaborgDefaultSplitTitle = '';
+            $departmentADefaultSplitTitle = '';
         }
 
         $reportDefinitions->insert(array(
             "data_set_id"           => $this->_id,
-            "group_question_id"     => $leewenburgDefaultGroupTitle,
+            "group_question_id"     => $departmentBDefaultGroupTitle,
             "output_filename"       => str_replace(' ', '_', $this->_title) . '_open',
             "output_format"         => 'pdf',
             "report_type"           => 'open',
             "ignore_question_ids"   => '"0_respondent","1_datum"',
             "language"              => 'nl',
-            "customer"              => 'leeuwenburg',
+            "customer"              => 'departmentB',
             "page"                  => 'portrait',
         ));
         $reportDefinitions->insert(array(
             "data_set_id"           => $this->_id,
-            "group_question_id"     => $leewenburgDefaultGroupTitle,
+            "group_question_id"     => $departmentBDefaultGroupTitle,
             "output_filename"       => str_replace(' ', '_', $this->_title) . '_tables',
             "output_format"         => 'pdf',
             "report_type"           => 'tables',
             "ignore_question_ids"   => '"0_respondent","1_datum"',
             "language"              => 'nl',
-            "customer"              => 'leeuwenburg',
+            "customer"              => 'departmentB',
             "page"                  => 'portrait',
         ));
     }

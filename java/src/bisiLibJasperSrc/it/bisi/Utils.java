@@ -138,7 +138,7 @@ public class Utils {
 		
 		//Map<String, Object> mpMaps=new HashMap<String, Object>();
 		String map_id=null;
-		if (customer.equals("fraijlemaborg")){
+		if (customer.equals("departmentA")){
 			map_id="white";
 			Map<String,Double> color_range_white=new HashMap<String,Double>();
 			color_range_white.put("lowRed",new Double(0.0));
@@ -169,7 +169,7 @@ public class Utils {
 			color_range_mean10.put("highGreen", new Double(10.0));
 			returnMap.put(map_id,color_range_mean10);
 			
-		}else if (customer.equals("hvaoo")) {
+		}else if (customer.equals("departmentC")) {
 			map_id="white";
 			Map<String,Double> color_range_white=new HashMap<String,Double>();
 			color_range_white.put("lowRed",new Double(0.0));
@@ -200,7 +200,7 @@ public class Utils {
 			color_range_mean10.put("highGreen", new Double(10.0));
 			returnMap.put(map_id,color_range_mean10);
 			
-		}else if (customer.equals("leeuwenburg")){
+		}else if (customer.equals("departmentB")){
 			map_id="mean5";
 			//rood < 3 (dus exclusief 3.0
 			//geel 3 tot 4 (dus exclusief 4.0)

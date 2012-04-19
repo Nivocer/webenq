@@ -52,7 +52,7 @@ public class XformJRDataSource {
 		this.split_question_value=split_question_value;
 		this.get_answer_labels=get_answer_labels;
 
-		//this.data_location="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-hva-oo-simpleQuestCombined.xml";
+		//this.data_location="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/5-clientA-oo-simpleQuestCombined.xml";
 		//this.report_question_ids="g6-Tevredenheid/g6-InhoudRelevant";
 	}
 

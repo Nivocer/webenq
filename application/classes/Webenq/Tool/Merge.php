@@ -1,6 +1,6 @@
 <?php
 /**
- * Tool class for converting HVA data
+ * Tool class for converting ClientA data
  *
  * @package     Webenq
  * @subpackage  Controllers
@@ -17,7 +17,7 @@ class Webenq_Tool_Merge extends Webenq_Tool
      */
     protected $_data = array();
 
-            
+
     /**
      * The converted data
      *
@@ -73,8 +73,8 @@ class Webenq_Tool_Merge extends Webenq_Tool
         return $this->_data;
     }
 
-     
-    
+
+
 
     /**
      * Returns the new data
@@ -85,7 +85,7 @@ class Webenq_Tool_Merge extends Webenq_Tool
     {
     	// get processed data
     	$data = $this->_data;
-		
+
     	//only for questback
     	// get extra data from last working sheet
     	$extraData = array();
@@ -107,11 +107,11 @@ class Webenq_Tool_Merge extends Webenq_Tool
     		$this->_lastRespondentId=$t_key;
     		//check: only questback?
     		foreach ($extraData as $key => $value) {
-    			$row[] = $value;	
+    			$row[] = $value;
     		}
-    		
+
     		$row[] = $this->_filename;
-    		
+
     		$new[0][] = $row;
     	}
 
@@ -119,7 +119,7 @@ class Webenq_Tool_Merge extends Webenq_Tool
     		$new[0][0][] = '9999: Respondent ID';
     		//check only for questback
     		foreach ($extraData as $key => $value) $new[0][0][] = "9999: $key";
-    		
+
     		$new[0][0][] = '9999: Filename';
 
     		// add group numbers to questions, only for questback

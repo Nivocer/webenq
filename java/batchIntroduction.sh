@@ -11,7 +11,7 @@ reports="4 5"
 type_reports="barchart open tables"
 reports="1 3"
 reports="1"
-dir="fraijlemaborgQ3"
+dir="departmentAQ3"
 
 #pabo
 type_reports="pabo"

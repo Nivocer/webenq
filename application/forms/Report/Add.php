@@ -46,7 +46,7 @@ class Webenq_Form_Report_Add extends Zend_Form
         $this->addElement($this->createElement('select', 'customer', array(
             'label' => 'customer',
         	'required' => true,
-            'multiOptions' => array('default'=>'Other', 'leeuwenburg' => 'Leeuwenburg', 'hvaoo'=>'HvA-OO'),
+            'multiOptions' => array('default'=>'Other', 'departmentB' => 'departmentB', 'departmentC'=>'departmentC'),
         )));
 
         $this->addElement($this->createElement('select', 'output_dir', array(
@@ -64,10 +64,10 @@ class Webenq_Form_Report_Add extends Zend_Form
             'label' => 'output format',
         	'required' => true,
             'multiOptions' => array(
-            	'pdf'	=> 'pdf', 
-            	'doc'	=> 'doc', 
-            	'odt'	=>'odt', 
-            	'rtf'	=>'rtf', 
+            	'pdf'	=> 'pdf',
+            	'doc'	=> 'doc',
+            	'odt'	=>'odt',
+            	'rtf'	=>'rtf',
         		'docx'	=>'docx (untested)',
         		'html'	=>'html',
         		'xml'	=>'xml',
