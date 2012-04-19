@@ -674,6 +674,14 @@ Report:
     output_format:
       type: string(5)
       notnull: true
+    orientation:
+      type: enum(1)
+      values:
+        - a
+        - p
+        - l
+      default: a
+      notnull: true
   relations:
     ReportTitle:
       local: id

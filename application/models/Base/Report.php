@@ -13,6 +13,7 @@
  * @property string $output_dir
  * @property string $output_name
  * @property string $output_format
+ * @property enum $orientation
  * @property Doctrine_Collection $ReportTitle
  * @property Webenq_Model_Questionnaire $Questionnaire
  * @property Webenq_Model_QuestionnaireQuestion $QuestionnaireQuestion
@@ -76,6 +77,18 @@ abstract class Webenq_Model_Base_Report extends Doctrine_Record
              'type' => 'string',
              'notnull' => true,
              'length' => '5',
+             ));
+        $this->hasColumn('orientation', 'enum', 1, array(
+             'type' => 'enum',
+             'values' => 
+             array(
+              0 => 'a',
+              1 => 'p',
+              2 => 'l',
+             ),
+             'default' => 'a',
+             'notnull' => true,
+             'length' => '1',
              ));
     }
 

@@ -163,10 +163,20 @@ class ReportController extends Zend_Controller_Action
             date('YmdHis')))) . '.jrxml';
 
         // config settings
-        // @todo get this from database/or customer info
-        $this->view->pageWidth = 595;
-        $this->view->pageHeight = 842;
-        $this->view->pageOrientation = 'Portrait';
+        switch ($report->orientation) {
+            case 'p':
+                $this->view->pageWidth = 595;
+                $this->view->pageHeight = 842;
+                $this->view->pageOrientation = 'Portrait';
+                break;
+            case 'a':
+            case 'l':
+            default:
+                $this->view->pageWidth = 842;
+                $this->view->pageHeight = 595;
+                $this->view->pageOrientation = 'Landscape';
+                break;
+        }
         $this->view->leftMargin =20;
         $this->view->rightMargin =20;
         $this->view->topMargin =20;

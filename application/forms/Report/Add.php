@@ -64,18 +64,27 @@ class Webenq_Form_Report_Add extends Zend_Form
             'label' => 'output format',
         	'required' => true,
             'multiOptions' => array(
-            	'pdf'	=> 'pdf', 
-            	'doc'	=> 'doc', 
-            	'odt'	=>'odt', 
-            	'rtf'	=>'rtf', 
-        		'docx'	=>'docx (untested)',
-        		'html'	=>'html',
-        		'xml'	=>'xml',
-        		'xls'	=>'xls',
-        		'jxl'	=>'jxl (untested)',
-        		'xlsx'	=>'xlsx (untested)',
-        		'print'	=>'print'),
-        )));
+            	'pdf'	=> 'pdf',
+            	'doc'	=> 'doc',
+            	'odt'	=> 'odt',
+            	'rtf'	=> 'rtf',
+        		'docx'	=> 'docx (untested)',
+        		'html'	=> 'html',
+        		'xml'	=> 'xml',
+        		'xls'	=> 'xls',
+        		'jxl'	=> 'jxl (untested)',
+        		'xlsx'	=> 'xlsx (untested)',
+        		'print'	=> 'print',
+        ))));
+
+        $this->addElement($this->createElement('select', 'orientation', array(
+            'label' => 'orientation',
+        	'required' => true,
+            'multiOptions' => array(
+            	'a'	=> 'automatic',
+            	'p'	=> 'portrait',
+            	'l'	=> 'landscape',
+        ))));
 
         $this->addElement($this->createElement('submit', 'submit', array(
             'label' => 'save',

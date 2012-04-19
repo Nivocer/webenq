@@ -17,6 +17,7 @@
                 <th><?php echo t('output directory'); ?></th>
                 <th><?php echo t('output file name'); ?></th>
                 <th><?php echo t('output format'); ?></th>
+                <th><?php echo t('orientation'); ?></th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -50,6 +51,9 @@
                     </td>
                     <td>
                         <?php echo $report->output_format; ?>
+                    </td>
+                    <td>
+                        <?php echo $report->orientation; ?>
                     </td>
                     <td>
                         <a class="icon view" title="<?php echo t('view'); ?>" href="<?php echo $this->baseUrl("report/view/id/$report->id"); ?>">&nbsp;</a>
