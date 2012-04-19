@@ -2,7 +2,7 @@
 /**
  * Class definition for closed question data types
  */
-class Webenq_Model_Question_Closed extends Webenq_Model_Question
+class Webenq_Model_Question_Closed extends Webenq_Model_Base_Question_Closed
 {
     /**
      * Child classes
@@ -25,17 +25,17 @@ class Webenq_Model_Question_Closed extends Webenq_Model_Question
         if ($question->countUnique() == 0) {
             return false;
         }
-        
+
 		/* not too many different answers? */
         if ($question->countUnique() > 50){
             return false;
-        }       
+        }
 
         /* not too many different answers (absolute and relative to number of answers)? */
         if ($question->countUnique() > 7 && $question->countUnique() / $question->count() > .333) {
             return false;
         }
-        
+
         /* not too much difference in length of answers? */
         if ($question->diffLen() > 100) {
             return false;

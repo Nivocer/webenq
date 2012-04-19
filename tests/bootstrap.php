@@ -1,12 +1,33 @@
 <?php
-date_default_timezone_set("Europe/Amsterdam");
-
 
 // define application environment
 define('APPLICATION_ENV', 'testing');
 
 // initialize
 require_once realpath(dirname(__FILE__) . '/../public/init.php');
+$application->bootstrap();
+
+// set up database for testing
+$doctrineConfig = $application->getBootstrap()->getOption('doctrine');
+try {
+    Doctrine_Core::dropDatabases();
+} catch (Exception $e) {}
+Doctrine_Core::createDatabases();
+Doctrine_Core::createTablesFromModels($doctrineConfig['models_path']);
+Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
+
+// make copy of sqlite database file (if any) for better performance
+$dbConfig = $application->getBootstrap()->getOption('db');
+if (isset($dbConfig['params']['dbname']) && !empty($dbConfig['params']['dbname'])) {
+    $testingDatabase = $dbConfig['params']['dbname'];
+} elseif (isset($dbConfig['params']['dsn']) && !empty($dbConfig['params']['dsn'])) {
+    $info = Doctrine_Manager::getInstance()->parseDsn($dbConfig['params']['dsn']);
+    $testingDatabase = $info['path'];
+}
+if (isset($testingDatabase) && file_exists($testingDatabase)) {
+    $initialDatabase = 'init_' . $testingDatabase;
+    copy($testingDatabase, $initialDatabase);
+}
 
 // set up auto-loading for tests
 $loader = Zend_Loader_Autoloader::getInstance();

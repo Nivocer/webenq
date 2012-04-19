@@ -9,6 +9,5 @@ class Webenq_Test_Class_Importer_Adapter_CsvTest extends Webenq_Test_Class_Impor
 
         $this->assertTrue(is_array($data));
         $this->assertTrue(count($data) === 1);
-        $this->assertTrue($data[0][0][0] === 'Emailadres');
     }
 }

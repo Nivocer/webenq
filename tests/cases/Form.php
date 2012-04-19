@@ -5,16 +5,24 @@ class Webenq_Test_Case_Form extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        global $application;
-        $application->bootstrap();
-
         parent::setUp();
 
-        $config = $application->getBootstrap()->getOption('doctrine');
-        Doctrine_Core::dropDatabases();
-        Doctrine_Core::createDatabases();
-        Doctrine_Core::createTablesFromModels($config['models_path']);
-        Doctrine_Core::loadData($config['data_fixtures_path']);
+        // backup initial database (if any) for better performance
+        global $doctrineConfig, $initialDatabase, $testingDatabase;
+        if (isset($initialDatabase) && file_exists($initialDatabase)) {
+            $copied = copy($initialDatabase, $testingDatabase);
+        }
+
+        if (!isset($copied) || $copied == false) {
+            Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
+        }
+    }
+
+    public function tearDown()
+    {
+        global $testingDatabase;
+        unlink($testingDatabase);
+        parent::tearDown();
     }
 
     public function getForm()
@@ -33,16 +41,16 @@ class Webenq_Test_Case_Form extends PHPUnit_Framework_TestCase
     /**
      * Scans all subforms and elements for errors
      *
-     * @param Zend_Form $element
+     * @param Zend_Form|Zend_Form_Element $form
      * @return boolean
      */
-    public function hasErrors(Zend_Form $form)
+    public function hasErrors($form)
     {
         if ($form instanceof Zend_Form_Element) {
             return $this->_elementHasErrors($form);
+        } elseif ($form instanceof Zend_Form) {
+            return $this->_formHasErrors($form);
         }
-
-        return $this->_formHasErrors($form);
     }
 
     protected function _formHasErrors(Zend_Form $form)

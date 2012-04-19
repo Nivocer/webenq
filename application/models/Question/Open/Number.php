@@ -2,7 +2,7 @@
 /**
  * Class definition for the open question data type number
  */
-class Webenq_Model_Question_Open_Number extends Webenq_Model_Question_Open
+class Webenq_Model_Question_Open_Number extends Webenq_Model_Base_Question_Open_Number
 {
     /**
      * Child classes

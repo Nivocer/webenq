@@ -2,7 +2,7 @@
 /**
  * Class definition for the closed question data type scale
  */
-class Webenq_Model_Question_Closed_Scale_Five extends Webenq_Model_Question_Closed_Scale
+class Webenq_Model_Question_Closed_Scale_Five extends Webenq_Model_Base_Question_Closed_Scale_Five
 {
     /**
      * Child classes
@@ -26,11 +26,13 @@ class Webenq_Model_Question_Closed_Scale_Five extends Webenq_Model_Question_Clos
         }
 
         /* more than five unique values? */
+        //TODO adjust check database 'allowed' values
         if ($question->countUniqueExcludingNullValues() > 5) {
             return false;
         }
 
         /* are all values present in an answer-possibility-group? */
+        //TODO obsolete, this test fails in scale.php, so this test will never fail here. 
         $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues($question->getUniqueValues(), $language);
         if (!$group) {
             return false;

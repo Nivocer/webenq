@@ -135,7 +135,7 @@ class Doctrine_Migration_Diff
     /**
      * Initialize some Doctrine models at a given path.
      *
-     * @param string $path 
+     * @param string $path
      * @return array $models
      */
     protected function _initializeModels($path)
@@ -369,9 +369,15 @@ class Doctrine_Migration_Diff
     protected function _generateModels($prefix, $item)
     {
         $path = $this->_tmpPath . DIRECTORY_SEPARATOR . strtolower($prefix) . '_doctrine_tmp_dirs';
+
+        // Bug fix - Bart Huttinga (05-04-2012):
+        // Force pear style model generation and add temp path to include path,
+        // to help Doctrine to refind the temp. models after generation.
+        set_include_path(implode(PATH_SEPARATOR, array($path, get_include_path())));
         $options = array(
             'classPrefix' => $prefix,
-            'generateBaseClasses' => false
+            'generateBaseClasses' => false,
+            'pearStyle' => true,
         );
 
         if (is_string($item) && file_exists($item)) {

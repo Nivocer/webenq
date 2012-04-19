@@ -2,7 +2,7 @@
 /**
  * Class definition for the closed question data type scale
  */
-class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Question_Closed
+class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Base_Question_Closed_Scale
 {
     /**
      * Child classes

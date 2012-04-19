@@ -256,12 +256,3 @@ Webenq_Model_AnswerPossibilityTextSynonym:
   Webenq_Model_AnswerPossibilityTextSynonym_6:
     text: 'zeer oneens'
     answerPossibilityText_id: '14'
-Webenq_Model_AnswerPossibilityNullValue:
-  Webenq_Model_AnswerPossibilityNullValue_1:
-    value: 'weet niet / nvt'
-  Webenq_Model_AnswerPossibilityNullValue_2:
-    value: 'weet niet'
-  Webenq_Model_AnswerPossibilityNullValue_3:
-    value: nvt
-  Webenq_Model_AnswerPossibilityNullValue_4:
-    value: 'niet van toepassing'

@@ -169,9 +169,6 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_65:
     Role: Admin
     Resource: Webenq_Model_Resource_53
-  Webenq_Model_RoleResource_66:
-    Role: Admin
-    Resource: Webenq_Model_Resource_77
   Webenq_Model_RoleResource_67:
     Role: Editor
     Resource: Webenq_Model_Resource_30
@@ -244,6 +241,12 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_92:
     Role: Admin
     Resource: Webenq_Model_Resource_20
+  AdminToolHva:
+    Role: Admin
+    Resource: ToolHva
+  AdminToolMerge:
+    Role: Admin
+    Resource: ToolMerge
   AdminListReports:
     Role: Admin
     Resource: ListReports
@@ -470,9 +473,12 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_76:
     name: questionnaire/xform-data
     description: 'Download questionnaire data for XForm'
-  Webenq_Model_Resource_77:
+  ToolHva:
     name: tool/hva
     description: 'Conversion of HVA input files'
+  ToolMerge:
+    name: tool/merge
+    description: 'Conversion of input files'
   ListReports:
     name: report/index
     description: 'List reports'

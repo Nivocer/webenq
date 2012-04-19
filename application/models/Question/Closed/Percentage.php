@@ -3,7 +3,7 @@
 /**
  * Class definition for the closed question data type percentage
  */
-class Webenq_Model_Question_Closed_Percentage extends Webenq_Model_Question_Closed
+class Webenq_Model_Question_Closed_Percentage extends Webenq_Model_Base_Question_Closed_Percentage
 {
     /**
      * Child classes

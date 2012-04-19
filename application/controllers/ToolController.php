@@ -128,14 +128,14 @@ class ToolController extends Zend_Controller_Action
                 $thirdWorkingSheet[8][1] = 'divers';
 
 
-                
+
                 //merge data:
                 foreach ($data as $setId => $dataSheet){
                 	if ($setId ===0) continue;
                  	$data[0]=$this->_mergeData($data[0],$dataSheet);
                  	unset ($data[$setId]);
                 }
-                
+
                 // disabled layout and viewRenderer
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender();
@@ -145,7 +145,7 @@ class ToolController extends Zend_Controller_Action
                 $download->setData($data[0][0])->init();
                 $download->addWorkingSheet($data[0][1]);
                 $download->addWorkingSheet($thirdWorkingSheet);
-                $download->save($archiveInfo['file']['name']);
+                $this->view->filename = $download->save($archiveInfo['file']['name']);
             }
         }
 
@@ -277,14 +277,14 @@ class ToolController extends Zend_Controller_Action
                 $thirdWorkingSheet[8][1] = 'divers';
 
 
-                
+
                 //merge data:
                 foreach ($data as $setId => $dataSheet){
                 	if ($setId ===0) continue;
                  	$data[0]=$this->_mergeData($data[0],$dataSheet);
                  	unset ($data[$setId]);
                 }
-                
+
                 // disabled layout and viewRenderer
                 $this->_helper->layout->disableLayout();
                 $this->_helper->viewRenderer->setNoRender();
@@ -294,18 +294,18 @@ class ToolController extends Zend_Controller_Action
                 $download->setData($data[0][0])->init();
                 $download->addWorkingSheet($data[0][1]);
                 $download->addWorkingSheet($thirdWorkingSheet);
-                $download->save($archiveInfo['file']['name']);
+                $this->view->filename = $download->save($archiveInfo['file']['name']);
             }
         }
 
         $this->view->errors = $errors;
         $this->view->form = $form;
     }
-    
-    
+
+
     /**
      * Merges data array if the question texts are the same
-     * 
+     *
      * Both input arrays are 'spreadsheet2array'
      * only the first sheet is merged
      *
@@ -342,7 +342,7 @@ class ToolController extends Zend_Controller_Action
        			echo 'questions are not unique';
        			break;
        		}
-       		//create array with questionsNew as value and 'column' as key 
+       		//create array with questionsNew as value and 'column' as key
     		foreach ($questionsNew as $column => &$question) {
     			//questions start with number and :
     			$pattern="/^(\d*:\s*)*(.*)$/";
@@ -357,10 +357,10 @@ class ToolController extends Zend_Controller_Action
        			echo 'questions new are not unique';
        			break;
        			return false;
-       			
+
        		}
-       		
-       		
+
+
        		//add questions (headers) that are not in $data[0]
     		foreach ($questionsNew as $columnNew => &$questionNew) {
     			//questions start with number and :
@@ -385,16 +385,16 @@ class ToolController extends Zend_Controller_Action
     			if ($key === 0) continue;
     			$i=0;
     			foreach ($questionsNewClean as $questionNew){
-    				
+
     				$targetColumn=array_search($questionNew, $questionsClean);
     				$row[$targetColumn]=$answers[$i];
-    				$i++;	
+    				$i++;
     			}
-    			
+
     			$data[0][]=$row;
     			//make certain no data from previous respondent with new respondent
     			unset ($row);
-    		} 
+    		}
 	    }
     return $data;
     }

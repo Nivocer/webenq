@@ -3,20 +3,26 @@ abstract class Webenq_Test_Case_Controller extends Zend_Test_PHPUnit_ControllerT
 {
     public function setUp()
     {
-        global $application;
-        $application->bootstrap();
-
         parent::setUp();
 
-        $config = $application->getBootstrap()->getOption('doctrine');
-        Doctrine_Core::createTablesFromModels($config['models_path']);
-        Doctrine_Core::loadData($config['data_fixtures_path']);
+        // backup initial database (if any) for better performance
+        global $doctrineConfig, $initialDatabase, $testingDatabase;
+        if (isset($initialDatabase) && file_exists($initialDatabase)) {
+            $copied = copy($initialDatabase, $testingDatabase);
+        }
+
+        if (!isset($copied) || $copied == false) {
+            Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
+        }
 
         $this->getFrontController()->setControllerDirectory(APPLICATION_PATH . '/controllers');
     }
 
     public function tearDown()
     {
+        global $testingDatabase;
+        unlink($testingDatabase);
         $this->reset();
+        parent::tearDown();
     }
 }

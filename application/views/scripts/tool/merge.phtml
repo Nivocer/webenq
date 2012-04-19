@@ -1,3 +1,9 @@
+<?php if ($this->filename): ?>
+    <a href="<?php echo $this->baseUrl($this->filename); ?>">
+        <?php echo $this->filename; ?> is gegenereerd<br/>
+    </a>
+<?php endif; ?>
+
 <?php echo $this->form->render(); ?>
 
 <?php if ($this->errors): ?>

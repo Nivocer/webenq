@@ -103,11 +103,18 @@ PREPARE THE DATABASE
 
 Manually create the database for your instance. Then populate it with an initial
 set of data by running:
-
 	cd bin
+	chmod u+x doctrine
 	./install
 	
 PLEASE NOTE THAT THIS WILL DELETE ALL DATA FROM YOUR DATABASE!
+
+CHECK IMPROVE/WRITE PERMISSONS
+==============================
+writable for webserver:
+logs/application.log
+java/tempout/test
+public/reports
 
 
 RUN THE TEST SUITE
@@ -120,3 +127,9 @@ To check the test suite:
     
 The results will be available via .../tests/ at web location of your 
 installation.
+
+
+LOGIN
+=====
+Default usernames: admin, admin2, admin3
+Default password: webenq
