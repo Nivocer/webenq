@@ -1,8 +1,0 @@
-Webenq_Model_Questionnaire:
-  Webenq_Model_Questionnaire_1:
-    meta:
-Webenq_Model_QuestionnaireTitle:
-  Webenq_Model_QuestionnaireTitle_1:
-    language: nl
-    text: 'Dit is een testvragenlijst'
-    Questionnaire: Webenq_Model_Questionnaire_1
