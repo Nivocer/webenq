@@ -133,3 +133,10 @@ LOGIN
 =====
 Default usernames: admin, admin2, admin3
 Default password: webenq
+
+
+JASPER SERVER
+=============
+
+(to be documented)
+/application/controller/JasperController.php expects JAVA_HOSTS on localhost:8081

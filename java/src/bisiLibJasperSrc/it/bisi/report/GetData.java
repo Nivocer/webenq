@@ -60,8 +60,8 @@ public class GetData {
 	
 	/**
 	 * create file name from url, replace '://, and '/' to _
-	 * so http://webenq4.localhost/questionnaire/xform-data/id/1
-	 * becomes http_webenq4.localhost_questionnaire_xform-data_id_1
+	 * so http://my.domain.com/questionnaire/xform-data/id/1
+	 * becomes http_my.domain.com_questionnaire_xform-data_id_1
 	 * 
 	 * @param url
 	 * @return file name (no extension)

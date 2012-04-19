@@ -61,8 +61,6 @@ public class Utils {
 	
 	public static String getXformLabel(String xformLocation, String formName, String searchQuestion, String searchValue){
 
-		//String xformLocation="/home/jaapandre/workspace/webenq4/java/src/webenqResources/org/webenq/resources/3-hva-oo-simpleQuest.xml";
-
 		//read xform info and do something with it 
 		// @TODO determine what to do with it
 		//read file and put it in dom-object
