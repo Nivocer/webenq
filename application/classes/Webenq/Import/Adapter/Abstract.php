@@ -27,7 +27,7 @@ abstract class Webenq_Import_Adapter_Abstract implements Webenq_Import_Adapter_I
     	$extension = array_pop($filenameParts);
 
     	if (!in_array($extension, self::$supportedFormats)) {
-    		throw new Exception('Invalid file format');
+    		throw new Webenq_Import_Adapter_Exception('Invalid file format');
     	}
 
 		$class = 'Webenq_Import_Adapter_' . ucfirst($extension);

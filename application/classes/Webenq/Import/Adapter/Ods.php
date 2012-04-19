@@ -46,9 +46,9 @@ class Webenq_Import_Adapter_Ods extends Webenq_Import_Adapter_Abstract
 	{
 		/* check if file exists */
 		if (!$filename) {
-			throw new Exception("No data-file was uploaded");
+			throw new Webenq_Import_Adapter_Exception("No data-file was uploaded");
 		} elseif (!file_exists($filename)) {
-    		throw new Exception("Could not find data-file $filename");
+    		throw new Webenq_Import_Adapter_Exception("Could not find data-file $filename");
     	}
 
     	$this->_filename = $filename;

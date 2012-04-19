@@ -39,9 +39,9 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
 	{
 		/* check if file exists */
 		if (!$filename) {
-			throw new Exception("No data-file was uploaded");
+			throw new Webenq_Import_Adapter_Exception("No data-file was uploaded");
 		} elseif (!file_exists($filename)) {
-    		throw new Exception("Could not find data-file $filename");
+    		throw new Webenq_Import_Adapter_Exception("Could not find data-file $filename");
     	}
 
     	$this->_filename = $filename;
@@ -92,7 +92,7 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
 						foreach ($headerArray as $t_value){
 							$data[0][$i][]=null;
 						}
-						
+
 					}
 				}
 			}else {
@@ -100,7 +100,7 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
 				$data[] = array_merge($sheet->toArray(), array());
 			}
 		}
-		
+
 		// convert date fields
 		foreach ($data as $sheetId => $sheet) {
 		    foreach ($sheet as $rowId => $row) {
