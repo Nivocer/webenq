@@ -2,15 +2,7 @@
 .project
 .settings
 
-tests/log/*.svg
-tests/log/phpcs.xml
-tests/log/summary.xml
-tests/log/testdox.html
-tests/log/report/*.html
-tests/log/report/*.js
-tests/log/report/*.png
-tests/log/report/*.css
-tests/log/report/*.gif
+tests/log/*
 tests/phpdocs/*
 
 tests/init_testing.db:
@@ -23,3 +15,14 @@ public/reports/images
 public/reports/tempout
 
 public/outputs/*.xls
+
+/logs/application.log
+
+/application/configs/override.ini
+
+/java/tempout/createIntroduction.error
+/java/tempout/createReport.error
+/java/tempout/amazon
+/java/tempout/test/*
+*.class
+*.jasper

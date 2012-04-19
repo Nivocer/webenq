@@ -46,7 +46,7 @@ class Webenq_Form_Report_Add extends Zend_Form
         $this->addElement($this->createElement('select', 'customer', array(
             'label' => 'customer',
         	'required' => true,
-            'multiOptions' => array('default'=>'Other', 'leeuwenburg' => 'Leeuwenburg', 'hvaoo'=>'HvA-OO'),
+            'multiOptions' => array('default'=>'Other', 'departmentB' => 'departmentB', 'departmentC'=>'departmentC'),
         )));
 
         $this->addElement($this->createElement('select', 'output_dir', array(

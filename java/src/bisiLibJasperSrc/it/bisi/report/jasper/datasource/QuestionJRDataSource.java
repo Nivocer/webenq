@@ -40,7 +40,7 @@ public class QuestionJRDataSource {
 		String titlerows;
 		try{
 			
-			//hack fraijlemaborg response
+			//hack departmentA response
 			String config_response_group="30_aantal_werkelijke_respondenten";
 			String config_population_group="29_groepsgrootte";
 			@SuppressWarnings("unused")
@@ -205,8 +205,8 @@ public class QuestionJRDataSource {
 					}else{
 						query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
 					}
-					//@todo ugly hack response fraijlemaborg
-					if (customer.equals("fraijlemaborg") && question_field.equals(config_response_group)){
+					//@todo ugly hack response departmentA
+					if (customer.equals("departmentA") && question_field.equals(config_response_group)){
 						if ( group_rows != null && group_rows.length() == 0 ){
 							query="SELECT  "+config_response_group+"/"+config_population_group+" as "+config_response_group+", \"Totaal\" FROM values_"+identifier+" where 1=1 ";
 						}else{
@@ -223,7 +223,7 @@ public class QuestionJRDataSource {
 
 					stmt_valuea.execute(query);
 					ResultSet rsh_valuea=stmt_valuea.getResultSet();
-					//@todo te weinig respondenten niet tonen HvA
+					//@todo te weinig respondenten niet tonen ClientA
 					
 					while (rsh_valuea.next()){
 						//@todo this record differs in order of variables with previous record
@@ -239,8 +239,8 @@ public class QuestionJRDataSource {
 					//String query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
 					String query="select "+question_field+",\"Totaal\" from values_"+identifier+" where "+question_field+">0";
 					
-					//@todo ugly hack response fraijlemaborg
-					if (customer.equals("fraijlemaborg") && question_field.equals("30_respons")){
+					//@todo ugly hack response departmentA
+					if (customer.equals("departmentA") && question_field.equals("30_respons")){
 						if ( group_rows != null && group_rows.length() == 0 ){
 							query="SELECT  "+config_response_group+"/"+config_population_group+" as "+config_response_group+", \"Totaal\" FROM values_"+identifier+" where 1=1 ";
 						}else{

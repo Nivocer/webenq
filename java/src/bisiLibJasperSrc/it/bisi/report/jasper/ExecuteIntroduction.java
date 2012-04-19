@@ -69,27 +69,27 @@ public class ExecuteIntroduction {
 			}
 			
 			//customer
-			String customer = "fraijlemaborg";
+			String customer = "departmentA";
 			if (period_identifier.equals("8") || period_identifier.equals("9")) {
-				customer ="hvaoo";
+				customer ="departmentC";
 			}
 			if (period_identifier.equals("10")) {
-				customer="hvaoo";
+				customer="departmentC";
 			}
 			if (period_identifier.equals("11")) {
-				customer="hvaoo";
+				customer="departmentC";
 			}
 			if (period_identifier.equals("112")) {
-				customer="hvaoo";
+				customer="departmentC";
 			}
 			if (period_identifier.equals("113")) {
-				customer="hvaoo";
+				customer="departmentC";
 			}
 			if (period_identifier.equals("114")) {
-				customer="hvaoo";
+				customer="departmentC";
 			}
 			if (period_identifier.equals("115")) {
-				customer="hvaoo";
+				customer="departmentC";
 			}			
 
 			//output file name adjustments

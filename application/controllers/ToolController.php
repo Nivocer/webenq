@@ -8,9 +8,9 @@
  */
 class ToolController extends Zend_Controller_Action
 {
-    public function hvaAction()
+    public function clientAAction()
     {
-        $form = new Webenq_Form_Tool_Hva();
+        $form = new Webenq_Form_Tool_ClientA();
         $errors = array();
         $lastRespondentId = 1;
 	$config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini", APPLICATION_ENV);
@@ -55,7 +55,7 @@ class ToolController extends Zend_Controller_Action
                         // skip non-xls, non-xlsx and non-ods files
                         if (!preg_match('/\.(xls|xlsx|ods)$/', strtolower($filename))) continue;
 
-                        $tool = new Webenq_Tool_Hva("$target/$filename");
+                        $tool = new Webenq_Tool_ClientA("$target/$filename");
                         $tool->setFirstRespondentId($lastRespondentId);
                         $tool->process();
                         $data[] = $tool->getNewData();
@@ -155,7 +155,7 @@ class ToolController extends Zend_Controller_Action
 
  public function mergeAction()
     {
-        $form = new Webenq_Form_Tool_Hva();
+        $form = new Webenq_Form_Tool_ClientA();
         $errors = array();
         $lastRespondentId = 0;
 		$config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini", APPLICATION_ENV);

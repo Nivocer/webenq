@@ -123,7 +123,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 			<band height="12" splitType="Prevent">
 				<textField>
 					<reportElement x="0" y="0" width="61" height="12">
-						<printWhenExpression><![CDATA[$P{CUSTOMER}.equals("hvaoo")]]></printWhenExpression>
+						<printWhenExpression><![CDATA[$P{CUSTOMER}.equals("departmentC")]]></printWhenExpression>
 					</reportElement>
 					<box>
 						<topPen lineWidth="0.25"/>
@@ -136,7 +136,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 				</textField>
 				<textField isStretchWithOverflow="true">
 					<reportElement stretchType="RelativeToBandHeight" x="61" y="0" width="224" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true">
-						<printWhenExpression><![CDATA[$P{CUSTOMER}.equals("hvaoo")]]></printWhenExpression>
+						<printWhenExpression><![CDATA[$P{CUSTOMER}.equals("departmentC")]]></printWhenExpression>
 					</reportElement>
 					<box leftPadding="1" rightPadding="1">
 						<topPen lineWidth="0.25"/>
@@ -197,13 +197,13 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 					<textElement verticalAlignment="Middle">
 						<font size="8"/>
 					</textElement>
-					<textFieldExpression><![CDATA[( $P{CUSTOMER}.equals("hvaoo")?
+					<textFieldExpression><![CDATA[( $P{CUSTOMER}.equals("departmentC")?
 str("jaar"+$F{group_question_label}.split("_")[0]):
 "")]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="1" y="0" width="284" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true">
-						<printWhenExpression><![CDATA[!$P{CUSTOMER}.equals("hvaoo")]]></printWhenExpression>
+						<printWhenExpression><![CDATA[!$P{CUSTOMER}.equals("departmentC")]]></printWhenExpression>
 					</reportElement>
 					<box>
 						<topPen lineWidth="0.25"/>
