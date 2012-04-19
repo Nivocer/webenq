@@ -32,25 +32,6 @@ class Webenq_Model_Report extends Webenq_Model_Base_Report
     }
 
     /**
-     * Converts the object to an array, including translations
-     *
-     * @param boolean $deep
-     * @param boolean $prefixKey
-     * @return array
-     * @see Doctrine_Record::toArray()
-     */
-    public function toArray($deep = true, $prefixKey = false)
-    {
-        $array = parent::toArray($deep, $prefixKey);
-
-        foreach ($this->ReportTitle as $title) {
-            $array['title'][$title->language] = $title->text;
-        }
-
-        return $array;
-    }
-
-    /**
      * Sets the report title for a given language
      *
      * @param string $language The language to set the title for

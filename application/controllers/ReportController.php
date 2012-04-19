@@ -81,6 +81,9 @@ class ReportController extends Zend_Controller_Action
         $form->setAction($this->_request->getRequestUri());
         $form->getElement('split_qq_id')->setMultiOptions($splitQuestionMultiOptions);
         $form->populate($report->toArray());
+        foreach ($report->ReportTitle as $title) {
+            $form->title->{$title->language}->setValue($title->text);
+        }
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
 
@@ -227,21 +230,21 @@ class ReportController extends Zend_Controller_Action
             ->setHeader('Content-Transfer-Encoding', 'binary')
             ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
             ->setBody($dom->saveXML());
-        
+
         /*$this->_response
             ->setHeader('Content-Type', 'text/xml; charset=utf-8')
             ->setBody($dom->saveXML());
             */
     }
-    
+
     /*
-     * Generate the report 
-     * TODO use code from reportGeneratinoController.php for controlAction and generateAction 
-     * 
-     */ 
+     * Generate the report
+     * TODO use code from reportGeneratinoController.php for controlAction and generateAction
+     *
+     */
      /**
       * Let jasper report (via java) generate the reports and display the list of reports, reported back from jasper report
-      *  
+      *
       *
       */
      public function generateAction()
@@ -249,7 +252,7 @@ class ReportController extends Zend_Controller_Action
      $cwd = getcwd();
      $output = array();
      $returnVar = 0;
-    
+
     $this->_id = $this->getRequest()->getParam("id");
     if (!$this->_id) {
         throw new Exception("No id given!");
@@ -264,7 +267,7 @@ class ReportController extends Zend_Controller_Action
         $output = ob_get_contents();
         ob_end_clean();
         chdir($cwd);
-        
+
         //command returned error value
         if ($returnVar > 0) {
             $this->view->output = $output;
@@ -273,7 +276,7 @@ class ReportController extends Zend_Controller_Action
         	$generatedFiles=explode(',', $output);
        		//remove ../public/
        		$generatedFiles=str_replace('../public','',$generatedFiles);
-       		$this->view->file = $generatedFiles;		
+       		$this->view->file = $generatedFiles;
        	}
         /*
         //if $output contains: 'error generating report(s)' some error occured
@@ -286,7 +289,7 @@ class ReportController extends Zend_Controller_Action
        		$generatedFiles=explode(',', $output);
        		//remove ../public/
        		$generatedFiles=str_replace('../public','',$generatedFiles);
-       		$this->view->file = $generatedFiles;		
+       		$this->view->file = $generatedFiles;
        	}
        	*/
     }
