@@ -19,7 +19,7 @@ class Webenq_Test_Case_Model extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         global $testingDatabase;
-        unlink($testingDatabase);
+        if (file_exists($testingDatabase)) unlink($testingDatabase);
         parent::tearDown();
     }
 }
