@@ -346,7 +346,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 						<elementGroup>
 							<textField pattern="###0.#">
 								<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
-									<printWhenExpression><![CDATA[$V{ROW_COUNT} >1 && !$P{CUSTOMER}.equals("hvaoo")]]></printWhenExpression>
+									<printWhenExpression><![CDATA[$V{ROW_COUNT} >1 && !$P{CUSTOMER}.equals("departmentC")]]></printWhenExpression>
 								</reportElement>
 								<box>
 									<pen lineWidth="0.0"/>

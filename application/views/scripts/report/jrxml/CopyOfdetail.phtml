@@ -10,10 +10,10 @@
 			<reportElement x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 				<printWhenExpression><![CDATA[("AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("tables")) ||
 ("NUMBER".equals($F{type}) && ($P{REPORT_TYPE}.equals("barcharts")) &&
-       ($P{CUSTOMER}.equals("hvaoo") ||  $P{CUSTOMER}.equals("leeuwenburg"))
+       ($P{CUSTOMER}.equals("departmentC") ||  $P{CUSTOMER}.equals("departmentB"))
 ) ||
 ("NUMBER".equals($F{type}) && $P{REPORT_TYPE}.equals("tables") &&
-    $P{CUSTOMER}.equals("leeuwenburg")
+    $P{CUSTOMER}.equals("departmentB")
 )]]></printWhenExpression>
 			</reportElement>
 			<subreportParameter name="CUSTOMER">
@@ -40,7 +40,7 @@
 		</subreport>
 		<subreport>
 			<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="842" height="20" isRemoveLineWhenBlank="true">
-				<printWhenExpression><![CDATA[($P{CUSTOMER}.equals( "fraijlemaborg")
+				<printWhenExpression><![CDATA[($P{CUSTOMER}.equals( "departmentA")
        && ( $F{group_id}.equals(9999))
    && $P{REPORT_TYPE}.equals("tables"))]]></printWhenExpression>
 			</reportElement>
@@ -65,7 +65,7 @@
 		<subreport>
 			<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 				<printWhenExpression><![CDATA["AVG".equals($F{type}) && $P{REPORT_TYPE}.equals("barcharts") ||
-("NUMBER".equals($F{type}) && $P{REPORT_TYPE}.equals("barcharts") && $P{CUSTOMER}.equals("fraijlemaborg"))]]></printWhenExpression>
+("NUMBER".equals($F{type}) && $P{REPORT_TYPE}.equals("barcharts") && $P{CUSTOMER}.equals("departmentA"))]]></printWhenExpression>
 			</reportElement>
 			<parametersMapExpression><![CDATA[new HashMap($P{REPORT_PARAMETERS_MAP})]]></parametersMapExpression>
 			<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.QuestionJRDataSource($P{REPORT_CONNECTION},$P{REPORT_IDENTIFIER},$F{group_id}.toString(),$F{type},$P{SPLIT_VALUE}).getRecords()]]></dataSourceExpression>
@@ -75,7 +75,7 @@
 			<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true">
 				<printWhenExpression><![CDATA["PERC".equals($F{type}) &&
    ($P{REPORT_TYPE}.equals("tables") ||
-       ($P{REPORT_TYPE}.equals("barcharts")&& $P{CUSTOMER}.equals("hvaoo")))]]></printWhenExpression>
+       ($P{REPORT_TYPE}.equals("barcharts")&& $P{CUSTOMER}.equals("departmentC")))]]></printWhenExpression>
 			</reportElement>
 			<subreportParameter name="DEFAULT_STYLE_FILE">
 				<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>

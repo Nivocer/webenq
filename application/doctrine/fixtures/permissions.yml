@@ -241,9 +241,9 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_92:
     Role: Admin
     Resource: Webenq_Model_Resource_20
-  AdminToolHva:
+  AdminToolClientA:
     Role: Admin
-    Resource: ToolHva
+    Resource: ToolClientA
   AdminToolMerge:
     Role: Admin
     Resource: ToolMerge
@@ -473,9 +473,9 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_76:
     name: questionnaire/xform-data
     description: 'Download questionnaire data for XForm'
-  ToolHva:
-    name: tool/hva
-    description: 'Conversion of HVA input files'
+  ToolClientA:
+    name: tool/clienta
+    description: 'Conversion of ClientA input files'
   ToolMerge:
     name: tool/merge
     description: 'Conversion of input files'
