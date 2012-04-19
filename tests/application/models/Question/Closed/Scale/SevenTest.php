@@ -4,10 +4,11 @@ class Webenq_Test_Model_Question_Closed_Scale_SevenTest extends Webenq_Test_Mode
     /**
      * @dataProvider provideValidData
      */
-    public function testFactoryWithValidDataReturnsType($data)
+    public function testQuestionTypeValidatesWhenProvidingValidAnswerValues($data)
     {
         $question = Webenq_Model_Question::factory($data, 'nl');
-    	$this->assertTrue($question instanceof Webenq_Model_Question_Closed_Scale_Seven);
+        $this->assertTrue(in_array('Webenq_Model_Question_Closed_Scale_Seven',
+                $question->getValidTypes()));
     }
 
     /**
