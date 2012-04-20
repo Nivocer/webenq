@@ -871,31 +871,6 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_91:
     name: scale-values/del
     description: null
-Webenq_Model_Session:
-  Webenq_Model_Session_50jo3h9bc9g1td9ut1kagd5762:
-    id: 50jo3h9bc9g1td9ut1kagd5762
-    value: 'Default|a:1:{s:8:"language";N;}'
-    timestamp: '2012-04-19 12:24:25'
-  Webenq_Model_Session_7etum0520n35651pcgd5gm04q7:
-    id: 7etum0520n35651pcgd5gm04q7
-    value: 'Default|a:1:{s:8:"language";N;}'
-    timestamp: '2012-04-19 12:24:29'
-  Webenq_Model_Session_c3jd764s4c15h9v656i5u4rs67:
-    id: c3jd764s4c15h9v656i5u4rs67
-    value: 'Default|a:3:{s:8:"language";s:2:"en";s:16:"questionnaire_id";s:1:"1";s:13:"respondent_id";s:1:"1";}Zend_Auth|a:1:{s:7:"storage";O:8:"stdClass":6:{s:2:"id";s:1:"1";s:8:"username";s:5:"admin";s:8:"fullname";s:7:"Admin 1";s:7:"created";s:19:"2010-12-20 17:20:21";s:9:"lastlogin";s:19:"2012-04-19 12:19:36";s:7:"role_id";s:1:"2";}}'
-    timestamp: '2012-04-19 12:18:02'
-  Webenq_Model_Session_h2h6kmtpa0r8ltrkt08h4radv6:
-    id: h2h6kmtpa0r8ltrkt08h4radv6
-    value: 'Default|a:1:{s:8:"language";N;}'
-    timestamp: '2012-04-19 12:24:30'
-  Webenq_Model_Session_njma6dn8eoave0pf22irejam50:
-    id: njma6dn8eoave0pf22irejam50
-    value: 'Default|a:1:{s:8:"language";N;}'
-    timestamp: '2012-04-19 12:24:27'
-  Webenq_Model_Session_p1fe9j32jnf6ib3ho6t72ep9b6:
-    id: p1fe9j32jnf6ib3ho6t72ep9b6
-    value: 'Default|a:1:{s:8:"language";N;}'
-    timestamp: '2012-04-19 12:26:08'
 Webenq_Model_AnswerPossibilityNullValue:
   Webenq_Model_AnswerPossibilityNullValue_1:
     value: 'weet niet / nvt'
