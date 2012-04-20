@@ -4,8 +4,8 @@ class Webenq_Test_Model_AnswerPossibilityGroupTest extends Webenq_Test_Case_Mode
     public function testAnswerPossibilityGroupIsFound()
     {
         $testValues = array(
-            array('', 'mee eens', 'geheel mee eens', 'neutraal'),
-            array('', 'Weet niet / NvT', 'mee eens', 'geheel mee eens', 'neutraal'),
+            array('', 'mee eens', 'helemaal mee eens', 'neutraal'),
+            array('', 'Weet niet / NvT', 'mee eens', 'helemaal mee eens', 'neutraal'),
         );
 
         foreach ($testValues as $values) {
