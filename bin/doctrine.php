@@ -18,5 +18,5 @@ if (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == 'dump-data') {
     require_once realpath(dirname(__FILE__) . '/fixYaml.php');
     $fixYaml = new FixYaml($configuration['data_fixtures_path']);
     $fixYaml->run();
-    echo "remember to remove session data from fixture (application/doctrine/fixture/data.yml)";
+    echo "remember to remove session data from fixture\n";
 }
