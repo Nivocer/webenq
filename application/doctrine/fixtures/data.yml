@@ -254,6 +254,22 @@ Webenq_Model_AnswerPossibilityText:
     text: female
     language: en
     AnswerPossibility: Webenq_Model_AnswerPossibility_34
+  Webenq_Model_AnswerPossibilityText_64:
+    text: nee
+    language: nl
+    AnswerPossibility: Webenq_Model_AnswerPossibility_35
+  Webenq_Model_AnswerPossibilityText_65:
+    text: no
+    language: en
+    AnswerPossibility: Webenq_Model_AnswerPossibility_35
+  Webenq_Model_AnswerPossibilityText_66:
+    text: ja
+    language: nl
+    AnswerPossibility: Webenq_Model_AnswerPossibility_36
+  Webenq_Model_AnswerPossibilityText_67:
+    text: yes
+    language: en
+    AnswerPossibility: Webenq_Model_AnswerPossibility_36
 Webenq_Model_QuestionText:
   Webenq_Model_QuestionText_1:
     text: 'Wat is je leeftijd?'
@@ -1077,6 +1093,10 @@ Webenq_Model_AnswerPossibilityGroup:
     name: gender
     number: '2'
     measurement_level: non-metric
+  Webenq_Model_AnswerPossibilityGroup_9:
+    name: no-yes
+    number: '2'
+    measurement_level: metric
 Webenq_Model_ReportElement:
   Webenq_Model_ReportElement_1:
     Report: Webenq_Model_Report_1
@@ -1266,6 +1286,14 @@ Webenq_Model_AnswerPossibility:
   Webenq_Model_AnswerPossibility_34:
     active: '1'
     AnswerPossibilityGroup: Webenq_Model_AnswerPossibilityGroup_8
+    value: '2'
+  Webenq_Model_AnswerPossibility_35:
+    active: '1'
+    AnswerPossibilityGroup: Webenq_Model_AnswerPossibilityGroup_9
+    value: '1'
+  Webenq_Model_AnswerPossibility_36:
+    active: '1'
+    AnswerPossibilityGroup: Webenq_Model_AnswerPossibilityGroup_9
     value: '2'
 Webenq_Model_QuestionnaireTitle:
   Webenq_Model_QuestionnaireTitle_1:
