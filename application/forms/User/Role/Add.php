@@ -29,7 +29,7 @@ class Webenq_Form_User_Role_Add extends Zend_Form
     public function store()
     {
         try {
-            $role = new Role();
+            $role = new Webenq_Model_Role();
             $role->name = $this->name->getValue();
             $role->save();
             return true;
