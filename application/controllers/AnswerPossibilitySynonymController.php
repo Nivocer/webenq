@@ -94,7 +94,7 @@ class AnswerPossibilitySynonymController extends Zend_Controller_Action
             if ($this->_request->yes) {
                 $synonym->delete();
             }
-            $this->_redirect('/answer-possibility/edit/id/' . $synonym->AnswerPossibilityText->AnswerPossibility->id);
+            $this->_redirect('/answer-possibility/view/id/' . $synonym->AnswerPossibilityText->AnswerPossibility->id);
         }
 
         /* render view */
