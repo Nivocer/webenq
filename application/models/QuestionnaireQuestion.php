@@ -60,41 +60,25 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     public function getXformElement(DOMDocument $xml, DOMElement $group = null)
     {
-        $meta = unserialize($this->meta);
-        switch ($meta['class']) {
-            case 'Webenq_Model_Question_Closed_Scale_Two':
-            case 'Webenq_Model_Question_Closed_Scale_Three':
-            case 'Webenq_Model_Question_Closed_Scale_Four':
-            case 'Webenq_Model_Question_Closed_Scale_Five':
-            case 'Webenq_Model_Question_Closed_Scale_Six':
-            case 'Webenq_Model_Question_Closed_Scale_Seven':
-            case 'Webenq_Model_Question_Closed_Percentage':
-                $element = $xml->createElement('select1');
-                $element->setAttribute('ref', $this->getXpath());
-                $label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
-                $element->appendChild($label);
-                foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $ap) {
-                    $item = $xml->createElement('item');
-                    $label = $xml->createElement('label', Webenq::Xmlify($ap->getAnswerPossibilityText()->text));
-                    $value = $xml->createElement('value', ($ap->value ? $ap->value : $ap->id));
-                    $item->appendChild($label);
-                    $item->appendChild($value);
-                    $element->appendChild($item);
-                }
-                break;
-            case null:
-            case 'Webenq_Model_Question_Open_Text':
-            case 'Webenq_Model_Question_Open_Email':
-            case 'Webenq_Model_Question_Open_Date':
-            case 'Webenq_Model_Question_Open_Number':
-                $element = $xml->createElement('input');
-                $element->setAttribute('ref', $this->getXpath());
-                $label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
-                $element->appendChild($label);
-                break;
-            default:
-                throw new Exception(__METHOD__ . ' not yet implemented for ' . $meta['class']);
-        }
+    	if (!is_null($this->answerPossibilityGroup_id)){
+    		$element = $xml->createElement('select1');
+    		$element->setAttribute('ref', $this->getXpath());
+    		$label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
+    		$element->appendChild($label);
+    		foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $ap) {
+    			$item = $xml->createElement('item');
+    			$label = $xml->createElement('label', Webenq::Xmlify($ap->getAnswerPossibilityText()->text));
+    			$value = $xml->createElement('value', ($ap->value ? $ap->value : $ap->id));
+    			$item->appendChild($label);
+    			$item->appendChild($value);
+    			$element->appendChild($item);
+    		}
+    	}else{
+    		$element = $xml->createElement('input');
+    		$element->setAttribute('ref', $this->getXpath());
+    		$label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
+    		$element->appendChild($label);
+    	}
 
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
@@ -123,31 +107,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     public function getXformInstanceElement(DOMDocument $xml, DOMElement $group = null)
     {
-        $meta = unserialize($this->meta);
-        switch ($meta['class']) {
-
-            case 'Webenq_Model_Question_Closed_Scale_Two':
-            case 'Webenq_Model_Question_Closed_Scale_Three':
-            case 'Webenq_Model_Question_Closed_Scale_Four':
-            case 'Webenq_Model_Question_Closed_Scale_Five':
-            case 'Webenq_Model_Question_Closed_Scale_Six':
-            case 'Webenq_Model_Question_Closed_Scale_Seven':
-            case 'Webenq_Model_Question_Closed_Percentage':
-                $element = $xml->createElement(Webenq::Xmlify('q' . $this->id, 'tag'));
-                break;
-
-            case null:
-            case 'Webenq_Model_Question_Open_Text':
-            case 'Webenq_Model_Question_Open_Email':
-            case 'Webenq_Model_Question_Open_Date':
-            case 'Webenq_Model_Question_Open_Number':
-                $element = $xml->createElement(Webenq::Xmlify('q' . $this->id, 'tag'));
-                break;
-
-            default:
-                throw new Exception(__METHOD__ . ' not yet implemented for ' . $meta['class']);
-        }
-
+        $element = $xml->createElement(Webenq::Xmlify('q' . $this->id, 'tag'));
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
             foreach ($subQqs as $subQq) {
@@ -168,30 +128,14 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     public function getXformBindElements(DOMDocument $xml, array $elements = array())
     {
-        $meta = unserialize($this->meta);
-        switch ($meta['class']) {
-            case 'Webenq_Model_Question_Closed_Scale_Two':
-            case 'Webenq_Model_Question_Closed_Scale_Three':
-            case 'Webenq_Model_Question_Closed_Scale_Four':
-            case 'Webenq_Model_Question_Closed_Scale_Five':
-            case 'Webenq_Model_Question_Closed_Scale_Six':
-            case 'Webenq_Model_Question_Closed_Scale_Seven':
-            case 'Webenq_Model_Question_Closed_Percentage':
-                $element = $xml->createElement('bind');
+    	if (!is_null($this->answerPossibilityGroup_id)){
+    	        $element = $xml->createElement('bind');
                 $element->setAttribute('nodeset', $this->getXpath());
                 $element->setAttribute('type', 'select1');
-                break;
-            case null:
-            case 'Webenq_Model_Question_Open_Text':
-            case 'Webenq_Model_Question_Open_Email':
-            case 'Webenq_Model_Question_Open_Date':
-            case 'Webenq_Model_Question_Open_Number':
-                $element = $xml->createElement('bind');
-                $element->setAttribute('nodeset', $this->getXpath());
-                $element->setAttribute('type', 'string');
-                break;
-            default:
-                throw new Exception(__METHOD__ . ' not yet implemented for ' . $meta['class']);
+    	}else{
+    		$element = $xml->createElement('bind');
+            $element->setAttribute('nodeset', $this->getXpath());
+            $element->setAttribute('type', 'string');
         }
         $elements[] = $element;
 
