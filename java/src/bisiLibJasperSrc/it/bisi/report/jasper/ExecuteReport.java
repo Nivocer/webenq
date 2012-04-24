@@ -79,18 +79,19 @@ public class ExecuteReport {
 	 */
 	public static void main(String[] args) {
 		
-		runReport(args[0]);
+		runReport(args[0], args[1]);
 	}
 
-
-	public static void runReport(String configFileName)	{
-				
+	public static void runReport(String configFileName, String apiKey)	{
+		if (apiKey.equals("")){
+			apiKey="5dcf19e85860d0e219c400ce8b5ea643";
+		}
 		try{
 			String tempDir="tempout/test";//storage of datafiles (xform data, def, reportdefinition)
 			//get report config information (location, language, customer, etc)
-			Map<String,String> reportConfig=getReportControlFile(configFileName);
+			Map<String,String> reportConfig=getReportControlFile(configFileName, apiKey);
 			//System.out.println(reportConfig);
-			
+
 			String xformName=reportConfig.get("xformName");
 			String outputDir=reportConfig.get("outputDir");
 			if (outputDir==null){
@@ -123,18 +124,18 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
 				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
 			} else {
-				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), tempDir, (long) 3600);
+				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), tempDir, (long) 3600, apiKey);
 			}
 			//System.out.println(reportDefinitionLocation);
-			
+
 			String xformLocation;
 			if (new File(reportConfig.get("xformLocation")).canRead()){
 				xformLocation=reportConfig.get("xformLocation");
 			} else {
-				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), tempDir, (long) 3600);
+				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), tempDir, (long) 3600, apiKey);
 			}
 			//System.out.println(xformLocation);
-						
+
 			if (reportConfig.get("dataLocation")==null){
 				System.out.println("No data location defined, possible you don't have the right permission to get the file");
 				System.err.println("No data location defined");
@@ -143,7 +144,7 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("dataLocation")).canRead()){
 				dataLocation=reportConfig.get("dataLocation");
 			} else {
-				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), tempDir, (long) 3600000);
+				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), tempDir, (long) 3600000, apiKey);
 			}
 			//System.out.println(dataLocation);
 			
@@ -212,7 +213,7 @@ public class ExecuteReport {
 			ex.printStackTrace();
 			System.out.println("error generating report(s): \n");
 			System.out.print(ex);
-			System.exit(1);
+			System.exit(2);
 		}
 	
 	}
@@ -325,7 +326,7 @@ public class ExecuteReport {
 	 * @return	file with the reportconfiguration (one at this moment)
 	 *
 	 */
-	public static Map<String,String> getReportControlFile(String configFileLocation){
+	public static Map<String,String> getReportControlFile(String configFileLocation, String apiKey){
 		//define return variable
 		Map<String,String> reportConfig = new HashMap<String,String>();
 		try {
@@ -339,7 +340,7 @@ public class ExecuteReport {
 				}else {
 					//we cannot read the configfile, let us assume it is a valid URI
 					//TODO add some test to determin if it is a valid uri.
-					url = new URL(configFileLocation);
+					url = new URL(configFileLocation+"/api_key/"+apiKey);
 				}
 				InputStream is=url.openStream();
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

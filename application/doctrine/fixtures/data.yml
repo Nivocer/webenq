@@ -653,6 +653,7 @@ Webenq_Model_User:
     username: admin
     password: 50eb7337364c629709d979712838d82d
     fullname: 'Admin 1'
+    api_key: ac06e72877270a72f1488e658e374fe9
     created: '2010-12-20 17:20:21'
     lastlogin: '2012-04-23 17:29:23'
     Role: Webenq_Model_Role_2
@@ -660,6 +661,7 @@ Webenq_Model_User:
     username: admin2
     password: 50eb7337364c629709d979712838d82d
     fullname: 'Admin 2'
+    api_key: 538ab49d8cd29b02113b5d89b68723ee
     created: '2011-01-10 11:54:24'
     lastlogin: '2011-10-13 14:40:01'
     Role: Webenq_Model_Role_2
@@ -667,6 +669,7 @@ Webenq_Model_User:
     username: admin3
     password: 50eb7337364c629709d979712838d82d
     fullname: 'Admin 3'
+    api_key: 7484b71555400adfc3e44a648aa401bb
     created: '2011-06-09 09:41:24'
     lastlogin: '2011-10-13 16:42:04'
     Role: Webenq_Model_Role_2
@@ -674,6 +677,7 @@ Webenq_Model_User:
     username: reportgenerator
     password: 50eb7337364c629709d979712838d82d
     fullname: 'User which generates the report'
+    api_key: 5dcf19e85860d0e219c400ce8b5ea643
     created: '0000-00-00 00:00:00'
     lastlogin: '0000-00-00 00:00:00'
     Role: Webenq_Model_Role_4
@@ -1164,24 +1168,26 @@ Webenq_Model_AnswerPossibilityTextSynonym:
     AnswerPossibilityText: Webenq_Model_AnswerPossibilityText_14
 Webenq_Model_Question:
   Webenq_Model_Question_1:
-    created: '2012-04-23 17:29:04'
+    created: '2012-04-24 12:16:49'
   Webenq_Model_Question_2:
-    created: '2012-04-23 17:29:04'
+    created: '2012-04-24 12:16:49'
   Webenq_Model_Question_3:
-    created: '2012-04-23 17:29:04'
+    created: '2012-04-24 12:16:49'
   Webenq_Model_Question_4:
-    created: '2012-04-23 17:29:04'
+    created: '2012-04-24 12:16:49'
   Webenq_Model_Question_5:
-    created: '2012-04-23 17:29:04'
+    created: '2012-04-24 12:16:50'
   Webenq_Model_Question_6:
-    created: '2012-04-23 17:29:04'
+    created: '2012-04-24 12:16:50'
 Webenq_Model_MigrationVersion:
   Webenq_Model_MigrationVersion_1:
-    version: '1'
+    version: '2'
   Webenq_Model_MigrationVersion_2:
-    version: '1'
+    version: '2'
   Webenq_Model_MigrationVersion_3:
-    version: '1'
+    version: '2'
+  Webenq_Model_MigrationVersion_4:
+    version: '2'
 Webenq_Model_AnswerPossibility:
   Webenq_Model_AnswerPossibility_1:
     active: '1'

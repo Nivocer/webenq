@@ -9,6 +9,7 @@
  * @property string $username
  * @property string $password
  * @property string $fullname
+ * @property string $api_key
  * @property timestamp $created
  * @property timestamp $lastlogin
  * @property integer $role_id
@@ -16,7 +17,7 @@
  * 
  * @package    Webenq
  * @subpackage Models
- * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php,v 1.2 2011/07/12 13:39:03 bart Exp $
  */
 abstract class Webenq_Model_Base_User extends Doctrine_Record
@@ -51,6 +52,15 @@ abstract class Webenq_Model_Base_User extends Doctrine_Record
              'length' => '64',
              ));
         $this->hasColumn('fullname', 'string', 64, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => '64',
+             ));
+        $this->hasColumn('api_key', 'string', 64, array(
              'type' => 'string',
              'fixed' => 0,
              'unsigned' => false,

@@ -71,6 +71,7 @@ class Webenq_Form_User_User_Add extends Zend_Form
             $user = new Webenq_Model_User();
             $user->fromArray($values);
             $user->password = md5($values['password']);
+            $user->api_key =md5($values['username'].$values['password']);
             $user->save();
             return true;
         }

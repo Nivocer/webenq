@@ -54,6 +54,7 @@ class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
         try {
             $this->_user->fromArray($values);
             $this->_user->password = md5($values['password']);
+            $this->_user->api_key =md5($this->_user->username.$this->_user->password);
             $this->_user->save();
             return true;
         }

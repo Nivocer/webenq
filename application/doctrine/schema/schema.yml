@@ -954,6 +954,13 @@ User:
       primary: false
       notnull: true
       autoincrement: false
+    api_key:
+      type: string(64)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
     created:
       type: timestamp(25)
       fixed: false

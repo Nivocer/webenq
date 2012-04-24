@@ -12,7 +12,7 @@
  * 
  * @package    Webenq
  * @subpackage Models
- * @author     Bart Huttinga <b.huttinga@nivocer.com>
+ * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php,v 1.2 2011/07/12 13:39:03 bart Exp $
  */
 abstract class Webenq_Model_Base_Question extends Doctrine_Record

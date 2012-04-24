@@ -271,7 +271,13 @@ class ReportController extends Zend_Controller_Action
         chdir(APPLICATION_PATH . "/../java");
         $baseUrl=$this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/';
         $reportControlUrl=$baseUrl.'report/control/id/'.$this->_id;
-        $cmd = "java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport $reportControlUrl";
+        $reportConfig=Zend_Controller_Front::getInstance()
+            ->getParam('bootstrap')->getOption('generateReport');
+        $user = Doctrine_Core::getTable('Webenq_Model_User')->find($reportConfig['userId']);
+        $apiKey=$user->api_key;
+        var_dump($apiKey);
+        
+        $cmd = "java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport $reportControlUrl $apiKey";
         ob_start();
         passthru($cmd, $returnVar);
         $output = ob_get_contents();
