@@ -1,10 +1,13 @@
 <a class="link back" href="<?php echo $this->baseUrl('/answer-possibility-group'); ?>">
     <?php echo t('back to all answer possibilities'); ?>
 </a>
-<a class="link add ajax" href="<?php echo $this->baseUrl('/answer-possibility/add/id/' . $this->answerPossibilityGroup->id); ?>" title="<?php echo t('add answer possibility'); ?>">
+<?php if ($this->answerPossibilityGroupId):?>
+<a class="link add ajax" href="<?php echo $this->baseUrl('/answer-possibility/add/id/' .
+		 $this->answerPossibilityGroupId); ?>" 
+		 title="<?php echo t('add answer possibility'); ?>">
     <?php echo t('add answer possibility'); ?>
 </a>
-
+<?php endif; ?>
 <?php if ($this->answerPossibilityGroup && $this->answerPossibilityGroup->count() > 0): ?>
     <table>
         <thead>
