@@ -275,8 +275,6 @@ class ReportController extends Zend_Controller_Action
             ->getParam('bootstrap')->getOption('generateReport');
         $user = Doctrine_Core::getTable('Webenq_Model_User')->find($reportConfig['userId']);
         $apiKey=$user->api_key;
-        var_dump($apiKey);
-        
         $cmd = "java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport $reportControlUrl $apiKey";
         ob_start();
         passthru($cmd, $returnVar);
