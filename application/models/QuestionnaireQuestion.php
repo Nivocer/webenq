@@ -223,6 +223,8 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                     break;
                 case Webenq::COLLECTION_PRESENTATION_OPEN_TEXTAREA:
                     $element = new Zend_Form_Element_Textarea($name);
+                    $element ->setAttrib('cols', '80');
+                    $element ->setAttrib('rows', '4');
                     break;
                 case Webenq::COLLECTION_PRESENTATION_OPEN_DATE:
                     $element = new ZendX_JQuery_Form_Element_DatePicker($name);
