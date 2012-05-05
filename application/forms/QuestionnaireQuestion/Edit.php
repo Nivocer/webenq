@@ -229,8 +229,10 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
             $cp->type = $values['answers']['collectionPresentationType'];
         } else {
             $qq->answerPossibilityGroup_id = null;
-            $cp->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
+            $cp->type = $values['answers']['collectionPresentationType'];
+            //$cp->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
         }
+        //TODO if collectionPresentationType is null set default type.
 
         // get filters and validators
         if (!isset($values['validation']['filters'])) $values['validation']['filters'] = array();

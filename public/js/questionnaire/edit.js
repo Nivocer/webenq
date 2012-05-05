@@ -119,10 +119,10 @@ function updateAnswersTab()
 {
 	if ($('#answers-useAnswerPossibilityGroup').is(':checked')) {
 		$('#answers-answerPossibilityGroup_id').removeAttr('disabled');
-		$('#answers-collectionPresentationType').removeAttr('disabled');
+		//$('#answers-collectionPresentationType').removeAttr('disabled');
 	} else {
 		$('#answers-answerPossibilityGroup_id').attr('disabled', 'disabled');
-		$('#answers-collectionPresentationType').attr('disabled', 'disabled');
+		//$('#answers-collectionPresentationType').attr('disabled', 'disabled');
 	}
 }
 
