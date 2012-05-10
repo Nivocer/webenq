@@ -640,28 +640,12 @@ Webenq_Model_User:
   Webenq_Model_User_1:
     username: admin
     password: 50eb7337364c629709d979712838d82d
-    fullname: 'Admin 1'
+    fullname: 'Administrator'
     api_key: ac06e72877270a72f1488e658e374fe9
     created: '2010-12-20 17:20:21'
     lastlogin: '2012-04-24 16:41:45'
     Role: Webenq_Model_Role_2
   Webenq_Model_User_2:
-    username: admin2
-    password: 50eb7337364c629709d979712838d82d
-    fullname: 'Admin 2'
-    api_key: 538ab49d8cd29b02113b5d89b68723ee
-    created: '2011-01-10 11:54:24'
-    lastlogin: '2011-10-13 14:40:01'
-    Role: Webenq_Model_Role_2
-  Webenq_Model_User_3:
-    username: admin3
-    password: 50eb7337364c629709d979712838d82d
-    fullname: 'Admin 3'
-    api_key: 7484b71555400adfc3e44a648aa401bb
-    created: '2011-06-09 09:41:24'
-    lastlogin: '2011-10-13 16:42:04'
-    Role: Webenq_Model_Role_2
-  Webenq_Model_User_4:
     username: reportgenerator
     password: 50eb7337364c629709d979712838d82d
     fullname: 'User which generates the report'
