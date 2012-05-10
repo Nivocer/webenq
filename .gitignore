@@ -2,8 +2,8 @@
 .project
 .settings
 
-tests/log/*
-tests/phpdocs/*
+public/tests/log/*
+public/tests/phpdocs/*
 
 tests/init_testing.db:
 tests/testing.db:

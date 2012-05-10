@@ -137,7 +137,7 @@ To check the test suite:
 	cd tests
     phpunit
     
-The results will be available via .../tests/ at web location of your 
+The results will be available via /public/tests/ at the web location of your 
 installation.
 
 
