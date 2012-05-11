@@ -19,7 +19,7 @@ Requirements include Debian/Ubuntu package names.
 For the application:
 
 * PHP 5.2+ (5.3+ preferred)
-	Packages: php
+	Packages: php5
 
 * Java runtime engine and Java SDK
 	Packages: default-jre-headless and default-jdk or alternatives to those 
@@ -103,18 +103,30 @@ PREPARE THE DATABASE
 
 Manually create the database for your instance. Then populate it with an initial
 set of data by running:
-	cd bin
-	chmod u+x doctrine
-	./install
+
+	./bin/install
 	
 PLEASE NOTE THAT THIS WILL DELETE ALL DATA FROM YOUR DATABASE!
 
 CHECK IMPROVE/WRITE PERMISSONS
 ==============================
-writable for webserver:
-logs/application.log
-java/tempout/test
-public/reports
+
+Make sure the web server has write access to the following:
+
+	logs/application.log
+	java/tempout/test
+	public/reports
+
+
+GO TO THE WEB APPLICATION
+=========================
+
+You should now be able to access the application via the web server on the
+location you installed it in, in the sub directory 'public'
+
+Default username: admin
+Default password: webenq
+
 
 
 RUN THE TEST SUITE
@@ -125,14 +137,8 @@ To check the test suite:
 	cd tests
     phpunit
     
-The results will be available via .../tests/ at web location of your 
+The results will be available via /public/tests/ at the web location of your 
 installation.
-
-
-LOGIN
-=====
-Default usernames: admin, admin2, admin3
-Default password: webenq
 
 
 JASPER SERVER

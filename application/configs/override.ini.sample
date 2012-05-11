@@ -5,13 +5,8 @@ db.params.dbname = "webenq4"
 db.params.username = "webenq4"
 db.params.password = "ChAnGeThIs"
 
-includePaths.thirdPartyLibs = APPLICATION_PATH "/../../3rdparty/"
-
-
 ;need the next (empty) override, because we want to use the database and thirdPartyLibs settings defined above.
 [development:production]
 
-;testing must not inherit the settings from production, because we want to use the sql-lite database,
-;however we need the thirdPartyLibs include path
+;testing must not inherit the settings from production, because we want to use the sql-lite database
 [testing]
-includePaths.thirdPartyLibs = APPLICATION_PATH "/../../3rdparty/"
