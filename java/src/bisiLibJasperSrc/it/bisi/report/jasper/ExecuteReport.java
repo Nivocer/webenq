@@ -158,9 +158,14 @@ public class ExecuteReport {
 			prms.put("SPLIT_QUESTION_ID", splitQuestionId ); //not yet implemented #5395
 
 			//get map of colors of mean values
+			
 			HashMap<String,Map<String,Double>> color_range_map=it.bisi.Utils.getColorRangeMaps(customer);
 			prms.put("COLOR_RANGE_MAP",color_range_map);
 
+			HashMap<String, Map<String, Map<String, Object>>> recode_color_map=it.bisi.Utils.recodeColorMap(customer);
+			prms.put("RECODE_COLOR_MAP", recode_color_map);
+
+			
 			//localization
 			Locale locale = new Locale("nl", "NL", customer);
 			if (language.equals("en")){

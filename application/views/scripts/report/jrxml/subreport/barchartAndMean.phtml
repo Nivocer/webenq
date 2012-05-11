@@ -61,6 +61,12 @@
     		 "
 			]]></subreportParameterExpression>
 		</subreportParameter>
+		<subreportParameter name="SCALE_QUESTION_INFO">
+			<subreportParameterExpression><![CDATA["<?php echo Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids']);?>"]]></subreportParameterExpression>
+		</subreportParameter>
+		<subreportParameter name="RECODE_COLOR_MAP">
+			<subreportParameterExpression><![CDATA[$P{RECODE_COLOR_MAP}]]></subreportParameterExpression>
+		</subreportParameter>
 		<subreportParameter name="NO_BARCHART">
                     <subreportParameterExpression><![CDATA[<?php echo isset($this->data['no_barchart']) && !empty($this->data['no_barcharts']) ? '"'.$this->data['no_barcharts'].'"' : '""' ; ?>]]></subreportParameterExpression>
                 </subreportParameter>

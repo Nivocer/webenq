@@ -19,4 +19,26 @@ class Webenq_Model_ReportElement extends Webenq_Model_Base_ReportElement
 
         return $questionnaireQuestion->getXpath();
     }
+/**
+ * 
+ * @param array $qqIds
+ * @return json string with questionnaire-questionId, scale 
+ */
+    
+    public function getScaleType($qqIds) {
+    	$returnArray=array();
+    	foreach ($qqIds as $qqId) {
+    		$gg_apg = Doctrine_Query::create()
+    		->from('Webenq_Model_QuestionnaireQuestion qq')
+    		->innerjoin('qq.AnswerPossibilityGroup apg')
+    		->where('qq.id = ?', $qqId)
+    		->execute();
+    		$result=$gg_apg->getFirst();
+	   		$returnArray["q".$qqId]="mean".$result->AnswerPossibilityGroup->number;
+    	}
+
+    	return addslashes($this->json($returnArray));
+
+
+    }
 }
