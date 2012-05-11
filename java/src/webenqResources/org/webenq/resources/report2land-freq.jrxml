@@ -177,7 +177,7 @@
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
-				<measure name="valCount" class="java.lang.Integer" calculation="DistinctCount">
+				<measure name="valCount" class="java.lang.Double" calculation="DistinctCount">
 					<measureExpression><![CDATA[$F{respondent_id}]]></measureExpression>
 				</measure>
 				<measure name="report_question_value_measure" class="java.lang.String">
