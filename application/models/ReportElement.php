@@ -27,16 +27,32 @@ class Webenq_Model_ReportElement extends Webenq_Model_Base_ReportElement
     
     public function getScaleType($qqIds) {
     	$returnArray=array();
+    	//get closed question info
     	foreach ($qqIds as $qqId) {
-    		$gg_apg = Doctrine_Query::create()
+    		$qq_apg = Doctrine_Query::create()
     		->from('Webenq_Model_QuestionnaireQuestion qq')
     		->innerjoin('qq.AnswerPossibilityGroup apg')
     		->where('qq.id = ?', $qqId)
-    		->execute();
-    		$result=$gg_apg->getFirst();
-	   		$returnArray["q".$qqId]="mean".$result->AnswerPossibilityGroup->number;
+    		->limit(1)
+    		->fetchArray();
+    		if ($qq_apg){
+	   			$returnArray["q".$qqId]="scale".$qq_apg[0]['AnswerPossibilityGroup']['number'];
+    		}else {
+				//it is not a scale/closed question
+				//check if it is a grade question (has validator grade)
+				$qq_cp =Doctrine_Query::create()
+	    		->from('Webenq_Model_QuestionnaireQuestion qq')
+	    		->innerjoin('qq.CollectionPresentation cp')
+	    		->where('qq.id = ?', $qqId)
+	    		->limit(1)
+	    		->fetchArray();
+				
+				$validators=unserialize($qq_cp[0]['CollectionPresentation'][0]['validators']);
+				if (is_array($validators) && in_array('grade', $validators)) {
+					$returnArray["q".$qqId]="open10";
+				}
+			}
     	}
-
     	return $returnArray;
 
 

@@ -158,92 +158,92 @@ public class Utils {
 		white.put("target_value_1",defineRecodeColorMap(new Double (0.0), new Double(10000.0), "white", null));
 		returnMap.put("white", white);
 
-		Map<String, Map<String, Object>> mean2=new HashMap<String,Map<String,Object>>();
-		mean2.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(1.499999), "red", new Double (1.0)));
-		mean2.put("target_value_3",defineRecodeColorMap(new Double (2.5), new Double(2.01), "green", new Double (3.0)));
-		returnMap.put("mean2", mean2);
+		Map<String, Map<String, Object>> scale2=new HashMap<String,Map<String,Object>>();
+		scale2.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(1.499999), "red", new Double (1.0)));
+		scale2.put("target_value_3",defineRecodeColorMap(new Double (2.5), new Double(2.01), "green", new Double (3.0)));
+		returnMap.put("scale2", scale2);
 
 		
-		Map<String, Map<String, Object>> mean3=new HashMap<String,Map<String,Object>>();
-		mean3.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(1.499999), "red", new Double (1.0)));
-		mean3.put("target_value_2",defineRecodeColorMap(new Double (1.5), new Double(2.499999), "yellow", new Double (2.0)));
-		mean3.put("target_value_3",defineRecodeColorMap(new Double (2.5), new Double(3.01), "green", new Double (3.0)));
-		returnMap.put("mean3", mean3);
+		Map<String, Map<String, Object>> scale3=new HashMap<String,Map<String,Object>>();
+		scale3.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(1.499999), "red", new Double (1.0)));
+		scale3.put("target_value_2",defineRecodeColorMap(new Double (1.5), new Double(2.499999), "yellow", new Double (2.0)));
+		scale3.put("target_value_3",defineRecodeColorMap(new Double (2.5), new Double(3.01), "green", new Double (3.0)));
+		returnMap.put("scale3", scale3);
 		
-		Map<String, Map<String, Object>> mean4=new HashMap<String,Map<String,Object>>();
-		mean4.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(1.499999), "red", new Double (1.0)));
-		mean4.put("target_value_2",defineRecodeColorMap(new Double (1.5), new Double(3.499999), "yellow", new Double (2.0)));
-		mean4.put("target_value_3",defineRecodeColorMap(new Double (3.5), new Double(4.01), "green", new Double (3.0)));
-		returnMap.put("mean4", mean4);
+		Map<String, Map<String, Object>> scale4=new HashMap<String,Map<String,Object>>();
+		scale4.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(1.499999), "red", new Double (1.0)));
+		scale4.put("target_value_2",defineRecodeColorMap(new Double (1.5), new Double(3.499999), "yellow", new Double (2.0)));
+		scale4.put("target_value_3",defineRecodeColorMap(new Double (3.5), new Double(4.01), "green", new Double (3.0)));
+		returnMap.put("scale4", scale4);
 		
-		Map<String, Map<String, Object>> mean5=new HashMap<String,Map<String,Object>>();
-		mean5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.499999), "red", new Double (1.0)));
-		mean5.put("target_value_2",defineRecodeColorMap(new Double (2.5), new Double(3.499999), "yellow", new Double (2.0)));
-		mean5.put("target_value_3",defineRecodeColorMap(new Double (3.5), new Double(5.01), "green", new Double (3.0)));
-		returnMap.put("mean5", mean5);
+		Map<String, Map<String, Object>> scale5=new HashMap<String,Map<String,Object>>();
+		scale5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.499999), "red", new Double (1.0)));
+		scale5.put("target_value_2",defineRecodeColorMap(new Double (2.5), new Double(3.499999), "yellow", new Double (2.0)));
+		scale5.put("target_value_3",defineRecodeColorMap(new Double (3.5), new Double(5.01), "green", new Double (3.0)));
+		returnMap.put("scale5", scale5);
 		
-		Map<String, Map<String, Object>> mean6=new HashMap<String,Map<String,Object>>();
-		mean6.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.499999), "red", new Double (1.0)));
-		mean6.put("target_value_2",defineRecodeColorMap(new Double (2.5), new Double(4.499999), "yellow", new Double (2.0)));
-		mean6.put("target_value_3",defineRecodeColorMap(new Double (4.5), new Double(6.01), "green", new Double (3.0)));
-		returnMap.put("mean6", mean6);
+		Map<String, Map<String, Object>> scale6=new HashMap<String,Map<String,Object>>();
+		scale6.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.499999), "red", new Double (1.0)));
+		scale6.put("target_value_2",defineRecodeColorMap(new Double (2.5), new Double(4.499999), "yellow", new Double (2.0)));
+		scale6.put("target_value_3",defineRecodeColorMap(new Double (4.5), new Double(6.01), "green", new Double (3.0)));
+		returnMap.put("scale6", scale6);
 		
-		Map<String, Map<String, Object>> mean7=new HashMap<String,Map<String,Object>>();
-		mean7.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(3.499999), "red", new Double (1.0)));
-		mean7.put("target_value_2",defineRecodeColorMap(new Double (3.5), new Double(4.499999), "yellow", new Double (2.0)));
-		mean7.put("target_value_3",defineRecodeColorMap(new Double (4.5), new Double(7.01), "green", new Double (3.0)));
-		returnMap.put("mean7", mean7);
+		Map<String, Map<String, Object>> scale7=new HashMap<String,Map<String,Object>>();
+		scale7.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(3.499999), "red", new Double (1.0)));
+		scale7.put("target_value_2",defineRecodeColorMap(new Double (3.5), new Double(4.499999), "yellow", new Double (2.0)));
+		scale7.put("target_value_3",defineRecodeColorMap(new Double (4.5), new Double(7.01), "green", new Double (3.0)));
+		returnMap.put("scale7", scale7);
 		
-		Map<String, Map<String, Object>> mean8=new HashMap<String,Map<String,Object>>();;
-		mean8.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(3.499999), "red", new Double (1.0)));
-		mean8.put("target_value_2",defineRecodeColorMap(new Double (3.5), new Double(5.499999), "yellow", new Double (2.0)));
-		mean8.put("target_value_3",defineRecodeColorMap(new Double (5.5), new Double(8.01), "green", new Double (3.0)));
-		returnMap.put("mean8", mean8);
+		Map<String, Map<String, Object>> scale8=new HashMap<String,Map<String,Object>>();;
+		scale8.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(3.499999), "red", new Double (1.0)));
+		scale8.put("target_value_2",defineRecodeColorMap(new Double (3.5), new Double(5.499999), "yellow", new Double (2.0)));
+		scale8.put("target_value_3",defineRecodeColorMap(new Double (5.5), new Double(8.01), "green", new Double (3.0)));
+		returnMap.put("scale8", scale8);
 		
-		Map<String, Map<String, Object>> mean9=new HashMap<String,Map<String,Object>>();
-		mean9.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(3.499999), "red", new Double (1.0)));
-		mean9.put("target_value_2",defineRecodeColorMap(new Double (3.5), new Double(6.499999), "yellow", new Double (2.0)));
-		mean9.put("target_value_3",defineRecodeColorMap(new Double (6.5), new Double(9.01), "green", new Double (3.0)));
-		returnMap.put("mean9", mean9);
+		Map<String, Map<String, Object>> scale9=new HashMap<String,Map<String,Object>>();
+		scale9.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(3.499999), "red", new Double (1.0)));
+		scale9.put("target_value_2",defineRecodeColorMap(new Double (3.5), new Double(6.499999), "yellow", new Double (2.0)));
+		scale9.put("target_value_3",defineRecodeColorMap(new Double (6.5), new Double(9.01), "green", new Double (3.0)));
+		returnMap.put("scale9", scale9);
 		
-		Map<String, Map<String, Object>> mean10=new HashMap<String,Map<String,Object>>();
-		mean10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.499999), "red", new Double (1.0)));
-		mean10.put("target_value_2",defineRecodeColorMap(new Double (5.5), new Double(7.499999), "yellow", new Double (2.0)));
-		mean10.put("target_value_3",defineRecodeColorMap(new Double (7.5), new Double(10.01), "green", new Double (3.0)));
-		returnMap.put("mean10", mean10);
+		Map<String, Map<String, Object>> open10=new HashMap<String,Map<String,Object>>();
+		open10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.499999), "red", new Double (1.0)));
+		open10.put("target_value_2",defineRecodeColorMap(new Double (5.5), new Double(7.499999), "yellow", new Double (2.0)));
+		open10.put("target_value_3",defineRecodeColorMap(new Double (7.5), new Double(10.01), "green", new Double (3.0)));
+		returnMap.put("open10", open10);
 		
 		if (customer.equals("departmentA")){
-			mean5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.95), "red", new Double (1.0)));
-			mean5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.95), "white", new Double (2.0)));
-			mean5.put("target_value_3",defineRecodeColorMap(new Double (3.95), new Double(5.01), "green", new Double (3.0)));
-			returnMap.put("mean5", mean5);
+			scale5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.95), "red", new Double (1.0)));
+			scale5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.95), "white", new Double (2.0)));
+			scale5.put("target_value_3",defineRecodeColorMap(new Double (3.95), new Double(5.01), "green", new Double (3.0)));
+			returnMap.put("scale5", scale5);
 			
-			mean10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.45), "red", new Double (1.0)));
-			mean10.put("target_value_2",defineRecodeColorMap(new Double (5.45), new Double(6.45), "yellow", new Double (2.0)));
-			mean10.put("target_value_3",defineRecodeColorMap(new Double (6.45), new Double(10.01), "green", new Double (3.0)));
-			returnMap.put("mean10", mean10);
+			open10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.45), "red", new Double (1.0)));
+			open10.put("target_value_2",defineRecodeColorMap(new Double (5.45), new Double(6.45), "yellow", new Double (2.0)));
+			open10.put("target_value_3",defineRecodeColorMap(new Double (6.45), new Double(10.01), "green", new Double (3.0)));
+			returnMap.put("open10", open10);
 		}		
 		if (customer.equals("departmentB")){
-			mean5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.95), "red", new Double (1.0)));
-			mean5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.95), "yellow", new Double (2.0)));
-			mean5.put("target_value_3",defineRecodeColorMap(new Double (3.95), new Double(5.01), "green", new Double (3.0)));
-			returnMap.put("mean5", mean5);
+			scale5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.95), "red", new Double (1.0)));
+			scale5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.95), "yellow", new Double (2.0)));
+			scale5.put("target_value_3",defineRecodeColorMap(new Double (3.95), new Double(5.01), "green", new Double (3.0)));
+			returnMap.put("scale5", scale5);
 			
-			mean10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.45), "red", new Double (1.0)));
-			mean10.put("target_value_2",defineRecodeColorMap(new Double (5.45), new Double(6.45), "yellow", new Double (2.0)));
-			mean10.put("target_value_3",defineRecodeColorMap(new Double (6.45), new Double(10.01), "green", new Double (3.0)));
-			returnMap.put("mean10", mean10);
+			open10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.45), "red", new Double (1.0)));
+			open10.put("target_value_2",defineRecodeColorMap(new Double (5.45), new Double(6.45), "yellow", new Double (2.0)));
+			open10.put("target_value_3",defineRecodeColorMap(new Double (6.45), new Double(10.01), "green", new Double (3.0)));
+			returnMap.put("open10", open10);
 		}
 		if (customer.equals("departmentC")) {
-			mean5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.95), "red", new Double (1.0)));
-			mean5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.95), "yellow", new Double (2.0)));
-			mean5.put("target_value_3",defineRecodeColorMap(new Double (3.95), new Double(5.01), "green", new Double (3.0)));
-			returnMap.put("mean5", mean5);
+			scale5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.95), "red", new Double (1.0)));
+			scale5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.95), "yellow", new Double (2.0)));
+			scale5.put("target_value_3",defineRecodeColorMap(new Double (3.95), new Double(5.01), "green", new Double (3.0)));
+			returnMap.put("scale5", scale5);
 			
-			mean10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.45), "red", new Double (1.0)));
-			mean10.put("target_value_2",defineRecodeColorMap(new Double (5.45), new Double(6.45), "yellow", new Double (2.0)));
-			mean10.put("target_value_3",defineRecodeColorMap(new Double (6.45), new Double(10.01), "green", new Double (3.0)));
-			returnMap.put("mean10", mean10);
+			open10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.45), "red", new Double (1.0)));
+			open10.put("target_value_2",defineRecodeColorMap(new Double (5.45), new Double(6.45), "yellow", new Double (2.0)));
+			open10.put("target_value_3",defineRecodeColorMap(new Double (6.45), new Double(10.01), "green", new Double (3.0)));
+			returnMap.put("open10", open10);
 		}
 		return returnMap;
 	}
