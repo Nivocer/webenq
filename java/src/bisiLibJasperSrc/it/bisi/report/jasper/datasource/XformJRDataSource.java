@@ -39,10 +39,7 @@ public class XformJRDataSource {
 	private String split_question_value;
 	private Boolean get_answer_labels;
 
-
-
 	public XformJRDataSource(String data_location, String xform_location, String xform_name, String report_question_ids, String group_question_id, String split_question_id, String split_question_value, Boolean get_answer_labels) {
-
 		this.data_location=data_location;
 		this.xform_location=xform_location;
 		this.xform_name=xform_name;
@@ -58,6 +55,7 @@ public class XformJRDataSource {
 	public JRDataSource getRecords() {
 		String report_question_value="";
 		String group_question_value="";
+
 		JRBeanCollectionDataSource dataSource;
 		Collection<XformBean> reportRows=new ArrayList<XformBean>();
 		try{
@@ -102,7 +100,7 @@ public class XformJRDataSource {
 				String expression;
 				for (int i = 0; i < nodes.getLength(); i++) {
 					String respondent_id=nodes.item(i).getParentNode().getAttributes().getNamedItem("id").getNodeValue();
-					//get report_question_value
+					//get report_question_value (answer (Id))
 					expression = report_question_id;
 					Node reportQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 					report_question_value=reportQuestionNode.getTextContent();
