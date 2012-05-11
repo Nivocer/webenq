@@ -37,7 +37,7 @@ class Webenq_Model_ReportElement extends Webenq_Model_Base_ReportElement
 	   		$returnArray["q".$qqId]="mean".$result->AnswerPossibilityGroup->number;
     	}
 
-    	return addslashes($this->json($returnArray));
+    	return $returnArray;
 
 
     }
