@@ -34,8 +34,7 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
 							    	      
 		CategoryPlot plot = chart.getCategoryPlot();
 		plot.setRangeGridlinePaint(Color.white);
-		CategoryDataset cd = (CategoryDataset) plot.getDataset();
-		
+		CategoryDataset cd = plot.getDataset();
 		
 		//TODO ugly place, calculate percentages, needs better approach
 		HashMap hmPercentages = new HashMap();
@@ -43,7 +42,7 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
 		ArrayList hm = new ArrayList();
 		double total=0;
 		for (int col = 0; col < cd.getColumnCount(); col++) {
-             //Determine total number of response for one bar
+			//Determine total number of response for one bar
             for (int row = 0; row < cd.getRowCount(); row++) {
             	//String l_rowKey = (String)String.valueOf(cd.getRowKey(row));
             	double s_value = cd.getValue(row,col).doubleValue();
@@ -58,6 +57,7 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
             	double s_value = cd.getValue(row,col).doubleValue();
             	al.add(  df.format (  s_value/total )  );
             }
+
  		}
 		
 		
@@ -91,12 +91,5 @@ public class StackedBarCustomizer extends JRAbstractChartCustomizer implements J
 		cAxis.setLowerMargin(0.0);
 		
 		vAxis.setLowerMargin(0.0001);
-		
-
-		
-		
-
 	}
-
-
 }
