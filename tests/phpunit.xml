@@ -13,11 +13,11 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="./log/report" charset="UTF-8"
+        <log type="coverage-html" target="../public/tests/log/report" charset="UTF-8"
             yui="true" highlight="true"
             lowUpperBound="50" highLowerBound="80"/>
-        <log type="testdox-html" target="./log/testdox.html" />
-		<log type="pmd-xml" target="./log/pmd.xml" cpdMinLines="5" cpdMinMatches="70"/>
+        <log type="testdox-html" target="../public/tests/log/testdox.html" />
+		<log type="pmd-xml" target="../public/tests/log/pmd.xml" cpdMinLines="5" cpdMinMatches="70"/>
 		<pmd>
 	      <rule class="PHPUnit_Util_Log_PMD_Rule_Project_CRAP"
 	            threshold="5,30"/>
