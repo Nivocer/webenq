@@ -15,15 +15,13 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 	/**
 	 * Main purpose recode answer number (field) to 1,2,3 (negative,neutral, positive)
 	* for generating barchart and color info.
-	* if no valid recoded answer is given valueRecoded is set to answer
+	* if no valid recoded answer is given, valueRecoded is set to original answer
 	* TODO check if it is better to set valueRecoded to null
+	 * @return recodedAnswer
 	 */
 	
-	public void beforeDetailEval() throws JRScriptletException
+	public String recodeColorAnswer() throws JRScriptletException
 	{
-		
-		
-		
 		String questionIdXform=(String) this.getFieldValue("report_question_id");
 		String[] temp=questionIdXform.split("/");
 		String questionId=temp[temp.length-1];
@@ -31,6 +29,7 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 		
 		//get recode scheme
 		
+		@SuppressWarnings("unchecked")
 		HashMap<String, Map<String, Map<String, Object>>> recodeScheme=(HashMap<String, Map<String, Map<String, Object>>>) this.getParameterValue("RECODE_COLOR_MAP");
 		//get recode scheme for this scale Type
 		//get json map: question id: type of question (questionId:number)
@@ -51,10 +50,6 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 			recodedAnswer=answer;
 		}
 		//set recodedVariable
-		this.setVariableValue("valueRecoded", recodedAnswer.toString());
+		return recodedAnswer.toString();
 	}
-	public RecodeColorAnswer() {
-		// TODO Auto-generated constructor stub
-	}
-
 }
