@@ -38,6 +38,11 @@ class Webenq
 			'name' => 'Numerieke tekens',
 			'class' => 'Zend_Validate_Digits',
 		),
+		'grade' => array(
+			'name' => 'Rapportcijfer',
+			'class' => 'Zend_Validate_Between',
+			'options' =>array('min'=>1, 'max' =>10)
+		),
 		'alpha' => array(
 			'name' => 'Alfabetische tekens',
 			'class' => 'Zend_Validate_Alpha',

@@ -8,9 +8,9 @@
  */
 class ToolController extends Zend_Controller_Action
 {
-    public function clientAAction()
+    public function clientAction()
     {
-        $form = new Webenq_Form_Tool_ClientA();
+        $form = new Webenq_Form_Tool_Merge();
         $errors = array();
         $lastRespondentId = 1;
 	$config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini", APPLICATION_ENV);
@@ -136,10 +136,6 @@ class ToolController extends Zend_Controller_Action
                  	unset ($data[$setId]);
                 }
 
-                // disabled layout and viewRenderer
-                $this->_helper->layout->disableLayout();
-                $this->_helper->viewRenderer->setNoRender();
-
                 // return file for download
                 $download = new Webenq_Download_Xls();
                 $download->setData($data[0][0])->init();
@@ -155,7 +151,7 @@ class ToolController extends Zend_Controller_Action
 
  public function mergeAction()
     {
-        $form = new Webenq_Form_Tool_ClientA();
+        $form = new Webenq_Form_Tool_Merge();
         $errors = array();
         $lastRespondentId = 0;
 		$config = new Zend_Config_Ini(APPLICATION_PATH . "/configs/application.ini", APPLICATION_ENV);
@@ -284,10 +280,6 @@ class ToolController extends Zend_Controller_Action
                  	$data[0]=$this->_mergeData($data[0],$dataSheet);
                  	unset ($data[$setId]);
                 }
-
-                // disabled layout and viewRenderer
-                $this->_helper->layout->disableLayout();
-                $this->_helper->viewRenderer->setNoRender();
 
                 // return file for download
                 $download = new Webenq_Download_Xls();

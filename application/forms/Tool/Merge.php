@@ -6,7 +6,7 @@
  * @subpackage  Forms
  * @author      Bart Huttinga <b.huttinga@nivocer.com>
  */
-class Webenq_Form_Tool_ClientA extends Zend_Form
+class Webenq_Form_Tool_Merge extends Zend_Form
 {
     /**
      * Supported input formats
