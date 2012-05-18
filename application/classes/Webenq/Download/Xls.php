@@ -97,7 +97,7 @@ class Webenq_Download_Xls extends Webenq_Download
 		$writer = $this->_getWriter();
 		$fileName='outputs/'.$fileNameBase.$this->getDownloadFilename();
 		$writer->save($fileName);
-		return $filename;
+		return $fileName;
 	}
 
 
