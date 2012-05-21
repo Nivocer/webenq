@@ -113,7 +113,81 @@ $V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band splitType="Prevent"/>
+			<band height="25" splitType="Prevent">
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToBandHeight" x="1" y="0" width="174" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
+				</textField>
+				<stackedBarChart>
+					<chart isShowLegend="false" customizerClass="it.bisi.report.jasper.StackedBarCustomizer">
+						<reportElement x="175" y="0" width="335" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
+							<property name="pietje" value="&quot;jantje&quot;"/>
+							<printWhenExpression><![CDATA[$P{NO_BARCHART}.indexOf($F{report_question_id} )<0]]></printWhenExpression>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineColor="#000000"/>
+						</box>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<categoryDataset>
+						<dataset resetType="Group" resetGroup="question"/>
+						<categorySeries>
+							<seriesExpression><![CDATA[$V{valueRecoded}]]></seriesExpression>
+							<categoryExpression><![CDATA[$F{report_question_text}]]></categoryExpression>
+							<valueExpression><![CDATA[$V{count}]]></valueExpression>
+						</categorySeries>
+					</categoryDataset>
+					<barPlot>
+						<plot orientation="Horizontal"/>
+						<itemLabel/>
+						<valueAxisLabelExpression><![CDATA[$V{valueRecoded}]]></valueAxisLabelExpression>
+					</barPlot>
+				</stackedBarChart>
+				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
+					<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" x="510" y="0" width="25" height="23" isPrintInFirstWholeBand="true"/>
+					<box leftPadding="0">
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{average}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement stretchType="RelativeToBandHeight" x="536" y="0" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="1" y="24" width="535" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
 		</groupFooter>
 	</group>
 	<group name="value">
@@ -132,16 +206,7 @@ $V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
 		<band height="1" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="51" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="555" height="12"/>
 				<textElement markup="html">
@@ -188,79 +253,15 @@ $V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
-			<line>
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="26" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</line>
-			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToBandHeight" x="1" y="26" width="174" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
-				<box leftPadding="2">
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement verticalAlignment="Middle" markup="html">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
-			</textField>
-			<stackedBarChart>
-				<chart isShowLegend="false" evaluationTime="Group" evaluationGroup="question" customizerClass="it.bisi.report.jasper.StackedBarCustomizer">
-					<reportElement x="175" y="26" width="335" height="23" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF">
-						<property name="pietje" value="&quot;jantje&quot;"/>
-						<printWhenExpression><![CDATA[$P{NO_BARCHART}.indexOf($F{report_question_id} )<0]]></printWhenExpression>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineColor="#000000"/>
-					</box>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<dataset resetType="Group" resetGroup="question"/>
-					<categorySeries>
-						<seriesExpression><![CDATA[$V{valueRecoded}]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{report_question_text}]]></categoryExpression>
-						<valueExpression><![CDATA[$V{count}]]></valueExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot orientation="Horizontal"/>
-					<itemLabel/>
-					<valueAxisLabelExpression><![CDATA[$V{valueRecoded}]]></valueAxisLabelExpression>
-				</barPlot>
-			</stackedBarChart>
-			<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
-				<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" x="510" y="26" width="25" height="23" isPrintInFirstWholeBand="true"/>
-				<box leftPadding="0">
-					<topPen lineWidth="0.0"/>
-					<leftPen lineWidth="0.0"/>
-					<bottomPen lineWidth="0.0"/>
-					<rightPen lineWidth="0.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{average}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement stretchType="RelativeToBandHeight" x="536" y="26" width="1" height="25" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</line>
-			<line>
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="1" y="50" width="535" height="1" isPrintWhenDetailOverflows="true" forecolor="#000000"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</line>
 		</band>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
