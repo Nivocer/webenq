@@ -65,6 +65,9 @@ class ReportElementController extends Zend_Controller_Action
             case 'text':
                 $form = new Webenq_Form_ReportElement_Edit_Text($element);
                 break;
+            case 'text with info':
+            	$form = new Webenq_Form_ReportElement_Edit_TextWithInfo($element);
+            	break;
             case 'open question':
                 $form = new Webenq_Form_ReportElement_Edit_OpenQuestion($element);
                 break;

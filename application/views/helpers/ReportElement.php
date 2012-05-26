@@ -22,6 +22,9 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             case 'text':
                 $html .= $this->_renderTextElement();
                 break;
+            case 'text with info':
+            	$html .= $this->_renderTextWithInfoElement();
+            	break;
             case 'open question':
                 $html .= $this->_renderOpenQuestionElement();
                 break;
@@ -54,6 +57,19 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
         }
     }
 
+    protected function _renderTextWithInfoElement()
+    {
+    	$html = '';
+    	if (isset($this->_data['text'])) {
+    		$html.= '<strong>' . $this->_data['text'] . '</strong></br>';
+    	}
+    	if (isset($this->_data['report_qq_id'])) {
+            $qq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
+                ->find($this->_data['report_qq_id']);
+            $html .= '<strong>[count] '. t('will be replaced by count on').": <i>". $qq->Question->getQuestionText()->text . '</i></strong>';
+        }
+        return $html;
+    }
     protected function _renderOpenQuestionElement()
     {
         if (isset($this->_data['report_qq_id'])) {

@@ -10,6 +10,7 @@ class Webenq_Form_ReportElement_Add extends Zend_Form
 {
     protected $_types = array(
         'text' => 'text',
+    	'text with info' => 'text with info',
     	'open question' => 'open question',
     	'percentages table' => 'percentages table',
     	'mean table' => 'mean table',

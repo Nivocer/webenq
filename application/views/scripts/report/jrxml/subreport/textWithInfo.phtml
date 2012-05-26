@@ -1,0 +1,26 @@
+<subreport isUsingCache="false">
+<reportElement positionType="Float" x="0" y="<?php echo $this->y; ?>" width="555" height="20" isRemoveLineWhenBlank="true" />
+<subreportParameter name="CUSTOMER">
+	<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+</subreportParameter>
+<subreportParameter name="DEFAULT_STYLE_FILE">
+	<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+</subreportParameter>
+<subreportParameter name="Q_TEXT">
+	<subreportParameterExpression><![CDATA["<b>Aantal respondenten: [count]</b>"]]></subreportParameterExpression>
+</subreportParameter>
+<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+	<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+</subreportParameter>
+<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
+	$P{DATA_LOCATION},
+	$P{XFORM_LOCATION},
+	$P{FORM_NAME},
+	"<?php echo $this->element->getXpath($this->data['report_qq_id']); ?>",
+	null,
+	$P{SPLIT_QUESTION_ID},
+	$P{SPLIT_QUESTION_VALUE},
+	false).getRecords()]]></dataSourceExpression>
+<subreportExpression>
+	<![CDATA[$P{SUBREPORT_DIR}+"report6-number.jasper"]]></subreportExpression>
+</subreport> 
