@@ -87,6 +87,10 @@
     			).getRecords()
 			]]>
     	</dataSourceExpression>
-    	<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report7-barchart.jasper"]]></subreportExpression>
+    	<?php if ($this->pageOrientation =='Portrait') {
+	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report7-barchart.jasper"]]></subreportExpression>';
+    	}else {
+    echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report7-barchart-land.jasper"]]></subreportExpression>';
+    	} ?>
 	<?php endif; ?>
 </subreport>

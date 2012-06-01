@@ -73,8 +73,12 @@
     		]]>
     	</dataSourceExpression>
     	<?php switch ($this->data['variant']){ 
-case 1: 
+case 1:
+	if ($this->pageOrientation =='Portrait') { 
     	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>' ;
+	}else{
+		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-land.jasper"]]></subreportExpression>' ;
+	}
     	break;
 case 2:
     	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>' ;

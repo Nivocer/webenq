@@ -22,6 +22,10 @@
         		false).getRecords()
     		]]>
         </dataSourceExpression>
-        <subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>
+        <?php if ($this->pageOrientation =='Portrait') {
+	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>';
+        }else{
+        	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report4-open.jasper"]]></subreportExpression>';
+        }?>
     <?php endif; ?>
 </subreport>

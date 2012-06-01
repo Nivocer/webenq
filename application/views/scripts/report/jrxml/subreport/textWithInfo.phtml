@@ -22,5 +22,9 @@
 	$P{SPLIT_QUESTION_VALUE},
 	false).getRecords()]]></dataSourceExpression>
 <subreportExpression>
-	<![CDATA[$P{SUBREPORT_DIR}+"report6-number.jasper"]]></subreportExpression>
+   <?php if ($this->pageOrientation =='Portrait') {
+	echo '<![CDATA[$P{SUBREPORT_DIR}+"report6-number.jasper"]]></subreportExpression>'; 
+   }else{
+	echo '<![CDATA[$P{SUBREPORT_DIR}+"report6-number-land.jasper"]]></subreportExpression>'; 
+   } ?>
 </subreport> 
