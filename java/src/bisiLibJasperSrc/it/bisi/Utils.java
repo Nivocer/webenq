@@ -149,7 +149,7 @@ public class Utils {
 	 * 
 	 * @param customer
 	 * @return
-	 * 	 * ranges are from x to y (incl x, excl y)
+	 * 	 * ranges are from x to y (incl x, excl y) (except the last category)
 	 */
 	public static HashMap<String, Map<String, Map<String, Object>>> recodeColorMap(String customer) {
 		HashMap<String, Map<String, Map<String, Object>>> returnMap=new HashMap<String,Map<String,Map<String,Object>>>();
@@ -160,7 +160,7 @@ public class Utils {
 
 		Map<String, Map<String, Object>> scale2=new HashMap<String,Map<String,Object>>();
 		scale2.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(1.5), "red", new Double (1.0)));
-		scale2.put("target_value_3",defineRecodeColorMap(new Double (2.5), new Double(2.0), "green", new Double (3.0)));
+		scale2.put("target_value_3",defineRecodeColorMap(new Double (1.5), new Double(2.0), "green", new Double (3.0)));
 		returnMap.put("scale2", scale2);
 
 		
