@@ -73,7 +73,7 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$V{response_percentage}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true">
+				<textField>
 					<reportElement x="0" y="0" width="285" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
 					<box>
 						<topPen lineWidth="0.25"/>
