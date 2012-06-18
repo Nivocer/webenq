@@ -6,16 +6,7 @@
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[(
-$P{COLOR_RANGE_MEAN5}.indexOf($F{report_question_id} )>-1 &&
-$V{average} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowRed") &&
-$V{average}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highRed")
-)||
-(
-$P{COLOR_RANGE_MEAN10}.indexOf($F{report_question_id} )>-1 &&
-$V{average} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowRed") &&
-$V{average}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highRed")
-)]]></conditionExpression>
+			<conditionExpression><![CDATA[Double.parseDouble($P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average}))==1.0]]></conditionExpression>
 			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -24,16 +15,7 @@ $V{average}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highRed")
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[(
-$P{COLOR_RANGE_MEAN5}.indexOf($F{report_question_id} )>-1 &&
-$V{average} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowYellow") &&
-$V{average}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highYellow")
-)||
-(
-$P{COLOR_RANGE_MEAN10}.indexOf($F{report_question_id} )>-1 &&
-$V{average} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowYellow") &&
-$V{average}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highYellow")
-)]]></conditionExpression>
+			<conditionExpression><![CDATA[Double.parseDouble($P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average}))==2.0]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#FFFF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -42,16 +24,7 @@ $V{average}<(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highYellow")
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[(
-$P{COLOR_RANGE_MEAN5}.indexOf($F{report_question_id} )>-1 &&
-$V{average} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("lowGreen") &&
-$V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean5")).get("highGreen")
-)||
-(
-$P{COLOR_RANGE_MEAN10}.indexOf($F{report_question_id} )>-1 &&
-$V{average} >=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("lowGreen") &&
-$V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
-)]]></conditionExpression>
+			<conditionExpression><![CDATA[Double.parseDouble($P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average}))==3.0]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#00FF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -64,13 +37,6 @@ $V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
 		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
 	</scriptlet>
 	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="COLOR_RANGE" class="java.util.Map" isForPrompting="false"/>
-	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap" isForPrompting="false"/>
-	<parameter name="COLOR_RANGE_MEAN5" class="java.lang.String"/>
-	<parameter name="COLOR_RANGE_MEAN10" class="java.lang.String"/>
-	<parameter name="TYPE" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["AVG"]]></defaultValueExpression>
-	</parameter>
 	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["defaultStyle.jrtx"]]></defaultValueExpression>
 	</parameter>
@@ -95,7 +61,9 @@ $V{average}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGreen")
 	<sortField name="question_seq_number"/>
 	<sortField name="answer" type="Variable"/>
 	<variable name="valueRecoded" class="java.lang.String" resetType="Group" resetGroup="value">
-		<variableExpression><![CDATA[$P{REPORT_SCRIPTLET}.recodeColorAnswer()]]></variableExpression>
+		<variableExpression><![CDATA[$P{REPORT_SCRIPTLET}.recodeColorAnswer(
+    $F{report_question_id},Double.parseDouble($F{report_question_value})
+)]]></variableExpression>
 	</variable>
 	<variable name="average" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Average">
 		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>

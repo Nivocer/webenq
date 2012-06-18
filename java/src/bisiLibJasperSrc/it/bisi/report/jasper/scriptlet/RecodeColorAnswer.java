@@ -17,18 +17,22 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 	* for generating barchart and color info.
 	* if no valid recoded answer is given, valueRecoded is set to original answer
 	* TODO check if it is better to set valueRecoded to null
+	 * @param questionIdXform
+	 * @param answer
 	 * @return recodedAnswer
+	 * @throws JRScriptletException
 	 */
-	
-	public String recodeColorAnswer() throws JRScriptletException
+	public String recodeColorAnswer(String questionIdXform, Double answer) throws JRScriptletException
 	{
-		String questionIdXform=(String) this.getFieldValue("report_question_id");
 		String[] temp=questionIdXform.split("/");
-		String questionId=temp[temp.length-1];
-		Double answer =  Double.parseDouble((String) this.getFieldValue("report_question_value")); 
+		String questionId;
+		if (temp.length>0){
+			questionId=temp[temp.length-1];
+		}else{
+			questionId=questionIdXform;
+		}
 		
 		//get recode scheme
-		
 		@SuppressWarnings("unchecked")
 		HashMap<String, Map<String, Map<String, Object>>> recodeScheme=(HashMap<String, Map<String, Map<String, Object>>>) this.getParameterValue("RECODE_COLOR_MAP");
 		//get recode scheme for this scale Type
