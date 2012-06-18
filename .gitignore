@@ -26,3 +26,4 @@ public/outputs/*.xls
 /java/tempout/test/*
 *.class
 *.jasper
+/tmp/*

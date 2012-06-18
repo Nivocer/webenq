@@ -114,7 +114,7 @@ CHECK IMPROVE/WRITE PERMISSONS
 Make sure the web server has write access to the following:
 
 	logs/application.log
-	java/tempout/test
+	tmp
 	public/reports
 
 

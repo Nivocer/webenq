@@ -28,10 +28,14 @@ public class GetData {
 		// TODO Auto-generated method stub
 		//Determine fileName (remove '/' in name)
 		String fileName=createFileNameFromUrl(urlString);
-		// is file available and is it not too old
-		if (outputDir==null){
-			outputDir="tempout";
+		/*if (outputDir==null){
+			outputDir="../tmp";
+		}else {
+			outputDir="../tmp/"+outputDir;
 		}
+		*/
+		String tempDir="../tmp";
+		// is file available and is it not too old
 		//does file exist and isn't it too old:
 		File file=new File(outputDir+"/"+fileName);
 		if (!file.canRead() || (System.currentTimeMillis()-file.lastModified()>(maxAge*1000))) {
@@ -39,7 +43,7 @@ public class GetData {
 		try {
 			URL url = new URL(urlString+"/api_key/"+apiKey);
 			InputStream in = url.openStream();
-			OutputStream out = new FileOutputStream(new File(outputDir+"/"+fileName));
+			OutputStream out = new FileOutputStream(new File(tempDir+"/"+fileName));
 			
 			int read = 0;
 			byte[] bytes = new byte[1024];
@@ -55,7 +59,7 @@ public class GetData {
 				e.printStackTrace();
 			}
 		}
-		return outputDir+"/"+fileName; 
+		return tempDir+"/"+fileName; 
 	}
 	
 	/**

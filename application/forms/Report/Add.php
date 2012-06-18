@@ -52,7 +52,7 @@ class Webenq_Form_Report_Add extends Zend_Form
         $this->addElement($this->createElement('select', 'output_dir', array(
             'label' => 'output directory',
         	'required' => true,
-            'multiOptions' => array('tempout/test' => 'tempout/test'),
+            'multiOptions' => array('test' => 'test'),
         )));
 
         $this->addElement($this->createElement('text', 'output_name', array(

@@ -1049,7 +1049,7 @@ Webenq_Model_Report:
     Questionnaire: Webenq_Model_Questionnaire_1
     language: nl
     customer: default
-    output_dir: tempout/test
+    output_dir: test
     output_name: testRapport
     output_format: pdf
     orientation: a

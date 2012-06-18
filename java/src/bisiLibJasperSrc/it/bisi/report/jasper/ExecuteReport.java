@@ -87,7 +87,9 @@ public class ExecuteReport {
 			apiKey="5dcf19e85860d0e219c400ce8b5ea643";
 		}
 		try{
-			String tempDir="tempout/test";//storage of datafiles (xform data, def, reportdefinition)
+			String tempDir="../tmp/";//storage of datafiles (xform data, def, reportdefinition)
+			checkCreateDir(tempDir);
+			
 			//get report config information (location, language, customer, etc)
 			Map<String,String> reportConfig=getReportControlFile(configFileName, apiKey);
 			//System.out.println(reportConfig);
@@ -225,6 +227,9 @@ public class ExecuteReport {
 
 	static String generateReport(String reportDefinitionLocation, Map<String,Object> prms, String splitQuestionValue, String outputDir, String outputFileName, String outputFormat ) throws Exception{
 		//clean fileName
+		//pre condition: need a writable outputdir
+		checkCreateDir(outputDir);
+		
 		if (splitQuestionValue.length()>0){
 			// no slash in split part
 			outputFileName=cleanFileName(outputDir,true)+"/"+cleanFileName(outputFileName,false)+"-"+cleanFileName(splitQuestionValue,false);
@@ -325,8 +330,38 @@ public class ExecuteReport {
 		return fileName;
 
 	}
-
-	/**
+	static Boolean checkCreateDir(String outputDir) throws IOException{
+		outputDir=cleanFileName(outputDir, true);
+		File output=new File(outputDir);
+		if (output.exists()){
+			//output is no directory?
+			if (!output.isDirectory()){
+				throw new IOException("Output dir "+outputDir+" is not a directory");
+			}
+			//output is not writable
+			if (!output.canWrite()){
+				throw new IOException("Output dir "+outputDir+" is not writable");
+			}
+			//output exist, it is a dir and it is writable
+			return true;
+		}else{ 
+			//outputdir doesn't exist
+			if (output.mkdirs()){
+				output.setWritable(true);
+				// directory is created, is it writable
+				if (!output.canWrite()){
+					throw new IOException("Output dir "+outputDir+" is created, but is not writable");
+				}else{
+					//directory is created and is writable
+					return true;
+				}
+			} else {
+				//output dir cannot be created
+				throw new IOException("Output dir "+outputDir+" cannot be created");
+			}
+		}
+	}
+		/**
 	 * @param configFilename
 	 * @return	file with the reportconfiguration (one at this moment)
 	 *
