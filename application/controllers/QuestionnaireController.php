@@ -453,23 +453,6 @@ class QuestionnaireController extends Zend_Controller_Action
         return true;
     }
 
-    /**
-     * Reports the collected data for the given questionnaire
-     *
-     * @return void
-     * @obsolete ?
-     */
-    public function reportAction()
-    {
-        /* get questions for current page */
-        $pageNr = $this->_request->page ? $this->_request->page : null;
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language(), $pageNr, null, true);
-
-        /* display */
-        $this->view->language = $this->_helper->language();
-        $this->view->questionnaire = $questionnaire;
-    }
-
     public function groupAction()
     {
         $questions = Doctrine_Query::create()
