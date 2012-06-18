@@ -22,7 +22,7 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 	 * @return recodedAnswer
 	 * @throws JRScriptletException
 	 */
-	public String recodeColorAnswer(String questionIdXform, Double answer) throws JRScriptletException
+	public String recodeColorAnswer(String questionIdXform, Double answer, String output) throws JRScriptletException
 	{
 		String[] temp=questionIdXform.split("/");
 		String questionId;
@@ -45,15 +45,23 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 		//iterate through scale type rows and find recoded Answer
 		//we test on >= and <= however the upper limit is excluded except for the last categorie, this is because if the value is te upper margin, it is also the lower margin of the next categorie
 		Double recodedAnswer = null;
+		String color=null;
 		for (Entry<String, Map<String, Object>> entry : scaleInfo.entrySet()) {
 			if (answer >= (Double) entry.getValue().get("lowest")  && answer <= (Double) entry.getValue().get("highest") ){
 				recodedAnswer= (Double) entry.getValue().get("targetValue");
+				color= (String) entry.getValue().get("color");
+				
+				
 			}
 		}
-		if (recodedAnswer==null){
-			recodedAnswer=answer;
+		if (output.equals("color")) {
+			return color;
+		}else {
+			if (recodedAnswer==null){
+				recodedAnswer=answer;
+			}
+			//set recodedVariable
+			return recodedAnswer.toString();	
 		}
-		//set recodedVariable
-		return recodedAnswer.toString();
 	}
 }
