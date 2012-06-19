@@ -48,12 +48,18 @@ class Webenq_Form_Report_Add extends Zend_Form
         	'required' => true,
             'multiOptions' => array('default'=>'Other', 'departmentB' => 'departmentB', 'departmentC'=>'departmentC'),
         )));
-
-        $this->addElement($this->createElement('select', 'output_dir', array(
-            'label' => 'output directory',
-        	'required' => true,
-            'multiOptions' => array('test' => 'test'),
+        
+        
+        $this->addElement($this->createElement('text', 'output_dir', array(
+        		'label' => "output subdirectory",
+        		'size' => 60,
+        		'maxlength' => 255,
+        		'autocomplete' => 'off',
+        		'required' => false,
+        		'filters' => array('StringTrim'),
+        		//'validators' => array('NotEmpty'),
         )));
+        
 
         $this->addElement($this->createElement('text', 'output_name', array(
             'label' => 'output file name',
