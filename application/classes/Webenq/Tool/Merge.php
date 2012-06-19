@@ -129,21 +129,11 @@ class Webenq_Tool_Merge extends Webenq_Tool
             }
         }
         //start only questback
-        // build the second working sheet, containing group information
-        $groups = array();
-        foreach ($new[0][0] as $header) {
-            if (preg_match('/^(\d+):\s(.+)$/', $header, $matches)) {
-                if ($matches[1] != 9999 && !key_exists($matches[1], $groups)) {
-                    $groups[$matches[1]] = $matches[2];
-                }
-            }
-        }
-        foreach ($groups as $key => $group) {
-            $row = $key - 1;
-            $new[1][$row][0] = "$key:  = $group";
-        }
-        $new[1][$row++][0] = '9999:  = Meta';
-
+        
+        //copy second working sheet and add meta
+		$new[1]=$this->_data[1];
+		$new[1][][0] = '9999:  = Meta';
+        
         // simply copy third working sheet
         $new[2] = $this->_data[2];
         //end only for questback
