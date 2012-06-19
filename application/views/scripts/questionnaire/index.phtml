@@ -35,16 +35,15 @@
                         ?>
                     </td>
                     <td>
+                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
                         <?php if ($questionnaire['count_qqs'] > 0): ?>
-                            <a class="icon collect" title="<?php echo t('collect'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                             <a class="icon check" title="<?php echo t('check'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon report" title="<?php echo t('report'); ?>" href="<?php echo $this->baseUrl("/questionnaire/report/id/" . $questionnaire['id']); ?>">&nbsp;</a>
+                            <a class="icon collect" title="<?php echo t('collect'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                             <a class="icon download" title="<?php echo t('download'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                         <?php endif; ?>
                         <!--
                             <a class="icon print" title="<?php echo t('print'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                         -->
-                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
                         <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                     </td>
                 </tr>
