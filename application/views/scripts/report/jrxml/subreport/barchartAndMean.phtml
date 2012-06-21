@@ -27,39 +27,10 @@
     			<![CDATA["<?php echo $this->element->getXpath($this->data['header_qq_id']); ?>"]]>
     		</subreportParameterExpression>
     	</subreportParameter>
-    	<subreportParameter name="COLOR_RANGE">
-    		<subreportParameterExpression>
-    			<![CDATA[$P{COLOR_RANGE_MAP}.get("<?php echo $this->data['color_schema']; ?>")]]>
-    		</subreportParameterExpression>
-    	</subreportParameter>
-    	<subreportParameter name="COLOR_RANGE_MAP">
-			<subreportParameterExpression><![CDATA[$P{COLOR_RANGE_MAP}]]></subreportParameterExpression>
-		</subreportParameter>
-		<subreportParameter name="COLOR_RANGE_MEAN10">
-			<subreportParameterExpression><![CDATA[
-			"<?php
-			if ($this->data['color_schema']=='mean10'){
-    			    $xpaths = array();
-    			    foreach ($this->data['report_qq_ids'] as $id)
-    			        $xpaths[] = $this->element->getXpath($id);
-    			    echo implode(',', $xpaths);
-    		}
-    		 ?>
-    		 "
-			]]></subreportParameterExpression>
-		</subreportParameter>
-    	<subreportParameter name="COLOR_RANGE_MEAN5">
-			<subreportParameterExpression><![CDATA[
-			"<?php
-			if ($this->data['color_schema']=='mean5'){
-    			    $xpaths = array();
-    			    foreach ($this->data['report_qq_ids'] as $id)
-    			        $xpaths[] = $this->element->getXpath($id);
-    			    echo implode(',', $xpaths);
-    		}
-    		 ?>
-    		 "
-			]]></subreportParameterExpression>
+    	<subreportParameter name="COLOR_MEAN">
+			<subreportParameterExpression>
+			<![CDATA["<?php if (isset($this->data['color_mean'])) echo $this->data['color_mean'];  ?>"]]>
+			</subreportParameterExpression>
 		</subreportParameter>
 		<subreportParameter name="SCALE_QUESTION_INFO">
 			<subreportParameterExpression><![CDATA["<?php echo addslashes($this->json(Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids'])));?>"]]></subreportParameterExpression>

@@ -6,7 +6,7 @@
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average},"color").equals("red")]]></conditionExpression>
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") && $P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average},"color").equals("red")]]></conditionExpression>
 			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -15,7 +15,7 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average},"color").equals("yellow")]]></conditionExpression>
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") && $P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average},"color").equals("yellow")]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#FFFF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -24,7 +24,7 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average},"color").equals("green")]]></conditionExpression>
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") && $P{REPORT_SCRIPTLET}.recodeColorAnswer($F{report_question_id},$V{average},"color").equals("green")]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#00FF00">
 				<box>
 					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
@@ -46,6 +46,7 @@
 	<parameter name="NO_BARCHART" class="java.lang.String"/>
 	<parameter name="RECODE_COLOR_MAP" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="SCALE_QUESTION_INFO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COLOR_MEAN" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>

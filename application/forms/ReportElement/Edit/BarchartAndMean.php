@@ -32,10 +32,10 @@ class Webenq_Form_ReportElement_Edit_BarchartAndMean extends Webenq_Form_ReportE
         	'multiOptions' => $multiOptions,
         )));
 
-        $this->addElement($this->createElement('select', 'color_schema', array(
-            'label' => 'color schema',
+        $this->addElement($this->createElement('select', 'color_mean', array(
+            'label' => 'color the means',
         	'required' => true,
-        	'multiOptions' => array('white' => 'white', 'mean5' => 'mean5', 'mean10' => 'mean10'),
+        	'multiOptions' => array('no' => 'no color', 'yes' => 'colored by mean'),
         )));
 
         $this->addElement($this->createElement('submit', 'submit', array(
