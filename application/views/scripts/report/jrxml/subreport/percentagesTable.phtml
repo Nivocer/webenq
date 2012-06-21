@@ -10,6 +10,11 @@
     	<subreportParameter name="REPORT_RESOURCE_BUNDLE">
     		<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
     	</subreportParameter>
+    	<subreportParameter name="DISPLAY_GROUP_QUESTION_TEXT">
+			<subreportParameterExpression>
+			<![CDATA["<?php if (isset($this->data['display_group_question_text'])) echo $this->data['display_group_question_text'];  ?>"]]>
+			</subreportParameterExpression>
+		</subreportParameter>
     	<dataSourceExpression>
     		<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(
     			$P{DATA_LOCATION},

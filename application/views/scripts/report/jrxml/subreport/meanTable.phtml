@@ -21,6 +21,11 @@
     			<![CDATA["<?php echo $this->element->getXpath($this->data['header_qq_id']); ?>"]]>
     		</subreportParameterExpression>
     	</subreportParameter>
+    	<subreportParameter name="DISPLAY_GROUP_QUESTION_TEXT">
+			<subreportParameterExpression>
+			<![CDATA["<?php if (isset($this->data['display_group_question_text'])) echo $this->data['display_group_question_text'];  ?>"]]>
+			</subreportParameterExpression>
+		</subreportParameter>
     	<subreportParameter name="COLOR_RANGE">
     		<subreportParameterExpression>
     			<![CDATA[$P{COLOR_RANGE_MAP}.get("<?php echo $this->data['color_schema']; ?>")]]>

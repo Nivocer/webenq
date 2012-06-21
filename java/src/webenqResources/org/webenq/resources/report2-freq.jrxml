@@ -11,6 +11,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="CUSTOMER" class="java.lang.String"/>
+	<parameter name="DISPLAY_GROUP_QUESTION_TEXT" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -302,7 +303,9 @@ str("Total")
 				<textFieldExpression><![CDATA[str($F{report_question_text})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$P{DISPLAY_GROUP_QUESTION_TEXT}.equals("yes")]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="html">
 					<font size="8"/>
 				</textElement>

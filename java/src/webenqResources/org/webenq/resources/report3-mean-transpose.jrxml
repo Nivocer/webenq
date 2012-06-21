@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="59" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="5" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="381"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
@@ -77,6 +77,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_MEAN5" class="java.lang.String"/>
 	<parameter name="COLOR_RANGE_MEAN10" class="java.lang.String"/>
+	<parameter name="DISPLAY_GROUP_QUESTION_TEXT" class="java.lang.String"/>
 	<field name="report_question_id" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
 	<field name="report_question_value" class="java.lang.String"/>
@@ -388,7 +389,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$P{DISPLAY_GROUP_QUESTION_TEXT}.equals("yes")]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="html">
 					<font size="8"/>
 				</textElement>

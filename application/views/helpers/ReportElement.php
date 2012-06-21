@@ -89,13 +89,17 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             $html .= '<strong>' . $rqq->Question->getQuestionText()->text . '</strong><br/>';
         }
 
+        
         if (isset($this->_data['group_qq_id']) && !empty($this->_data['group_qq_id'])) {
-            $gqq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
-                ->find($this->_data['group_qq_id']);
-            $html .= t('grouped by')
-            . ' <strong>' . $gqq->Question->getQuestionText()->text . '</strong>';
+        	$gqq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
+        	->find($this->_data['group_qq_id']);
+        	$html .= t('grouped by')
+        	. ' <strong>' . $gqq->Question->getQuestionText()->text . '</strong>';
+        	if (isset($this->_data['display_group_question_text']) && $this->_data['display_group_question_text']=="no") {
+        		$html .=' (hide this text above table)';
+        	}
         }
-
+        
         return $html;
     }
 
@@ -120,7 +124,11 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             $gqq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
                 ->find($this->_data['group_qq_id']);
             $html .= t('grouped by')
-                . ' <strong>' . $gqq->Question->getQuestionText()->text . '</strong><br/>';
+                . ' <strong>' . $gqq->Question->getQuestionText()->text . '</strong>';
+            if (isset($this->_data['display_group_question_text']) && $this->_data['display_group_question_text']=="no") {
+            	$html .=' (hide this text above table)';
+            }
+            $html .= '<br/>';
         }
 
         if (isset($this->_data['color_schema'])) {

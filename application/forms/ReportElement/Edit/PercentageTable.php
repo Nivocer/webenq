@@ -31,7 +31,11 @@ class Webenq_Form_ReportElement_Edit_PercentageTable extends Webenq_Form_ReportE
         	'required' => false,
         	'multiOptions' => array('' => '')+ $multiOptions,
         )));
-
+        $this->addElement($this->createElement('radio', 'display_group_question_text', array(
+        		'label' => 'Display the group question text on top of the table',
+        		'required' => true,
+        		'multiOptions' => array('no' => 'no, don\'t display group question text', 'yes'=>'yes, display group question text'),
+        )));
         $this->addElement($this->createElement('submit', 'submit', array(
             'label' => 'save',
         )));

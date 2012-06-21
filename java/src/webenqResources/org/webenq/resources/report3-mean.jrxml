@@ -74,6 +74,7 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 	<parameter name="COLOR_RANGE_MAP" class="java.util.HashMap" isForPrompting="false"/>
 	<parameter name="COLOR_RANGE_MEAN5" class="java.lang.String"/>
 	<parameter name="COLOR_RANGE_MEAN10" class="java.lang.String"/>
+	<parameter name="DISPLAY_GROUP_QUESTION_TEXT" class="java.lang.String"/>
 	<field name="report_question_id" class="java.lang.String"/>
 	<field name="report_question_text" class="java.lang.String"/>
 	<field name="report_question_value" class="java.lang.String"/>
@@ -373,7 +374,9 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<reportElement x="150" y="12" width="405" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
+					<printWhenExpression><![CDATA[$P{DISPLAY_GROUP_QUESTION_TEXT}.equals("yes")]]></printWhenExpression>
+				</reportElement>
 				<textElement markup="html">
 					<font size="8"/>
 				</textElement>
