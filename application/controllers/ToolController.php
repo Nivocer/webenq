@@ -244,18 +244,25 @@ class ToolController extends Zend_Controller_Action
                         $emailInvitationCount = $value;
                     }
 
-                    $value = $set[2][5][1];
-                    if (isset($emailResponseCount)) {
-                        $emailResponseCount += $value;
-                    } else {
-                        $emailResponseCount = $value;
+                    if (isset($set[2][5][1])){
+                    	$value = $set[2][5][1];
+	                    if (isset($emailResponseCount)) {
+	                        $emailResponseCount += $value;
+	                    } else {
+	                        $emailResponseCount = $value;
+	                    }
+                    }else {
+                    	$invalidEmailResponseCount=1;
                     }
-
-                    $value = $set[2][6][1];
-                    if (isset($totalResponseCount)) {
-                        $totalResponseCount += $value;
-                    } else {
-                        $totalResponseCount = $value;
+                    if (isset($set[2][6][1])){
+                    	$value = $set[2][6][1];
+                    	if (isset($totalResponseCount)) {
+                    	    $totalResponseCount += $value;
+                    	} else {
+                    	    $totalResponseCount = $value;
+                    	}
+                    }else {
+                    	$invalidTotalResponseCount=1;
                     }
                 }
                 $thirdWorkingSheet[0][1] = 'Module-evaluatie';
@@ -263,8 +270,16 @@ class ToolController extends Zend_Controller_Action
                 $thirdWorkingSheet[2][1] = $endDate->get('Y-MM-dd HH:mm:ss');
                 $thirdWorkingSheet[3][1] = $respondentCount;
                 $thirdWorkingSheet[4][1] = $emailInvitationCount;
-                $thirdWorkingSheet[5][1] = $emailResponseCount;
-                $thirdWorkingSheet[6][1] = $totalResponseCount;
+                if (isset($invalidEmailResponseCount) && $invalidEmailResponseCount==1){
+                	$thirdWorkingSheet[5][1] = 'invalid';
+                }else {
+                	$thirdWorkingSheet[5][1] = $emailResponseCount;
+                }
+                if (isset($invalidTotalResponseCount)&& $invalidTotalResponseCount==1){
+                	$thirdWorkingSheet[6][1] = 'invalid';
+                }else {
+                	$thirdWorkingSheet[6][1] = $totalResponseCount;
+                }
                 if ($emailInvitationCount>0){
                 	$thirdWorkingSheet[7][1] = $emailResponseCount / $emailInvitationCount * 100;
                 }else {
@@ -282,7 +297,7 @@ class ToolController extends Zend_Controller_Action
                 }
 
                 // return file for download
-                $download = new Webenq_Download_Xls();
+                $download = new Webenq_Download_Xlsx();
                 $download->setData($data[0][0])->init();
                 $download->addWorkingSheet($data[0][1]);
                 $download->addWorkingSheet($thirdWorkingSheet);
@@ -293,7 +308,6 @@ class ToolController extends Zend_Controller_Action
         $this->view->errors = $errors;
         $this->view->form = $form;
     }
-
 
     /**
      * Merges data array if the question texts are the same
@@ -359,13 +373,14 @@ class ToolController extends Zend_Controller_Action
     			$pattern="/^(\d*:\s*)*(.*)$/";
     			if (preg_match($pattern, $questionNew, $matches)){
     				//is it a new question, add it to questionsClean
-    				if (!in_array($matches[2], $questionsClean)){
+    				if ($this->_checkSimilarText($matches[2], $questionsClean)==0){
+    					
     					$questionsClean[]=$matches[2];
     					$data[0][0][]=$questionNew;
     				}
     			}else {
     				//question has no 'number:'
-    				if (!in_array($questionNew, $questionsClean)){
+    				if ($this->_checkSimilarText($questionNew, $questionsClean)==0){
     					$questionsClean[]=$questionNew;
     					$data[0][0][]=$questionNew;
     				}
@@ -389,6 +404,28 @@ class ToolController extends Zend_Controller_Action
     		}
 	    }
     return $data;
+    }
+    /**
+     * Check if the text is in haystack, first try an exact match, if not success try levenshtein difference
+     *
+     * @param string $text  text to search in $haystack
+     * @param array $haystack array to search for $text
+     * @param integer $difference max number of allowed differences
+     * @return 0 when not the same, 1 when exactly the same, 2 when max $differences differences).
+     */
+    protected function _checkSimilarText($text, array $haystack, $difference=0){
+    	$text=trim($text);
+    	if (in_array($text, $haystack)){
+    		//question is exactly in array, no need for further tests
+    		return 1;
+    	}else {
+    		foreach ($haystack as $compareText ){
+    			if (levenshtein($text, trim($compareText)) <=$difference){
+    				return 2;
+    			}
+    		}
+    		return 0;
+    	}
     }
 
 }
