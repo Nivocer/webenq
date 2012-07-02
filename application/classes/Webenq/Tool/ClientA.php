@@ -200,12 +200,17 @@ class Webenq_Tool_ClientA extends Webenq_Tool
 
         // get extra data from last working sheet
         $extraData = array();
+        if (isset($data[2])){
         foreach ($data[2] as $row) {
             if (isset($row[0])) {
                 $extraData[$row[0]] = $row[1];
             }
         }
-
+        }else{
+        	//@todo throw error
+        	var_dump($this->_filename);
+        	exit;
+        }
         // copy headers from original data (all columns)
         $new = array();
         $new[0][0] = $data[0][0];
