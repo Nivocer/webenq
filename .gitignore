@@ -15,6 +15,7 @@ public/reports/images
 public/reports/tempout
 
 public/outputs/*.xls
+public/outputs/*.xlsx
 
 /logs/application.log
 
