@@ -22,16 +22,8 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 	 * @return recodedAnswer
 	 * @throws JRScriptletException
 	 */
-	public String recodeColorAnswer(String questionIdXform, Double answer, String output) throws JRScriptletException
+	public String recodeColorAnswer(String questionId, Double answer, String output) throws JRScriptletException
 	{
-		String[] temp=questionIdXform.split("/");
-		String questionId;
-		if (temp.length>0){
-			questionId=temp[temp.length-1];
-		}else{
-			questionId=questionIdXform;
-		}
-		
 		//get recode scheme
 		@SuppressWarnings("unchecked")
 		HashMap<String, Map<String, Map<String, Object>>> recodeScheme=(HashMap<String, Map<String, Map<String, Object>>>) this.getParameterValue("RECODE_COLOR_MAP");
@@ -40,6 +32,7 @@ public class RecodeColorAnswer extends JRDefaultScriptlet {
 		String questionInfoScale=(String) this.getParameterValue("SCALE_QUESTION_INFO");
 		JSONObject questionInfoScaleMap=(JSONObject) JSONValue.parse(questionInfoScale);
 		String scaleType=(String) questionInfoScaleMap.get(questionId);
+		
 		Map<String, Map<String, Object>> scaleInfo=recodeScheme.get(scaleType);
 		
 		//iterate through scale type rows and find recoded Answer

@@ -33,7 +33,12 @@
 			</subreportParameterExpression>
 		</subreportParameter>
 		<subreportParameter name="SCALE_QUESTION_INFO">
-			<subreportParameterExpression><![CDATA["<?php echo addslashes($this->json(Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids'])));?>"]]></subreportParameterExpression>
+			<subreportParameterExpression><![CDATA["<?php 
+			$scaleQuestionInfo=Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids']);
+			foreach ($scaleQuestionInfo  as $id=>$scaleType){
+				$xpaths[$this->element->getXpath($id)]=$scaleType;
+			}
+			echo addslashes($this->json($xpaths));?>"]]></subreportParameterExpression>
 		</subreportParameter>
 		<subreportParameter name="RECODE_COLOR_MAP">
 			<subreportParameterExpression><![CDATA[$P{RECODE_COLOR_MAP}]]></subreportParameterExpression>
