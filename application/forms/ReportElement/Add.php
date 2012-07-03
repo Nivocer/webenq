@@ -16,6 +16,7 @@ class Webenq_Form_ReportElement_Add extends Zend_Form
     	'mean table' => 'mean table',
     	'barchart and mean' => 'barchart and mean',
     	'response'=> 'response',
+    	'include jasper subreport'=>'include jasper subreport',
     );
 
     /**

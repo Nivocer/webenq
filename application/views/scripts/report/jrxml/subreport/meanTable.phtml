@@ -37,28 +37,34 @@
 		<subreportParameter name="COLOR_RANGE_MEAN10">
 			<subreportParameterExpression><![CDATA[
 			"<?php
-			if ($this->data['color_schema']=='mean10'){
+			
+			$scaleQuestionInfo=Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids']);
+			if ($this->data['color_schema']=='mean10' or $this->data['color_schema']=="mean5"){
     			    $xpaths = array();
-    			    foreach ($this->data['report_qq_ids'] as $id)
-    			        $xpaths[] = $this->element->getXpath($id);
+    			    foreach ($scaleQuestionInfo  as $id=>$scaleType){
+    			    	if ($scaleType=="open10"){
+    			    		$xpaths[] = $this->element->getXpath($id);
+						}
+					}
     			    echo implode(',', $xpaths);
     		}
-    		 ?>
-    		 "
-			]]></subreportParameterExpression>
+    		 ?>"]]></subreportParameterExpression>
 		</subreportParameter>
     	<subreportParameter name="COLOR_RANGE_MEAN5">
 			<subreportParameterExpression><![CDATA[
 			"<?php
-			if ($this->data['color_schema']=='mean5'){
-    			    $xpaths = array();
-    			    foreach ($this->data['report_qq_ids'] as $id)
-    			        $xpaths[] = $this->element->getXpath($id);
-    			    echo implode(',', $xpaths);
-    		}
-    		 ?>
-    		 "
-			]]></subreportParameterExpression>
+			if ($this->data['color_schema']=='mean10' or $this->data['color_schema']=="mean5"){
+			$xpaths = array();
+    		    foreach ($scaleQuestionInfo  as $id=>$scaleType){
+    		    	if ($scaleType=="scale5"){
+    		    		$xpaths[] = $this->element->getXpath($id);
+    		    		
+    		        	//$xpaths[]=$id;
+					}
+				}
+				echo implode(',', $xpaths);
+			}
+    		 ?>"]]></subreportParameterExpression>
 		</subreportParameter>
     	<dataSourceExpression>
     		<![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource(

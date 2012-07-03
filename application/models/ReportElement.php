@@ -36,7 +36,7 @@ class Webenq_Model_ReportElement extends Webenq_Model_Base_ReportElement
     		->limit(1)
     		->fetchArray();
     		if ($qq_apg){
-	   			$returnArray["q".$qqId]="scale".$qq_apg[0]['AnswerPossibilityGroup']['number'];
+	   			$returnArray[$qqId]="scale".$qq_apg[0]['AnswerPossibilityGroup']['number'];
     		}else {
 				//it is not a scale/closed question
 				//check if it is a grade question (has validator grade)
@@ -49,7 +49,7 @@ class Webenq_Model_ReportElement extends Webenq_Model_Base_ReportElement
 				
 				$validators=unserialize($qq_cp[0]['CollectionPresentation'][0]['validators']);
 				if (is_array($validators) && in_array('grade', $validators)) {
-					$returnArray["q".$qqId]="open10";
+					$returnArray[$qqId]="open10";
 				}
 			}
     	}

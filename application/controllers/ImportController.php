@@ -26,7 +26,7 @@ class ImportController extends Zend_Controller_Action
 
             // make sure enough resources are assigned
             try {
-                Webenq::setMemoryLimit('512M');
+                //Webenq::setMemoryLimit('512M');
                 Webenq::setMaxExecutionTime(0);
             } catch (Exception $e) {
                 $errors[] = $e->getMessage();
