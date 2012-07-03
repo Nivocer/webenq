@@ -83,6 +83,9 @@ class ReportElementController extends Zend_Controller_Action
             case 'response':
             	$form = new Webenq_Form_ReportElement_Edit_Response($element);
             	break;
+            case 'include jasper subreport':
+            	$form = new Webenq_Form_ReportElement_Edit_IncludeJasperSubreport($element);
+            	break;
             default:
                 throw new Exception('Unknown element type ' . $data['type']);
         }
