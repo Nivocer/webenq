@@ -40,6 +40,9 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             case 'response':
                 $html .= $this->_renderResponseElement();
                 break;
+            case 'include jasper subreport':
+            	$html .= $this->_renderIncludeJasperSubreportElement();
+            	break;
             default:
                 throw new Exception('Unknown element type ' . $this->_data['type']);
 
@@ -56,7 +59,7 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             return '<strong>' . $this->_data['text'] . '</strong>';
         }
     }
-
+    
     protected function _renderTextWithInfoElement()
     {
     	$html = '';
@@ -183,4 +186,9 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
         return $html;
     }
     
-}
+protected function _renderIncludeJasperSubreportElement()
+    {
+    	if (isset($this->_data['filename'])) {
+    		return '<strong>' . $this->_data['filename'] . '</strong>';
+    	}
+    }}
