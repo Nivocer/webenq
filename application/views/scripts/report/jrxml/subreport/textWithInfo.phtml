@@ -7,7 +7,7 @@
 	<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
 </subreportParameter>
 <subreportParameter name="Q_TEXT">
-	<subreportParameterExpression><![CDATA["<b>Aantal respondenten: [count]</b>"]]></subreportParameterExpression>
+	<subreportParameterExpression><![CDATA["<?php echo $this->data['text']; ?>"]]></subreportParameterExpression>
 </subreportParameter>
 <subreportParameter name="REPORT_RESOURCE_BUNDLE">
 	<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
