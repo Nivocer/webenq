@@ -236,13 +236,13 @@ $V{averageMeasure}<=(Double)((Map)$P{COLOR_RANGE_MAP}.get("mean10")).get("highGr
 							</box>
 							<textField>
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="120" isRemoveLineWhenBlank="true"/>
-								<box>
+								<box leftPadding="0" bottomPadding="2">
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left" markup="html">
+								<textElement textAlignment="Center" verticalAlignment="Bottom" rotation="None" markup="html">
 									<font size="6" isBold="false" isPdfEmbedded="false"/>
 								</textElement>
 								<textFieldExpression><![CDATA[str("Average N")]]></textFieldExpression>
