@@ -4,8 +4,9 @@
 define('APPLICATION_ENV', 'testing');
 
 //make sure override.ini exist
-if (!file_exists('../application/configs/override.ini')) {
-	copy('../application/configs/override.ini.sample', '../application/configs/override.ini');
+if (!file_exists(realpath(dirname(__FILE__)) . '/../application/configs/override.ini')) {
+    copy(realpath(dirname(__FILE__) . '/../application/configs/override.ini.sample'), 
+	realpath(dirname(__FILE__)) . '/../application/configs/override.ini'  );
 }
 
 // initialize
