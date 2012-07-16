@@ -21,7 +21,7 @@ class Webenq_Test_Model_Input_FileTest extends Webenq_Test_Model_InputTest
     {
         if (isset($this->_validFile)) {
             // get adapter
-            $adapter = Webenq_Import_Adapter_Abstract::factory($this->_validFile);
+            $adapter = Webenq_Import_Adapter_Abstract::factory(APPLICATION_PATH .'/../tests/'. $this->_validFile);
             $this->assertTrue(is_object($adapter));
 
             // get data
