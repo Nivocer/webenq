@@ -2,5 +2,4 @@ language: php
 php:
   - 5.2
   - 5.3
-after-install: touch application/configs/override.ini
 script: phpunit --configuration tests/phpunit.xml

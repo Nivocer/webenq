@@ -3,6 +3,11 @@
 // define application environment
 define('APPLICATION_ENV', 'testing');
 
+//make sure override.ini exist
+if (!file_exists('../application/configs/override.ini')) {
+	copy('../application/configs/override.ini.sample', '../application/configs/override.ini');
+}
+
 // initialize
 require_once realpath(dirname(__FILE__) . '/../public/init.php');
 $application->bootstrap();
