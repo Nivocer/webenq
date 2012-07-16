@@ -1,0 +1,15 @@
+<phpunit bootstrap="./bootstrap.php" colors="true">
+    <testsuite name="Webenq Test Suite">
+        <directory>./</directory>
+	</testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application/</directory>
+            <exclude>
+                <directory>../application/views/</directory>
+                <directory>../application/models/</directory>
+                <file>../application/Bootstrap.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
