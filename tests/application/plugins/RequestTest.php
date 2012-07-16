@@ -3,8 +3,8 @@ class Webenq_Test_Plugin_RequestTest extends Webenq_Test_Case_Plugin
 {
     public function testRequestIsUnquotedWhenMagicQuotesAreEnabled()
     {
-        $originalMagicQuotesSetting = get_magic_quotes_runtime();
-        set_magic_quotes_runtime(true);
+        $originalMagicQuotesSetting = ini_get('magic_quotes_runtime');
+	ini_set('magic_quotes_runtime', 1);
 
         // define key and value
         $key = "test";
@@ -36,6 +36,6 @@ class Webenq_Test_Plugin_RequestTest extends Webenq_Test_Case_Plugin
 
         $this->assertTrue($request->getPost($key) === $value);
 
-        set_magic_quotes_runtime($originalMagicQuotesSetting);
+        ini_set('magic_quotes_runtime', $originalMagicQuotesSetting);
     }
 }
