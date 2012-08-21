@@ -183,8 +183,8 @@ public class ExecuteReport {
 
 			//looping through available split by values (seperate reports for subsets of respondents)
 			if (splitQuestionId !=null && splitQuestionId.length()>0 ) {
-				//get distinct split_values, using xpath2 (saxon)
-				String searchSplitValues="distinct-values(//respondenten/respondent/*/"+splitQuestionId+")";
+				//get distinct split_values, using xpath2 (saxon)/ we have questionnaire in splitQuestionId
+				String searchSplitValues="distinct-values(//respondenten/respondent/*/.."+splitQuestionId+")";
 
 				XPathFactory factory = XPathFactory.newInstance(NamespaceConstant.OBJECT_MODEL_SAXON);
 				XPath xpath = factory.newXPath();

@@ -85,7 +85,7 @@ public class XformJRDataSource {
 					//searchRespondents="//respondenten/respondent/*['"+split_question_id+"'='"+StringEscapeUtils.escapeXml(split_question_value)+"']";
 					//searchRespondents="//respondenten/respondent/*[\""+split_question_id+"\"=\""+split_question_value+"\"]";
 					//TODO check allow single quote, disallow double quote
-					searchRespondents="//respondenten/respondent/*["+split_question_id+"=\""+split_question_value+"\"]";
+					searchRespondents="//respondenten/respondent/*[.."+split_question_id+"=\""+split_question_value+"\"]";
 				}
 
 				XPathFactory factory = XPathFactory.newInstance();
@@ -97,10 +97,12 @@ public class XformJRDataSource {
 
 				NodeList nodes = (NodeList) result;
 				String expression;
+				
 				for (int i = 0; i < nodes.getLength(); i++) {
 					String respondent_id=nodes.item(i).getParentNode().getAttributes().getNamedItem("id").getNodeValue();
 					//get report_question_value (answer (Id))
-					expression = report_question_id;
+					//we have /questionnaire in report_question_id, but we are already in that node 
+					expression = report_question_id.replace("/questionnaire/","");
 					Node reportQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 					report_question_value=reportQuestionNode.getTextContent();
 					

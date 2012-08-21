@@ -1,6 +1,6 @@
 <reportConfig>
     <reportId><?php echo $this->report->id; ?></reportId>
-    <xformName>questionnaire</xformName>
+    <xformName></xformName>
     <!--  todo improve servername/pathToApplication  (https) -->
     <xformLocation>http://<?php echo $_SERVER['SERVER_NAME']; echo $this->baseUrl("questionnaire/xform/id/"); echo $this->report->questionnaire_id; ?></xformLocation>
     <dataLocation>http://<?php echo $_SERVER['SERVER_NAME']; echo $this->baseUrl("questionnaire/xform-data/id/"); echo $this->report->questionnaire_id; ?></dataLocation>

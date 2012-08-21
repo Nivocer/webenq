@@ -409,8 +409,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     public function getXpath()
     {
-        //$xpath = '/' . Webenq::Xmlify('questionnaire', 'tag');
-        $xpath = '';
+        $xpath = '/' . Webenq::Xmlify('questionnaire', 'tag'). '/';
         $parents = $this->_getParents();
         while (count($parents) > 0) {
             $parent = array_pop($parents);
