@@ -77,6 +77,8 @@ abstract class Webenq_Import_Abstract implements Webenq_Import_Interface
 		$questions = array_shift($data);
 
 		foreach ($questions as $col => $question) {
+			//remove whitespace
+			$question=trim($question);
 			foreach ($data as $row) {
 				$return[$question][] = $row[$col];
 			}
