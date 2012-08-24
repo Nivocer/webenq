@@ -24,7 +24,7 @@ public class GetData {
 	 * 
 	 */
 	
-	public static String getData(String urlString, String outputDir, Long maxAge, String apiKey) {
+	public static String getData(String urlString, String outputDir, Long maxAge, String apiKey, String language) {
 		// TODO Auto-generated method stub
 		//Determine fileName (remove '/' in name)
 		String fileName=createFileNameFromUrl(urlString);
@@ -41,7 +41,7 @@ public class GetData {
 		if (!file.canRead() || (System.currentTimeMillis()-file.lastModified()>(maxAge*1000))) {
 			// create the connection and request to the server
 		try {
-			URL url = new URL(urlString+"/api_key/"+apiKey);
+			URL url = new URL(urlString+"/api_key/"+apiKey+"/language/"+language);
 			InputStream in = url.openStream();
 			OutputStream out = new FileOutputStream(new File(tempDir+"/"+fileName));
 			
