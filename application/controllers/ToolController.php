@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Controllers
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class ToolController extends Zend_Controller_Action
 {
@@ -132,7 +132,8 @@ class ToolController extends Zend_Controller_Action
                 //merge data:
                 foreach ($data as $setId => $dataSheet){
                 	if ($setId ===0) continue;
-                 	$data[0]=$this->_mergeData($data[0],$dataSheet);
+                	
+                 	$data[0]=$this->_mergeData($data[0],$dataSheet, $setId);
                  	unset ($data[$setId]);
                 }
 
@@ -192,8 +193,7 @@ class ToolController extends Zend_Controller_Action
                 if ($filter->filter($archiveInfo['file']['tmp_name'])) {
                     $filenames = scandir($target);
                     foreach ($filenames as $filename) {
-
-                        // skip non-xls, non-xlsx and non-ods files
+                    	// skip non-xls, non-xlsx and non-ods files
                         if (!preg_match('/\.(xls|xlsx|ods)$/', strtolower($filename))) continue;
 
                         $tool = new Webenq_Tool_Merge("$target/$filename");
@@ -292,7 +292,11 @@ class ToolController extends Zend_Controller_Action
                 //merge data:
                 foreach ($data as $setId => $dataSheet){
                 	if ($setId ===0) continue;
-                 	$data[0]=$this->_mergeData($data[0],$dataSheet);
+                 	//$data[0]=$this->_mergeData($data[0],$dataSheet,$setId);
+                 	$t_mergeData=$this->_mergeData($data[0],$dataSheet,$setId);
+                 	if ($t_mergeData) {
+                 		$data[0]=$t_mergeData;
+                 	}
                  	unset ($data[$setId]);
                 }
 
@@ -319,10 +323,11 @@ class ToolController extends Zend_Controller_Action
      * @param array &$newData
      * @return array
      */
-    protected function _mergeData(array &$data, array &$newData)
+    protected function _mergeData(array &$data, array &$newData, $setId=NULL)
     {
-    	$questions = $data[0][0];
-    	$questionsNew=$newData[0][0];
+    	$maxDistance=1;
+    	$questions = array_map("trim", $data[0][0]);
+    	$questionsNew=array_map("trim", $newData[0][0]);
     	//test if new data has same questions as old data, if so, just add the data and we are done
     	if ($questions==$questionsNew){
     		//just add the values
@@ -333,8 +338,10 @@ class ToolController extends Zend_Controller_Action
     		}
     	}else {
     		//newData has other questions than old data.
+    		//step 1: create two help arrays, without the questback number for each question
     		//create array with question as value and 'column' as key
     		foreach ($questions as $column => &$question) {
+    			$question=trim($question);
     			//questions start with number and :
     			$pattern="/^(\d*:\s*)*(.*)$/";
     			if (preg_match($pattern, $question, $matches)){
@@ -343,10 +350,10 @@ class ToolController extends Zend_Controller_Action
     				$questionsClean[$column]=$question;
     			}
        		}
-       		if (count($questionsClean)<>count($questions)){
+       		if (count(array_unique($questionsClean))<>count(array_unique($questions))){
        			//questions are not unique!!!!
-       			echo 'questions are not unique';
-       			break;
+       			echo "questions of first file are not unique, $setId<br>";
+       			return false;
        		}
        		//create array with questionsNew as value and 'column' as key
     		foreach ($questionsNew as $column => &$question) {
@@ -358,41 +365,60 @@ class ToolController extends Zend_Controller_Action
     				$questionsNewClean[$column]=$question;
     			}
        		}
-       		if (count($questionsNewClean)<>count($questionsNew)){
+       		if (count(array_unique($questionsNewClean))<>count(array_unique($questionsNew))){
        			//questions are not unique!!!!
-       			echo 'questions new are not unique';
-       			break;
+       			echo "questions new are not unique: $setId<br>";
        			return false;
 
        		}
-
-
+			//step 2: add question headers of new questions
        		//add questions (headers) that are not in $data[0]
+       		//we added some fuzzy search, now we get multiple question (with the same simmilairity) and take the first uestion, 
+       		//we could have more questions with the same similairity
+       		//todo: do something smart with this (report)
+       		//var_dump($questionsClean);
+       		
     		foreach ($questionsNew as $columnNew => &$questionNew) {
-    			//questions start with number and :
+    			//questions start with number and :?
     			$pattern="/^(\d*:\s*)*(.*)$/";
     			if (preg_match($pattern, $questionNew, $matches)){
     				//is it a new question, add it to questionsClean
-    				if ($this->_checkSimilarText($matches[2], $questionsClean)==0){
-    					
-    					$questionsClean[]=$matches[2];
-    					$data[0][0][]=$questionNew;
+    				
+    				$similairQuestions=$this->_checkSimilarText($matches[2], $questionsClean);
+		    		$t_questionText=key($similairQuestions);
+    				
+    				if ($similairQuestions[$t_questionText]>$maxDistance) {
+    					$questionsClean[]=trim($matches[2]);
+    					$data[0][0][]=$matches[1].trim($matches[2]);
     				}
     			}else {
     				//question has no 'number:'
-    				if ($this->_checkSimilarText($questionNew, $questionsClean)==0){
-    					$questionsClean[]=$questionNew;
-    					$data[0][0][]=$questionNew;
+    				$similairQuestions=$this->_checkSimilarText($questionNew, $questionsClean);
+    				$t_questionText=key($similairQuestions);
+    				
+    				if ($similairQuestions[$t_questionText]>$maxDistance) {
+    					$questionsClean[]=trim($questionNew);
+    					$data[0][0][]=trim($questionNew);
     				}
     			}
        		}
+       		
+       		//step 3 add new answers.
        		//add answers to $data[0]
        		foreach ($newData[0] as $key=>$answers){
     			//skip first 'row'
     			if ($key === 0) continue;
     			$i=0;
     			foreach ($questionsNewClean as $questionNew){
-
+					// fuzzy search, search nearest text for questionNew (could have a dot or something like that)
+    				$similairQuestions=$this->_checkSimilarText($questionNew, $questionsClean);
+    				//todo: possible problem: questions is merged with other question, with the same distance.
+    				$t_questionNew=key($similairQuestions);
+    				if ($similairQuestions[$t_questionNew]>$maxDistance){
+    					var_dump("error",__FILE__,__LINE__,$questionNew,$t_questionNew, $similairQuestions[$t_questionNew]);
+    					exit;
+    				}
+    				$questionNew=$t_questionNew;
     				$targetColumn=array_search($questionNew, $questionsClean);
     				$row[$targetColumn]=$answers[$i];
     				$i++;
@@ -410,22 +436,22 @@ class ToolController extends Zend_Controller_Action
      *
      * @param string $text  text to search in $haystack
      * @param array $haystack array to search for $text
-     * @param integer $difference max number of allowed differences
-     * @return 0 when not the same, 1 when exactly the same, 2 when max $differences differences).
+     * @return array  with $haystackText=>distance
      */
-    protected function _checkSimilarText($text, array $haystack, $difference=0){
-    	$text=trim($text);
-    	if (in_array($text, $haystack)){
+    protected function _checkSimilarText($text, array $haystack){
+    	$result=false;
+    	if (in_array(trim($text), $haystack)){
     		//question is exactly in array, no need for further tests
-    		return 1;
+    		$result=array($text=>0);
     	}else {
+    		//create array with distance to the 'haystack'-texts
     		foreach ($haystack as $compareText ){
-    			if (levenshtein($text, trim($compareText)) <=$difference){
-    				return 2;
-    			}
+    			$levenshteinDistance=levenshtein(trim($text), trim($compareText));
+    			$result[$compareText]=$levenshteinDistance;
     		}
-    		return 0;
+    		//sort result by distance
+    		asort($result, SORT_NUMERIC);
     	}
+    	return $result;
     }
-
 }
