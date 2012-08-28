@@ -65,7 +65,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
     		$element->setAttribute('ref', $this->getXpath());
     		$label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
     		$element->appendChild($label);
-    		foreach ($this->AnswerPossibilityGroup->AnswerPossibility as $ap) {
+    		foreach ($this->AnswerPossibilityGroup->getAnswerPossibilities() as $ap) {
     			$item = $xml->createElement('item');
     			$label = $xml->createElement('label', Webenq::Xmlify($ap->getAnswerPossibilityText()->text));
     			$value = $xml->createElement('value', ($ap->value ? $ap->value : $ap->id));
