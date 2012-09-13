@@ -118,7 +118,7 @@ public class XformJRDataSource {
 					String group_question_label=null;
 					if (group_question_id !=null){
 						group_question_text=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, null);
-						expression=group_question_id;
+						expression=group_question_id.replace("/questionnaire/","");
 						Node groupQuestionNode = (Node) xpath.evaluate(expression, nodes.item(i), XPathConstants.NODE);
 						group_question_value=groupQuestionNode.getTextContent();
 						group_question_label=it.bisi.Utils.getXformLabel(xform_location, xform_name, group_question_id, group_question_value);

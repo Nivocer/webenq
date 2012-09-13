@@ -126,7 +126,7 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("reportDefinitionLocation")).canRead()){
 				reportDefinitionLocation=reportConfig.get("reportDefinitionLocation");
 			} else {
-				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), tempDir, (long) 3600, apiKey);
+				reportDefinitionLocation=it.bisi.report.GetData.getData( reportConfig.get("reportDefinitionLocation"), tempDir, (long) 3600, apiKey, language);
 			}
 			//System.out.println(reportDefinitionLocation);
 
@@ -134,7 +134,7 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("xformLocation")).canRead()){
 				xformLocation=reportConfig.get("xformLocation");
 			} else {
-				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), tempDir, (long) 3600, apiKey);
+				xformLocation=it.bisi.report.GetData.getData( reportConfig.get("xformLocation"), tempDir, (long) 3600, apiKey, language);
 			}
 			//System.out.println(xformLocation);
 
@@ -146,7 +146,7 @@ public class ExecuteReport {
 			if (new File(reportConfig.get("dataLocation")).canRead()){
 				dataLocation=reportConfig.get("dataLocation");
 			} else {
-				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), tempDir, (long) 3600000, apiKey);
+				dataLocation=it.bisi.report.GetData.getData( reportConfig.get("dataLocation"), tempDir, (long) 3600000, apiKey, language);
 			}
 			//System.out.println(dataLocation);
 			
