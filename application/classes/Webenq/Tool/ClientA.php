@@ -315,12 +315,15 @@ class Webenq_Tool_ClientA extends Webenq_Tool
     protected function _mergeModules(array &$data, array &$moduleDataColumns)
     {
         $questions = $data[0][0];
+        //remove modulename from questiontext if it exist.
         foreach ($moduleDataColumns as $module => &$columns) {
             foreach ($questions as $column => &$question) {
+                //search al questions which has the current module(Name)
             	$moduleQuote=preg_quote($module, '/');
             	$pattern="/^(\d*:\s*)$moduleQuote:\s*(.*)$/";
                 if (preg_match($pattern, $question, $matches)) {
                     $question = $matches[1] . $matches[2];
+            		//todo document next if statement 
                     if ($column === 1 + $columns['end']) $columns['end']++;
                 }
             }
@@ -328,9 +331,10 @@ class Webenq_Tool_ClientA extends Webenq_Tool
 
         // find double questions
         $uniqueModuleQuestions = array();
-        foreach ($questions as $column => $question) {
+		//if we use $question in stead of $question2 in the next line, the last question per file is wrong (variable by reference side effect?) #6059
+        foreach ($questions as $column => $question2) {
             if ($this->_isModuleColumn($column, $moduleDataColumns, $data)) {
-                if (preg_match('/d*:\s*(.*)$/', $question, $matches)) {
+                if (preg_match('/d*:\s*(.*)$/', $question2, $matches)) {
                     if (isset($uniqueModuleQuestions[$matches[1]])) {
                         $uniqueModuleQuestions[$matches[1]][] = $column;
                     } else {
