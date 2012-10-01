@@ -149,7 +149,7 @@ public class Utils {
 	 * 
 	 * @param customer
 	 * @return
-	 * 	 * ranges are from x to y (incl x, excl y) (except the last category)
+	 * 	 * ranges are from x to y (incl x, excl y) (except the last category, target_value_3)
 	 */
 	public static HashMap<String, Map<String, Map<String, Object>>> recodeColorMap(String customer) {
 		HashMap<String, Map<String, Map<String, Object>>> returnMap=new HashMap<String,Map<String,Map<String,Object>>>();
