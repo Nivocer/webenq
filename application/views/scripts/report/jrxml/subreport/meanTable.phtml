@@ -26,6 +26,12 @@
 			<![CDATA["<?php if (isset($this->data['display_group_question_text'])) echo $this->data['display_group_question_text'];  ?>"]]>
 			</subreportParameterExpression>
 		</subreportParameter>
+
+		<subreportParameter name="COLOR_MEAN">
+			<subreportParameterExpression>
+			<![CDATA["<?php if (isset($this->data['color_mean'])) echo $this->data['color_mean'];  ?>"]]>
+			</subreportParameterExpression>
+		</subreportParameter>
     	<subreportParameter name="SCALE_QUESTION_INFO">
 			<subreportParameterExpression><![CDATA["<?php 
 			$scaleQuestionInfo=Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids']);

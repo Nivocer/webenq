@@ -133,12 +133,22 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             }
             $html .= '<br/>';
         }
-
-        if (isset($this->_data['color_schema'])) {
-            $html .= t('with color schema') . ' <strong>'
-                . t($this->_data['color_schema']) . '</strong>';
+        //todo get this from some config file/database now from Webenq_Form_ReportElement_Edit_MeanTable (line 53)
+        $variantOptions=array('1' => 'questions in rows', 2=>'question in columns', 98 => 'low scores (special)', 99=>'grade (special)');
+        if (isset($this->_data['variant'])) {
+        	if (isset($variantOptions[$this->_data['variant']])){
+        		$variant=$variantOptions[$this->_data['variant']];
+        	}else $variant=t('unkown variant').": ".$this->_data['variant'];
+           $html .= t('variant: ') . ' <strong>'
+            . t($variant) . '</strong>';
+        	$html .= '<br/>';
         }
-
+        
+        if (isset($this->_data['color_mean'])) {
+        	$html .= t('means colored: ') . ' <strong>'
+        	. t($this->_data['color_mean']) . '</strong>';
+        }
+        
         return $html;
     }
 

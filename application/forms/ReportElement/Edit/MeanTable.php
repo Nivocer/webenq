@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_ReportElement_Edit_MeanTable extends Webenq_Form_ReportElement_Edit
 {
@@ -42,12 +42,11 @@ class Webenq_Form_ReportElement_Edit_MeanTable extends Webenq_Form_ReportElement
         		'required' => true,
         		'multiOptions' => array('no' => 'no, don\'t display group question text', 'yes'=>'yes, display group question text'),
         )));
-        $this->addElement($this->createElement('select', 'color_schema', array(
-            'label' => 'color schema',
-        	'required' => true,
-        	'multiOptions' => array('white' => 'white', 'mean5' => 'mean5', 'mean10' => 'mean10'),
+        $this->addElement($this->createElement('select', 'color_mean', array(
+        		'label' => 'color the means',
+        		'required' => true,
+        		'multiOptions' => array('no' => 'no color', 'yes' => 'colored by mean'),
         )));
-
         $this->addElement($this->createElement('radio', 'variant', array(
             'label' => 'Variant of the table',
         	'required' => true,

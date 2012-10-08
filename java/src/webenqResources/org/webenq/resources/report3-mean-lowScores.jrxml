@@ -6,7 +6,8 @@
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") &&
+($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
 .get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
 .get("target_value_1") )
 .get("lowest") ) )&&
@@ -22,7 +23,8 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") &&
+($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
 .get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
 .get("target_value_2") )
 .get("lowest") ) )&&
@@ -38,7 +40,8 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") &&
+($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
 .get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
 .get("target_value_3") )
 .get("lowest") ) )&&
@@ -73,6 +76,7 @@
 	<parameter name="SCALE_QUESTION_INFO_MAP" class="java.util.Map">
 		<defaultValueExpression><![CDATA[org.json.simple.JSONValue.parse($P{SCALE_QUESTION_INFO})]]></defaultValueExpression>
 	</parameter>
+	<parameter name="COLOR_MEAN" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -118,7 +122,7 @@
 		<groupFooter>
 			<band height="12" splitType="Prevent">
 				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
-					<reportElement style="defaultStyle" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="435" y="0" width="60" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true">
+					<reportElement style="table_colored_cells" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="435" y="0" width="60" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true">
 						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
 .get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
 .get("target_value_1") )
@@ -192,8 +196,7 @@
 ($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
 .get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
 .get("target_value_1") )
-.get("highest") ) )]]>
-</printWhenExpression>
+.get("highest") ) )]]></printWhenExpression>
 					</reportElement>
 					<box leftPadding="1" rightPadding="1">
 						<topPen lineWidth="0.25"/>
