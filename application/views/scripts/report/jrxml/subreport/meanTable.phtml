@@ -61,19 +61,21 @@
     		]]>
     	</dataSourceExpression>
     	<?php switch ($this->data['variant']){ 
-case 1:
+case 'questionsInRows':
 	if ($this->pageOrientation =='Portrait') { 
     	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>' ;
 	}else{
 		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-land.jasper"]]></subreportExpression>' ;
 	}
     	break;
-case 2:
+case 'questionsInColumns':
     	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>' ;
     	break;
-case 98: echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-lowScores.jasper"]]></subreportExpression>' ;
+case 'lowScores': 
+		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-lowScores.jasper"]]></subreportExpression>' ;
 		break;
-case 99: echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-countlow.jasper"]]></subreportExpression>' ;
+case 'grade':
+		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-countlow.jasper"]]></subreportExpression>' ;
 		break;
     	}
 	?>
