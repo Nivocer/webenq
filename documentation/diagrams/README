@@ -1,0 +1,7 @@
+WebEnq Diagrams
+
+We use yEd to create wireframes in the open GraphML format, and export them to
+images. It is not free software, but yEd can be downloaded without cost.
+
+http://www.yworks.com/en/products_yed_about.html
+http://graphml.graphdrawing.org/
