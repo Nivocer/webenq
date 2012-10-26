@@ -3,8 +3,8 @@ var story = {
  "pages": [
   {
    "title": "login",
-   "height": 800,
-   "width": 960,
+   "height": 364,
+   "width": 958,
    "image": "1-login.png",
    "links": [{
     "page": 1,
@@ -18,8 +18,8 @@ var story = {
   },
   {
    "title": "login-error",
-   "height": 800,
-   "width": 960,
+   "height": 257,
+   "width": 958,
    "image": "2-login-error.png",
    "links": [{
     "page": 0,
