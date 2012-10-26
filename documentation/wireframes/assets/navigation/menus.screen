@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Image" id="1" x="205" y="265"/>
+  <widgets xsi:type="model:WidgetGroup" id="2" x="24" y="20" measuredWidth="818" measuredHeight="30" name="Top menu (logged in)">
+    <widgets xsi:type="model:Menu" id="3" text="Home, Questionnaires, Import, Vragen, Antwoordmogelijkheden, Test, Gebruikersbeheer, Uitloggen" measuredWidth="708" measuredHeight="30" selection="">
+      <items link="../../pages/home.screen" x="5" y="0" width="50" height="30" text="Home"/>
+      <items x="55" y="0" width="112" height="30" text="Questionnaires"/>
+      <items link="../../pages/import-file-select.screen" x="167" y="0" width="57" height="30" text="Import"/>
+      <items x="224" y="0" width="58" height="30" text="Vragen"/>
+      <items link="../../pages/manage-answer-options-overview.screen" x="282" y="0" width="177" height="30" text="Antwoordmogelijkheden"/>
+      <items x="459" y="0" width="38" height="30" text="Test"/>
+      <items link="../../pages/manage-users.screen" x="497" y="0" width="131" height="30" text="Gebruikersbeheer"/>
+      <items x="628" y="0" width="75" height="30" text="Uitloggen"/>
+    </widgets>
+    <widgets xsi:type="model:Menu" id="4" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="30">
+      <items x="5" y="0" width="26" height="30" text="en"/>
+      <items x="31" y="0" width="22" height="30" text="nl"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="5" x="24" y="72" measuredWidth="818" measuredHeight="30" name="Top menu (logged out)">
+    <widgets xsi:type="model:Menu" id="6" text="Home, Questionnaires, Import, Vragen, Antwoordmogelijkheden, Test, Gebruikersbeheer" measuredWidth="633" measuredHeight="30" selection="">
+      <items link="../../pages/home.screen" x="5" y="0" width="50" height="30" text="Home"/>
+      <items x="55" y="0" width="112" height="30" text="Questionnaires"/>
+      <items link="../../pages/import-file-select.screen" x="167" y="0" width="57" height="30" text="Import"/>
+      <items x="224" y="0" width="58" height="30" text="Vragen"/>
+      <items x="282" y="0" width="177" height="30" text="Antwoordmogelijkheden"/>
+      <items x="459" y="0" width="38" height="30" text="Test"/>
+      <items link="../../pages/manage-users.screen" x="497" y="0" width="131" height="30" text="Gebruikersbeheer"/>
+    </widgets>
+    <widgets xsi:type="model:Menu" id="7" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="30">
+      <items x="5" y="0" width="26" height="30" text="en"/>
+      <items x="31" y="0" width="22" height="30" text="nl"/>
+    </widgets>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="26px"/>
+</model:Screen>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="16" measuredWidth="960" measuredHeight="800">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#full-screen"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="4" y="160" measuredWidth="342" measuredHeight="204">
+    <widgets xsi:type="model:Group" id="5" width="342" height="204" measuredWidth="342" measuredHeight="204" background="#cccccc">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="6" x="21" y="13" text="Gebruikersnaam:" measuredWidth="120" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="7" x="21" y="103" width="291" text="xxxxxx" measuredWidth="291" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="8" x="21" y="37" width="291" text="User name" measuredWidth="291" measuredHeight="25">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Button" id="9" x="21" y="153" text="Inloggen" measuredWidth="77" measuredHeight="27">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="10" x="21" y="73" text="Wachtwoord:" measuredWidth="96" measuredHeight="25">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Note" id="11" x="140" y="310" text="If username+password is&#xA;wrong ..." measuredWidth="177" measuredHeight="44" annotation="true" textAlignment="Left" link="login-error.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="17" x="140" measuredWidth="818" measuredHeight="30">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20out)"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="26px"/>
+</model:Screen>
