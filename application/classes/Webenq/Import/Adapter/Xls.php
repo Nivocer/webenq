@@ -47,7 +47,7 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
     	$this->_filename = $filename;
 
     	/* load library */
-    	require_once 'PHPExcel/PHPExcel.php';
+    	require_once 'PHPExcel/Classes/PHPExcel.php';
 
     	/* open file and read first sheet */
 		$reader = PHPExcel_IOFactory::createReader($this->_reader);

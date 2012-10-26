@@ -66,6 +66,8 @@ PUT THE CODE IN THE RIGHT PLACE AND CONFIGURE YOUR INSTANCE
 
 In a directory of choice:
 	git clone https://github.com/Nivocer/webenq
+	git submodule init
+	git submodule update 
 
 	
 Choose a name for your instance and set an environment variable APPLICATION_ENV

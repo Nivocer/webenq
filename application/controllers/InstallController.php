@@ -26,7 +26,7 @@ class InstallController extends Zend_Controller_Action
     protected static  $_dependencies = array(
     	'FPDF' => 'fpdf/fpdf.php',
     	'ODS' => 'ods-php/ods.php',
-    	'PHPExcel' => 'PHPExcel/PHPExcel.php',
+    	'PHPExcel' => 'PHPExcel/Classes/PHPExcel.php',
     );
 
     public function testAction()

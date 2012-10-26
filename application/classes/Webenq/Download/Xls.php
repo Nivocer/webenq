@@ -41,7 +41,7 @@ class Webenq_Download_Xls extends Webenq_Download
 	public function init()
 	{
     	// load library and create document
-    	require_once 'PHPExcel/PHPExcel.php';
+    	require_once 'PHPExcel/Classes/PHPExcel.php';
         $xls = new PHPExcel();
         $sheet = $xls->getActiveSheet();
 
