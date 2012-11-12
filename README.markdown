@@ -9,3 +9,6 @@ The source of the site is a Zim notebook (in zim/notebook) that is
 exported as HTML (using the template in zim/template), to render most
 of the website. The notebook has the most up-to-date version.
 http://www.zim-wiki.org/
+
+Interactive wireframes are copied from the code repository
+(documentation/wireframes/html/ -> wireframes/)

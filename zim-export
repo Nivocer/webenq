@@ -1,0 +1,2 @@
+#!/bin/sh
+zim --export --output=. --format=html --template=./zim/template/webenq.html --root-url=http://doc.webenq.org ./zim/notebook

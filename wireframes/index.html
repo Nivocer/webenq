@@ -1,0 +1,191 @@
+<!doctype html>
+<!-- Generated using WireframeSketcher: http://wireframesketcher.com -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>index</title>
+<script type="text/javascript" src="index_files/jquery-1.6.1.min.js"
+	charset="UTF-8"></script>
+<script type="text/javascript" src="index_files/jquery.maphilight.min.js"
+	charset="UTF-8"></script>
+<script type="text/javascript" src="index_files/jquery.hotkeys.min.js"
+	charset="UTF-8"></script>
+<script type="text/javascript"
+	src="index_files/jquery.ba-hashchange.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="index_files/story.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	var viewer = {
+		files: 'index_files',
+		highlightLinks: story.highlightLinks,
+		currentPage : -1,
+		cache: [],
+		initialize: function() {
+			this.preloadImages();
+			this.createImageMaps();
+			this.addHotkeys();
+		},
+		preloadImages: function() {
+			var pages = story.pages;
+			for(var i = 0; i < pages.length; i ++) {
+				var cacheImage = document.createElement('img');
+				cacheImage.src = this.files + '/' + pages[i].image;
+				this.cache.push(cacheImage);
+			}
+		},
+		createImageMaps: function() {
+			var pages = story.pages;
+			for(var i = 0; i < pages.length; i ++) {
+				var page = pages[i];
+				var name = 'map' + i;
+				var map = $('<map/>', {
+					id: name,
+					name: name
+				});
+				map.appendTo('body');
+				for(var j = page.links.length - 1; j >= 0; j --) {
+					var link = page.links[j];
+					var target = story.pages[link.page];
+					$('<area/>', {
+						shape: 'rect',
+						coords: link.rect.join(','),
+						href: 'javascript:viewer.goTo(' + link.page + ')',
+						alt: target.title,
+						title: target.title
+					}).appendTo(map);
+				}
+			}
+		},
+		addHotkeys: function() {
+			var v = this;
+			$(document).bind('keydown', 'right down pagedown space return', function() {
+				v.next();
+			});
+			$(document).bind('keydown', 'left up pageup backspace', function() {
+				v.previous();
+			});
+			$(document).bind('keydown', 'shift', function() {
+				v.toggleLinks();
+			});
+		},
+		goTo : function(index) {
+			if (index != this.currentPage && index >= 0 && index < story.pages.length) {
+				this.currentPage = index;
+				this.refresh();
+				$(document).attr('title', story.title + ': ' + story.pages[index].title);
+				location.hash = '#' + (this.currentPage + 1).toString();
+			}
+		},
+		refresh: function() {
+			var page = story.pages[this.currentPage];
+			
+			$('#content').empty();
+			
+			$('<img/>', {
+				src : encodeURIComponent(this.files) + '/' + encodeURIComponent(page.image),
+				usemap: '#map' + this.currentPage,
+				width: page.width,
+				height: page.height
+			}).appendTo('#content');
+
+			$('#nav span.title').html(page.title);
+			$('#nav span.page').html('' + (this.currentPage + 1) + ' of ' + story.pages.length);
+			
+			$('#content').width(page.width);
+			
+			$('#content img').maphilight({
+				alwaysOn: this.highlightLinks,
+				stroke: false,
+				fillColor: 'FFC400',
+				fillOpacity: 100.0/255
+			});
+
+			$('#nav a.previous').toggleClass('disabled', !this.hasPrevious());
+			$('#nav a.next').toggleClass('disabled', !this.hasNext());
+		},
+		next : function() {
+			if (this.hasNext())
+				this.goTo(this.currentPage + 1);
+		},
+		previous : function() {
+			if (this.hasPrevious())
+				this.goTo(this.currentPage - 1);
+		},
+		hasNext : function() {
+			return this.currentPage < story.pages.length - 1;
+		},
+		hasPrevious : function() {
+			return this.currentPage > 0;
+		},
+		toggleLinks : function() {
+			this.highlightLinks = !this.highlightLinks;
+			this.refresh();
+		}
+	}
+
+	$(document).ready(function() {
+		viewer.initialize();
+		$(window).hashchange(function(e) {
+			var hash = location.hash;
+			if(hash == null || hash.length == 0)
+				hash = '#';
+			hash = '#' + hash.replace( /^[^#]*#?(.*)$/, '$1' );
+			var page = parseInt(hash.substring(1));
+			if(isNaN(page))
+				page = 1;
+			viewer.goTo(page - 1);
+		});
+		$(window).hashchange();
+	});
+</script>
+<style type="text/css">
+#container,#content {
+	text-align: center;
+	margin: 0 auto;
+}
+
+img {
+	border: 0;
+}
+
+body {
+	line-height: 1.5;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #222222;
+	font-size: 120%;
+	margin: 0;
+	padding: 0;
+}
+
+.disabled {
+	text-decoration: none;
+	color: gray;
+}
+
+#nav {
+	display: none;
+	margin: 20px 0 auto auto;
+	padding-top: 20px;
+	border-top: 1px solid gray;
+}
+
+.title {
+	font-weight: bold;
+}
+
+.page {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+</style>
+</head>
+<body>
+	<div id="container">
+		<div id="content"></div>
+		<div id="nav">
+			<span class="title"></span><br /> <a
+				href="javascript:viewer.previous()" class="previous">Previous</a> <span
+				class="page"></span> <a href="javascript:viewer.next()" class="next">Next</a>
+		</div>
+	</div>
+</body>
+</html>
