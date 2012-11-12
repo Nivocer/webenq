@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebEnq by Nivocer</title>
+
+    <link rel="stylesheet" href="../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../_resources/stylesheets/pygment_trac.css">
+    <script src="../_resources/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">WebEnq</h1>
+        <p class="header">Online surveys and reporting</p>
+
+	<ul>
+<li><a href="../Home.html" title="Home">Home</a></li>
+<ul>
+<li><a href="./Architecture.html" title="Architecture">Architecture</a></li>
+<li><a href="./Data_model.html" title="Data model">Data model</a></li>
+<li><a href="./Developing.html" title="Developing">Developing</a></li>
+<li><strong>Directory layout</strong></li>
+</ul>
+<li><a href="../Tools.html" title="Tools">Tools</a></li>
+</ul>
+
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Nivocer/webenq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Nivocer">Nivocer</a></p>
+
+      </header>
+      <section>
+
+<h1>Directory layout</h1>
+
+<h2>Code and configuration</h2>
+<p>
+Important locations for configuration or application code<br>
+</p>
+
+<p>
+<code>/public/</code><br>
+<ul>
+<li><code>index.php</code>: app-bootstrap, include config, paths</li>
+</ul>
+<code>/application/</code><br>
+<div style='padding-left: 30pt'>
+<code>configs/</code><br>
+</div>
+<code>application.ini</code>: config with sections for live, development, testing, ...<br>
+<ul style='padding-left: 30pt'>
+<li><code>override.ini</code>: override/extend settings in <code>application.ini</code>: mainly database connection, local configuration</li>
+<li><code>override.ini.sample</code>: sample override file of application.ini, also used for unittesting</li>
+</ul>
+<div style='padding-left: 30pt'>
+<code>controllers/</code><br>
+</div>
+<ul style='padding-left: 30pt'>
+<li>each controller should be a subclass of <code>Zend_Controller_action</code>, with a name in the form <code>&lt;controller&gt;Controller</code></li>
+<li>actions called by url are public functions with name <code>&lt;action&gt;Action</code></li>
+</ul>
+<div style='padding-left: 30pt'>
+<code>views/</code><br>
+</div>
+<div style='padding-left: 60pt'>
+<code>scripts/</code><br>
+</div>
+<div style='padding-left: 90pt'>
+<code>&lt;controller&gt;/</code><br>
+</div>
+<ul style='padding-left: 90pt'>
+<li><code>&lt;action&gt;.phtml</code>: default rendering for action of controller; when called with <code>echo</code> the <code>toString</code> function on the object is called</li>
+</ul>
+<div style='padding-left: 30pt'>
+<code>forms/</code><br>
+</div>
+<div style='padding-left: 60pt'>
+<code>&lt;controller&gt;/</code><br>
+</div>
+<ul style='padding-left: 60pt'>
+<li><code>&lt;action&gt;.php</code>: default; possible to override <code>isValid()</code> with own version, or to add form-element with <code>addValidator()</code></li>
+</ul>
+<div style='padding-left: 30pt'>
+<code>models/</code><br>
+</div>
+<ul style='padding-left: 30pt'>
+<li><a href="./Data_model.html" title="data model files (see Data Model page)">data model files (see Data Model page)</a></li>
+</ul>
+<div style='padding-left: 30pt'>
+<code>doctrine/</code><br>
+</div>
+<ul style='padding-left: 30pt'>
+<li><a href="./Data_model.html" title="data model files (see Data Model page)">data model files (see Data Model page)</a></li>
+</ul>
+<code>/library/</code><br>
+<div style='padding-left: 30pt'>
+<code>zend/</code><br>
+<code>zendx/</code><br>
+<code>doctrine/</code><br>
+</div>
+<code>/classes/</code><br>
+<div style='padding-left: 30pt'>
+<code>webenq/</code><br>
+</div>
+<ul style='padding-left: 30pt'>
+<li>WebEnq-specific classes, such as filters, downloads</li>
+</ul>
+<div style='padding-left: 60pt'>
+<code>import/</code><br>
+</div>
+<ul style='padding-left: 60pt'>
+<li>adapters for specific file formats, importer to read "worksheets"</li>
+</ul>
+<code>/bin/</code><br>
+<ul>
+<li><code>doctrine</code>, <code>doctrine.php</code>, <code>fixYaml.php</code>: command line tools for doctrine, including script to fix the yaml output</li>
+<li><code>install</code>: (re)load default structure and data into database</li>
+</ul>
+<code>/tests/</code><br>
+<ul>
+<li><a href="../Tools/Testing.html" title="testing tools (see Testing page)">testing tools (see Testing page)</a></li>
+</ul>
+</p>
+
+<h2>Temporary and generated files</h2>
+
+<p>
+<code>/public/</code><br>
+<div style='padding-left: 30pt'>
+<code>outputs/</code><br>
+</div>
+<ul style='padding-left: 30pt'>
+<li>output of zend: merging of data, export of questionnaire</li>
+</ul>
+<div style='padding-left: 30pt'>
+<code>reports/</code><br>
+</div>
+<ul style='padding-left: 30pt'>
+<li>output of java: reports</li>
+</ul>
+<code>/tmp/</code><br>
+<ul>
+<li>Java temp files (we want to be able to store these files for a long time, independent of clean up of the system temp dir)</li>
+</ul>
+(system temp dir)<br>
+<ul>
+<li>Zend temp files (location can be retrieved via <code>ini_get('upload_tmp_dir')</code> or <code>sys_get_temp_dir()</code></li>
+</ul>
+</p>
+
+
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

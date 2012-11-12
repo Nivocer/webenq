@@ -1,0 +1,37 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-12T17:56:47+01:00
+
+====== Data model ======
+
+We use doctrine as database abstraction layer
+
+===== Directories =====
+''application/''
+	''doctrine/''
+		''fixtures/''
+		* ''data.yml'': standard data, is used by install script en testsuite; this file can be generated with ''/bin/doctrine dump-data''
+		''migrations/''
+		* migrations script that are used to update (or downgrade) the database to another version. Sometimes for one real version, multiple scripts are necessary. ( add column, change foreign keys)
+		''scheme/''
+		* ''schema.yml'': definition of the database in yaml format
+	''models/''
+	* files here extend the generated base classes in ''Base/''; these are the actual classes which are used in the code, specific model adjustments are performed here, every instance represents a row in the table
+		''Base/''
+		* generated models based on ''doctrine/schema/schema.yml''; every model corresponds with a table in the database
+
+===== Adapting the database =====
+The main definition is in yaml format in ''application/doctrine/schema.yml''. If you want to adapt the database, edit schema.yml. Doctrine will generate the new models and perform the database changes, via migration-classes.
+
+==== Procedure ====
+1. Adapt ''application/doctrine/scheme/current/schema.yml''
+2. Create migration classes (the migration classes compare the current model with the schema.yml definition): ''/bin/doctrine generate-migration''
+3. Generate the new models ''bin/doctrine generate-models-yaml''. This generates:
+	''models/Base/*''
+	''models/*.php'' if they do not yet exist
+4. Update the database: ''doctrine migrate''
+
+Other methods to change the datamodel (deprecated):
+* create migration class self, you don't need yaml anymore
+* change database, recreate model classes with ''bin/doctrine generate-models-db''
+* change model-classes direct, so that doctrine can build database.

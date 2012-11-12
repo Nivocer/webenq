@@ -4,12 +4,21 @@ Creation-Date: 2012-11-06T01:09:03+01:00
 
 ====== WebEnq ======
 
-Webenq is an online research tools
+Webenq is an online research (survey and reporting) tool.
 
-* surveys
-* reporting
+Version 4 is under development, and currently focuses on importing data and reporting on it.
 
-===== Todo =====
-[*] set up Zim docu plus export workflow
-[ ] adopt Nivocer style
-[ ] more...
+===== Current features =====
+
+* Import of spreadsheets from other survey systems or questionnaire-style data (including reconstruction of the questionnaire)
+* Basic management of questionnaires
+* Experimental export of questionnaires into Xforms
+* Management and generation of reports per questionnaire into a variety of formats
+
+===== Work in progress =====
+
+* Online survey tool (integrating the features our WebEnq 3 platform: online surveys, downloadable questionnaires, fully multi-lingual)
+* Integration with mobile devices for questionnaires
+* Stronger integration with other data sources, such as survey systems
+* More reporting options
+

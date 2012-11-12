@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>WebEnq by Nivocer</title>
 
-    <link rel="stylesheet" href="./_resources/stylesheets/styles.css">
-    <link rel="stylesheet" href="./_resources/stylesheets/pygment_trac.css">
-    <script src="./_resources/javascripts/scale.fix.js"></script>
+    <link rel="stylesheet" href="../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../_resources/stylesheets/pygment_trac.css">
+    <script src="../_resources/javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,9 +20,14 @@
         <p class="header">Online surveys and reporting</p>
 
 	<ul>
-<li><a href="./Home.html" title="Home">Home</a></li>
-<li><a href="./Tools.html" title="Tools">Tools</a></li>
-<li><strong>Wireframes</strong></li>
+<li><a href="../Home.html" title="Home">Home</a></li>
+<li><a href="../Tools.html" title="Tools">Tools</a></li>
+<ul>
+<li><a href="./Git.html" title="Git">Git</a></li>
+<li><a href="./Testing.html" title="Testing">Testing</a></li>
+<li><a href="./Wireframes.html" title="Wireframes">Wireframes</a></li>
+<li><strong>Zim</strong></li>
+</ul>
 </ul>
 
 
@@ -37,14 +42,18 @@
       </header>
       <section>
 
-<h1>Wireframes</h1>
+<h1>Zim</h1>
 
 <p>
-We aim to design the application via wireframes. These are stored along with the code, and occassionally exported as html to the documentation website.<br>
+Zim is a desktop wiki. <a href="http://www.zim-wiki.org/" title="http://www.zim-wiki.org">http://www.zim-wiki.org</a><br>
 </p>
 
 <p>
-<a href="http://doc.webenq.org/wireframes" title="See the mockup site here: /wireframes">See the mockup site here: /wireframes</a>.<br>
+The source of this documentation site (<a href="http://doc.webenq.org" title="http://doc.webenq.org">http://doc.webenq.org</a>) is a Zim notebook. This notebook is stored in the branch <code>gh-pages</code> in <code>./zim/notebook/</code><br>
+</p>
+
+<p>
+The notebook is exported to html using the template in <code>./zim/template/</code> into the root of the branch <code>gh-pages</code>. The script <code>./zim-export</code> will perform this action for you.<br>
 </p>
 
 

@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebEnq by Nivocer</title>
+
+    <link rel="stylesheet" href="../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../_resources/stylesheets/pygment_trac.css">
+    <script src="../_resources/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">WebEnq</h1>
+        <p class="header">Online surveys and reporting</p>
+
+	<ul>
+<li><a href="../Home.html" title="Home">Home</a></li>
+<ul>
+<li><a href="./Architecture.html" title="Architecture">Architecture</a></li>
+<li><strong>Data model</strong></li>
+<li><a href="./Developing.html" title="Developing">Developing</a></li>
+<li><a href="./Directory_layout.html" title="Directory layout">Directory layout</a></li>
+</ul>
+<li><a href="../Tools.html" title="Tools">Tools</a></li>
+</ul>
+
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Nivocer/webenq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Nivocer">Nivocer</a></p>
+
+      </header>
+      <section>
+
+<h1>Data model</h1>
+
+<p>
+We use doctrine as database abstraction layer<br>
+</p>
+
+<h2>Directories</h2>
+<p>
+<code>application/</code><br>
+<div style='padding-left: 30pt'>
+<code>doctrine/</code><br>
+</div>
+<div style='padding-left: 60pt'>
+<code>fixtures/</code><br>
+</div>
+<ul style='padding-left: 60pt'>
+<li><code>data.yml</code>: standard data, is used by install script en testsuite; this file can be generated with <code>/bin/doctrine dump-data</code></li>
+</ul>
+<div style='padding-left: 60pt'>
+<code>migrations/</code><br>
+</div>
+<ul style='padding-left: 60pt'>
+<li>migrations script that are used to update (or downgrade) the database to another version. Sometimes for one real version, multiple scripts are necessary. ( add column, change foreign keys)</li>
+</ul>
+<div style='padding-left: 60pt'>
+<code>scheme/</code><br>
+</div>
+<ul style='padding-left: 60pt'>
+<li><code>schema.yml</code>: definition of the database in yaml format</li>
+</ul>
+<div style='padding-left: 30pt'>
+<code>models/</code><br>
+</div>
+<ul style='padding-left: 30pt'>
+<li>files here extend the generated base classes in <code>Base/</code>; these are the actual classes which are used in the code, specific model adjustments are performed here, every instance represents a row in the table</li>
+</ul>
+<div style='padding-left: 60pt'>
+<code>Base/</code><br>
+</div>
+<ul style='padding-left: 60pt'>
+<li>generated models based on <code>doctrine/schema/schema.yml</code>; every model corresponds with a table in the database</li>
+</ul>
+</p>
+
+<h2>Adapting the database</h2>
+<p>
+The main definition is in yaml format in <code>application/doctrine/schema.yml</code>. If you want to adapt the database, edit schema.yml. Doctrine will generate the new models and perform the database changes, via migration-classes.<br>
+</p>
+
+<h3>Procedure</h3>
+<p>
+<ol type="1" start="1">
+<li>Adapt <code>application/doctrine/scheme/current/schema.yml</code></li>
+<li>Create migration classes (the migration classes compare the current model with the schema.yml definition): <code>/bin/doctrine generate-migration</code></li>
+<li>Generate the new models <code>bin/doctrine generate-models-yaml</code>. This generates:</li>
+</ol>
+<div style='padding-left: 30pt'>
+<code>models/Base/*</code><br>
+<code>models/*.php</code> if they do not yet exist<br>
+</div>
+<ol type="1" start="4">
+<li>Update the database: <code>doctrine migrate</code></li>
+</ol>
+</p>
+
+<p>
+Other methods to change the datamodel (deprecated):<br>
+<ul>
+<li>create migration class self, you don't need yaml anymore</li>
+<li>change database, recreate model classes with <code>bin/doctrine generate-models-db</code></li>
+<li>change model-classes direct, so that doctrine can build database.</li>
+</ul>
+</p>
+
+
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

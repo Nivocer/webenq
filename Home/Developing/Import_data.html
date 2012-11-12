@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebEnq by Nivocer</title>
+
+    <link rel="stylesheet" href="../../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../../_resources/stylesheets/pygment_trac.css">
+    <script src="../../_resources/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">WebEnq</h1>
+        <p class="header">Online surveys and reporting</p>
+
+	<ul>
+<li><a href="../../Home.html" title="Home">Home</a></li>
+<ul>
+<li><a href="../Architecture.html" title="Architecture">Architecture</a></li>
+<li><a href="../Data_model.html" title="Data model">Data model</a></li>
+<li><a href="../Developing.html" title="Developing">Developing</a></li>
+<ul>
+<li><a href="./Add_report_element.html" title="Add report element">Add report element</a></li>
+<li><strong>Import data</strong></li>
+</ul>
+<li><a href="../Directory_layout.html" title="Directory layout">Directory layout</a></li>
+</ul>
+<li><a href="../../Tools.html" title="Tools">Tools</a></li>
+</ul>
+
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Nivocer/webenq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Nivocer">Nivocer</a></p>
+
+      </header>
+      <section>
+
+<h1>Import data</h1>
+
+<h2>Supported formats</h2>
+<p>
+At this moment we can import two type of datafiles:<br>
+</p>
+
+<h3>Default spreadsheet</h3>
+<p>
+Questions are in columns, respondents in rows, the first row contains the question labels<br>
+</p>
+
+<h3>Questback spreadsheets</h3>
+<p>
+A questback file has 3 tabs:<br>
+<ul>
+<li>the first tab contains the data, the first row contains the question labels, but they are prefixed with <code>$groupId:</code></li>
+<li>the second tab contains the group information</li>
+<li>the third tab contains information about the questionnaire (titel, datacollection period, response, export datum)</li>
+</ul>
+Questback has a limitation of 254 columns per tab, if it needs more than 254 columns multiple data-tabs are present.<br>
+</p>
+
+<h2>Procedure</h2>
+<p>
+<ul>
+<li>Data is read into $data using one of the file type adapters (xls, xlsx, ods, csv). The multi tabs for data are 'corrected' in the xls adapter only (for now).</li>
+<li>Determine possible question types</li>
+</ul>
+<div style='padding-left: 30pt'>
+classes/Webenq/Import/Default.php::_getQuestionnaireQuestions (input is questions and answers)<br>
+calls: Webenq_Model_Question::factory($answers, $language)<br>
+calls: Webenq_Model_Question::_determinType()<br>
+is it a closed question:<br>
+</div>
+<div style='padding-left: 60pt'>
+no answers-&gt; false<br>
+do we have &gt;50 different answers -&gt; false<br>
+if we have &gt;7 different answers and the the average number of same answers is &lt;3: false<br>
+is the difference between the shortest answers and longest answer &gt;100: false<br>
+determine the type of closed question:<br>
+</div>
+<div style='padding-left: 90pt'>
+is it a scale (metric) question<br>
+</div>
+<div style='padding-left: 120pt'>
+do we have a answerPossibilityGroup in the database and is it metric?: true<br>
+is it a scale two-seven:<br>
+</div>
+<div style='padding-left: 150pt'>
+do we have a answerpossibilityGroup in the database with all the answers: obsolete.<br>
+do we have more different (not 'null') answers than the scale should have? (6 different answers on a 5-scale): false<br>
+only on 5:if ($question-&gt;otherValuesThanDefinedValid()): obsolete<br>
+</div>
+<div style='padding-left: 90pt'>
+is it a percentage question:<br>
+</div>
+<div style='padding-left: 120pt'>
+if all answers are numeric: false<br>
+if all answers are unique: false<br>
+</div>
+<div style='padding-left: 30pt'>
+is it a open question: always true<br>
+</div>
+<div style='padding-left: 60pt'>
+is it date: open_date<br>
+is it email: open_email<br>
+is it numeric: open_number<br>
+is it text: always true: open_text<br>
+</div>
+</p>
+
+<p>
+<div style='padding-left: 30pt'>
+we take care of so called null values ('don't know', 'n/a') with: Webenq_Model_Questions::getUniqueValuesExcludingNullValues(), this reads the values from the database table answerPossiblityNullValues and adds ""<br>
+</div>
+</p>
+	
+<p>
+<ul>
+<li>determine the best question type</li>
+</ul>
+<div style='padding-left: 30pt'>
+open date has precedence above any closed question type<br>
+order is further defined by the protected variable $_childeren in Webenq_Model_Question and child classes:<br>
+closed<br>
+</div>
+<div style='padding-left: 60pt'>
+scale<br>
+</div>
+<div style='padding-left: 90pt'>
+five<br>
+six<br>
+seven<br>
+four<br>
+three<br>
+two<br>
+</div>
+<div style='padding-left: 60pt'>
+percentage<br>
+</div>
+<div style='padding-left: 30pt'>
+open<br>
+</div>
+<div style='padding-left: 60pt'>
+Email<br>
+Date<br>
+Number<br>
+Text<br>
+</div>
+<ul>
+<li>determine if question text is in repository and store question</li>
+<li>set default question type (single/open) for collection</li>
+<li>find or create answerpossibility group for closed questions</li>
+<li>add meta-data (valid/invalid question types)</li>
+<li>add question to questionnaire</li>
+</ul>
+</p>
+
+<p>
+remark: webenq_model_question_group is not used, because it is not defined at webenq_model_question::_$childeren<br>
+</p>
+
+
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

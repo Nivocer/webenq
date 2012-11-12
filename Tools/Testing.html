@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebEnq by Nivocer</title>
+
+    <link rel="stylesheet" href="../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../_resources/stylesheets/pygment_trac.css">
+    <script src="../_resources/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">WebEnq</h1>
+        <p class="header">Online surveys and reporting</p>
+
+	<ul>
+<li><a href="../Home.html" title="Home">Home</a></li>
+<li><a href="../Tools.html" title="Tools">Tools</a></li>
+<ul>
+<li><a href="./Git.html" title="Git">Git</a></li>
+<li><strong>Testing</strong></li>
+<li><a href="./Wireframes.html" title="Wireframes">Wireframes</a></li>
+<li><a href="./Zim.html" title="Zim">Zim</a></li>
+</ul>
+</ul>
+
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Nivocer/webenq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Nivocer">Nivocer</a></p>
+
+      </header>
+      <section>
+
+<h1>Testing</h1>
+
+<h2>Continuous integration</h2>
+<p>
+We use Travis-CI for continuous integration testing: each push to the Github repository triggers a build that executes PHP unit tests.<br>
+</p>
+
+<p>
+<ul>
+<li>The test configuration is specified in .travis.yml</li>
+<li>The test suite is defined in <code>tests/phunit.travis.xml</code> (and excludes code coverage reporting, to make the test suite run fast)</li>
+<li>Test results are available via <a href="https://travis-ci.org/#!/Nivocer/webenq" title="https://travis-ci.org/#!/Nivocer/webenq">https://travis-ci.org/#!/Nivocer/webenq</a></li>
+<li>The repository on Github has a status image indicating the results of the last run.</li>
+</ul>
+</p>
+
+<p>
+We're currently testing on PHP versions:<br>
+<ul>
+<li>5.2</li>
+<li>5.3 (last travis-subversion)</li>
+<li>5.3.3 (nivocer server)</li>
+<li>5.4</li>
+</ul>
+</p>
+
+<h2>Daily build</h2>
+<p>
+We run a test server at <a href="http://test4.webenq.org" title="http://test4.webenq.org">http://test4.webenq.org</a> featuring PHP 5.4 and Java 6.<br>
+</p>
+
+<p>
+Each night, it gets the latest version from Github and runs the complete testsuite (taking approx. 6 hours).<br>
+</p>
+
+<p>
+<ul>
+<li style="list-style-image: url(../_resources/unchecked-box.png)">The directory <code>application/models</code> is currently excluded from code coverage reporting to make it fit into the 400MB memory of the (virtual) server (Amazon t1.micro).</li>
+<li style="list-style-image: url(../_resources/unchecked-box.png)">see if process isolation can improve performance (results in errors now)</li>
+</ul>
+</p>
+
+<p>
+Overdag kan de server dan gebruikt worden voor demo naar klanten toe:<br>
+&lt;<a href="http://demo4.webenq.org" title="http://demo4.webenq.org">http://demo4.webenq.org</a>&gt; is voor demonstratie naar klanten toe:<br>
+&lt;<a href="http://amazon.webenq.org" title="http://amazon.webenq.org">http://amazon.webenq.org</a>&gt; 'server beheer' (phpmyadmin)<br>
+</p>
+
+
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

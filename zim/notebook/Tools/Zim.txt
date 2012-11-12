@@ -1,0 +1,10 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-12T16:15:55+01:00
+
+====== Zim ======
+Zim is a desktop wiki. [[http://www.zim-wiki.org/|http://www.zim-wiki.org]]
+
+The source of this documentation site (http://doc.webenq.org) is a Zim notebook. This notebook is stored in the branch ''gh-pages'' in ''./zim/notebook/''
+
+The notebook is exported to html using the template in ''./zim/template/'' into the root of the branch ''gh-pages''. The script ''./zim-export'' will perform this action for you.

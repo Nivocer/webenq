@@ -1,0 +1,11 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-12T17:22:31+01:00
+
+====== Tools ======
+
+Overview of the various tools we use (see menu)
+
+Our main git repository is hosted at Github and contains two major branches:
+* ''master'' contains the code and accompanying detailed documentation on code and design
+* ''gh-pages'' provides documentation for developers (and perhaps, in the future, for users)

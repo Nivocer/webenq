@@ -6,5 +6,4 @@ Creation-Date: 2012-11-12T16:14:52+01:00
 
 We aim to design the application via wireframes. These are stored along with the code, and occassionally exported as html to the documentation website.
 
-[[/wireframes/index.html]]
-
+[[/wireframes|See the mockup site here: /wireframes]].

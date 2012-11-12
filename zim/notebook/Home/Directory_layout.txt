@@ -1,0 +1,56 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-12T17:56:36+01:00
+
+====== Directory layout ======
+
+===== Code and configuration =====
+Important locations for configuration or application code
+
+''/public/''
+* ''index.php'': app-bootstrap, include config, paths
+''/application/''
+	''configs/''
+''application.ini'': config with sections for live, development, testing, ...
+	* ''override.ini'': override/extend settings in ''application.ini'': mainly database connection, local configuration
+	* ''override.ini.sample'': sample override file of application.ini, also used for unittesting
+	''controllers/''
+	* each controller should be a subclass of ''Zend_Controller_action'', with a name in the form ''<controller>Controller''
+	* actions called by url are public functions with name ''<action>Action''
+	''views/''
+		''scripts/''
+			''<controller>/''
+			* ''<action>.phtml'': default rendering for action of controller; when called with ''echo'' the ''toString'' function on the object is called
+	''forms/''
+		''<controller>/''
+		* ''<action>.php'': default; possible to override ''isValid()'' with own version, or to add form-element with ''addValidator()''
+	''models/''
+	* [[Data model|data model files (see Data Model page)]]
+	''doctrine/''
+	* [[Data model|data model files (see Data Model page)]]
+''/library/''
+	''zend/''
+	''zendx/''
+	''doctrine/''
+''/classes/''
+	''webenq/''
+	* WebEnq-specific classes, such as filters, downloads
+		''import/''
+		* adapters for specific file formats, importer to read "worksheets"
+''/bin/''
+* ''doctrine'', ''doctrine.php'', ''fixYaml.php'': command line tools for doctrine, including script to fix the yaml output
+* ''install'': (re)load default structure and data into database
+''/tests/''
+* [[Tools:Testing|testing tools (see Testing page)]]
+
+===== Temporary and generated files =====
+
+''/public/''
+	''outputs/''
+	* output of zend: merging of data, export of questionnaire
+	''reports/''
+	* output of java: reports
+''/tmp/''
+* Java temp files (we want to be able to store these files for a long time, independent of clean up of the system temp dir)
+(system temp dir)
+* Zend temp files (location can be retrieved via ''ini_get('upload_tmp_dir')'' or ''sys_get_temp_dir()''

@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>WebEnq by Nivocer</title>
 
-    <link rel="stylesheet" href="./_resources/stylesheets/styles.css">
-    <link rel="stylesheet" href="./_resources/stylesheets/pygment_trac.css">
-    <script src="./_resources/javascripts/scale.fix.js"></script>
+    <link rel="stylesheet" href="../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../_resources/stylesheets/pygment_trac.css">
+    <script src="../_resources/javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,9 +20,14 @@
         <p class="header">Online surveys and reporting</p>
 
 	<ul>
-<li><a href="./Home.html" title="Home">Home</a></li>
-<li><a href="./Tools.html" title="Tools">Tools</a></li>
-<li><strong>Wireframes</strong></li>
+<li><a href="../Home.html" title="Home">Home</a></li>
+<li><a href="../Tools.html" title="Tools">Tools</a></li>
+<ul>
+<li><strong>Git</strong></li>
+<li><a href="./Testing.html" title="Testing">Testing</a></li>
+<li><a href="./Wireframes.html" title="Wireframes">Wireframes</a></li>
+<li><a href="./Zim.html" title="Zim">Zim</a></li>
+</ul>
 </ul>
 
 
@@ -37,14 +42,17 @@
       </header>
       <section>
 
-<h1>Wireframes</h1>
+<h1>Git</h1>
 
+<h2>.gitignore</h2>
 <p>
-We aim to design the application via wireframes. These are stored along with the code, and occassionally exported as html to the documentation website.<br>
-</p>
-
-<p>
-<a href="http://doc.webenq.org/wireframes" title="See the mockup site here: /wireframes">See the mockup site here: /wireframes</a>.<br>
+Important files in .gitignore:<br>
+<ul>
+<li>application/configs/override.ini: used for local database credentials</li>
+<li>tests/log/*: contains test output</li>
+<li>tests/phpdocs/: contains generated php doc output</li>
+<li>public/reports: contains generated reports output</li>
+</ul>
 </p>
 
 

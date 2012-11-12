@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>WebEnq by Nivocer</title>
 
-    <link rel="stylesheet" href="./_resources/stylesheets/styles.css">
-    <link rel="stylesheet" href="./_resources/stylesheets/pygment_trac.css">
-    <script src="./_resources/javascripts/scale.fix.js"></script>
+    <link rel="stylesheet" href="../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../_resources/stylesheets/pygment_trac.css">
+    <script src="../_resources/javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,9 +20,14 @@
         <p class="header">Online surveys and reporting</p>
 
 	<ul>
-<li><a href="./Home.html" title="Home">Home</a></li>
-<li><a href="./Tools.html" title="Tools">Tools</a></li>
-<li><strong>Wireframes</strong></li>
+<li><a href="../Home.html" title="Home">Home</a></li>
+<ul>
+<li><strong>Architecture</strong></li>
+<li><a href="./Data_model.html" title="Data model">Data model</a></li>
+<li><a href="./Developing.html" title="Developing">Developing</a></li>
+<li><a href="./Directory_layout.html" title="Directory layout">Directory layout</a></li>
+</ul>
+<li><a href="../Tools.html" title="Tools">Tools</a></li>
 </ul>
 
 
@@ -37,14 +42,22 @@
       </header>
       <section>
 
-<h1>Wireframes</h1>
+<h1>Architecture</h1>
 
 <p>
-We aim to design the application via wireframes. These are stored along with the code, and occassionally exported as html to the documentation website.<br>
+The core of WebEnq is written as a PHP/Zend application.<br>
 </p>
 
 <p>
-<a href="http://doc.webenq.org/wireframes" title="See the mockup site here: /wireframes">See the mockup site here: /wireframes</a>.<br>
+Reports are generated with Jasper, which is a Java application.<br>
+</p>
+
+<p>
+Questionnaires can be exported to Xforms and then imported into Open Data Kit (ODK) to be deployed on Android-based devices<br>
+</p>
+
+<p>
+<a href="https://github.com/Nivocer/webenq/blob/master/INSTALL" title="Installation instructions and detailed requirements are provided in an INSTALL file with the source code.">Installation instructions and detailed requirements are provided in an INSTALL file with the source code.</a><br>
 </p>
 
 

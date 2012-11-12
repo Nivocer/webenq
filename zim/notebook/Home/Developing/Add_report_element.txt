@@ -1,0 +1,17 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-12T19:43:36+01:00
+
+====== Add report element ======
+To add a report element, for example `text with info` (count number of respondents on a question):
+
+* Make the new report element known to the system
+	controller/ReportElementController: add case 'text with info'
+	forms/ReportElement/Add.php: add type 'text with info'
+    
+* Define the needed information:
+	forms/reportElement/Edit/TextWithInfo.php: wich info do you need for this report element
+	application/views/helpers/ReportElement.php: which info do you want to show in view report
+	application/view/scripts/report/jrxml/subreport/textWithInfo.phtml: add subreport definition
+    
+(the actual subreport was already defined)

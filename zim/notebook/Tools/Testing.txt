@@ -1,0 +1,31 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-12T19:08:32+01:00
+
+====== Testing ======
+
+===== Continuous integration =====
+We use Travis-CI for continuous integration testing: each push to the Github repository triggers a build that executes PHP unit tests.
+
+* The test configuration is specified in .travis.yml
+* The test suite is defined in ''tests/phunit.travis.xml'' (and excludes code coverage reporting, to make the test suite run fast)
+* Test results are available via https://travis-ci.org/#!/Nivocer/webenq
+* The repository on Github has a status image indicating the results of the last run.
+
+We're currently testing on PHP versions:
+* 5.2
+* 5.3 (last travis-subversion)
+* 5.3.3 (nivocer server)
+* 5.4
+
+===== Daily build =====
+We run a test server at http://test4.webenq.org featuring PHP 5.4 and Java 6.
+
+Each night, it gets the latest version from Github and runs the complete testsuite (taking approx. 6 hours).
+
+[ ] The directory ''application/models'' is currently excluded from code coverage reporting to make it fit into the 400MB memory of the (virtual) server (Amazon t1.micro).
+[ ] see if process isolation can improve performance (results in errors now)
+
+Overdag kan de server dan gebruikt worden voor demo naar klanten toe:
+<http://demo4.webenq.org> is voor demonstratie naar klanten toe:
+<http://amazon.webenq.org> 'server beheer' (phpmyadmin)

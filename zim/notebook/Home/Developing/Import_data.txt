@@ -1,0 +1,72 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-12T19:31:09+01:00
+
+====== Import data ======
+
+===== Supported formats =====
+At this moment we can import two type of datafiles:
+
+==== Default spreadsheet ====
+Questions are in columns, respondents in rows, the first row contains the question labels
+
+==== Questback spreadsheets ====
+A questback file has 3 tabs:
+* the first tab contains the data, the first row contains the question labels, but they are prefixed with ''$groupId:''
+* the second tab contains the group information
+* the third tab contains information about the questionnaire (titel, datacollection period, response, export datum)
+Questback has a limitation of 254 columns per tab, if it needs more than 254 columns multiple data-tabs are present.
+
+===== Procedure =====
+* Data is read into $data using one of the file type adapters (xls, xlsx, ods, csv). The multi tabs for data are 'corrected' in the xls adapter only (for now).
+* Determine possible question types
+	classes/Webenq/Import/Default.php::_getQuestionnaireQuestions (input is questions and answers)
+	calls: Webenq_Model_Question::factory($answers, $language)
+	calls: Webenq_Model_Question::_determinType()
+	is it a closed question:
+		no answers-> false
+		do we have >50 different answers -> false
+		if we have >7 different answers and the the average number of same answers is <3: false
+		is the difference between the shortest answers and longest answer >100: false
+		determine the type of closed question:
+			is it a scale (metric) question
+				do we have a answerPossibilityGroup in the database and is it metric?: true
+				is it a scale two-seven:
+					do we have a answerpossibilityGroup in the database with all the answers: obsolete.
+					do we have more different (not 'null') answers than the scale should have? (6 different answers on a 5-scale): false
+					only on 5:if ($question->otherValuesThanDefinedValid()): obsolete
+			is it a percentage question:
+				if all answers are numeric: false
+				if all answers are unique: false
+	is it a open question: always true
+		is it date: open_date
+		is it email: open_email
+		is it numeric: open_number
+		is it text: always true: open_text
+
+	we take care of so called null values ('don't know', 'n/a') with: Webenq_Model_Questions::getUniqueValuesExcludingNullValues(), this reads the values from the database table answerPossiblityNullValues and adds ""
+	
+* determine the best question type
+	open date has precedence above any closed question type
+	order is further defined by the protected variable $_childeren in Webenq_Model_Question and child classes:
+	closed
+		scale
+			five
+			six
+			seven
+			four
+			three
+			two
+		percentage
+	open
+		Email
+		Date
+		Number
+		Text
+* determine if question text is in repository and store question
+* set default question type (single/open) for collection
+* find or create answerpossibility group for closed questions
+* add meta-data (valid/invalid question types)
+* add question to questionnaire
+
+remark: webenq_model_question_group is not used, because it is not defined at webenq_model_question::_$childeren
