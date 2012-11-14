@@ -22,3 +22,4 @@ Version 4 is under development, and currently focuses on importing data and repo
 * Stronger integration with other data sources, such as survey systems
 * More reporting options
 
+This documentation website currently is used for the development of WebEnq. Manuals for installation and use of WebEnq will be added in a later stage.

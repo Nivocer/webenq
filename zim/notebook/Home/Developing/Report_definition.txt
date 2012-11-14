@@ -1,0 +1,106 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-14T15:26:55+01:00
+
+====== Report definition ======
+
+===== TBD: =====
+group text and question text can be found in xform def, but sometimes we need another text in stead in the report. Adjust in xform or in reportdef?
+are missing values defined in xforms?
+
+===== Text sources =====
+A report can contain text coming from various sources:
+* standard text (total, N, page,....) (java resource bundle?)
+* question and answer text (xforms)
+* titles, introduction, in between text (report definition)
+
+lay-out in text: with html ( posibilities: styled (jasper (native xml), rtf, html))
+
+====== report properties ======
+* customer
+	* stylesheet (font, font size, padding, line style, etc.)
+	* custom language properties?
+	* layout 
+* language (locale)
+* page orientation
+
+* splits on variabele(s)
+* base file naam
+* output format (pdf/rtf/...)
+
+* output dir
+
+====== report part properties ======
+
+===== general =====
+description:
+Which information does (almost) every report part need.
+
+info:
+* variable
+	* gives question and answer texts (xform)
+	* location of data?
+* data
+* C style?
+* W selection of data (based on every question)? 
+
+===== text =====
+description:
+used for titles, introduction, but (later?) also for values in texts:
+* In this research **10%** of the people are satisfied 
+* the average is x.
+* x people participated
+* response is x%
+
+info,  general info and:
+* text to display with html markup
+* style
+	* h1/h2/h3/comment/text
+	* bold
+	* italic
+	* linebreak
+	* pagebreak (after text
+
+===== list answers (open) =====
+description:
+a list of the answers given on one question
+
+info:
+* only general information needed
+
+===== freq /cross table =====
+description:
+frequencie table of the answers given on one question. If a grouping variable is set, for each group in that variable the frequencies (percentage) of the answer is displayed and a total is added
+
+info,  general info and:
+* grouping variable (optional)
+* order value/label
+* missing values?
+* W type: percentage, count, how to handle missing (for now one design)
+* W style: display rowtotal/columntotal?
+
+===== mean table =====
+description:
+Set of at least one question, the set has a title which is displayed above the table, the question a question text. The average of the (valid) answers are calculated. If a grouping variable is set, for each group in that variable the average of the answer is displayed and a total is added
+The questions in a table in a report don't have to be the same as the questions in the questionnaire
+
+info,  general info and:
+* grouping variable (optional)
+* set text
+* variables (at least one)
+* missing values?
+* W orientation: question in column or in rows
+* W style: display rowtotal/columntotal?
+
+===== barchart-mean =====
+description:
+two options to choose from, first one preferred:
+1) set of at least 1 question, with set title, and per question 1 row containing question text, graph with frequency distribution, average
+2) table consisting of 1 separate text, and per question a bar chart mean question (questions are not together in a table, they're not held together at page ends, the separate text is not repeated across page breaks)
+
+info,  general info and:
+* set text (for option 1)
+* questions (at least one)
+* missing values?
+* W transformation (1,2->1; 3->2; 4,5->3)
+* W colors

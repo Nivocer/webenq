@@ -1,0 +1,40 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-14T14:39:17+01:00
+
+====== Formats ======
+
+We use a couple of (mostly open) standard formats to facilitate the exchange of information between parts of WebEnq. Here is an overview with some web pointers, as well as some formats that we consider interesting but don't use.
+
+===== OpenRosa/Xforms =====
+Intended for the specification and exchange of forms and form data. The OpenRosa format is a modified version of Xforms, designed for use on mobile devices.
+
+* Exchange of data from PHP/Zend to Jasper
+* Exchange of data to and from Open Datakit
+* Future exchange of data to and from other data collection tools
+
+* http://openrosa.org/
+
+===== JRXML =====
+JasperReports definition language.
+
+* Exchange of report definitions from PHP/Zend to Jasper
+
+===== Spreadsheets =====
+
+==== Limits ====
+Limitations on spreadsheet sizes
+
+https://en.wikipedia.org/wiki/Microsoft_Excel
+excel 95 (xls): 256 kolommen, 16384 (2^14) rijen 
+excel 97-2003  (xls): 256 kolommen, 65536 (2^16) rijen
+excel 2007/2010 (xlsx): 16,384 kolommen / 1 miljoen (2^20=1048576) rijen 
+
+ods 3.4.4: 1024 kolommen, 1.048.576 rijen
+
+===== Considered formats =====
+The Data Protocols website of the Open Knowledge Foundation has an overview of various (often web-oriented) protocols and formats. 
+http://www.dataprotocols.org
+
+==== Triple-S ====
+Seemed more limited than Xforms and OpenRosa (limited grouping options)

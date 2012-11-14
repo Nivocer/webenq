@@ -4,10 +4,24 @@ Creation-Date: 2012-11-12T17:06:23+01:00
 
 ====== Architecture ======
 
-The core of WebEnq is written as a PHP/Zend application.
+The core of WebEnq is written as a PHP/Zend application. This is the user front-end used to manage questionnaires, report definitions, filters, response data, permissions.
 
-Reports are generated with Jasper, which is a Java application.
+Reports are generated with Jasper, which is a Java application. The PHP/Zend application generates a Jasper report definition (in JRXML) and provides the response data (in a modified Xforms format).
 
 Questionnaires can be exported to Xforms and then imported into Open Data Kit (ODK) to be deployed on Android-based devices
 
 [[https://github.com/Nivocer/webenq/blob/master/INSTALL|Installation instructions and detailed requirements are provided in an INSTALL file with the source code.]]
+
+===== PHP/Zend =====
+See the Directory layout for an overview of the source code.
+See the Developing section for specifics on developing features for WebEnq.
+See Testing for the unit testing documentation
+
+===== Jasper =====
+If survey data is processed in a batch, it is sufficient to have Jasper running for only the duration of those batches, for instance on a local machine.
+To make reporting available continuously, a JasperServer should be set up.
+
+===== Open Data Kit =====
+Consists itself of a couple of components. For our purpose, we will need an ODK Aggregate server to store available questionnaires (as forms) and to submit responses to, and one or more devices with ODK Collect to present these forms.
+
+ODK Aggregate runs on a Google App engine

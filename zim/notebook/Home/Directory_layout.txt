@@ -11,7 +11,7 @@ Important locations for configuration or application code
 * ''index.php'': app-bootstrap, include config, paths
 ''/application/''
 	''configs/''
-''application.ini'': config with sections for live, development, testing, ...
+	* ''application.ini'': config with sections for live, development, testing, ...
 	* ''override.ini'': override/extend settings in ''application.ini'': mainly database connection, local configuration
 	* ''override.ini.sample'': sample override file of application.ini, also used for unittesting
 	''controllers/''
