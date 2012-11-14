@@ -23,6 +23,9 @@
 <li><a href="../Home.html" title="Home">Home</a></li>
 <ul>
 <li><strong>Architecture</strong></li>
+<ul>
+<li><a href="./Architecture/Formats.html" title="Formats">Formats</a></li>
+</ul>
 <li><a href="./Data_model.html" title="Data model">Data model</a></li>
 <li><a href="./Developing.html" title="Developing">Developing</a></li>
 <li><a href="./Directory_layout.html" title="Directory layout">Directory layout</a></li>
@@ -45,11 +48,11 @@
 <h1>Architecture</h1>
 
 <p>
-The core of WebEnq is written as a PHP/Zend application.<br>
+The core of WebEnq is written as a PHP/Zend application. This is the user front-end used to manage questionnaires, report definitions, filters, response data, permissions.<br>
 </p>
 
 <p>
-Reports are generated with Jasper, which is a Java application.<br>
+Reports are generated with Jasper, which is a Java application. The PHP/Zend application generates a Jasper report definition (in JRXML) and provides the response data (in a modified Xforms format).<br>
 </p>
 
 <p>
@@ -58,6 +61,28 @@ Questionnaires can be exported to Xforms and then imported into Open Data Kit (O
 
 <p>
 <a href="https://github.com/Nivocer/webenq/blob/master/INSTALL" title="Installation instructions and detailed requirements are provided in an INSTALL file with the source code.">Installation instructions and detailed requirements are provided in an INSTALL file with the source code.</a><br>
+</p>
+
+<h2>PHP/Zend</h2>
+<p>
+See the Directory layout for an overview of the source code.<br>
+See the Developing section for specifics on developing features for WebEnq.<br>
+See Testing for the unit testing documentation<br>
+</p>
+
+<h2>Jasper</h2>
+<p>
+If survey data is processed in a batch, it is sufficient to have Jasper running for only the duration of those batches, for instance on a local machine.<br>
+To make reporting available continuously, a JasperServer should be set up.<br>
+</p>
+
+<h2>Open Data Kit</h2>
+<p>
+Consists itself of a couple of components. For our purpose, we will need an ODK Aggregate server to store available questionnaires (as forms) and to submit responses to, and one or more devices with ODK Collect to present these forms.<br>
+</p>
+
+<p>
+ODK Aggregate runs on a Google App engine<br>
 </p>
 
 
