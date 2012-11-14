@@ -1,2 +1,5 @@
 #!/bin/sh
+# directories Home and Tools are fully generated, 
+# remove them first to make git commits of updates better
+rm -r Home/ Tools/
 zim --export --output=. --format=html --template=./zim/template/webenq.html --root-url=http://doc.webenq.org ./zim/notebook
