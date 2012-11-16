@@ -40,8 +40,8 @@
 	    <h1>Webenq Test Zone</h1>
 	    <a href="<?php echo $base ?>/log/testdox.html">Test suite report</a>
 	    <a href="<?php echo $base ?>/log/report/">Code coverage report</a>
-	    <a href="<?php echo $base ?>/log/pdepend.php">PDepend report</a>
-	    <a href="<?php echo $base ?>/log/phpcs.php">Code Sniffer report</a>
+	    <a href="<?php echo $base ?>/pdepend.php">PDepend report</a>
+	    <a href="<?php echo $base ?>/phpcs.php">Code Sniffer report</a>
 	    <a href="<?php echo $base ?>/log/pmd.php">Mess Detector report</a>
 	    <a href="<?php echo $base ?>/phpdocs/index.html">PHPDocs</a>
 	</div>
