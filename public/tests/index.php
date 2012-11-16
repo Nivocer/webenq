@@ -43,7 +43,7 @@
 	    <a href="<?php echo $base ?>/log/pdepend.php">PDepend report</a>
 	    <a href="<?php echo $base ?>/log/phpcs.php">Code Sniffer report</a>
 	    <a href="<?php echo $base ?>/log/pmd.php">Mess Detector report</a>
-	    <a href="<?php echo $base ?>/phpdocs">PHPDocs</a>
+	    <a href="<?php echo $base ?>/phpdocs/index.html">PHPDocs</a>
 	</div>
 </body>
 </html>
