@@ -47,7 +47,9 @@ For the test suite:
 
 Other testing/development tools
 
-   http://pear.pdepend.org/
+   pear channel-discover pear.phpmd.org
+   pear channel-discover pear.pdepend.org
+   pear install --alldeps phpmd/PHP_PMD
    pear install PHP_CodeSniffer
    pecl install xdebug
    pear install pear/PHPDocumentor
