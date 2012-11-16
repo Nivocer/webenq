@@ -1,6 +1,6 @@
 <?php
 
-$xml = simplexml_load_file("log/summary.xml");
+$xml = simplexml_load_file("log/pdepend-summary.xml");
 
 $files = array();
 foreach($xml->files->file as $file) {
