@@ -5,7 +5,7 @@ define('APPLICATION_ENV', 'testing');
 
 //make sure override.ini exist
 if (!file_exists(realpath(dirname(__FILE__)) . '/../application/configs/override.ini')) {
-    copy(realpath(dirname(__FILE__) . '/../application/configs/override.ini.sample'), 
+    copy(realpath(dirname(__FILE__) . '/../application/configs/override.ini.sample'),
 	realpath(dirname(__FILE__)) . '/../application/configs/override.ini'  );
 }
 
@@ -17,7 +17,8 @@ $application->bootstrap();
 $doctrineConfig = $application->getBootstrap()->getOption('doctrine');
 try {
     Doctrine_Core::dropDatabases();
-} catch (Exception $e) {}
+} catch (Exception $e) {
+}
 Doctrine_Core::createDatabases();
 Doctrine_Core::createTablesFromModels($doctrineConfig['models_path']);
 Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);

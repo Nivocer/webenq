@@ -139,7 +139,10 @@ class Webenq_Form_ReportDefinition extends Zend_Form
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setLabel('Verzenden');
 
-        $this->addElements(array($filename, $output, $report, $language,
-            $customer, $page, $group, $split, $ignore, $submit));
+        $this->addElements(
+            array(
+                $filename, $output, $report, $language, $customer, $page, $group, $split, $ignore, $submit
+            )
+        );
     }
 }

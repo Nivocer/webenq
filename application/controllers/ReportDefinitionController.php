@@ -42,9 +42,11 @@ class ReportDefinitionController extends Zend_Controller_Action
         /* try to get existing report definitions */
         try {
             $repDefs = $this->view->reportDefinitions =
-                $reportDefinitions->fetchAll($reportDefinitions->select()
-                    ->where("data_set_id = ?", $this->_id)
-                    ->order("id DESC"));
+            $reportDefinitions->fetchAll(
+                $reportDefinitions->select()
+                ->where("data_set_id = ?", $this->_id)
+                ->order("id DESC")
+            );
         } catch (Zend_Db_Statement_Exception $e) {
             $reportDefinitions->createTable();
         }
@@ -53,9 +55,11 @@ class ReportDefinitionController extends Zend_Controller_Action
         if ($repDefs->count() === 0) {
             $this->_createDefaultReportDefinitions();
             $this->view->reportDefinitions =
-                $reportDefinitions->fetchAll($reportDefinitions->select()
-                    ->where("data_set_id = ?", $this->_id)
-                    ->order("id DESC"));
+            $reportDefinitions->fetchAll(
+                $reportDefinitions->select()
+                ->where("data_set_id = ?", $this->_id)
+                ->order("id DESC")
+            );
         }
     }
 
@@ -78,28 +82,32 @@ class ReportDefinitionController extends Zend_Controller_Action
             $departmentADefaultSplitTitle = '';
         }
 
-        $reportDefinitions->insert(array(
-            "data_set_id"           => $this->_id,
-            "group_question_id"     => $departmentBDefaultGroupTitle,
-            "output_filename"       => str_replace(' ', '_', $this->_title) . '_open',
-            "output_format"         => 'pdf',
-            "report_type"           => 'open',
-            "ignore_question_ids"   => '"0_respondent","1_datum"',
-            "language"              => 'nl',
-            "customer"              => 'departmentB',
-            "page"                  => 'portrait',
-        ));
-        $reportDefinitions->insert(array(
-            "data_set_id"           => $this->_id,
-            "group_question_id"     => $departmentBDefaultGroupTitle,
-            "output_filename"       => str_replace(' ', '_', $this->_title) . '_tables',
-            "output_format"         => 'pdf',
-            "report_type"           => 'tables',
-            "ignore_question_ids"   => '"0_respondent","1_datum"',
-            "language"              => 'nl',
-            "customer"              => 'departmentB',
-            "page"                  => 'portrait',
-        ));
+        $reportDefinitions->insert(
+            array(
+                "data_set_id"           => $this->_id,
+                "group_question_id"     => $departmentBDefaultGroupTitle,
+                "output_filename"       => str_replace(' ', '_', $this->_title) . '_open',
+                "output_format"         => 'pdf',
+                "report_type"           => 'open',
+                "ignore_question_ids"   => '"0_respondent","1_datum"',
+                "language"              => 'nl',
+                "customer"              => 'departmentB',
+                "page"                  => 'portrait',
+            )
+        );
+        $reportDefinitions->insert(
+            array(
+                "data_set_id"           => $this->_id,
+                "group_question_id"     => $departmentBDefaultGroupTitle,
+                "output_filename"       => str_replace(' ', '_', $this->_title) . '_tables',
+                "output_format"         => 'pdf',
+                "report_type"           => 'tables',
+                "ignore_question_ids"   => '"0_respondent","1_datum"',
+                "language"              => 'nl',
+                "customer"              => 'departmentB',
+                "page"                  => 'portrait',
+            )
+        );
     }
 
     public function addAction()
@@ -117,8 +125,14 @@ class ReportDefinitionController extends Zend_Controller_Action
         $pages = $reportDefinitions->getEnumValues('page');
 
         /* get form */
-        $form = new Webenq_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages,
-            $customers, $pages);
+        $form = new Webenq_Form_ReportDefinition(
+            $questions->getQuestions(),
+            $outputFormats,
+            $reportTypes,
+            $languages,
+            $customers,
+            $pages
+        );
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
@@ -147,8 +161,14 @@ class ReportDefinitionController extends Zend_Controller_Action
         $pages = $reportDefinitions->getEnumValues('page');
 
         /* get form */
-        $form = new Webenq_Form_ReportDefinition($questions->getQuestions(), $outputFormats, $reportTypes, $languages,
-            $customers, $pages);
+        $form = new Webenq_Form_ReportDefinition(
+            $questions->getQuestions(),
+            $outputFormats,
+            $reportTypes,
+            $languages,
+            $customers,
+            $pages
+        );
         $values = $repDef->toArray();
         $values['ignore_question_ids'] = json_decode('[' . $values['ignore_question_ids'] . ']');
         $form->populate($values);
@@ -219,32 +239,36 @@ class ReportDefinitionController extends Zend_Controller_Action
 
         /* insert report definition */
         if ($repDefId = $this->_request->getParam('report-definition-id')) {
-            $reportDefinitions->update(array(
-                "data_set_id"            => $this->_id,
-                "group_question_id"        => $post["group_question_id"],
-                "split_question_id"        => $post["split_question_id"],
-                "output_filename"        => $post["output_filename"],
-                "output_format"            => $post["output_format"],
-                "report_type"            => $post["report_type"],
-                "ignore_question_ids"    => $cdlIgnoreQuestionIds,
-                "language"                => $post["language"],
-                "customer"                => $post["customer"],
-                "page"                    => $post["page"],
-            ),
-            "id = '" . $repDefId . "'");
+            $reportDefinitions->update(
+                array(
+                    "data_set_id"            => $this->_id,
+                    "group_question_id"        => $post["group_question_id"],
+                    "split_question_id"        => $post["split_question_id"],
+                    "output_filename"        => $post["output_filename"],
+                    "output_format"            => $post["output_format"],
+                    "report_type"            => $post["report_type"],
+                    "ignore_question_ids"    => $cdlIgnoreQuestionIds,
+                    "language"                => $post["language"],
+                    "customer"                => $post["customer"],
+                    "page"                    => $post["page"],
+                ),
+                "id = '" . $repDefId . "'"
+            );
         } else {
-            $reportDefinitions->insert(array(
-                "data_set_id"            => $this->_id,
-                "group_question_id"        => $post["group_question_id"],
-                "split_question_id"        => $post["split_question_id"],
-                "output_filename"        => $post["output_filename"],
-                "output_format"            => $post["output_format"],
-                "report_type"            => $post["report_type"],
-                "ignore_question_ids"    => $cdlIgnoreQuestionIds,
-                "language"                => $post["language"],
-                "customer"                => $post["customer"],
-                "page"                    => $post["page"],
-            ));
+            $reportDefinitions->insert(
+                array(
+                    "data_set_id"            => $this->_id,
+                    "group_question_id"        => $post["group_question_id"],
+                    "split_question_id"        => $post["split_question_id"],
+                    "output_filename"        => $post["output_filename"],
+                    "output_format"            => $post["output_format"],
+                    "report_type"            => $post["report_type"],
+                    "ignore_question_ids"    => $cdlIgnoreQuestionIds,
+                    "language"                => $post["language"],
+                    "customer"                => $post["customer"],
+                    "page"                    => $post["page"],
+                )
+            );
         }
     }
 

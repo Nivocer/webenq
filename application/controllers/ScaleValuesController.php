@@ -17,10 +17,12 @@ class ScaleValuesController extends Zend_Controller_Action
         $scale = new Webenq_Model_DbTable_ScaleValues();
 
         try {
-            $this->view->scaleValues = $scale->fetchAll($scale->select()
+            $this->view->scaleValues = $scale->fetchAll(
+                $scale->select()
                 ->order("question_type")
                 ->order("value")
-                ->where("language = ?", $this->_helper->language()));
+                ->where("language = ?", $this->_helper->language())
+            );
         }
         catch (Zend_Db_Statement_Exception $e) {
                throw $e;
@@ -47,12 +49,14 @@ class ScaleValuesController extends Zend_Controller_Action
         $scaleValues = new Webenq_Model_DbTable_ScaleValues();
 
         try {
-            $scaleValues->insert(array(
-                'label'            => $data['label'],
-                'value'            => $data['value'],
-                'question_type'    => $data['question_type'],
-                'language'        => $this->_helper->language(),
-            ));
+            $scaleValues->insert(
+                array(
+                    'label'            => $data['label'],
+                    'value'            => $data['value'],
+                    'question_type'    => $data['question_type'],
+                    'language'        => $this->_helper->language(),
+                )
+            );
         }
         catch (Exception $e) {
             return false;
@@ -83,12 +87,15 @@ class ScaleValuesController extends Zend_Controller_Action
         $scaleValues = new Webenq_Model_DbTable_ScaleValues();
 
         try {
-            $scaleValues->update(array(
-                'label'            => $data['label'],
-                'value'            => $data['value'],
-                'question_type'    => $data['question_type'],
-                'language'        => $this->_helper->language(),
-            ), "id = $id");
+            $scaleValues->update(
+                array(
+                    'label'            => $data['label'],
+                    'value'            => $data['value'],
+                    'question_type'    => $data['question_type'],
+                    'language'        => $this->_helper->language(),
+                ),
+                "id = $id"
+            );
         }
         catch (Exception $e) {
             return false;

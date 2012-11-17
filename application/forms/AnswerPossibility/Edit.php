@@ -71,11 +71,18 @@ class Webenq_Form_AnswerPossibility_Edit extends ZendX_JQuery_Form
      */
     public function init()
     {
-        $this->setAttrib('id', 'mainForm')->setDecorators(array(
-            'FormElements',
-            array('TabContainer', array('class' => 'tabs')),
+        $this->setAttrib('id', 'mainForm')->setDecorators(
+            array(
+                'FormElements',
+                array(
+                    'TabContainer',
+                    array(
+                        'class' => 'tabs'
+                    )
+                ),
             'Form',
-        ));
+            )
+        );
 
         $this->addSubForm($this->_getEditSubform(), 'edit');
         $this->addSubForm($this->_getSynonymSubform(), 'synonym');
@@ -101,43 +108,74 @@ class Webenq_Form_AnswerPossibility_Edit extends ZendX_JQuery_Form
 
     protected function _getEditSubForm()
     {
-        $form = new ZendX_JQuery_Form(array(
-            'decorators' => array(
-                'FormElements',
-                array('HtmlTag', array('tag' => 'dl')),
-                array('TabPane', array('jQueryParams' => array(
-                    'containerId' => 'mainForm',
-                    'title' => 'Edit',
-                ))),
-            ),
-        ));
+        $form = new ZendX_JQuery_Form(
+            array(
+                'decorators' => array(
+                    'FormElements',
+                    array(
+                        'HtmlTag',
+                        array(
+                            'tag' => 'dl'
+                        )
+                    ),
+                    array(
+                        'TabPane', array(
+                            'jQueryParams' => array(
+                                'containerId' => 'mainForm',
+                                'title' => 'Edit',
+                             )
+                        )
+                    ),
+                ),
+            )
+        );
 
         foreach (Webenq_Language::getLanguages() as $language) {
-            $form->addElement($this->createElement('text', $language, array(
-                'label' => t('text') . " ($language)",
-                'size' => 60,
-                'maxlength' => 255,
-                'autocomplete' => 'off',
-                'value' => $this->_answerPossibility->getAnswerPossibilityText($language)->text,
-            )));
+            $form->addElement(
+                $this->createElement(
+                    'text',
+                    $language,
+                    array(
+                        'label' => t('text') . " ($language)",
+                        'size' => 60,
+                        'maxlength' => 255,
+                        'autocomplete' => 'off',
+                        'value' => $this->_answerPossibility->getAnswerPossibilityText($language)->text,
+                    )
+                )
+            );
         }
 
-        $form->addElements(array(
-            $this->createElement('text', 'value', array(
-                'label' => 'value',
-                'value' => $this->_answerPossibility->value,
-                'required' => true,
-                'validators' => array('Int'),
-            )),
-            $this->createElement('select', 'answerPossibilityGroup_id', array(
-                'label' => 'group',
-                'value' => $this->_answerPossibility->answerPossibilityGroup_id,
-                'multiOptions' => $this->_answerPossibilityGroups,
-            )),
-            $this->createElement('submit', 'submitedit', array(
-                'label' => 'save',
-            )),
-        ));
+        $form->addElements(
+            array(
+                $this->createElement(
+                    'text',
+                    'value',
+                    array(
+                        'label' => 'value',
+                        'value' => $this->_answerPossibility->value,
+                        'required' => true,
+                        'validators' => array('Int'),
+                    )
+                ),
+                $this->createElement(
+                    'select',
+                    'answerPossibilityGroup_id',
+                    array(
+                        'label' => 'group',
+                        'value' => $this->_answerPossibility->answerPossibilityGroup_id,
+                        'multiOptions' => $this->_answerPossibilityGroups,
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submitedit',
+                    array(
+                        'label' => 'save',
+                    )
+                ),
+            )
+        );
 
 //        foreach ($form->getElements() as $element) {
 //            $element->setBelongsTo('edit');
@@ -148,49 +186,87 @@ class Webenq_Form_AnswerPossibility_Edit extends ZendX_JQuery_Form
 
     protected function _getSynonymSubForm()
     {
-        $form = new ZendX_JQuery_Form(array(
-            'decorators' => array(
-                'FormElements',
-                array('HtmlTag', array('tag' => 'dl')),
-                array('TabPane', array('jQueryParams' => array(
-                    'containerId' => 'mainForm',
-                    'title' => 'Synonym',
-                ))),
-            ),
-        ));
+        $form = new ZendX_JQuery_Form(
+            array(
+                'decorators' => array(
+                    'FormElements',
+                    array(
+                        'HtmlTag', array(
+                            'tag' => 'dl'
+                        )
+                    ),
+                    array(
+                        'TabPane',
+                        array(
+                            'jQueryParams' => array(
+                                'containerId' => 'mainForm',
+                                'title' => 'Synonym',
+                            )
+                        )
+                    ),
+                ),
+            )
+        );
 
-        $form->addElements(array(
-            $this->createElement('select', 'answerPossibility_id', array(
-                'label' => 'answer possibilities',
-                'required' => true,
-                'multiOptions' => $this->_answerPossibilities,
-            )),
-            $this->createElement('submit', 'submitmove', array(
-                'label' => 'move',
-            )),
-        ));
+        $form->addElements(
+            array(
+                $this->createElement(
+                    'select',
+                    'answerPossibility_id',
+                    array(
+                        'label' => 'answer possibilities',
+                        'required' => true,
+                        'multiOptions' => $this->_answerPossibilities,
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submitmove',
+                    array(
+                        'label' => 'move',
+                    )
+                ),
+            )
+        );
 
         return $form;
     }
 
     protected function _getNullValueSubForm()
     {
-        $form = new ZendX_JQuery_Form(array(
-            'decorators' => array(
-                'FormElements',
-                array('HtmlTag', array('tag' => 'dl')),
-                array('TabPane', array('jQueryParams' => array(
-                    'containerId' => 'mainForm',
-                    'title' => 'Null value',
-                ))),
-            ),
-        ));
+        $form = new ZendX_JQuery_Form(
+            array(
+                'decorators' => array(
+                    'FormElements',
+                    array(
+                        'HtmlTag', array(
+                            'tag' => 'dl'
+                        )
+                    ),
+                    array(
+                        'TabPane',
+                        array(
+                            'jQueryParams' => array(
+                                'containerId' => 'mainForm',
+                                'title' => 'Null value',
+                            )
+                        )
+                    ),
+                ),
+            )
+        );
 
-        $form->addElements(array(
-            $this->createElement('submit', 'submitnull', array(
-                'label' => 'make null-value',
-            )),
-        ));
+        $form->addElements(
+            array(
+                $this->createElement(
+                    'submit',
+                    'submitnull',
+                    array(
+                        'label' => 'make null-value',
+                    )
+                ),
+            )
+        );
 
 //        foreach ($form->getElements() as $element) {
 //            $element->setBelongsTo('nullvalue');

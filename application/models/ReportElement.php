@@ -15,45 +15,46 @@ class Webenq_Model_ReportElement extends Webenq_Model_Base_ReportElement
     public function getXpath($questionnaireQuestionId)
     {
         $questionnaireQuestion = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
-            ->find($questionnaireQuestionId);
+        ->find($questionnaireQuestionId);
 
         return $questionnaireQuestion->getXpath();
     }
-/**
- * 
- * @param array $qqIds
- * @return json string with questionnaire-questionId, scale 
- */
-    
-    public function getScaleType($qqIds) {
-    	$returnArray=array();
-    	//get closed question info
-    	foreach ($qqIds as $qqId) {
-    		$qq_apg = Doctrine_Query::create()
-    		->from('Webenq_Model_QuestionnaireQuestion qq')
-    		->innerjoin('qq.AnswerPossibilityGroup apg')
-    		->where('qq.id = ?', $qqId)
-    		->limit(1)
-    		->fetchArray();
-    		if ($qq_apg){
-	   			$returnArray[$qqId]="scale".$qq_apg[0]['AnswerPossibilityGroup']['number'];
-    		}else {
-				//it is not a scale/closed question
-				//check if it is a grade question (has validator grade)
-				$qq_cp =Doctrine_Query::create()
-	    		->from('Webenq_Model_QuestionnaireQuestion qq')
-	    		->innerjoin('qq.CollectionPresentation cp')
-	    		->where('qq.id = ?', $qqId)
-	    		->limit(1)
-	    		->fetchArray();
-				
-				$validators=unserialize($qq_cp[0]['CollectionPresentation'][0]['validators']);
-				if (is_array($validators) && in_array('grade', $validators)) {
-					$returnArray[$qqId]="open10";
-				}
-			}
-    	}
-    	return $returnArray;
+    /**
+     *
+     * @param array $qqIds
+     * @return json string with questionnaire-questionId, scale
+     */
+
+    public function getScaleType($qqIds)
+    {
+        $returnArray=array();
+        //get closed question info
+        foreach ($qqIds as $qqId) {
+            $qq_apg = Doctrine_Query::create()
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
+            ->innerjoin('qq.AnswerPossibilityGroup apg')
+            ->where('qq.id = ?', $qqId)
+            ->limit(1)
+            ->fetchArray();
+            if ($qq_apg) {
+                $returnArray[$qqId]="scale".$qq_apg[0]['AnswerPossibilityGroup']['number'];
+            } else {
+                //it is not a scale/closed question
+                //check if it is a grade question (has validator grade)
+                $qq_cp =Doctrine_Query::create()
+                ->from('Webenq_Model_QuestionnaireQuestion qq')
+                ->innerjoin('qq.CollectionPresentation cp')
+                ->where('qq.id = ?', $qqId)
+                ->limit(1)
+                ->fetchArray();
+
+                $validators=unserialize($qq_cp[0]['CollectionPresentation'][0]['validators']);
+                if (is_array($validators) && in_array('grade', $validators)) {
+                    $returnArray[$qqId]="open10";
+                }
+            }
+        }
+        return $returnArray;
 
 
     }

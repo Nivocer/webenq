@@ -10,10 +10,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     protected function _initResourceAutoLoading()
     {
-        $loader = new Zend_Loader_Autoloader_Resource(array(
-            'basePath'  => APPLICATION_PATH,
-            'namespace' => 'Webenq',
-        ));
+        $loader = new Zend_Loader_Autoloader_Resource(
+            array(
+                'basePath'  => APPLICATION_PATH,
+                'namespace' => 'Webenq',
+            )
+        );
         $loader->addResourceType('model', 'models', 'Model');
         $loader->addResourceType('actionHelper', 'controllers/helpers', 'Controller_Action_Helper');
     }
@@ -79,7 +81,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 
             // break up string into pieces (languages and q factors)
-            preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'], $parts);
+            preg_match_all(
+                '/([a-z]{1,8}(-[a-z]{1,8})?)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i',
+                $_SERVER['HTTP_ACCEPT_LANGUAGE'],
+                $parts
+            );
 
             if (count($parts[1]) > 0) {
                 // create a list like "en" => 0.8
@@ -125,17 +131,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         }
 
         // init translations
-        $translate = new Zend_Translate(array(
-            'adapter' => 'array',
-            'content' => APPLICATION_PATH . '/translations/en/',
-            'locale' => 'en',
-            'log' => $this->getResource('log'),
-            'logUntranslated' => true,
-        ));
-        $translate->addTranslation(array(
-            'content' => APPLICATION_PATH . '/translations/nl/',
-            'locale'  => 'nl',
-        ));
+        $translate = new Zend_Translate(
+            array(
+                'adapter' => 'array',
+                'content' => APPLICATION_PATH . '/translations/en/',
+                'locale' => 'en',
+                'log' => $this->getResource('log'),
+                'logUntranslated' => true,
+               )
+        );
+        $translate->addTranslation(
+            array(
+                'content' => APPLICATION_PATH . '/translations/nl/',
+                'locale'  => 'nl',
+                )
+        );
         Zend_Registry::set('Zend_Translate', $translate);
 
         if (!function_exists('t')) {

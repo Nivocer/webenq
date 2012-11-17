@@ -21,25 +21,25 @@ class Webenq_Form_ReportElement_Edit_BarchartAndMean extends Webenq_Form_ReportE
         }
 
         $this->addElement($this->createElement('select', 'header_qq_id', array(
-            'label' => 'header question',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
+                'label' => 'header question',
+                'required' => true,
+                'multiOptions' => $multiOptions,
         )));
 
         $this->addElement($this->createElement('multiCheckbox', 'report_qq_ids', array(
-            'label' => 'reporting questions',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
+                'label' => 'reporting questions',
+                'required' => true,
+                'multiOptions' => $multiOptions,
         )));
 
         $this->addElement($this->createElement('select', 'color_mean', array(
-            'label' => 'color the means',
-        	'required' => true,
-        	'multiOptions' => array('no' => 'no color', 'yes' => 'colored by mean'),
+                'label' => 'color the means',
+                'required' => true,
+                'multiOptions' => array('no' => 'no color', 'yes' => 'colored by mean'),
         )));
 
         $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'save',
+                'label' => 'save',
         )));
     }
 }

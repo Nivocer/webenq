@@ -86,10 +86,12 @@ class InterpretationController extends Zend_Controller_Action
                 throw new Exception("Questions with index $k could not be detected!");
             }
             try {
-                $meta->insert(array(
-                    "question_id"    => $columns[$k],
-                    "type"            => get_class($question),
-                ));
+                $meta->insert(
+                    array(
+                        "question_id"    => $columns[$k],
+                        "type"            => get_class($question),
+                    )
+                );
             } catch(Zend_Db_Statement_Exception $e) {
                 throw $e;
             }
@@ -99,11 +101,13 @@ class InterpretationController extends Zend_Controller_Action
                 $id = $meta->getAdapter()->lastInsertId();
                 if ($id > 0) {
                     foreach ($question->getValidTypes() as $validType) {
-                        $updated = $meta->insert(array(
-                            "parent_id"        => $id,
-                            "question_id"    => $columns[$k],
-                            "type"            => $validType,
-                        ));
+                        $updated = $meta->insert(
+                            array(
+                                "parent_id"        => $id,
+                                "question_id"    => $columns[$k],
+                                "type"            => $validType,
+                            )
+                        );
                     }
                 }
             } catch(Zend_Db_Statement_Exception $e) {

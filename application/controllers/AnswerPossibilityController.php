@@ -14,21 +14,21 @@ class AnswerPossibilityController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-        'add' => array('html'),
-        'edit' => array('html'),
-        'delete' => array('html'),
+      'add' => array('html'),
+      'edit' => array('html'),
+      'delete' => array('html'),
     );
 
     /**
      * Handles the adding of an answer-possibility
      *
      * @return void
-     */
+    */
     public function addAction()
     {
         // get group
         $answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         // get form
         $form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $this->_helper->language());
@@ -60,7 +60,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
     {
         // get possibility
         $this->view->answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
     }
 
     /**
@@ -72,11 +72,12 @@ class AnswerPossibilityController extends Zend_Controller_Action
     {
         // get possibility
         $answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         // get form
         $form = new Webenq_Form_AnswerPossibility_Edit(
-            $answerPossibility, $this->_helper->language());
+            $answerPossibility, $this->_helper->language()
+        );
 
         // process posted data
         if ($this->_helper->form->isPostedAndValid($form)) {
@@ -92,9 +93,9 @@ class AnswerPossibilityController extends Zend_Controller_Action
 
                 // remove all answers with this answer possibility
                 Doctrine_Query::create()
-                    ->delete('Webenq_Model_Answer a')
-                    ->where('a.answerPossibility_id = ?', $answerPossibility->id)
-                    ->execute();
+                ->delete('Webenq_Model_Answer a')
+                ->where('a.answerPossibility_id = ?', $answerPossibility->id)
+                ->execute();
 
                 // remove answer possibility
                 try {
@@ -107,20 +108,21 @@ class AnswerPossibilityController extends Zend_Controller_Action
 
                 // get target answer possibility
                 $targetAnswerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
-                    ->find($form->synonym->getValue('answerPossibility_id'));
+                ->find($form->synonym->getValue('answerPossibility_id'));
 
                 // make original synonym of target
                 $answerPossibilityTextSynonym = new Webenq_Model_AnswerPossibilityTextSynonym();
                 $answerPossibilityTextSynonym->text = strtolower($answerPossibility->getAnswerPossibilityText()->text);
-                $targetAnswerPossibility->getAnswerPossibilityText()->AnswerPossibilityTextSynonym[] = $answerPossibilityTextSynonym;
+                $targetAnswerPossibility->getAnswerPossibilityText()->AnswerPossibilityTextSynonym[] =
+                    $answerPossibilityTextSynonym;
                 $targetAnswerPossibility->save();
 
                 // update all answers
                 Doctrine_Query::create()
-                    ->update('Webenq_Model_Answer a')
-                    ->set('a.answerPossibility_id', '?', $targetAnswerPossibility->id)
-                    ->where('a.answerPossibility_id = ?', $answerPossibility->id)
-                    ->execute();
+                ->update('Webenq_Model_Answer a')
+                ->set('a.answerPossibility_id', '?', $targetAnswerPossibility->id)
+                ->where('a.answerPossibility_id = ?', $answerPossibility->id)
+                ->execute();
 
                 // remove answer possibility
                 try {
@@ -149,7 +151,7 @@ class AnswerPossibilityController extends Zend_Controller_Action
                     if (!$translation) continue;
                     // try to find existing translation
                     $answerPossibilityText = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityText')
-                        ->findOneByAnswerPossibility_idAndLanguage($answerPossibility->id, $language);
+                    ->findOneByAnswerPossibility_idAndLanguage($answerPossibility->id, $language);
                     // or create new one
                     if (!$answerPossibilityText) {
                         $answerPossibilityText = new Webenq_Model_AnswerPossibilityText();
@@ -187,14 +189,15 @@ class AnswerPossibilityController extends Zend_Controller_Action
     {
         // get answer possibility
         $answerPossibility = Doctrine_Core::getTable('Webenq_Model_AnswerPossibility')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         $answerPossibilityGroupId = $answerPossibility->answerPossibilityGroup_id;
 
         /* get form */
-        $form = new Webenq_Form_Confirm($answerPossibility->id,
+        $form = new Webenq_Form_Confirm(
+            $answerPossibility->id,
             'Weet u zeker dat u het antwoord "' . $answerPossibility->getAnswerPossibilityText()->text .
-                '" wilt verwijderen?'
+            '" wilt verwijderen?'
         );
         $form->setAction($this->_request->getRequestUri());
 
@@ -206,7 +209,9 @@ class AnswerPossibilityController extends Zend_Controller_Action
                 } catch(Doctrine_Connection_Mysql_Exception $e) {
                     switch ($e->getCode()) {
                         case 23000:
-                            $message = t('This answer possibility is used in one or more questionnaires and cannot be deleted.');
+                            $message = t(
+                                'This answer possibility is used in one or more questionnaires and cannot be deleted.'
+                            );
                             break;
                         default:
                             $message = $e->getMessage();

@@ -96,19 +96,27 @@ foreach ($xml->file as $file) {
   <h1>PHP CodeSniffer Report</h1>
 
   <ul id="files">
-  <?php foreach($files as $file):
-    $numberOfFiles++;
-    if (count($file->error) == 0) {
-        $correctFiles++;
-    } else {
-        $incorrectFiles++;
-        $numberOfErrors=$numberOfErrors+count($file->error);
+  <?php
+    foreach($files as $file) {
+        $numberOfFiles++;
+        if (count($file->error) == 0) {
+            $correctFiles++;
+        } else {
+            $incorrectFiles++;
+            $numberOfErrors=$numberOfErrors+count($file->error);
+        }
+        foreach($file->error as $error) {
+            if (strstr($error,'camel caps')) {
+                $numberOfCamelCaseErrors++;
+            }
+        }
     }
-    endforeach;
     echo "Total number of scanned files: $numberOfFiles <br/>";
     echo "<span class=\"ok\">Total number of correct files: $correctFiles (". (round($correctFiles/$numberOfFiles*100))."%)<br/></span>";
     echo "<span class=\"notOk\">Total number of incorrect files: $incorrectFiles (". (round($incorrectFiles/$numberOfFiles*100))."%)<br/></span>";
     echo "Total number of errors: $numberOfErrors <br/>";
+    echo "Total number of camel caps errors: $numberOfCamelCaseErrors <br/>";
+
   ?>
   <?php foreach($files as $file): ?>
     <li class="file <?php if(count($file->error) == 0): echo 'ok'; endif; ?>">

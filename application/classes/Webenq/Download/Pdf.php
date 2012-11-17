@@ -19,20 +19,20 @@ class Webenq_Download_Pdf extends Webenq_Download_Xls
     protected $_extension = 'pdf';
 
     /**
-	 * The MIME type of the file for download.
-	 *
-	 * @var string
-	 */
-	protected $_mimeType = 'application/pdf';
+     * The MIME type of the file for download.
+     *
+     * @var string
+     */
+    protected $_mimeType = 'application/pdf';
 
-	/**
-	 * Returns a writer instance for the given document
-	 * type.
-	 *
-	 * @return PHPExcel_Writer_IWriter
-	 */
-	protected function _getWriter()
-	{
-		return PHPExcel_IOFactory::createWriter($this->_document, 'PDF');
-	}
+    /**
+     * Returns a writer instance for the given document
+     * type.
+     *
+     * @return PHPExcel_Writer_IWriter
+     */
+    protected function _getWriter()
+    {
+        return PHPExcel_IOFactory::createWriter($this->_document, 'PDF');
+    }
 }

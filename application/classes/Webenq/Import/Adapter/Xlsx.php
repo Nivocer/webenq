@@ -7,10 +7,10 @@
  */
 class Webenq_Import_Adapter_Xlsx extends Webenq_Import_Adapter_Xls
 {
-	/**
-	 * Reader class
-	 *
-	 * @var string
-	 */
-	protected $_reader = 'Excel2007';
+    /**
+     * Reader class
+     *
+     * @var string
+     */
+    protected $_reader = 'Excel2007';
 }

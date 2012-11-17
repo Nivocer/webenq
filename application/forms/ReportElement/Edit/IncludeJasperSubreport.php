@@ -16,13 +16,13 @@ class Webenq_Form_ReportElement_Edit_IncludeJasperSubreport extends Webenq_Form_
     public function init()
     {
         $this->addElement($this->createElement('text', 'filename', array(
-            'label' => t('jasper file name (relative to java-root'),
-        	'required' => true,
+                'label' => t('jasper file name (relative to java-root'),
+                'required' => true,
         )));
-        
-        
+
+
         $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'save',
+                'label' => 'save',
         )));
     }
 }

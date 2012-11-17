@@ -21,40 +21,40 @@ class Webenq_Form_ReportElement_Edit_MeanTable extends Webenq_Form_ReportElement
         }
 
         $this->addElement($this->createElement('select', 'header_qq_id', array(
-            'label' => 'header question',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
+                'label' => 'header question',
+                'required' => true,
+                'multiOptions' => $multiOptions,
         )));
 
         $this->addElement($this->createElement('multiCheckbox', 'report_qq_ids', array(
-            'label' => 'reporting questions',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
+                'label' => 'reporting questions',
+                'required' => true,
+                'multiOptions' => $multiOptions,
         )));
 
         $this->addElement($this->createElement('select', 'group_qq_id', array(
-            'label' => 'grouping question',
-        	'required' => false,
-        	'multiOptions' => array('' => '')+ $multiOptions,
+                'label' => 'grouping question',
+                'required' => false,
+                'multiOptions' => array('' => '')+ $multiOptions,
         )));
         $this->addElement($this->createElement('radio', 'display_group_question_text', array(
-        		'label' => 'Display the group question text on top of the table',
-        		'required' => true,
-        		'multiOptions' => array('no' => 'no, don\'t display group question text', 'yes'=>'yes, display group question text'),
+                'label' => 'Display the group question text on top of the table',
+                'required' => true,
+                'multiOptions' => array('no' => 'no, don\'t display group question text', 'yes'=>'yes, display group question text'),
         )));
         $this->addElement($this->createElement('select', 'color_mean', array(
-        		'label' => 'color the means',
-        		'required' => true,
-        		'multiOptions' => array('no' => 'no color', 'yes' => 'colored by mean'),
+                'label' => 'color the means',
+                'required' => true,
+                'multiOptions' => array('no' => 'no color', 'yes' => 'colored by mean'),
         )));
         $this->addElement($this->createElement('radio', 'variant', array(
-            'label' => 'Variant of the table',
-        	'required' => true,
-        	'multiOptions' => array('questionsInRows'=>'questionsInRows', 'questionsInColumns'=>'questionsInColumns', 'lowScores'=>'lowScores', 'grade'=>'grade'),
+                'label' => 'Variant of the table',
+                'required' => true,
+                'multiOptions' => array('questionsInRows'=>'questionsInRows', 'questionsInColumns'=>'questionsInColumns', 'lowScores'=>'lowScores', 'grade'=>'grade'),
         )));
-        
+
         $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'save',
+                'label' => 'save',
         )));
     }
 }

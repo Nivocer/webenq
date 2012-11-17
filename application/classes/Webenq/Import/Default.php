@@ -10,39 +10,39 @@
  */
 class Webenq_Import_Default extends Webenq_Import_Abstract
 {
-	/**
-	 * Questionnaire model
-	 *
-	 * @var Webenq_Model_Questionnaire
-	 */
-	protected $_questionnaire;
+    /**
+     * Questionnaire model
+     *
+     * @var Webenq_Model_Questionnaire
+     */
+    protected $_questionnaire;
 
-	/**
-	 * Runs the import process
-	 *
-	 * @return void
-	 */
-	public function import()
-	{
-		$this->_storeQuestionsAndAnswers()->_storeMeta();
-	}
+    /**
+     * Runs the import process
+     *
+     * @return void
+     */
+    public function import()
+    {
+        $this->_storeQuestionsAndAnswers()->_storeMeta();
+    }
 
-	/**
-	 * Stores the questions
-	 *
-	 * @return self
-	 */
-	protected function _storeQuestionsAndAnswers()
-	{
+    /**
+     * Stores the questions
+     *
+     * @return self
+     */
+    protected function _storeQuestionsAndAnswers()
+    {
         // get data in spreadsheet format
         $data = $this->_adapter->getData();
         $firstWorkSheet = $data[0];
         $questionsAndAnswers = $this->_getDataAsAnswers($firstWorkSheet);
 
-	    // create new questionnaire
-		$questionnaire = $this->_questionnaire = new Webenq_Model_Questionnaire();
+        // create new questionnaire
+        $questionnaire = $this->_questionnaire = new Webenq_Model_Questionnaire();
 
-		// get respondent objects
+        // get respondent objects
         $respondents = $this->_getRespondents($questionsAndAnswers);
 
         // get questionnaire-questions objects
@@ -73,10 +73,14 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
                 $answerPossibilityGroup = $questionnaireQuestion->AnswerPossibilityGroup;
                 if (!$answerPossibilityGroup) {
                     // find answer-possibility-group
-                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues($answers, $this->_language);
+                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues(
+                        $answers, $this->_language
+                    );
                     if (!$answerPossibilityGroup) {
                         // create answer-possibility-group
-                        $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers, $this->_language);
+                        $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues(
+                            $answers, $this->_language
+                        );
                     }
                 }
 
@@ -92,7 +96,9 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
                     // get or create answer possibility
                     $answerPossibility = $answerPossibilityGroup->findAnswerPossibility($answerText, $this->_language);
                     if (!$answerPossibility) {
-                        $answerPossibility = $answerPossibilityGroup->addAnswerPossibility($answerText, $this->_language);
+                        $answerPossibility = $answerPossibilityGroup->addAnswerPossibility(
+                            $answerText, $this->_language
+                        );
                     }
 
                     if ($answerPossibility) {
@@ -114,34 +120,34 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
         // save questionnaire
         $questionnaire->save();
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Stores the filename and timestamp of upload
-	 *
-	 * @return self
-	 */
-	protected function _storeMeta()
-	{
-		/* get filename */
-    	$filenameParts = preg_split("#/#", $this->_adapter->getFilename());
-		$filename = array_pop($filenameParts);
+    /**
+     * Stores the filename and timestamp of upload
+     *
+     * @return self
+     */
+    protected function _storeMeta()
+    {
+        /* get filename */
+        $filenameParts = preg_split("#/#", $this->_adapter->getFilename());
+        $filename = array_pop($filenameParts);
 
-		/* combine existing with new meta information */
-		$meta = array();
-		if ($this->_questionnaire->meta) {
-			$meta = unserialize($this->_questionnaire->meta);
-		}
-		$meta['filename'] = $filename;
-		$meta['timestamp'] = time();
+        /* combine existing with new meta information */
+        $meta = array();
+        if ($this->_questionnaire->meta) {
+            $meta = unserialize($this->_questionnaire->meta);
+        }
+        $meta['filename'] = $filename;
+        $meta['timestamp'] = time();
 
-		/* store to db */
-		$this->_questionnaire->meta = serialize($meta);
-		$this->_questionnaire->save();
+        /* store to db */
+        $this->_questionnaire->meta = serialize($meta);
+        $this->_questionnaire->save();
 
-		return $this;
-	}
+        return $this;
+    }
 
     /**
      * Return a collection of questionnaire-questions based on the
@@ -170,7 +176,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
             array_map('strtolower', $answers);
             array_map('trim', $answers);
             $answers = preg_replace('/\s{2,}/', ' ', $answers);
-            //TODO improve performance, use array with answers as key, count as value? 
+            //TODO improve performance, use array with answers as key, count as value?
 
             // factor correct question type (based on given answers)
             $question = Webenq_Model_Question::factory($answers, $language);
@@ -178,7 +184,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
             // try to find existing question from repo (ignoring the group number)
             $text = preg_replace('/^(\d+\s*:\s*)/', null, $questionTexts[$i]);
             $repoQuestionText = Doctrine_Core::getTable('Webenq_Model_QuestionText')
-                ->findOneByTextAndLanguage($text, $language);
+            ->findOneByTextAndLanguage($text, $language);
 
             // connect to found question or factored question
             if ($repoQuestionText) {
@@ -199,9 +205,13 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
             // find and connect a matching answer possibility group
             if ($question instanceof Webenq_Model_Question_Closed) {
-                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues($answers, $this->_language);
+                $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::findByAnswerValues(
+                    $answers, $this->_language
+                );
                 if (!$answerPossibilityGroup) {
-                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues($answers, $this->_language);
+                    $answerPossibilityGroup = Webenq_Model_AnswerPossibilityGroup::createByAnswerValues(
+                        $answers, $this->_language
+                    );
                 }
                 if ($answerPossibilityGroup) {
                     $questionnaireQuestion->AnswerPossibilityGroup = $answerPossibilityGroup;
@@ -215,11 +225,13 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
             $questionnaireQuestion->CollectionPresentation[] = $collectionPresentation;
 
             // add meta data
-            $questionnaireQuestion->meta = serialize(array(
-                'class' => get_class($question),
-                'valid' => $question->getValidTypes(),
-                'invalid' => $question->getInvalidTypes(),
-            ));
+            $questionnaireQuestion->meta = serialize(
+                array(
+                    'class' => get_class($question),
+                    'valid' => $question->getValidTypes(),
+                    'invalid' => $question->getInvalidTypes(),
+                )
+            );
 
             // connect question to questionnaire
             $this->_questionnaire->QuestionnaireQuestion[$i] = $questionnaireQuestion;
@@ -228,27 +240,27 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
         return $this->_questionnaire->QuestionnaireQuestion;
     }
 
-	/**
-	 * Calculates the number of answers and returns a colllection of
-	 * respondent objects corresponding with the number of answers.
-	 *
-	 * @param array $questionsAndAnswers
-	 * @return Doctrine_Collection Collection of respondent objects
-	 */
-	protected function _getRespondents(array $questionsAndAnswers)
-	{
-	    // get maximum number of responses
-	    $maxAnswers = 0;
-	    foreach ($questionsAndAnswers as $question => $answers) {
-	        $count = count($answers);
-	        if ($count > $maxAnswers) $maxAnswers = $count;
-	    }
+    /**
+     * Calculates the number of answers and returns a colllection of
+     * respondent objects corresponding with the number of answers.
+     *
+     * @param array $questionsAndAnswers
+     * @return Doctrine_Collection Collection of respondent objects
+     */
+    protected function _getRespondents(array $questionsAndAnswers)
+    {
+        // get maximum number of responses
+        $maxAnswers = 0;
+        foreach ($questionsAndAnswers as $question => $answers) {
+            $count = count($answers);
+            if ($count > $maxAnswers) $maxAnswers = $count;
+        }
 
         // create respondent objects
-	    for ($i=0; $i<$maxAnswers; $i++) {
-	        $this->_questionnaire->Respondent[$i] = new Webenq_Model_Respondent();
+        for ($i=0; $i<$maxAnswers; $i++) {
+            $this->_questionnaire->Respondent[$i] = new Webenq_Model_Respondent();
         }
 
         return $this->_questionnaire->Respondent;
-	}
+    }
 }

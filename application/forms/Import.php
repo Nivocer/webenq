@@ -18,7 +18,7 @@ class Webenq_Form_Import extends Zend_Form
      *
      * @param array $supportedFormats Formats allowed for file upload
      * @param array $options Zend_Form options
-     */
+    */
     public function __construct(array $supportedFormats, $options = null)
     {
         $this->_supportedFormats = $supportedFormats;
@@ -33,30 +33,31 @@ class Webenq_Form_Import extends Zend_Form
         $this->setAttrib('enctype', 'multipart/form-data');
 
         $notEmpty = new Zend_Validate_NotEmpty();
-        $count = new Zend_Validate_File_Count(array(
-            'min' => 1,
-            'max' => 1));
+        $count = new Zend_Validate_File_Count(array('min' => 1, 'max' => 1));
         $extension = new Zend_Validate_File_Extension($this->_supportedFormats);
 
         $file = $this->createElement('file', 'file');
-        $file
-            ->setRequired(true)
-            ->setLabel('select the file to import')
-            ->setDescription(t('supported formats') . ': '
-            	. implode(', ', $this->_supportedFormats))
-            ->addValidators(array($notEmpty, $count, $extension));
+        $file->setRequired(true)->setLabel('select the file to import')->setDescription(
+            t('supported formats') . ': '
+            . implode(', ', $this->_supportedFormats)
+        )
+        ->addValidators(array($notEmpty, $count, $extension));
 
-        $type = $this->createElement('radio', 'type', array(
-            'label' => 'type',
-            'value' => 'default',
-            'multiOptions' => Webenq_Import_Abstract::$supportedTypes,
-        ));
+        $type = $this->createElement(
+            'radio', 'type', array(
+                'label' => 'type',
+                'value' => 'default',
+                'multiOptions' => Webenq_Import_Abstract::$supportedTypes,
+            )
+        );
 
-        $language = $this->createElement('radio', 'language', array(
-            'label' => 'language',
-            'multiOptions' => Webenq_Language::getLanguages(),
-            'required' => true,
-        ));
+        $language = $this->createElement(
+            'radio', 'language', array(
+                'label' => 'language',
+                'multiOptions' => Webenq_Language::getLanguages(),
+                'required' => true,
+            )
+        );
 
         $submit = $this->createElement('submit', 'submit', array('value' => 'Importeren'));
 

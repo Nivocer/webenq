@@ -15,33 +15,15 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     protected $_questionText;
 
-//    public function getQuestionText()
-//    {
-//        if (!$this->_questionText) {
-//            // find text in current language
-//            $language = Zend_Registry::get('Zend_Locale')->getLanguage();
-//            foreach ($this->Question->QuestionText as $text) {
-//                if ($text->language === $language) {
-//                    $this->_questionText = $text->text;
-//                    break;
-//                }
-//            }
-//            // or get default
-//            if (!$this->_questionText) {
-//                $this->_questionText = $this->Question->QuestionText[0]->text;
-//            }
-//        }
-//        return $this->_questionText;
-//    }
 
     public function getAnswer(Webenq_Model_Respondent $respondent)
     {
         $answers = Doctrine_Query::create()
-            ->from('Webenq_Model_Answer a')
-            ->where('a.respondent_id = ?', $respondent->id)
-            ->andWhere('a.questionnaire_question_id = ?', $this->id)
-            ->limit(1)
-            ->execute();
+        ->from('Webenq_Model_Answer a')
+        ->where('a.respondent_id = ?', $respondent->id)
+        ->andWhere('a.questionnaire_question_id = ?', $this->id)
+        ->limit(1)
+        ->execute();
 
         if (count($answers) === 1) {
             return $answers->getFirst();
@@ -60,25 +42,25 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     public function getXformElement(DOMDocument $xml, DOMElement $group = null)
     {
-    	if (!is_null($this->answerPossibilityGroup_id)){
-    		$element = $xml->createElement('select1');
-    		$element->setAttribute('ref', $this->getXpath());
-    		$label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
-    		$element->appendChild($label);
-    		foreach ($this->AnswerPossibilityGroup->getAnswerPossibilities() as $ap) {
-    			$item = $xml->createElement('item');
-    			$label = $xml->createElement('label', Webenq::Xmlify($ap->getAnswerPossibilityText()->text));
-    			$value = $xml->createElement('value', ($ap->value ? $ap->value : $ap->id));
-    			$item->appendChild($label);
-    			$item->appendChild($value);
-    			$element->appendChild($item);
-    		}
-    	}else{
-    		$element = $xml->createElement('input');
-    		$element->setAttribute('ref', $this->getXpath());
-    		$label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
-    		$element->appendChild($label);
-    	}
+        if (!is_null($this->answerPossibilityGroup_id)) {
+            $element = $xml->createElement('select1');
+            $element->setAttribute('ref', $this->getXpath());
+            $label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
+            $element->appendChild($label);
+            foreach ($this->AnswerPossibilityGroup->getAnswerPossibilities() as $ap) {
+                $item = $xml->createElement('item');
+                $label = $xml->createElement('label', Webenq::Xmlify($ap->getAnswerPossibilityText()->text));
+                $value = $xml->createElement('value', ($ap->value ? $ap->value : $ap->id));
+                $item->appendChild($label);
+                $item->appendChild($value);
+                $element->appendChild($item);
+            }
+        } else {
+            $element = $xml->createElement('input');
+            $element->setAttribute('ref', $this->getXpath());
+            $label = $xml->createElement('label', Webenq::Xmlify($this->Question->getQuestionText()->text));
+            $element->appendChild($label);
+        }
 
         $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($this);
         if ($subQqs->count() > 0) {
@@ -128,12 +110,12 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      */
     public function getXformBindElements(DOMDocument $xml, array $elements = array())
     {
-    	if (!is_null($this->answerPossibilityGroup_id)){
-    	        $element = $xml->createElement('bind');
-                $element->setAttribute('nodeset', $this->getXpath());
-                $element->setAttribute('type', 'select1');
-    	}else{
-    		$element = $xml->createElement('bind');
+        if (!is_null($this->answerPossibilityGroup_id)) {
+            $element = $xml->createElement('bind');
+            $element->setAttribute('nodeset', $this->getXpath());
+            $element->setAttribute('type', 'select1');
+        } else {
+            $element = $xml->createElement('bind');
             $element->setAttribute('nodeset', $this->getXpath());
             $element->setAttribute('type', 'string');
         }
@@ -161,7 +143,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                 $element->nodeValue = $answer->AnswerPossibility->value;
                 if (!$element->nodeValue) $element->nodeValue = $answer->answerPossibility_id;
             } else {
-               	$element->nodeValue = Webenq::Xmlify($answer->text,'value');            	
+               	$element->nodeValue = Webenq::Xmlify($answer->text, 'value');
             }
         }
 
@@ -181,7 +163,8 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      * Returns an instance of Zend_Form_SubForm if it has sub-questions,
      * and an instance of Zend_Form_Element otherwise.
      *
-     * @param Webenq_Model_Respondent $respondent (optional) If provided the form element is filled with the respondent's answer
+     * @param Webenq_Model_Respondent $respondent (optional) If provided the form element is filled
+     *   with the respondent's answer
      * @return Zend_Form_SubForm|Zend_Form_Element
      */
     public function getFormElement(Webenq_Model_Respondent $respondent = null)
@@ -194,7 +177,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             // create subform
             $subForm = new Zend_Form_SubForm();
             $subForm->setLegend($this->Question->getQuestionText()->text)
-                ->removeDecorator('DtDdWrapper');
+            ->removeDecorator('DtDdWrapper');
 
             // add child questions to subform
             foreach ($subQuestions as $subQuestion) {
@@ -242,9 +225,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                     break;
                 case Webenq::COLLECTION_PRESENTATION_SINGLESELECT_SLIDER:
                     $element = new ZendX_JQuery_Form_Element_Slider($name);
-                    $element->setJQueryParams(array(
-                        'value' => '50'
-                    ));
+                    $element->setJQueryParams(array('value' => '50'));
                     break;
                 case Webenq::COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES:
                     $element = new Zend_Form_Element_MultiCheckbox($name);
@@ -254,16 +235,20 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                     break;
                 case Webenq::COLLECTION_PRESENTATION_RANGESELECT_SLIDER:
                     $element = new ZendX_JQuery_Form_Element_Slider($name);
-                    $element->setJQueryParams(array(
-                        'range' => true,
-                        'min' => 0,
-                        'max' => 100,
-                        'values' => array(33, 67),
-                    ));
+                    $element->setJQueryParams(
+                        array(
+                            'range' => true,
+                            'min' => 0,
+                            'max' => 100,
+                            'values' => array(33, 67),
+                        )
+                    );
                     break;
                 default:
-                    throw new Exception('Element type "' . $qq->CollectionPresentation[0]->type . '" (qq ' . $qq->id .
-                        ') not yet implemented in ' . get_class($this));
+                    throw new Exception(
+                        'Element type "' . $qq->CollectionPresentation[0]->type . '" (qq ' . $qq->id .
+                        ') not yet implemented in ' . get_class($this)
+                    );
             }
 
             // add label
@@ -325,10 +310,10 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         if (!$respondent) return false;
 
         $count = Doctrine_Query::create()
-            ->from('Webenq_Model_Answer a')
-            ->where('a.questionnaire_question_id = ?', $this->id)
-            ->andWhere('a.respondent_id = ?', $respondent->id)
-            ->count();
+        ->from('Webenq_Model_Answer a')
+        ->where('a.questionnaire_question_id = ?', $this->id)
+        ->andWhere('a.respondent_id = ?', $respondent->id)
+        ->count();
 
         return ($count > 0);
     }
@@ -358,13 +343,13 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             case 'collection':
             default:
                 return Doctrine_Query::create()
-                    ->from('Webenq_Model_QuestionnaireQuestion qq')
-//                    ->leftJoin('qq.Question q')
-//                    ->leftJoin('q.QuestionText qt ON q.id = qt.question_id AND qt.language = ?', $language)
-                    ->innerJoin('qq.CollectionPresentation cp')
-                    ->where('cp.parent_id = ?', $qq['CollectionPresentation'][0]['id'])
-                    ->orderBy('cp.weight')
-                    ->execute();
+                ->from('Webenq_Model_QuestionnaireQuestion qq')
+                //->leftJoin('qq.Question q')
+                //->leftJoin('q.QuestionText qt ON q.id = qt.question_id AND qt.language = ?', $language)
+                ->innerJoin('qq.CollectionPresentation cp')
+                ->where('cp.parent_id = ?', $qq['CollectionPresentation'][0]['id'])
+                ->orderBy('cp.weight')
+                ->execute();
         }
     }
 
@@ -377,10 +362,10 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
     public function existsInMultipleQuestionnaires()
     {
         $count = Doctrine_Query::create()
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->where('question_id = ?', $this->Question->id)
-            ->execute()
-            ->count();
+        ->from('Webenq_Model_QuestionnaireQuestion qq')
+        ->where('question_id = ?', $this->Question->id)
+        ->execute()
+        ->count();
         return ($count > 1);
     }
 

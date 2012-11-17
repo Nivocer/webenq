@@ -54,10 +54,7 @@ class EmailController extends Zend_Controller_Action
             foreach ($reports as $report) {
                 $filename = preg_replace('#^'.realpath('.').'/#', '', $dir.'/'.$report);
                 try {
-                    $this->_email->insert(array(
-                        'filename'    => $filename,
-                        'customer'    => $customer,
-                    ));
+                    $this->_email->insert(array('filename' => $filename, 'customer' => $customer, ));
                 } catch (Exception $e) {
                     if ($e->getCode() !== "23000") {
                         throw $e;
@@ -89,9 +86,11 @@ class EmailController extends Zend_Controller_Action
             $this->_findFiles($dir);
 
             try {
-                $this->view->reports = $this->_email->fetchAll($this->_email->select()
+                $this->view->reports = $this->_email->fetchAll(
+                    $this->_email->select()
                     ->where('filename LIKE ?', $relativeDir.'/%')
-                    ->order(array("customer", "filename")));
+                    ->order(array("customer", "filename"))
+                );
             } catch (Exception $e) {
                 if ($e->getCode() === "42S02") {
                     $this->_email->createTable();
@@ -106,9 +105,11 @@ class EmailController extends Zend_Controller_Action
 
     public function sendAllAction()
     {
-        $reports = $this->_email->fetchAll($this->_email->select()
+        $reports = $this->_email->fetchAll(
+            $this->_email->select()
             ->order(array("customer", "filename"))
-            ->where("sent = 0 AND email IS NOT NULL"));
+            ->where("sent = 0 AND email IS NOT NULL")
+        );
 
         foreach ($reports as $report) {
             $this->_send($report);
@@ -178,11 +179,14 @@ class EmailController extends Zend_Controller_Action
                 foreach ($rowset as $row) {
                     /* any changes? update and reset "sent" */
                     if ($row->teacher !== $teacher['name'] || $row->email !== $teacher['email']) {
-                        $this->_email->update(array(
-                            "teacher"    => $teacher['name'],
-                            "email"        => $teacher['email'],
-                            "sent"        => 0),
-                        "id = $row->id");
+                        $this->_email->update(
+                            array(
+                                "teacher"    => $teacher['name'],
+                                "email"        => $teacher['email'],
+                                "sent"        => 0
+                            ),
+                            "id = $row->id"
+                        );
                     }
                 }
             }
@@ -310,13 +314,15 @@ class EmailController extends Zend_Controller_Action
         $smtp = $config->{APPLICATION_ENV}->email->smtp;
 
         /* set mail transport */
-        $transport = new Zend_Mail_Transport_Smtp($smtp->host, array(
-            'ssl'        => $smtp->ssl,
-            'port'        => $smtp->port,
-            'auth'        => $smtp->auth,
-            'username'    => $smtp->username,
-            'password'    => $smtp->password,
-        ));
+        $transport = new Zend_Mail_Transport_Smtp(
+            $smtp->host, array(
+                'ssl'        => $smtp->ssl,
+                'port'        => $smtp->port,
+                'auth'        => $smtp->auth,
+                'username'    => $smtp->username,
+                'password'    => $smtp->password,
+                )
+        );
         Zend_Mail::setDefaultTransport($transport);
 
         /* build messages */

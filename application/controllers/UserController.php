@@ -82,8 +82,10 @@ class UserController extends Zend_Controller_Action
                 $this->view->editForm = $editForm;
             } elseif ($this->_request->delete) {
                 $user = Doctrine_Core::getTable('Webenq_Model_User')->find($this->_request->delete);
-                $deleteForm = new Webenq_Form_Confirm($user->id,
-                    "Weet u zeker dat u gebruiker '$user->fullname' wilt verwijderen?");
+                $deleteForm = new Webenq_Form_Confirm(
+                    $user->id,
+                    "Weet u zeker dat u gebruiker '$user->fullname' wilt verwijderen?"
+                );
                 $this->view->deleteForm = $deleteForm;
             }
         }
@@ -132,8 +134,10 @@ class UserController extends Zend_Controller_Action
                 $this->view->editForm = $editForm;
             } elseif ($this->_request->delete) {
                 $role = Doctrine_Core::getTable('Webenq_Model_Role')->find($this->_request->delete);
-                $deleteForm = new Webenq_Form_Confirm($role->id,
-                    "Weet u zeker dat u rol '$role->name' wilt verwijderen?");
+                $deleteForm = new Webenq_Form_Confirm(
+                    $role->id,
+                    "Weet u zeker dat u rol '$role->name' wilt verwijderen?"
+                );
                 $this->view->deleteForm = $deleteForm;
             }
         }

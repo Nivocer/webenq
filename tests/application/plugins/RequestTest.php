@@ -7,7 +7,7 @@ class Webenq_Test_Plugin_RequestTest extends Webenq_Test_Case_Plugin
 	public function testRequestIsUnquotedWhenMagicQuotesAreEnabled()
 	{
 		//only test for php 5.0 to 5.3
-		if (PHP_MAJOR_VERSION===5 && PHP_MINOR_VERSION<=3){
+		if (PHP_MAJOR_VERSION===5 && PHP_MINOR_VERSION<=3) {
 			$originalMagicQuotesSetting = ini_get('magic_quotes_runtime');
 			ini_set('magic_quotes_runtime', 1);
 

@@ -3,8 +3,8 @@
 $xml = simplexml_load_file("log/pdepend-summary.xml");
 
 $files = array();
-foreach($xml->files->file as $file) {
-  $files[] = $file;
+foreach ($xml->files->file as $file) {
+    $files[] = $file;
 }
 
 ?>
@@ -20,106 +20,106 @@ foreach($xml->files->file as $file) {
           margin: 0;
           padding: 0;
       }
-      
+
 	  body {
 	    font-family: "Corbel", "Myriad Pro", "Calibri", "Verdana", "Helvetica", "Arial", sans-serif;
 	    padding-bottom: 80px;
 	  }
-	  
+
 	  table {
 	      margin: 0;
 	      padding: 0;
 	    font-size: 13px;
 	  }
-	  
+
 	  table th {
 	    min-width: 50px;
 	    padding: 5px;
 	  }
-	  
+
 	  table tbody tr:nth-child(2n) {
 	    background-color: #EEE;
 	  }
-	  
+
 	  tr.header th {
 	    background-color: #444;
 	    color: #FFF;
 	    padding: 5px 10px;
 	  }
-	  
+
 	  tr.header th:first-child {
 	    -moz-border-radius-topleft: 10px;
 	  }
-	  
+
 	  tr.header th:last-child {
 	    -moz-border-radius-topright: 10px;
 	  }
-	  
+
 	  table td {
 	    padding: 3px 10px;
 	    border-right: 1px solid #999;
 	    border-left: 1px solid #999;
 	  }
-	  
+
 	  table td.right {
 	    text-align: right;
 	  }
-	  
+
 	  table td.warning {
 	      background-color: #FF8181;
 	      color: #000;
 	  }
-	  
+
 	  table {
 	      margin: 0 auto;
 	    border-collapse: collapse;
 	    border-bottom: 1px solid #999;
 	  }
-	  
+
 	  ul, ul li {
 	      list-style: none;
 	  }
-	  
+
 	  ul {
 	      padding: 0;
 	      margin: 0 auto;
 	      text-align: center;
 	  }
-	  
+
 	  h1, h2, h3 {
 	      text-align: center;
 	  }
-	  
+
 	  li table {
 	      text-align: left;
 	      margin: 0 auto;
 	      margin-top: 10px;
 	  }
-	  
+
 	  table tbody tr.class {
 	      background-color: #FFE682;
 	  }
-	  
+
 	  table tbody tr.method-head {
 	      background-color: #444;
 	      font-weight: bold;
 	      color: #FFF;
 	  }
-	  
+
 	  table tbody tr.method {
   	      background-color: #EDEEF3;
   	  }
-  	  
+
   	  table tbody tr.method:nth-child(2n) {
 	      background-color: #CBCFE0;
 	  }
-	  
+
 	  table tbody th.methods-info-top, table tbody th.methods-info-bottom {
 	      padding: 0;
 	      background-color: #FFF;
 	      text-align: left;
 	  }
-	  
+
 	  table tbody th.methods-info-top div {
 	      padding-left: 38px;
 	      height: 25px;
@@ -130,7 +130,7 @@ foreach($xml->files->file as $file) {
 	      -webkit-border-bottom-right-radius: 10px;
 	      background-color: #444;
 	  }
-	  
+
 	  table tbody th.methods-info-bottom div {
   	      padding-left: 38px;
   	      height: 25px;
@@ -141,12 +141,12 @@ foreach($xml->files->file as $file) {
   	      -webkit-border-top-right-radius: 10px;
   	      background-color: #444;
   	  }
-  	  
+
   	  .blank {
   	      background-color: #FFF;
   	      border: none;
   	  }
-  	  
+
   	  #jdepend, #pyramid {
   	      width: 390px;
   	      height: 250px;
@@ -157,7 +157,7 @@ foreach($xml->files->file as $file) {
 
 <body>
   <h1>PHP Depend Code Metrics</h1>
-  
+
   <h2>Files</h2>
   <table id="files">
     <thead>
@@ -177,7 +177,7 @@ foreach($xml->files->file as $file) {
       <?php endforeach; ?>
     </tbody>
   </table>
-  
+
   <h2>Packages</h2>
   <ul>
     <?php foreach($xml->package as $package): ?>
@@ -252,14 +252,14 @@ foreach($xml->files->file as $file) {
     </li>
     <?php endforeach; ?>
     </ul>
-    
+
     <h2>JDepend Chart</h2>
     <div id="jdepend">
         <embed src="jdepend.svg" width="390" height="250"
         type="image/svg+xml"
         pluginspage="http://www.adobe.com/svg/viewer/install/" />
     </div>
-    
+
     <h2>Pyramid</h2>
     <div id="pyramid">
         <embed src="pyramid.svg" width="390" height="250"

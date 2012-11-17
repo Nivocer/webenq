@@ -19,14 +19,14 @@ class Webenq_Tool_ClientA extends Webenq_Tool
 
     /**
      * @var array
-     */
+    */
     protected $_modules = array();
 
     /**
      * The column number in which the respondent are stored
      *
      * @var int
-     */
+    */
     protected $_respondentColumn;
 
 
@@ -39,21 +39,21 @@ class Webenq_Tool_ClientA extends Webenq_Tool
      * The attended modules per respondent
      *
      * @var array
-     */
+    */
     protected $_respondentsModules = array();
 
     /**
      * The columns containing the module-related data
      *
      * @var array
-     */
+    */
     protected $_moduleDataColumns = array();
 
     /**
      * The converted data
      *
      * @var array
-     */
+    */
     protected $_newData = array();
 
     protected $_firstRespondentId = 1;
@@ -200,44 +200,45 @@ class Webenq_Tool_ClientA extends Webenq_Tool
 
         // get extra data from last working sheet
         $extraData = array();
-        if (isset($data[2])){
-        foreach ($data[2] as $row) {
-            if (isset($row[0])) {
-                $extraData[$row[0]] = $row[1];
+        if (isset($data[2])) {
+            foreach ($data[2] as $row) {
+                if (isset($row[0])) {
+                    $extraData[$row[0]] = $row[1];
+                }
             }
-        }
-        }else{
-        	//@todo throw error
-        	var_dump($this->_filename);
-        	exit;
+        } else {
+            //@todo throw error
+            var_dump($this->_filename);
+            exit;
         }
         // copy headers from original data (all columns)
         $new = array();
         $new[0][0] = $data[0][0];
 
-        //duplicate respondent rows for each module and keep per row only data for one module (and the non-module variables), other module columns are set to null
+        //duplicate respondent rows for each module and keep per row only data for one module
+        //(and the non-module variables), other module columns are set to null
         //TODO check what happens when duplicate respondent (now respondent is emailadress (first column)
         foreach ($respondentsModules as $respondent => $respondentModules) {
             foreach ($respondentModules as $key => $module) {
                 $newRow = array();
                 //if we don't have a module, we also don't have start/end column of that module
-				if (isset($moduleDataColumns[$module]['start'])){
-                	$startColumn = $moduleDataColumns[$module]['start'];
-				} else {
-					$startColumn=0;
-				}
-                if (isset($moduleDataColumns[$module]['end'])){
-                	$endColumn = $moduleDataColumns[$module]['end'];
-                }else {
-                	$endColumn=999999999;
+                if (isset($moduleDataColumns[$module]['start'])) {
+                    $startColumn = $moduleDataColumns[$module]['start'];
+                } else {
+                    $startColumn=0;
+                }
+                if (isset($moduleDataColumns[$module]['end'])) {
+                    $endColumn = $moduleDataColumns[$module]['end'];
+                } else {
+                    $endColumn=999999999;
                 }
 
                 $row = $this->_getRespondentRow($respondent, $data);
                 foreach ($row as $column => $value) {
-                	//is the current column a module column and:
-                	// is it part of the current module: keep value,
-                	//if not part of current module, set to null,
-                	//if not part of a module at all: keep value
+                    //is the current column a module column and:
+                    // is it part of the current module: keep value,
+                    //if not part of current module, set to null,
+                    //if not part of a module at all: keep value
                     if ($this->_isModuleColumn($column, $moduleDataColumns, $data)) {
                         if ($column >= $startColumn && $column <= $endColumn) {
                             $newRow[$column] = $value;
@@ -251,7 +252,7 @@ class Webenq_Tool_ClientA extends Webenq_Tool
 
                 // add some extra data (titel questionnaire, startdate, end date response)
                 //module column=last columnin orginal data
-               $moduleColumn=count($data[0][0]);
+                $moduleColumn=count($data[0][0]);
 
                 $newRow[$moduleColumn] = $module;
                 $newRow[] = $this->_firstRespondentId + array_search($respondent, $this->_respondents);
@@ -319,11 +320,11 @@ class Webenq_Tool_ClientA extends Webenq_Tool
         foreach ($moduleDataColumns as $module => &$columns) {
             foreach ($questions as $column => &$question) {
                 //search al questions which has the current module(Name)
-            	$moduleQuote=preg_quote($module, '/');
-            	$pattern="/^(\d*:\s*)$moduleQuote:\s*(.*)$/";
+                $moduleQuote=preg_quote($module, '/');
+                $pattern="/^(\d*:\s*)$moduleQuote:\s*(.*)$/";
                 if (preg_match($pattern, $question, $matches)) {
                     $question = $matches[1] . $matches[2];
-            		//todo document next if statement 
+                    //todo document next if statement
                     if ($column === 1 + $columns['end']) $columns['end']++;
                 }
             }
@@ -331,7 +332,8 @@ class Webenq_Tool_ClientA extends Webenq_Tool
 
         // find double questions
         $uniqueModuleQuestions = array();
-		//if we use $question in stead of $question2 in the next line, the last question per file is wrong (variable by reference side effect?) #6059
+        //if we use $question in stead of $question2 in the next line,
+        //the last question per file is wrong (variable by reference side effect?) #6059
         foreach ($questions as $column => $question2) {
             if ($this->_isModuleColumn($column, $moduleDataColumns, $data)) {
                 if (preg_match('/d*:\s*(.*)$/', $question2, $matches)) {
@@ -365,7 +367,7 @@ class Webenq_Tool_ClientA extends Webenq_Tool
                 foreach ($columns as $column) {
                     if ($column > $first) {
                         if (!$row[$first] && isset($row[$column]) &&
-                        	$row[$column]) {
+                                $row[$column]) {
                             $row[$first] = $row[$column];
                         }
                         unset($row[$column]);
@@ -386,7 +388,7 @@ class Webenq_Tool_ClientA extends Webenq_Tool
         foreach ($this->_data[1] as $row) {
             $definition = $row[0];
             foreach ($this->_modules as $name) {
-            	$nameQuote=preg_quote($name, '/');
+                $nameQuote=preg_quote($name, '/');
                 $pattern = "/^(\d*):.*($nameQuote)/";
                 if (preg_match($pattern, $definition, $matches)) {
                     $groups[$matches[1]] = $matches[2];
@@ -402,13 +404,12 @@ class Webenq_Tool_ClientA extends Webenq_Tool
                 $nameQuote=preg_quote($name, '/');
                 if (preg_match("/^$keyQuote:.*$/", $header, $matches)) {
                     if (!isset($columns[$name]))
-                    $columns[$name] = array('start' => $column);
+                        $columns[$name] = array('start' => $column);
                     $columns[$name]['end'] = $column;
-                }
-                // search by group number
-                elseif (preg_match("/\d*:\s$nameQuote:\s.+/", $header, $matches)) {
+                } elseif (preg_match("/\d*:\s$nameQuote:\s.+/", $header, $matches)) {
+                    // search by group number
                     if (!isset($columns[$name]))
-                    $columns[$name] = array('start' => $column);
+                        $columns[$name] = array('start' => $column);
                     $columns[$name]['end'] = $column;
                 }
             }
