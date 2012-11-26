@@ -44,7 +44,15 @@
 
 <h1>Testing</h1>
 
-<h2>Continuous integration</h2>
+<h2>Unit Testing</h2>
+<p>
+We use phpunit for unit testing<br>
+Tests are definied in /tests (mainly application)<br>
+phpunit.xml defines holds the configuration, including codecoverage<br>
+phpunit.travis.xml runs phpunit, without codecoverage<br>
+</p>
+
+<h3>Continuous integration</h3>
 <p>
 We use Travis-CI for continuous integration testing: each push to the Github repository triggers a build that executes PHP unit tests.<br>
 </p>
@@ -68,13 +76,55 @@ We're currently testing on PHP versions:<br>
 </ul>
 </p>
 
+<h2>Testing coding guidelines</h2>
+<p>
+We use <a href="http://pear.php.net/package/PHP_CodeSniffer/" title="codesniffer">codesniffer</a> to test the guidelines according to a (old) zend guideline.<br>
+phpcs.sh runs the tests<br>
+</p>
+
+<h3>Testing complexity of code</h3>
+<p>
+we use <a href="http://pdepend.org" title="pdepend">pdepend</a> to test the complexity of the code<br>
+it results in: <br>
+<ul style='padding-left: 30pt'>
+<li>pdepend.php:</li>
+<ul>
+<li>overview of file/packages/classes with the statistics</li>
+</ul>
+<li>pyramid.svg  3 parts:</li>
+<ul>
+<li>top: inheritance</li>
+<li>left:  balans in use of  methods/classes/packages</li>
+<li>right: balans: loosely/tightly coupled of code: reusable/reused.</li>
+</ul>
+<li>jdepend.svg: </li>
+<ul>
+<li>hierarchy of the code with methods, within classes, within packages</li>
+</ul>
+</ul>
+pdepend.sh runs the tests<br>
+</p>
+
+<h2>Testing coding guidelines/complexity of code</h2>
+<p>
+Apart from codesniffer and pdepend, we use  <a href="http://phpmd.org/" title="messdetector">messdetector</a> to get information about coding guidelines/complexity<br>
+phpmd.sh runs the tests<br>
+</p>
+
+<h2>Testing for duplicate code</h2>
+<p>
+We are (going to) use <a href="https://github.com/sebastianbergmann/phpcpd/" title="duplicate code checker">duplicate code checker</a> to check for duplicate code. It is an indicator that code is not reused proberly.<br>
+<span class="zim-tag">@todo</span> script which runs the tests.<br>
+</p>
+
+
 <h2>Daily build</h2>
 <p>
-We run a test server at <a href="http://test4.webenq.org" title="http://test4.webenq.org">http://test4.webenq.org</a> featuring PHP 5.4 and Java 6.<br>
+We run a test server at <a href="http://test4.webenq.org/tests" title="http://test4.webenq.org/tests">http://test4.webenq.org/tests</a> featuring PHP 5.4 and Java 6.<br>
 </p>
 
 <p>
-Each night, it gets the latest version from Github and runs the complete testsuite (taking approx. 6 hours).<br>
+Each night, it gets the latest version from Github and runs the complete testsuite<br>
 </p>
 
 <p>
@@ -86,9 +136,11 @@ Each night, it gets the latest version from Github and runs the complete testsui
 
 
       </section>
+<!--
       <footer>
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
       </footer>
+-->
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 		
