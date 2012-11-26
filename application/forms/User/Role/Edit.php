@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_User_Role_Edit extends Webenq_Form_User_Role_Add
 {
@@ -20,9 +20,15 @@ class Webenq_Form_User_Role_Edit extends Webenq_Form_User_Role_Add
     {
         parent::init();
 
-        $this->addElement($this->createElement('hidden', 'id', array(
-            'value' => $this->_role->id,
-        )));
+        $this->addElement(
+            $this->createElement(
+                'hidden',
+                'id',
+                array(
+                    'value' => $this->_role->id,
+                )
+            )
+        );
 
         $this->getElement('name')
             ->setLabel('Hernoem rol:')

@@ -13,55 +13,81 @@ class Webenq_Form_User_User_Add extends Zend_Form
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
         $this->setAction("$baseUrl/user/user");
 
-        $this->addElements(array(
-            $this->createElement('text', 'username', array(
-                'label' => 'username',
-                'required' => true,
-                'filters' => array(
-                    'StringToLower',
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'text',
+                    'username',
+                    array(
+                        'label' => 'username',
+                        'required' => true,
+                        'filters' => array(
+                            'StringToLower',
+                        ),
+                        'validators' => array(
+                            new Zend_Validate_Alpha(true),
+                        ),
+                        'maxlength' => 64,
+                        'size' => 20,
+                    )
                 ),
-                'validators' => array(
-                    new Zend_Validate_Alpha(true),
+                $this->createElement(
+                    'password',
+                    'password',
+                    array(
+                        'label' => 'password',
+                        'required' => true,
+                        'maxlength' => 64,
+                        'size' => 20,
+                    )
                 ),
-                'maxlength' => 64,
-                'size' => 20,
-            )),
-            $this->createElement('password', 'password', array(
-                'label' => 'password',
-                'required' => true,
-                'maxlength' => 64,
-                'size' => 20,
-            )),
-            $this->createElement('password', 'repeat_password', array(
-                'label' => 'repeat password',
-                'required' => true,
-                'validators' => array(
-                    new Zend_Validate_Identical(
-                        Zend_Controller_Front::getInstance()
-                            ->getRequest()->getPost('password')
-                    ),
+                $this->createElement(
+                    'password',
+                    'repeat_password',
+                    array(
+                        'label' => 'repeat password',
+                        'required' => true,
+                        'validators' => array(
+                            new Zend_Validate_Identical(
+                                Zend_Controller_Front::getInstance()
+                                ->getRequest()->getPost('password')
+                            ),
+                        ),
+                        'maxlength' => 64,
+                        'size' => 20,
+                    )
                 ),
-                'maxlength' => 64,
-                'size' => 20,
-            )),
-            $this->createElement('text', 'fullname', array(
-                'label' => 'full name',
-                'required' => true,
-                'validators' => array(
-                    new Zend_Validate_Alpha(true),
+                $this->createElement(
+                    'text',
+                    'fullname',
+                    array(
+                        'label' => 'full name',
+                        'required' => true,
+                        'validators' => array(
+                            new Zend_Validate_Alpha(true),
+                        ),
+                        'maxlength' => 64,
+                        'size' => 20,
+                    )
                 ),
-                'maxlength' => 64,
-                'size' => 20,
-            )),
-            $this->createElement('select', 'role_id', array(
-                'label' => 'role',
-                'required' => true,
-                'multiOptions' => Webenq_Model_Role::getAllAsArray(),
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'add',
-            )),
-        ));
+                $this->createElement(
+                    'select',
+                    'role_id',
+                    array(
+                        'label' => 'role',
+                        'required' => true,
+                        'multiOptions' => Webenq_Model_Role::getAllAsArray(),
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'add',
+                    )
+                ),
+            )
+        );
     }
 
     public function store()

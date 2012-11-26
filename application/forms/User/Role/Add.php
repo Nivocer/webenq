@@ -13,17 +13,27 @@ class Webenq_Form_User_Role_Add extends Zend_Form
         $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
         $this->setAction("$baseUrl/user/role");
 
-        $this->addElements(array(
-            $this->createElement('text', 'name', array(
-                'label' => 'new role',
-                'required' => true,
-                'filters' => array('StringToLower'),
-                'validators' => array('Alpha'),
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'add',
-            )),
-        ));
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'text',
+                    'name',
+                    array(
+                        'label' => 'new role',
+                        'required' => true,
+                        'filters' => array('StringToLower'),
+                        'validators' => array('Alpha'),
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'add',
+                    )
+                ),
+            )
+        );
     }
 
     public function store()

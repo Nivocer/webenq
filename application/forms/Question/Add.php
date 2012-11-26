@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_Question_Add extends Zend_Form
 {
@@ -21,21 +21,33 @@ class Webenq_Form_Question_Add extends Zend_Form
 
         $languages = Webenq_Language::getLanguages();
         foreach ($languages as $language) {
-            $text->addElement($this->createElement('text', $language, array(
-                'label' => t('text') . ' (' . $language . '):',
-                'size' => 60,
-                'maxlength' => 255,
-                'autocomplete' => 'off',
-                'required' => true,
-                'validators' => array(
-                    new Zend_Validate_NotEmpty(),
-                ),
-            )));
+            $text->addElement(
+                $this->createElement(
+                    'text',
+                    $language,
+                    array(
+                        'label' => t('text') . ' (' . $language . '):',
+                        'size' => 60,
+                        'maxlength' => 255,
+                        'autocomplete' => 'off',
+                        'required' => true,
+                        'validators' => array(
+                            new Zend_Validate_NotEmpty(),
+                        ),
+                    )
+                )
+            );
         }
 
-        $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'save',
-        )));
+        $this->addElement(
+            $this->createElement(
+                'submit',
+                'submit',
+                array(
+                    'label' => 'save',
+                )
+            )
+        );
     }
 
     public function isValid($data)

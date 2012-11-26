@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_QuestionnaireQuestion_Add extends Zend_Form
 {
@@ -34,20 +34,34 @@ class Webenq_Form_QuestionnaireQuestion_Add extends Zend_Form
      */
     public function init()
     {
-        $this->addElements(array(
-            $this->createElement('hidden', 'id', array(
-                'required' => true,
-                'decorators' => array('ViewHelper'),
-            )),
-            $this->createElement('hidden', 'questionnaire_id', array(
-                'required' => true,
-                'value' => $this->_questionnaireId,
-                'decorators' => array('ViewHelper'),
-            )),
-            $this->createElement('text', 'filter', array(
-                'label' => 'Filter:',
-                'autocomplete' => 'off',
-            )),
-        ));
+    $this->addElements(
+        array(
+            $this->createElement(
+                'hidden',
+                'id',
+                array(
+                    'required' => true,
+                    'decorators' => array('ViewHelper'),
+                )
+            ),
+            $this->createElement(
+                'hidden',
+                'questionnaire_id',
+                array(
+                    'required' => true,
+                    'value' => $this->_questionnaireId,
+                    'decorators' => array('ViewHelper'),
+                )
+            ),
+            $this->createElement(
+                'text',
+                'filter',
+                array(
+                    'label' => 'Filter:',
+                    'autocomplete' => 'off',
+                )
+            ),
+        )
+    );
     }
 }

@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_QuestionnaireQuestion_Delete extends Zend_Form
 {
@@ -34,22 +34,35 @@ class Webenq_Form_QuestionnaireQuestion_Delete extends Zend_Form
      */
     public function init()
     {
-        $qq = $this->_questionnaireQuestion;
+    $qq = $this->_questionnaireQuestion;
 
-        $this->addElements(array(
-            $this->createElement('hidden', 'questionnaire_question_id', array(
-                'decorators' => array('ViewHelper'),
-                'value' => $this->_questionnaireQuestion->id,
-            )),
-            $this->createElement('submit', 'yes', array(
-                'label' => 'ja',
-                'decorators' => array('ViewHelper'),
-            )),
-            $this->createElement('submit', 'no', array(
-                'label' => 'nee',
-                'decorators' => array('ViewHelper'),
-            )),
-        ));
-
+    $this->addElements(
+        array(
+            $this->createElement(
+                'hidden',
+                'questionnaire_question_id',
+                array(
+                    'decorators' => array('ViewHelper'),
+                    'value' => $this->_questionnaireQuestion->id,
+                )
+            ),
+            $this->createElement(
+                'submit',
+                'yes',
+                array(
+                    'label' => 'ja',
+                    'decorators' => array('ViewHelper'),
+                )
+            ),
+            $this->createElement(
+                'submit',
+                'no',
+                array(
+                    'label' => 'nee',
+                    'decorators' => array('ViewHelper'),
+                )
+            ),
+        )
+    );
     }
 }

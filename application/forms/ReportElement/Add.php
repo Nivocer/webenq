@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_ReportElement_Add extends Zend_Form
 {
@@ -26,15 +26,27 @@ class Webenq_Form_ReportElement_Add extends Zend_Form
     */
     public function init()
     {
-        $this->addElement($this->createElement('select', 'type', array(
-                'label' => 'element type',
-                'required' => true,
-                'multiOptions' => $this->_types,
-        )));
+        $this->addElement(
+            $this->createElement(
+                'select',
+                'type',
+                array(
+                    'label' => 'element type',
+                    'required' => true,
+                    'multiOptions' => $this->_types,
+                )
+            )
+        );
 
 
-        $this->addElement($this->createElement('submit', 'submit', array(
-                'label' => 'save',
-        )));
+        $this->addElement(
+            $this->createElement(
+                'submit',
+                'submit',
+                array(
+                    'label' => 'save',
+                )
+            )
+        );
     }
 }

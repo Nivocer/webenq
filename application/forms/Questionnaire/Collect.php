@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_Questionnaire_Collect extends Zend_Form
 {
@@ -26,7 +26,8 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
      * Class constructor
      *
      * @param Doctrine_Collection $questions
-     * @param Webenq_Model_Respondent $respondent (optional) If provided the form elements are filled with the respondent's answers
+     * @param Webenq_Model_Respondent $respondent (optional)
+     *      If provided the form elements are filled with the respondent's answers
      * @param array $options
      */
     public function __construct(Doctrine_Collection $questions,
@@ -53,9 +54,15 @@ class Webenq_Form_Questionnaire_Collect extends Zend_Form
         }
 
         // add submit button
-        $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'continue',
-        )));
+        $this->addElement(
+            $this->createElement(
+                'submit',
+                'submit',
+                array(
+                    'label' => 'continue',
+                )
+            )
+        );
     }
 
     /**

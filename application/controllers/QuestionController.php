@@ -90,10 +90,12 @@ class QuestionController extends Zend_Controller_Action
             }
 
             if ($this->_request->isXmlHttpRequest()) {
-                $this->_helper->json(array(
-                    'id' => $question->id,
-                    'reload' => true,
-                ));
+                $this->_helper->json(
+                    array(
+                        'id' => $question->id,
+                        'reload' => true,
+                    )
+                );
             } else {
                 $this->_redirect('question');
             }
