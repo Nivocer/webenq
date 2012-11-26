@@ -309,8 +309,10 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     {
         $qqs = Doctrine_Query::create()
             ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->leftJoin('qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?',
-                $respondent->id)
+            ->leftJoin(
+                'qq.Answer a ON a.questionnaire_question_id = qq.id AND a.respondent_id = ?',
+                $respondent->id
+            )
             ->innerJoin('qq.CollectionPresentation cp')
             ->where('a.id IS NULL')
             ->andWhere('qq.questionnaire_id = ?', $questionaire->id)
@@ -389,8 +391,13 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         $model->appendChild($instance);
 
         $questionnaire = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
-        $questionnaire->setAttribute('id', Webenq::Xmlify(
-            $this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'), 'attr'));
+        $questionnaire->setAttribute(
+            'id',
+            Webenq::Xmlify(
+                $this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'),
+                'attr'
+            )
+        );
         $instance->appendChild($questionnaire);
 
         foreach ($this->QuestionnaireQuestion as $qq) {
@@ -436,7 +443,10 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
             // questionnaire
             $qn = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
-            $qn->setAttribute('id', Webenq::Xmlify($this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'), 'attr'));
+            $qn->setAttribute(
+                'id',
+                Webenq::Xmlify($this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'), 'attr')
+            );
             $r->appendChild($qn);
 
             // answers

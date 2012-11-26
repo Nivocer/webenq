@@ -21,53 +21,103 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 
         if ($elm instanceof Zend_Form_Element) {
             // add decorators
-            $elm->addDecorators(array(
-                array(array('adminOptions' => 'Callback'), array(
-                    'callback' => array(get_class($this), 'adminOptions'),
-                    'placement' => Zend_Form_Decorator_Abstract::PREPEND,
-                    'view' => $this->view,
-                    'qq' => $qq,
-                )),
-                array(array('listItem' => 'Callback'), array(
-                    'callback' => array(get_class($this), 'listItem'),
-                    'placement' => '',
-                )),
-            ));
+            $elm->addDecorators(
+                array(
+                    array(
+                        array(
+                            'adminOptions' => 'Callback'
+                        ),
+                        array(
+                            'callback' => array(
+                                get_class($this),
+                                'adminOptions'
+                            ),
+                            'placement' => Zend_Form_Decorator_Abstract::PREPEND,
+                            'view' => $this->view,
+                            'qq' => $qq,
+                        )
+                    ),
+                    array(
+                        array(
+                            'listItem' => 'Callback'
+                        ),
+                        array(
+                            'callback' => array(
+                                get_class($this),
+                                'listItem'
+                            ),
+                            'placement' => '',
+                        )
+                    ),
+                )
+            );
         } elseif ($elm instanceof Zend_Form_SubForm) {
 
             $elm->getDecorator('HtmlTag')
                 ->setOption('class', 'sub-questions sortable droppable ui-sortable ui-droppable');
 
             // add decorators to subform
-            $elm->addDecorators(array(
-                array(array('adminOptions' => 'Callback'), array(
-                    'callback' => array(get_class($this), 'adminOptions'),
-                    'placement' => Zend_Form_Decorator_Abstract::PREPEND,
-                    'view' => $this->view,
-                    'qq' => $qq,
-                )),
-                array(array('listItem' => 'Callback'), array(
-                    'callback' => array(get_class($this), 'listItem'),
-                    'placement' => '',
-                )),
-            ));
+            $elm->addDecorators(
+                array(
+                    array(
+                        array(
+                            'adminOptions' => 'Callback'
+                        ),
+                        array(
+                            'callback' => array(
+                                get_class($this),
+                                'adminOptions'
+                            ),
+                            'placement' => Zend_Form_Decorator_Abstract::PREPEND,
+                            'view' => $this->view,
+                            'qq' => $qq,
+                        )
+                    ),
+                    array(
+                        array(
+                            'listItem' => 'Callback'),
+                            array(
+                            'callback' => array(
+                                get_class($this), 'listItem'
+                            ),
+                            'placement' => '',
+                        )
+                    ),
+                )
+            );
 
             $i = 0;
             $subQqs = Webenq_Model_QuestionnaireQuestion::getSubQuestions($qq);
             foreach ($elm->getElements() as $subFormElm) {
                 // add decorators to subform elements
-                $subFormElm->addDecorators(array(
-                    array(array('adminOptions' => 'Callback'), array(
-                        'callback' => array(get_class($this), 'adminOptions'),
-                        'placement' => Zend_Form_Decorator_Abstract::PREPEND,
-                        'qq' => $subQqs[$i],
-                        'view' => $this->view,
-                    )),
-                    array(array('listItem' => 'Callback'), array(
-                        'callback' => array(get_class($this), 'listItem'),
-                        'placement' => '',
-                    )),
-                ));
+                $subFormElm->addDecorators(
+                    array(
+                        array(
+                            array(
+                                'adminOptions' => 'Callback'
+                            ),
+                            array(
+                                'callback' => array(
+                                    get_class($this), 'adminOptions'
+                                ),
+                                'placement' => Zend_Form_Decorator_Abstract::PREPEND,
+                                'qq' => $subQqs[$i],
+                                'view' => $this->view,
+                            )
+                        ),
+                        array(
+                            array(
+                                'listItem' => 'Callback'
+                            ),
+                            array(
+                                'callback' => array(
+                                    get_class($this), 'listItem'
+                                ),
+                                'placement' => '',
+                            )
+                        ),
+                    )
+                );
                 $i++;
             }
         } else {
@@ -90,8 +140,14 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
             }
             $currentPage = isset($qq['CollectionPresentation'][0]['page'])
                 ? $qq['CollectionPresentation'][0]['page'] : 1;
-            $pageSelect = $view->formSelect('to-page', $currentPage, array(
-                'id' => 'page-select-qq-' . $qq['id']), $pages);
+            $pageSelect = $view->formSelect(
+                'to-page',
+                $currentPage,
+                array(
+                    'id' => 'page-select-qq-' . $qq['id']
+                ),
+                $pages
+            );
         }
 
         $html = '
@@ -103,7 +159,9 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 
         $html .= '  <a class="ajax icon edit" title="bewerken" href="' .
             $view->baseUrl('/questionnaire-question/edit/id/' . $qq->id) . '">&nbsp;</a>
-                    <a class="ajax icon delete" title="verwijderen" href="' . $view->baseUrl('/questionnaire-question/delete/id/' . $qq->id) . '">&nbsp;</a>
+                    <a class="ajax icon delete" title="verwijderen" href="' .
+                        $view->baseUrl('/questionnaire-question/delete/id/' . $qq->id) . '">&nbsp;
+                    </a>
                 </div>
             </div>';
 

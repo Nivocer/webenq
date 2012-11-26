@@ -101,7 +101,10 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             ->find($this->_data['group_qq_id']);
             $html .= t('grouped by')
             . ' <strong>' . $gqq->Question->getQuestionText()->text . '</strong>';
-            if (isset($this->_data['display_group_question_text']) && $this->_data['display_group_question_text']=="no") {
+            if (isset(
+                $this->_data['display_group_question_text']) &&
+                    $this->_data['display_group_question_text']=="no"
+            ) {
                 $html .=' (hide this text above table)';
             }
         }
@@ -131,7 +134,10 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             ->find($this->_data['group_qq_id']);
             $html .= t('grouped by')
             . ' <strong>' . $gqq->Question->getQuestionText()->text . '</strong>';
-            if (isset($this->_data['display_group_question_text']) && $this->_data['display_group_question_text']=="no") {
+            if (isset(
+                $this->_data['display_group_question_text']) &&
+                $this->_data['display_group_question_text']=="no"
+            ) {
                 $html .=' (hide this text above table)';
             }
             $html .= '<br/>';

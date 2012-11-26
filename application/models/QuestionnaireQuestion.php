@@ -143,7 +143,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                 $element->nodeValue = $answer->AnswerPossibility->value;
                 if (!$element->nodeValue) $element->nodeValue = $answer->answerPossibility_id;
             } else {
-               	$element->nodeValue = Webenq::Xmlify($answer->text, 'value');
+               $element->nodeValue = Webenq::Xmlify($answer->text, 'value');
             }
         }
 
@@ -246,8 +246,8 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
                     break;
                 default:
                     throw new Exception(
-                        'Element type "' . $qq->CollectionPresentation[0]->type . '" (qq ' . $qq->id .
-                        ') not yet implemented in ' . get_class($this)
+                        'Element type "' . $qq->CollectionPresentation[0]->type .
+                        '" (qq ' . $qq->id . ') not yet implemented in ' . get_class($this)
                     );
             }
 
@@ -398,7 +398,7 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         $parents = $this->_getParents();
         while (count($parents) > 0) {
             $parent = array_pop($parents);
-            $xpath .=  Webenq::Xmlify('q' . $parent->QuestionnaireQuestion->id , 'tag').'/';
+            $xpath .=  Webenq::Xmlify('q' . $parent->QuestionnaireQuestion->id, 'tag').'/';
         }
         $xpath .=  Webenq::Xmlify('q' . $this->id, 'tag');
         return $xpath;

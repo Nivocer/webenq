@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
 {
@@ -20,9 +20,15 @@ class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
     {
         parent::init();
 
-        $this->addElement($this->createElement('hidden', 'id', array(
-            'value' => $this->_user->id,
-        )));
+        $this->addElement(
+            $this->createElement(
+                'hidden',
+                'id',
+                array(
+                    'value' => $this->_user->id,
+                )
+            )
+        );
 
         $this->getElement('username')->setValue($this->_user->username);
         $this->getElement('fullname')->setValue($this->_user->fullname);

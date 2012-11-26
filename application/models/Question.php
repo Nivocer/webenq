@@ -174,10 +174,12 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
             // connect to questionnaire
             $questionnaireQuestion = new Webenq_Model_QuestionnaireQuestion();
             $questionnaireQuestion->questionnaire_id = $respondent->questionnaire_id;
-            $questionnaireQuestion->meta = serialize(array(
-                'class' => get_class($this),
-                'valid' => $this->getValidTypes(),
-            ));
+            $questionnaireQuestion->meta = serialize(
+                array(
+                    'class' => get_class($this),
+                    'valid' => $this->getValidTypes(),
+                )
+            );
             $this->QuestionnaireQuestion[0] = $questionnaireQuestion;
         }
 
@@ -258,8 +260,10 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
         return $this->QuestionText[0];
 
         // throw Exception if no translation was found
-        throw new Exception('No translation was found for ' . get_class($this)
-            . ' with ID ' . $this->id);
+        throw new Exception(
+            'No translation was found for ' . get_class($this) .
+            ' with ID ' . $this->id
+        );
     }
 
     /**
