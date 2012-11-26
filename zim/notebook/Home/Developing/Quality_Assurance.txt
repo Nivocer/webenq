@@ -1,0 +1,39 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-11-26T12:51:01+01:00
+
+====== Quality Assurance ======
+Created Monday 26 November 2012
+
+This page is work in progress
+
+==== What (general) ====
+	* backend
+		* backend code: unit test
+		* ~~functionaliteit: integratie test (test controllers)~~
+		* ~~regression test: both~~
+	* ~~frontend (not automated)~~
+		* ~~frontend code test (javascript): unit test~~
+		* ~~frontend functionaliteit (javascript): integratie test~~
+		* ~~regression test: both~~
+	* ~~User interface (not automated)~~
+		* ~~UI (drag en drop)~~
+
+==== Why ====
+	* **updates van libraries weten dat code goed doet (assurance)**
+	* **regressietests**
+	* bugs eerder vinden dan humans
+	* architecturen verbeteringen omdat het niet meer testbaar is
+	* test driven development 
+
+==== How ====
+	* unit test 
+		* php: phpunit
+
+==== When ready ====
+	* code coverage: X
+	* number of bug per month<x
+	* number of recurring bugs=0
+	* never 
+
+See [[:Tools:Testing|Tools->Testing]] for more information of the tools
