@@ -53,6 +53,7 @@ Other testing/development tools
    pear install PHP_CodeSniffer
    pecl install xdebug
    pear install pear/PHPDocumentor
+   pear install pear.phpunit.de/phpcpd
    
 * PHP Sqlite module
 	Packages: php5-sqlite
