@@ -236,8 +236,8 @@ public class Utils {
 		}
 		if (customer.equals("departmentC")) {
 			scale5.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(2.95), "red", new Double (1.0)));
-			scale5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.95), "yellow", new Double (2.0)));
-			scale5.put("target_value_3",defineRecodeColorMap(new Double (3.95), new Double(5.0), "green", new Double (3.0)));
+			scale5.put("target_value_2",defineRecodeColorMap(new Double (2.95), new Double(3.45), "yellow", new Double (2.0)));
+			scale5.put("target_value_3",defineRecodeColorMap(new Double (3.45), new Double(5.0), "green", new Double (3.0)));
 			returnMap.put("scale5", scale5);
 			
 			open10.put("target_value_1",defineRecodeColorMap(new Double (1.0), new Double(5.45), "red", new Double (1.0)));
