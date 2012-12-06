@@ -25,7 +25,7 @@ class Webenq_Form_Test_Index extends Zend_Form
         $file = $this->createElement('file', 'file');
         $file
         ->setRequired(true)
-        ->setLabel('Selecteer een bestand met testdata:')
+        ->setLabel('Select a file containing testdata:')
         ->addValidators(
             array(
                $notEmpty,

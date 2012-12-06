@@ -11,7 +11,7 @@ class Webenq_Form_ScaleValues_Add extends Zend_Form
     public function init()
     {
         $notEmpty = new Zend_Validate_NotEmpty();
-        $notEmpty->setMessage("Geef een label op");
+        $notEmpty->setMessage("Enter a label");
 
         $label = $this->createElement('text', 'label');
         $label->setLabel('Label:')
@@ -19,15 +19,15 @@ class Webenq_Form_ScaleValues_Add extends Zend_Form
         ->addValidator($notEmpty);
 
         $notEmpty = new Zend_Validate_NotEmpty();
-        $notEmpty->setMessage("Geef een waarde op");
+        $notEmpty->setMessage("Enter a value");
 
         $value = $this->createElement('text', 'value');
-        $value->setLabel('Waarde:')
+        $value->setLabel('Value:')
         ->setRequired(true)
         ->addValidator($notEmpty);
 
         $questionType = $this->createElement('select', 'question_type');
-        $questionType->setLabel('Vraagtype:')
+        $questionType->setLabel('Question type:')
         ->addMultiOptions(
             array(
                         'Webenq_Model_Data_Question_Closed_Scale_Two'    => '2-punts schaal',
@@ -40,7 +40,7 @@ class Webenq_Form_ScaleValues_Add extends Zend_Form
         );
 
         $submit = $this->createElement('submit', 'submit');
-        $submit->setLabel('Opslaan');
+        $submit->setLabel('Save');
 
         $this->addElements(array($label, $value, $questionType, $submit));
     }

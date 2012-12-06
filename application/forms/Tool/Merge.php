@@ -29,7 +29,7 @@ class Webenq_Form_Tool_Merge extends Zend_Form
             . implode(', ', $this->_supportedFormats)
         );
 
-        $submit = $this->createElement('submit', 'submit', array('value' => 'Importeren'));
+        $submit = $this->createElement('submit', 'submit', array('value' => 'Import'));
 
         $this->addElements(array($file, $submit));
     }

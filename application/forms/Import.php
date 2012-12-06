@@ -59,7 +59,7 @@ class Webenq_Form_Import extends Zend_Form
             )
         );
 
-        $submit = $this->createElement('submit', 'submit', array('value' => 'Importeren'));
+        $submit = $this->createElement('submit', 'submit', array('value' => 'Import'));
 
         $this->addElements(array($file, $type, $language, $submit));
     }

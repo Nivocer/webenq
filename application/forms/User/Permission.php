@@ -85,7 +85,7 @@ class Webenq_Form_User_Permission extends ZendX_JQuery_Form
             $subForm->addElement(
                 $this->createElement(
                     'submit', 'submit', array(
-                        'label' => 'opslaan',
+                        'label' => 'save',
                     )
                 )
             );

@@ -83,18 +83,18 @@ class Webenq_Form_ReportDefinition extends Zend_Form
         $filenameFilter = new Zend_Filter_PregReplace("#[^A-Za-z0-9_-]#", "_");
 
         $filename = new Zend_Form_Element_Text('output_filename');
-        $filename->setLabel('Geef de bestandsnaam voor het rapport op (zonder extensie):')
+        $filename->setLabel('File name for report (without extension):')
             ->addFilter($filenameFilter);
 
         $output = new Zend_Form_Element_Radio('output_format');
         $output
-            ->setLabel('Selecteer een rapport formaat:')
+            ->setLabel('Select an output format:')
             ->setMultiOptions($this->_outputFormats)
             ->setRequired(true);
 
         $report = new Zend_Form_Element_Radio('report_type');
         $report
-            ->setLabel('Selecteer een rapport-type:')
+            ->setLabel('Select a repot type:')
             ->setMultiOptions($this->_reportTypes)
             ->setRequired(true);
 
@@ -106,38 +106,38 @@ class Webenq_Form_ReportDefinition extends Zend_Form
 
         $customer = new Zend_Form_Element_Radio('customer');
         $customer
-            ->setLabel('Selecteer een klant:')
+            ->setLabel('Select a customer:')
             ->setMultiOptions($this->_customers)
             ->setRequired(true);
 
         $page = new Zend_Form_Element_Radio('page');
         $page
-            ->setLabel('Selecteer een pagina-type:')
+            ->setLabel('Select a page type:')
             ->setMultiOptions($this->_pages)
             ->setRequired(true);
 
         $group = new Zend_Form_Element_Select('group_question_id');
         $group
-            ->setLabel('Selecteer een vraag om de data te groeperen:')
+            ->setLabel('Select a question to group the data:')
             ->setRequired(false)
-            ->setMultiOptions(array('' => '--- geen groepering ---'))
+            ->setMultiOptions(array('' => '--- no group ---'))
             ->addMultiOptions($this->_questions);
 
         $split = new Zend_Form_Element_Select('split_question_id');
         $split
-            ->setLabel('Selecteer een vraag om de data te splitsen:')
+            ->setLabel('Selecteer a question to splits the data:')
             ->setRequired(false)
-            ->setMultiOptions(array('' => '--- geen splitsing ---'))
+            ->setMultiOptions(array('' => '--- no splits ---'))
             ->addMultiOptions($this->_questions);
 
         $ignore = new Zend_Form_Element_MultiCheckbox('ignore_question_ids');
         $ignore
-            ->setLabel('Selecteer de vragen die niet de rapportage moeten worden opgenomen:')
+            ->setLabel('Select the questions we don\'t want to report about:')
             ->setRequired(false)
             ->addMultiOptions($this->_questions);
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Verzenden');
+        $submit->setLabel('Submit');
 
         $this->addElements(
             array(
