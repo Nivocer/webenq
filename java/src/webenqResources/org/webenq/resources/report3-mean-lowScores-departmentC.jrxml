@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-barchart" printOrder="Horizontal" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
+	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") &&
+($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FFFFFF" backcolor="#FF0000">
+				<box>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") &&
+($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_2") )
+.get("lowest") ) )&&
+($V{averageMeasure} < ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_2") )
+.get("highest") ) )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#FFFF00">
+				<box>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{COLOR_MEAN}.equals("yes") &&
+($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_3") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_3") )
+.get("highest") ) )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#00FF00">
+				<box>
+					<leftPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.25" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</style>
+		</conditionalStyle>
+	</style>
+	<scriptlet name="GetXformLabel" class="it.bisi.report.jasper.scriptlet.GetXformLabel">
+		<scriptletDescription><![CDATA[getXform label]]></scriptletDescription>
+	</scriptlet>
+	<parameter name="CUSTOMER" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="COLOR_RANGE" class="java.util.Map" isForPrompting="false"/>
+	<parameter name="TYPE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["AVG"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="DEFAULT_STYLE_FILE" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["defaultStyle.jrtx"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CROSSTAB_HEADER_TEXT_ID" class="java.lang.String"/>
+	<parameter name="XFORM_LOCATION" class="java.lang.String"/>
+	<parameter name="FORM_NAME" class="java.lang.String"/>
+	<parameter name="RECODE_COLOR_MAP" class="java.util.Map"/>
+	<parameter name="SCALE_QUESTION_INFO" class="java.lang.String"/>
+	<parameter name="SCALE_QUESTION_INFO_MAP" class="java.util.Map">
+		<defaultValueExpression><![CDATA[org.json.simple.JSONValue.parse($P{SCALE_QUESTION_INFO})]]></defaultValueExpression>
+	</parameter>
+	<parameter name="COLOR_MEAN" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="report_question_id" class="java.lang.String"/>
+	<field name="group_question_value" class="java.lang.String"/>
+	<field name="report_question_value" class="java.lang.String"/>
+	<field name="group_question_id" class="java.lang.String"/>
+	<field name="report_question_label" class="java.lang.String"/>
+	<field name="group_question_label" class="java.lang.String"/>
+	<field name="report_question_text" class="java.lang.String"/>
+	<field name="question_seq_number" class="java.lang.Integer"/>
+	<field name="respondent_id" class="java.lang.String"/>
+	<sortField name="group_question_label"/>
+	<variable name="averageMeasure" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Average">
+		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
+	</variable>
+	<variable name="count" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Count">
+		<variableExpression><![CDATA[$F{respondent_id}]]></variableExpression>
+	</variable>
+	<variable name="stddev" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="StandardDeviation">
+		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})]]></variableExpression>
+	</variable>
+	<variable name="valueRecoded" class="java.lang.String">
+		<variableExpression><![CDATA[(Double.parseDouble($F{report_question_value})<3.0)  ? "1.0" :
+(Double.parseDouble($F{report_question_value})==3.0)  ? "2.0":
+(Double.parseDouble($F{report_question_value})>3.0) &&  (Double.parseDouble($F{report_question_value})<6.0)? "3.0":
+    $F{report_question_value}]]></variableExpression>
+	</variable>
+	<variable name="countLow" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Count">
+		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})<5.5?"countlow":null]]></variableExpression>
+	</variable>
+	<variable name="countHigh" class="java.lang.Double" resetType="Group" resetGroup="question" calculation="Count">
+		<variableExpression><![CDATA[Double.parseDouble($F{report_question_value})>=5.5?"counthigh":null]]></variableExpression>
+	</variable>
+	<variable name="reportQuestionId" class="java.lang.String">
+		<variableExpression><![CDATA[$F{report_question_id}]]></variableExpression>
+	</variable>
+	<group name="question">
+		<groupExpression><![CDATA[$F{group_question_label}+"-"+$F{report_question_text}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="12" splitType="Prevent">
+				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0.0">
+					<reportElement style="table_colored_cells" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="435" y="0" width="60" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true">
+						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) )]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="question" pattern="###0">
+					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="495" y="0" width="60" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true">
+						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="0">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{count}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="1" y="0" width="40" height="12">
+						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="1" rightPadding="1">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
+    ($F{group_question_label}.split("_")[0] !=null?
+        str($F{group_question_label}.split("_")[0]):
+        ""
+    ):
+    str("Total")
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="41" y="0" width="40" height="12">
+						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="1" rightPadding="1">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
+    ($F{group_question_label}.split("_")[1] !=null?
+        str($F{group_question_label}.split("_")[1]):
+        ""
+    )+
+    ($F{group_question_label}.split("_")[2] !=null?
+        str($F{group_question_label}.split("_")[2]):
+        ""
+    ):
+    str("Total")
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="81" y="0" width="180" height="12">
+						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="1" rightPadding="1">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
+    ($F{group_question_label}.split("_")[3] !=null?
+        str($F{group_question_label}.split("_")[3]):
+        ""
+    ):
+    ""
+)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="261" y="0" width="174" height="12">
+						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) )]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="1" rightPadding="1">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
+    ($F{group_question_label}.split("_")[4] !=null?
+        str($F{group_question_label}.split("_")[4]):
+        ""
+    ):
+    ""
+)]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="0" width="555" height="12" isRemoveLineWhenBlank="true"/>
+				<textElement markup="html">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[str($P{GetXformLabel_SCRIPTLET}.getXformLabel($P{XFORM_LOCATION}, $P{FORM_NAME}, $P{CROSSTAB_HEADER_TEXT_ID},""))]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30">
+			<elementGroup>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="495" y="0" width="60" height="30" isPrintWhenDetailOverflows="true"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[str("Count respondents")]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement stretchType="RelativeToTallestObject" x="435" y="0" width="60" height="30" isPrintWhenDetailOverflows="true"/>
+					<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[str("Average score")]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<textField>
+				<reportElement x="1" y="0" width="434" height="30"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

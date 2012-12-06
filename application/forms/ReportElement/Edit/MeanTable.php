@@ -94,6 +94,7 @@ class Webenq_Form_ReportElement_Edit_MeanTable extends Webenq_Form_ReportElement
                         'questionsInRows'=>'questionsInRows',
                         'questionsInColumns'=>'questionsInColumns',
                         'lowScores'=>'lowScores',
+                        'lowScoresDepartmentC'=>'lowScoresDepartmentC',
                         'grade'=>'grade'
                     ),
                 )

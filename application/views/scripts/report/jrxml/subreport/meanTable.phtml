@@ -71,8 +71,11 @@ case 'questionsInRows':
 case 'questionsInColumns':
     	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>' ;
     	break;
-case 'lowScores': 
+case 'lowScores':
 		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-lowScores.jasper"]]></subreportExpression>' ;
+		break;
+case 'lowScoresDepartmentC':
+		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-lowScores-departmentC.jasper"]]></subreportExpression>' ;
 		break;
 case 'grade':
 		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-countlow.jasper"]]></subreportExpression>' ;

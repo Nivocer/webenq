@@ -3,4 +3,5 @@
     'questionsInColumns' => 'Vragen in kolommen',
     'grade' =>'Rapportcijfer (speciaal)',
     'lowScores' =>'Onvoldoende scores (speciaal)',
+    'lowScoresDepartmentC' =>'Onvoldoende scores (speciaal, departmentC)',
 );
