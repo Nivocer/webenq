@@ -133,19 +133,35 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // init translations
         $translate = new Zend_Translate(
             array(
-                'adapter' => 'array',
-                'content' => APPLICATION_PATH . '/translations/en/',
-                'locale' => 'en',
+                'adapter'=> 'gettext',
+                'content'=> APPLICATION_PATH . '/translations/nl_NL.mo',
+                'locale' => 'nl',
                 'log' => $this->getResource('log'),
                 'logUntranslated' => true,
+            )
+        );
+        $translate ->addTranslation(
+            array(
+                'content' => APPLICATION_PATH . '/translations/nl_NL.mo',
+                'locale'  => 'en',
+            )
+        );
+
+
+        $translateArray=new Zend_Translate(
+            array(
+                'adapter' => 'array',
+                'content' => APPLICATION_PATH . '/translations/nl/Zend_Validate.php',
+                'locale' => 'en',
                )
         );
-        $translate->addTranslation(
+        /* $translateArray->addTranslation(
             array(
-                'content' => APPLICATION_PATH . '/translations/nl/',
-                'locale'  => 'nl',
+                'content' => APPLICATION_PATH . '/translations/en/Zend_Validate.php',
+                'locale'  => 'en',
                 )
-        );
+        ); */
+        $translate->addTranslation(array('content' => $translateArray));
         Zend_Registry::set('Zend_Translate', $translate);
 
         if (!function_exists('t')) {
