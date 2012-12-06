@@ -45,15 +45,15 @@ For the test suite:
   
     pear install phpunit/PHPUnit
 
-Other testing/development tools
+* Other testing/development tools
 
-   pear channel-discover pear.phpmd.org
-   pear channel-discover pear.pdepend.org
-   pear install --alldeps phpmd/PHP_PMD
-   pear install PHP_CodeSniffer
-   pecl install xdebug
-   pear install pear/PHPDocumentor
-   pear install pear.phpunit.de/phpcpd
+    pear channel-discover pear.phpmd.org
+    pear channel-discover pear.pdepend.org
+    pear install --alldeps phpmd/PHP_PMD
+    pear install PHP_CodeSniffer
+    pecl install xdebug
+    pear install pear/PHPDocumentor
+    pear install pear.phpunit.de/phpcpd
    
 * PHP Sqlite module
 	Packages: php5-sqlite
@@ -113,6 +113,11 @@ set of data by running:
 	
 PLEASE NOTE THAT THIS WILL DELETE ALL DATA FROM YOUR DATABASE!
 
+CHECK BASIC INSTALL DEPENDENCIES
+================================
+visit install/test to check installation
+
+
 CHECK IMPROVE/WRITE PERMISSONS
 ==============================
 
@@ -121,6 +126,8 @@ Make sure the web server has write access to the following:
 	logs/application.log
 	tmp
 	public/reports
+
+
 
 
 GO TO THE WEB APPLICATION
