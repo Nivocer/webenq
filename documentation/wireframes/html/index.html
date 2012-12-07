@@ -28,7 +28,7 @@
 			var pages = story.pages;
 			for(var i = 0; i < pages.length; i ++) {
 				var cacheImage = document.createElement('img');
-				cacheImage.src = this.files + '/' + pages[i].image;
+				cacheImage.src = encodeURIComponent(this.files) + '/' + encodeURIComponent(pages[i].image);
 				this.cache.push(cacheImage);
 			}
 		},
@@ -78,29 +78,36 @@
 		refresh: function() {
 			var page = story.pages[this.currentPage];
 			
-			$('#content').empty();
+			$('#nav span.title').html(page.title);
+			$('#nav span.page').html('' + (this.currentPage + 1) + ' of ' + story.pages.length);
+			$('#nav a.previous').toggleClass('disabled', !this.hasPrevious());
+			$('#nav a.next').toggleClass('disabled', !this.hasNext());
 			
-			$('<img/>', {
+			var img = $('<img/>', {
 				src : encodeURIComponent(this.files) + '/' + encodeURIComponent(page.image),
 				usemap: '#map' + this.currentPage,
 				width: page.width,
 				height: page.height
-			}).appendTo('#content');
-
-			$('#nav span.title').html(page.title);
-			$('#nav span.page').html('' + (this.currentPage + 1) + ' of ' + story.pages.length);
-			
-			$('#content').width(page.width);
-			
-			$('#content img').maphilight({
-				alwaysOn: this.highlightLinks,
-				stroke: false,
-				fillColor: 'FFC400',
-				fillOpacity: 100.0/255
 			});
+			
+			var highlight = this.highlightLinks;
 
-			$('#nav a.previous').toggleClass('disabled', !this.hasPrevious());
-			$('#nav a.next').toggleClass('disabled', !this.hasNext());
+			img.one('load', function() {
+				var content = $('#content');
+				content.empty();
+				img.appendTo(content);
+				content.width(page.width);
+				
+				img.maphilight({
+					alwaysOn: highlight,
+					stroke: false,
+					fillColor: 'FFC400',
+					fillOpacity: 100.0/255
+				});
+			}).each(function() {
+				if(this.complete || (jQuery.browser.msie && parseInt(jQuery.browser.version) == 6)) 
+					$(this).trigger('load');
+			});
 		},
 		next : function() {
 			if (this.hasNext())
