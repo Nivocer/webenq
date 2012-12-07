@@ -1,3 +1,3 @@
 <?php return array(
-	'title' => 'titel',
+    'title' => 'titel',
 );

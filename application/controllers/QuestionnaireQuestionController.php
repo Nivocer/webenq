@@ -65,7 +65,11 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     public function editAction()
     {
         // get requested questionnaire-question
-        $questionnaireQuestion = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')->find($this->_request->id);
+        $questionnaireQuestion = Doctrine_Core::getTable(
+            'Webenq_Model_QuestionnaireQuestion'
+        )->find(
+            $this->_request->id
+        );
 
         // get form
         $form = new Webenq_Form_QuestionnaireQuestion_Edit($questionnaireQuestion);
@@ -85,10 +89,12 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
             // close dialog and redirect
             if ($this->_request->isXmlHttpRequest()) {
-                $this->_helper->json(array(
-                    'reload' => true,
-                    'href' => $this->view->baseUrl($redirectUrl),
-                ));
+                $this->_helper->json(
+                    array(
+                        'reload' => true,
+                        'href' => $this->view->baseUrl($redirectUrl),
+                    )
+                );
             } else {
                 $this->_redirect($redirectUrl);
             }
@@ -191,7 +197,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     protected function _saveGridSubquestions($parentId, array $grid)
     {
         /* get collection-presentation object for given parent */
-        $cp = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')->find($parentId)->CollectionPresentation->getFirst();
+        $cp = Doctrine_Core::getTable(
+            'Webenq_Model_QuestionnaireQuestion'
+        )->find($parentId)->CollectionPresentation->getFirst();
         /* clear all for this parent */
         Doctrine_Query::create()
             ->update('CollectionPresentation')

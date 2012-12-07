@@ -16,8 +16,8 @@ interface Webenq_Import_Interface
      */
     public function __construct(Webenq_Import_Adapter_Abstract $adapter, $language);
 
-	/**
-	 * The actual method for handling the import.
-	 */
-	public function import();
+    /**
+     * The actual method for handling the import.
+    */
+    public function import();
 }

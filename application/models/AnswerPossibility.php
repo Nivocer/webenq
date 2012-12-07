@@ -45,8 +45,10 @@ class Webenq_Model_AnswerPossibility extends Webenq_Model_Base_AnswerPossibility
         return $this->AnswerPossibilityText[0];
 
         // throw Exception if no translation was found
-        throw new Exception('No translation was found for ' . get_class($this)
-            . ' with ID ' . $this->id);
+        throw new Exception(
+            'No translation was found for ' . get_class($this) .
+            ' with ID ' . $this->id
+        );
     }
 
     /**

@@ -1,0 +1,628 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WebEnq 4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-06 17:08+0100\n"
+"PO-Revision-Date: 2012-12-06 17:12+0100\n"
+"Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: setMessage;_;translate;setLabel;setLegend;_refresh;t;setValue;append;prepend\n"
+"X-Poedit-Basepath: /home/jaapandre/workspace/webenq4_git\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: application\n"
+
+#: application/plugins/View.php:16
+msgid "Webenq 4"
+msgstr "Webenq 4"
+
+#: application/plugins/View.php:96
+msgid "Home"
+msgstr "Home"
+
+#: application/plugins/View.php:101
+msgid "Questionnaires"
+msgstr "Questionnaires"
+
+#: application/plugins/View.php:106
+msgid "Reports"
+msgstr "Reports"
+
+#: application/plugins/View.php:111
+msgid "Import"
+msgstr "Import"
+
+#: application/plugins/View.php:116
+msgid "Questions"
+msgstr "Questions"
+
+#: application/plugins/View.php:121
+msgid "Answer-possibilities"
+msgstr "Answer-possibilities"
+
+#: application/plugins/View.php:131
+msgid "Users"
+msgstr "Users"
+
+#: application/plugins/View.php:139
+msgid "Log out"
+msgstr "Log out"
+
+#: application/forms/ReportDefinition.php:86
+msgid "Geef de bestandsnaam voor het rapport op (zonder extensie):"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:91
+msgid "Selecteer een rapport formaat:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:97
+msgid "Selecteer een rapport-type:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:103
+msgid "Selecteer een taal:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:109
+msgid "Selecteer een klant:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:115
+msgid "Selecteer een pagina-type:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:121
+msgid "Selecteer een vraag om de data te groeperen:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:128
+msgid "Selecteer een vraag om de data te splitsen:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:135
+msgid "Selecteer de vragen die niet de rapportage moeten worden opgenomen:"
+msgstr ""
+
+#: application/forms/ReportDefinition.php:140
+msgid "Verzenden"
+msgstr ""
+
+#: application/forms/Import.php:40
+msgid "select the file to import"
+msgstr "select the file to import"
+
+#: application/forms/Import.php:41
+msgid "supported formats"
+msgstr "supported formats"
+
+#: application/forms/Email/Merge.php:50
+msgid "Selecteer het bestand met email-adressen: "
+msgstr ""
+
+#: application/forms/Email/Index.php:22
+msgid "Selecteer een directory:"
+msgstr ""
+
+#: application/forms/Email/Index.php:27
+msgid "rapporten weergeven"
+msgstr ""
+
+#: application/forms/ReportElement/Edit/IncludeJasperSubreport.php:23
+msgid "jasper file name (relative to java-root"
+msgstr ""
+
+#: application/forms/ScaleValues/Del.php:14
+msgid "ja, verwijderen"
+msgstr ""
+
+#: application/forms/ScaleValues/Del.php:14
+msgid "yes"
+msgstr "yes"
+
+#: application/forms/ScaleValues/Add.php:17
+msgid "Label:"
+msgstr "Label:"
+
+#: application/forms/ScaleValues/Add.php:25
+msgid "Waarde:"
+msgstr ""
+
+#: application/forms/ScaleValues/Add.php:30
+msgid "Vraagtype:"
+msgstr ""
+
+#: application/forms/ScaleValues/Add.php:43
+msgid "Opslaan"
+msgstr ""
+
+#: application/forms/AnswerPossibility/Edit.php:139
+#: application/forms/Question/Add.php:29
+msgid "text"
+msgstr "text"
+
+#: application/forms/AnswerPossibilitySynonym/Add.php:51
+msgid "synonym for"
+msgstr "synonym for"
+
+#: application/forms/Test/Index.php:28
+msgid "Selecteer een bestand met testdata:"
+msgstr ""
+
+#: application/forms/Tool/Merge.php:26
+msgid "select the archive file to process"
+msgstr "select the archive file to process"
+
+#: application/forms/ReportGeneration/Index.php:22
+msgid "Maak een nieuwe directory:"
+msgstr ""
+
+#: application/forms/ReportGeneration/Index.php:25
+msgid "Selecteer een bestaande directory:"
+msgstr ""
+
+#: application/forms/ReportGeneration/Index.php:30
+msgid "genereer rapporten"
+msgstr ""
+
+#: application/forms/User/Login.php:22
+msgid "Gebruikersnaam:"
+msgstr ""
+
+#: application/forms/User/Login.php:27
+msgid "Wachtwoord:"
+msgstr ""
+
+#: application/forms/User/Login.php:34
+msgid "inloggen"
+msgstr ""
+
+#: application/forms/User/Role/Edit.php:34
+msgid "Hernoem rol:"
+msgstr ""
+
+#: application/forms/User/Role/Edit.php:36
+#: application/forms/User/User/Edit.php:36
+msgid "wijzigen"
+msgstr ""
+
+#: application/forms/Questionnaire/Add.php:20
+msgid "title"
+msgstr "title"
+
+#: application/views/helpers/FrequencyTable.php:22
+msgid "id"
+msgstr "id"
+
+#: application/views/helpers/FrequencyTable.php:23
+msgid "label"
+msgstr "label"
+
+#: application/views/helpers/FrequencyTable.php:24
+msgid "waarde"
+msgstr ""
+
+#: application/views/helpers/FrequencyTable.php:25
+msgid "aantal"
+msgstr ""
+
+#: application/views/helpers/ReportElement.php:16
+msgid "edit"
+msgstr "edit"
+
+#: application/views/helpers/ReportElement.php:18
+msgid "delete"
+msgstr "delete"
+
+#: application/views/helpers/ReportElement.php:74
+msgid "will be replaced by count on"
+msgstr "will be replaced by count on"
+
+#: application/views/helpers/ReportElement.php:102
+#: application/views/helpers/ReportElement.php:135
+#: application/views/helpers/ReportElement.php:195
+msgid "grouped by"
+msgstr "grouped by"
+
+#: application/views/helpers/ReportElement.php:146
+msgid "variant: "
+msgstr "variant: "
+
+#: application/views/helpers/ReportElement.php:151
+#: application/views/helpers/ReportElement.php:176
+msgid "means colored: "
+msgstr "means colored: "
+
+#: application/views/helpers/QuestionElement.php:158
+msgid "move to page"
+msgstr "move to page"
+
+#: application/models/QuestionnaireQuestion.php:261
+msgid "select"
+msgstr "select"
+
+#: application/controllers/EmailController.php:124
+msgid "Selecteer het docenten-groep-boecode-bestand:"
+msgstr ""
+
+#: application/controllers/QuestionController.php:162
+msgid "Are you sure you want to delete the question \""
+msgstr ""
+
+#: application/controllers/QuestionController.php:164
+msgid "\" (including all translations)?"
+msgstr ""
+
+#: application/controllers/QuestionnaireController.php:274
+msgid "Are you sure you want to delete questionnaire"
+msgstr "Are you sure you want to delete questionnaire"
+
+#: application/controllers/QuestionnaireController.php:276
+msgid "(including all questions and answers)?"
+msgstr "(including all questions and answers)?"
+
+#: application/controllers/ReportController.php:111
+msgid "Are you sure you want to delete this report?"
+msgstr "Are you sure you want to delete this report?"
+
+#: application/controllers/ReportElementController.php:126
+msgid "Are you sure you want to delete this report element?"
+msgstr "Are you sure you want to delete this report element?"
+
+#: application/controllers/AnswerPossibilityController.php:213
+msgid "This answer possibility is used in one or more questionnaires and cannot be deleted."
+msgstr "This answer possibility is used in one or more questionnaires and cannot be deleted."
+
+#: application/views/scripts/management/index.phtml:23
+msgid "bewerken"
+msgstr ""
+
+#: application/views/scripts/answer-possibility-synonym/add.phtml:2
+msgid "back to"
+msgstr "back to"
+
+#: application/views/scripts/answer-possibility-synonym/add.phtml:3
+msgid "answer possibility"
+msgstr "answer possibility"
+
+#: application/views/scripts/answer-possibility-synonym/edit.phtml:2
+msgid "back to answer possibility"
+msgstr "back to answer possibility"
+
+#: application/views/scripts/answer-possibility-synonym/edit.phtml:8
+#: application/views/scripts/answer-possibility/view.phtml:5
+msgid "add synonym"
+msgstr "add synonym"
+
+#: application/views/scripts/answer-possibility-synonym/edit.phtml:28
+msgid "verwijderen"
+msgstr ""
+
+#: application/views/scripts/answer-possibility/view.phtml:2
+msgid "back to answer possibility group"
+msgstr "back to answer possibility group"
+
+#: application/views/scripts/answer-possibility/view.phtml:12
+msgid "synonym"
+msgstr "synonym"
+
+#: application/views/scripts/questionnaire-question/edit.phtml:5
+#: application/views/scripts/questionnaire-question/edit.ajax.phtml:5
+msgid "algemeen"
+msgstr ""
+
+#: application/views/scripts/questionnaire-question/edit.phtml:8
+#: application/views/scripts/questionnaire-question/edit.ajax.phtml:8
+msgid "antwoordmogelijkheden"
+msgstr ""
+
+#: application/views/scripts/questionnaire-question/edit.phtml:11
+#: application/views/scripts/questionnaire-question/edit.ajax.phtml:11
+msgid "validatie"
+msgstr ""
+
+#: application/views/scripts/questionnaire-question/delete.ajax.phtml:2
+#: application/views/scripts/questionnaire-question/delete.phtml:2
+msgid "Weet u zeker dat u onderstaande vraag uit de huidige questionnaire wilt verwijderen?"
+msgstr ""
+
+#: application/views/scripts/report/view.phtml:5
+msgid "Report"
+msgstr "Report"
+
+#: application/views/scripts/report/view.phtml:7
+msgid "for questionnaire"
+msgstr "for questionnaire"
+
+#: application/views/scripts/report/view.phtml:11
+msgid "generate report"
+msgstr "generate report"
+
+#: application/views/scripts/report/view.phtml:12
+msgid "edit control file"
+msgstr "edit control file"
+
+#: application/views/scripts/report/view.phtml:13
+msgid "download control file"
+msgstr "download control file"
+
+#: application/views/scripts/report/view.phtml:14
+msgid "download jrxml"
+msgstr "download jrxml"
+
+#: application/views/scripts/report/view.phtml:18
+#: application/views/scripts/report/view.phtml:19
+msgid "add report element"
+msgstr "add report element"
+
+#: application/views/scripts/report/index.phtml:1
+#: application/views/scripts/report/index.phtml:2
+msgid "add report"
+msgstr "add report"
+
+#: application/views/scripts/report/index.phtml:6
+msgid "No reports have been defined yet"
+msgstr "No reports have been defined yet"
+
+#: application/views/scripts/report/index.phtml:12
+msgid "rapport"
+msgstr ""
+
+#: application/views/scripts/report/index.phtml:13
+msgid "questionnaire"
+msgstr "questionnaire"
+
+#: application/views/scripts/report/index.phtml:14
+msgid "customer"
+msgstr "customer"
+
+#: application/views/scripts/report/index.phtml:15
+msgid "language"
+msgstr "language"
+
+#: application/views/scripts/report/index.phtml:16
+msgid "split question"
+msgstr "split question"
+
+#: application/views/scripts/report/index.phtml:17
+msgid "output directory"
+msgstr "output directory"
+
+#: application/views/scripts/report/index.phtml:18
+msgid "output file name"
+msgstr "output file name"
+
+#: application/views/scripts/report/index.phtml:19
+msgid "output format"
+msgstr "output format"
+
+#: application/views/scripts/report/index.phtml:20
+msgid "orientation"
+msgstr "orientation"
+
+#: application/views/scripts/report/index.phtml:59
+msgid "view"
+msgstr "view"
+
+#: application/views/scripts/report/index.phtml:61
+msgid "generate"
+msgstr "generate"
+
+#: application/views/scripts/question/index.phtml:1
+#: application/views/scripts/question/index.phtml:2
+msgid "add question"
+msgstr "add question"
+
+#: application/views/scripts/question/index.phtml:6
+msgid "Er zijn nog geen vragen aangemaakt"
+msgstr ""
+
+#: application/views/scripts/question/index.phtml:11
+msgid "question"
+msgstr "question"
+
+#: application/views/scripts/question/index.phtml:12
+msgid "date added"
+msgstr "date added"
+
+#: application/views/scripts/question/index.phtml:13
+msgid "used in questionnaires"
+msgstr "used in questionnaires"
+
+#: application/views/scripts/answer-possibility-group/view.phtml:2
+msgid "back to all answer possibilities"
+msgstr "back to all answer possibilities"
+
+#: application/views/scripts/answer-possibility-group/view.phtml:7
+#: application/views/scripts/answer-possibility-group/view.phtml:8
+msgid "add answer possibility"
+msgstr "add answer possibility"
+
+#: application/views/scripts/answer-possibility-group/view.phtml:15
+msgid "value"
+msgstr "value"
+
+#: application/views/scripts/answer-possibility-group/view.phtml:17
+msgid "available languages"
+msgstr "available languages"
+
+#: application/views/scripts/answer-possibility-group/view.phtml:18
+#: application/views/scripts/answer-possibility-group/view.phtml:38
+msgid "synonyms"
+msgstr "synonyms"
+
+#: application/views/scripts/answer-possibility-group/index.phtml:1
+#: application/views/scripts/answer-possibility-group/index.phtml:2
+msgid "add answer possibility group"
+msgstr "add answer possibility group"
+
+#: application/views/scripts/answer-possibility-group/index.phtml:6
+msgid "There aren't any answer possibilities yet"
+msgstr "There aren't any answer possibilities yet"
+
+#: application/views/scripts/answer-possibility-group/index.phtml:11
+msgid "group"
+msgstr "group"
+
+#: application/views/scripts/answer-possibility-group/index.phtml:12
+msgid "allowed"
+msgstr "allowed"
+
+#: application/views/scripts/answer-possibility-group/index.phtml:13
+msgid "used"
+msgstr "used"
+
+#: application/views/scripts/answer-possibility-group/index.phtml:14
+msgid "questionnaire(s)"
+msgstr "questionnaire(s)"
+
+#: application/views/scripts/answer-possibility-group/index.phtml:28
+#: application/views/scripts/answer-possibility-group/index.phtml:32
+msgid "possibilities"
+msgstr "possibilities"
+
+#: application/views/scripts/answer-possibility-null-value/index.phtml:1
+#: application/views/scripts/answer-possibility-null-value/index.phtml:2
+msgid "add null value answer possibility"
+msgstr "add null value answer possibility"
+
+#: application/views/scripts/answer-possibility-null-value/index.phtml:6
+msgid "There aren't any null value answer possibilities yet"
+msgstr "There aren't any null value answer possibilities yet"
+
+#: application/views/scripts/questionnaire/edit.phtml:7
+msgid "nieuwe vraag toevoegen"
+msgstr ""
+
+#: application/views/scripts/questionnaire/edit.phtml:8
+msgid "add new question"
+msgstr "add new question"
+
+#: application/views/scripts/questionnaire/edit.phtml:12
+msgid "bestaande vraag toevoegen"
+msgstr ""
+
+#: application/views/scripts/questionnaire/edit.phtml:13
+msgid "add existing question"
+msgstr "add existing question"
+
+#: application/views/scripts/questionnaire/edit.phtml:17
+msgid "pagina toevoegen"
+msgstr ""
+
+#: application/views/scripts/questionnaire/edit.phtml:18
+msgid "add page"
+msgstr "add page"
+
+#: application/views/scripts/questionnaire/edit.phtml:27
+msgid "page"
+msgstr "page"
+
+#: application/views/scripts/questionnaire/download.phtml:5
+#: application/views/scripts/questionnaire/download.phtml:6
+msgid "XForm download"
+msgstr "XForm download"
+
+#: application/views/scripts/questionnaire/download.phtml:10
+#: application/views/scripts/questionnaire/download.phtml:11
+msgid "XForm data download"
+msgstr "XForm data download"
+
+#: application/views/scripts/questionnaire/download.phtml:15
+#: application/views/scripts/questionnaire/download.phtml:16
+msgid "JRXML download"
+msgstr "JRXML download"
+
+#: application/views/scripts/questionnaire/collect.phtml:2
+msgid "Page"
+msgstr "Page"
+
+#: application/views/scripts/questionnaire/index.phtml:1
+#: application/views/scripts/questionnaire/index.phtml:2
+msgid "add questionnaire"
+msgstr "add questionnaire"
+
+#: application/views/scripts/questionnaire/index.phtml:11
+msgid "date"
+msgstr "date"
+
+#: application/views/scripts/questionnaire/index.phtml:12
+msgid "file"
+msgstr "file"
+
+#: application/views/scripts/questionnaire/index.phtml:40
+msgid "check"
+msgstr "check"
+
+#: application/views/scripts/questionnaire/index.phtml:41
+msgid "collect"
+msgstr "collect"
+
+#: application/views/scripts/questionnaire/index.phtml:42
+msgid "download"
+msgstr "download"
+
+#: application/views/scripts/questionnaire/index.phtml:45
+msgid "print"
+msgstr "print"
+
+#: application/views/scripts/questionnaire/index.phtml:54
+msgid "No questionnaires have been imported yet"
+msgstr "No questionnaires have been imported yet"
+
+#: application/views/scripts/questionnaire/report.phtml:5
+msgid "No question text available for the current language"
+msgstr "No question text available for the current language"
+
+#: application/views/scripts/questionnaire/report.phtml:8
+msgid "Toon/verberg antwoorden"
+msgstr ""
+
+#: application/views/scripts/user/role.phtml:1
+#: application/views/scripts/user/role.phtml:2
+msgid "manage users"
+msgstr "manage users"
+
+#: application/views/scripts/user/role.phtml:4
+#: application/views/scripts/user/role.phtml:5
+#: application/views/scripts/user/user.phtml:4
+#: application/views/scripts/user/user.phtml:5
+msgid "manage permissions"
+msgstr "manage permissions"
+
+#: application/views/scripts/user/role.phtml:11
+#: application/views/scripts/user/user.phtml:13
+msgid "role"
+msgstr "role"
+
+#: application/views/scripts/user/user.phtml:1
+#: application/views/scripts/user/user.phtml:2
+msgid "manage roles"
+msgstr "manage roles"
+
+#: application/views/scripts/user/user.phtml:11
+msgid "username"
+msgstr "username"
+
+#: application/views/scripts/user/user.phtml:12
+msgid "name"
+msgstr "name"
+
+#: application/views/scripts/user/permission.phtml:2
+#: application/views/scripts/user/permission.phtml:3
+msgid "gebruikers beheren"
+msgstr ""
+
+#: application/views/scripts/user/permission.phtml:7
+#: application/views/scripts/user/permission.phtml:8
+msgid "rollen beheren"
+msgstr ""
+
+#: application/views/layouts/layout.phtml:18
+msgid "one moment please..."
+msgstr "one moment please..."
+

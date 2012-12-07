@@ -11,88 +11,88 @@
  */
 class Webenq_Import_Questback extends Webenq_Import_Default
 {
-	/**
-	 * Runs the import process
-	 */
-	public function import()
-	{
-		$this->_storeQuestionsAndAnswers()
-			->_storeMeta()
-			->_storeInfo()
-			->_storeGroups();
-	}
+    /**
+     * Runs the import process
+     */
+    public function import()
+    {
+        $this->_storeQuestionsAndAnswers()
+        ->_storeMeta()
+        ->_storeInfo()
+        ->_storeGroups();
+    }
 
-	/**
-	 * Stores the key/value-pairs provided in the third working sheet
-	 *
-	 * @return self
-	 */
-	protected function _storeInfo()
-	{
-		$allData = $this->_adapter->getData();
-		$data = $allData[2];
+    /**
+     * Stores the key/value-pairs provided in the third working sheet
+     *
+     * @return self
+     */
+    protected function _storeInfo()
+    {
+        $allData = $this->_adapter->getData();
+        $data = $allData[2];
 
-		/* iterate over data */
-		$meta = array();
-		foreach ($data as $row) {
-			$meta[$row[0]] = $row[1];
-		}
+        /* iterate over data */
+        $meta = array();
+        foreach ($data as $row) {
+            $meta[$row[0]] = $row[1];
+        }
 
-		/* get current meta, add to it, and save */
-		$newMeta = isset($this->_questionnaire->meta) ? unserialize($this->_questionnaire->meta) : array();
-		$newMeta += $meta;
-		$this->_questionnaire->addQuestionnaireTitle($this->_language, $data[0][1]);
-		$this->_questionnaire->meta = serialize($newMeta);
-		$this->_questionnaire->save();
+        /* get current meta, add to it, and save */
+        $newMeta = isset($this->_questionnaire->meta) ? unserialize($this->_questionnaire->meta) : array();
+        $newMeta += $meta;
+        $this->_questionnaire->addQuestionnaireTitle($this->_language, $data[0][1]);
+        $this->_questionnaire->meta = serialize($newMeta);
+        $this->_questionnaire->save();
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Stores the question groups
-	 *
-	 * @return self
-	 */
-	protected function _storeGroups()
-	{
+    /**
+     * Stores the question groups
+     *
+     * @return self
+     */
+    protected function _storeGroups()
+    {
         // get data in spreadsheet format
         $data = $this->_adapter->getData();
         $firstWorkSheet = $data[0];
         $secondWorkSheet = $data[1];
         $questionsAndAnswers = $this->_getDataAsAnswers($firstWorkSheet);
 
-		$questionnaire = $this->_questionnaire;
+        $questionnaire = $this->_questionnaire;
 
-		// find questions per group
+        // find questions per group
         $groups = array();
         $i = 0;
-		foreach ($questionsAndAnswers as $question => $answers) {
-			if (preg_match("#^(\d+):(.*)$#", $question, $matches)) {
-				$groups[$matches[1]][] = $questionnaire->QuestionnaireQuestion[$i];
-			}
-			$i++;
-		}
+        foreach ($questionsAndAnswers as $question => $answers) {
+            if (preg_match("#^(\d+):(.*)$#", $question, $matches)) {
+                $groups[$matches[1]][] = $questionnaire->QuestionnaireQuestion[$i];
+            }
+            $i++;
+        }
 
-		// find group names
+        // find group names
         $groupNames = array();
-		foreach ($secondWorkSheet as $row) {
-			preg_match('#^(\d*):\s*=(.*)$#', $row[0], $matches);
-			$groupNames[$matches[1]] = trim($matches[2]);
-		}
+        foreach ($secondWorkSheet as $row) {
+            preg_match('#^(\d*):\s*=(.*)$#', $row[0], $matches);
+            $groupNames[$matches[1]] = trim($matches[2]);
+        }
 
-		// auto-create empty group names
-		foreach ($groups as $i => $questions) {
-		    if (!key_exists($i, $groupNames)) {
-		        $groupNames[$i] = "Groep $i";
-		    }
-		}
+        // auto-create empty group names
+        foreach ($groups as $i => $questions) {
+            if (!key_exists($i, $groupNames)) {
+                $groupNames[$i] = "Groep $i";
+            }
+        }
 
         // save groups
         foreach ($groups as $id => $group) {
 
             // find existing or create new parent question
             $parentQuestionText = Doctrine_Core::getTable('Webenq_Model_QuestionText')
-                ->findOneByTextAndLanguage($groupNames[$id], $this->_language);
+            ->findOneByTextAndLanguage($groupNames[$id], $this->_language);
             if ($parentQuestionText) {
                 $parentQuestion = $parentQuestionText->Question;
             } else {
@@ -113,7 +113,11 @@ class Webenq_Import_Questback extends Webenq_Import_Default
 
             foreach ($group as $qq) {
                 // remove group number from question text
-                $qq->Question->QuestionText[0]->text = preg_replace('/^(\d+): /', null, $qq->Question->QuestionText[0]->text);
+                $qq->Question->QuestionText[0]->text = preg_replace(
+                    '/^(\d+): /',
+                    null,
+                    $qq->Question->QuestionText[0]->text
+                );
                 $qq->Question->QuestionText[0]->save();
                 // connect to parent
                 $qq->CollectionPresentation[0]->parent_id = $parentId;
@@ -122,15 +126,15 @@ class Webenq_Import_Questback extends Webenq_Import_Default
         }
 
         // save groups
-		foreach ($groups as $id => $group) {
-			$questionGroup = new Webenq_Model_QuestionGroup();
-			$questionGroup->name = (isset($groupNames[$id]) ? $groupNames[$id] : '');
-			foreach ($group as $question) {
-				$questionGroup->QuestionnaireQuestion[] = $question;
-			}
-			$questionGroup->save();
-		}
+        foreach ($groups as $id => $group) {
+            $questionGroup = new Webenq_Model_QuestionGroup();
+            $questionGroup->name = (isset($groupNames[$id]) ? $groupNames[$id] : '');
+            foreach ($group as $question) {
+                $questionGroup->QuestionnaireQuestion[] = $question;
+            }
+            $questionGroup->save();
+        }
 
-		return $this;
-	}
+        return $this;
+    }
 }

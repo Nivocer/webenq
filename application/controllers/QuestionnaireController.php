@@ -14,22 +14,22 @@ class QuestionnaireController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-        'add' => array('html'),
+            'add' => array('html'),
     );
 
     /**
      * Renders the overview of questoinnaires
      *
      * @return void
-     */
+    */
     public function indexAction()
     {
         $this->view->questionnaires = Doctrine_Query::create()
-            ->select('q.*, COUNT(qq.id) as count_qqs')
-            ->from('Webenq_Model_Questionnaire q')
-            ->leftJoin('q.QuestionnaireQuestion qq')
-            ->groupBy('q.id')
-            ->execute();
+        ->select('q.*, COUNT(qq.id) as count_qqs')
+        ->from('Webenq_Model_Questionnaire q')
+        ->leftJoin('q.QuestionnaireQuestion qq')
+        ->groupBy('q.id')
+        ->execute();
     }
 
     /**
@@ -41,21 +41,26 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
-        $filename = Webenq::filename(implode('-', array(
-            'xform-def',
-        	$questionnaire->id,
-            $questionnaire->getQuestionnaireTitle()->text,
-            date('YmdHis'))) . '.xml');
+        $filename = Webenq::filename(
+            implode(
+                '-', array(
+                    'xform-def',
+                    $questionnaire->id,
+                    $questionnaire->getQuestionnaireTitle()->text,
+                    date('YmdHis')
+                )
+            ) . '.xml'
+        );
 
         $xml = $questionnaire->getXform();
 
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
-            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
-            ->setHeader('Content-Transfer-Encoding', 'binary')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->setBody($xml->saveXML());
+        ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+        ->setHeader('Content-Transfer-Encoding', 'binary')
+        ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+        ->setBody($xml->saveXML());
     }
 
     /**
@@ -67,31 +72,36 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
-        $filename = Webenq::filename(implode('-', array(
-            'xform-data',
-        	$questionnaire->id,
-            $questionnaire->getQuestionnaireTitle()->text,
-            date('YmdHis')))) . '.xml';
+        $filename = Webenq::filename(
+            implode(
+                '-', array(
+                    'xform-data',
+                    $questionnaire->id,
+                    $questionnaire->getQuestionnaireTitle()->text,
+                    date('YmdHis')
+                )
+            )
+        ) . '.xml';
 
         $xml = $questionnaire->getXformData();
         //save file in case of large files and connection/keep-alive time-out
         $tempPath=ini_get('upload_tmp_dir');
-        if (empty($tempPath)){
-        	$tempPath='/tmp';
+        if (empty($tempPath)) {
+            $tempPath='/tmp';
         }
         $tempFile=$tempPath.'/'.$filename;
         $xml->save($tempFile);
-                
+
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
-            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
-            ->setHeader('Content-Transfer-Encoding', 'binary')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
-		$this->getResponse()->sendHeaders();
-		//reading file to setbody(readfile($fileTemp), returns also de size of the file in the xml file.
-		//@todo check to see if there is a better solution
-		readfile($tempFile);
+        ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+        ->setHeader('Content-Transfer-Encoding', 'binary')
+        ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        $this->getResponse()->sendHeaders();
+        //reading file to setbody(readfile($fileTemp), returns also de size of the file in the xml file.
+        //@todo check to see if there is a better solution
+        readfile($tempFile);
     }
 
     /**
@@ -169,18 +179,18 @@ class QuestionnaireController extends Zend_Controller_Action
 
             // reset all questions on this page
             Doctrine_Query::create()
-                ->update('Webenq_Model_CollectionPresentation cp')
-                ->set('weight', '?', 0)
-                ->set('page', '?', $page)
-                ->whereIn('cp.questionnaire_question_id', $qqIds)
-                ->execute();
+            ->update('Webenq_Model_CollectionPresentation cp')
+            ->set('weight', '?', 0)
+            ->set('page', '?', $page)
+            ->whereIn('cp.questionnaire_question_id', $qqIds)
+            ->execute();
 
             // get questions on this page
             $qqs = Doctrine_Query::create()
-                ->from('Webenq_Model_QuestionnaireQuestion qq')
-                ->leftJoin('qq.CollectionPresentation cp')
-                ->whereIn('qq.id', $qqIds)
-                ->execute();
+            ->from('Webenq_Model_QuestionnaireQuestion qq')
+            ->leftJoin('qq.CollectionPresentation cp')
+            ->whereIn('qq.id', $qqIds)
+            ->execute();
 
             // set new weight
             foreach ($qqs as $weight => $qq) {
@@ -191,10 +201,10 @@ class QuestionnaireController extends Zend_Controller_Action
 
                 // make sure the page is also set on sub-questions
                 Doctrine_Query::create()
-                    ->update('Webenq_Model_CollectionPresentation cp')
-                    ->set('page', '?', $page)
-                    ->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
-                    ->execute();
+                ->update('Webenq_Model_CollectionPresentation cp')
+                ->set('page', '?', $page)
+                ->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
+                ->execute();
             }
         }
     }
@@ -213,18 +223,18 @@ class QuestionnaireController extends Zend_Controller_Action
 
         // reset subquestions
         Doctrine_Query::create()
-            ->update('Webenq_Model_CollectionPresentation cp')
-            ->set('weight', '?', 0)
-            ->set('page', '?', 0)
-            ->whereIn('cp.questionnaire_question_id', $qqIds)
-            ->execute();
+        ->update('Webenq_Model_CollectionPresentation cp')
+        ->set('weight', '?', 0)
+        ->set('page', '?', 0)
+        ->whereIn('cp.questionnaire_question_id', $qqIds)
+        ->execute();
 
         // get subquestions
         $qqs = Doctrine_Query::create()
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->leftJoin('qq.CollectionPresentation cp')
-            ->whereIn('qq.id', $qqIds)
-            ->execute();
+        ->from('Webenq_Model_QuestionnaireQuestion qq')
+        ->leftJoin('qq.CollectionPresentation cp')
+        ->whereIn('qq.id', $qqIds)
+        ->execute();
 
         // set new weight
         foreach ($qqs as $weight => $qq) {
@@ -259,11 +269,11 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->_helper->actionStack('index', 'questionnaire');
 
         $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         $confirmationText = t('Are you sure you want to delete questionnaire')
-            . " $questionnaire->id "
-            . t('(including all questions and answers)?');
+        . " $questionnaire->id "
+        . t('(including all questions and answers)?');
 
         $form = new Webenq_Form_Confirm($questionnaire->id, $confirmationText);
 
@@ -299,10 +309,10 @@ class QuestionnaireController extends Zend_Controller_Action
         // get or create respondent
         if ($this->_request->respondent_id) {
             $respondent = Doctrine_Core::getTable('Webenq_Model_Respondent')
-                ->find($this->_request->respondent_id);
+            ->find($this->_request->respondent_id);
         } else if ($session->respondent_id) {
             $respondent = Doctrine_Core::getTable('Webenq_Model_Respondent')
-                ->find($session->respondent_id);
+            ->find($session->respondent_id);
         } else {
             $respondent = new Webenq_Model_Respondent();
             $respondent->questionnaire_id = $this->_request->id;
@@ -318,7 +328,12 @@ class QuestionnaireController extends Zend_Controller_Action
 
         // get questions for current page
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
-            $this->_request->id, $this->_helper->language(), $page, $respondent, true);
+            $this->_request->id,
+            $this->_helper->language(),
+            $page,
+            $respondent,
+            true
+        );
         if ($questionnaire) {
             $qqs = $questionnaire->QuestionnaireQuestion;
         } else {
@@ -347,8 +362,8 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->view->form = $form;
         $this->view->pageNr = $page;
         $this->view->progress = array(
-            'total' => $totalQuestions,
-            'ready' => $answeredQuestions,
+                'total' => $totalQuestions,
+                'ready' => $answeredQuestions,
         );
     }
 
@@ -368,7 +383,7 @@ class QuestionnaireController extends Zend_Controller_Action
 
         // save answer-id or text
         $qq = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
-            ->find(str_replace('qq_', null, $key));
+        ->find(str_replace('qq_', null, $key));
         if ($value === '' || is_array($value)) {
             $this->_saveEmptyAnswer($qq, $respondent);
         } elseif ($qq->answerPossibilityGroup_id) {
@@ -387,10 +402,10 @@ class QuestionnaireController extends Zend_Controller_Action
     protected function _removeAnswers(Webenq_Model_QuestionnaireQuestion $qq, Webenq_Model_Respondent $respondent)
     {
         Doctrine_Query::create()
-            ->delete('Webenq_Model_Answer a')
-            ->where('a.respondent_id = ?', $respondent->id)
-            ->andWhere('a.questionnaire_question_id = ?', $qq->id)
-            ->execute();
+        ->delete('Webenq_Model_Answer a')
+        ->where('a.respondent_id = ?', $respondent->id)
+        ->andWhere('a.questionnaire_question_id = ?', $qq->id)
+        ->execute();
     }
 
     protected function _saveEmptyAnswer(Webenq_Model_QuestionnaireQuestion $qq, Webenq_Model_Respondent $respondent)
@@ -408,7 +423,7 @@ class QuestionnaireController extends Zend_Controller_Action
     }
 
     protected function _saveAnswerId(Webenq_Model_QuestionnaireQuestion $qq, $answerIds,
-        Webenq_Model_Respondent $respondent)
+            Webenq_Model_Respondent $respondent)
     {
         $this->_removeAnswers($qq, $respondent);
 
@@ -431,7 +446,7 @@ class QuestionnaireController extends Zend_Controller_Action
     }
 
     protected function _saveAnswerText(Webenq_Model_QuestionnaireQuestion $qq, $answerValues,
-        Webenq_Model_Respondent $respondent)
+            Webenq_Model_Respondent $respondent)
     {
         $this->_removeAnswers($qq, $respondent);
 
@@ -456,22 +471,22 @@ class QuestionnaireController extends Zend_Controller_Action
     public function groupAction()
     {
         $questions = Doctrine_Query::create()
-            ->from('Webenq_Model_CollectionPresentation cp')
-            ->innerJoin('cp.QuestionnaireQuestion qq')
-            ->innerJoin('qq.Questionnaire q')
-            ->where('q.id = ?', $this->_request->id)
-            ->andWhere('cp.parent_id IS NULL')
-            ->groupBy('qq.id')
-            ->execute();
+        ->from('Webenq_Model_CollectionPresentation cp')
+        ->innerJoin('cp.QuestionnaireQuestion qq')
+        ->innerJoin('qq.Questionnaire q')
+        ->where('q.id = ?', $this->_request->id)
+        ->andWhere('cp.parent_id IS NULL')
+        ->groupBy('qq.id')
+        ->execute();
 
         $groups = Doctrine_Query::create()
-            ->from('Webenq_Model_CollectionPresentation cp')
-            ->innerJoin('cp.QuestionnaireQuestion qq')
-            ->innerJoin('qq.Questionnaire q')
-            ->where('q.id = ?', $this->_request->id)
-            ->andWhere('cp.parent_id IS NULL')
-//            ->groupBy('cp.parent_id')
-            ->execute();
+        ->from('Webenq_Model_CollectionPresentation cp')
+        ->innerJoin('cp.QuestionnaireQuestion qq')
+        ->innerJoin('qq.Questionnaire q')
+        ->where('q.id = ?', $this->_request->id)
+        ->andWhere('cp.parent_id IS NULL')
+        //            ->groupBy('cp.parent_id')
+        ->execute();
 
         $this->view->questions = $questions;
         $this->view->groups = $groups;
@@ -484,20 +499,32 @@ class QuestionnaireController extends Zend_Controller_Action
         }
 
         $form = new Zend_Form();
-        $form->addElements(array(
-            $form->createElement('radio', 'format', array(
-                'label' => 'Selecteer een formaat:',
-                'multiOptions' => array(
-                    'xls' => 'Microsoft Excel 5 (XLS)',
-                    'xlsx' => 'Microsoft Excel 2007 (XLSX)',
-                    'csv' => 'comma separated values (CSV)',
-                    'ods' => 'Open Office Spreadsheet (ODS)',
-//                    'pdf' => 'Portable Document Format (PDF)',
+        $form->addElements(
+            array(
+                $form->createElement(
+                    'radio',
+                    'format',
+                    array(
+                        'label' => 'Selecteer een formaat:',
+                        'multiOptions' => array(
+                            'xls' => 'Microsoft Excel 5 (XLS)',
+                            'xlsx' => 'Microsoft Excel 2007 (XLSX)',
+                            'csv' => 'comma separated values (CSV)',
+                            'ods' => 'Open Office Spreadsheet (ODS)',
+                            //'pdf' => 'Portable Document Format (PDF)',
+                        ),
+                        'required' => true,
+                    )
                 ),
-                'required' => true,
-            )),
-            $form->createElement('submit', 'submit', array('label' => 'Download')),
-        ));
+                $form->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'Download'
+                    )
+                ),
+            )
+        );
 
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
@@ -507,7 +534,9 @@ class QuestionnaireController extends Zend_Controller_Action
                 $this->_helper->viewRenderer->setNoRender();
 
                 $format = $form->format->getValue();
-                $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($id, $this->_helper->language(), null, null, true);
+                $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
+                    $id, $this->_helper->language(), null, null, true
+                );
                 $download = Webenq_Download::factory($format, $questionnaire);
                 $download->send($this->_response);
 
@@ -530,16 +559,26 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
 
         $form = new Zend_Form();
-        $form->addElements(array(
-            $form->createElement('radio', 'format', array(
-                'label' => 'Selecteer een formaat:',
-                'multiOptions' => array(
-                    'pdf' => 'Portable Document Format (PDF)',
+        $form->addElements(
+            array(
+                $form->createElement(
+                    'radio', 'format', array(
+                        'label' => 'Selecteer een formaat:',
+                        'multiOptions' => array(
+                            'pdf' => 'Portable Document Format (PDF)',
+                        ),
+                        'required' => true,
+                    )
                 ),
-                'required' => true,
-            )),
-            $form->createElement('submit', 'submit', array('label' => 'Download')),
-        ));
+                $form->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'Download'
+                    )
+                ),
+            )
+        );
 
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
@@ -564,10 +603,15 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
 
-        $filename = Webenq::filename(implode('-', array(
-            $questionnaire->id,
-            $questionnaire->getQuestionnaireTitle()->text,
-            date('YmdHis')))) . '.jrxml';
+        $filename = Webenq::filename(
+            implode(
+                '-', array(
+                    $questionnaire->id,
+                    $questionnaire->getQuestionnaireTitle()->text,
+                    date('YmdHis')
+                )
+            )
+        ) . '.jrxml';
 
         // config settings
         // @todo get this from database
@@ -589,9 +633,9 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
-            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
-            ->setHeader('Content-Transfer-Encoding', 'binary')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->setBody($dom->saveXML());
+        ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+        ->setHeader('Content-Transfer-Encoding', 'binary')
+        ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+        ->setBody($dom->saveXML());
     }
 }

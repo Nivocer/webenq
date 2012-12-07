@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_AnswerPossibilitySynonym_Edit extends Zend_Form
 {
@@ -35,18 +35,32 @@ class Webenq_Form_AnswerPossibilitySynonym_Edit extends Zend_Form
      */
     public function init()
     {
-        $this->addElements(array(
-            $this->createElement('hidden', 'id', array(
-                'value' => $this->_synonym->id,
-            )),
-            $this->createElement('text', 'text', array(
-                'label' => 'text',
-                'value' => $this->_synonym->text,
-                'required' => true,
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'save',
-            )),
-        ));
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'hidden',
+                    'id',
+                    array(
+                        'value' => $this->_synonym->id,
+                    )
+                ),
+                $this->createElement(
+                    'text',
+                    'text',
+                    array(
+                        'label' => 'text',
+                        'value' => $this->_synonym->text,
+                        'required' => true,
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'save',
+                    )
+                ),
+            )
+        );
     }
 }

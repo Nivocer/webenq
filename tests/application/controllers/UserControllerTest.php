@@ -1,7 +1,8 @@
 <?php
 class Webenq_Test_ControllerTestCase_UserControllerTest extends Webenq_Test_Case_Controller
 {
-    public function testDummy() {}
+    public function testDummy() {
+    }
 
 //    public function testLoginFormIsRendered()
 //    {

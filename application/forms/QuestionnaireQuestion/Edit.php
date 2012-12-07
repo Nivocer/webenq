@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
 {
@@ -30,8 +30,10 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         // get all questions in this questionnaire at root level
         $rootQuestions = Doctrine_Query::create()
             ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->innerJoin('qq.CollectionPresentation cp WITH qq.questionnaire_id = ?',
-                $questionnaireQuestion->questionnaire_id)
+            ->innerJoin(
+                'qq.CollectionPresentation cp WITH qq.questionnaire_id = ?',
+                $questionnaireQuestion->questionnaire_id
+            )
             ->innerJoin('qq.Question q')
             ->leftJoin('q.QuestionText qt WITH qt.language = ?', Zend_Registry::get('Zend_Locale')->getLanguage())
             ->andWhere('qq.id != ?', $questionnaireQuestion['id'])
@@ -65,79 +67,141 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         $generalForm->addSubForm($questionEditForm->getSubForm('text'), 'text');
 
         if ($qq->existsInMultipleQuestionnaires()) {
-            $generalForm->addElement($this->createElement('radio', 'change_globally', array(
-                'label' => 'Hoe wilt u bovenstaande wijzigingen doorvoeren?',
-                'value' => 'local',
-                'multiOptions' => array(
-                    'local' => 'Huidige questionnaire',
-                    'global' => 'Alle questionnaires',
-                ),
-                'order' => 100,
-            )));
+            $generalForm->addElement(
+                $this->createElement(
+                    'radio',
+                    'change_globally',
+                    array(
+                        'label' => 'Hoe wilt u bovenstaande wijzigingen doorvoeren?',
+                        'value' => 'local',
+                        'multiOptions' => array(
+                            'local' => 'Huidige questionnaire',
+                            'global' => 'Alle questionnaires',
+                        ),
+                        'order' => 100,
+                    )
+                )
+            );
         } else {
-            $generalForm->addElement($this->createElement('hidden', 'change_globally', array(
-                'value' => 'global',
-            )));
+            $generalForm->addElement(
+                $this->createElement(
+                    'hidden',
+                    'change_globally',
+                    array(
+                        'value' => 'global',
+                    )
+                )
+            );
         }
 
-        $generalForm->addElement($this->createElement('select', 'moveTo', array(
-            'label' => 'Maak deze vraag een subvraag van:',
-            'multiOptions' => $this->_rootQuestionsMultiOptions,
-            'value' => $cp->parent_id,
-            'order' => 110,
-        )));
+        $generalForm->addElement(
+            $this->createElement(
+                'select',
+                'moveTo',
+                array(
+                    'label' => 'Maak deze vraag een subvraag van:',
+                    'multiOptions' => $this->_rootQuestionsMultiOptions,
+                    'value' => $cp->parent_id,
+                    'order' => 110,
+                )
+            )
+        );
 
-        $generalForm->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'opslaan',
-            'order' => 120,
-        )));
+        $generalForm->addElement(
+            $this->createElement(
+                'submit',
+                'submit',
+                array(
+                    'label' => 'opslaan',
+                    'order' => 120,
+                )
+            )
+        );
         $this->addSubForm($generalForm, 'general');
 
         /* add subform for question's data-collection settings */
         $answerForm = new Zend_Form_SubForm();
-        $answerForm->addElements(array(
-            $this->createElement('checkbox', 'useAnswerPossibilityGroup', array(
-                'label' => 'Maak gebruik van vaste antwoordmogelijkheden:',
-                'checked' => ($qq->answerPossibilityGroup_id) ? true : false,
-            )),
-            $this->createElement('select', 'answerPossibilityGroup_id', array(
-                'label' => 'Selecteer een groep met antwoordmogelijkheden:',
-                'multiOptions' => Webenq_Model_AnswerPossibilityGroup::getAll(),
-                'value' => $qq->answerPossibilityGroup_id,
-            )),
-            $this->createElement('select', 'collectionPresentationType', array(
-                'label' => 'Type:',
-                'multiOptions' => Webenq::getCollectionPresentationTypes(),
-                'value' => ($qq->answerPossibilityGroup_id) ? $cp->type : Webenq::COLLECTION_PRESENTATION_OPEN_TEXT,
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
-            )),
-        ));
+        $answerForm->addElements(
+            array(
+                $this->createElement(
+                    'checkbox',
+                    'useAnswerPossibilityGroup',
+                    array(
+                        'label' => 'Maak gebruik van vaste antwoordmogelijkheden:',
+                        'checked' => ($qq->answerPossibilityGroup_id) ? true : false,
+                    )
+                ),
+                $this->createElement(
+                    'select',
+                    'answerPossibilityGroup_id',
+                    array(
+                        'label' => 'Selecteer een groep met antwoordmogelijkheden:',
+                        'multiOptions' => Webenq_Model_AnswerPossibilityGroup::getAll(),
+                        'value' => $qq->answerPossibilityGroup_id,
+                    )
+                ),
+                $this->createElement(
+                    'select',
+                    'collectionPresentationType',
+                    array(
+                        'label' => 'Type:',
+                        'multiOptions' => Webenq::getCollectionPresentationTypes(),
+                        'value' => ($qq->answerPossibilityGroup_id) ?
+                            $cp->type :
+                            Webenq::COLLECTION_PRESENTATION_OPEN_TEXT,
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'opslaan',
+                    )
+                ),
+            )
+        );
         $this->addSubForm($answerForm, 'answers');
 
         /* add subform for question's data-collection settings */
         $validationForm = new Zend_Form_SubForm();
-        $validationForm->addElements(array(
-            $this->createElement('multiCheckbox', 'required', array(
-                'label' => 'Algemeen:',
-                'multiOptions' => array('not_empty' => 'Verplicht'),
-                'value' => unserialize($cp->validators),
-            )),
-            $this->createElement('multiCheckbox', 'filters', array(
-                'label' => 'Tekst filters:',
-                'multiOptions' => Webenq::getFilters(),
-                'value' => unserialize($cp->filters),
-            )),
-            $this->createElement('multiCheckbox', 'validators', array(
-                'label' => 'Tekst validatie:',
-                'multiOptions' => Webenq::getValidators(),
-                'value' => unserialize($cp->validators),
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'opslaan',
-            )),
-        ));
+        $validationForm->addElements(
+            array(
+                $this->createElement(
+                    'multiCheckbox',
+                    'required',
+                    array(
+                        'label' => 'Algemeen:',
+                        'multiOptions' => array('not_empty' => 'Verplicht'),
+                        'value' => unserialize($cp->validators),
+                    )
+                ),
+                $this->createElement(
+                    'multiCheckbox',
+                    'filters',
+                    array(
+                        'label' => 'Tekst filters:',
+                        'multiOptions' => Webenq::getFilters(),
+                        'value' => unserialize($cp->filters),
+                    )
+                ),
+                $this->createElement(
+                    'multiCheckbox',
+                    'validators',
+                    array(
+                        'label' => 'Tekst validatie:',
+                        'multiOptions' => Webenq::getValidators(),
+                        'value' => unserialize($cp->validators),
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'opslaan',
+                    )
+                ),
+            )
+        );
         $this->addSubForm($validationForm, 'validation');
     }
 

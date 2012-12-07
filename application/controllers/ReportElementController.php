@@ -14,18 +14,18 @@ class ReportElementController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-        'add' => array('html'),
-        'edit' => array('html'),
-        'delete' => array('html'),
+            'add' => array('html'),
+            'edit' => array('html'),
+            'delete' => array('html'),
     );
 
     /**
      * Renders the overview of report definitions
-     */
+    */
     public function viewAction()
     {
         $report = $this->view->report = Doctrine_Core::getTable('Webenq_Model_Report')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
     }
 
     /**
@@ -42,9 +42,11 @@ class ReportElementController extends Zend_Controller_Action
 
             $element = new Webenq_Model_ReportElement();
             $element->Report = $report;
-            $element->data = serialize(array(
-                'type' => $form->getValue('type'),
-            ));
+            $element->data = serialize(
+                array(
+                    'type' => $form->getValue('type'),
+                )
+            );
             $element->sort = 1 + $report->ReportElement->count();
             $element->save();
 
@@ -66,8 +68,8 @@ class ReportElementController extends Zend_Controller_Action
                 $form = new Webenq_Form_ReportElement_Edit_Text($element);
                 break;
             case 'text with info':
-            	$form = new Webenq_Form_ReportElement_Edit_TextWithInfo($element);
-            	break;
+                $form = new Webenq_Form_ReportElement_Edit_TextWithInfo($element);
+                break;
             case 'open question':
                 $form = new Webenq_Form_ReportElement_Edit_OpenQuestion($element);
                 break;
@@ -81,11 +83,11 @@ class ReportElementController extends Zend_Controller_Action
                 $form = new Webenq_Form_ReportElement_Edit_BarchartAndMean($element);
                 break;
             case 'response':
-            	$form = new Webenq_Form_ReportElement_Edit_Response($element);
-            	break;
+                $form = new Webenq_Form_ReportElement_Edit_Response($element);
+                break;
             case 'include jasper subreport':
-            	$form = new Webenq_Form_ReportElement_Edit_IncludeJasperSubreport($element);
-            	break;
+                $form = new Webenq_Form_ReportElement_Edit_IncludeJasperSubreport($element);
+                break;
             default:
                 throw new Exception('Unknown element type ' . $data['type']);
         }
@@ -117,10 +119,12 @@ class ReportElementController extends Zend_Controller_Action
     public function deleteAction()
     {
         $element = Doctrine_Core::getTable('Webenq_Model_ReportElement')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         $form = $this->view->form = new Webenq_Form_Confirm(
-            $element->id, t('Are you sure you want to delete this report element?'));
+            $element->id,
+            t('Are you sure you want to delete this report element?')
+        );
         $form->setAction($this->_request->getRequestUri());
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {

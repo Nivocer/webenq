@@ -14,25 +14,25 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-        'add' => array('html'),
-        'edit' => array('html'),
-        'delete' => array('html'),
+            'add' => array('html'),
+            'edit' => array('html'),
+            'delete' => array('html'),
     );
 
     /**
      * Renders the overview of question types
      *
      * @return void
-     */
+    */
     public function indexAction()
     {
         $this->_helper->actionStack('index', 'answer-possibility-null-value');
 
         /* get answer possibility groups */
         $answerPossibilityGroups = Doctrine_Query::create()
-            ->from('Webenq_Model_AnswerPossibilityGroup apg')
-            ->orderBy('apg.name')
-            ->execute();
+        ->from('Webenq_Model_AnswerPossibilityGroup apg')
+        ->orderBy('apg.name')
+        ->execute();
 
         /* render view */
         $this->view->answerPossibilityGroups = $answerPossibilityGroups;
@@ -45,22 +45,22 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
      */
     public function viewAction()
     {
-    	//does group exist
-    	$groupId=Doctrine_Query::create()
-            ->from('Webenq_Model_AnswerPossibilityGroup apg')
-            ->where('apg.id = ?', $this->_request->id)
-            ->execute();
-    	$this->view->answerPossibilityGroupId = count($groupId) === 1 ? $groupId->getFirst()->get('id') : false;
-        
-    	// get group
+        //does group exist
+        $groupId=Doctrine_Query::create()
+        ->from('Webenq_Model_AnswerPossibilityGroup apg')
+        ->where('apg.id = ?', $this->_request->id)
+        ->execute();
+        $this->view->answerPossibilityGroupId = count($groupId) === 1 ? $groupId->getFirst()->get('id') : false;
+
+        // get group
         $groups = Doctrine_Query::create()
-            ->from('Webenq_Model_AnswerPossibilityGroup apg')
-            ->innerJoin('apg.AnswerPossibility ap')
-            ->innerJoin('ap.AnswerPossibilityText apt')
-            ->where('apg.id = ?', $this->_request->id)
-            ->orderBy('ap.value, apt.text')
-            ->execute();
-		$this->view->answerPossibilityGroup = count($groups) === 1 ? $groups->getFirst() : false;
+        ->from('Webenq_Model_AnswerPossibilityGroup apg')
+        ->innerJoin('apg.AnswerPossibility ap')
+        ->innerJoin('ap.AnswerPossibilityText apt')
+        ->where('apg.id = ?', $this->_request->id)
+        ->orderBy('ap.value, apt.text')
+        ->execute();
+        $this->view->answerPossibilityGroup = count($groups) === 1 ? $groups->getFirst() : false;
     }
 
     /**
@@ -94,7 +94,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     {
         // get group
         $answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         // get form
         $form = new Webenq_Form_AnswerPossibilityGroup_Edit($answerPossibilityGroup);
@@ -119,7 +119,7 @@ class AnswerPossibilityGroupController extends Zend_Controller_Action
     {
         // get group
         $answerPossibilityGroup = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityGroup')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         // get form
         $form = new Webenq_Form_Confirm(

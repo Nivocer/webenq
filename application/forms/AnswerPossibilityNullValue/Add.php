@@ -15,20 +15,30 @@ class Webenq_Form_AnswerPossibilityNullValue_Add extends Zend_Form
      */
     public function init()
     {
-        $this->addElements(array(
-            $this->createElement('text', 'value', array(
-                'label' => 'name',
-                'required' => true,
-                'validators' => array(
-                    new Zend_Validate_NotEmpty(),
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'text',
+                    'value',
+                    array(
+                        'label' => 'name',
+                        'required' => true,
+                        'validators' => array(
+                            new Zend_Validate_NotEmpty(),
+                        ),
+                        'filters' => array(
+                            new Zend_Filter_StringToLower(),
+                        ),
+                    )
                 ),
-                'filters' => array(
-                    new Zend_Filter_StringToLower(),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'save',
+                    )
                 ),
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'save',
-            )),
-        ));
+            )
+        );
     }
 }

@@ -24,8 +24,8 @@ class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
      * @var array Array with key-value pairs for controller and action
      */
     static protected $_defaultRoute = array(
-        'controller' => 'user',
-        'action' => 'login',
+            'controller' => 'user',
+            'action' => 'login',
     );
 
     protected $_requestingRole;
@@ -46,23 +46,25 @@ class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
         if (!$this->_requestingRole) {
             if ($auth->hasIdentity()) {
                 $user = Doctrine_Core::getTable('Webenq_Model_User')->find($auth->getIdentity()->id);
-                
+
                 if (!$user) {
                     $auth->clearIdentity();
                     $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
                     $redirector->gotoUrlAndExit($request->getBaseUrl());
                 }
                 $this->_requestingRole = $user->Role->name;
-            } elseif ($request->getParam('api_key')){
-            	//api-key access
-            	$user = Doctrine_Core::getTable('Webenq_Model_User')->findOneBy('api_key', $request->getParam('api_key'));
-            	$this->_requestingRole = $user->Role->name;
-            	if (!$user) {
-            		$auth->clearIdentity();
-            		// send response header: no valid key?
-            	}
+            } elseif ($request->getParam('api_key')) {
+                //api-key access
+                $user = Doctrine_Core::getTable('Webenq_Model_User')->findOneBy(
+                    'api_key', $request->getParam('api_key')
+                );
+                $this->_requestingRole = $user->Role->name;
+                if (!$user) {
+                    $auth->clearIdentity();
+                    // send response header: no valid key?
+                }
             } else {
-            	//
+                //
                 $this->_requestingRole = self::$_anonymousRole;
             }
         }
@@ -81,18 +83,22 @@ class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
 
             /* throw exception if no access */
             if (!$acl->isAllowed($this->_requestingRole, $requestedResource)) {
-                throw new Zend_Acl_Exception("Role '$this->_requestingRole' has no access to requested resource '" .
-                    $requestedResource . "'");
+                throw new Zend_Acl_Exception(
+                    "Role '$this->_requestingRole' has no access to requested resource '" .
+                    $requestedResource . "'"
+                );
             }
 
         } catch (Zend_Acl_Exception $e) {
 
             /* catch any thrown acl-exception and redirect to default route */
             $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
-            $redirector->gotoSimpleAndExit(self::$_defaultRoute['action'],
+            $redirector->gotoSimpleAndExit(
+                self::$_defaultRoute['action'],
                 self::$_defaultRoute['controller'], null, array(
                     'redirect' => base64_encode($request->getPathInfo()),
-                ));
+                )
+            );
         }
     }
 

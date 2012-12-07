@@ -42,7 +42,9 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Base_Question_Clos
     {
         /* are all values present in an answer-possibility-group? */
         $group = Webenq_Model_AnswerPossibilityGroup::findByUniqueValues(
-            $question->getUniqueValuesExcludingNullValues(), $language);
+            $question->getUniqueValuesExcludingNullValues(),
+            $language
+        );
         if (!$group) {
             return false;
         }
@@ -177,8 +179,16 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Base_Question_Clos
                     imagefilledrectangle($im, $border[$i], 0, $border[$i+1], $height, $colors[$i]);
                     if ($percentage > $threshold) {
                         $fontColor = ($i === 0) ? $white : $black;
-                        imagettftext($im, $fontSize, 0, $margeLeft + $border[$i], $margeTop + $fontSize, $fontColor,
-                            $font, round($percentage)."%");
+                        imagettftext(
+                            $im,
+                            $fontSize,
+                            0,
+                            $margeLeft + $border[$i],
+                            $margeTop + $fontSize,
+                            $fontColor,
+                            $font,
+                            round($percentage)."%"
+                        );
                     }
                 }
             }
@@ -237,9 +247,21 @@ class Webenq_Model_Question_Closed_Scale extends Webenq_Model_Base_Question_Clos
      */
     public function getNegativeNeutralPositivePercentages()
     {
-        $scale = (int) substr(str_replace(array('Two', 'Three', 'Four', 'Five', 'Six', 'Seven'),
-            array(2, 3, 4, 5, 6, 7),
-            get_class($this)), -1);
+        $scale = (int) substr(
+            str_replace(
+                array(
+                    'Two',
+                    'Three',
+                    'Four',
+                    'Five',
+                    'Six',
+                    'Seven'
+                ),
+                array(2, 3, 4, 5, 6, 7),
+                get_class($this)
+            ),
+            -1
+        );
 
         if ($scale == 0) {
             throw new Exception('Method ' . __FUNCTION__ . '() is only availbale for classes extending ' . __CLASS__);

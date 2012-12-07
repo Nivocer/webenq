@@ -20,14 +20,26 @@ class Webenq_Form_ReportElement_Edit_OpenQuestion extends Webenq_Form_ReportElem
             $multiOptions[$qq->id] = $qq->Question->getQuestionText()->text;
         }
 
-        $this->addElement($this->createElement('select', 'report_qq_id', array(
-            'label' => 'reporting question',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
-        )));
+        $this->addElement(
+            $this->createElement(
+                'select',
+                'report_qq_id',
+                array(
+                    'label' => 'reporting question',
+                    'required' => true,
+                    'multiOptions' => $multiOptions,
+                )
+            )
+        );
 
-        $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'save',
-        )));
+        $this->addElement(
+            $this->createElement(
+                'submit',
+                'submit',
+                array(
+                    'label' => 'save',
+                )
+            )
+        );
     }
 }

@@ -35,17 +35,31 @@ class Webenq_Form_AnswerPossibilitySynonym_Add extends Zend_Form
      */
     public function init()
     {
-        $this->addElements(array(
-            $this->createElement('hidden', 'answerPossibilityText_id', array(
-                'value' => $this->_answerPossibilityText->id,
-            )),
-            $this->createElement('text', 'text', array(
-                'label' => t('synonym for') . ' "' . $this->_answerPossibilityText->text . '"',
-                'required' => true,
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'save',
-            )),
-        ));
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'hidden',
+                    'answerPossibilityText_id',
+                    array(
+                        'value' => $this->_answerPossibilityText->id,
+                    )
+                ),
+                $this->createElement(
+                    'text',
+                    'text',
+                    array(
+                        'label' => t('synonym for') . ' "' . $this->_answerPossibilityText->text . '"',
+                        'required' => true,
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'save',
+                    )
+                ),
+            )
+        );
     }
 }

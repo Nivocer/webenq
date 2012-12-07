@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_AnswerPossibilityGroup_Edit extends Zend_Form
 {
@@ -37,32 +37,54 @@ class Webenq_Form_AnswerPossibilityGroup_Edit extends Zend_Form
     {
         $this->setAttrib('autocomplete', 'off');
 
-        $this->addElements(array(
-            $this->createElement('hidden', 'id', array(
-                'value' => $this->_answerPossibilityGroup->id,
-            )),
-            $this->createElement('text', 'name', array(
-                'label' => 'name',
-                'value' => $this->_answerPossibilityGroup->name,
-            )),
-            $this->createElement('text', 'number', array(
-                'label' => 'number of allowed answers',
-                'value' => $this->_answerPossibilityGroup->number,
-                'validators' => array('Int'),
-            )),
-            $this->createElement('radio', 'measurement_level', array(
-                'label' => 'measurement level',
-                'multiOptions' => array(
-                    'metric' => 'metric',
-                    'non-metric' => 'non-metric',
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'hidden',
+                    'id',
+                    array(
+                        'value' => $this->_answerPossibilityGroup->id,
+                    )
                 ),
-                'value' => $this->_answerPossibilityGroup->measurement_level,
-                'required' => true,
-                'validators' => array('NotEmpty'),
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'save',
-            )),
-        ));
+                $this->createElement(
+                    'text',
+                    'name',
+                    array(
+                        'label' => 'name',
+                        'value' => $this->_answerPossibilityGroup->name,
+                    )
+                ),
+                $this->createElement(
+                    'text',
+                    'number',
+                    array(
+                        'label' => 'number of allowed answers',
+                        'value' => $this->_answerPossibilityGroup->number,
+                        'validators' => array('Int'),
+                    )
+                ),
+                $this->createElement(
+                    'radio',
+                    'measurement_level',
+                    array(
+                    'label' => 'measurement level',
+                    'multiOptions' => array(
+                        'metric' => 'metric',
+                        'non-metric' => 'non-metric',
+                    ),
+                    'value' => $this->_answerPossibilityGroup->measurement_level,
+                    'required' => true,
+                    'validators' => array('NotEmpty'),
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'save',
+                    )
+                ),
+            )
+        );
     }
 }

@@ -14,24 +14,24 @@ class InstallController extends Zend_Controller_Action
      * @var array
      */
     protected $_messages = array(
-    	'success' => array(),
-    	'failure' => array()
+            'success' => array(),
+            'failure' => array()
     );
 
     /**
      * Webenq thirdparty dependencies that should be in the include path
      *
      * @var array Class name as key and file name as value
-     */
+    */
     protected static  $_dependencies = array(
-    	'FPDF' => 'fpdf/fpdf.php',
-    	'ODS' => 'ods-php/ods.php',
-    	'PHPExcel' => 'PHPExcel/Classes/PHPExcel.php',
+            'FPDF' => 'fpdf/fpdf.php',
+            'ODS' => 'ods-php/ods.php',
+            'PHPExcel' => 'PHPExcel/Classes/PHPExcel.php',
     );
 
     public function testAction()
     {
-//        $this->_testMemoryLimit();
+        //        $this->_testMemoryLimit();
         $this->_testMaxExecutionTime();
         $this->_testMagicQuotesTurnedOff();
         $this->_testTempDir();
@@ -92,7 +92,8 @@ class InstallController extends Zend_Controller_Action
             if (class_exists($class)) {
                 $this->_messages['success'][] = "Found class <strong>$class</strong>.";
             } else {
-                $this->_messages['failure'][] = "Could not find class <strong>$class</strong>. Make sure the file <strong>$file</strong> is in the include path.";
+                $this->_messages['failure'][] = "Could not find class <strong>$class</strong>.
+                    Make sure the file <strong>$file</strong> is in the include path.";
             }
         }
     }
@@ -107,7 +108,8 @@ class InstallController extends Zend_Controller_Action
         if ($current === $latest) {
             $this->_messages['success'][] = "Database schema is up to date.";
         } else {
-            $this->_messages['failure'][] = "Database schema is out of date: current version is $current, lates version is $latest.";
+            $this->_messages['failure'][] = "Database schema is out of date: current version is
+                $current, lates version is $latest.";
         }
     }
 
@@ -118,71 +120,71 @@ class InstallController extends Zend_Controller_Action
     {
         // get doctrine config settings
         $config = Zend_Controller_Front::getInstance()
-            ->getParam('bootstrap')->getOption('doctrine');
+        ->getParam('bootstrap')->getOption('doctrine');
 
         // get current and latest db schema version
         $migration = new Doctrine_Migration($config['migrations_path']);
         $current = (int) $migration->getCurrentVersion();
         $latest = (int) $migration->getLatestVersion();
 
-//        try {
-//            Doctrine_Core::generateModelsFromYaml($config['yaml_schema_path'], $config['models_path']);
-//        } catch(Exception $exception) {
-//            die('<pre>' . $exception->getMessage() . '</pre>');
-//        }
-//        die('Success!');
+        //        try {
+        //            Doctrine_Core::generateModelsFromYaml($config['yaml_schema_path'], $config['models_path']);
+        //        } catch(Exception $exception) {
+        //            die('<pre>' . $exception->getMessage() . '</pre>');
+        //        }
+        //        die('Success!');
 
-//        try {
-//            Doctrine_Core::generateMigrationsFromDiff(
-//                $config['migrations_path'],
-//                $config['yaml_schema_versions_path'] . '/2.yml',
-//                $config['yaml_schema_versions_path'] . '/current/schema.yml');
-//        } catch (Exception $e) {
-//            die($e->getMessage());
-//        }
-//        die('Success!');
+        //        try {
+        //            Doctrine_Core::generateMigrationsFromDiff(
+        //                $config['migrations_path'],
+        //                $config['yaml_schema_versions_path'] . '/2.yml',
+        //                $config['yaml_schema_versions_path'] . '/current/schema.yml');
+        //        } catch (Exception $e) {
+        //            die($e->getMessage());
+        //        }
+        //        die('Success!');
 
-//        try {
-//            $migration->migrate(6);
-//        }
-//        catch(Doctrine_Migration_Exception $exception) {
-//            die('<pre>' . $exception->getMessage() . '</pre>');
-//        }
-//        die('Success!');
+        //        try {
+        //            $migration->migrate(6);
+        //        }
+        //        catch(Doctrine_Migration_Exception $exception) {
+        //            die('<pre>' . $exception->getMessage() . '</pre>');
+        //        }
+        //        die('Success!');
 
-//        $form = new Zend_Form();
-//        if ($current === $latest) {
-//            $count = Doctrine_Query::create()->from('Webenq_Model_AnswerPossibility')->count();
-//            if ($count === 0) {
-//                $form->addElement($form->createElement('submit', 'fixtures', array(
-//                	'label' => 'Load test data')));
-//            }
-//        } else {
-//            $form->addElement($form->createElement('submit', 'migrate', array(
-//                'label' => 'Migrate to latest version')));
-//        }
-//
-//        if ($this->_request->isPost()) {
-//            if ($this->_request->migrate) {
-//                try {
-//                    $migration->migrate($latest);
-//                }
-//                catch(Doctrine_Migration_Exception $exception) {
-//                    die('<pre>' . $exception->getMessage() . '</pre>');
-//                }
-//                $this->_redirect($this->_request->getPathInfo());
-//            } elseif ($this->_request->fixtures) {
-//                try {
-//                    Doctrine_Core::loadData($config['fixtures_path'], true);
-//                }
-//                catch(Doctrine_Exception $exception) {
-//                    die('<pre>' . $exception->getMessage() . '</pre>');
-//                }
-//                $this->_redirect($this->_request->getPathInfo());
-//            }
-//        }
-//
-//        $this->view->form = $form;
+        //        $form = new Zend_Form();
+        //        if ($current === $latest) {
+        //            $count = Doctrine_Query::create()->from('Webenq_Model_AnswerPossibility')->count();
+        //            if ($count === 0) {
+        //                $form->addElement($form->createElement('submit', 'fixtures', array(
+        //                	'label' => 'Load test data')));
+        //            }
+        //        } else {
+        //            $form->addElement($form->createElement('submit', 'migrate', array(
+        //                'label' => 'Migrate to latest version')));
+        //        }
+        //
+        //        if ($this->_request->isPost()) {
+        //            if ($this->_request->migrate) {
+        //                try {
+        //                    $migration->migrate($latest);
+        //                }
+        //                catch(Doctrine_Migration_Exception $exception) {
+        //                    die('<pre>' . $exception->getMessage() . '</pre>');
+        //                }
+        //                $this->_redirect($this->_request->getPathInfo());
+        //            } elseif ($this->_request->fixtures) {
+        //                try {
+        //                    Doctrine_Core::loadData($config['fixtures_path'], true);
+        //                }
+        //                catch(Doctrine_Exception $exception) {
+        //                    die('<pre>' . $exception->getMessage() . '</pre>');
+        //                }
+        //                $this->_redirect($this->_request->getPathInfo());
+        //            }
+        //        }
+        //
+        //        $this->view->form = $form;
         $this->view->current = $current;
         $this->view->latest = $latest;
     }
@@ -196,8 +198,8 @@ class InstallController extends Zend_Controller_Action
         $bootstrap = Zend_Controller_Front::getInstance()->getParam('bootstrap');
         $config = $bootstrap->getOption('doctrine');
 
-//        Doctrine_Core::dropDatabases();
-//        Doctrine_Core::createDatabases();
+        //        Doctrine_Core::dropDatabases();
+        //        Doctrine_Core::createDatabases();
 
         // get current and latest db schema version
         $migration = new Doctrine_Migration($config['migrations_path']);
@@ -222,11 +224,10 @@ class InstallController extends Zend_Controller_Action
         $hasChanges = false;
         foreach ($changes as $key => $values) {
             $oppositeKey = preg_match('/^created_/', $key)
-                ? preg_replace('/^created_/', 'dropped_', $key)
-                : preg_replace('/^dropped_/', 'created_', $key);
+            ? preg_replace('/^created_/', 'dropped_', $key)
+            : preg_replace('/^dropped_/', 'created_', $key);
             if (count(array_diff_assoc($changes[$oppositeKey], $changes[$key])) > 0
-                || count(array_diff_assoc($changes[$key], $changes[$oppositeKey])) > 0)
-            {
+                    || count(array_diff_assoc($changes[$key], $changes[$oppositeKey])) > 0) {
                 $hasChanges = true;
                 break;
             }
@@ -244,7 +245,8 @@ class InstallController extends Zend_Controller_Action
             Doctrine_Core::generateModelsFromYaml(
                 $config['yaml_schema_path'],
                 $config['models_path'],
-                $config['generate_models_options']);
+                $config['generate_models_options']
+            );
 
             // perform migration
             try {

@@ -30,7 +30,11 @@ class Webenq_Form_AnswerPossibility_Add extends Zend_Form
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct(Webenq_Model_AnswerPossibilityGroup $answerPossibilityGroup, $language, array $options = null)
+    public function __construct(
+        Webenq_Model_AnswerPossibilityGroup $answerPossibilityGroup,
+        $language,
+        array $options = null
+    )
     {
         $this->_answerPossibilityGroup = $answerPossibilityGroup;
         $this->_language = $language;
@@ -45,31 +49,53 @@ class Webenq_Form_AnswerPossibility_Add extends Zend_Form
      */
     public function init()
     {
-        $this->addElements(array(
-            $this->createElement('hidden', 'answerPossibilityGroup_id', array(
-                'value' => $this->_answerPossibilityGroup->id,
-            )),
-            $this->createElement('select', 'language', array(
-                'label' => 'language',
-                'multiOptions' => array(
-                    'nl' => 'nl',
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'hidden',
+                    'answerPossibilityGroup_id',
+                    array(
+                        'value' => $this->_answerPossibilityGroup->id,
+                    )
                 ),
-                'value' => $this->_language,
-            )),
-            $this->createElement('text', 'text', array(
-                'label' => 'text',
-                'required' => true,
-            )),
-            $this->createElement('text', 'value', array(
-                'label' => 'value',
-                'required' => true,
-                'validators' => array(
-                    'Int',
+                $this->createElement(
+                    'select',
+                    'language',
+                    array(
+                        'label' => 'language',
+                        'multiOptions' => array(
+                            'nl' => 'nl',
+                        ),
+                        'value' => $this->_language,
+                    )
                 ),
-            )),
-            $this->createElement('submit', 'submit', array(
-                'label' => 'save',
-            )),
-        ));
+                $this->createElement(
+                    'text',
+                    'text',
+                    array(
+                        'label' => 'text',
+                        'required' => true,
+                    )
+                ),
+                $this->createElement(
+                    'text',
+                    'value',
+                    array(
+                        'label' => 'value',
+                        'required' => true,
+                        'validators' => array(
+                            'Int',
+                        ),
+                    )
+                ),
+                $this->createElement(
+                    'submit',
+                    'submit',
+                    array(
+                        'label' => 'save',
+                    )
+                ),
+            )
+        );
     }
 }

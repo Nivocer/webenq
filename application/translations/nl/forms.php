@@ -1,11 +1,11 @@
 <?php return array(
     'name' => 'naam',
-	'language' => 'taal',
+    'language' => 'taal',
     'text' => 'tekst',
     'value' => 'waarde',
-	'group' => 'groep',
-	'save' => 'opslaan',
-	'continue' => 'verder',
-	'yes' => 'ja',
-	'no' => 'nee',
+    'group' => 'groep',
+    'save' => 'opslaan',
+    'continue' => 'verder',
+    'yes' => 'ja',
+    'no' => 'nee',
 );

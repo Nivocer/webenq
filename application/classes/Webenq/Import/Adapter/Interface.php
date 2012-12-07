@@ -9,24 +9,24 @@
  */
 interface Webenq_Import_Adapter_Interface
 {
-	/**
-	 * Gets all data from the file
-	 *
-	 * @return array
-	 */
-	public function getData();
+    /**
+     * Gets all data from the file
+     *
+     * @return array
+     */
+    public function getData();
 
-	/**
-	 * Gets the value for a given cell
-	 *
-	 * @return string
-	 */
-	public function getCell();
+    /**
+     * Gets the value for a given cell
+     *
+     * @return string
+    */
+    public function getCell();
 
-	/**
-	 * Returns the filename of the uploaded file
-	 *
-	 * @return string Filename
-	 */
-	public function getFilename();
+    /**
+     * Returns the filename of the uploaded file
+     *
+     * @return string Filename
+    */
+    public function getFilename();
 }

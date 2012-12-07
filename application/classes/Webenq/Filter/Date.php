@@ -24,8 +24,8 @@ class Webenq_Filter_Date implements Zend_Filter_Interface
      */
     public function filter($value)
     {
-    	if (preg_match('/^(\d{2})-(\d{2})-(\d{4})$/', $value, $m)) {
-    		return $m[3] . '-' . $m[2] . '-' . $m[1];
-    	}
+        if (preg_match('/^(\d{2})-(\d{2})-(\d{4})$/', $value, $m)) {
+            return $m[3] . '-' . $m[2] . '-' . $m[1];
+        }
     }
 }

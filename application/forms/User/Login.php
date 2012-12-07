@@ -19,19 +19,19 @@ class Webenq_Form_User_Login extends Zend_Form
         $this->setAction("$baseUrl/user/login");
 
         $username= new Zend_Form_Element_Text('username');
-        $username->setLabel('Gebruikersnaam:')
+        $username->setLabel('Username:')
             ->setRequired(true)
             ->addValidator('NotEmpty');
 
         $password = new Zend_Form_Element_Password('password');
-        $password->setLabel('Wachtwoord:')
+        $password->setLabel('Password:')
             ->setRequired(true)
             ->addValidator('NotEmpty');
 
         $redirect = new Zend_Form_Element_Hidden('redirect');
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('inloggen');
+        $submit->setLabel('login ');
 
         $this->addElements(array($username, $password, $redirect, $submit));
     }

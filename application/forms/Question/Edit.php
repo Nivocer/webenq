@@ -4,7 +4,7 @@
  *
  * @package     Webenq
  * @subpackage  Forms
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_Question_Edit extends Webenq_Form_Question_Add
 {
@@ -35,9 +35,13 @@ class Webenq_Form_Question_Edit extends Webenq_Form_Question_Add
     {
         parent::init();
 
-        $id = $this->createElement('hidden', 'id', array(
-            'value' => $this->_question->id,
-        ));
+        $id = $this->createElement(
+            'hidden',
+            'id',
+            array(
+                'value' => $this->_question->id,
+            )
+        );
         $this->addElements(array($id));
     }
 

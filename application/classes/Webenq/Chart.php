@@ -298,9 +298,16 @@ abstract class Webenq_Chart
 
         $url = $this->_buildUrl();
 
-        $cache = Zend_Cache::factory("Output", "File",
-            array("lifetime" => null),
-            array("cache_dir" => $this->_cacheDir));
+        $cache = Zend_Cache::factory(
+            "Output",
+            "File",
+            array(
+                "lifetime" => null
+           ),
+            array(
+                "cache_dir" => $this->_cacheDir
+            )
+        );
 
         if (!$chart = $cache->load(md5($url))) {
             $chart = file_get_contents($url);
@@ -379,8 +386,8 @@ abstract class Webenq_Chart
      * @param string $type Type of chart
      * @return boolean True is type is ok, false if not
      */
-    protected function _isValidType($type) {
-
+    protected function _isValidType($type)
+    {
         if (key_exists($type, $this->_validTypes)) {
             return true;
         } else {
@@ -505,8 +512,8 @@ abstract class Webenq_Chart
      * @param array $data Array of datasets (each dataset is an array)
      * @return string
      */
-    protected function _getLegend($data) {
-
+    protected function _getLegend($data)
+    {
         $retVal = null;
 
         foreach ($data as $label => $dataset) {

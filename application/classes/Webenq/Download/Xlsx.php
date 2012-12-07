@@ -19,20 +19,20 @@ class Webenq_Download_Xlsx extends Webenq_Download_Xls
     protected $_extension = 'xlsx';
 
     /**
-	 * The MIME type of the file for download.
-	 *
-	 * @var string
-	 */
-	protected $_mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+     * The MIME type of the file for download.
+     *
+     * @var string
+     */
+    protected $_mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
-	/**
-	 * Returns a writer instance for the given document
-	 * type.
-	 *
-	 * @return PHPExcel_Writer_IWriter
-	 */
-	protected function _getWriter()
-	{
-		return PHPExcel_IOFactory::createWriter($this->_document, 'Excel2007');
-	}
+    /**
+     * Returns a writer instance for the given document
+     * type.
+     *
+     * @return PHPExcel_Writer_IWriter
+     */
+    protected function _getWriter()
+    {
+        return PHPExcel_IOFactory::createWriter($this->_document, 'Excel2007');
+    }
 }

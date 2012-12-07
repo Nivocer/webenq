@@ -55,8 +55,7 @@ class Webenq_Model_AnswerPossibilityGroup extends Webenq_Model_Base_AnswerPossib
             foreach ($possibility->AnswerPossibilityText as $answerPossibilityText) {
                 if ($currentLanguage) {
                     if ($answerPossibilityText->language === $currentLanguage &&
-                        $answerPossibilityText->text === $answerText)
-                    {
+                        $answerPossibilityText->text === $answerText) {
                         return $possibility;
                     }
                     // try to find synonym in current language

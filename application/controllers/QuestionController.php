@@ -53,8 +53,15 @@ class QuestionController extends Zend_Controller_Action
         $form = new Webenq_Form_Question_Add();
         $form->setAction($this->view->baseUrl('question/add'));
         if ($this->_request->questionnaire_id) {
-            $form->addElement($form->createElement('hidden', 'questionnaire_id', array(
-                'value' => $this->_request->questionnaire_id)));
+            $form->addElement(
+                $form->createElement(
+                    'hidden',
+                    'questionnaire_id',
+                    array(
+                        'value' => $this->_request->questionnaire_id
+                    )
+                )
+            );
         }
 
         if ($this->_helper->form->isPostedAndValid($form)) {
@@ -83,10 +90,12 @@ class QuestionController extends Zend_Controller_Action
             }
 
             if ($this->_request->isXmlHttpRequest()) {
-                $this->_helper->json(array(
-                    'id' => $question->id,
-                    'reload' => true,
-                ));
+                $this->_helper->json(
+                    array(
+                        'id' => $question->id,
+                        'reload' => true,
+                    )
+                );
             } else {
                 $this->_redirect('question');
             }

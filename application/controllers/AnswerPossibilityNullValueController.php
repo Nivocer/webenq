@@ -14,23 +14,23 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-        'add' => array('html'),
-        'edit' => array('html'),
-        'delete' => array('html'),
+            'add' => array('html'),
+            'edit' => array('html'),
+            'delete' => array('html'),
     );
 
     /**
      * Renders the overview of question types
      *
      * @return void
-     */
+    */
     public function indexAction()
     {
         // get answer possibility groups
         $answerPossibilityNullValues = Doctrine_Query::create()
-            ->from('Webenq_Model_AnswerPossibilityNullValue apnv')
-            ->orderBy('apnv.value')
-            ->execute();
+        ->from('Webenq_Model_AnswerPossibilityNullValue apnv')
+        ->orderBy('apnv.value')
+        ->execute();
 
         // render view
         $this->view->answerPossibilityNullValues = $answerPossibilityNullValues;
@@ -67,7 +67,7 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
     {
         // get record
         $answerPossibilityNullValue = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityNullValue')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         // get form
         $form = new Webenq_Form_AnswerPossibilityNullValue_Edit($answerPossibilityNullValue);
@@ -92,13 +92,13 @@ class AnswerPossibilityNullValueController extends Zend_Controller_Action
     {
         // get record
         $answerPossibilityNullValue = Doctrine_Core::getTable('Webenq_Model_AnswerPossibilityNullValue')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         // get form
         $form = new Webenq_Form_Confirm(
             $answerPossibilityNullValue->id,
             'Weet u zeker dat u nulwaarde-antwoordmogelijkheid "' . $answerPossibilityNullValue->value .
-                '" wilt verwijderen?'
+            '" wilt verwijderen?'
         );
 
         /* process posted data */

@@ -14,14 +14,14 @@ class ReportController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-        'add' => array('html'),
-        'edit' => array('html'),
-        'delete' => array('html'),
+            'add' => array('html'),
+            'edit' => array('html'),
+            'delete' => array('html'),
     );
 
     /**
      * Renders the overview of report definitions
-     */
+    */
     public function indexAction()
     {
         $this->view->reports = Webenq_Model_Report::getReports($this->_request->id);
@@ -55,11 +55,11 @@ class ReportController extends Zend_Controller_Action
     public function viewAction()
     {
         $reports = Doctrine_Query::create()
-            ->from('Webenq_Model_Report r')
-            ->leftJoin('r.ReportElement e')
-            ->where('r.id = ?', $this->_request->id)
-            ->orderBY('e.sort ASC, e.id DESC')
-            ->execute();
+        ->from('Webenq_Model_Report r')
+        ->leftJoin('r.ReportElement e')
+        ->where('r.id = ?', $this->_request->id)
+        ->orderBY('e.sort ASC, e.id DESC')
+        ->execute();
 
         $this->view->report = $reports->getFirst();
     }
@@ -70,7 +70,7 @@ class ReportController extends Zend_Controller_Action
     public function editAction()
     {
         $report = $this->view->report = Doctrine_Core::getTable('Webenq_Model_Report')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         $splitQuestionMultiOptions = array('' => '');
         foreach ($report->Questionnaire->QuestionnaireQuestion as $qq) {
@@ -105,10 +105,11 @@ class ReportController extends Zend_Controller_Action
     public function deleteAction()
     {
         $report = Doctrine_Core::getTable('Webenq_Model_Report')
-            ->find($this->_request->id);
+        ->find($this->_request->id);
 
         $form = $this->view->form = new Webenq_Form_Confirm(
-            $report->id, t('Are you sure you want to delete this report?'));
+            $report->id, t('Are you sure you want to delete this report?')
+        );
         $form->setAction($this->_request->getRequestUri());
 
         if ($this->_request->isPost() && $form->isValid($this->_request->getPost())) {
@@ -140,7 +141,7 @@ class ReportController extends Zend_Controller_Action
         // save new order of elements
         foreach ($this->_request->getPost('re') as $sort => $reportElementId) {
             $reportElement = Doctrine_Core::getTable('Webenq_Model_ReportElement')
-                ->find($reportElementId);
+            ->find($reportElementId);
             $reportElement->sort = $sort;
             $reportElement->save();
         }
@@ -149,18 +150,23 @@ class ReportController extends Zend_Controller_Action
     public function jrxmlAction()
     {
         $reports = Doctrine_Query::create()
-            ->from('Webenq_Model_Report r')
-            ->leftJoin('r.ReportElement e')
-            ->where('r.id = ?', $this->_request->id)
-            ->orderBY('e.sort ASC, e.id DESC')
-            ->execute();
+        ->from('Webenq_Model_Report r')
+        ->leftJoin('r.ReportElement e')
+        ->where('r.id = ?', $this->_request->id)
+        ->orderBY('e.sort ASC, e.id DESC')
+        ->execute();
 
         $report = $this->view->report = $reports->getFirst();
 
-        $filename = Webenq::filename(implode('-', array(
-            $report->id,
-            $report->getReportTitle()->text,
-            date('YmdHis')))) . '.jrxml';
+        $filename = Webenq::filename(
+            implode(
+                '-', array(
+                    $report->id,
+                    $report->getReportTitle()->text,
+                    date('YmdHis')
+                )
+            )
+        ) . '.jrxml';
 
         // config settings
         switch ($report->orientation) {
@@ -198,28 +204,33 @@ class ReportController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
-            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
-            ->setHeader('Content-Transfer-Encoding', 'binary')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->setBody($dom->saveXML());
+        ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+        ->setHeader('Content-Transfer-Encoding', 'binary')
+        ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+        ->setBody($dom->saveXML());
     }
 
     public function controlAction()
     {
         $reports = Doctrine_Query::create()
-            ->from('Webenq_Model_Report r')
-            ->leftJoin('r.ReportElement e')
-            ->leftJoin('r.QuestionnaireQuestion qq')
-            ->where('r.id = ?', $this->_request->id)
-            ->orderBY('e.sort ASC, e.id DESC')
-            ->execute();
+        ->from('Webenq_Model_Report r')
+        ->leftJoin('r.ReportElement e')
+        ->leftJoin('r.QuestionnaireQuestion qq')
+        ->where('r.id = ?', $this->_request->id)
+        ->orderBY('e.sort ASC, e.id DESC')
+        ->execute();
 
         $report = $this->view->report = $reports->getFirst();
 
-        $filename = Webenq::filename(implode('-', array(
-            $report->id,
-            $report->getReportTitle()->text,
-            date('YmdHis')))) . '.xml';
+        $filename = Webenq::filename(
+            implode(
+                '-', array(
+                    $report->id,
+                    $report->getReportTitle()->text,
+                    date('YmdHis')
+                )
+            )
+        ) . '.xml';
 
         $this->render();
 
@@ -235,44 +246,45 @@ class ReportController extends Zend_Controller_Action
         // output
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-         $this->_response
-            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
-            ->setHeader('Content-Transfer-Encoding', 'binary')
-            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-            ->setBody($dom->saveXML());
+        $this->_response
+        ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+        ->setHeader('Content-Transfer-Encoding', 'binary')
+        ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
+        ->setBody($dom->saveXML());
 
         /*$this->_response
-            ->setHeader('Content-Type', 'text/xml; charset=utf-8')
-            ->setBody($dom->saveXML());
-            */
+         ->setHeader('Content-Type', 'text/xml; charset=utf-8')
+        ->setBody($dom->saveXML());
+        */
     }
 
     /*
      * Generate the report
-     * TODO use code from reportGeneratinoController.php for controlAction and generateAction
+    * TODO use code from reportGeneratinoController.php for controlAction and generateAction
+    *
+    */
+    /**
+     * Let jasper report (via java) generate the reports and display the list of reports,
+     * reported back from jasper report
+     *
      *
      */
-     /**
-      * Let jasper report (via java) generate the reports and display the list of reports, reported back from jasper report
-      *
-      *
-      */
-     public function generateAction()
-     {
-     $cwd = getcwd();
-     $output = array();
-     $returnVar = 0;
+    public function generateAction()
+    {
+        $cwd = getcwd();
+        $output = array();
+        $returnVar = 0;
 
-    $this->_id = $this->getRequest()->getParam("id");
-    if (!$this->_id) {
-        throw new Exception("No id given!");
-   	}
-	/* create the report(s) */
+        $this->_id = $this->getRequest()->getParam("id");
+        if (!$this->_id) {
+            throw new Exception("No id given!");
+        }
+        /* create the report(s) */
         chdir(APPLICATION_PATH . "/../java");
         $baseUrl=$this->getRequest()->getScheme().'://'.$this->getRequest()->getHttpHost().'/';
         $reportControlUrl=$baseUrl.'report/control/id/'.$this->_id;
         $reportConfig=Zend_Controller_Front::getInstance()
-            ->getParam('bootstrap')->getOption('generateReport');
+        ->getParam('bootstrap')->getOption('generateReport');
         $user = Doctrine_Core::getTable('Webenq_Model_User')->find($reportConfig['userId']);
         $apiKey=$user->api_key;
         $cmd = "java -cp .:./lib/* it.bisi.report.jasper.ExecuteReport $reportControlUrl $apiKey";
@@ -286,24 +298,25 @@ class ReportController extends Zend_Controller_Action
         if ($returnVar > 0) {
             $this->view->output = $output;
             return;
-        }else{
-        	$generatedFiles=explode(',', $output);
-       		//remove ../public/
-       		$generatedFiles=str_replace('../public','',$generatedFiles);
-       		$this->view->file = $generatedFiles;
-       	}
+        } else {
+            $generatedFiles=explode(',', $output);
+            //remove ../public/
+            $generatedFiles=str_replace('../public', '', $generatedFiles);
+            $this->view->file = $generatedFiles;
+        }
         /*
-        //if $output contains: 'error generating report(s)' some error occured
+         //if $output contains: 'error generating report(s)' some error occured
         $errorIndication='error generating report(s)';
         if (stripos($errorIndication,$output)){
-        	  $this->view->output = $output;
-            return;
+        $this->view->output = $output;
+        return;
         }else{
-        //else $output contains commaseperated list with generated report, relative to java starting with ../public/report/
-       		$generatedFiles=explode(',', $output);
-       		//remove ../public/
-       		$generatedFiles=str_replace('../public','',$generatedFiles);
-       		$this->view->file = $generatedFiles;
+        //else $output contains commaseperated list with generated report,
+        // relative to java starting with ../public/report/
+        $generatedFiles=explode(',', $output);
+        //remove ../public/
+        $generatedFiles=str_replace('../public','',$generatedFiles);
+        $this->view->file = $generatedFiles;
        	}
        	*/
     }

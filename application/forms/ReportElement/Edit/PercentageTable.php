@@ -20,24 +20,51 @@ class Webenq_Form_ReportElement_Edit_PercentageTable extends Webenq_Form_ReportE
             $multiOptions[$qq->id] = $qq->Question->getQuestionText()->text;
         }
 
-        $this->addElement($this->createElement('select', 'report_qq_id', array(
-            'label' => 'reporting question',
-        	'required' => true,
-        	'multiOptions' => $multiOptions,
-        )));
+        $this->addElement(
+            $this->createElement(
+                'select',
+                'report_qq_id',
+                array(
+                    'label' => 'reporting question',
+                    'required' => true,
+                    'multiOptions' => $multiOptions,
+                )
+            )
+        );
 
-        $this->addElement($this->createElement('select', 'group_qq_id', array(
-            'label' => 'grouping question',
-        	'required' => false,
-        	'multiOptions' => array('' => '')+ $multiOptions,
-        )));
-        $this->addElement($this->createElement('radio', 'display_group_question_text', array(
-        		'label' => 'Display the group question text on top of the table',
-        		'required' => true,
-        		'multiOptions' => array('no' => 'no, don\'t display group question text', 'yes'=>'yes, display group question text'),
-        )));
-        $this->addElement($this->createElement('submit', 'submit', array(
-            'label' => 'save',
-        )));
+        $this->addElement(
+            $this->createElement(
+                'select',
+                'group_qq_id',
+                array(
+                    'label' => 'grouping question',
+                    'required' => false,
+                    'multiOptions' => array('' => '')+ $multiOptions,
+                )
+            )
+        );
+        $this->addElement(
+            $this->createElement(
+                'radio',
+                'display_group_question_text',
+                array(
+                    'label' => 'Display the group question text on top of the table',
+                    'required' => true,
+                    'multiOptions' => array(
+                        'no' => 'no, don\'t display group question text',
+                        'yes'=>'yes, display group question text'
+                    ),
+                )
+            )
+        );
+        $this->addElement(
+            $this->createElement(
+                'submit',
+                'submit',
+                array(
+                    'label' => 'save',
+                )
+            )
+        );
     }
 }

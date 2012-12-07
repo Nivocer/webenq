@@ -19,15 +19,15 @@ class Webenq_Form_ReportGeneration_Index extends Zend_Form
     public function init()
     {
         $createDir = new Zend_Form_Element_Text('createDir');
-        $createDir->setLabel('Maak een nieuwe directory:');
+        $createDir->setLabel('Create a new directory:');
 
         $selectDir = new Zend_Form_Element_Select('selectDir');
-        $selectDir->setLabel('Selecteer een bestaande directory:')
+        $selectDir->setLabel('Select an existing directory:')
             ->setMultiOptions(array('' => ''))
             ->addMultiOptions($this->_subDirs);
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('genereer rapporten');
+        $submit->setLabel('generate reports');
 
         $this->addElements(array($createDir, $selectDir, $submit));
     }
@@ -35,12 +35,12 @@ class Webenq_Form_ReportGeneration_Index extends Zend_Form
     public function isValid($data)
     {
         if (!$data['createDir'] && !$data['selectDir']) {
-            $this->getElement('selectDir')->addError('Geef een directory op');
+            $this->getElement('selectDir')->addError('Select a directory');
             return false;
         }
 
         if ($data['createDir'] && $data['selectDir']) {
-            $this->getElement('selectDir')->addError('Geef slechts een directory op');
+            $this->getElement('selectDir')->addError('Select just one directory');
             return false;
         }
 

@@ -22,7 +22,10 @@ class Webenq_Form_AnswerPossibilityNullValue_Edit extends Webenq_Form_AnswerPoss
      * @param array|Zend_Config $options
      * @return void
      */
-    public function __construct(Webenq_Model_AnswerPossibilityNullValue $answerPossibilityNullValue, array $options = null)
+    public function __construct(
+            Webenq_Model_AnswerPossibilityNullValue $answerPossibilityNullValue,
+            array $options = null
+        )
     {
         $this->_answerPossibilityNullValue = $answerPossibilityNullValue;
         parent::__construct($options);
@@ -41,10 +44,16 @@ class Webenq_Form_AnswerPossibilityNullValue_Edit extends Webenq_Form_AnswerPoss
 
         $this->getElement('value')->setValue($this->_answerPossibilityNullValue->value);
 
-        $this->addElements(array(
-            $this->createElement('hidden', 'id', array(
-                'value' => $this->_answerPossibilityNullValue->id,
-            )),
-        ));
+        $this->addElements(
+            array(
+                $this->createElement(
+                    'hidden',
+                    'id',
+                    array(
+                        'value' => $this->_answerPossibilityNullValue->id,
+                    )
+                ),
+            )
+        );
     }
 }
