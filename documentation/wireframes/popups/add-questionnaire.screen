@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Panel" id="1" x="32" y="24" width="617" height="457" measuredWidth="617" measuredHeight="457"/>
+  <widgets xsi:type="model:Label" id="2" x="66" y="34" text="Add questionnaire" measuredWidth="235" measuredHeight="40">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="3" x="185" y="128" width="431" text="Name of questionnaire" measuredWidth="431" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="4" x="96" y="128" text="English" measuredWidth="64" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="5" x="185" y="168" width="431" text="..." measuredWidth="431" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="6" x="96" y="168" text="French" measuredWidth="61" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="7" x="185" y="208" width="431" text="..." measuredWidth="431" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="8" x="96" y="208" text="Spanish" measuredWidth="70" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="9" x="185" y="248" width="431" text="..." measuredWidth="431" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="10" x="96" y="248" text="Swahili" measuredWidth="62" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="11" x="63" y="90" text="Title" measuredWidth="38" measuredHeight="29">
+    <font size="11px" bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="12" x="66" y="336" text="Category" measuredWidth="78" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="14" x="185" y="336" text="Education     " measuredWidth="131" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Checkbox" id="17" x="66" y="382" text="Active" measuredWidth="70" measuredHeight="29" selected="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:DateField" id="18" x="240" y="382" text="12/3/04 11:00" measuredWidth="138" measuredHeight="29"/>
+  <widgets xsi:type="model:Label" id="19" x="185" y="382" text="Start" measuredWidth="43" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:DateField" id="20" x="477" y="382" text="23/5/07 18:00" measuredWidth="139" measuredHeight="29"/>
+  <widgets xsi:type="model:Label" id="21" x="432" y="382" text="End" measuredWidth="37" measuredHeight="29">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:List" id="27" x="63" y="118" text="(o)&#xA;()&#xA;()&#xA;()" measuredWidth="26" measuredHeight="164" border="false" alpha="0" rowHeight="40">
+    <font/>
+    <items x="0" y="2" width="26" height="40" text="(o)"/>
+    <items x="0" y="42" width="26" height="40" text="()"/>
+    <items x="0" y="82" width="26" height="40" text="()"/>
+    <items x="0" y="122" width="26" height="40" text="()"/>
+  </widgets>
+  <widgets xsi:type="model:Text" id="28" x="69" y="288" text="{curved-arrow-up} default language for this questionnaire" measuredWidth="326" measuredHeight="21">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="29" x="66" y="433" text="Cancel" measuredWidth="76" measuredHeight="31" link="../screens/manage-questionnaires-overview.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="30" x="159" y="433" text="Save" measuredWidth="61" measuredHeight="31" link="../screens/manage-questionnaires-overview.screen">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler>
+    <guides position="125"/>
+  </vRuler>
+  <font name="Arial" size="11px"/>
+</model:Screen>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Note" id="1" x="90" y="115" text="You can drag this item around to&#xA;re-order or to move to a new&#xA;position, category or page&#xA;&#xA;_(go back in your browser now)_" measuredWidth="286" measuredHeight="120" annotation="true">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Ubuntu" size="11px"/>
+</model:Screen>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:WidgetGroup" id="1" x="40" y="110" measuredWidth="391" measuredHeight="186" name="Choice - multiple select">
+  <widgets xsi:type="model:WidgetGroup" id="1" x="40" y="110" measuredWidth="435" measuredHeight="186" name="Choice - multiple select">
     <widgets xsi:type="model:Group" id="2" width="391" height="186" measuredWidth="391" measuredHeight="186" background="#eeeeee">
       <font/>
     </widgets>
-    <widgets xsi:type="model:List" id="3" x="10" y="30" text="[x] selected&#xA;[ ] not selected&#xA;~[ ] disabled~&#xA;~[x] disabled and selected~" measuredWidth="191" measuredHeight="156" border="false" alpha="0">
+    <widgets xsi:type="model:List" id="3" x="10" y="30" text="[x] selected&#xA;[ ] not selected&#xA;~[ ] disabled~&#xA;~[x] disabled and selected~" measuredWidth="205" measuredHeight="120" border="false" alpha="0">
       <font/>
-      <items x="0" y="2" width="191" height="38" text="[x] selected"/>
-      <items x="0" y="40" width="191" height="38" text="[ ] not selected"/>
-      <items x="0" y="78" width="191" height="38" text="~[ ] disabled~"/>
-      <items x="0" y="116" width="191" height="38" text="~[x] disabled and selected~"/>
+      <items x="0" y="2" width="205" height="29" text="[x] selected"/>
+      <items x="0" y="31" width="205" height="29" text="[ ] not selected"/>
+      <items x="0" y="60" width="205" height="29" text="~[ ] disabled~"/>
+      <items x="0" y="89" width="205" height="29" text="~[x] disabled and selected~"/>
     </widgets>
-    <widgets xsi:type="model:Text" id="4" x="10" y="10" text="Some type of multiple choice/multiple select question" measuredWidth="361" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="4" x="10" y="10" text="Some type of multiple choice/multiple select question" measuredWidth="425" measuredHeight="21">
       <font/>
     </widgets>
   </widgets>
@@ -19,29 +19,29 @@
     <widgets xsi:type="model:Group" id="6" width="391" height="191" measuredWidth="391" measuredHeight="191" background="#eeeeee">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="7" x="10" y="10" text="Some type of single choice/select question" measuredWidth="285" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="7" x="10" y="10" text="Some type of single choice/select question" measuredWidth="341" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:List" id="8" x="10" y="30" text="(o) option 1 (selected)&#xA;( ) option 2&#xA;~( ) option 3 (disabled)~&#xA;~(o) option 4 (disabled and selected)~" measuredWidth="260" measuredHeight="156" border="false" alpha="0">
+    <widgets xsi:type="model:List" id="8" x="10" y="30" text="(o) option 1 (selected)&#xA;( ) option 2&#xA;~( ) option 3 (disabled)~&#xA;~(o) option 4 (disabled and selected)~" measuredWidth="286" measuredHeight="120" border="false" alpha="0">
       <font/>
-      <items x="0" y="2" width="260" height="38" text="(o) option 1 (selected)"/>
-      <items x="0" y="40" width="260" height="38" text="( ) option 2"/>
-      <items x="0" y="78" width="260" height="38" text="~( ) option 3 (disabled)~"/>
-      <items x="0" y="116" width="260" height="38" text="~(o) option 4 (disabled and selected)~"/>
+      <items x="0" y="2" width="286" height="29" text="(o) option 1 (selected)"/>
+      <items x="0" y="31" width="286" height="29" text="( ) option 2"/>
+      <items x="0" y="60" width="286" height="29" text="~( ) option 3 (disabled)~"/>
+      <items x="0" y="89" width="286" height="29" text="~(o) option 4 (disabled and selected)~"/>
     </widgets>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="9" x="40" y="510" measuredWidth="391" measuredHeight="91" name="Scale - slider">
     <widgets xsi:type="model:Group" id="10" width="391" height="91" measuredWidth="391" measuredHeight="91" background="#eeeeee">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="11" x="10" y="10" text="Some type of choice/ranking question" measuredWidth="253" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="11" x="10" y="10" text="Some type of choice/ranking question" measuredWidth="301" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:HSlider" id="12" x="10" y="60" width="361" measuredWidth="361" measuredHeight="17"/>
-    <widgets xsi:type="model:Text" id="13" x="10" y="40" text="Fully Agree" measuredWidth="74" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="13" x="10" y="40" text="Fully Agree" measuredWidth="90" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="14" x="278" y="40" text="Fully disagree" measuredWidth="92" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="14" x="278" y="40" text="Fully disagree" measuredWidth="112" measuredHeight="21">
       <font/>
     </widgets>
   </widgets>
@@ -52,44 +52,44 @@
     <widgets xsi:type="model:Rectangle" id="17" x="110" y="62" width="111" height="8" measuredWidth="111" measuredHeight="8" background="#000000">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="18" x="10" y="5" text="Some type of choice/ranking question" measuredWidth="253" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="18" x="10" y="5" text="Some type of choice/ranking question" measuredWidth="301" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:HSlider" id="19" x="10" y="55" width="361" measuredWidth="361" measuredHeight="17"/>
-    <widgets xsi:type="model:Text" id="20" x="10" y="35" text="€10" measuredWidth="24" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="20" x="10" y="35" text="€10" measuredWidth="30" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="21" x="331" y="35" text="€1000" measuredWidth="40" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="21" x="331" y="35" text="€1000" measuredWidth="50" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:HSlider" id="22" x="209" y="55" width="21" measuredWidth="21" measuredHeight="17" value="47"/>
   </widgets>
-  <widgets xsi:type="model:Text" id="23" x="10" y="10" text="Various question types (each as a named group, with a group widget)" measuredWidth="458" measuredHeight="17">
+  <widgets xsi:type="model:Text" id="23" x="10" y="10" text="Various question types (each as a named group, with a group widget)" measuredWidth="553" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="24" x="450" y="357" measuredWidth="591" measuredHeight="144" name="Likert - sliders">
+  <widgets xsi:type="model:WidgetGroup" id="24" x="450" y="357" measuredWidth="600" measuredHeight="144" name="Likert - sliders">
     <widgets xsi:type="model:Group" id="25" width="591" height="144" measuredWidth="591" measuredHeight="144" background="#eeeeee">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="26" x="10" y="57" text="Statement 1" measuredWidth="82" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="26" x="10" y="57" text="Statement 1" measuredWidth="98" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:HSlider" id="27" x="220" y="57" width="361" measuredWidth="361" measuredHeight="17"/>
-    <widgets xsi:type="model:Text" id="28" x="220" y="37" text="Fully Agree" measuredWidth="74" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="28" x="220" y="37" text="Fully Agree" measuredWidth="90" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="29" x="488" y="37" text="Fully disagree" measuredWidth="92" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="29" x="488" y="37" text="Fully disagree" measuredWidth="112" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="30" x="10" y="83" text="Another statement" measuredWidth="128" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="30" x="10" y="83" text="Another statement" measuredWidth="148" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:HSlider" id="31" x="220" y="83" width="361" measuredWidth="361" measuredHeight="17" value="72"/>
-    <widgets xsi:type="model:Text" id="32" x="10" y="109" text="The last statement in a row" measuredWidth="180" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="32" x="10" y="109" text="The last statement in a row" measuredWidth="217" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:HSlider" id="33" x="220" y="109" width="361" measuredWidth="361" measuredHeight="17" value="47"/>
-    <widgets xsi:type="model:Text" id="34" x="10" y="10" text="Please indicate your agreement with the following statements" measuredWidth="413" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="34" x="10" y="10" text="Please indicate your agreement with the following statements" measuredWidth="490" measuredHeight="21">
       <font/>
     </widgets>
   </widgets>
@@ -97,10 +97,10 @@
     <widgets xsi:type="model:Group" id="36" width="591" height="191" measuredWidth="591" measuredHeight="191" background="#eeeeee">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Table" id="37" x="10" y="40" width="571" text=",Fully agree,Agree,Indifferent, Disagree,Fully disagree&#xA;Statement 1,{unselected},{selected},{unselected},{unselected},{unselected}&#xA;Another statement,{unselected},{unselected},{unselected},{selected},{unselected}&#xA;The last statement in  \na row,{unselected},{unselected},{selected},{unselected},{unselected}" measuredWidth="571" measuredHeight="143">
+    <widgets xsi:type="model:Table" id="37" x="10" y="40" width="571" text=",Fully agree,Agree,Indifferent, Disagree,Fully disagree&#xA;Statement 1,{unselected},{selected},{unselected},{unselected},{unselected}&#xA;Another statement,{unselected},{unselected},{unselected},{selected},{unselected}&#xA;The last statement in  \na row,{unselected},{unselected},{selected},{unselected},{unselected}" measuredWidth="571" measuredHeight="141">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Text" id="38" x="10" y="14" text="Please indicate your agreement with the following statements" measuredWidth="413" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="38" x="10" y="14" text="Please indicate your agreement with the following statements" measuredWidth="490" measuredHeight="21">
       <font/>
     </widgets>
   </widgets>
@@ -109,11 +109,11 @@
       <font/>
     </widgets>
     <widgets xsi:type="model:Map" id="41" x="10" y="41" measuredWidth="300" measuredHeight="200"/>
-    <widgets xsi:type="model:Text" id="42" x="10" y="10" text="Please indicate the location on the map below" measuredWidth="306" measuredHeight="17">
+    <widgets xsi:type="model:Text" id="42" x="10" y="10" text="Please indicate the location on the map below" measuredWidth="367" measuredHeight="21">
       <font/>
     </widgets>
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font size="26px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>

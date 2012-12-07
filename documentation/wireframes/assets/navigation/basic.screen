@@ -5,5 +5,5 @@
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font size="26px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>
