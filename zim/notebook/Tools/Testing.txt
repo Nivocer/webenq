@@ -4,7 +4,14 @@ Creation-Date: 2012-11-12T19:08:32+01:00
 
 ====== Testing ======
 
-===== Continuous integration =====
+
+===== Unit Testing =====
+We use phpunit for unit testing
+Tests are definied in /tests (mainly application)
+phpunit.xml defines holds the configuration, including codecoverage
+phpunit.travis.xml runs phpunit, without codecoverage
+
+==== Continuous integration ====
 We use Travis-CI for continuous integration testing: each push to the Github repository triggers a build that executes PHP unit tests.
 
 * The test configuration is specified in .travis.yml
@@ -18,10 +25,36 @@ We're currently testing on PHP versions:
 * 5.3.3 (nivocer server)
 * 5.4
 
-===== Daily build =====
-We run a test server at http://test4.webenq.org featuring PHP 5.4 and Java 6.
+===== Testing coding guidelines =====
+We use [[http://pear.php.net/package/PHP_CodeSniffer/|codesniffer]] to test the guidelines according to a (old) zend guideline.
+phpcs.sh runs the tests
 
-Each night, it gets the latest version from Github and runs the complete testsuite (taking approx. 6 hours).
+==== Testing complexity of code ====
+we use [[http://pdepend.org|pdepend]] to test the complexity of the code
+it results in: 
+	* pdepend.php:
+		* overview of file/packages/classes with the statistics
+	* pyramid.svg  3 parts:
+		* top: inheritance
+		* left:  balans in use of  methods/classes/packages
+		* right: balans: loosely/tightly coupled of code: reusable/reused.
+	* jdepend.svg: 
+		* hierarchy of the code with methods, within classes, within packages
+pdepend.sh runs the tests
+
+===== Testing coding guidelines/complexity of code =====
+Apart from codesniffer and pdepend, we use  [[http://phpmd.org/|messdetector]] to get information about coding guidelines/complexity
+phpmd.sh runs the tests
+
+===== Testing for duplicate code =====
+We are (going to) use [[https://github.com/sebastianbergmann/phpcpd/|duplicate code checker]] to check for duplicate code. It is an indicator that code is not reused proberly.
+@todo script which runs the tests.
+
+
+===== Daily build =====
+We run a test server at http://test4.webenq.org/tests featuring PHP 5.4 and Java 6.
+
+Each night, it gets the latest version from Github and runs the complete testsuite
 
 [ ] The directory ''application/models'' is currently excluded from code coverage reporting to make it fit into the 400MB memory of the (virtual) server (Amazon t1.micro).
 [ ] see if process isolation can improve performance (results in errors now)

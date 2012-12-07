@@ -26,8 +26,8 @@
 <li><a href="../Data_model.html" title="Data model">Data model</a></li>
 <li><a href="../Developing.html" title="Developing">Developing</a></li>
 <ul>
-<li><strong>Add report element</strong></li>
-<li><a href="./Coding_guidelines.html" title="Coding guidelines">Coding guidelines</a></li>
+<li><a href="./Add_report_element.html" title="Add report element">Add report element</a></li>
+<li><strong>Coding guidelines</strong></li>
 <li><a href="./Import_data.html" title="Import data">Import data</a></li>
 <li><a href="./Quality_Assurance.html" title="Quality Assurance">Quality Assurance</a></li>
 <li><a href="./Report_definition.html" title="Report definition">Report definition</a></li>
@@ -49,36 +49,26 @@
       </header>
       <section>
 
-<h1>Add report element</h1>
+<h1>Coding guidelines</h1>
 
 <p>
-To add a report element, for example `text with info` (count number of respondents on a question):<br>
+Created Monday 26 November 2012<br>
 </p>
 
 <p>
-<ul>
-<li>Make the new report element known to the system</li>
-</ul>
-<div style='padding-left: 30pt'>
-controller/ReportElementController: add case 'text with info'<br>
-forms/ReportElement/Add.php: add type 'text with info'<br>
-</div>
+For the Zend/php part we use the zend coding guidelines as tested by phpcs. This is a coding standard based on an early Zend Framework coding standard.<br>
+see <a href="../../Tools/Testing.html" title="Tools-&gt;Testing">Tools-&gt;Testing</a><br>
 </p>
-    
+
 <p>
-<ul>
-<li>Define the needed information:</li>
-</ul>
-<div style='padding-left: 30pt'>
-forms/reportElement/Edit/TextWithInfo.php: wich info do you need for this report element<br>
-application/views/helpers/ReportElement.php: which info do you want to show in view report<br>
-application/view/scripts/report/jrxml/subreport/textWithInfo.phtml: add subreport definition<br>
-</div>
+For the java-part we use the coding convention for the Java Programming Language as described by <a href="http://www.oracle.com/technetwork/java/codeconv-138413.html" title="Oracle">Oracle</a><br>
 </p>
-    
+
 <p>
-(the actual subreport was already defined)<br>
+For the jasper part (jrxml) we use the conventions as used by the community, <br>
+<span class="zim-tag">@todo</span> document this convention, maybe could use info from <a href="http://community.jaspersoft.com/questions/541964/ireport-developer-standards" title="http://community.jaspersoft.com/questions/541964/ireport-developer-standards">http://community.jaspersoft.com/questions/541964/ireport-developer-standards</a><br>
 </p>
+
 
 
       </section>
