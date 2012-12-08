@@ -47,9 +47,9 @@ class Webenq_Form_Email_Merge extends Zend_Form
         $file = $this->createElement('file', 'file');
         $file
             ->setRequired(true)
-            ->setLabel('Selecteer het bestand met email-adressen: ')
+            ->setLabel('Select the file with email-addresses')
             ->setDescription(
-                'De volgende bestandsindelingen worden ondersteund: ' .
+                'The next file formats are supported' .
                 implode(', ', $this->_supportedFormats)
             )
             ->addValidators(
@@ -60,7 +60,7 @@ class Webenq_Form_Email_Merge extends Zend_Form
                 )
             );
 
-        $submit = $this->createElement('submit', 'Importeren');
+        $submit = $this->createElement('submit', 'Import');
 
         $this->addElements(array($file, $submit));
     }

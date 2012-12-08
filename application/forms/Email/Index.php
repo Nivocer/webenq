@@ -19,12 +19,12 @@ class Webenq_Form_Email_Index extends Zend_Form
     public function init()
     {
         $selectDir = new Zend_Form_Element_Select('selectDir');
-        $selectDir->setLabel('Selecteer een directory:')
+        $selectDir->setLabel('Select a directory:')
             ->setMultiOptions(array('' => ''))
             ->addMultiOptions($this->_subDirs);
 
         $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('rapporten weergeven');
+        $submit->setLabel('View reports');
 
         $this->addElements(array($selectDir, $submit));
     }

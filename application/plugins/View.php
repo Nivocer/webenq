@@ -13,7 +13,7 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view = new Zend_View();
 
         $view->doctype('XHTML1_STRICT');
-        $view->headTitle()->setSeparator(' - ')->append('Webenq 4');
+        $view->headTitle()->setSeparator(' - ')->append('WebEnq 4');
         $view->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
 
         /* CSS */

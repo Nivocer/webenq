@@ -14,7 +14,7 @@ class Webenq_Form_ScaleValues_Add extends Zend_Form
         $notEmpty->setMessage("Enter a label");
 
         $label = $this->createElement('text', 'label');
-        $label->setLabel('Label:')
+        $label->setLabel('Label')
         ->setRequired(true)
         ->addValidator($notEmpty);
 
@@ -22,20 +22,20 @@ class Webenq_Form_ScaleValues_Add extends Zend_Form
         $notEmpty->setMessage("Enter a value");
 
         $value = $this->createElement('text', 'value');
-        $value->setLabel('Value:')
+        $value->setLabel('Value')
         ->setRequired(true)
         ->addValidator($notEmpty);
 
         $questionType = $this->createElement('select', 'question_type');
-        $questionType->setLabel('Question type:')
+        $questionType->setLabel('Question type')
         ->addMultiOptions(
             array(
-                        'Webenq_Model_Data_Question_Closed_Scale_Two'    => '2-punts schaal',
-                        'Webenq_Model_Data_Question_Closed_Scale_Three'    => '3-punts schaal',
-                        'Webenq_Model_Data_Question_Closed_Scale_Four'    => '4-punts schaal',
-                        'Webenq_Model_Data_Question_Closed_Scale_Five'    => '5-punts schaal',
-                        'Webenq_Model_Data_Question_Closed_Scale_Six'    => '6-punts schaal',
-                        'Webenq_Model_Data_Question_Closed_Scale_Seven'    => '7-punts schaal',
+                        'Webenq_Model_Data_Question_Closed_Scale_Two'    => '2-points scale',
+                        'Webenq_Model_Data_Question_Closed_Scale_Three'    => '3-points scale',
+                        'Webenq_Model_Data_Question_Closed_Scale_Four'    => '4-points scale',
+                        'Webenq_Model_Data_Question_Closed_Scale_Five'    => '5-points scale',
+                        'Webenq_Model_Data_Question_Closed_Scale_Six'    => '6-points scale',
+                        'Webenq_Model_Data_Question_Closed_Scale_Seven'    => '7-points scale',
                 )
         );
 

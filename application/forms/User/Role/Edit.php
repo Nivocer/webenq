@@ -31,9 +31,9 @@ class Webenq_Form_User_Role_Edit extends Webenq_Form_User_Role_Add
         );
 
         $this->getElement('name')
-            ->setLabel('Hernoem rol:')
+            ->setLabel('Rename role')
             ->setValue($this->_role->name);
-        $this->getElement('submit')->setLabel('wijzigen');
+        $this->getElement('submit')->setLabel('change');
     }
 
     public function store()
@@ -45,9 +45,9 @@ class Webenq_Form_User_Role_Edit extends Webenq_Form_User_Role_Add
         }
         catch (Doctrine_Connection_Mysql_Exception $e) {
             if ($e->getCode() == 23000) {
-                $this->name->addError('Deze naam is al in gebruik voor een andere rol');
+                $this->name->addError('This name is already in use for a different role');
             } else {
-                $this->name->addError('Er is een onbekende fout opgetreden');
+                $this->name->addError('Unknown error occured');
             }
             return false;
         }

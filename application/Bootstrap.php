@@ -142,7 +142,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $translate ->addTranslation(
             array(
-                'content' => APPLICATION_PATH . '/translations/nl_NL.mo',
+                'content' => APPLICATION_PATH . '/translations/en_EN.mo',
                 'locale'  => 'en',
             )
         );

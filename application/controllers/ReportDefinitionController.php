@@ -189,7 +189,7 @@ class ReportDefinitionController extends Zend_Controller_Action
         /* get form */
         $form = new Zend_Form();
         $confirm = new Zend_Form_Element_Submit('confirm');
-        $confirm->setLabel("ja, verwijderen")->setValue("yes");
+        $confirm->setLabel("yes, delete")->setValue("yes");
         $form->addElement($confirm);
 
         if ($this->getRequest()->isPost()) {

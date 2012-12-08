@@ -21,8 +21,8 @@ class Zend_View_Helper_FrequencyTable extends Zend_View_Helper_Abstract
                     <tr>
                         <th>' . t('id') . '</th>
                         <th>' . t('label') . '</th>
-                        <th>' . t('waarde') . '</th>
-                        <th>' . t('aantal') . '</th>
+                        <th>' . t('value') . '</th>
+                        <th>' . t('count') . '</th>
                     </tr>';
 
         $hasRows = false;

@@ -121,7 +121,7 @@ class EmailController extends Zend_Controller_Action
     public function mergeTeacherAction()
     {
         $form = $this->view->form = new Webenq_Form_Email_Merge(array('csv'));
-        $form->file->setLabel('Selecteer het docenten-groep-boecode-bestand:');
+        $form->file->setLabel('Select the file:');
         $errors = array();
 
         if ($this->getRequest()->isPost()) {
@@ -261,7 +261,7 @@ class EmailController extends Zend_Controller_Action
         /* get form */
         $form = new Zend_Form();
         $confirm = new Zend_Form_Element_Submit('confirm');
-        $confirm->setLabel("ja, verwijderen")->setValue("yes");
+        $confirm->setLabel("yes, delete")->setValue("yes");
         $form->addElement($confirm);
 
         if ($this->getRequest()->isPost()) {

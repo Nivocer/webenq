@@ -33,7 +33,7 @@ class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
         $this->getElement('username')->setValue($this->_user->username);
         $this->getElement('fullname')->setValue($this->_user->fullname);
         $this->getElement('role_id')->setValue($this->_user->role_id);
-        $this->getElement('submit')->setLabel('wijzigen');
+        $this->getElement('submit')->setLabel('change');
     }
 
     public function isValid($data)
@@ -66,9 +66,9 @@ class Webenq_Form_User_User_Edit extends Webenq_Form_User_User_Add
         }
         catch (Doctrine_Connection_Mysql_Exception $e) {
             if ($e->getCode() == 23000) {
-                $this->username->addError('Deze gebruikersnaam is al in gebruik voor een andere gebruiker');
+                $this->username->addError('This name is already in use for a different user');
             } else {
-                $this->username->addError('Er is een onbekende fout opgetreden');
+                $this->username->addError('Unknown error occured');
             }
             return false;
         }

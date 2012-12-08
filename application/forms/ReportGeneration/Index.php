@@ -19,10 +19,10 @@ class Webenq_Form_ReportGeneration_Index extends Zend_Form
     public function init()
     {
         $createDir = new Zend_Form_Element_Text('createDir');
-        $createDir->setLabel('Create a new directory:');
+        $createDir->setLabel('Create a new directory');
 
         $selectDir = new Zend_Form_Element_Select('selectDir');
-        $selectDir->setLabel('Select an existing directory:')
+        $selectDir->setLabel('Select an existing directory')
             ->setMultiOptions(array('' => ''))
             ->addMultiOptions($this->_subDirs);
 

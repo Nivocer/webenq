@@ -19,12 +19,12 @@ class Webenq_Form_User_Login extends Zend_Form
         $this->setAction("$baseUrl/user/login");
 
         $username= new Zend_Form_Element_Text('username');
-        $username->setLabel('Username:')
+        $username->setLabel('Username')
             ->setRequired(true)
             ->addValidator('NotEmpty');
 
         $password = new Zend_Form_Element_Password('password');
-        $password->setLabel('Password:')
+        $password->setLabel('Password')
             ->setRequired(true)
             ->addValidator('NotEmpty');
 

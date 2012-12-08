@@ -143,12 +143,12 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
             $html .= '<br/>';
         }
         if (isset($this->_data['variant'])) {
-            $html .= t('variant: ') . ' <strong>'. t($this->_data['variant']) . '</strong>';
+            $html .= t('variant') . ' <strong>'. t($this->_data['variant']) . '</strong>';
             $html .= '<br/>';
         }
 
         if (isset($this->_data['color_mean'])) {
-            $html .= t('means colored: ') . ' <strong>'
+            $html .= t('means colored') . ' <strong>'
                     . t($this->_data['color_mean']) . '</strong>';
         }
 

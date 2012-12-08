@@ -46,9 +46,9 @@ class Webenq_Form_User_Role_Add extends Zend_Form
         }
         catch (Doctrine_Connection_Mysql_Exception $e) {
             if ($e->getCode() == 23000) {
-                $this->name->addError('Deze naam is al in gebruik voor een andere rol');
+                $this->name->addError('This name is already in use for a different role');
             } else {
-                $this->name->addError('Er is een onbekende fout opgetreden');
+                $this->name->addError('Unknown error occured');
             }
             return false;
         }

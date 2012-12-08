@@ -3,7 +3,7 @@
 </a>
 
 <?php if (!$this->questions || $this->questions->count() == 0): ?>
-    <p><?php echo t('Er zijn nog geen vragen aangemaakt'); ?></p>
+    <p><?php echo t('No questions in this questionnaire yet'); ?></p>
 <?php else: ?>
     <table>
         <thead>
@@ -32,9 +32,9 @@
                         <?php endforeach;?>
                     </td>
                     <td>
-                        <a class="ajax icon edit" title="<?php echo t('bewerken'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);    ?>">&nbsp;</a>
+                        <a class="ajax icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/question/edit/id/" . $question->id);    ?>">&nbsp;</a>
                         <?php if($question->QuestionnaireQuestion->count() == 0): ?>
-                            <a class="ajax icon delete" title="<?php echo t('verwijderen'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
+                            <a class="ajax icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/question/delete/id/" . $question->id); ?>">&nbsp;</a>
                         <?php endif; ?>
                     </td>
                 </tr>
