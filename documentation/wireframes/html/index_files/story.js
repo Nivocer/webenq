@@ -8,11 +8,11 @@ var story = {
    "image": "1-login.png",
    "links": [
     {
-     "page": 4,
+     "page": 8,
      "rect": [
       21,
       313,
-      110,
+      90,
       344
      ]
     },
@@ -24,6 +24,33 @@ var story = {
       352,
       362
      ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      145,
+      0,
+      204,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      898,
+      0,
+      933,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      932,
+      0,
+      958,
+      37
+     ]
     }
    ]
   },
@@ -32,64 +59,93 @@ var story = {
    "height": 269,
    "width": 958,
    "image": "2-login-error.png",
-   "links": [{
-    "page": 0,
-    "rect": [
-     26,
-     196,
-     268,
-     269
-    ]
-   }]
+   "links": [
+    {
+     "page": 0,
+     "rect": [
+      145,
+      0,
+      204,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      898,
+      0,
+      933,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      932,
+      0,
+      958,
+      37
+     ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      26,
+      196,
+      268,
+      269
+     ]
+    }
+   ]
   },
   {
    "title": "add-questionnaire",
-   "height": 457,
-   "width": 617,
+   "height": 497,
+   "width": 641,
    "image": "3-add-questionnaire.png",
    "links": [
     {
      "page": 4,
      "rect": [
-      34,
-      409,
-      110,
-      440
+      58,
+      449,
+      134,
+      480
      ]
     },
     {
      "page": 4,
      "rect": [
-      127,
-      409,
-      188,
-      440
+      151,
+      449,
+      212,
+      480
      ]
     }
    ]
   },
   {
    "title": "edit-questionnaire-properties",
-   "height": 457,
-   "width": 617,
+   "height": 497,
+   "width": 641,
    "image": "4-edit-questionnaire-properties.png",
    "links": [
     {
      "page": 4,
      "rect": [
-      34,
-      409,
-      110,
-      440
+      58,
+      449,
+      134,
+      480
      ]
     },
     {
      "page": 4,
      "rect": [
-      127,
-      409,
-      188,
-      440
+      151,
+      449,
+      212,
+      480
      ]
     }
    ]
@@ -128,11 +184,47 @@ var story = {
      ]
     },
     {
+     "page": 8,
+     "rect": [
+      145,
+      0,
+      204,
+      37
+     ]
+    },
+    {
      "page": 4,
      "rect": [
       204,
       0,
       336,
+      37
+     ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      626,
+      0,
+      696,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      898,
+      0,
+      933,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      932,
+      0,
+      958,
       37
      ]
     },
@@ -217,11 +309,47 @@ var story = {
      ]
     },
     {
+     "page": 8,
+     "rect": [
+      145,
+      0,
+      204,
+      37
+     ]
+    },
+    {
      "page": 4,
      "rect": [
       204,
       0,
       336,
+      37
+     ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      626,
+      0,
+      696,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      898,
+      0,
+      933,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      932,
+      0,
+      958,
       37
      ]
     }
@@ -230,9 +358,69 @@ var story = {
   {
    "title": "hint-drag-to-move",
    "height": 120,
-   "width": 286,
+   "width": 301,
    "image": "7-hint-drag-to-move.png",
    "links": []
+  },
+  {
+   "title": "hint-switch-interface-language",
+   "height": 185,
+   "width": 364,
+   "image": "8-hint-switch-interface-language.png",
+   "links": []
+  },
+  {
+   "title": "home",
+   "height": 200,
+   "width": 958,
+   "image": "9-home.png",
+   "links": [
+    {
+     "page": 8,
+     "rect": [
+      145,
+      0,
+      205,
+      39
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      205,
+      0,
+      345,
+      39
+     ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      647,
+      0,
+      723,
+      39
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      898,
+      0,
+      933,
+      37
+     ]
+    },
+    {
+     "page": 7,
+     "rect": [
+      932,
+      0,
+      958,
+      37
+     ]
+    }
+   ]
   }
  ],
  "highlightLinks": false

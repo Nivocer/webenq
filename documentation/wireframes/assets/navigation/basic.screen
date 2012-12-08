@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:WidgetGroup" id="1" width="961" measuredWidth="138" measuredHeight="64" name="logo">
+  <widgets xsi:type="model:WidgetGroup" id="1" width="961" measuredWidth="138" measuredHeight="64" link="../../screens/home.screen" name="logo">
     <widgets xsi:type="model:Placeholder" id="2" width="138" height="64" text="logo" measuredWidth="138" measuredHeight="64" link="../../pages/home.screen"/>
   </widgets>
   <hRuler/>

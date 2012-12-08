@@ -21,4 +21,10 @@
   <panels x="675" y="375">
     <screen href="../hints/hint-drag-to-move.screen#/"/>
   </panels>
+  <panels x="975" y="375">
+    <screen href="../hints/hint-switch-interface-language.screen#/"/>
+  </panels>
+  <panels x="75" y="675">
+    <screen href="../screens/home.screen#/"/>
+  </panels>
 </story:Storyboard>
