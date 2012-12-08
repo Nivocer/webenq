@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Note" id="1" x="24" y="16" text="_(this will appear as a pop-up over the previous screen)_" measuredWidth="443" measuredHeight="32" annotation="true">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Ubuntu" size="11px"/>
+</model:Screen>

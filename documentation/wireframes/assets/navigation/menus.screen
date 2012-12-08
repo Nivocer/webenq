@@ -2,29 +2,33 @@
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
   <widgets xsi:type="model:Image" id="1" x="205" y="265"/>
   <widgets xsi:type="model:WidgetGroup" id="2" x="24" y="20" measuredWidth="818" measuredHeight="37" name="Top menu (logged in)">
-    <widgets xsi:type="model:Menu" id="3" text="Home, Questionnaires, Import, Vragen, Antwoordmogelijkheden, Users, Log out" measuredWidth="660" measuredHeight="37" selection="">
-      <items x="5" y="0" width="59" height="37" text="Home"/>
+    <widgets xsi:type="model:Menu" id="3" text="Home, Questionnaires, Import, Questions, Answers, Users, Log out" measuredWidth="561" measuredHeight="37" selection="">
+      <items link="../../screens/home.screen" x="5" y="0" width="59" height="37" text="Home"/>
       <items link="../../screens/manage-questionnaires-overview.screen" x="64" y="0" width="132" height="37" text="Questionnaires"/>
       <items x="196" y="0" width="62" height="37" text="Import"/>
-      <items x="258" y="0" width="67" height="37" text="Vragen"/>
-      <items x="325" y="0" width="203" height="37" text="Antwoordmogelijkheden"/>
-      <items x="528" y="0" width="57" height="37" text="Users"/>
-      <items x="585" y="0" width="70" height="37" text="Log out"/>
+      <items x="258" y="0" width="92" height="37" text="Questions"/>
+      <items x="350" y="0" width="79" height="37" text="Answers"/>
+      <items x="429" y="0" width="57" height="37" text="Users"/>
+      <items link="../../screens/login.screen" x="486" y="0" width="70" height="37" text="Log out"/>
     </widgets>
     <widgets xsi:type="model:Menu" id="4" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="37">
       <items x="5" y="0" width="30" height="37" text="en"/>
       <items x="35" y="0" width="24" height="37" text="nl"/>
     </widgets>
+    <widgets xsi:type="model:Hotspot" id="8" x="758" width="35" height="37" measuredWidth="35" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
+    <widgets xsi:type="model:Hotspot" id="10" x="792" width="26" height="37" measuredWidth="26" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="5" x="24" y="72" measuredWidth="818" measuredHeight="37" name="Top menu (logged out)">
     <widgets xsi:type="model:Menu" id="6" text="Home, Questionnaires" measuredWidth="201" measuredHeight="37" selection="">
-      <items x="5" y="0" width="59" height="37" text="Home"/>
+      <items link="../../screens/login.screen" x="5" y="0" width="59" height="37" text="Home"/>
       <items x="64" y="0" width="132" height="37" text="Questionnaires"/>
     </widgets>
     <widgets xsi:type="model:Menu" id="7" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="37">
       <items x="5" y="0" width="30" height="37" text="en"/>
       <items x="35" y="0" width="24" height="37" text="nl"/>
     </widgets>
+    <widgets xsi:type="model:Hotspot" id="11" x="758" width="35" height="37" measuredWidth="35" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
+    <widgets xsi:type="model:Hotspot" id="12" x="792" width="26" height="37" measuredWidth="26" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
   </widgets>
   <hRuler/>
   <vRuler/>
