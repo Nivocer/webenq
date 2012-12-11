@@ -1,10 +1,13 @@
 <?php
 /**
- * Controller class
+ * Email Controller class
+ *
+ * Batch sends report to end users, tailored for a specific client, used in webenq < 4.4
  *
  * @package     Webenq
  * @subpackage  Controllers
  * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @deprecated
  */
 class EmailController extends Zend_Controller_Action
 {
