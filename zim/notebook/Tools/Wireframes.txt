@@ -5,5 +5,22 @@ Creation-Date: 2012-11-12T16:14:52+01:00
 ====== Wireframes ======
 
 We aim to design the application via wireframes. These are stored along with the code, and occassionally exported as html to the documentation website.
-
 [[/wireframes|See the mockup site here: /wireframes]].
+
+We use Wireframesketcher to create wireframes. It's based on Eclipse, and available as either a plugin or as a standalone product.
+
+It is not free, but does provide an open source SDK and an open XML format for the wireframes.
+
+http://wireframesketcher.com
+http://wireframesketcher.com/developers.html
+
+Directories:
+
+- assets: library of re-usable components and objects
+- screens: individual screen layouts
+- stories: combinations of screens delivering a user story
+- html: generated interactive version (we add all screens to index.story and 
+	export just that story to generate this version)
+
+Wireframesketcher uses .settings/com.wireframesketcher.ui.prefs to store the
+location of the 'assets' folder.
