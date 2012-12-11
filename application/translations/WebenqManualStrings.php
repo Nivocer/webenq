@@ -81,7 +81,8 @@ _('Test installation'),
 _('Manage Installation'),
 _('Update database'),
 _('Generate report'),
-_('Merge files')
-
+_('Merge files'),
+_('nl'),
+_('en')
 ;
 ?>
