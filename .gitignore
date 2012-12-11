@@ -22,6 +22,7 @@ public/outputs/*.xlsx
 /logs/application.log
 
 /application/configs/override.ini
+/application/translations/webenq4.mo
 
 /java/tempout/createIntroduction.error
 /java/tempout/createReport.error
