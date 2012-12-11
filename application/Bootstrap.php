@@ -134,7 +134,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $translate = new Zend_Translate(
             array(
                 'adapter'=> 'gettext',
-                'content'=> APPLICATION_PATH . '/translations/nl_NL.mo',
+                'content'=> APPLICATION_PATH . '/translations/webenq4_nl.mo',
                 'locale' => 'nl',
                 'log' => $this->getResource('log'),
                 'logUntranslated' => true,
@@ -142,7 +142,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $translate ->addTranslation(
             array(
-                'content' => APPLICATION_PATH . '/translations/en_EN.mo',
+                'content' => APPLICATION_PATH . '/translations/webenq4_en.mo',
                 'locale'  => 'en',
             )
         );
