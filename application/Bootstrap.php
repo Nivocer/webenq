@@ -152,7 +152,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             array(
                 'adapter' => 'array',
                 'content' => APPLICATION_PATH . '/translations/nl/Zend_Validate.php',
-                'locale' => 'en',
+                'locale' => 'nl',
                )
         );
         /* $translateArray->addTranslation(
