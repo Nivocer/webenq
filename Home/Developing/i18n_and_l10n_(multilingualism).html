@@ -57,53 +57,31 @@ Created Wednesday 05 December 2012<br>
 </p>
 
 <p>
-we use zend_translate for multilingualism <a href="http://framework.zend.com/manual/1.12/en/zend.translate.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.html">http://framework.zend.com/manual/1.12/en/zend.translate.html</a><br>
+The default language is English. Strings are translated by using Zend_translate<br>
+<a href="http://framework.zend.com/manual/1.12/en/zend.translate.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.html">http://framework.zend.com/manual/1.12/en/zend.translate.html</a><br>
+We use the gettext variant.<br>
+In application/translation/webenq4.pot we have a set of translatable strings. These strings are mostly harvest by scanning the code (.php and .phtml)for: <br>
+setMessage, _ translate, setLabel, setLegend, _refresh, setValue, append, t<br>
+t is a method we wrote to perform the translation, customized for our needs.<br>
+Some strings are not found in the code (eg controller/methods used in user management). To be able to find those strings when we harvest the strings, we add these strings in a3pplications/translation/WebenqManualStrings.php. <br>
 </p>
 
 <p>
-strings set via setLegend, setValue, setLabel (@todo check this methods) are parsed via a zend gettext parser. We also added the method 't' to use in code and views.<br>
+We use <a href="../../Tools/Poedit.html" title="poedit">poedit</a> to  scan the code for translatable strings. These are stored in application/translations/webenq4.pot.<br>
+To translate, we use this file to scan for new strings.<br>
 </p>
 
+<h4>zend_validate</h4>
 <p>
-At this moment we use array-based translation, but it is difficult to harvest the needed translation, so we best change to gettext, some issues:<br>
-<ul>
-<li>it is easier for translaters</li>
-<li>we can use it for php and java</li>
-<li>multiple sources (array and gettext)</li>
-<ul>
-<li>which order...</li>
-</ul>
-</ul>
+We use zend-validate to validate forms we want to use the translations shipped with the zend-framework (<a href="https://github.com/zendframework/zf2/tree/master/resources/languages" title="https://github.com/zendframework/zf2/tree/master/resources/languages">https://github.com/zendframework/zf2/tree/master/resources/languages</a> (assuming we use zf2)), but this is array based, so we combine multiple sources<br>
 </p>
 
-<h3>Multiple sources</h3>
-<p>
-We use zend-validate to validate forms we want to use the translations shipped with the zend-framework (<a href="https://github.com/zendframework/zf2/tree/master/resources/languages" title="https://github.com/zendframework/zf2/tree/master/resources/languages">https://github.com/zendframework/zf2/tree/master/resources/languages</a> (assuming we use zf2)), but this is array based, so we need to combine multiple sources, this  is possible according to<br>
-<a href="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html">http://framework.zend.com/manual/1.12/en/zend.translate.additional.html</a> -&gt; Combining multiple translation sources <br>
-</p>
 
-<h4>Configuring (in Bootstrap.php):</h4>
-<p>
-<a href="http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext" title="http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext">http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext</a><br>
-</p>
-
-<h4>Creating sourcefiles:</h4>
+<h4>See also</h4>
 <p>
 <a href="http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/" title="http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/">http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/</a><br>
-it describes poedit for zend, most importand in the system preferences we should adjust the php parser to also read .phtml files <br>
-for a catalog, we must add t as keyword<br>
-(adding a language is easiest to copy a .po file, keep the header, remove the translations and open it in poedit)<br>
-</p>
-
-<h3>More features</h3>
-<p>
-You can define default languages in cases a translation is missing:<br>
-<a href="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html">http://framework.zend.com/manual/1.12/en/zend.translate.additional.html</a> -&gt;  Routing for translations <br>
-</p>
-
-<p>
-Automatical handling of languages<br>
-<a href="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html">http://framework.zend.com/manual/1.12/en/zend.translate.additional.html</a> -&gt; Automatical handling of languages<br>
+<a href="http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext" title="http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext">http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext</a><br>
+<a href="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html">http://framework.zend.com/manual/1.12/en/zend.translate.additional.html</a><br>
 </p>
 
 
