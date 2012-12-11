@@ -31,6 +31,8 @@ The main definition is in yaml format in ''application/doctrine/schema.yml''. If
 	''models/*.php'' if they do not yet exist
 4. Update the database: ''doctrine migrate''
 
+Possible problem see http://www.nivocer.com/wish/view.php?id=5329#c16671
+
 Other methods to change the datamodel (deprecated):
 * create migration class self, you don't need yaml anymore
 * change database, recreate model classes with ''bin/doctrine generate-models-db''
