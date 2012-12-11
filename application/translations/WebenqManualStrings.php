@@ -83,6 +83,7 @@ _('Update database'),
 _('Generate report'),
 _('Merge files'),
 _('nl'),
-_('en')
+_('en'),
+_('Are you sure?')
 ;
 ?>

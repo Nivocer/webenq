@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-11 12:04+0100\n"
-"PO-Revision-Date: 2012-12-11 12:04+0100\n"
+"POT-Creation-Date: 2012-12-11 12:30+0100\n"
+"PO-Revision-Date: 2012-12-11 12:30+0100\n"
 "Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -580,6 +580,10 @@ msgstr "nl"
 #: application/translations/WebenqManualStrings.php:86
 msgid "en"
 msgstr "en"
+
+#: application/translations/WebenqManualStrings.php:87
+msgid "Are you sure?"
+msgstr "Are you sure?"
 
 #: application/controllers/EmailController.php:127
 msgid "Select the file:"
