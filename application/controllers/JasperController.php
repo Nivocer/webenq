@@ -1,4 +1,14 @@
 <?php
+/**
+ * Jasper Controller class
+ *
+ * Attempt to connect to java via php-class, has not been in production
+ *
+ * @package     Webenq
+ * @subpackage  Controllers
+ * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @deprecated
+ */
 
 class JasperController extends Zend_Controller_Action
 {
