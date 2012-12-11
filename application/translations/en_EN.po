@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-06 17:08+0100\n"
-"PO-Revision-Date: 2012-12-06 17:12+0100\n"
+"POT-Creation-Date: 2012-12-11 11:45+0100\n"
+"PO-Revision-Date: 2012-12-11 11:53+0100\n"
 "Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: application\n"
 
 #: application/plugins/View.php:16
-msgid "Webenq 4"
-msgstr "Webenq 4"
+msgid "WebEnq 4"
+msgstr "WebEnq 4"
 
 #: application/plugins/View.php:96
 msgid "Home"
@@ -53,44 +53,44 @@ msgid "Log out"
 msgstr "Log out"
 
 #: application/forms/ReportDefinition.php:86
-msgid "Geef de bestandsnaam voor het rapport op (zonder extensie):"
-msgstr ""
+msgid "File name for report (without extension)"
+msgstr "File name for report (without extension)"
 
 #: application/forms/ReportDefinition.php:91
-msgid "Selecteer een rapport formaat:"
-msgstr ""
+msgid "Select an output format:"
+msgstr "Select an output format:"
 
 #: application/forms/ReportDefinition.php:97
-msgid "Selecteer een rapport-type:"
-msgstr ""
+msgid "Select a report type"
+msgstr "Select a report type"
 
 #: application/forms/ReportDefinition.php:103
-msgid "Selecteer een taal:"
-msgstr ""
+msgid "Select a language"
+msgstr "Select a language"
 
 #: application/forms/ReportDefinition.php:109
-msgid "Selecteer een klant:"
-msgstr ""
+msgid "Select a customer"
+msgstr "Select a customer"
 
 #: application/forms/ReportDefinition.php:115
-msgid "Selecteer een pagina-type:"
-msgstr ""
+msgid "Select a page type"
+msgstr "Select a page type"
 
 #: application/forms/ReportDefinition.php:121
-msgid "Selecteer een vraag om de data te groeperen:"
-msgstr ""
+msgid "Select a question to group the data"
+msgstr "Select a question to group the data"
 
 #: application/forms/ReportDefinition.php:128
-msgid "Selecteer een vraag om de data te splitsen:"
-msgstr ""
+msgid "Select a question to splits the data"
+msgstr "Select a question to splits the data"
 
 #: application/forms/ReportDefinition.php:135
-msgid "Selecteer de vragen die niet de rapportage moeten worden opgenomen:"
-msgstr ""
+msgid "Select the questions we don't want to report about"
+msgstr "Select the questions we don't want to report about"
 
 #: application/forms/ReportDefinition.php:140
-msgid "Verzenden"
-msgstr ""
+msgid "Submit"
+msgstr "Submit"
 
 #: application/forms/Import.php:40
 msgid "select the file to import"
@@ -101,44 +101,52 @@ msgid "supported formats"
 msgstr "supported formats"
 
 #: application/forms/Email/Merge.php:50
-msgid "Selecteer het bestand met email-adressen: "
-msgstr ""
+msgid "Select the file with email-addresses"
+msgstr "Select the file with email-addresses"
 
 #: application/forms/Email/Index.php:22
-msgid "Selecteer een directory:"
-msgstr ""
+msgid "Select a directory:"
+msgstr "Select a directory:"
 
 #: application/forms/Email/Index.php:27
-msgid "rapporten weergeven"
-msgstr ""
+msgid "View reports"
+msgstr "View reports"
 
 #: application/forms/ReportElement/Edit/IncludeJasperSubreport.php:23
 msgid "jasper file name (relative to java-root"
-msgstr ""
+msgstr "jasper file name (relative to java-root"
 
 #: application/forms/ScaleValues/Del.php:14
-msgid "ja, verwijderen"
-msgstr ""
+msgid "yes, delete"
+msgstr "yes, delete"
 
 #: application/forms/ScaleValues/Del.php:14
 msgid "yes"
 msgstr "yes"
 
+#: application/forms/ScaleValues/Add.php:14
+msgid "Enter a label"
+msgstr "Enter a label"
+
 #: application/forms/ScaleValues/Add.php:17
-msgid "Label:"
-msgstr "Label:"
+msgid "Label"
+msgstr "Label"
+
+#: application/forms/ScaleValues/Add.php:22
+msgid "Enter a value"
+msgstr "Enter a value"
 
 #: application/forms/ScaleValues/Add.php:25
-msgid "Waarde:"
-msgstr ""
+msgid "Value"
+msgstr "Value"
 
 #: application/forms/ScaleValues/Add.php:30
-msgid "Vraagtype:"
-msgstr ""
+msgid "Question type"
+msgstr "Question type"
 
 #: application/forms/ScaleValues/Add.php:43
-msgid "Opslaan"
-msgstr ""
+msgid "Save"
+msgstr "Save"
 
 #: application/forms/AnswerPossibility/Edit.php:139
 #: application/forms/Question/Add.php:29
@@ -150,45 +158,45 @@ msgid "synonym for"
 msgstr "synonym for"
 
 #: application/forms/Test/Index.php:28
-msgid "Selecteer een bestand met testdata:"
-msgstr ""
+msgid "Select a file containing testdata:"
+msgstr "Select a file containing testdata:"
 
 #: application/forms/Tool/Merge.php:26
 msgid "select the archive file to process"
 msgstr "select the archive file to process"
 
 #: application/forms/ReportGeneration/Index.php:22
-msgid "Maak een nieuwe directory:"
-msgstr ""
+msgid "Create a new directory"
+msgstr "Create a new directory"
 
 #: application/forms/ReportGeneration/Index.php:25
-msgid "Selecteer een bestaande directory:"
-msgstr ""
+msgid "Select an existing directory"
+msgstr "Select an existing directory"
 
 #: application/forms/ReportGeneration/Index.php:30
-msgid "genereer rapporten"
-msgstr ""
+msgid "generate reports"
+msgstr "generate reports"
 
 #: application/forms/User/Login.php:22
-msgid "Gebruikersnaam:"
-msgstr ""
+msgid "Username"
+msgstr "Username"
 
 #: application/forms/User/Login.php:27
-msgid "Wachtwoord:"
-msgstr ""
+msgid "Password"
+msgstr "Password"
 
 #: application/forms/User/Login.php:34
-msgid "inloggen"
-msgstr ""
+msgid "login "
+msgstr "login "
 
 #: application/forms/User/Role/Edit.php:34
-msgid "Hernoem rol:"
-msgstr ""
+msgid "Rename role"
+msgstr "Rename role"
 
 #: application/forms/User/Role/Edit.php:36
 #: application/forms/User/User/Edit.php:36
-msgid "wijzigen"
-msgstr ""
+msgid "change"
+msgstr "change"
 
 #: application/forms/Questionnaire/Add.php:20
 msgid "title"
@@ -203,12 +211,12 @@ msgid "label"
 msgstr "label"
 
 #: application/views/helpers/FrequencyTable.php:24
-msgid "waarde"
-msgstr ""
+msgid "value"
+msgstr "value"
 
 #: application/views/helpers/FrequencyTable.php:25
-msgid "aantal"
-msgstr ""
+msgid "count"
+msgstr "count"
 
 #: application/views/helpers/ReportElement.php:16
 msgid "edit"
@@ -229,10 +237,13 @@ msgid "grouped by"
 msgstr "grouped by"
 
 #: application/views/helpers/ReportElement.php:146
-msgid "variant: "
-msgstr "variant: "
+msgid "variant"
+msgstr "variant"
 
 #: application/views/helpers/ReportElement.php:151
+msgid "means colored"
+msgstr "means colored"
+
 #: application/views/helpers/ReportElement.php:176
 msgid "means colored: "
 msgstr "means colored: "
@@ -245,17 +256,331 @@ msgstr "move to page"
 msgid "select"
 msgstr "select"
 
-#: application/controllers/EmailController.php:124
-msgid "Selecteer het docenten-groep-boecode-bestand:"
+#: application/translations/WebenqManualStrings.php:3
+msgid "View errors"
+msgstr "View errors"
+
+#: application/translations/WebenqManualStrings.php:4
+msgid "List questionnaires"
+msgstr "List questionnaires"
+
+#: application/translations/WebenqManualStrings.php:5
+msgid "View home-page"
+msgstr "View home-page"
+
+#: application/translations/WebenqManualStrings.php:7
+msgid "Log in"
+msgstr "Log in"
+
+#: application/translations/WebenqManualStrings.php:9
+msgid "Manage users"
+msgstr "Manage users"
+
+#: application/translations/WebenqManualStrings.php:10
+msgid "Manage roles"
+msgstr "Manage roles"
+
+#: application/translations/WebenqManualStrings.php:11
+msgid "Manage permissions"
+msgstr "Manage permissions"
+
+#: application/translations/WebenqManualStrings.php:12
+msgid "Add answer possibility"
+msgstr "Add answer possibility"
+
+#: application/translations/WebenqManualStrings.php:13
+msgid "Edit answer possibility"
+msgstr "Edit answer possibility"
+
+#: application/translations/WebenqManualStrings.php:14
+msgid "Delete answer possibility"
+msgstr "Delete answer possibility"
+
+#: application/translations/WebenqManualStrings.php:15
+msgid "List answer possibility groups"
+msgstr "List answer possibility groups"
+
+#: application/translations/WebenqManualStrings.php:16
+msgid "Add answer possibility group"
+msgstr "Add answer possibility group"
+
+#: application/translations/WebenqManualStrings.php:17
+msgid "Edit answer possibility group"
+msgstr "Edit answer possibility group"
+
+#: application/translations/WebenqManualStrings.php:18
+msgid "Delete answer possibility group"
+msgstr "Delete answer possibility group"
+
+#: application/translations/WebenqManualStrings.php:19
+msgid "Add answer possibility synonym"
+msgstr "Add answer possibility synonym"
+
+#: application/translations/WebenqManualStrings.php:20
+msgid "Edit answer possibility synonym"
+msgstr "Edit answer possibility synonym"
+
+#: application/translations/WebenqManualStrings.php:21
+msgid "Delete answer possibility synonym"
+msgstr "Delete answer possibility synonym"
+
+#: application/translations/WebenqManualStrings.php:22
+msgid "View answer possibility group"
+msgstr "View answer possibility group"
+
+#: application/translations/WebenqManualStrings.php:23
+msgid "View answer possibility"
+msgstr "View answer possibility"
+
+#: application/translations/WebenqManualStrings.php:24
+msgid "Connect to Jasper"
+msgstr "Connect to Jasper"
+
+#: application/translations/WebenqManualStrings.php:25
+msgid "List questions"
+msgstr "List questions"
+
+#: application/translations/WebenqManualStrings.php:26
+msgid "Add question"
+msgstr "Add question"
+
+#: application/translations/WebenqManualStrings.php:27
+msgid "Edit question"
+msgstr "Edit question"
+
+#: application/translations/WebenqManualStrings.php:28
+msgid "Delete question"
+msgstr "Delete question"
+
+#: application/translations/WebenqManualStrings.php:29
+msgid "Add questionnaire"
+msgstr "Add questionnaire"
+
+#: application/translations/WebenqManualStrings.php:30
+msgid "Edit questionnaire"
+msgstr "Edit questionnaire"
+
+#: application/translations/WebenqManualStrings.php:31
+msgid "Order questionnaires"
+msgstr "Order questionnaires"
+
+#: application/translations/WebenqManualStrings.php:32
+#: application/translations/WebenqManualStrings.php:48
+msgid "Add question to questionnaire"
+msgstr "Add question to questionnaire"
+
+#: application/translations/WebenqManualStrings.php:33
+msgid "Delete questionnaire"
+msgstr "Delete questionnaire"
+
+#: application/translations/WebenqManualStrings.php:34
+msgid "Fill out questionnaire"
+msgstr "Fill out questionnaire"
+
+#: application/translations/WebenqManualStrings.php:35
+msgid "Report questionnaire data"
+msgstr "Report questionnaire data"
+
+#: application/translations/WebenqManualStrings.php:36
+msgid "questionnaire/group"
 msgstr ""
 
-#: application/controllers/QuestionController.php:162
-msgid "Are you sure you want to delete the question \""
+#: application/translations/WebenqManualStrings.php:37
+msgid "Edit question in questionnaire"
+msgstr "Edit question in questionnaire"
+
+#: application/translations/WebenqManualStrings.php:38
+msgid "List report definitions"
+msgstr "List report definitions"
+
+#: application/translations/WebenqManualStrings.php:39
+msgid "Add report definition"
+msgstr "Add report definition"
+
+#: application/translations/WebenqManualStrings.php:40
+msgid "Edit report definition"
+msgstr "Edit report definition"
+
+#: application/translations/WebenqManualStrings.php:41
+msgid "Delete report definition"
+msgstr "Delete report definition"
+
+#: application/translations/WebenqManualStrings.php:42
+msgid "Test dataset"
+msgstr "Test dataset"
+
+#: application/translations/WebenqManualStrings.php:43
+msgid "Re-order questions in a questionnaire"
+msgstr "Re-order questions in a questionnaire"
+
+#: application/translations/WebenqManualStrings.php:44
+msgid "Add sub-question to question in questionnaire"
+msgstr "Add sub-question to question in questionnaire"
+
+#: application/translations/WebenqManualStrings.php:45
+msgid "questionnaire-question/save-state"
 msgstr ""
 
-#: application/controllers/QuestionController.php:164
-msgid "\" (including all translations)?"
-msgstr ""
+#: application/translations/WebenqManualStrings.php:46
+msgid "Autocomplete question"
+msgstr "Autocomplete question"
+
+#: application/translations/WebenqManualStrings.php:47
+msgid "Select language"
+msgstr "Select language"
+
+#: application/translations/WebenqManualStrings.php:49
+msgid "Delete question from questionnaire"
+msgstr "Delete question from questionnaire"
+
+#: application/translations/WebenqManualStrings.php:50
+msgid "List answer possibility null values"
+msgstr "List answer possibility null values"
+
+#: application/translations/WebenqManualStrings.php:51
+msgid "Add answer possibility null value"
+msgstr "Add answer possibility null value"
+
+#: application/translations/WebenqManualStrings.php:52
+msgid "Edit answer possibility null value"
+msgstr "Edit answer possibility null value"
+
+#: application/translations/WebenqManualStrings.php:53
+msgid "Delete answer possibility null value"
+msgstr "Delete answer possibility null value"
+
+#: application/translations/WebenqManualStrings.php:54
+msgid "Download questionnaire"
+msgstr "Download questionnaire"
+
+#: application/translations/WebenqManualStrings.php:55
+msgid "Print questionnaire"
+msgstr "Print questionnaire"
+
+#: application/translations/WebenqManualStrings.php:56
+msgid "Download questionnaire as XForm"
+msgstr "Download questionnaire as XForm"
+
+#: application/translations/WebenqManualStrings.php:57
+msgid "Download questionnaire as JRXML"
+msgstr "Download questionnaire as JRXML"
+
+#: application/translations/WebenqManualStrings.php:58
+msgid "Download questionnaire data for XForm"
+msgstr "Download questionnaire data for XForm"
+
+#: application/translations/WebenqManualStrings.php:59
+msgid "Conversion of HVA input files"
+msgstr "Conversion of HVA input files"
+
+#: application/translations/WebenqManualStrings.php:60
+msgid "Conversion of input files"
+msgstr "Conversion of input files"
+
+#: application/translations/WebenqManualStrings.php:61
+msgid "List reports"
+msgstr "List reports"
+
+#: application/translations/WebenqManualStrings.php:62
+msgid "Add report"
+msgstr "Add report"
+
+#: application/translations/WebenqManualStrings.php:63
+msgid "Edit report"
+msgstr "Edit report"
+
+#: application/translations/WebenqManualStrings.php:64
+msgid "Delete report"
+msgstr "Delete report"
+
+#: application/translations/WebenqManualStrings.php:65
+msgid "View report"
+msgstr "View report"
+
+#: application/translations/WebenqManualStrings.php:66
+msgid "Save report state"
+msgstr "Save report state"
+
+#: application/translations/WebenqManualStrings.php:67
+msgid "Download report as JRXML"
+msgstr "Download report as JRXML"
+
+#: application/translations/WebenqManualStrings.php:68
+msgid "List report elements"
+msgstr "List report elements"
+
+#: application/translations/WebenqManualStrings.php:69
+msgid "Add report element"
+msgstr "Add report element"
+
+#: application/translations/WebenqManualStrings.php:70
+msgid "Edit report element"
+msgstr "Edit report element"
+
+#: application/translations/WebenqManualStrings.php:71
+msgid "Delete report element"
+msgstr "Delete report element"
+
+#: application/translations/WebenqManualStrings.php:72
+msgid "View report element"
+msgstr "View report element"
+
+#: application/translations/WebenqManualStrings.php:73
+msgid "Get report control file"
+msgstr "Get report control file"
+
+#: application/translations/WebenqManualStrings.php:74
+msgid "Email reports"
+msgstr "Email reports"
+
+#: application/translations/WebenqManualStrings.php:75
+msgid "Send all report by email"
+msgstr "Send all report by email"
+
+#: application/translations/WebenqManualStrings.php:76
+msgid "Email reports: merge teacher"
+msgstr "Email reports: merge teacher"
+
+#: application/translations/WebenqManualStrings.php:77
+msgid "Email reports: merge course"
+msgstr "Email reports: merge course"
+
+#: application/translations/WebenqManualStrings.php:78
+msgid "Email report: delete"
+msgstr "Email report: delete"
+
+#: application/translations/WebenqManualStrings.php:79
+msgid "Email report: send report"
+msgstr "Email report: send report"
+
+#: application/translations/WebenqManualStrings.php:80
+msgid "Test installation"
+msgstr "Test installation"
+
+#: application/translations/WebenqManualStrings.php:81
+msgid "Manage Installation"
+msgstr "Manage Installation"
+
+#: application/translations/WebenqManualStrings.php:82
+msgid "Update database"
+msgstr "Update database"
+
+#: application/translations/WebenqManualStrings.php:83
+msgid "Generate report"
+msgstr "Generate report"
+
+#: application/translations/WebenqManualStrings.php:84
+msgid "Merge files"
+msgstr "Merge files"
+
+#: application/controllers/EmailController.php:127
+msgid "Select the file:"
+msgstr "Select the file:"
+
+#: application/controllers/QuestionController.php:163
+#, php-format
+msgid "Are you sure you want to delete the question %s (including all translations)?"
+msgstr "Are you sure you want to delete the question %s (including all translations)?"
 
 #: application/controllers/QuestionnaireController.php:274
 msgid "Are you sure you want to delete questionnaire"
@@ -277,10 +602,6 @@ msgstr "Are you sure you want to delete this report element?"
 msgid "This answer possibility is used in one or more questionnaires and cannot be deleted."
 msgstr "This answer possibility is used in one or more questionnaires and cannot be deleted."
 
-#: application/views/scripts/management/index.phtml:23
-msgid "bewerken"
-msgstr ""
-
 #: application/views/scripts/answer-possibility-synonym/add.phtml:2
 msgid "back to"
 msgstr "back to"
@@ -294,13 +615,8 @@ msgid "back to answer possibility"
 msgstr "back to answer possibility"
 
 #: application/views/scripts/answer-possibility-synonym/edit.phtml:8
-#: application/views/scripts/answer-possibility/view.phtml:5
 msgid "add synonym"
 msgstr "add synonym"
-
-#: application/views/scripts/answer-possibility-synonym/edit.phtml:28
-msgid "verwijderen"
-msgstr ""
 
 #: application/views/scripts/answer-possibility/view.phtml:2
 msgid "back to answer possibility group"
@@ -312,23 +628,23 @@ msgstr "synonym"
 
 #: application/views/scripts/questionnaire-question/edit.phtml:5
 #: application/views/scripts/questionnaire-question/edit.ajax.phtml:5
-msgid "algemeen"
-msgstr ""
+msgid "general"
+msgstr "general"
 
 #: application/views/scripts/questionnaire-question/edit.phtml:8
 #: application/views/scripts/questionnaire-question/edit.ajax.phtml:8
-msgid "antwoordmogelijkheden"
-msgstr ""
+msgid "answer possibilities"
+msgstr "answer possibilities"
 
 #: application/views/scripts/questionnaire-question/edit.phtml:11
 #: application/views/scripts/questionnaire-question/edit.ajax.phtml:11
-msgid "validatie"
-msgstr ""
+msgid "validation"
+msgstr "validation"
 
 #: application/views/scripts/questionnaire-question/delete.ajax.phtml:2
 #: application/views/scripts/questionnaire-question/delete.phtml:2
-msgid "Weet u zeker dat u onderstaande vraag uit de huidige questionnaire wilt verwijderen?"
-msgstr ""
+msgid "Are you sure you want to remove the question below from the current questionniare?"
+msgstr "Are you sure you want to remove the question below from the current questionniare?"
 
 #: application/views/scripts/report/view.phtml:5
 msgid "Report"
@@ -370,7 +686,7 @@ msgstr "No reports have been defined yet"
 
 #: application/views/scripts/report/index.phtml:12
 msgid "rapport"
-msgstr ""
+msgstr "rapport"
 
 #: application/views/scripts/report/index.phtml:13
 msgid "questionnaire"
@@ -418,8 +734,8 @@ msgid "add question"
 msgstr "add question"
 
 #: application/views/scripts/question/index.phtml:6
-msgid "Er zijn nog geen vragen aangemaakt"
-msgstr ""
+msgid "No questions in this questionnaire yet"
+msgstr "No questions in this questionnaire yet"
 
 #: application/views/scripts/question/index.phtml:11
 msgid "question"
@@ -441,10 +757,6 @@ msgstr "back to all answer possibilities"
 #: application/views/scripts/answer-possibility-group/view.phtml:8
 msgid "add answer possibility"
 msgstr "add answer possibility"
-
-#: application/views/scripts/answer-possibility-group/view.phtml:15
-msgid "value"
-msgstr "value"
 
 #: application/views/scripts/answer-possibility-group/view.phtml:17
 msgid "available languages"
@@ -495,24 +807,18 @@ msgid "There aren't any null value answer possibilities yet"
 msgstr "There aren't any null value answer possibilities yet"
 
 #: application/views/scripts/questionnaire/edit.phtml:7
-msgid "nieuwe vraag toevoegen"
-msgstr ""
-
 #: application/views/scripts/questionnaire/edit.phtml:8
 msgid "add new question"
 msgstr "add new question"
 
 #: application/views/scripts/questionnaire/edit.phtml:12
-msgid "bestaande vraag toevoegen"
-msgstr ""
-
 #: application/views/scripts/questionnaire/edit.phtml:13
 msgid "add existing question"
 msgstr "add existing question"
 
 #: application/views/scripts/questionnaire/edit.phtml:17
-msgid "pagina toevoegen"
-msgstr ""
+msgid "add age"
+msgstr "add age"
 
 #: application/views/scripts/questionnaire/edit.phtml:18
 msgid "add page"
@@ -521,6 +827,10 @@ msgstr "add page"
 #: application/views/scripts/questionnaire/edit.phtml:27
 msgid "page"
 msgstr "page"
+
+#: application/views/scripts/questionnaire/edit.phtml:34
+msgid "Delete this page"
+msgstr "Delete this page"
 
 #: application/views/scripts/questionnaire/download.phtml:5
 #: application/views/scripts/questionnaire/download.phtml:6
@@ -579,11 +889,13 @@ msgid "No question text available for the current language"
 msgstr "No question text available for the current language"
 
 #: application/views/scripts/questionnaire/report.phtml:8
-msgid "Toon/verberg antwoorden"
-msgstr ""
+msgid "Show/hide answers"
+msgstr "Show/hide answers"
 
 #: application/views/scripts/user/role.phtml:1
 #: application/views/scripts/user/role.phtml:2
+#: application/views/scripts/user/permission.phtml:2
+#: application/views/scripts/user/permission.phtml:3
 msgid "manage users"
 msgstr "manage users"
 
@@ -601,6 +913,8 @@ msgstr "role"
 
 #: application/views/scripts/user/user.phtml:1
 #: application/views/scripts/user/user.phtml:2
+#: application/views/scripts/user/permission.phtml:7
+#: application/views/scripts/user/permission.phtml:8
 msgid "manage roles"
 msgstr "manage roles"
 
@@ -611,16 +925,6 @@ msgstr "username"
 #: application/views/scripts/user/user.phtml:12
 msgid "name"
 msgstr "name"
-
-#: application/views/scripts/user/permission.phtml:2
-#: application/views/scripts/user/permission.phtml:3
-msgid "gebruikers beheren"
-msgstr ""
-
-#: application/views/scripts/user/permission.phtml:7
-#: application/views/scripts/user/permission.phtml:8
-msgid "rollen beheren"
-msgstr ""
 
 #: application/views/layouts/layout.phtml:18
 msgid "one moment please..."

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-08 11:18+0100\n"
-"PO-Revision-Date: 2012-12-08 11:51+0100\n"
+"POT-Creation-Date: 2012-12-11 11:45+0100\n"
+"PO-Revision-Date: 2012-12-11 11:48+0100\n"
 "Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -334,292 +334,248 @@ msgid "View answer possibility"
 msgstr "Antwoordmogelijheid bekijken"
 
 #: application/translations/WebenqManualStrings.php:24
-msgid "interpretation/debug"
-msgstr ""
+msgid "Connect to Jasper"
+msgstr "Verbind met Jasper"
 
 #: application/translations/WebenqManualStrings.php:25
-msgid "interpretation/index"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:26
-msgid "jasper/index"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:27
-msgid "management/index"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:28
-msgid "management/edit"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:29
 msgid "List questions"
 msgstr "Vragen tonen"
 
-#: application/translations/WebenqManualStrings.php:30
+#: application/translations/WebenqManualStrings.php:26
 msgid "Add question"
 msgstr "Vraag toevoegen"
 
-#: application/translations/WebenqManualStrings.php:31
+#: application/translations/WebenqManualStrings.php:27
 msgid "Edit question"
 msgstr "Vraag aanpassen"
 
-#: application/translations/WebenqManualStrings.php:32
+#: application/translations/WebenqManualStrings.php:28
 msgid "Delete question"
 msgstr "Vraag verwijderen"
 
-#: application/translations/WebenqManualStrings.php:33
+#: application/translations/WebenqManualStrings.php:29
 msgid "Add questionnaire"
 msgstr "Vragenlijst toevoegen"
 
-#: application/translations/WebenqManualStrings.php:34
+#: application/translations/WebenqManualStrings.php:30
 msgid "Edit questionnaire"
 msgstr "Vragenlijst bewerken"
 
-#: application/translations/WebenqManualStrings.php:35
+#: application/translations/WebenqManualStrings.php:31
 msgid "Order questionnaires"
 msgstr "Volgorde van de vragenlijst"
 
-#: application/translations/WebenqManualStrings.php:36
-#: application/translations/WebenqManualStrings.php:53
+#: application/translations/WebenqManualStrings.php:32
+#: application/translations/WebenqManualStrings.php:48
 msgid "Add question to questionnaire"
 msgstr "Vraag toevoegen aan vragenlijst"
 
-#: application/translations/WebenqManualStrings.php:37
+#: application/translations/WebenqManualStrings.php:33
 msgid "Delete questionnaire"
 msgstr "Vragenlijst verwijderen"
 
-#: application/translations/WebenqManualStrings.php:38
+#: application/translations/WebenqManualStrings.php:34
 msgid "Fill out questionnaire"
 msgstr "Vragenlijst invullen"
 
 # unclear enlish string
-#: application/translations/WebenqManualStrings.php:39
+#: application/translations/WebenqManualStrings.php:35
 msgid "Report questionnaire data"
 msgstr "Data vragenlijst voor rapport"
 
-#: application/translations/WebenqManualStrings.php:40
+#: application/translations/WebenqManualStrings.php:36
 msgid "questionnaire/group"
 msgstr ""
 
-#: application/translations/WebenqManualStrings.php:41
+#: application/translations/WebenqManualStrings.php:37
 msgid "Edit question in questionnaire"
 msgstr "Vraag in vragenlijst bewerken"
 
-#: application/translations/WebenqManualStrings.php:42
+#: application/translations/WebenqManualStrings.php:38
 msgid "List report definitions"
 msgstr "Rapportdefinities tonen"
 
-#: application/translations/WebenqManualStrings.php:43
+#: application/translations/WebenqManualStrings.php:39
 msgid "Add report definition"
 msgstr "Rapportelement toevoegen"
 
-#: application/translations/WebenqManualStrings.php:44
+#: application/translations/WebenqManualStrings.php:40
 msgid "Edit report definition"
 msgstr "Rapportdefinitie toevoegen"
 
-#: application/translations/WebenqManualStrings.php:45
+#: application/translations/WebenqManualStrings.php:41
 msgid "Delete report definition"
 msgstr "Rapportdefinities verwijderen"
 
-#: application/translations/WebenqManualStrings.php:46
-msgid "report-generation/index"
-msgstr ""
+#: application/translations/WebenqManualStrings.php:42
+msgid "Test dataset"
+msgstr "Test dataset"
 
-#: application/translations/WebenqManualStrings.php:47
-msgid "test/index"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:48
+#: application/translations/WebenqManualStrings.php:43
 msgid "Re-order questions in a questionnaire"
 msgstr "Vraagvolgorde in vragenlijst aanpassen"
 
-#: application/translations/WebenqManualStrings.php:49
+#: application/translations/WebenqManualStrings.php:44
 msgid "Add sub-question to question in questionnaire"
 msgstr "Subvragen aan een vraag in de vragenlijst toevoegen"
 
-#: application/translations/WebenqManualStrings.php:50
+#: application/translations/WebenqManualStrings.php:45
 msgid "questionnaire-question/save-state"
 msgstr ""
 
-#: application/translations/WebenqManualStrings.php:51
-msgid "question/autocomplete"
-msgstr ""
+#: application/translations/WebenqManualStrings.php:46
+msgid "Autocomplete question"
+msgstr "Vraagtekst automatisch aanvullen"
 
-#: application/translations/WebenqManualStrings.php:52
+#: application/translations/WebenqManualStrings.php:47
 msgid "Select language"
 msgstr "Kies taal"
 
-#: application/translations/WebenqManualStrings.php:54
+#: application/translations/WebenqManualStrings.php:49
 msgid "Delete question from questionnaire"
 msgstr "Vraag uit vragenlijst verwijderen"
 
-#: application/translations/WebenqManualStrings.php:55
+#: application/translations/WebenqManualStrings.php:50
 msgid "List answer possibility null values"
 msgstr "Antwoordmogelijkheden van 'missende waardes' tonen"
 
-#: application/translations/WebenqManualStrings.php:56
+#: application/translations/WebenqManualStrings.php:51
 msgid "Add answer possibility null value"
 msgstr "Antwoordmogelijkheid van 'missende waardes' toevoegen"
 
-#: application/translations/WebenqManualStrings.php:57
+#: application/translations/WebenqManualStrings.php:52
 msgid "Edit answer possibility null value"
 msgstr "Antwoordmogelijkheid van 'missende waardes' bewerken"
 
-#: application/translations/WebenqManualStrings.php:58
+#: application/translations/WebenqManualStrings.php:53
 msgid "Delete answer possibility null value"
 msgstr "Antwoordmogelijkheid van 'missende waardes' verwijderen"
 
-#: application/translations/WebenqManualStrings.php:59
+#: application/translations/WebenqManualStrings.php:54
 msgid "Download questionnaire"
 msgstr "Vragenlijst downloaden"
 
-#: application/translations/WebenqManualStrings.php:60
+#: application/translations/WebenqManualStrings.php:55
 msgid "Print questionnaire"
 msgstr "Vragenlijst printen"
 
-#: application/translations/WebenqManualStrings.php:61
-msgid "test/test"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:62
+#: application/translations/WebenqManualStrings.php:56
 msgid "Download questionnaire as XForm"
 msgstr "Vragenlijst in XFORM-formaat downloaden"
 
-#: application/translations/WebenqManualStrings.php:63
+#: application/translations/WebenqManualStrings.php:57
 msgid "Download questionnaire as JRXML"
 msgstr "Vragenlijst in JRXML-formaat downloaden"
 
-#: application/translations/WebenqManualStrings.php:64
+#: application/translations/WebenqManualStrings.php:58
 msgid "Download questionnaire data for XForm"
 msgstr "Vragenlijstdata in XFORM-formaat downloaden"
 
-#: application/translations/WebenqManualStrings.php:65
+#: application/translations/WebenqManualStrings.php:59
 msgid "Conversion of HVA input files"
 msgstr "HvA inputbestanden omzetten"
 
-#: application/translations/WebenqManualStrings.php:66
+#: application/translations/WebenqManualStrings.php:60
 msgid "Conversion of input files"
 msgstr "Inputbestanden omzetten"
 
-#: application/translations/WebenqManualStrings.php:67
+#: application/translations/WebenqManualStrings.php:61
 msgid "List reports"
 msgstr "Rapporten weergeven"
 
-#: application/translations/WebenqManualStrings.php:68
+#: application/translations/WebenqManualStrings.php:62
 msgid "Add report"
 msgstr "Rapport toevoegen"
 
-#: application/translations/WebenqManualStrings.php:69
+#: application/translations/WebenqManualStrings.php:63
 msgid "Edit report"
 msgstr "Rapport bewerken"
 
-#: application/translations/WebenqManualStrings.php:70
+#: application/translations/WebenqManualStrings.php:64
 msgid "Delete report"
 msgstr "Rapport verwijderen"
 
-#: application/translations/WebenqManualStrings.php:71
+#: application/translations/WebenqManualStrings.php:65
 msgid "View report"
 msgstr "Rapport tonen"
 
-#: application/translations/WebenqManualStrings.php:72
+#: application/translations/WebenqManualStrings.php:66
 msgid "Save report state"
 msgstr "Rapport status opslaan"
 
-#: application/translations/WebenqManualStrings.php:73
+#: application/translations/WebenqManualStrings.php:67
 msgid "Download report as JRXML"
 msgstr "Rapport in JRXML-formaat downloaden"
 
-#: application/translations/WebenqManualStrings.php:74
+#: application/translations/WebenqManualStrings.php:68
 msgid "List report elements"
 msgstr "Rapportelementen tonen"
 
-#: application/translations/WebenqManualStrings.php:75
+#: application/translations/WebenqManualStrings.php:69
 msgid "Add report element"
 msgstr "Rapportelementen toevoegen"
 
-#: application/translations/WebenqManualStrings.php:76
+#: application/translations/WebenqManualStrings.php:70
 msgid "Edit report element"
 msgstr "Rapportelementen bewerken"
 
-#: application/translations/WebenqManualStrings.php:77
+#: application/translations/WebenqManualStrings.php:71
 msgid "Delete report element"
 msgstr "Rapportelementen verwijderen"
 
-#: application/translations/WebenqManualStrings.php:78
+#: application/translations/WebenqManualStrings.php:72
 msgid "View report element"
 msgstr "Rapportelementen weergeven"
 
-#: application/translations/WebenqManualStrings.php:79
+#: application/translations/WebenqManualStrings.php:73
 msgid "Get report control file"
 msgstr "Rapport aanstuurbestand downloaden"
 
+#: application/translations/WebenqManualStrings.php:74
+msgid "Email reports"
+msgstr "Rapporten mailen"
+
+#: application/translations/WebenqManualStrings.php:75
+msgid "Send all report by email"
+msgstr "Verstuur alle rapporten per mail"
+
+#: application/translations/WebenqManualStrings.php:76
+msgid "Email reports: merge teacher"
+msgstr "Mail rapporten: docent samenvoegen"
+
+#: application/translations/WebenqManualStrings.php:77
+msgid "Email reports: merge course"
+msgstr "Mail rapporten: cursus samenvoegen"
+
+#: application/translations/WebenqManualStrings.php:78
+msgid "Email report: delete"
+msgstr "Mail rapporten: verwijderen"
+
+#: application/translations/WebenqManualStrings.php:79
+msgid "Email report: send report"
+msgstr "Mail rapporten: verzend rapport"
+
 #: application/translations/WebenqManualStrings.php:80
-msgid "email/index"
-msgstr ""
+msgid "Test installation"
+msgstr "Test installatie"
 
 #: application/translations/WebenqManualStrings.php:81
-msgid "email/send-all"
-msgstr ""
+msgid "Manage Installation"
+msgstr "Beheer installatie"
 
 #: application/translations/WebenqManualStrings.php:82
-msgid "email/merge-teacher"
-msgstr ""
+msgid "Update database"
+msgstr "Vernieuw database"
 
 #: application/translations/WebenqManualStrings.php:83
-msgid "email/merge-course"
-msgstr ""
+msgid "Generate report"
+msgstr "Genereer rapport"
 
 #: application/translations/WebenqManualStrings.php:84
-msgid "email/del"
-msgstr ""
+msgid "Merge files"
+msgstr "Bestanden samenvoegen"
 
-#: application/translations/WebenqManualStrings.php:85
-msgid "email/send"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:86
-msgid "install/test"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:87
-msgid "install/index"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:88
-msgid "install/migrate"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:89
-msgid "report/generate"
-msgstr "GGenereer rapport"
-
-#: application/translations/WebenqManualStrings.php:90
-msgid "scale-values/index"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:91
-msgid "scale-values/add"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:92
-msgid "scale-values/edit"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:93
-msgid "scale-values/del"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:94
-msgid "tool/client-a"
-msgstr ""
-
-#: application/translations/WebenqManualStrings.php:95
-msgid "tool/client"
-msgstr ""
-
-#: application/controllers/EmailController.php:124
+#: application/controllers/EmailController.php:127
 msgid "Select the file:"
 msgstr "Selecteer bestand"
 
@@ -627,10 +583,6 @@ msgstr "Selecteer bestand"
 #, php-format
 msgid "Are you sure you want to delete the question %s (including all translations)?"
 msgstr "Weet je zeker dat je de vraag %s (inclusief all vertalingen) wilt verwijderen"
-
-#: application/controllers/ReportDefinitionController.php:192
-msgid "ja, verwijderen"
-msgstr ""
 
 #: application/controllers/QuestionnaireController.php:274
 msgid "Are you sure you want to delete questionnaire"
@@ -665,7 +617,6 @@ msgid "back to answer possibility"
 msgstr "terug naar antwoordmogelijkheid"
 
 #: application/views/scripts/answer-possibility-synonym/edit.phtml:8
-#: application/views/scripts/answer-possibility/view.phtml:5
 msgid "add synonym"
 msgstr "synoniem toevegen"
 
@@ -799,10 +750,6 @@ msgstr "datum van toevoegen"
 #: application/views/scripts/question/index.phtml:13
 msgid "used in questionnaires"
 msgstr "gebruikt in vragenlijsten"
-
-#: application/views/scripts/question/index.phtml:35
-msgid "bewerken"
-msgstr ""
 
 #: application/views/scripts/answer-possibility-group/view.phtml:2
 msgid "back to all answer possibilities"
@@ -945,7 +892,7 @@ msgstr "Geen vraagtekst beschikbaar voor de huidige taal"
 
 #: application/views/scripts/questionnaire/report.phtml:8
 msgid "Show/hide answers"
-msgstr ""
+msgstr "Toon/verberg antwoorden"
 
 #: application/views/scripts/user/role.phtml:1
 #: application/views/scripts/user/role.phtml:2
@@ -985,13 +932,12 @@ msgstr "naam"
 msgid "one moment please..."
 msgstr "even geduld alstublieft"
 
+#~ msgid "report/generate"
+#~ msgstr "GGenereer rapport"
+
 #, fuzzy
 #~ msgid "Selecteer een klant:"
 #~ msgstr "Selecteer een directorie"
-
-#, fuzzy
-#~ msgid "data_set_id"
-#~ msgstr "Panel ID list"
 
 #, fuzzy
 #~ msgid "report_type"
