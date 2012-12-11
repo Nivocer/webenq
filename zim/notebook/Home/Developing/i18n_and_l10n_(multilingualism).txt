@@ -5,32 +5,22 @@ Creation-Date: 2012-12-05T11:06:45+01:00
 ====== i18n and l10n (multilingualism) ======
 Created Wednesday 05 December 2012
 
-we use zend_translate for multilingualism http://framework.zend.com/manual/1.12/en/zend.translate.html
+The default language is English. Strings are translated by using Zend_translate
+http://framework.zend.com/manual/1.12/en/zend.translate.html
+We use the gettext variant.
+In application/translation/webenq4.pot we have a set of translatable strings. These strings are mostly harvest by scanning the code (.php and .phtml)for: 
+setMessage, _ translate, setLabel, setLegend, _refresh, setValue, append, t
+t is a method we wrote to perform the translation, customized for our needs.
+Some strings are not found in the code (eg controller/methods used in user management). To be able to find those strings when we harvest the strings, we add these strings in a3pplications/translation/WebenqManualStrings.php. 
 
-strings set via setLegend, setValue, setLabel (@todo check this methods) are parsed via a zend gettext parser. We also added the method 't' to use in code and views.
+We use [[Tools:Poedit|poedit]] to  scan the code for translatable strings. These are stored in application/translations/webenq4.pot.
+To translate, we use this file to scan for new strings.
 
-At this moment we use array-based translation, but it is difficult to harvest the needed translation, so we best change to gettext, some issues:
-* it is easier for translaters
-* we can use it for php and java
-* multiple sources (array and gettext)
-	* which order...
+=== zend_validate ===
+We use zend-validate to validate forms we want to use the translations shipped with the zend-framework (https://github.com/zendframework/zf2/tree/master/resources/languages (assuming we use zf2)), but this is array based, so we combine multiple sources
 
-==== Multiple sources ====
-We use zend-validate to validate forms we want to use the translations shipped with the zend-framework (https://github.com/zendframework/zf2/tree/master/resources/languages (assuming we use zf2)), but this is array based, so we need to combine multiple sources, this  is possible according to
-http://framework.zend.com/manual/1.12/en/zend.translate.additional.html -> Combining multiple translation sources 
 
-=== Configuring (in Bootstrap.php): ===
-http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext
-
-=== Creating sourcefiles: ===
+=== See also ===
 http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/
-it describes poedit for zend, most importand in the system preferences we should adjust the php parser to also read .phtml files 
-for a catalog, we must add t as keyword
-(adding a language is easiest to copy a .po file, keep the header, remove the translations and open it in poedit)
-
-==== More features ====
-You can define default languages in cases a translation is missing:
-http://framework.zend.com/manual/1.12/en/zend.translate.additional.html ->  Routing for translations 
-
-Automatical handling of languages
-http://framework.zend.com/manual/1.12/en/zend.translate.additional.html -> Automatical handling of languages
+http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext
+http://framework.zend.com/manual/1.12/en/zend.translate.additional.html
