@@ -27,15 +27,15 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
         $view->jQuery()->enable();
         $view->jQuery()->uiEnable();
-        $view->jQuery()->setLocalPath($view->baseUrl('js/jquery/jquery-1.4.3.min.js'));
-        $view->jQuery()->setUiLocalPath($view->baseUrl('js/jquery/jquery-ui-1.8.5.custom.min.js'));
-        $view->jQuery()->addStylesheet($view->baseUrl('css/jquery/ui-lightness/jquery-ui-1.8.5.custom.css'));
+        $view->jQuery()->setLocalPath($view->baseUrl('js/jquery/jquery.min.js'));
+        $view->jQuery()->setUiLocalPath($view->baseUrl('js/jquery/jquery-ui.custom.min.js'));
+        $view->jQuery()->addStylesheet($view->baseUrl('css/jquery/ui-lightness/jquery-ui.custom.min.css'));
 
         /* jQuery plugins */
         $view->headScript()->appendFile($view->baseUrl('js/jquery/jquery.ui.datepicker-nl.js'));
-        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.maskedinput-1.2.2.min.js'));
-        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.json-2.2.min.js'));
-//        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/date-format-1.2.3.js'));
+        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.maskedinput.min.js'));
+        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.json.min.js'));
+//        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/date-format.js'));
 
         /* JS */
         $view->headScript()->appendFile($view->baseUrl('js/global.js'));
