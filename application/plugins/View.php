@@ -32,7 +32,8 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->jQuery()->addStylesheet($view->baseUrl('css/jquery/ui-lightness/jquery-ui.custom.min.css'));
 
         /* jQuery plugins */
-        $view->headScript()->appendFile($view->baseUrl('js/jquery/jquery.ui.datepicker-nl.js'));
+        $language= Zend_Registry::get('Zend_Locale')->getLanguage();
+        $view->headScript()->appendFile($view->baseUrl("js/jquery/jquery.ui.datepicker-$language.js"));
         $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.maskedinput.min.js'));
         $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.json.min.js'));
 //        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/date-format.js'));
