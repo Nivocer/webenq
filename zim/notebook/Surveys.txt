@@ -1,0 +1,49 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-12-13T11:29:40+01:00
+
+====== Surveys ======
+General information about surveys and reporting.
+
+===== Use cases/feature wishes =====
+Respondent
+* Be able to stop and continue later (save partial questionnaires)
+
+Questionnaire designer
+* Repository of questions, answer categories
+
+Data collectors
+* Insert questionnaires filled in on paper
+* Import S3, SPSS
+* Import PDF
+* Invitations, panels
+* Snowball sampling?
+
+Output
+* SPSS
+* Excel
+* Graphs
+* Cross tables
+* Widgets for other websites
+
+===== Reporting =====
+
+==== Minimal number of respondents ====
+If the number of respondents or responses is low, it is not always meaningful to present results.
+
+* respondents: number of people that filled in the questionnaire, perhaps limited to a sub group
+	* if too few: don't generate a report
+* responses: number of people that answered a specific questions, perhaps limited to a sub group
+	* if too few: don't generate the report element for this question
+
+Types of reporting:
+
+* Open questions: if there are no answers
+	* show question text nevertheless
+	* leave out question completely
+
+* Mean tables, frequency tables:
+	* include answers of small groups in totals
+		* don't show small groups
+		* merge small groups
+	* exclude answers of small groups completely (also from totals)

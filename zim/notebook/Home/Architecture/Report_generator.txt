@@ -1,0 +1,113 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-12-13T12:19:18+01:00
+
+====== Report generator ======
+
+The management GUI consists of two parts:
+
+* report generation control: where is the data, which customer
+	* creates <reportConfig> part of Jasper's jrxml file
+		* where is the data
+		* how should it be split
+		* which customer
+		* which template and style
+		* output directory
+	* calls java class ExecuteReport.java to generate the report
+* report definition control: which report elements, in which order
+	* multiple reports per questionnaire
+
+===== Jrxml layout =====
+Each reportElement is included as a subreport <subreportExpression>
+* template to be used; for landscape templates, add 'land' as in report3-mean-land.jrxml
+* width 555 for A4 portrait, height 20
+* first subreport at y=0, second at y=20, etc
+* all subreports go into the //detail band//
+* subReportParameters:
+	* CUSTOMER
+	* DEFAULT_STYLE_FILE
+	* REPORT_RESOURCE_BUNDLE
+
+Questions to be included are gathered in datasourceExpression.
+	<dataSourceExpression><![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g3-Opmerkingen",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]></dataSourceExpression>
+In addition to the parameters in the expression above, Zend adds parameters report_question_ids and group_question_id.
+* question_ids are specified as they are included in Xforms; if they're part of a group, that group name should be included too: g6-Tevredenheid/g6-InhoudRelevant
+
+==== Example jrxml code ====
+<subreport>
+	<reportElement positionType="Float" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/>
+	<subreportParameter name="CUSTOMER">
+	                 <subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
+	</subreportParameter>
+	<subreportParameter name="DEFAULT_STYLE_FILE">
+		<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
+	</subreportParameter>
+	<subreportParameter name="REPORT_RESOURCE_BUNDLE">
+		<subreportParameterExpression><![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]></subreportParameterExpression>
+	</subreportParameter>
+	<subreportParameter name="Q_TEXT">
+                    <subreportParameterExpression><![CDATA["<h1>Hi</h1><p>This is a <b>test</b></p><p>You can also use a report parameter: "+$P{CUSTOMER}]]>
+		</subreportParameterExpression>
+	</subreportParameter>
+</subreport>           
+<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]></subreportExpression>
+
+===== Report characteristics =====
+* customer (master report jrxml)
+	* stylesheet (font, font size, padding, line style, etc.)
+	* custom language properties?
+	* layout 
+* page orientation (master report jrxml)
+
+* language (locale) (parameter) 
+
+* splits on variabele(s) (master jrxml and parameter)
+* group on variable (master jrxml and parameter)
+* base filename (parameter)
+* output format (pdf/rtf/...) (parameter)
+
+* output dir (parameter)
+
+===== Report part characteristics =====
+
+==== general ====
+* variable (jrxml parameter)
+	* gives question and answer texts (xform)
+	* location of data?
+* data
+
+==== text ====
+used for titles, introduction,
+* text to display with html markup
+* style
+	* h1/h2/h3/comment/text
+	* bold
+	* italic
+	* linebreak
+	* pagebreak (after text)
+
+==== list answers (open) ====
+a list of the answers given on one question
+* only general information needed
+
+==== frequency/cross table ====
+frequency table of the answers given on one question. If a grouping variable is set, for each group in that variable the frequencies (percentage) of the answer is displayed and a total is added
+* grouping variable (optional)
+* order value/label
+* missing values?
+
+note: general info gives values and labels, data gives values.
+
+==== mean table ====
+Set of at least one question. The set has a title which is displayed above the table. The average of the (valid) answers are calculated. If a grouping variable is set, for each group in that variable the average of the answer is displayed and a total is added.
+* grouping variable (optional)
+* set title
+* variables (at least one)
+* missing values?
+
+==== barchart mean ====
+Set of questions presented in three columns: question text, bar chart graph and mean. The set has a title displayed above the table.
+* set title
+* questions (at least one)
+* missing values?
