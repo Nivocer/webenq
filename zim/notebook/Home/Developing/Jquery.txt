@@ -1,0 +1,30 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-12-13T10:25:21+01:00
+
+====== Jquery ======
+Created Thursday 13 December 2012
+
+
+We use the jquery library, it is stored in public/js/jquery.
+
+=== Core ===
+* jquery.min.js : core (1.8.3)
+	* downloaded from: http://jquery.com/
+* jquery-ui.custom.min.js: nice ui-stuff (1.9.2)
+	* downloaded a custom selection from http://jqueryui.com/download/, currently all
+	* you can alse select a theme, right now, selected ui-lightness (public/css/jquery)
+
+=== plugins ===
+* ~~date-format.js (1.2.3)~~
+	* ~~not in use anymore? commented out at application/plugins/View.php~~
+	* ~~downloaded from http://stevenlevithan.com/assets/misc/date.format.js~~
+* jquery.json.js (2.4)
+	* downloaded from http://code.google.com/p/jquery-json/
+* jquery.ui.datepicker-LANGUAGE.js: language files for jquery-ui datapicker,
+	* translations for datapicker can be found in the development bundle of jquery-ui: /jquery-ui-x.y.z.custom/development-bundle/ui/i18n/
+
+=== CSS ===
+* jquery-ui.custom.* comes with a theme this is stored in public/css/jquery/
+
+(min means: minimalized, compressed version, between brackets version as of 13-12-2012)

@@ -19,6 +19,10 @@ To translate, we use this file to scan for new strings.
 === zend_validate ===
 We use zend-validate to validate forms we want to use the translations shipped with the zend-framework (https://github.com/zendframework/zf2/tree/master/resources/languages (assuming we use zf2)), but this is array based, so we combine multiple sources
 
+=== javascript ===
+http://docs.jquery.com/UI/Datepicker/Localization (http://jqueryui.com/datepicker/#localization)
+ translations for datapicker can be found in the development bundle : /jquery-ui-x.y.z.custom/development-bundle/ui/i18n/
+@todo always the dutch translation is used see also https://www.pivotaltracker.com/story/show/41151863
 
 === See also ===
 http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/
