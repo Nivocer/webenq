@@ -87,6 +87,37 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     }
 
     /**
+     * Get the published state of a questionnaire
+     *
+     * active is defined as: the questionnaire is activated and current time is between start and end date
+     *
+     * @return array
+     */
+
+    public function getPublishedState()
+    {
+        if ($this->active == 1) {
+            $publishedState['activated']=true;
+        }else {
+            $publishedState['activated']=false;
+        }
+        $dateStart=new Zend_Date($this->date_start);
+
+        if ($dateStart->isEarlier(time())) {
+            $publishedState['afterStart']=true;
+        }else{
+            $publishedState['afterStart']=false;
+        }
+        $dateEnd=new Zend_Date($this->date_end);
+        if ($dateEnd->isLater(time())) {
+            $publishedState['beforeEnd']=true;
+        }else {
+            $publishedState['beforeEnd']=false;
+        }
+        return $publishedState;
+    }
+
+    /**
      * Sets the questionnaire title for a given language
      *
      * @param string $language The language to set the title for

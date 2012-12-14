@@ -6,44 +6,44 @@
     <table>
         <thead>
             <tr>
-                <th><?php echo t('id'); ?></th>
+                <th></th>
+                <th><?php echo t('category'); ?></th>
                 <th><?php echo t('title'); ?></th>
-                <th><?php echo t('date'); ?></th>
-                <th><?php echo t('file'); ?></th>
-                <th>&nbsp;</th>
+                <th><?php echo t('published'); ?></th>
+                <th><?php echo t('actions'); ?></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="questionnaire sortable">
             <?php foreach ($this->questionnaires as $questionnaire): ?>
                 <?php $meta = unserialize($questionnaire['meta']); ?>
-                <tr>
+                <tr id="<?php echo 'q_'.$questionnaire['id'] ?>">
+                    <td><div class="handle"></div></td>
                     <td>
-                        <?php echo $questionnaire['id']; ?>
+                        <?php
+                        echo  $questionnaire->Category->getCategoryText()->text;
+
+
+                        ?>
                     </td>
                     <td>
-                        <?php echo $questionnaire->getQuestionnaireTitle()->text; ?>
+                        <a href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);?>">
+                            <?php echo $questionnaire->getQuestionnaireTitle()->text; ?>
+                        </a>
                     </td>
                     <td>
-                        <?php if (isset($meta['timestamp'])) {
-                            $date = new Zend_Date($meta['timestamp']);
-                            echo $date->get(Zend_Date::DATETIME);
-                        } ?>
-                    </td>
-                    <td>
-                        <?php if (isset($meta['filename']))
-                            echo $meta['filename'];
+                        <?php
+                        $publishedState=$questionnaire->getPublishedState();
+                        if ($publishedState['activated'] && $publishedState['afterStart'] && $publishedState['beforeEnd']) {
+                            echo '<div class="icon check" title="'.t('start date').": ". $questionnaire->date_start.
+                            " ".t('end date').": ".$questionnaire->date_end.'">V</div>';
+                       }else {
+                           echo '<div class="icon delete" title="'.t('start date').": ". $questionnaire->date_start.
+                           " ".t('end date').": ".$questionnaire->date_end.'">X</div>';
+                       }
                         ?>
                     </td>
                     <td>
                         <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
-                        <?php if ($questionnaire['count_qqs'] > 0): ?>
-                            <a class="icon check" title="<?php echo t('check'); ?>" href="<?php echo $this->baseUrl("/management/index/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon collect" title="<?php echo t('collect'); ?>" href="<?php echo $this->baseUrl("/questionnaire/collect/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                            <a class="icon download" title="<?php echo t('download'); ?>" href="<?php echo $this->baseUrl("/questionnaire/download/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                        <?php endif; ?>
-                        <!--
-                            <a class="icon print" title="<?php echo t('print'); ?>" href="<?php echo $this->baseUrl("/questionnaire/print/id/" . $questionnaire['id']); ?>">&nbsp;</a>
-                        -->
                         <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                     </td>
                 </tr>

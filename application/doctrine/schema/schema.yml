@@ -243,6 +243,71 @@ AnswerPossibilityTextSynonym:
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
+Category:
+  tableName: category
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    active:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+  relations:
+    CategoryText:
+      local: id
+      foreign: category_id
+      type: many
+    Questionnaire:
+      local: id
+      foreign: category_id
+      type: many
+CategoryText:
+  tableName: categoryText
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    text:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+      default: en
+    category_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Category:
+      local: category_id
+      foreign: id
+      foreignKeyName: categoryText_category_id_fk
+      type: one
+      onUpdate: CASCADE
+      onDelete: CASCADE
 CollectionPresentation:
   tableName: collectionPresentation
   columns:
@@ -474,6 +539,44 @@ Questionnaire:
       unsigned: true
       primary: true
       autoincrement: true
+    category_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: false
+      notnull: false
+      autoincrement: false
+    default_language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: en
+      notnull: true
+      autoincrement: false
+    date_start:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    date_end:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '0000-00-00 00:00:00'
+      notnull: true
+      autoincrement: false
+    active:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
     meta:
       type: string()
       fixed: false
@@ -482,6 +585,12 @@ Questionnaire:
       notnull: false
       autoincrement: false
   relations:
+    Category:
+      local: category_id
+      foreign: id
+      type: one
+      onUpdate: CASCADE
+      onDelete: SET NULL
     QuestionnaireTitle:
       local: id
       foreign: questionnaire_id
