@@ -179,7 +179,7 @@ div.clear {
 	clear: both;
 }
 
-a.icon {
+.icon {
 	display: block;
 	float: left;
 	width: 16px;
@@ -194,18 +194,29 @@ a.link {
 	padding: 0 0 0 20px;
 	background: no-repeat;
 }
+#define icons
+a.view, .view { background-image: url("../images/details.gif"); }
+a.add,.add { background-image: url("../images/add.gif"); }
+a.checkbox,.checkbox { background-image: url("../images/checkbox.png"); }
+a.disable,.disable { background-image: url("../images/disable.png"); }
+a.edit,.edit { background-image: url("../images/edit.gif"); }
+a.delete,.delete { background-image: url("../images/delete.gif"); }
+a.back,.back { background-image: url("../images/back.gif"); }
+a.appearance,.appearance { background-image: url("../images/appearance.gif"); }
+a.collect,.collect { background-image: url("../images/collect.gif"); }
+a.check,.check { background-image: url("../images/check.gif"); }
+a.report,.report { background-image: url("../images/report.gif"); }
+a.download,.download { background-image: url("../images/download.gif"); }
+a.print,.print { background-image: url("../images/print.gif"); }
 
-a.view { background-image: url("../images/details.gif"); }
-a.add { background-image: url("../images/add.gif"); }
-a.edit { background-image: url("../images/edit.gif"); }
-a.delete { background-image: url("../images/delete.gif"); }
-a.back { background-image: url("../images/back.gif"); }
-a.appearance { background-image: url("../images/appearance.gif"); }
-a.collect { background-image: url("../images/collect.gif"); }
-a.check { background-image: url("../images/check.gif"); }
-a.report { background-image: url("../images/report.gif"); }
-a.download { background-image: url("../images/download.gif"); }
-a.print { background-image: url("../images/print.gif"); }
+div.handle {
+    background: url("../images/move.gif") no-repeat center center;
+    float: left;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
 
 /* jquery selectable */
 ul.selectable {

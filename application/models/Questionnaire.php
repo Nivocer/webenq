@@ -114,6 +114,11 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         }else {
             $publishedState['beforeEnd']=false;
         }
+        if ($publishedState['activated'] && $publishedState['afterStart'] && $publishedState['beforeEnd']) {
+            $publishedState['published']=true;
+        }else {
+            $publishedState['published']=false;
+        }
         return $publishedState;
     }
 

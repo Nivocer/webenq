@@ -6,43 +6,38 @@
     <table>
         <thead>
             <tr>
-                <th></th>
-                <th><?php echo t('category'); ?></th>
-                <th><?php echo t('title'); ?></th>
-                <th><?php echo t('published'); ?></th>
-                <th><?php echo t('actions'); ?></th>
+                <th class="move"></th>
+                <th class="category"><?php echo t('category'); ?></th>
+                <th class="title"><?php echo t('title'); ?></th>
+                <th class="published"><?php echo t('published'); ?></th>
+                <th class="actions"><?php echo t('actions'); ?></th>
             </tr>
         </thead>
         <tbody class="questionnaire sortable">
             <?php foreach ($this->questionnaires as $questionnaire): ?>
-                <?php $meta = unserialize($questionnaire['meta']); ?>
                 <tr id="<?php echo 'q_'.$questionnaire['id'] ?>">
-                    <td><div class="handle"></div></td>
-                    <td>
+                    <td class="move"><div class="handle" title="Drag to sort questionnaires"></div></td>
+                    <td class="category">
                         <?php
                         echo  $questionnaire->Category->getCategoryText()->text;
-
-
                         ?>
                     </td>
-                    <td>
+                    <td class="title">
                         <a href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);?>">
                             <?php echo $questionnaire->getQuestionnaireTitle()->text; ?>
                         </a>
                     </td>
-                    <td>
+                    <td class="published">
                         <?php
-                        $publishedState=$questionnaire->getPublishedState();
-                        if ($publishedState['activated'] && $publishedState['afterStart'] && $publishedState['beforeEnd']) {
-                            echo '<div class="icon check" title="'.t('start date').": ". $questionnaire->date_start.
-                            " ".t('end date').": ".$questionnaire->date_end.'">V</div>';
-                       }else {
-                           echo '<div class="icon delete" title="'.t('start date').": ". $questionnaire->date_start.
-                           " ".t('end date').": ".$questionnaire->date_end.'">X</div>';
-                       }
-                        ?>
+                         if ($questionnaire->getPublishedState()['published']) { ?>
+                            <a class="icon check" title="<?php echo t('start date').' '. $questionnaire->date_start.", ".
+                            t('end date').': '.$questionnaire->date_end; ?>"></a>
+                       <?php }else{ ?>
+                            <div class="icon disable" title="<?php echo t('start date').' '. $questionnaire->date_start.", ".
+                            t('end date').': '.$questionnaire->date_end; ?>"></div>
+                        <?php }?>
                     </td>
-                    <td>
+                    <td class="action">
                         <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);    ?>">&nbsp;</a>
                         <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/questionnaire/delete/id/" . $questionnaire['id']); ?>">&nbsp;</a>
                     </td>

@@ -1,5 +1,28 @@
 @CHARSET "UTF-8";
 
+
+table {
+	width: 50%;
+	margin-left:2px;
+}
+table .move{
+	width: 10px;
+}
+table .category{
+	width: 30%;
+	text-align: left;
+}
+table .title{
+   align: left;
+   text-align: left;
+}
+table .published{
+	width:10px;
+}
+table .actions{
+	width:30px;
+}
+
 div.questions {
 	width: 100%;
 }
@@ -21,14 +44,6 @@ ul.draggable {
 div.admin {
 	height: 20px;
 	margin-bottom: 2px;
-}
-
-div.handle {
-	background: url("../images/move.gif") no-repeat center center;
-	float: left;
-	cursor: pointer;
-	width: 20px;
-	height: 20px;
 }
 
 div.options {
