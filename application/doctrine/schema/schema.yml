@@ -585,6 +585,8 @@ Questionnaire:
       primary: false
       notnull: false
       autoincrement: false
+    weight:
+      type: int
   relations:
     Category:
       local: category_id

@@ -25,10 +25,9 @@ class QuestionnaireController extends Zend_Controller_Action
     public function indexAction()
     {
         $this->view->questionnaires = Doctrine_Query::create()
-        ->select('q.*, COUNT(qq.id) as count_qqs')
+        ->select('q.*')
         ->from('Webenq_Model_Questionnaire q')
-        ->leftJoin('q.QuestionnaireQuestion qq')
-        ->groupBy('q.id')
+        ->orderBy('q.category_id, q.weight')
         ->execute();
     }
 
@@ -156,6 +155,8 @@ class QuestionnaireController extends Zend_Controller_Action
 
         if ($this->_request->data) {
             $this->_orderPagesAndQuestions(Zend_Json::decode($this->_request->data));
+        }elseif ($this->_request->questionnaire){
+            $this->_orderQuestionnaires(Zend_Json::decode($this->_request->questionnaire));
         } elseif ($this->_request->question) {
             $this->_orderSubQuestions(Zend_Json::decode($this->_request->question));
         }
@@ -206,6 +207,42 @@ class QuestionnaireController extends Zend_Controller_Action
                 ->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
                 ->execute();
             }
+        }
+    }
+/**
+ * save new sort order of questionnaire, triggered by javascript sortable action
+ *
+ * @param array $data
+ */
+    protected function _orderQuestionnaires(array $data)
+    {
+        if (count($data) === 0) {
+            return;
+        }
+
+        $qIds = array();
+        foreach ($data as $key => $id) {
+            $id = (int) str_replace('q_', null, $id);
+            $qIds[] = $id;
+        }
+
+        // reset questionnaire
+        Doctrine_Query::create()
+        ->update('Webenq_Model_Questionnaire q')
+        ->set('weight', '?', 1)
+        ->whereIn('q.id', $qIds)
+        ->execute();
+
+        // get questions
+        $qs = Doctrine_Query::create()
+        ->from('Webenq_Model_Questionnaire q')
+        ->whereIn('q.id', $qIds)
+        ->execute();
+
+        // set new weight
+        foreach ($qs as $weight => $q) {
+            $q->weight = array_search($q->id, $qIds);
+            $q->save();
         }
     }
 

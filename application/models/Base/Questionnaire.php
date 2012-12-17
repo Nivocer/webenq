@@ -12,6 +12,7 @@
  * @property timestamp $date_end
  * @property integer $active
  * @property string $meta
+ * @property int $weight
  * @property Webenq_Model_Category $Category
  * @property Doctrine_Collection $QuestionnaireTitle
  * @property Doctrine_Collection $QuestionnaireQuestion
@@ -93,6 +94,9 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
              'notnull' => false,
              'autoincrement' => false,
              'length' => '',
+             ));
+        $this->hasColumn('weight', 'int', null, array(
+             'type' => 'int',
              ));
     }
 
