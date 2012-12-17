@@ -559,6 +559,7 @@ Questionnaire:
       fixed: false
       unsigned: false
       primary: false
+      default: '2012-01-01 00:00:00'
       notnull: true
       autoincrement: false
     date_end:
@@ -566,7 +567,7 @@ Questionnaire:
       fixed: false
       unsigned: false
       primary: false
-      default: '0000-00-00 00:00:00'
+      default: '2050-01-01 00:00:00'
       notnull: true
       autoincrement: false
     active:
