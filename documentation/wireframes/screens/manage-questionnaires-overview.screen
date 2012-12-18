@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Table" id="5" x="2" y="176" width="485" text="(w:1). ,Category,Title,(w:1).Active,(w:1).Actions&#xA;{move},Education,Student satisfaction,{check},{wrench} %(color:red){delete}%&#xA;{move},Education,Inactive questionnaire,,{wrench} %(color:red){delete}%&#xA;{move},Agriculture,Farmers Household Survey,{check},{wrench} %(color:red){delete}%&#xA;" measuredWidth="485" measuredHeight="116" selection="0" rowHeight="28" alternative="#eeeeee">
+    <font size="11px"/>
+  </widgets>
+  <widgets xsi:type="model:Hotspot" id="25" x="31" y="207" width="107" height="84" measuredWidth="107" measuredHeight="84" link="../popups/edit-category.screen"/>
   <widgets xsi:type="model:Master" id="4" measuredWidth="138" measuredHeight="64">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
   </widgets>
-  <widgets xsi:type="model:Table" id="5" y="176" text=",Category,Title,Active,Actions&#xA;{move},Education,Student satisfaction,{check},{wrench} %(color:red){delete}%&#xA;{move},Education,Inactive questionnaire,,{wrench} %(color:red){delete}%&#xA;{move},Agriculture,Farmers Household Survey,{check},{wrench} %(color:red){delete}%&#xA;" measuredWidth="480" measuredHeight="120" alternative="#eeeeee">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Label" id="9" x="3" y="120" text="Manage questionnaires" measuredWidth="301" measuredHeight="40">
+  <widgets xsi:type="model:Label" id="9" x="3" y="120" text="Manage questionnaires" measuredWidth="172" measuredHeight="27">
     <font size="16px"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="10" x="3" y="312" text="{add} Add questionnaire" measuredWidth="185" measuredHeight="31" link="../popups/add-questionnaire.screen">
+  <widgets xsi:type="model:Button" id="10" x="3" y="312" text="{add} Add questionnaire" measuredWidth="125" measuredHeight="26" link="../popups/add-questionnaire.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Hotspot" id="11" x="414" y="264" width="17" height="28" measuredWidth="17" measuredHeight="28" link="../popups/edit-questionnaire-properties.screen"/>
-  <widgets xsi:type="model:Hotspot" id="12" x="120" y="264" width="233" height="28" measuredWidth="233" measuredHeight="28" link="preview-questionnaire.screen"/>
+  <widgets xsi:type="model:Hotspot" id="11" x="441" y="264" width="24" height="28" measuredWidth="24" measuredHeight="28" link="../popups/edit-questionnaire-properties.screen"/>
+  <widgets xsi:type="model:Hotspot" id="12" x="144" y="264" width="257" height="28" measuredWidth="257" measuredHeight="28" link="preview-questionnaire.screen"/>
   <widgets xsi:type="model:Master" id="13" x="140" measuredWidth="818" measuredHeight="37">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
+    <overrides>
+      <widgets ref="3">
+        <items ref="@items.1"/>
+      </widgets>
+    </overrides>
   </widgets>
-  <widgets xsi:type="model:Hotspot" id="14" x="414" y="235" width="17" height="28" measuredWidth="17" measuredHeight="28" link="../popups/edit-questionnaire-properties.screen"/>
-  <widgets xsi:type="model:Hotspot" id="15" x="120" y="235" width="233" height="28" measuredWidth="233" measuredHeight="28" link="preview-questionnaire.screen"/>
-  <widgets xsi:type="model:Hotspot" id="16" x="414" y="206" width="17" height="28" measuredWidth="17" measuredHeight="28" link="../popups/edit-questionnaire-properties.screen"/>
-  <widgets xsi:type="model:Hotspot" id="17" x="120" y="206" width="233" height="28" measuredWidth="233" measuredHeight="28" link="preview-questionnaire.screen"/>
-  <widgets xsi:type="model:Hotspot" id="18" x="3" y="207" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
-  <widgets xsi:type="model:Hotspot" id="19" x="3" y="236" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
-  <widgets xsi:type="model:Hotspot" id="20" x="2" y="265" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
+  <widgets xsi:type="model:Hotspot" id="14" x="441" y="235" width="24" height="28" measuredWidth="24" measuredHeight="28" link="../popups/edit-questionnaire-properties.screen"/>
+  <widgets xsi:type="model:Hotspot" id="15" x="144" y="235" width="257" height="28" measuredWidth="257" measuredHeight="28" link="preview-questionnaire.screen"/>
+  <widgets xsi:type="model:Hotspot" id="16" x="441" y="206" width="24" height="28" measuredWidth="24" measuredHeight="28" link="../popups/edit-questionnaire-properties.screen"/>
+  <widgets xsi:type="model:Hotspot" id="17" x="144" y="206" width="257" height="28" measuredWidth="257" measuredHeight="28" link="preview-questionnaire.screen"/>
+  <widgets xsi:type="model:Hotspot" id="18" x="2" y="207" width="30" height="25" measuredWidth="30" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
+  <widgets xsi:type="model:Hotspot" id="19" x="2" y="236" width="30" height="25" measuredWidth="30" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
+  <widgets xsi:type="model:Hotspot" id="20" x="2" y="265" width="30" height="25" measuredWidth="30" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
+  <widgets xsi:type="model:Hotspot" id="26" x="24" y="179" width="114" height="28" measuredWidth="114" measuredHeight="28" link="manage-categories-overview.screen"/>
   <hRuler/>
   <vRuler>
     <guides position="218"/>

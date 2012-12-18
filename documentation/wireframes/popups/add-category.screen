@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
   <widgets xsi:type="model:Panel" id="1" x="48" y="64" width="617" height="457" measuredWidth="617" measuredHeight="457"/>
-  <widgets xsi:type="model:Label" id="2" x="82" y="74" text="Add questionnaire" measuredWidth="135" measuredHeight="27">
+  <widgets xsi:type="model:Label" id="2" x="82" y="74" text="Add category" measuredWidth="99" measuredHeight="27">
     <font size="16px"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="3" x="201" y="168" width="431" text="Name of questionnaire" measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="3" x="201" y="168" width="431" text="Name of category" measuredWidth="431" measuredHeight="21">
     <font/>
   </widgets>
   <widgets xsi:type="model:Label" id="4" x="112" y="168" text="English" measuredWidth="39" measuredHeight="21">
@@ -31,21 +31,7 @@
   <widgets xsi:type="model:Label" id="11" x="79" y="130" text="Title" measuredWidth="25" measuredHeight="21">
     <font size="11px" bold="false"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="12" x="82" y="376" text="Category" measuredWidth="49" measuredHeight="21">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Combo" id="14" x="201" y="376" text="Education     " measuredWidth="88" measuredHeight="21">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Checkbox" id="17" x="82" y="422" text="Active" measuredWidth="49" measuredHeight="21" selected="true">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:DateField" id="18" x="256" y="422" text="12/3/04 11:00" measuredWidth="95" measuredHeight="21"/>
-  <widgets xsi:type="model:Label" id="19" x="201" y="422" text="Start" measuredWidth="28" measuredHeight="21">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:DateField" id="20" x="493" y="422" text="23/5/07 18:00" measuredWidth="95" measuredHeight="21"/>
-  <widgets xsi:type="model:Label" id="21" x="448" y="422" text="End" measuredWidth="24" measuredHeight="21">
+  <widgets xsi:type="model:Checkbox" id="17" x="79" y="360" text="Active" measuredWidth="49" measuredHeight="21" selected="true">
     <font/>
   </widgets>
   <widgets xsi:type="model:List" id="27" x="79" y="158" text="(o)&#xA;()&#xA;()&#xA;()" measuredWidth="26" measuredHeight="164" border="false" alpha="0" rowHeight="40">
@@ -55,13 +41,13 @@
     <items x="0" y="82" width="26" height="40" text="()"/>
     <items x="0" y="122" width="26" height="40" text="()"/>
   </widgets>
-  <widgets xsi:type="model:Text" id="28" x="85" y="328" text="{curved-arrow-up} default language for this questionnaire" measuredWidth="200" measuredHeight="16">
+  <widgets xsi:type="model:Text" id="28" x="85" y="328" text="{curved-arrow-up} default language for this category" measuredWidth="177" measuredHeight="16">
     <font italic="true"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="29" x="82" y="473" text="Cancel" measuredWidth="53" measuredHeight="23" link="../screens/manage-questionnaires-overview.screen">
+  <widgets xsi:type="model:Button" id="29" x="79" y="408" text="Cancel" measuredWidth="53" measuredHeight="23" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="30" x="175" y="473" text="Save" measuredWidth="44" measuredHeight="23" link="../screens/manage-questionnaires-overview.screen">
+  <widgets xsi:type="model:Button" id="30" x="176" y="408" text="Save" measuredWidth="44" measuredHeight="23" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
   <widgets xsi:type="model:Master" id="31" x="24" y="24" measuredWidth="268" measuredHeight="23">

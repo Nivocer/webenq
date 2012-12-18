@@ -4,23 +4,23 @@
     <widgets xsi:type="model:Group" id="5" width="342" height="204" measuredWidth="342" measuredHeight="204" background="#cccccc">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="6" x="21" y="13" text="User name:" measuredWidth="99" measuredHeight="29">
+    <widgets xsi:type="model:Label" id="6" x="21" y="13" text="User name:" measuredWidth="61" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:TextField" id="7" x="21" y="103" width="291" text="xxxxxx" measuredWidth="291" measuredHeight="29">
+    <widgets xsi:type="model:TextField" id="7" x="21" y="103" width="291" text="xxxxxx" measuredWidth="291" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:TextField" id="8" x="21" y="37" width="291" text="User name" measuredWidth="291" measuredHeight="29">
+    <widgets xsi:type="model:TextField" id="8" x="21" y="37" width="291" text="User name" measuredWidth="291" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Button" id="9" x="21" y="153" text="Log in" measuredWidth="69" measuredHeight="31" link="home.screen">
+    <widgets xsi:type="model:Button" id="9" x="21" y="153" text="Log in" measuredWidth="49" measuredHeight="23" link="manage-questionnaires-overview.screen">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="10" x="21" y="73" text="Password:" measuredWidth="89" measuredHeight="29">
+    <widgets xsi:type="model:Label" id="10" x="21" y="73" text="Password:" measuredWidth="55" measuredHeight="21">
       <font/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:Note" id="11" x="140" y="310" text="If username+password is&#xA;wrong ..." measuredWidth="212" measuredHeight="52" annotation="true" textAlignment="Left" link="login-error.screen">
+  <widgets xsi:type="model:Note" id="11" x="140" y="310" text="If username+password is&#xA;wrong ..." measuredWidth="129" measuredHeight="36" annotation="true" textAlignment="Left" link="login-error.screen">
     <font/>
   </widgets>
   <widgets xsi:type="model:Master" id="17" x="140" measuredWidth="818" measuredHeight="37">
@@ -29,7 +29,7 @@
   <widgets xsi:type="model:Master" id="18" measuredWidth="138" measuredHeight="64">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
     <overrides>
-      <widgets ref="2" link=""/>
+      <widgets ref="2"/>
     </overrides>
   </widgets>
   <hRuler/>
