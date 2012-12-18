@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report-barchart" printOrder="Horizontal" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="16"/>
 	<property name="ireport.y" value="0"/>
 	<template><![CDATA[$P{DEFAULT_STYLE_FILE}]]></template>
 	<style name="table_colored_cells" style="Crosstab Data Text" mode="Opaque" fontSize="7">
@@ -186,7 +186,7 @@
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
-    ($F{group_question_label}.split("_")[0] !=null?
+    ($F{group_question_label}.split("_").length>=1?
         str($F{group_question_label}.split("_")[0]):
         ""
     ):
@@ -214,15 +214,15 @@
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
-    ($F{group_question_label}.split("_")[1] !=null?
+    ($F{group_question_label}.split("_").length>=2?
         str($F{group_question_label}.split("_")[1]):
         ""
     )+
-    ($F{group_question_label}.split("_")[2] !=null?
+    ($F{group_question_label}.split("_").length>=3 ?
         str($F{group_question_label}.split("_")[2]):
         ""
     ):
-    str("Total")
+    str("")
 )]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
@@ -240,13 +240,13 @@
 						<topPen lineWidth="0.25"/>
 						<leftPen lineWidth="0.25"/>
 						<bottomPen lineWidth="0.25"/>
-						<rightPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.0"/>
 					</box>
 					<textElement verticalAlignment="Middle" markup="html">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
-    ($F{group_question_label}.split("_")[3] !=null?
+    ($F{group_question_label}.split("_").length>=4?
         str($F{group_question_label}.split("_")[3]):
         ""
     ):
@@ -262,11 +262,12 @@
 ($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
 .get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
 .get("target_value_1") )
-.get("highest") ) )]]></printWhenExpression>
+.get("highest") ) ) &&
+($F{group_question_label}.split("_").length>=5)]]></printWhenExpression>
 					</reportElement>
 					<box leftPadding="1" rightPadding="1">
 						<topPen lineWidth="0.25"/>
-						<leftPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.25"/>
 						<rightPen lineWidth="0.25"/>
 					</box>
@@ -274,12 +275,35 @@
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression><![CDATA[($F{group_question_label} !=null?
-    ($F{group_question_label}.split("_")[4] !=null?
+    ($F{group_question_label}.split("_").length>=5?
         str($F{group_question_label}.split("_")[4]):
         ""
     ):
     ""
 )]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" evaluationTime="Auto" isBlankWhenNull="true">
+					<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="261" y="0" width="174" height="12">
+						<printWhenExpression><![CDATA[($V{averageMeasure} >= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("lowest") ) )&&
+($V{averageMeasure} <= ((Double)((Map)((Map) $P{RECODE_COLOR_MAP}
+.get(($P{SCALE_QUESTION_INFO_MAP}).get($V{reportQuestionId}) ) )
+.get("target_value_1") )
+.get("highest") ) ) &&
+($F{group_question_label}.split("_").length<5)]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="1" rightPadding="1">
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement verticalAlignment="Middle" markup="html">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[""]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
