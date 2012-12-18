@@ -45,7 +45,7 @@
 				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="12" width="20" height="12"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="12" width="20" height="12"/>
 				<box topPadding="1" leftPadding="3"/>
 				<textElement verticalAlignment="Top">
 					<font size="9"/>

@@ -52,7 +52,7 @@
 				<textFieldExpression><![CDATA[$F{report_question_value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="20" height="12"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="20" height="12"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
