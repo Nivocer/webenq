@@ -5,7 +5,10 @@ Creation-Date: 2012-12-05T11:06:45+01:00
 ====== i18n and l10n (multilingualism) ======
 Created Wednesday 05 December 2012
 
-The default language is English. Strings are translated by using Zend_translate
+The default language is English. Active languages are defined in: application/classes/Webenq/Language.php
+(currently:  en, nl, & languages from database).
+
+Strings are translated by using Zend_translate
 http://framework.zend.com/manual/1.12/en/zend.translate.html
 We use the gettext variant.
 In application/translation/webenq4.pot we have a set of translatable strings. These strings are mostly harvest by scanning the code (.php and .phtml)for: 
