@@ -27,10 +27,10 @@
 <li><a href="../Developing.html" title="Developing">Developing</a></li>
 <ul>
 <li><a href="./Add_report_element.html" title="Add report element">Add report element</a></li>
-<li><strong>Coding guidelines</strong></li>
+<li><a href="./Coding_guidelines.html" title="Coding guidelines">Coding guidelines</a></li>
 <li><a href="./i18n_and_l10n_(multilingualism).html" title="i18n and l10n (multilingualism)">i18n and l10n (multilingualism)</a></li>
 <li><a href="./Import_data.html" title="Import data">Import data</a></li>
-<li><a href="./Jquery.html" title="Jquery">Jquery</a></li>
+<li><strong>Jquery</strong></li>
 <li><a href="./Quality_Assurance.html" title="Quality Assurance">Quality Assurance</a></li>
 <li><a href="./Report_definition.html" title="Report definition">Report definition</a></li>
 </ul>
@@ -52,26 +52,61 @@
       </header>
       <section>
 
-<h1>Coding guidelines</h1>
+<h1>Jquery</h1>
 
 <p>
-Created Monday 26 November 2012<br>
+Created Thursday 13 December 2012<br>
+</p>
+
+
+<p>
+We use the jquery library, it is stored in public/js/jquery.<br>
+</p>
+
+<h4>Core</h4>
+<p>
+<ul>
+<li>jquery.min.js : core (1.8.3)</li>
+<ul>
+<li>downloaded from: <a href="http://jquery.com/" title="http://jquery.com/">http://jquery.com/</a></li>
+</ul>
+<li>jquery-ui.custom.min.js: nice ui-stuff (1.9.2)</li>
+<ul>
+<li>downloaded a custom selection from <a href="http://jqueryui.com/download/" title="http://jqueryui.com/download/">http://jqueryui.com/download/</a>, currently all</li>
+<li>you can alse select a theme, right now, selected ui-lightness (public/css/jquery)</li>
+</ul>
+</ul>
+</p>
+
+<h4>plugins</h4>
+<p>
+<ul>
+<li><strike>date-format.js (1.2.3)</strike></li>
+<ul>
+<li><strike>not in use anymore? commented out at application/plugins/View.php</strike></li>
+<li>~~downloaded from <a href="http://stevenlevithan.com/assets/misc/date.format.js" title="http://stevenlevithan.com/assets/misc/date.format.js">http://stevenlevithan.com/assets/misc/date.format.js</a>~~</li>
+</ul>
+<li>jquery.json.js (2.4)</li>
+<ul>
+<li>downloaded from <a href="http://code.google.com/p/jquery-json/" title="http://code.google.com/p/jquery-json/">http://code.google.com/p/jquery-json/</a></li>
+</ul>
+<li>jquery.ui.datepicker-LANGUAGE.js: language files for jquery-ui datapicker,</li>
+<ul>
+<li>translations for datapicker can be found in the development bundle of jquery-ui: /jquery-ui-x.y.z.custom/development-bundle/ui/i18n/</li>
+</ul>
+</ul>
+</p>
+
+<h4>CSS</h4>
+<p>
+<ul>
+<li>jquery-ui.custom.* comes with a theme this is stored in public/css/jquery/</li>
+</ul>
 </p>
 
 <p>
-For the Zend/php part we use the zend coding guidelines as tested by phpcs. This is a coding standard based on an early Zend Framework coding standard.<br>
-see <a href="../../Tools/Testing.html" title="Tools-&gt;Testing">Tools-&gt;Testing</a><br>
+(min means: minimalized, compressed version, between brackets version as of 13-12-2012)<br>
 </p>
-
-<p>
-For the java-part we use the coding convention for the Java Programming Language as described by <a href="http://www.oracle.com/technetwork/java/codeconv-138413.html" title="Oracle">Oracle</a><br>
-</p>
-
-<p>
-For the jasper part (jrxml) we use the conventions as used by the community, <br>
-<span class="zim-tag">@todo</span> document this convention, maybe could use info from <a href="http://community.jaspersoft.com/questions/541964/ireport-developer-standards" title="http://community.jaspersoft.com/questions/541964/ireport-developer-standards">http://community.jaspersoft.com/questions/541964/ireport-developer-standards</a><br>
-</p>
-
 
 
       </section>

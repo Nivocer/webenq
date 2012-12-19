@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebEnq by Nivocer</title>
+
+    <link rel="stylesheet" href="../../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../../_resources/stylesheets/pygment_trac.css">
+    <script src="../../_resources/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">WebEnq</h1>
+        <p class="header">Online surveys and reporting</p>
+
+	<ul>
+<li><a href="../../Home.html" title="Home">Home</a></li>
+<ul>
+<li><a href="../Architecture.html" title="Architecture">Architecture</a></li>
+<ul>
+<li><a href="./Formats.html" title="Formats">Formats</a></li>
+<li><strong>Report generator</strong></li>
+</ul>
+<li><a href="../Data_model.html" title="Data model">Data model</a></li>
+<li><a href="../Developing.html" title="Developing">Developing</a></li>
+<li><a href="../Directory_layout.html" title="Directory layout">Directory layout</a></li>
+</ul>
+<li><a href="../../Surveys.html" title="Surveys">Surveys</a></li>
+<li><a href="../../Tools.html" title="Tools">Tools</a></li>
+</ul>
+
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Nivocer/webenq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Nivocer">Nivocer</a></p>
+
+      </header>
+      <section>
+
+<h1>Report generator</h1>
+
+<p>
+The management GUI consists of two parts:<br>
+</p>
+
+<p>
+<ul>
+<li>report generation control: where is the data, which customer</li>
+<ul>
+<li>creates &lt;reportConfig&gt; part of Jasper's jrxml file</li>
+<ul>
+<li>where is the data</li>
+<li>how should it be split</li>
+<li>which customer</li>
+<li>which template and style</li>
+<li>output directory</li>
+</ul>
+<li>calls java class ExecuteReport.java to generate the report</li>
+</ul>
+<li>report definition control: which report elements, in which order</li>
+<ul>
+<li>multiple reports per questionnaire</li>
+</ul>
+</ul>
+</p>
+
+<h2>Jrxml layout</h2>
+<p>
+Each reportElement is included as a subreport &lt;subreportExpression&gt;<br>
+<ul>
+<li>template to be used; for landscape templates, add 'land' as in report3-mean-land.jrxml</li>
+<li>width 555 for A4 portrait, height 20</li>
+<li>first subreport at y=0, second at y=20, etc</li>
+<li>all subreports go into the <em>detail band</em></li>
+<li>subReportParameters:</li>
+<ul>
+<li>CUSTOMER</li>
+<li>DEFAULT_STYLE_FILE</li>
+<li>REPORT_RESOURCE_BUNDLE</li>
+</ul>
+</ul>
+</p>
+
+<p>
+Questions to be included are gathered in datasourceExpression.<br>
+<div style='padding-left: 30pt'>
+&lt;dataSourceExpression&gt;&lt;![CDATA[new it.bisi.report.jasper.datasource.XformJRDataSource($P{DATA_LOCATION},$P{XFORM_LOCATION},$P{FORM_NAME} ,"g3-Opmerkingen",null, $P{SPLIT_QUESTION_ID}, $P{SPLIT_QUESTION_VALUE}).getRecords()]]&gt;&lt;/dataSourceExpression&gt;<br>
+</div>
+In addition to the parameters in the expression above, Zend adds parameters report_question_ids and group_question_id.<br>
+<ul>
+<li>question_ids are specified as they are included in Xforms; if they're part of a group, that group name should be included too: g6-Tevredenheid/g6-InhoudRelevant</li>
+</ul>
+</p>
+
+<h3>Example jrxml code</h3>
+<p>
+&lt;subreport&gt;<br>
+<div style='padding-left: 30pt'>
+&lt;reportElement positionType="Float" x="0" y="0" width="555" height="20" isRemoveLineWhenBlank="true"/&gt;<br>
+&lt;subreportParameter name="CUSTOMER"&gt;<br>
+                 &lt;subreportParameterExpression&gt;&lt;![CDATA[$P{CUSTOMER}]]&gt;&lt;/subreportParameterExpression&gt;<br>
+&lt;/subreportParameter&gt;<br>
+&lt;subreportParameter name="DEFAULT_STYLE_FILE"&gt;<br>
+</div>
+<div style='padding-left: 60pt'>
+&lt;subreportParameterExpression&gt;&lt;![CDATA[$P{DEFAULT_STYLE_FILE}]]&gt;&lt;/subreportParameterExpression&gt;<br>
+</div>
+<div style='padding-left: 30pt'>
+&lt;/subreportParameter&gt;<br>
+&lt;subreportParameter name="REPORT_RESOURCE_BUNDLE"&gt;<br>
+</div>
+<div style='padding-left: 60pt'>
+&lt;subreportParameterExpression&gt;&lt;![CDATA[$P{REPORT_RESOURCE_BUNDLE}]]&gt;&lt;/subreportParameterExpression&gt;<br>
+</div>
+<div style='padding-left: 30pt'>
+&lt;/subreportParameter&gt;<br>
+&lt;subreportParameter name="Q_TEXT"&gt;<br>
+</div>
+                    &lt;subreportParameterExpression&gt;&lt;![CDATA["&lt;h1&gt;Hi&lt;/h1&gt;&lt;p&gt;This is a &lt;b&gt;test&lt;/b&gt;&lt;/p&gt;&lt;p&gt;You can also use a report parameter: "+$P{CUSTOMER}]]&gt;<br>
+<div style='padding-left: 60pt'>
+&lt;/subreportParameterExpression&gt;<br>
+</div>
+<div style='padding-left: 30pt'>
+&lt;/subreportParameter&gt;<br>
+</div>
+&lt;/subreport&gt;           <br>
+&lt;dataSourceExpression&gt;&lt;![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]&gt;&lt;/dataSourceExpression&gt;<br>
+&lt;subreportExpression&gt;&lt;![CDATA[$P{SUBREPORT_DIR}+"report5-text.jasper"]]&gt;&lt;/subreportExpression&gt;<br>
+</p>
+
+<h2>Report characteristics</h2>
+<p>
+<ul>
+<li>customer (master report jrxml)</li>
+<ul>
+<li>stylesheet (font, font size, padding, line style, etc.)</li>
+<li>custom language properties?</li>
+<li>layout </li>
+</ul>
+<li>page orientation (master report jrxml)</li>
+</ul>
+</p>
+
+<p>
+<ul>
+<li>language (locale) (parameter) </li>
+</ul>
+</p>
+
+<p>
+<ul>
+<li>splits on variabele(s) (master jrxml and parameter)</li>
+<li>group on variable (master jrxml and parameter)</li>
+<li>base filename (parameter)</li>
+<li>output format (pdf/rtf/...) (parameter)</li>
+</ul>
+</p>
+
+<p>
+<ul>
+<li>output dir (parameter)</li>
+</ul>
+</p>
+
+<h2>Report part characteristics</h2>
+
+<h3>general</h3>
+<p>
+<ul>
+<li>variable (jrxml parameter)</li>
+<ul>
+<li>gives question and answer texts (xform)</li>
+<li>location of data?</li>
+</ul>
+<li>data</li>
+</ul>
+</p>
+
+<h3>text</h3>
+<p>
+used for titles, introduction,<br>
+<ul>
+<li>text to display with html markup</li>
+<li>style</li>
+<ul>
+<li>h1/h2/h3/comment/text</li>
+<li>bold</li>
+<li>italic</li>
+<li>linebreak</li>
+<li>pagebreak (after text)</li>
+</ul>
+</ul>
+</p>
+
+<h3>list answers (open)</h3>
+<p>
+a list of the answers given on one question<br>
+<ul>
+<li>only general information needed</li>
+</ul>
+</p>
+
+<h3>frequency/cross table</h3>
+<p>
+frequency table of the answers given on one question. If a grouping variable is set, for each group in that variable the frequencies (percentage) of the answer is displayed and a total is added<br>
+<ul>
+<li>grouping variable (optional)</li>
+<li>order value/label</li>
+<li>missing values?</li>
+</ul>
+</p>
+
+<p>
+note: general info gives values and labels, data gives values.<br>
+</p>
+
+<h3>mean table</h3>
+<p>
+Set of at least one question. The set has a title which is displayed above the table. The average of the (valid) answers are calculated. If a grouping variable is set, for each group in that variable the average of the answer is displayed and a total is added.<br>
+<ul>
+<li>grouping variable (optional)</li>
+<li>set title</li>
+<li>variables (at least one)</li>
+<li>missing values?</li>
+</ul>
+</p>
+
+<h3>barchart mean</h3>
+<p>
+Set of questions presented in three columns: question text, bar chart graph and mean. The set has a title displayed above the table.<br>
+<ul>
+<li>set title</li>
+<li>questions (at least one)</li>
+<li>missing values?</li>
+</ul>
+</p>
+
+
+      </section>
+<!--
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
+      </footer>
+-->
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

@@ -27,6 +27,7 @@
 <li><a href="./Developing.html" title="Developing">Developing</a></li>
 <li><a href="./Directory_layout.html" title="Directory layout">Directory layout</a></li>
 </ul>
+<li><a href="../Surveys.html" title="Surveys">Surveys</a></li>
 <li><a href="../Tools.html" title="Tools">Tools</a></li>
 </ul>
 
@@ -95,7 +96,7 @@ The main definition is in yaml format in <code>application/doctrine/schema.yml</
 <p>
 <ol type="1" start="1">
 <li>Adapt <code>application/doctrine/scheme/current/schema.yml</code></li>
-<li>Create migration classes (the migration classes compare the current model with the schema.yml definition): <code>/bin/doctrine generate-migration</code></li>
+<li>Create migration classes (the migration classes compare the current model with the schema.yml definition): <code>/bin/doctrine generate-migrations-diff</code></li>
 <li>Generate the new models <code>bin/doctrine generate-models-yaml</code>. This generates:</li>
 </ol>
 <div style='padding-left: 30pt'>
@@ -104,7 +105,9 @@ The main definition is in yaml format in <code>application/doctrine/schema.yml</
 </div>
 <ol type="1" start="4">
 <li>Update the database: <code>doctrine migrate</code></li>
+<li>If you add fields with 'not null' restriction you also need to update the data fixture, or else the tests (and new installations) will fail, command:</li>
 </ol>
+doctrine dump-data, remember to remove session data.<br>
 </p>
 
 <p>

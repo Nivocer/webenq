@@ -30,11 +30,13 @@
 <li><a href="./Coding_guidelines.html" title="Coding guidelines">Coding guidelines</a></li>
 <li><strong>i18n and l10n (multilingualism)</strong></li>
 <li><a href="./Import_data.html" title="Import data">Import data</a></li>
+<li><a href="./Jquery.html" title="Jquery">Jquery</a></li>
 <li><a href="./Quality_Assurance.html" title="Quality Assurance">Quality Assurance</a></li>
 <li><a href="./Report_definition.html" title="Report definition">Report definition</a></li>
 </ul>
 <li><a href="../Directory_layout.html" title="Directory layout">Directory layout</a></li>
 </ul>
+<li><a href="../../Surveys.html" title="Surveys">Surveys</a></li>
 <li><a href="../../Tools.html" title="Tools">Tools</a></li>
 </ul>
 
@@ -57,7 +59,12 @@ Created Wednesday 05 December 2012<br>
 </p>
 
 <p>
-The default language is English. Strings are translated by using Zend_translate<br>
+The default language is English. Active languages are defined in: application/classes/Webenq/Language.php<br>
+(currently:  en, nl, &amp; languages from database).<br>
+</p>
+
+<p>
+Strings are translated by using Zend_translate<br>
 <a href="http://framework.zend.com/manual/1.12/en/zend.translate.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.html">http://framework.zend.com/manual/1.12/en/zend.translate.html</a><br>
 We use the gettext variant.<br>
 In application/translation/webenq4.pot we have a set of translatable strings. These strings are mostly harvest by scanning the code (.php and .phtml)for: <br>
@@ -76,6 +83,12 @@ To translate, we use this file to scan for new strings.<br>
 We use zend-validate to validate forms we want to use the translations shipped with the zend-framework (<a href="https://github.com/zendframework/zf2/tree/master/resources/languages" title="https://github.com/zendframework/zf2/tree/master/resources/languages">https://github.com/zendframework/zf2/tree/master/resources/languages</a> (assuming we use zf2)), but this is array based, so we combine multiple sources<br>
 </p>
 
+<h4>javascript</h4>
+<p>
+<a href="http://docs.jquery.com/UI/Datepicker/Localization" title="http://docs.jquery.com/UI/Datepicker/Localization">http://docs.jquery.com/UI/Datepicker/Localization</a> (<a href="http://jqueryui.com/datepicker/#localization" title="http://jqueryui.com/datepicker/#localization">http://jqueryui.com/datepicker/#localization</a>)<br>
+ translations for datapicker can be found in the development bundle : /jquery-ui-x.y.z.custom/development-bundle/ui/i18n/<br>
+<span class="zim-tag">@todo</span> always the dutch translation is used see also <a href="https://www.pivotaltracker.com/story/show/41151863" title="https://www.pivotaltracker.com/story/show/41151863">https://www.pivotaltracker.com/story/show/41151863</a><br>
+</p>
 
 <h4>See also</h4>
 <p>

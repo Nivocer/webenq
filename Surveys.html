@@ -20,14 +20,8 @@
         <p class="header">Online surveys and reporting</p>
 
 	<ul>
-<li><strong>Home</strong></li>
-<ul>
-<li><a href="./Home/Architecture.html" title="Architecture">Architecture</a></li>
-<li><a href="./Home/Data_model.html" title="Data model">Data model</a></li>
-<li><a href="./Home/Developing.html" title="Developing">Developing</a></li>
-<li><a href="./Home/Directory_layout.html" title="Directory layout">Directory layout</a></li>
-</ul>
-<li><a href="./Surveys.html" title="Surveys">Surveys</a></li>
+<li><a href="./Home.html" title="Home">Home</a></li>
+<li><strong>Surveys</strong></li>
 <li><a href="./Tools.html" title="Tools">Tools</a></li>
 </ul>
 
@@ -43,40 +37,95 @@
       </header>
       <section>
 
-<h1>WebEnq</h1>
+<h1>Surveys</h1>
 
 <p>
-Webenq is an online research (survey and reporting) tool.<br>
+General information about surveys and reporting.<br>
 </p>
 
+<h2>Use cases/feature wishes</h2>
 <p>
-Version 4 is under development, and currently focuses on importing data and reporting on it.<br>
-</p>
-
-<h2>Current features</h2>
-
-<p>
+Respondent<br>
 <ul>
-<li>Import of spreadsheets from other survey systems or questionnaire-style data (including reconstruction of the questionnaire)</li>
-<li>Basic management of questionnaires</li>
-<li>Experimental export of questionnaires into Xforms</li>
-<li>Management and generation of reports per questionnaire into a variety of formats</li>
-</ul>
-</p>
-
-<h2>Work in progress</h2>
-
-<p>
-<ul>
-<li>Online survey tool (integrating the features our WebEnq 3 platform: online surveys, downloadable questionnaires, fully multi-lingual)</li>
-<li>Integration with mobile devices for questionnaires</li>
-<li>Stronger integration with other data sources, such as survey systems</li>
-<li>More reporting options</li>
+<li>Be able to stop and continue later (save partial questionnaires)</li>
 </ul>
 </p>
 
 <p>
-This documentation website currently is used for the development of WebEnq. Manuals for installation and use of WebEnq will be added in a later stage.<br>
+Questionnaire designer<br>
+<ul>
+<li>Repository of questions, answer categories</li>
+</ul>
+</p>
+
+<p>
+Data collectors<br>
+<ul>
+<li>Insert questionnaires filled in on paper</li>
+<li>Import S3, SPSS</li>
+<li>Import PDF</li>
+<li>Invitations, panels</li>
+<li>Snowball sampling?</li>
+</ul>
+</p>
+
+<p>
+Output<br>
+<ul>
+<li>SPSS</li>
+<li>Excel</li>
+<li>Graphs</li>
+<li>Cross tables</li>
+<li>Widgets for other websites</li>
+</ul>
+</p>
+
+<h2>Reporting</h2>
+
+<h3>Minimal number of respondents</h3>
+<p>
+If the number of respondents or responses is low, it is not always meaningful to present results.<br>
+</p>
+
+<p>
+<ul>
+<li>respondents: number of people that filled in the questionnaire, perhaps limited to a sub group</li>
+<ul>
+<li>if too few: don't generate a report</li>
+</ul>
+<li>responses: number of people that answered a specific questions, perhaps limited to a sub group</li>
+<ul>
+<li>if too few: don't generate the report element for this question</li>
+</ul>
+</ul>
+</p>
+
+<p>
+Types of reporting:<br>
+</p>
+
+<p>
+<ul>
+<li>Open questions: if there are no answers</li>
+<ul>
+<li>show question text nevertheless</li>
+<li>leave out question completely</li>
+</ul>
+</ul>
+</p>
+
+<p>
+<ul>
+<li>Mean tables, frequency tables:</li>
+<ul>
+<li>include answers of small groups in totals</li>
+<ul>
+<li>don't show small groups</li>
+<li>merge small groups</li>
+</ul>
+<li>exclude answers of small groups completely (also from totals)</li>
+</ul>
+</ul>
 </p>
 
 
