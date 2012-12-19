@@ -31,7 +31,7 @@
 	       text-align: center;
 	       border: 3px solid #EEE;
 	       margin: auto;
-	       margin-top: 10%;
+	       margin-top: 1%;
 	   }
 	</style>
 </head>
@@ -45,6 +45,11 @@
 	    <a href="<?php echo $base ?>/phpmd.php">Mess Detector report</a>
 	    <a href="<?php echo $base ?>/phpcpd.php">Duplicate Code report</a>
 	    <a href="<?php echo $base ?>/phpdocs/index.html">PHPDocs</a>
+	</div>
+	<div class="main">
+	    <h1>Webenq4 Library</h1>
+	    <a href="<?php echo $base ?>/log/libraries/testdox.html">Test suite report</a>
+	    <a href="<?php echo $base ?>/log/libraries/coverage/">Code coverage report</a>
 	</div>
 </body>
 </html>

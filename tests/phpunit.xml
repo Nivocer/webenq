@@ -1,6 +1,6 @@
 <phpunit bootstrap="./bootstrap.php" colors="true">
     <testsuite name="Webenq Test Suite">
-        <directory>./</directory>
+        <directory>./application/</directory>
 	</testsuite>
     <filter>
         <whitelist>
