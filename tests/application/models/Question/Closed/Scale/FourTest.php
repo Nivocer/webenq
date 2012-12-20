@@ -6,6 +6,8 @@ class Webenq_Test_Model_Question_Closed_Scale_FourTest extends Webenq_Test_Model
      */
     public function testQuestionTypeValidatesWhenProvidingValidAnswerValues($data)
     {
+        $this->loadDatabase();
+
         $question = Webenq_Model_Question::factory($data, 'nl');
         $this->assertTrue(in_array('Webenq_Model_Question_Closed_Scale_Four',
             $question->getValidTypes()));

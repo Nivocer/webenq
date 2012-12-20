@@ -13,6 +13,8 @@ class Webenq_Test_ControllerTestCase_UserControllerTest extends Webenq_Test_Case
 
     public function testUserCanLoginAndLogout()
     {
+        $this->loadDatabase();
+
         $this->getRequest()->setMethod('POST')->setPost(array(
             'username' => 'invalidxyz',
             'password' => 'invalidxyz'

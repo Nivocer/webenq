@@ -1,7 +1,6 @@
 <?php
-abstract class Webenq_Test_Case_Controller extends Zend_Test_PHPUnit_ControllerTestCase
+class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
 {
-    // as in Webenq_Test_Case_Fixture
     public function loadDatabase() {
         global $doctrineConfig;
         Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
@@ -11,12 +10,9 @@ abstract class Webenq_Test_Case_Controller extends Zend_Test_PHPUnit_ControllerT
     {
         parent::setUp();
 
-        // as in Webenq_Test_Case_Fixture
         global $doctrineConfig;
         Doctrine_Core::createDatabases();
         Doctrine_Core::createTablesFromModels($doctrineConfig['models_path']);
-
-        $this->getFrontController()->setControllerDirectory(APPLICATION_PATH . '/controllers');
     }
 
     public function tearDown()
@@ -29,5 +25,4 @@ abstract class Webenq_Test_Case_Controller extends Zend_Test_PHPUnit_ControllerT
 
         parent::tearDown();
     }
-
 }

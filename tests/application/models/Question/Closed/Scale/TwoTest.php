@@ -6,6 +6,8 @@ class Webenq_Test_Model_Question_Closed_Scale_TwoTest extends Webenq_Test_Model_
      */
     public function testQuestionTypeValidatesWhenProvidingValidAnswerValues($data)
     {
+        $this->loadDatabase();
+
         $question = Webenq_Model_Question::factory($data, 'nl');
         $this->assertTrue(in_array('Webenq_Model_Question_Closed_Scale_Two',
                 $question->getValidTypes()));

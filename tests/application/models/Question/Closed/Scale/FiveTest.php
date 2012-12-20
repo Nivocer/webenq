@@ -6,6 +6,8 @@ class Webenq_Test_Model_Question_Closed_Scale_FiveTest extends Webenq_Test_Model
      */
     public function testFactoryWithValidDataReturnsType($data)
     {
+        $this->loadDatabase();
+
         $question = Webenq_Model_Question::factory($data, 'nl');
     	$this->assertTrue($question instanceof Webenq_Model_Question_Closed_Scale_Five);
     }

@@ -337,7 +337,7 @@ class Webenq_Model_Question extends Webenq_Model_Base_Question
     /**
      * Factors a question object of the right type
      *
-     * The provided data is used ofr detecting the proper question type,
+     * The provided data is used for detecting the proper question type,
      * but is not included in the returned question object because answers
      * can only be added to questions that are connected to a questionnaire
      * (which is beyond the scope of this factory).
