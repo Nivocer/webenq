@@ -23,7 +23,7 @@ try {
 Doctrine_Core::createDatabases();
 Doctrine_Core::createTablesFromModels($doctrineConfig['models_path']);
 
-//Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
+Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
 
 // make copy of sqlite database file (if any) for better performance
 $dbConfig = $application->getBootstrap()->getOption('db');
