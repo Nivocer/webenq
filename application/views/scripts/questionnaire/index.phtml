@@ -1,4 +1,4 @@
-<a class="ajax link add" href="<?php echo $this->baseUrl('/questionnaire/add') ?>" title="<?php echo t('add questionnaire'); ?>">
+<a class="link add" href="<?php echo $this->baseUrl('/questionnaire/add') ?>" title="<?php echo t('add questionnaire'); ?>">
     <?php echo t('add questionnaire'); ?>
 </a>
 
@@ -29,7 +29,8 @@
                     </td>
                     <td class="published">
                         <?php
-                         if ($questionnaire->getPublishedState()['published']) { ?>
+                            $publishedState = $questionnaire->getPublishedState();
+                         if ($publishedState['published']) { ?>
                             <a class="icon check" title="<?php echo t('start date').' '. $questionnaire->date_start.", ".
                             t('end date').': '.$questionnaire->date_end; ?>"></a>
                        <?php }else{ ?>
