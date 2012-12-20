@@ -180,17 +180,4 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             }
         }
     }
-
-    protected function _initActionHelpers()
-    {
-        $helpers = array(
-            new Webenq_Controller_Action_Helper_Language(),
-            new Webenq_Controller_Action_Helper_AjaxContext(),
-            new Webenq_Controller_Action_Helper_Form(),
-        );
-
-        foreach ($helpers as $helper) {
-            Zend_Controller_Action_HelperBroker::addHelper($helper);
-        }
-    }
 }
