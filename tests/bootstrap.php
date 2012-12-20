@@ -19,15 +19,15 @@ try {
     Doctrine_Core::dropDatabases();
 } catch (Exception $e) {
 }
+
 Doctrine_Core::createDatabases();
 Doctrine_Core::createTablesFromModels($doctrineConfig['models_path']);
-Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
+
+//Doctrine_Core::loadData($doctrineConfig['data_fixtures_path'], false);
 
 // make copy of sqlite database file (if any) for better performance
 $dbConfig = $application->getBootstrap()->getOption('db');
-if (isset($dbConfig['params']['dbname']) && !empty($dbConfig['params']['dbname'])) {
-    $testingDatabase = $dbConfig['params']['dbname'];
-} elseif (isset($dbConfig['params']['dsn']) && !empty($dbConfig['params']['dsn'])) {
+if (isset($dbConfig['params']['dsn']) && !empty($dbConfig['params']['dsn'])) {
     $info = Doctrine_Manager::getInstance()->parseDsn($dbConfig['params']['dsn']);
     $testingDatabase = $info['path'];
 }
