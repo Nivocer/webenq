@@ -1,6 +1,9 @@
 <?php
-
-$xml = simplexml_load_file("log/phpmd.xml");
+if ($_REQUEST['input']=='libraries') {
+    $xml = simplexml_load_file("log/libraries/phpmd.xml");
+} else {
+    $xml = simplexml_load_file("log/phpmd.xml");
+}
 
 ?>
 
@@ -16,69 +19,69 @@ $xml = simplexml_load_file("log/phpmd.xml");
 	    font-family: "Corbel", "Myriad Pro", "Calibri", "Verdana", "Helvetica", "Arial", sans-serif;
 	    text-align: center;
 	  }
-	  
+
 	  table {
 	    font-size: 13px;
 	    text-align: left;
 	    margin: 0 auto;
 	  }
-	  
+
 	  table th {
 	    min-width: 100px;
 	    padding: 5px;
 	  }
-	  
+
 	  table tbody tr:nth-child(2n) td {
 	    background-color: #EEE;
 	  }
-	  
+
 	  table thead th {
 	    background-color: #444;
 	    color: #FFF;
 	    padding: 5px 10px;
 	    text-align: center;
 	  }
-	  
+
 	  table thead th:first-child {
 	    -moz-border-radius-topleft: 10px;
 	  }
-	  
+
 	  table thead th:last-child {
 	    -moz-border-radius-topright: 10px;
 	  }
-	  
+
 	  table td {
 	    padding: 3px 10px;
 	    border-right: 1px solid #999;
 	    border-left: 1px solid #999;
 	  }
-	  
+
 	  table td.right {
 	    text-align: right;
 	  }
-	  
+
 	  table {
 	    border-collapse: collapse;
 	    border-bottom: 1px solid #999;
 	  }
-	  
+
 	  ul, ul li {
 	    list-style: none;
 	    margin: 0;
 	    padding: 0;
 	  }
-	  
+
 	  .file-name {
 	    text-align: center;
 	    font-size: 16px;
 	    padding: 7px;
 	    margin: 0;
 	  }
-	  
+
 	  .file {
 	      margin: 10px 0;
 	  }
-	  
+
 	  .ok {
 	      background-color: #8CCA7C;
 	  }
@@ -87,7 +90,13 @@ $xml = simplexml_load_file("log/phpmd.xml");
 
 <body>
   <h1>PHP Mess Detector</h1>
-<a href="log/phpmd.html" >html version</a><br>
+  <?php if ($_REQUEST['input']=='libraries') {
+    $input='libraries/';
+    } else {
+        $input='';
+    }
+    ?>
+<a href="log/<?php echo $input;?>phpmd.html" >html version</a><br>
   <ul id="files">
   <?php foreach($xml->file as $file): ?>
     <li class="file">

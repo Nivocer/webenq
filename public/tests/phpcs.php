@@ -1,7 +1,9 @@
 <?php
-
-$xml = simplexml_load_file("log/phpcs.xml");
-
+if ($_REQUEST['input']=='libraries'){
+    $xml = simplexml_load_file("log/libraries/phpcs.xml");
+}else{
+    $xml = simplexml_load_file("log/phpcs.xml");
+}
 $files = array();
 foreach ($xml->file as $file) {
   $file['name'] = substr($file['name'], strpos($file['name'], 'Joobsbox/'));

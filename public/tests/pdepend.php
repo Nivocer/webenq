@@ -1,6 +1,9 @@
 <?php
-
-$xml = simplexml_load_file("log/pdepend-summary.xml");
+if ($_REQUEST['input']=='libraries'){
+    $xml = simplexml_load_file("log/libraries/pdepend-summary.xml");
+}else {
+    $xml = simplexml_load_file("log/pdepend-summary.xml");
+}
 
 $files = array();
 foreach ($xml->files->file as $file) {

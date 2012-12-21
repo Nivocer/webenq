@@ -3,3 +3,7 @@
 phpmd ../application/ xml codesize,design,unusedcode,naming --reportfile ../public/tests/log/phpmd.xml
 phpmd ../application/ html codesize,design,unusedcode,naming --reportfile ../public/tests/log/phpmd.html
 
+phpmd ../libraries/WebEnq4/ xml codesize,design,unusedcode,naming --reportfile ../public/tests/log/libraries/phpmd.xml
+phpmd ../libraries/WebEnq4/ html codesize,design,unusedcode,naming --reportfile ../public/tests/log/libraries/phpmd.html
+
+

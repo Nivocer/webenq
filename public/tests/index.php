@@ -39,7 +39,7 @@
 	<div class="main">
 	    <h1>Webenq Test Zone</h1>
 	    <a href="<?php echo $base ?>/log/testdox.html">Test suite report</a>
-	    <a href="<?php echo $base ?>/log/report/">Code coverage report</a>
+	    <a href="<?php echo $base ?>/log/report/index.html">Code coverage report</a>
 	    <a href="<?php echo $base ?>/pdepend.php">PDepend report</a>
 	    <a href="<?php echo $base ?>/phpcs.php">Code Sniffer report</a>
 	    <a href="<?php echo $base ?>/phpmd.php">Mess Detector report</a>
@@ -48,8 +48,16 @@
 	</div>
 	<div class="main">
 	    <h1>Webenq4 Library</h1>
-	    <a href="<?php echo $base ?>/log/libraries/testdox.html">Test suite report</a>
-	    <a href="<?php echo $base ?>/log/libraries/coverage/">Code coverage report</a>
+	    <?php $source='libraries';?>
+	    <a href="<?php echo $base ?>/log/<?php echo $source; ?>/testdox.html">Test suite report</a>
+	    <a href="<?php echo $base ?>/log/report/<?php echo $source; ?>.html">Code coverage report</a>
+	    <a href="<?php echo $base ?>/pdepend.php?input=<?php echo $source; ?>">PDepend report</a>
+	    <a href="<?php echo $base ?>/phpcs.php?input=<?php echo $source; ?>">Code Sniffer report</a>
+	    <a href="<?php echo $base ?>/phpmd.php?input=<?php echo $source; ?>">Mess Detector report</a>
+	    <a href="<?php echo $base ?>/phpcpd.php?input=<?php echo $source; ?>">Duplicate Code report</a>
+	    <a href="<?php echo $base ?>/phpdocs/<?php echo $source; ?>/index.html">PHPDocs</a>
+
+
 	</div>
 </body>
 </html>

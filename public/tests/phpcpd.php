@@ -1,6 +1,9 @@
 <?php
-
-$xml = simplexml_load_file("log/phpcpd.xml");
+if ($_REQUEST['input']=='libraries'){
+    $xml = simplexml_load_file("log/libraries/phpcpd.xml");
+}else {
+    $xml = simplexml_load_file("log/phpcpd.xml");
+}
 
 $duplications = array();
 foreach ($xml->duplication as $duplication) {
@@ -52,4 +55,4 @@ foreach ($xml->duplication as $duplication) {
   <?php endforeach; ?>
 </body>
 </html>
- 
+
