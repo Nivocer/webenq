@@ -1,6 +1,8 @@
 <?php
 class Webenq_Test_Model_QuestionTest extends Webenq_Test_Case_Model
 {
+    public $setupDatabase = true;
+
     public function testAnswersCanBeAddedToQuestion()
     {
         $question = new Webenq_Model_Question();

@@ -13,9 +13,6 @@ if (!file_exists(realpath(dirname(__FILE__)) . '/../application/configs/override
 require_once realpath(dirname(__FILE__) . '/../public/init.php');
 $application->bootstrap();
 
-// set up database for testing
-$doctrineConfig = $application->getBootstrap()->getOption('doctrine');
-
 // set up auto-loading for tests
 $loader = Zend_Loader_Autoloader::getInstance();
 $namespaceLoaders = $loader->getNamespaceAutoloaders('Webenq_');

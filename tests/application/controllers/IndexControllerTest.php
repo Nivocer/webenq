@@ -25,6 +25,13 @@
 
 class Webenq_Test_ControllerTestCase_IndexControllerTest extends Webenq_Test_Case_Controller
 {
+    public function testLoadDatabaseFixtureSucceeds() {
+        $this->loadDatabase();
+
+        $questionnaires = Webenq_Model_Questionnaire::getKeyValuePairs();
+        $this->assertTrue(is_array($questionnaires) && (count($questionnaires)>0));
+    }
+
     public function testIndexActionRendersLoginForm()
     {
 // @todo check test, phpunit is not redirected to user/login,

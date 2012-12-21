@@ -1,6 +1,8 @@
 <?php
 class Webenq_Test_Model_Input_FileTest extends Webenq_Test_Model_InputTest
 {
+    public $setupDatabase = true;
+
     /**
      * Calls the factory method with an invalid file name. This should
      * result in throwing an Exception.
@@ -9,7 +11,7 @@ class Webenq_Test_Model_Input_FileTest extends Webenq_Test_Model_InputTest
      */
     public function testFactoryWithInvalidFileThrowsException()
     {
-        Webenq_Import_Adapter_Abstract::factory($this->_invalidFile);
+        Webenq_Import_Adapter_Abstract::factory('invalidfile');
     }
 
     /**

@@ -1,6 +1,8 @@
 <?php
 class Webenq_Test_Model_AnswerPossibilityGroupTest extends Webenq_Test_Case_Model
 {
+    public $setupDatabase = true;
+
     public function testAnswerPossibilityGroupIsCreated()
     {
         $values = array('', 'mee eens', 'geheel mee eens', 'neutraal', 'helemaal mee oneens');
