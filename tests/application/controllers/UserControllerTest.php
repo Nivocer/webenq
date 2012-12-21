@@ -10,8 +10,8 @@ class Webenq_Test_ControllerTestCase_UserControllerTest extends Webenq_Test_Case
     {
         $this->dispatch('/user/login');
         $this->assertAction('login');
-        $this->assertQuery('input#username');
-        $this->assertQuery('input#password');
+        $this->assertXpath("//input[@id = 'username']");
+        $this->assertXpath("//input[@id = 'password']");
     }
 
     public function testInvalidUserCannnotLogin()
