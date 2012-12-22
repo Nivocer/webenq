@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="WebEnq" basedir="." default="testsuite">
+
+  <target name="testsuite">
+    <phingcall target="runTestSuite" />
+    <mkdir dir="public/tests/report" />
+    <phpunitreport todir="public/tests/report"
+      infile="logs/testsuites.xml" 
+      format="frames" 
+      usesorttable="true" />
+  </target>
+
+  <target name="testcoverage">
+    <coverage-setup database="logs/coverage.db">
+      <fileset refid="application" />
+      <fileset refid="libraries" />
+    </coverage-setup>
+
+    <phingcall target="runTestSuite">
+      <property name="codecoverage" value="true" />
+    </phingcall>
+
+    <mkdir dir="public/tests/coverage" />
+    <coverage-report outfile="log/coverage.xml">
+      <report todir="public/tests/coverage"
+        usesorttable="true" />
+    </coverage-report>
+  </target>
+
+  <target name="runTestSuite">
+    <phpunit bootstrap="tests/bootstrap.php" printsummary="true">
+      <formatter todir="logs" type="xml"/>
+      <batchtest>
+      	<fileset refid="tests" />
+      </batchtest>
+    </phpunit>
+  </target>
+
+  <fileset dir="application" id="application">
+    <include name="**/*.php" />
+  </fileset>
+
+  <fileset dir="libraries" id="libraries">
+    <include name="WebEnq4/**/*.php" />
+  </fileset>
+	
+  <fileset dir="tests" id="tests">
+    <include name="**/*Test.php"/>
+  </fileset>
+
+</project>
