@@ -30,8 +30,21 @@ Important locations for configuration or application code
 	* [[Data model|data model files (see Data Model page)]]
 ''/library/''
 	''zend/''
+		* zend framework library
+		* version control: svn: http://framework.zend.com/svn/framework/standard/
+		* current 1.10.8, last version of this branche
+		* newer branche: 1.11, still gets security updates, latest: 1.11.15
+		* latest branche 1.12, latest 1.12.1
+		* Zend plan to fully support Zend Framework 1 until at least early 2014, including maintenance and security updates. (http://framework.zend.com/about/faq/)
 	''zendx/''
+		* extra packages distributed to getter with zend framework library, basically: jquery support
+		* version control: svn: http://framework.zend.com/svn/framework/extras/
+		* versions see zend
 	''doctrine/''
+		* version 1.2.4
+	ZendDoctrine
+		* ?
+	WebEnq4
 ''/classes/''
 	''webenq/''
 	* WebEnq-specific classes, such as filters, downloads
