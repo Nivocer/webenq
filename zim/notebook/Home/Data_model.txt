@@ -24,12 +24,15 @@ We use doctrine as database abstraction layer
 The main definition is in yaml format in ''application/doctrine/schema.yml''. If you want to adapt the database, edit schema.yml. Doctrine will generate the new models and perform the database changes, via migration-classes.
 
 ==== Procedure ====
-1. Adapt ''application/doctrine/scheme/current/schema.yml''
-2. Create migration classes (the migration classes compare the current model with the schema.yml definition): ''/bin/doctrine generate-migrations-diff''
-3. Generate the new models ''bin/doctrine generate-models-yaml''. This generates:
+1. Adapt ''application/doctrine/scheme/schema.yml''
+2. Create migration classes (the migration classes compare the current model with the schema.yml definition): 
+	''./bin/doctrine generate-migration application/doctrine/scheme/schema.yml''
+3. Generate the new models
+	''./bin/doctrine generate-models-yaml''
+	This generates:
 	''models/Base/*''
 	''models/*.php'' if they do not yet exist
-4. Update the database: ''doctrine migrate''
+4. Update the database: ''./bin/doctrine migrate''
 5. If you add fields with 'not null' restriction you also need to update the data fixture, or else the tests (and new installations) will fail, command:
 doctrine dump-data, remember to remove session data.
 

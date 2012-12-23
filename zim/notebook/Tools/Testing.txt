@@ -4,17 +4,18 @@ Creation-Date: 2012-11-12T19:08:32+01:00
 
 ====== Testing ======
 
-
 ===== Unit Testing =====
 We use phpunit for unit testing
 Tests are definied in /tests (mainly application)
-phpunit.xml defines holds the configuration, including codecoverage
+phpunit.xml defines the configuration, including codecoverage
 phpunit.travis.xml runs phpunit, without codecoverage
+
+''phpunit --configuration tests/phpunit.xml''
 
 ==== Continuous integration ====
 We use Travis-CI for continuous integration testing: each push to the Github repository triggers a build that executes PHP unit tests.
 
-* The test configuration is specified in .travis.yml
+* The test configuration is specified in ''.travis.yml''
 * The test suite is defined in ''tests/phunit.travis.xml'' (and excludes code coverage reporting, to make the test suite run fast)
 * Test results are available via https://travis-ci.org/#!/Nivocer/webenq
 * The repository on Github has a status image indicating the results of the last run.
