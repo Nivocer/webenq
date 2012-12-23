@@ -1,0 +1,31 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2012-12-21T11:13:24+01:00
+
+====== travis-error ======
+Created Friday 21 December 2012
+
+amazon ubuntu: php version 5.3.10 met phpunit 3.7.9 gaat goed
+amazon centos: 5.4.8 met phpunit	3.79  controller tests gaan goed.
+rolf : phpversion 5.4.6 phpunit  3.6.10 gaat goed
+rolf: php version 5.4.6 phpunit 3.7.10 gaat goed
+jaapandre: php version 	5.4.6 phpunt 3.7.9 gaat goed
+PHP 5.4.6-1ubuntu1.1 (cli) (built: Nov 15 2012 01:18:34) 
+Copyright (c) 1997-2012 The PHP Group
+Zend Engine v2.4.0, Copyright (c) 1998-2012 Zend Technologies
+    with Xdebug v2.2.1, Copyright (c) 2002-2012, by Derick Rethans
+travis: php version 5.3.3 met phpunit
+PHP 5.3.19 (cli) (built: Dec 20 2012 09:57:38)
+Copyright (c) 1997-2012 The PHP Group
+Zend Engine v2.3.0, Copyright (c) 1998-2012 Zend Technologies
+with Xdebug v2.2.1, Copyright (c) 2002-2012, by Derick Rethans
+$ phpunit --configuration tests/phpunit.travis.xml
+PHPUnit 3.7.10 by Sebastian Bergmann.
+
+**travis php version 5.4.9**
+PHP 5.4.9 (cli) (built: Dec 20 2012 10:09:51)
+Copyright (c) 1997-2012 The PHP Group
+Zend Engine v2.4.0, Copyright (c) 1998-2012 Zend Technologies
+ with Xdebug v2.2.1, Copyright (c) 2002-2012, by Derick Rethans
+$ phpunit --configuration tests/phpunit.travis.xml
+PHPUnit 3.7.10 by Sebastian Bergmann.
