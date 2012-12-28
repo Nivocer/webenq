@@ -84,6 +84,11 @@ _('Generate report'),
 _('Merge files'),
 _('nl'),
 _('en'),
-_('Are you sure?')
+_('Are you sure?'),
+_('Manage categories'),
+_('Add category'),
+_('Sort categories'),
+_('Edit category'),
+_('Delete category')
 ;
 ?>

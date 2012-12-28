@@ -114,6 +114,11 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
                 'action' => 'index',
             ),
             array(
+                'label' => t('Categories'),
+                'controller' => 'category',
+                'action' => 'index',
+                ),
+            array(
                 'label' => t('Questions'),
                 'controller' => 'question',
                 'action' => 'index',

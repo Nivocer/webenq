@@ -249,6 +249,19 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         }
     }
 
+    public function getQuestionnaires($category=null, $id=null){
+        $query=Doctrine_Query::create()
+        ->from('Webenq_Model_Questionnaire q')
+        ->leftJoin('q.Category c')
+        ->orderBy('c.weight, q.weight');
+        if ($category){
+            $query->andWhere('q.category_id=?',$category);
+        }
+        if ($id){
+            $query->andWhere('q.id=?',$id);
+        }
+        return $query->execute();
+    }
     /**
      * Returns a questionnaire, based on the given id and language.
      *
@@ -256,6 +269,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
      * @param string $language
      * @return Questionnaire
      */
+
     static public function getQuestionnaire($id, $language, $page = null,
         Webenq_Model_Respondent $respondent = null, $includeAnswers = false)
     {

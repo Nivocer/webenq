@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+
+
+tbody.category tr{
+    cursor: pointer;
+}
+tbody.category tr {
+    cursor: pointer;
+}
+
+/*make room for row when moving*/
+tbody.category tr.ui-state-highlight {
+    height: 40px; 
+}

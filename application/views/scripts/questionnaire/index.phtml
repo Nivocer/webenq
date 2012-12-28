@@ -18,9 +18,11 @@
                 <tr id="<?php echo 'q_'.$questionnaire['id'] ?>">
                     <td class="move"><div class="handle" title="Drag to sort questionnaires"></div></td>
                     <td class="category">
-                        <?php
-                        echo  $questionnaire->Category->getCategoryText()->text;
+                    <a href="<?php echo $this->baseUrl("/category/edit/id/" . $questionnaire['category_id']);?>">
+
+                        <?php echo  $questionnaire->Category->getCategoryText()->text;
                         ?>
+                        </a>
                     </td>
                     <td class="title">
                         <a href="<?php echo $this->baseUrl("/questionnaire/edit/id/" . $questionnaire['id']);?>">

@@ -8,10 +8,6 @@ table {
 table .move{
 	width: 10px;
 }
-table .category{
-	width: 30%;
-	text-align: left;
-}
 table .title{
    align: left;
    text-align: left;
@@ -23,7 +19,7 @@ table .actions{
 	width:50px;
 }
 
-div.questions {
+div.categories {
 	width: 100%;
 }
 

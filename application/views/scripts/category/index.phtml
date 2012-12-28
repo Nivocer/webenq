@@ -1,0 +1,45 @@
+<a class="link add" href="<?php echo $this->baseUrl('/category/add') ?>" title="<?php echo t('add category'); ?>">
+    <?php echo t('add category'); ?>
+</a>
+
+<?php if (isset($this->categories[0])): ?>
+    <table>
+        <thead>
+            <tr>
+                <th class="move"></th>
+                <th class="title"><?php echo t('title'); ?></th>
+                <th class="published"><?php echo t('published'); ?></th>
+                <th class="actions"><?php echo t('actions'); ?></th>
+            </tr>
+        </thead>
+        <tbody class="category sortable">
+            <?php foreach ($this->categories as $category): ?>
+                <tr id="<?php echo 'c_'.$category['id'] ?>">
+                    <td class="move"><div class="handle" title="Drag to sort category"></div></td>
+                    <td class="title">
+                        <a href="<?php echo $this->baseUrl("/category/edit/id/" . $category['id']);?>">
+                            <?php echo $category->getCategoryText()->text; ?>
+                        </a>
+                    </td>
+                    <td class="published">
+                        <?php
+                            $publishedState = $category->active;
+                         if ($publishedState) { ?>
+                            <a class="icon check" title="<?php echo t('active');?>"></a>
+                       <?php }else{ ?>
+                            <div class="icon disable" title="<?php echo t('inactive'); ?>"></div>
+                        <?php }?>
+                    </td>
+                    <td class="action">
+                        <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/category/edit/id/" . $category['id']);?>">&nbsp;</a>
+                        <?php if (Webenq_Model_Questionnaire::getQuestionnaires($category['id'])->count()==0){ ?>
+                        <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/category/delete/id/" . $category['id']); ?>">&nbsp;</a>
+                        <?php }?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <?php echo t('No categories defined yet') ?>
+<?php endif; ?>

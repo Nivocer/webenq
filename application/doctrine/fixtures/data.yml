@@ -288,8 +288,13 @@ Webenq_Model_AnswerPossibilityTextSynonym:
 Webenq_Model_Category:
   Webenq_Model_Category_1:
     active: '1'
+    weight: '1'
   Webenq_Model_Category_2:
     active: '1'
+    weight: '0'
+  Webenq_Model_Category_3:
+    active: '0'
+    weight: '2'
 Webenq_Model_QuestionnaireTitle:
   Webenq_Model_QuestionnaireTitle_1:
     text: Testvragenlijst
@@ -559,6 +564,24 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_81:
     name: report/generate
     description: 'Generate report'
+  Webenq_Model_Resource_82:
+    name: category/index
+    description: 'Manage categories'
+  Webenq_Model_Resource_83:
+    name: category/add
+    description: 'Add category'
+  Webenq_Model_Resource_84:
+    name: category/edit
+    description: 'Edit category'
+  Webenq_Model_Resource_85:
+    name: category/delete
+    description: 'Delete category'
+  Webenq_Model_Resource_86:
+    name: category/order
+    description: 'Sort categories'
+  Webenq_Model_Resource_87:
+    name: tool/client
+    description: null
 Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_1:
     Role: Webenq_Model_Role_1
@@ -818,6 +841,21 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_86:
     Role: Webenq_Model_Role_4
     Resource: Webenq_Model_Resource_71
+  Webenq_Model_RoleResource_87:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_82
+  Webenq_Model_RoleResource_88:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_83
+  Webenq_Model_RoleResource_89:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_84
+  Webenq_Model_RoleResource_90:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_85
+  Webenq_Model_RoleResource_91:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_86
 Webenq_Model_AnswerPossibility:
   Webenq_Model_AnswerPossibility_1:
     active: '1'
@@ -995,6 +1033,7 @@ Webenq_Model_Questionnaire:
     date_end: '2022-12-31 00:00:00'
     active: '1'
     meta: null
+    weight: null
   Webenq_Model_Questionnaire_2:
     Category: Webenq_Model_Category_2
     default_language: en
@@ -1002,6 +1041,7 @@ Webenq_Model_Questionnaire:
     date_end: '2050-01-01 00:00:00'
     active: '1'
     meta: 'a:1:{s:9:"timestamp";i:1355733867;}'
+    weight: null
   Webenq_Model_Questionnaire_3:
     Category: Webenq_Model_Category_1
     default_language: en
@@ -1009,6 +1049,7 @@ Webenq_Model_Questionnaire:
     date_end: '2012-05-01 00:00:00'
     active: '1'
     meta: 'a:1:{s:9:"timestamp";i:1355733940;}'
+    weight: null
 Webenq_Model_ReportPresentation:
   Webenq_Model_ReportPresentation_1:
     QuestionnaireQuestion: Webenq_Model_QuestionnaireQuestion_1
@@ -1071,6 +1112,9 @@ Webenq_Model_CollectionPresentation:
     validators: 'a:0:{}'
     page: '1'
     weight: '-1'
+Webenq_Model_MigrationVersion:
+  Webenq_Model_MigrationVersion_1:
+    version: '7'
 Webenq_Model_Answer:
   Webenq_Model_Answer_1:
     answerPossibility_id: null
@@ -1191,7 +1235,7 @@ Webenq_Model_User:
     fullname: Administrator
     api_key: ac06e72877270a72f1488e658e374fe9
     created: '2010-12-20 17:20:21'
-    lastlogin: '2012-12-17 09:43:59'
+    lastlogin: '2012-12-28 21:02:21'
     Role: Webenq_Model_Role_2
   Webenq_Model_User_2:
     username: reportgenerator
@@ -1247,14 +1291,22 @@ Webenq_Model_CategoryText:
     text: anders
     language: nl
     Category: Webenq_Model_Category_1
-  Webenq_Model_CategoryText_4:
+  Webenq_Model_CategoryText_3:
     text: 'Some category'
     language: en
     Category: Webenq_Model_Category_2
-  Webenq_Model_CategoryText_5:
+  Webenq_Model_CategoryText_4:
     text: 'Een categorie'
     language: nl
     Category: Webenq_Model_Category_2
+  Webenq_Model_CategoryText_5:
+    text: 'Category without questionnaires'
+    language: en
+    Category: Webenq_Model_Category_3
+  Webenq_Model_CategoryText_6:
+    text: 'Categorie zonder vragenlijsten'
+    language: nl
+    Category: Webenq_Model_Category_3
 Webenq_Model_QuestionnaireQuestion:
   Webenq_Model_QuestionnaireQuestion_1:
     Questionnaire: Webenq_Model_Questionnaire_1
@@ -1297,14 +1349,14 @@ Webenq_Model_QuestionnaireQuestion:
     meta: null
 Webenq_Model_Question:
   Webenq_Model_Question_1:
-    created: '2012-12-17 09:35:19'
+    created: '2012-12-28 21:02:06'
   Webenq_Model_Question_2:
-    created: '2012-12-17 09:35:19'
+    created: '2012-12-28 21:02:06'
   Webenq_Model_Question_3:
-    created: '2012-12-17 09:35:19'
+    created: '2012-12-28 21:02:06'
   Webenq_Model_Question_4:
-    created: '2012-12-17 09:35:19'
+    created: '2012-12-28 21:02:06'
   Webenq_Model_Question_5:
-    created: '2012-12-17 09:35:19'
+    created: '2012-12-28 21:02:06'
   Webenq_Model_Question_6:
-    created: '2012-12-17 09:35:19'
+    created: '2012-12-28 21:02:06'

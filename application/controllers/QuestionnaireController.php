@@ -24,11 +24,7 @@ class QuestionnaireController extends Zend_Controller_Action
     */
     public function indexAction()
     {
-        $this->view->questionnaires = Doctrine_Query::create()
-        ->select('q.*')
-        ->from('Webenq_Model_Questionnaire q')
-        ->orderBy('q.category_id, q.weight')
-        ->execute();
+        $this->view->questionnaires = Webenq_Model_Questionnaire::getQuestionnaires();
     }
 
     /**
