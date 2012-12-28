@@ -5,3 +5,4 @@ mkdir ../public/tests/log/libraries
 ./phpcs.sh
 ./phpdoc.sh
 ./phpmd.sh
+phpunit
