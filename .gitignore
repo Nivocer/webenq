@@ -5,6 +5,8 @@
 
 public/tests/log/*
 public/tests/phpdocs/*
+public/tests/report/
+
 
 tests/init_testing.db:
 tests/testing.db:
