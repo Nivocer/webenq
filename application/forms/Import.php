@@ -73,7 +73,7 @@ class Webenq_Form_Import extends Zend_Form
         $files = $this->file->getTransferAdapter()->getFileInfo();
         if (preg_match('/csv$/', strtolower($files['file']['name']))) {
             if ($data['type'] != 'default') {
-                $this->file->addError('Bestanden met formaat CSV kunnen alleen van het type "default" zijn');
+                $this->file->addError(t('Files in CSV format should be of the default type'));
                 return false;
             }
         }
