@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-11 12:30+0100\n"
-"PO-Revision-Date: 2012-12-11 12:31+0100\n"
+"POT-Creation-Date: 2012-12-28 14:23+0100\n"
+"PO-Revision-Date: 2012-12-28 14:24+0100\n"
 "Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -21,35 +21,35 @@ msgstr ""
 msgid "WebEnq 4"
 msgstr "WebEnq 4"
 
-#: application/plugins/View.php:96
+#: application/plugins/View.php:97
 msgid "Home"
 msgstr "Startpagina"
 
-#: application/plugins/View.php:101
+#: application/plugins/View.php:102
 msgid "Questionnaires"
 msgstr "vragenlijsten"
 
-#: application/plugins/View.php:106
+#: application/plugins/View.php:107
 msgid "Reports"
 msgstr "Rapporten"
 
-#: application/plugins/View.php:111
+#: application/plugins/View.php:112
 msgid "Import"
 msgstr "Importeer"
 
-#: application/plugins/View.php:116
+#: application/plugins/View.php:117
 msgid "Questions"
 msgstr "Vragen"
 
-#: application/plugins/View.php:121
+#: application/plugins/View.php:122
 msgid "Answer-possibilities"
 msgstr "Antwoordmogelijkheden"
 
-#: application/plugins/View.php:131
+#: application/plugins/View.php:132
 msgid "Users"
 msgstr "Gebruikers"
 
-#: application/plugins/View.php:139
+#: application/plugins/View.php:140
 msgid "Log out"
 msgstr "Afmelden"
 
@@ -596,11 +596,11 @@ msgstr "Selecteer bestand"
 msgid "Are you sure you want to delete the question %s (including all translations)?"
 msgstr "Weet je zeker dat je de vraag %s (inclusief all vertalingen) wilt verwijderen"
 
-#: application/controllers/QuestionnaireController.php:274
+#: application/controllers/QuestionnaireController.php:311
 msgid "Are you sure you want to delete questionnaire"
 msgstr "Weet je zeker dat je de vragenlijst wilt verwijderen"
 
-#: application/controllers/QuestionnaireController.php:276
+#: application/controllers/QuestionnaireController.php:313
 msgid "(including all questions and answers)?"
 msgstr "(inclusief alle vragen en antwoorden)?"
 
@@ -629,6 +629,7 @@ msgid "back to answer possibility"
 msgstr "terug naar antwoordmogelijkheid"
 
 #: application/views/scripts/answer-possibility-synonym/edit.phtml:8
+#: application/views/scripts/answer-possibility/view.phtml:5
 msgid "add synonym"
 msgstr "synoniem toevegen"
 
@@ -656,7 +657,6 @@ msgid "validation"
 msgstr "validatie"
 
 #: application/views/scripts/questionnaire-question/delete.ajax.phtml:2
-#: application/views/scripts/questionnaire-question/delete.phtml:2
 msgid "Are you sure you want to remove the question below from the current questionniare?"
 msgstr "Weet je zeker dat je de onderstaande vraag uit de huidige vragenlijst wilt verwijderen?"
 
@@ -870,31 +870,29 @@ msgstr "Pagina"
 msgid "add questionnaire"
 msgstr "vragenlijst toevoegen"
 
-#: application/views/scripts/questionnaire/index.phtml:11
-msgid "date"
-msgstr "datum"
+#: application/views/scripts/questionnaire/index.phtml:10
+msgid "category"
+msgstr "category"
 
 #: application/views/scripts/questionnaire/index.phtml:12
-msgid "file"
-msgstr "bestand"
+msgid "published"
+msgstr "published"
 
-#: application/views/scripts/questionnaire/index.phtml:40
-msgid "check"
-msgstr "controleer"
+#: application/views/scripts/questionnaire/index.phtml:13
+msgid "actions"
+msgstr "actions"
 
-#: application/views/scripts/questionnaire/index.phtml:41
-msgid "collect"
-msgstr "verzamelen"
+#: application/views/scripts/questionnaire/index.phtml:34
+#: application/views/scripts/questionnaire/index.phtml:37
+msgid "start date"
+msgstr "start date"
 
-#: application/views/scripts/questionnaire/index.phtml:42
-msgid "download"
-msgstr "downloaden"
+#: application/views/scripts/questionnaire/index.phtml:35
+#: application/views/scripts/questionnaire/index.phtml:38
+msgid "end date"
+msgstr "end date"
 
-#: application/views/scripts/questionnaire/index.phtml:45
-msgid "print"
-msgstr "afdrukken"
-
-#: application/views/scripts/questionnaire/index.phtml:54
+#: application/views/scripts/questionnaire/index.phtml:50
 msgid "No questionnaires have been imported yet"
 msgstr "Er zijn nog geen vragenlijsten geimporteerd"
 
@@ -943,6 +941,21 @@ msgstr "naam"
 #: application/views/layouts/layout.phtml:18
 msgid "one moment please..."
 msgstr "even geduld alstublieft"
+
+#~ msgid "file"
+#~ msgstr "bestand"
+
+#~ msgid "check"
+#~ msgstr "controleer"
+
+#~ msgid "collect"
+#~ msgstr "verzamelen"
+
+#~ msgid "download"
+#~ msgstr "downloaden"
+
+#~ msgid "print"
+#~ msgstr "afdrukken"
 
 #~ msgid "report/generate"
 #~ msgstr "GGenereer rapport"

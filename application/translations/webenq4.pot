@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-11 12:30+0100\n"
-"PO-Revision-Date: 2012-12-11 12:30+0100\n"
+"POT-Creation-Date: 2012-12-28 14:23+0100\n"
+"PO-Revision-Date: 2012-12-28 14:23+0100\n"
 "Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -20,35 +20,35 @@ msgstr ""
 msgid "WebEnq 4"
 msgstr ""
 
-#: application/plugins/View.php:96
+#: application/plugins/View.php:97
 msgid "Home"
 msgstr ""
 
-#: application/plugins/View.php:101
+#: application/plugins/View.php:102
 msgid "Questionnaires"
 msgstr ""
 
-#: application/plugins/View.php:106
+#: application/plugins/View.php:107
 msgid "Reports"
 msgstr ""
 
-#: application/plugins/View.php:111
+#: application/plugins/View.php:112
 msgid "Import"
 msgstr ""
 
-#: application/plugins/View.php:116
+#: application/plugins/View.php:117
 msgid "Questions"
 msgstr ""
 
-#: application/plugins/View.php:121
+#: application/plugins/View.php:122
 msgid "Answer-possibilities"
 msgstr ""
 
-#: application/plugins/View.php:131
+#: application/plugins/View.php:132
 msgid "Users"
 msgstr ""
 
-#: application/plugins/View.php:139
+#: application/plugins/View.php:140
 msgid "Log out"
 msgstr ""
 
@@ -594,11 +594,11 @@ msgstr ""
 msgid "Are you sure you want to delete the question %s (including all translations)?"
 msgstr ""
 
-#: application/controllers/QuestionnaireController.php:274
+#: application/controllers/QuestionnaireController.php:311
 msgid "Are you sure you want to delete questionnaire"
 msgstr ""
 
-#: application/controllers/QuestionnaireController.php:276
+#: application/controllers/QuestionnaireController.php:313
 msgid "(including all questions and answers)?"
 msgstr ""
 
@@ -627,6 +627,7 @@ msgid "back to answer possibility"
 msgstr ""
 
 #: application/views/scripts/answer-possibility-synonym/edit.phtml:8
+#: application/views/scripts/answer-possibility/view.phtml:5
 msgid "add synonym"
 msgstr ""
 
@@ -654,7 +655,6 @@ msgid "validation"
 msgstr ""
 
 #: application/views/scripts/questionnaire-question/delete.ajax.phtml:2
-#: application/views/scripts/questionnaire-question/delete.phtml:2
 msgid "Are you sure you want to remove the question below from the current questionniare?"
 msgstr ""
 
@@ -868,31 +868,29 @@ msgstr ""
 msgid "add questionnaire"
 msgstr ""
 
-#: application/views/scripts/questionnaire/index.phtml:11
-msgid "date"
+#: application/views/scripts/questionnaire/index.phtml:10
+msgid "category"
 msgstr ""
 
 #: application/views/scripts/questionnaire/index.phtml:12
-msgid "file"
+msgid "published"
 msgstr ""
 
-#: application/views/scripts/questionnaire/index.phtml:40
-msgid "check"
+#: application/views/scripts/questionnaire/index.phtml:13
+msgid "actions"
 msgstr ""
 
-#: application/views/scripts/questionnaire/index.phtml:41
-msgid "collect"
+#: application/views/scripts/questionnaire/index.phtml:34
+#: application/views/scripts/questionnaire/index.phtml:37
+msgid "start date"
 msgstr ""
 
-#: application/views/scripts/questionnaire/index.phtml:42
-msgid "download"
+#: application/views/scripts/questionnaire/index.phtml:35
+#: application/views/scripts/questionnaire/index.phtml:38
+msgid "end date"
 msgstr ""
 
-#: application/views/scripts/questionnaire/index.phtml:45
-msgid "print"
-msgstr ""
-
-#: application/views/scripts/questionnaire/index.phtml:54
+#: application/views/scripts/questionnaire/index.phtml:50
 msgid "No questionnaires have been imported yet"
 msgstr ""
 
