@@ -7,6 +7,7 @@
  * 
  * @property integer $id
  * @property integer $active
+ * @property integer $weight
  * @property Doctrine_Collection $CategoryText
  * @property Doctrine_Collection $Questionnaire
  * 
@@ -37,6 +38,16 @@ abstract class Webenq_Model_Base_Category extends Doctrine_Record
              'notnull' => true,
              'autoincrement' => false,
              'length' => '1',
+             ));
+        $this->hasColumn('weight', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'default' => 0,
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => '4',
              ));
     }
 

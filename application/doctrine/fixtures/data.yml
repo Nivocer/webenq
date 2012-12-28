@@ -1071,21 +1071,6 @@ Webenq_Model_CollectionPresentation:
     validators: 'a:0:{}'
     page: '1'
     weight: '-1'
-Webenq_Model_MigrationVersion:
-  Webenq_Model_MigrationVersion_1:
-    version: '5'
-  Webenq_Model_MigrationVersion_2:
-    version: '5'
-  Webenq_Model_MigrationVersion_3:
-    version: '5'
-  Webenq_Model_MigrationVersion_4:
-    version: '5'
-  Webenq_Model_MigrationVersion_5:
-    version: '5'
-  Webenq_Model_MigrationVersion_6:
-    version: '5'
-  Webenq_Model_MigrationVersion_7:
-    version: '5'
 Webenq_Model_Answer:
   Webenq_Model_Answer_1:
     answerPossibility_id: null

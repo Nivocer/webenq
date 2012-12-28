@@ -260,6 +260,14 @@ Category:
       default: '1'
       notnull: true
       autoincrement: false
+    weight:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: 0
+      notnull: true
+      autoincrement: false
   relations:
     CategoryText:
       local: id
