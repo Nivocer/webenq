@@ -160,6 +160,19 @@ foreach ($xml->files->file as $file) {
 
 <body>
   <h1>PHP Depend Code Metrics</h1>
+    <h2>JDepend Chart</h2>
+    <div id="jdepend">
+        <embed src="log/jdepend.svg" width="390" height="250"
+        type="image/svg+xml"
+        pluginspage="http://www.adobe.com/svg/viewer/install/" />
+    </div>
+
+    <h2>Pyramid</h2>
+    <div id="pyramid">
+        <embed src="log/pyramid.svg" width="390" height="250"
+        type="image/svg+xml"
+        pluginspage="http://www.adobe.com/svg/viewer/install/" />
+    </div>
 
   <h2>Files</h2>
   <table id="files">
@@ -256,18 +269,5 @@ foreach ($xml->files->file as $file) {
     <?php endforeach; ?>
     </ul>
 
-    <h2>JDepend Chart</h2>
-    <div id="jdepend">
-        <embed src="jdepend.svg" width="390" height="250"
-        type="image/svg+xml"
-        pluginspage="http://www.adobe.com/svg/viewer/install/" />
-    </div>
-
-    <h2>Pyramid</h2>
-    <div id="pyramid">
-        <embed src="pyramid.svg" width="390" height="250"
-        type="image/svg+xml"
-        pluginspage="http://www.adobe.com/svg/viewer/install/" />
-    </div>
 </body>
 </html>
