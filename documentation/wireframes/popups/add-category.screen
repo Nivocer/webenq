@@ -4,50 +4,40 @@
   <widgets xsi:type="model:Label" id="2" x="82" y="74" text="Add category" measuredWidth="99" measuredHeight="27">
     <font size="16px"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="3" x="201" y="168" width="431" text="Name of category" measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="3" x="171" y="168" width="431" text="Name of category" measuredWidth="431" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="4" x="112" y="168" text="English" measuredWidth="39" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="4" x="82" y="168" text="English" measuredWidth="39" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="5" x="201" y="208" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="5" x="171" y="208" width="431" text="..." measuredWidth="431" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="6" x="112" y="208" text="French" measuredWidth="39" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="6" x="82" y="208" text="French" measuredWidth="39" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="7" x="201" y="248" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="7" x="171" y="248" width="431" text="..." measuredWidth="431" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="8" x="112" y="248" text="Spanish" measuredWidth="43" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="8" x="82" y="248" text="Spanish" measuredWidth="43" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="9" x="201" y="288" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="9" x="171" y="288" width="431" text="..." measuredWidth="431" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="10" x="112" y="288" text="Swahili" measuredWidth="38" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="10" x="82" y="288" text="Swahili" measuredWidth="38" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="11" x="79" y="130" text="Title" measuredWidth="25" measuredHeight="21">
-    <font size="11px" bold="false"/>
+  <widgets xsi:type="model:Label" id="11" x="79" y="130" text="Title" measuredWidth="32" measuredHeight="26">
+    <font size="15px" bold="false"/>
   </widgets>
-  <widgets xsi:type="model:Checkbox" id="17" x="79" y="360" text="Active" measuredWidth="49" measuredHeight="21" selected="true">
+  <widgets xsi:type="model:Checkbox" id="17" x="82" y="336" text="Active" measuredWidth="49" measuredHeight="21" selected="true">
     <font/>
   </widgets>
-  <widgets xsi:type="model:List" id="27" x="79" y="158" text="(o)&#xA;()&#xA;()&#xA;()" measuredWidth="26" measuredHeight="164" border="false" alpha="0" rowHeight="40">
-    <font/>
-    <items x="0" y="2" width="26" height="40" text="(o)"/>
-    <items x="0" y="42" width="26" height="40" text="()"/>
-    <items x="0" y="82" width="26" height="40" text="()"/>
-    <items x="0" y="122" width="26" height="40" text="()"/>
-  </widgets>
-  <widgets xsi:type="model:Text" id="28" x="85" y="328" text="{curved-arrow-up} default language for this category" measuredWidth="177" measuredHeight="16">
-    <font italic="true"/>
-  </widgets>
-  <widgets xsi:type="model:Button" id="29" x="79" y="408" text="Cancel" measuredWidth="53" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="29" x="82" y="368" text="Cancel" measuredWidth="53" measuredHeight="23" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="30" x="176" y="408" text="Save" measuredWidth="44" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="30" x="171" y="368" text="Save" measuredWidth="44" measuredHeight="23" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
   <widgets xsi:type="model:Master" id="31" x="24" y="24" measuredWidth="268" measuredHeight="23">
