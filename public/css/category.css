@@ -51,3 +51,33 @@ li.ui-sortable-helper {
 	height: 16px;
 	overflow: hidden;
 }
+
+form {
+	float: left;
+    color: black;
+    width: 50%;
+}
+
+.zend_form{  
+margin:5px auto;  
+overflow:auto;  
+margin:5px 2px 5px 0;  
+}  
+
+.zend_form dt{  
+clear:both;  
+width:15%;  
+float:left;  
+text-align:right;  
+margin:5px 2px 5px 0;  
+}  
+  
+.zend_form dd{  
+float:left;  
+width:50%;  
+margin:5px 2px 5px 0;  
+}  
+  
+.submit{  
+float:right;  
+}  

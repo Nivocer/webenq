@@ -65,7 +65,25 @@ form dt label {
 	color: #65B2D8;
 	padding: 2px 5px;
 }
+/* align yes/no button next to each other */
+dl.zend_form{
+    position: relative;
+}
+dd#yes-element{
+    position:absolute;
+    bottom: 5px;
+    left:295px;
+    text-align:left;
 
+    
+}
+dd#no-element{
+    position: absolute;
+    left: 5px;
+    bottom:5px;
+    width: 290px;
+    text-align:right;
+}
 table {
 	border: 1px solid #B20000;
 	margin: 1em auto;

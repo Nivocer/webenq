@@ -42,6 +42,7 @@
     */
     public function indexAction()
     {
+        $this->view->pageTitle = t("Categories");
         $this->view->categories = Webenq_Model_Category::getCategories();
     }
     public function addAction()
@@ -56,7 +57,7 @@
             //$this->_helper->json(array('reload' => true));
             $this->_redirect('category');
         }
-
+        $this->view->pageTitle = t("Add category");
         $this->view->form = $form;
     }
 
@@ -75,6 +76,7 @@
             $this->_redirect('category');
         }
 
+        $this->view->pageTitle = t("Edit category");
         $this->view->form = $form;
         $this->view->category = $category;
     }
@@ -123,6 +125,7 @@
         }
 
         /* render view */
+        $this->view->pageTitle = t("Delete category");
         $this->_helper->viewRenderer->setNoRender(true);
         $this->view->form = $form;
         $this->_response->setBody($this->view->render('confirm.phtml'));
