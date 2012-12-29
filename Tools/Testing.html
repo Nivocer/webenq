@@ -50,8 +50,12 @@
 <p>
 We use phpunit for unit testing<br>
 Tests are definied in /tests (mainly application)<br>
-phpunit.xml defines holds the configuration, including codecoverage<br>
+phpunit.xml defines the configuration, including codecoverage<br>
 phpunit.travis.xml runs phpunit, without codecoverage<br>
+</p>
+
+<p>
+<code>phpunit --configuration tests/phpunit.xml</code><br>
 </p>
 
 <h3>Continuous integration</h3>
@@ -61,7 +65,7 @@ We use Travis-CI for continuous integration testing: each push to the Github rep
 
 <p>
 <ul>
-<li>The test configuration is specified in .travis.yml</li>
+<li>The test configuration is specified in <code>.travis.yml</code></li>
 <li>The test suite is defined in <code>tests/phunit.travis.xml</code> (and excludes code coverage reporting, to make the test suite run fast)</li>
 <li>Test results are available via <a href="https://travis-ci.org/#!/Nivocer/webenq" title="https://travis-ci.org/#!/Nivocer/webenq">https://travis-ci.org/#!/Nivocer/webenq</a></li>
 <li>The repository on Github has a status image indicating the results of the last run.</li>
