@@ -95,16 +95,23 @@ The main definition is in yaml format in <code>application/doctrine/schema.yml</
 <h3>Procedure</h3>
 <p>
 <ol type="1" start="1">
-<li>Adapt <code>application/doctrine/scheme/current/schema.yml</code></li>
-<li>Create migration classes (the migration classes compare the current model with the schema.yml definition): <code>/bin/doctrine generate-migrations-diff</code></li>
-<li>Generate the new models <code>bin/doctrine generate-models-yaml</code>. This generates:</li>
+<li>Adapt <code>application/doctrine/scheme/schema.yml</code></li>
+<li>Create migration classes (the migration classes compare the current model with the schema.yml definition): </li>
 </ol>
 <div style='padding-left: 30pt'>
+<code>./bin/doctrine generate-migrations-diff</code><br>
+</div>
+<ol type="1" start="3">
+<li>Generate the new models</li>
+</ol>
+<div style='padding-left: 30pt'>
+<code>./bin/doctrine generate-models-yaml</code><br>
+This generates:<br>
 <code>models/Base/*</code><br>
 <code>models/*.php</code> if they do not yet exist<br>
 </div>
 <ol type="1" start="4">
-<li>Update the database: <code>doctrine migrate</code></li>
+<li>Update the database: <code>./bin/doctrine migrate</code></li>
 <li>If you add fields with 'not null' restriction you also need to update the data fixture, or else the tests (and new installations) will fail, command:</li>
 </ol>
 doctrine dump-data, remember to remove session data.<br>
