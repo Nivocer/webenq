@@ -1,3 +1,6 @@
 [submodule "libraries/PHPExcel"]
 	path = libraries/PHPExcel
 	url = https://github.com/PHPOffice/PHPExcel.git
+[submodule "libraries/PHPUnit_Listener"]
+	path = libraries/PHPUnit_Listener
+	url = git://github.com/till/Lagged_Test_PHPUnit_ControllerTestCase_Listener.git

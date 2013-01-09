@@ -6,7 +6,8 @@
     <testsuite name="Webenq4 Libraries Test Suite">
         <directory>./libraries/</directory>
 	</testsuite>
-<listeners>
-        <listener class="Lagged_Test_PHPUnit_ControllerTestCase_Listener" file="Lagged/Test/PHPUnit/ControllerTestCase/Listener.php" />
+    <listeners>
+        <listener class="Lagged_Test_PHPUnit_ControllerTestCase_Listener"
+             file="../libraries/PHPUnit_Listener/Lagged/Test/PHPUnit/ControllerTestCase/Listener.php" />
     </listeners>
 </phpunit>
