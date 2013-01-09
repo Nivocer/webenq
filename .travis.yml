@@ -4,6 +4,9 @@ php:
   - 5.3.3
   - 5.4
   - 5.5
+before_script:
+  - pear channel-discover till.pearfarm.org
+  - pear install till.pearfarm.org/Lagged_Test_PHPUnit_ControllerTestCase_Listener-alpha
 script: phpunit --configuration tests/phpunit.travis.xml
 matrix:
   allow_failures:
