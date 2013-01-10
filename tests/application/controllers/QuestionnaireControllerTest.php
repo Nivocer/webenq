@@ -30,7 +30,69 @@ class Webenq_Test_ControllerTestCase_QuestionnaireControllerTest extends Webenq_
         $this->dispatch('/questionnaire');
         $this->assertController('questionnaire');
     }
-
+    public function testCorrectActionIsUsedIndex()
+    {
+        $this->dispatch('/questionnaire/index');
+        $this->assertAction("index");
+    }
+    public function testCorrectActionIsUsedXform()
+    {
+        $this->dispatch('/questionnaire/xform/id/1');
+        $this->assertAction("xform");
+    }
+    public function testCorrectActionIsUsedXformData()
+    {
+        $this->dispatch('/questionnaire/xform-data/id/1');
+        $this->assertAction("xform-data");
+    }
+    public function testCorrectActionIsUsedAdd()
+    {
+        $this->dispatch('/questionnaire/add');
+        $this->assertAction("add");
+    }
+    public function testCorrectActionIsUsedEdit()
+    {
+        $this->dispatch('/questionnaire/edit/id/1');
+        $this->assertAction("edit");
+    }
+    public function testCorrectActionIsUsedOrder()
+    {
+        $this->dispatch('/questionnaire/order');
+        $this->assertAction("order");
+    }
+    /*
+    * @todo inactive test, don't yet know the needed input
+    */
+    /*
+    public function testCorrectActionIsUsedaddQuestion()
+    {
+        $this->dispatch('/questionnaire/add-question');
+        $this->assertAction("addQuestion");
+    }
+    */
+    public function testCorrectActionIsUsedDelete()
+    {
+        $this->dispatch('/questionnaire/delete/id/1');
+        $this->assertAction("index");// index is added to action stack
+    }
+    /* @todo inactive test, we need to change this controller
+     */
+     /*public function testCorrectControlleIsUsedCollect()
+    {
+        $this->dispatch('/questionnaire/collect/id/1');
+        $this->assertAction("collect");
+    }
+    */
+    public function testCorrectActionIsUsedDownload()
+    {
+        $this->dispatch('/questionnaire/download/id/1');
+        $this->assertAction("download");
+    }
+    public function testCorrectActionIsUsedPrint()
+    {
+        $this->dispatch('/questionnaire/print/id/1');
+        $this->assertAction("print");
+    }
     public function testQuestionnaireViewIsRendered()
     {
         $this->loadDatabase();
