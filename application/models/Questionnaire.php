@@ -249,7 +249,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         }
     }
 
-    public function getQuestionnaires($category=null, $id=null){
+    static public function getQuestionnaires($category=null, $id=null){
         $query=Doctrine_Query::create()
         ->from('Webenq_Model_Questionnaire q')
         ->leftJoin('q.Category c')
