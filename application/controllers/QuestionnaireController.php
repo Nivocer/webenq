@@ -49,7 +49,10 @@ class QuestionnaireController extends Zend_Controller_Action
 
         $xml = $questionnaire->getXform();
 
-        $this->_helper->layout->disableLayout();
+        //check if layout helper is definied before disabling layout (provides errors for phpunit)
+        if ($this->_helper->hasHelper('layout')) {
+            $this->_helper->layout->disableLayout();
+        }
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
         ->setHeader('Content-Type', 'text/xml; charset=utf-8')
@@ -87,7 +90,10 @@ class QuestionnaireController extends Zend_Controller_Action
         $tempFile=$tempPath.'/'.$filename;
         $xml->save($tempFile);
 
-        $this->_helper->layout->disableLayout();
+        //check if layout helper is definied before disabling layout (provides errors for phpunit)
+        if ($this->_helper->hasHelper('layout')) {
+            $this->_helper->layout->disableLayout();
+        }
         $this->_helper->viewRenderer->setNoRender();
         $this->_response
         ->setHeader('Content-Type', 'text/xml; charset=utf-8')
@@ -147,7 +153,10 @@ class QuestionnaireController extends Zend_Controller_Action
     {
         /* disable view/layout rendering */
         $this->_helper->viewRenderer->setNoRender(true);
-        $this->_helper->layout->disableLayout(true);
+        //check if layout helper is definied before disabling layout (provides errors for phpunit)
+        if ($this->_helper->hasHelper('layout')) {
+            $this->_helper->layout->disableLayout(); // disable layouts
+        }
 
         if ($this->_request->data) {
             $this->_orderPagesAndQuestions(Zend_Json::decode($this->_request->data));
@@ -284,7 +293,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $cp = new Webenq_Model_CollectionPresentation();
         $cp->weight = -1;
         $qq->CollectionPresentation[] = $cp;
-        $qq->ReportPresentation[] = new ReportPresentation();
+        $qq->ReportPresentation[] = new Webenq_Model_ReportPresentation();
         $qq->save();
 
         $this->_helper->viewRenderer->setNoRender(true);
@@ -630,45 +639,5 @@ class QuestionnaireController extends Zend_Controller_Action
 
         /* display form */
         $this->_response->setBody($form->render());
-    }
-
-    public function jrxmlAction()
-    {
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
-
-        $filename = Webenq::filename(
-            implode(
-                '-', array(
-                    $questionnaire->id,
-                    $questionnaire->getQuestionnaireTitle()->text,
-                    date('YmdHis')
-                )
-            )
-        ) . '.jrxml';
-
-        // config settings
-        // @todo get this from database
-        $this->view->pageWidth = 595;
-        $this->view->pageHeight = 842;
-
-        $this->render();
-
-        // create new dom document
-        $dom = new DOMDocument('1.0', 'utf-8');
-        $dom->formatOutput = true;
-
-        // append rendered xml to dom
-        $fragment = $dom->createDocumentFragment();
-        $fragment->appendXML($this->_response->getBody());
-        $dom->appendChild($fragment);
-
-        // output
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-        $this->_response
-        ->setHeader('Content-Type', 'text/xml; charset=utf-8')
-        ->setHeader('Content-Transfer-Encoding', 'binary')
-        ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"')
-        ->setBody($dom->saveXML());
     }
 }
