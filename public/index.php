@@ -9,3 +9,6 @@ require_once realpath(dirname(__FILE__) . '/init.php');
 
 // bootstrap and run application
 $application->bootstrap()->run();
+
+//fix spl_autoload problem, if the server use some optimalization
+register_shutdown_function(array('Zend_Session', 'writeClose'), true);
