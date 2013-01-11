@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
-class Webenq_Test_Class_Importer_Adapter_CsvTest extends Webenq_Test_Class_Importer_AdapterTest
+class Webenq_Test_Class_Importer_Adapter_CsvTest extends Webenq_Test_Case_Class
 {
     public function testCanGetDataFromDefaultFile()
     {

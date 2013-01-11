@@ -1,6 +1,5 @@
 <?php
-
-class Webenq_Test_Model_Question_Closed_PercentageTest extends Webenq_Test_Model_Question_ClosedTest
+class Webenq_Test_Model_Question_Closed_PercentageTest extends Webenq_Test_Case_Model_Question
 {
     /**
      * @dataProvider provideValidData

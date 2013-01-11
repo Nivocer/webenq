@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
+abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
 {
     public $setupDatabase = false;
 

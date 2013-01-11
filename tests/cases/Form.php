@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Case_Form extends Webenq_Test_Case_Fixture
+abstract class Webenq_Test_Case_Form extends Webenq_Test_Case_Fixture
 {
     protected $_form;
 

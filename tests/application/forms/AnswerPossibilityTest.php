@@ -23,18 +23,8 @@
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
-class Webenq_Test_Form_AnswerPossibilityTest extends Webenq_Test_Case_Form
+class Webenq_Test_Form_AnswerPossibilityTest extends Webenq_Test_Case_Form_AnswerPossibilityGroup
 {
-    public function setUp()
-    {
-        $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
-        $answerPossibilityGroup->id = 1;
-        $language = 'nl';
-        $this->_form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $language);
-
-        parent::setUp();
-    }
-
     public function testTextIsRequired()
     {
         $values = array('text' => '');

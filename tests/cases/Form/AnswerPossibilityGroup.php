@@ -18,20 +18,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category   Webenq
- * @package    Webenq_Classes
+ * @package    Webenq_Forms
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
-class Webenq_Test_Class_Importer_AdapterTest extends Webenq_Test_Class_ImporterTest
+abstract class Webenq_Test_Case_Form_AnswerPossibilityGroup extends Webenq_Test_Case_Form
 {
-    protected function _getPath()
+    public function setUp()
     {
-        $dir = str_replace('_', '/', get_class($this));
-        if (preg_match('/Webenq\/Test\/Class\//', $dir)) {
-            $dir = 'Class/' . str_replace('Webenq/Test/Class/', '', $dir);
-            $dir = str_replace('Test', '', $dir);
-        }
-        return realpath(APPLICATION_PATH . '/../tests/testdata/' . $dir);
+        $answerPossibilityGroup = new Webenq_Model_AnswerPossibilityGroup();
+        $answerPossibilityGroup->id = 1;
+        $language = 'nl';
+        $this->_form = new Webenq_Form_AnswerPossibility_Add($answerPossibilityGroup, $language);
+
+        parent::setUp();
     }
 }

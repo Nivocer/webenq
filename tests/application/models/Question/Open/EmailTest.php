@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Model_Question_Open_EmailTest extends Webenq_Test_Model_Question_OpenTest
+class Webenq_Test_Model_Question_Open_EmailTest extends Webenq_Test_Case_Model_Question
 {
     /**
      * @dataProvider provideValidData

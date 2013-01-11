@@ -1,5 +1,5 @@
 <?php
-class Webenq_Test_Model_Question_Closed_Scale_FourTest extends Webenq_Test_Model_Question_Closed_ScaleTest
+class Webenq_Test_Model_Question_Closed_Scale_FourTest extends Webenq_Test_Case_Model_Question
 {
     /**
      * @dataProvider provideValidData

@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
-class Webenq_Test_Form_AnswerPossibility_AddTest extends Webenq_Test_Form_AnswerPossibilityTest
+class Webenq_Test_Form_AnswerPossibility_AddTest extends Webenq_Test_Case_Form_AnswerPossibilityGroup
 {
     protected $_form;
 
