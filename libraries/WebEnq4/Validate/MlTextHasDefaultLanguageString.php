@@ -52,40 +52,50 @@ class WebEnq4_Validate_MlTextHasDefaultLanguageString extends Zend_Validate_Abst
      * @var array
      */
     protected $_messageVariables = array(
-        'default_language' => '_default_language'
+        'default_language' => '_defaultLanguage'
     );
 
     /**
      * @var string
      */
-    protected $_default_language = '';
+    protected $_defaultLanguage = '';
 
     /**
      * Defined by Zend_Validate_Interface
      *
-     * Returns true if and only if $value contains a non-empty string for the
-     * default language in $value['default-language'].
+     * Returns true if $value contains a non-empty string for the default
+     * language in $value['default-language']. Empty input is considered valid
+     * too.
      *
-     * @param  mixed $value
+     * @param  mixed $value Array of '<language>' => '<string>' pairs and
+     *         one 'default-language' => '<language>' pair
      * @return boolean
      */
     public function isValid($value)
     {
-        if (!is_array($value)
-                || !isset($value['default_language'])) {
-            $this->_error(self::NO_DEFAULT_LANGUAGE);
-            return false;
-        } else {
-            $this->_default_language = $value['default_language'];
-            if (!isset($value[$this->_default_language])
-                    || strlen($value[$this->_default_language])==0) {
+        if (!is_null($value)) {
+            if (!is_array($value)) {
+                $this->_error(self::NO_DEFAULT_LANGUAGE);
                 $this->_error(self::NO_TEXT_IN_DEFAULT_LANGUAGE);
                 return false;
+            } else {
+                if (count($value)>0) {
+                    if (!isset($value['default_language'])) {
+                        $this->_error(self::NO_DEFAULT_LANGUAGE);
+                        return false;
+                    } else {
+                        $this->_defaultLanguage = $value['default_language'];
+                        if (!isset($value[$this->_defaultLanguage])
+                        || strlen($value[$this->_defaultLanguage])==0) {
+                            $this->_error(self::NO_TEXT_IN_DEFAULT_LANGUAGE);
+                            return false;
+                        }
+                    }
+                }
             }
         }
         return true;
     }
-
 }
 
 ?>
