@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * WebEnq4 Library
  *
