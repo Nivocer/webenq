@@ -37,53 +37,51 @@ require_once 'WebEnq4/Validate/MlTextHasDefaultLanguageString.php';
  */
 class WebEnq4_Validate_MlTextHasDefaultLanguageStringTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @return void
-     */
-    public function testNoInputFails()
+    public function testNoInputIsOk()
     {
         $validator = new WebEnq4_Validate_MlTextHasDefaultLanguageString();
-        $this->assertEquals(false, $validator->isValid(null));
+        $this->assertTrue($validator->isValid(null));
     }
 
-    /**
-     * @return void
-     */
-    public function testEmptyArrayAsInputFails()
+    public function testEmptyArrayIsOk()
     {
-        $input = array();
         $validator = new WebEnq4_Validate_MlTextHasDefaultLanguageString();
-        $this->assertEquals(false, $validator->isValid($input));
+        $this->assertTrue($validator->isValid(array()));
     }
 
-    /**
-     * @return void
-     */
-    public function testHasNoDefaultLanguageFails()
+    public function testNotAnArrayShouldFail()
+    {
+        $validator = new WebEnq4_Validate_MlTextHasDefaultLanguageString();
+        $this->assertFalse($validator->isValid(3));
+        $this->assertFalse($validator->isValid('3'));
+    }
+
+    public function testNonEmptyArrayWithoutDefaultLanguageShouldFail()
     {
         $input = array('en'=>'Text', 'nl'=>'Tekst');
         $validator = new WebEnq4_Validate_MlTextHasDefaultLanguageString();
-        $this->assertEquals(false, $validator->isValid($input));
+        $this->assertFalse($validator->isValid($input));
     }
 
-    /**
-     * @return void
-     */
-    public function testHasDefaultLanguageAndNoStringInThatLanguageFails()
+    public function testDefaultLanguageSetAndNoStringInThatLanguageShouldFail()
     {
         $input = array('default_language'=>'fr', 'en'=>'Text', 'nl'=>'Tekst');
         $validator = new WebEnq4_Validate_MlTextHasDefaultLanguageString();
-        $this->assertEquals(false, $validator->isValid($input));
+        $this->assertFalse($validator->isValid($input));
     }
 
-    /**
-     * @return void
-     */
-    public function testHasDefaultLanguageAndStringInThatLanguageIsValid()
+    public function testDefaultLanguageSetAndEmptyStringInThatLanguageShouldFail()
+    {
+        $input = array('default_language'=>'en', 'en'=>'');
+        $validator = new WebEnq4_Validate_MlTextHasDefaultLanguageString();
+        $this->assertFalse($validator->isValid($input));
+    }
+
+    public function testDefaultLanguageSetAndStringInThatLanguageIsValid()
     {
         $input = array('default_language'=>'en', 'en'=>'Text');
         $validator = new WebEnq4_Validate_MlTextHasDefaultLanguageString();
-        $this->assertEquals(true, $validator->isValid($input));
+        $this->assertTrue($validator->isValid($input));
     }
 
     /**
