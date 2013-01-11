@@ -65,7 +65,10 @@
     public function editAction()
     {
         $category = Webenq_Model_Category::getCategories($this->_request->id)->getFirst();
-        if (!$category) $this->_redirect('category');
+        if (!$category) {
+            $this->_redirect('category');
+            return; //extra return for phpunit tests
+        }
 
         $form = new Webenq_Form_Category_Edit($category);
 
@@ -92,11 +95,17 @@
         $questionnaire=Webenq_Model_Questionnaire::getQuestionnaires($this->_request->id);
 
         if ($questionnaire->count()>0) {
-            $this->_redirect('/category');
+
         }
         //display confirmation dialog
         $category = Doctrine_Core::getTable('Webenq_Model_Category')
         ->find($this->_request->id);
+
+        if (!$category){
+            $this->_redirect('/category');
+            return; //extra return for phpunit
+        }
+
         $confirmationText = sprintf(
                 t(
                         'Are you sure you want to delete the category: %s (including all translations)?'
@@ -135,7 +144,9 @@
     {
         /* disable view/layout rendering */
         $this->_helper->viewRenderer->setNoRender(true);
-        $this->_helper->layout->disableLayout(true);
+        if ($this->_helper->hasHelper('layout')) {
+            $this->_helper->layout->disableLayout();
+        }
         if ($this->_request->category){
             $this->_orderCategories(Zend_Json::decode($this->_request->category));
         }

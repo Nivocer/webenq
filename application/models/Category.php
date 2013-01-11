@@ -24,13 +24,11 @@ class Webenq_Model_Category extends Webenq_Model_Base_Category
         $query = Doctrine_Query::create()->from('Webenq_Model_Category c');
         $query->leftJoin('c.CategoryText ct');
 
-
         if ($id) {
             $query->where('c.id = ?', $id);
         } else {
             $query->orderBy('c.weight');
         }
-
         return $query->execute();
     }
     /**
@@ -70,7 +68,7 @@ class Webenq_Model_Category extends Webenq_Model_Base_Category
         // return any found language
         if (count($this->CategoryText) > 0)
             return $this->CategoryText[0];
-
+        // next code obsolete? we probably need an invalid database to get here.
         // create empty translation if nothing was found
         if ($this->id) {
             $text = new Webenq_Model_CategoryText();

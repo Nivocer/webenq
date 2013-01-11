@@ -65,10 +65,11 @@ class Webenq_Form_Category_Add extends Zend_Form
 
     public function isValid($values)
     {
+
         // at least one language is required
         $hasAtLeastOneLanguage = false;
-        if (isset($values['title'])) {
-            foreach ($values['title'] as $language) {
+        if (isset($values['text'])) {
+            foreach ($values['text'] as $language) {
                 if (!empty($language)) {
                     $hasAtLeastOneLanguage = true;
                     break;
