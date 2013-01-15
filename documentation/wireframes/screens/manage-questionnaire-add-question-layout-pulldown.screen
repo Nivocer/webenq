@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="13" y="208" measuredWidth="676" measuredHeight="345">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#manage%20question"/>
+    <overrides>
+      <widgets ref="23">
+        <attributes key="selection" value="2"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Master" id="1" measuredWidth="138" measuredHeight="64">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="2" x="3" y="120" text="Add/Edit question" measuredWidth="131" measuredHeight="27">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="3" x="140" measuredWidth="818" measuredHeight="37">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
+    <overrides>
+      <widgets ref="3">
+        <items ref="@items.1" link="manage-questionnaires-overview.screen"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Note" id="14" x="88" y="186" text="lay-out: to highlight" measuredWidth="99" measuredHeight="23" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="16" x="33" y="266" text="What is your gender" measuredWidth="111" measuredHeight="21">
+    <font bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="22" x="272" y="268" text="pulldown" measuredWidth="52" measuredHeight="23" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="25" x="208" y="312" width="34" text="1" measuredWidth="34" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="26" x="44" y="312" text="number of answers to show" measuredWidth="150" measuredHeight="21">
+    <font bold="true"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

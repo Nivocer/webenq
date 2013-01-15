@@ -39,4 +39,37 @@
   <panels x="675" y="975">
     <screen href="../screens/home-menu-management-extend.screen#/"/>
   </panels>
+  <panels x="975" y="675">
+    <screen href="../screens/manage-questionnaire-add-question-advanced.screen#/"/>
+  </panels>
+  <panels x="975" y="975">
+    <screen href="../screens/manage-questionnaire-add-question-answerPossibilities.screen#/"/>
+  </panels>
+  <panels x="75" y="1275">
+    <screen href="../screens/manage-questionnaire-add-question-answerPossibilities-translations.screen#/"/>
+  </panels>
+  <panels x="375" y="1275">
+    <screen href="../screens/manage-questionnaire-add-question-layout.screen#/"/>
+  </panels>
+  <panels x="675" y="1275">
+    <screen href="../screens/manage-questionnaire-add-question-layout-openMultiple.screen#/"/>
+  </panels>
+  <panels x="975" y="1275">
+    <screen href="../screens/manage-questionnaire-add-question-layout-openSingle.screen#/"/>
+  </panels>
+  <panels x="75" y="1575">
+    <screen href="../screens/manage-questionnaire-add-question-layout-pulldown.screen#/"/>
+  </panels>
+  <panels x="375" y="1575">
+    <screen href="../screens/manage-questionnaire-add-question-layout-radio.screen#/"/>
+  </panels>
+  <panels x="675" y="1575">
+    <screen href="../screens/manage-questionnaire-add-question-text.screen#/"/>
+  </panels>
+  <panels x="975" y="1575">
+    <screen href="../screens/manage-questionnaire-add-question-type.screen#/"/>
+  </panels>
+  <panels x="75" y="1875">
+    <screen href="../screens/manage-questionnaire-add-question-validation.screen#/"/>
+  </panels>
 </story:Storyboard>

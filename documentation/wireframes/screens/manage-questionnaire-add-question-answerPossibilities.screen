@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="1" measuredWidth="138" measuredHeight="64">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="2" x="3" y="120" text="Add/Edit question" measuredWidth="131" measuredHeight="27">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="3" x="140" measuredWidth="818" measuredHeight="37">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
+    <overrides>
+      <widgets ref="3">
+        <items ref="@items.1" link="manage-questionnaires-overview.screen"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Master" id="14" y="206" measuredWidth="676" measuredHeight="345">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#manage%20question"/>
+    <overrides>
+      <widgets ref="23">
+        <attributes key="selection" value="3"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Label" id="15" x="23" y="256" text="What is your gender" measuredWidth="131" measuredHeight="24">
+    <font size="13px" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Tabs" id="16" x="29" y="302" text="English (default),French" measuredWidth="153" measuredHeight="23" selection="0">
+    <items x="1" y="0" width="97" height="23" text="English (default)"/>
+    <items link="manage-questionnaire-add-question-answerPossibilities-translations.screen" x="98" y="0" width="54" height="23" text="French"/>
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="17" x="44" y="353" width="397" text="Male" measuredWidth="397" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="18" x="44" y="384" width="397" text="Female" measuredWidth="397" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="19" x="44" y="440" width="397" text="~new~" measuredWidth="397" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="20" x="13" y="353" text="{move}" measuredWidth="26" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="21" x="13" y="384" text="{move}" measuredWidth="26" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="22" x="456" y="353" width="81" text="%(color:red){delete}% {unchecked} hide" measuredWidth="81" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="23" x="456" y="384" width="81" text="%(color:red){delete}% {unchecked} hide" measuredWidth="81" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="24" x="328" y="304" text="tabs based on questionnaire properties: available questionnaire titles?" measuredWidth="339" measuredHeight="23" annotation="true">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

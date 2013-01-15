@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="21" y="212" measuredWidth="676" measuredHeight="345">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#manage%20question"/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="1" measuredWidth="138" measuredHeight="64">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="2" x="3" y="120" text="Add/Edit question" measuredWidth="131" measuredHeight="27">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="3" x="140" measuredWidth="818" measuredHeight="37">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
+    <overrides>
+      <widgets ref="3">
+        <items ref="@items.1" link="manage-questionnaires-overview.screen"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="8" x="32" y="240" measuredWidth="520" measuredHeight="223" name="multilingual-text">
+    <widgets xsi:type="model:TextField" id="9" x="89" width="431" text="What is " measuredWidth="431" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="10" text="English*" measuredWidth="49" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="11" x="89" y="39" width="431" text="..." measuredWidth="431" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="12" y="39" text="French" measuredWidth="39" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Note" id="17" y="176" height="21" text="English is default language of questionnaire and hence obliged" measuredWidth="305" measuredHeight="21" annotation="true">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:List" id="18" x="89" y="20" width="328" height="80" text="What is your gender&#xA;What is your age&#xA;What is your household income&#xA;---more questions starting with &quot;What is&quot;" measuredWidth="328" measuredHeight="80">
+      <font/>
+      <items x="0" y="2" width="328" height="20" text="What is your gender"/>
+      <items x="0" y="22" width="328" height="20" text="What is your age"/>
+      <items x="0" y="42" width="328" height="20" text="What is your household income"/>
+      <items x="0" y="62" width="328" height="20" text="---more questions starting with &quot;What is&quot;"/>
+    </widgets>
+    <widgets xsi:type="model:Note" id="19" y="112" width="305" height="58" text="when typing a question, a dropdown box appears with suggestions from the database, if a question is selected the other information is filled as well" measuredWidth="305" measuredHeight="58" annotation="true" textAlignment="Left">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Note" id="20" y="200" text="other language determined by questionnaire properties, available questionnaire title?" measuredWidth="410" measuredHeight="23" annotation="true">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Note" id="6" x="376" y="360" width="221" height="50" text="To determin: what to do if multiple 'what is your gender' questions exist" measuredWidth="221" measuredHeight="50" annotation="true">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

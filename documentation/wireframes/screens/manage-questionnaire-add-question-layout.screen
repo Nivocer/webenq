@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="13" y="208" measuredWidth="676" measuredHeight="345">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#manage%20question"/>
+    <overrides>
+      <widgets ref="23">
+        <attributes key="selection" value="2"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Master" id="1" measuredWidth="138" measuredHeight="64">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="2" x="3" y="120" text="Add/Edit question" measuredWidth="131" measuredHeight="27">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="3" x="140" measuredWidth="818" measuredHeight="37">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
+    <overrides>
+      <widgets ref="3">
+        <items ref="@items.1" link="manage-questionnaires-overview.screen"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Note" id="14" x="88" y="186" text="lay-out: to highlight" measuredWidth="99" measuredHeight="23" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="16" x="33" y="266" text="What is your gender" measuredWidth="131" measuredHeight="24">
+    <font size="13px" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="17" x="33" y="286" text="Screen different based on type of question:" measuredWidth="214" measuredHeight="23" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="18" x="33" y="320" text="radio &amp; checkbox" measuredWidth="84" measuredHeight="21" link="manage-questionnaire-add-question-layout-radio.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="19" x="33" y="360" text="Open question single line" measuredWidth="121" measuredHeight="21" link="manage-questionnaire-add-question-layout-openSingle.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="20" x="33" y="383" text="Open question multiple lines" measuredWidth="135" measuredHeight="21" link="manage-questionnaire-add-question-layout-openMultiple.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Link" id="21" x="33" y="340" text="pulldown" measuredWidth="45" measuredHeight="21" link="manage-questionnaire-add-question-layout-pulldown.screen">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

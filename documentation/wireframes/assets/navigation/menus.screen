@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:Image" id="1" x="205" y="265"/>
   <widgets xsi:type="model:WidgetGroup" id="2" x="24" y="20" measuredWidth="818" measuredHeight="37" name="Top menu (logged in)">
     <widgets xsi:type="model:Menu" id="3" text="Home, Questionnaires, Import, Management, Users, Log out" measuredWidth="328" measuredHeight="23" selection="">
       <items link="../../screens/home.screen" x="5" y="0" width="39" height="23" text="Home"/>
@@ -35,6 +34,17 @@
       <items link="../../screens/manage-questionnaires-overview.screen" x="0" y="24" width="100" height="22" text="Questionnaires"/>
       <items x="0" y="46" width="100" height="22" text="Questions"/>
       <items x="0" y="68" width="100" height="22" text="Answers"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="24" y="192" measuredWidth="676" measuredHeight="345" name="manage question">
+    <widgets xsi:type="model:TabbedPane" id="23" width="676" height="345" text="text, type, lay-out, answer possibilities,validation,advanced" measuredWidth="676" measuredHeight="345" selection="0">
+      <items link="../../screens/manage-questionnaire-add-question-text.screen" x="10" y="0" width="37" height="23" text="text"/>
+      <items link="../../screens/manage-questionnaire-add-question-type.screen" x="47" y="0" width="40" height="23" text="type"/>
+      <items link="../../screens/manage-questionnaire-add-question-layout.screen" x="87" y="0" width="52" height="23" text="lay-out"/>
+      <items link="../../screens/manage-questionnaire-add-question-answerPossibilities.screen" x="139" y="0" width="110" height="23" text="answer possibilities"/>
+      <items link="../../screens/manage-questionnaire-add-question-validation.screen" x="249" y="0" width="64" height="23" text="validation"/>
+      <items link="../../screens/manage-questionnaire-add-question-advanced.screen" x="313" y="0" width="66" height="23" text="advanced"/>
+      <font/>
     </widgets>
   </widgets>
   <hRuler/>

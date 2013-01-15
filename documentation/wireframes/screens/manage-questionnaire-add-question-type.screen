@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="13" x="-40" y="208" measuredWidth="676" measuredHeight="345">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#manage%20question"/>
+    <overrides>
+      <widgets ref="23">
+        <attributes key="selection" value="1"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Master" id="1" measuredWidth="138" measuredHeight="64">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="2" x="3" y="120" text="Add/Edit question" measuredWidth="131" measuredHeight="27">
+    <font size="16px"/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="3" x="140" measuredWidth="818" measuredHeight="37">
+    <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
+    <overrides>
+      <widgets ref="3">
+        <items ref="@items.1" link="manage-questionnaires-overview.screen"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:List" id="9" x="-16" y="271" text="() No answers (text only)&#xA;(o) (single) One answer from a list (radio)&#xA;( ) (single) One answer from a pulldown menu (pulldown)&#xA;( ) (multiple) Multiple answers (checkbox)&#xA;( ) (open) Open answer (single line)&#xA;( ) (open) Open answer (multiple lines)&#xA;( ) (date) date only&#xA;~( ) (table) Table with open answer (single line)~&#xA;~( ) (table)  Table of questions and answer categories, one answer per question~&#xA;~( ) (table)  Table of questions and answer range, answer on a scale~&#xA;~( ) (table) Table of questions and answer categories, multiple answers per question~&#xA;" measuredWidth="407" measuredHeight="257" border="false" alpha="0">
+    <font/>
+    <items x="0" y="2" width="407" height="23" text="() No answers (text only)"/>
+    <items x="0" y="25" width="407" height="23" text="(o) (single) One answer from a list (radio)"/>
+    <items x="0" y="48" width="407" height="23" text="( ) (single) One answer from a pulldown menu (pulldown)"/>
+    <items x="0" y="71" width="407" height="23" text="( ) (multiple) Multiple answers (checkbox)"/>
+    <items x="0" y="94" width="407" height="23" text="( ) (open) Open answer (single line)"/>
+    <items x="0" y="117" width="407" height="23" text="( ) (open) Open answer (multiple lines)"/>
+    <items x="0" y="140" width="407" height="23" text="( ) (date) date only"/>
+    <items x="0" y="163" width="407" height="23" text="~( ) (table) Table with open answer (single line)~"/>
+    <items x="0" y="186" width="407" height="23" text="~( ) (table)  Table of questions and answer categories, one answer per question~"/>
+    <items x="0" y="209" width="407" height="23" text="~( ) (table)  Table of questions and answer range, answer on a scale~"/>
+    <items x="0" y="232" width="407" height="23" text="~( ) (table) Table of questions and answer categories, multiple answers per question~"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="12" x="-8" y="239" text="What is your gender" measuredWidth="131" measuredHeight="24">
+    <font size="13px" bold="true"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>
