@@ -81,7 +81,7 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
      * @see Doctrine_Expression
      * @return void
      */
-    public function connect() 
+    public function connect()
     {
         if ($this->isConnected) {
             return false;
@@ -121,8 +121,25 @@ class Doctrine_Connection_Sqlite extends Doctrine_Connection_Common
         if ( ! $dsn = $this->getOption('dsn')) {
             throw new Doctrine_Connection_Exception('You must create your Doctrine_Connection by using a valid Doctrine style dsn in order to use the create/drop database functionality');
         }
-        
+
         $info = $this->getManager()->parseDsn($dsn);
+
+        //
+        // BENS EDIT: If the db is in memory only - simply recreate a new connection
+        // http://thecodeabode.blogspot.nl/2010/12/dropping-sqlite-in-memory-databases-in.html
+        //
+        if(strcasecmp($info["dsn"], "sqlite::memory:") == 0)
+        {
+            $c = $this->getManager()->getCurrentConnection();
+
+            $this->getManager()->closeConnection($c);
+            $this->getManager()->connection("sqlite::memory:","unit_test");
+
+            return;
+        }
+        //
+        // END BENS EDIT
+        //
 
         $this->export->dropDatabase($info['database']);
     }

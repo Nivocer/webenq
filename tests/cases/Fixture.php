@@ -19,7 +19,7 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
         Doctrine_Core::loadData($this->doctrineConfig['data_fixtures_path'], false);
     }
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -28,7 +28,7 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         try {
             Doctrine_Core::dropDatabases();

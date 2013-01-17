@@ -25,6 +25,8 @@
 
 class Webenq_Test_ControllerTestCase_IndexControllerTest extends Webenq_Test_Case_Controller
 {
+    public $setupDatabase = true;
+
     public function testLoadDatabaseFixtureSucceeds() {
         $this->loadDatabase();
 

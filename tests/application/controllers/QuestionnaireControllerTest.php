@@ -23,8 +23,10 @@
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
-class Webenq_Test_ControllerTestCase_QuestionnaireControllerTest extends Webenq_Test_Case_Controller
+class Webenq_Test_Controller_QuestionnaireControllerTest extends Webenq_Test_Case_Controller
 {
+    public $setupDatabase = true;
+
     public function testCorrectControllerIsUsed()
     {
         $this->dispatch('/questionnaire');
@@ -37,23 +39,26 @@ class Webenq_Test_ControllerTestCase_QuestionnaireControllerTest extends Webenq_
     }
     public function testCorrectActionIsUsedXform()
     {
+        $this->loadDatabase();
         $this->dispatch('/questionnaire/xform/id/1');
         $this->assertAction("xform");
     }
     public function testCorrectActionIsUsedXformData()
     {
+        $this->loadDatabase();
         $this->dispatch('/questionnaire/xform-data/id/1');
         $this->assertAction("xform-data");
     }
     public function testCorrectActionIsUsedAdd()
     {
-//        $this->dispatch('/questionnaire/add');
-//        $this->assertAction("add");
+        $this->dispatch('/questionnaire/add');
+        $this->assertAction("add");
     }
     public function testCorrectActionIsUsedEdit()
     {
-//        $this->dispatch('/questionnaire/edit/id/1');
-//        $this->assertAction("edit");
+        $this->loadDatabase();
+        $this->dispatch('/questionnaire/edit/id/1');
+        $this->assertAction("edit");
     }
     public function testCorrectActionIsUsedOrder()
     {
@@ -72,6 +77,7 @@ class Webenq_Test_ControllerTestCase_QuestionnaireControllerTest extends Webenq_
     */
     public function testCorrectActionIsUsedDelete()
     {
+        $this->loadDatabase();
         $this->dispatch('/questionnaire/delete/id/1');
         $this->assertAction("index");// index is added to action stack
     }
@@ -95,7 +101,6 @@ class Webenq_Test_ControllerTestCase_QuestionnaireControllerTest extends Webenq_
     }
     public function testQuestionnaireViewIsRendered()
     {
-        $this->loadDatabase();
         $this->dispatch('/questionnaire');
         //$this->assertQuery('tbody.questionnaire');
 
