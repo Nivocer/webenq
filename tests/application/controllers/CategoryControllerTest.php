@@ -25,10 +25,8 @@
 
 class Webenq_Test_ControllerTestCase_CategoryControllerTest extends Webenq_Test_Case_Controller
 {
-    public $setupDatabase = true;
-    public function setUp(){
-        parent::setUp();
-    }
+
+    public $setupDatabase=true;
 
     public function testCorrectControllerIsUsed()
     {
@@ -47,12 +45,23 @@ class Webenq_Test_ControllerTestCase_CategoryControllerTest extends Webenq_Test_
     }
      public function testCorrectActionIsUsedDelete()
     {
-        $this->setupDatabase = true;
-        $setupDatabase=true;
-        $category=new Webenq_Model_Category();
-        //var_dump($category->getCategories()->getFirst());
+        $this->loadDatabase();
+        //$category=new Webenq_Model_Category();
+        //var_dump($category->getCategories(1)->getFirst()->toArray());
         $this->dispatch('/category/delete/id/2');
         $this->assertAction("delete");
+    }
+    public function testDeleteCategoryWithQuestionnaire()
+    {
+        //if we have questionnaires in a category, it should get the category id 1 before deleting the category
+    }
+    public function testDeleteCategoryDontDeleteCategoryOne()
+    {
+        //it is not allowed to delete category with id=1,
+        //because when deleting categories, questionnaires in that category are put in this category
+    }
+    public function testCategoryOneExist(){
+        //We need to have category with id=1, because when deleting categories, questionnaires are put in this questionnaire
     }
     public function testCorrectActionIsUsedEdit()
     {
@@ -64,4 +73,6 @@ class Webenq_Test_ControllerTestCase_CategoryControllerTest extends Webenq_Test_
         $this->dispatch('/category/order');
         $this->assertAction("order");
     }
+
+
 }

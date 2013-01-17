@@ -106,16 +106,18 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
     public function testGetAllCategoriesIsCorrect(){
         $this->loadDatabase();
         $category=new Webenq_Model_Category();
-        $this->assertEquals(3, $category->getCategories()->count());
-        $this->assertEquals(11, $category->getCategories()->getFirst()->id);
+        $this->assertEquals(3, $category->getCategories()->count(), "don't have three categories");
+        $this->assertEquals(2, $category->getCategories()->getFirst()->id, "id 2 is not the first id in the data fixture");
         $category->delete();
 
     }
     public function testGetCategorieByIdIsCorrect(){
         $this->loadDatabase();
         $category=new Webenq_Model_Category();
-        $this->assertEquals(1, $category->getCategories(11)->count());
-        $this->assertEquals(11, $category->getCategories(11)->getFirst()->id);
+        //next one incorrect
+        $this->assertEquals(1, $category->getCategories(1)->count(), "we don't have category with id is 1 in database");
+        $this->assertEquals(1, $category->getCategories(1)->getFirst()->id, "we get wrong id if we want id 1");
+        $this->assertEquals(2, $category->getCategories(2)->getFirst()->id, "we get wrong id if we want id 2");
         $category->delete();
     }
 
