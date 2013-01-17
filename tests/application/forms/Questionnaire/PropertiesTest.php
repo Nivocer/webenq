@@ -44,8 +44,15 @@ class Webenq_Test_Form_Questionnaire_Properties extends Webenq_Test_Case_Form
     {
         $this->getForm();
 
-        $value = array('other' => array('en' => 'test'));
+        $value = array('other' => array('en' => 'test', 'default_language' => 'en'));
         $this->assertFalse($this->_form->isValid($value));
     }
 
+    public function testFormValidationWithValidInputIsOk()
+    {
+        $this->getForm();
+
+        $value = array('title' => array('en' => 'test', 'default_language' => 'en'));
+        $this->assertTrue($this->_form->isValid($value));
+    }
 }

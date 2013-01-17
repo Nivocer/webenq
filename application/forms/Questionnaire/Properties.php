@@ -19,26 +19,36 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
         // @todo move external dependency on languages into controller/elsewhere
         $this->addElement($title);
 
-/*        $datetime_start = new WebEnq4_Form_Element_DateTimePicker('date_start');
+        $category = new Zend_Form_Element_Select('category_id');
+        $category->setLabel('Category');
+        $categories = Webenq_Model_Category::getCategories();
+        foreach ($categories as $option) {
+            $category->addMultiOption($option->get('id'), $option->getCategoryText()->text);
+        }
+        $this->addElement($category);
+
+        $active = new Zend_Form_Element_Checkbox('active');
+        $active->setLabel('Active');
+        $this->addElement($active);
+
+//        $datetime_start = new WebEnq4_Form_Element_DateTimePicker('date_start');
+        $datetime_start = new ZendX_JQuery_Form_Element_DatePicker('date_start');
+        $datetime_start->setLabel('Publish from');
         $this->addElement($datetime_start);
 
-        $date_start = new ZendX_JQuery_Form_Element_DatePicker('start_date');
-        $date_start->setLabel('Active from');
-        $date_start->addValidator(new Zend_Validate_Date('YYYY-MM-DD'));
-        $date_start->setJqueryParams(array('dateFormat'=>'yy-m-d', 'showWeek'=>true));
-        $this->addElement($date_start);
+//        $datetime_end = new WebEnq4_Form_Element_DateTimePicker('date_end');
+        $datetime_end = new ZendX_JQuery_Form_Element_DatePicker('date_end');
+        $datetime_end->setLabel('Publish until');
+        $this->addElement($datetime_end);
 
-        $time_start = new Zend_Form_Element_Text('start_time');
-        $time_start->setLabel('Time');
-        $time_start->setAttrib('size',25);
-        $this->addElement($time_start);
+        $this->addElement(
+            'submit',
+            'cancel',
+            array(
+                'label' => 'cancel',
+            )
+        );
 
-        $date_end = new ZendX_JQuery_Form_Element_DatePicker('date_end');
-        $date_end->setLabel('Active until');
-        $date_end->addValidator(new Zend_Validate_Date('DD-MM-YYYY'));
-        $date_end->setAttrib('size',25);
-        $this->addElement($date_end);
-*/
         $this->addElement(
             'submit',
             'submit',
@@ -50,6 +60,15 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
 
     public function isValid($values)
     {
-        return parent::isValid($values);
+        if ($this->isCancelled($values)) {
+            return true;
+        } else {
+            return parent::isValid($values);
+        }
+    }
+
+    public function isCancelled($values)
+    {
+        return (isset($values['cancel']));
     }
 }

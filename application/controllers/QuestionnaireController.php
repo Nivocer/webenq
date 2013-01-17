@@ -14,7 +14,7 @@ class QuestionnaireController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-            'add' => array('html'),
+        //'add' => array('html'),
     );
 
     /**
@@ -112,22 +112,34 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public function addAction()
     {
-        $form = new Webenq_Form_Questionnaire_Add();
+        $form = new Webenq_Form_Questionnaire_Properties();
         $form->setAction($this->_request->getRequestUri());
 
         if ($this->_helper->form->isPostedAndValid($form)) {
-            $questionnaire = new Webenq_Model_Questionnaire();
-            $questionnaire->fromArray($form->getValues());
-            $questionnaire->meta = serialize(array('timestamp' => time()));
-            $questionnaire->save();
-            $this->_helper->json(array('reload' => true));
+            if (!$this->_helper->form->isCancelled($form)) {
+                $questionnaire = new Webenq_Model_Questionnaire();
+                $questionnaire->fromArray($form->getValues());
+                $questionnaire->meta = serialize(array('timestamp' => time()));
+                $questionnaire->save();
+            }
+            $this->_redirect('questionnaire');
+            // in the pop-up-days: $this->_helper->json(array('reload' => true));
         }
+
+
+//        $formpopulate = $this->_helper->form->getValues();
+//        $form->populate($this->_helper->form->getValues());
+      //  $form->setDefaults(
+        //    array(
+          //      'title' => array('en'=>'English', 'nl'=>'Nederlands', 'default_language'=>'nl')
+         //   )
+       // );
 
         $this->view->form = $form;
     }
 
     /**
-     * Renders the form for editing a questionnaire
+     * Renders the form for editing a questionnaire's properties
      *
      * @return void
      */
@@ -136,7 +148,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
         if (!$questionnaire) $this->_redirect('questionnaire');
 
-        $form = new Webenq_Form_Questionnaire_Edit($questionnaire);
+        $form = new Webenq_Form_Questionnaire_Properties();
 
         if ($this->_helper->form->isPostedAndValid($form)) {
             $questionnaire->fromArray($form->getValues());
@@ -144,6 +156,20 @@ class QuestionnaireController extends Zend_Controller_Action
             $this->_redirect($this->_request->getPathInfo());
         }
 
+        $formsetDefaults = $questionnaire->toArray();
+        $form->setDefaults($questionnaire->toArray());
+
+/*        $defaultLanguage = (isset($values['default_language'])) ? $values['default_language'] : '';
+        $titleValues = array('default_language'=>$defaultLanguage);
+
+        if (isset($values['QuestionnaireTitle'])) {
+            foreach ($values['QuestionnaireTitle'] as $translation) {
+                $titleValues[$translation['language']] = $translation['text'];
+            }
+        };
+
+        $this->getElement('title')->setValue($titleValues);
+ */
         $this->view->form = $form;
         $this->view->questionnaire = $questionnaire;
         $this->view->totalPages = Webenq_Model_Questionnaire::getTotalPages($questionnaire['id']);

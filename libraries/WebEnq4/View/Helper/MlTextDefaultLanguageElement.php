@@ -68,7 +68,7 @@ class WebEnq4_View_Helper_MlTextDefaultLanguageElement
                     $defaultLanguage = (isset($value['default_language'])) ? $value['default_language'] : '';
                 }
 
-                $this->_html .= $helperRadio->formRadio($name . '-default-language', $defaultLanguage, array(), array($language=>t($language)), '');
+                $this->_html .= $helperRadio->formRadio($name . '[default_language]', $defaultLanguage, array(), array($language=>t($language)), '');
                 $this->_html .= $helperText->formText($name . '[' . $language . ']', $current, array());
             }
         }

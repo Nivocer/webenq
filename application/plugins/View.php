@@ -38,6 +38,9 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.json.min.js'));
 //        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/date-format.js'));
 
+        /* WebEnq4 library */
+        $view->addHelperPath('WebEnq4/View/Helper/', 'WebEnq4_View_Helper');
+
         /* JS */
         $view->headScript()->appendFile($view->baseUrl('js/global.js'));
         $this->_addJs($request, $view);
