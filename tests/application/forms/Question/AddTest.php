@@ -25,6 +25,8 @@
 
 class Webenq_Test_Form_Question_AddTest extends Webenq_Test_Case_Form
 {
+    public $setupDatabase = true;
+    
     public function testOneLanguageIsRequired()
     {
         $form = $this->getForm();

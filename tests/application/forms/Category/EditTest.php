@@ -24,8 +24,9 @@
  */
 
 class Webenq_Test_Form_Category_Edit extends Webenq_Test_Case_Form
-
 {
+    public $setupDatabase = true;
+
     public function testCheckElementsExists(){
         $category =new Webenq_Model_Category();
         $form = new Webenq_Form_Category_Edit($category);

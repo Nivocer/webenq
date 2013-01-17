@@ -24,8 +24,8 @@
  */
 
 class Webenq_Test_Form_Category_Add extends Webenq_Test_Case_Form
-
 {
+    public $setupDatabase = true;
 
     public function testCheckElementsExists(){
         $form = new Webenq_Form_Category_Add();

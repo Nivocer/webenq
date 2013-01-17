@@ -26,10 +26,8 @@
 
 class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
 {
-    //public $setupDatabase = true;
-    public function setUp(){
-        parent::setUp();
-    }
+    public $setupDatabase = true;
+
     public function testAddCategoryTextIsSuccesfull(){
         $category=new Webenq_Model_Category();
         $category->save();
@@ -106,7 +104,7 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
      * the first one (by weight) is 11
      */
     public function testGetAllCategoriesIsCorrect(){
-        $setupDatabase = true;
+        $this->loadDatabase();
         $category=new Webenq_Model_Category();
         $this->assertEquals(3, $category->getCategories()->count());
         $this->assertEquals(11, $category->getCategories()->getFirst()->id);
@@ -114,14 +112,11 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
 
     }
     public function testGetCategorieByIdIsCorrect(){
-        $setupDatabase = true;
+        $this->loadDatabase();
         $category=new Webenq_Model_Category();
         $this->assertEquals(1, $category->getCategories(11)->count());
         $this->assertEquals(11, $category->getCategories(11)->getFirst()->id);
         $category->delete();
     }
 
-    public function tearDown(){
-        parent::tearDown();
-    }
 }
