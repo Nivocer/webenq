@@ -94,8 +94,11 @@
         //Do we have questionnaires in this category: don't delete category
         $questionnaire=Webenq_Model_Questionnaire::getQuestionnaires($this->_request->id);
 
+        //if we have questionnaires in this category, we cannot delete this category.
+        //we don't have
         if ($questionnaire->count()>0) {
-
+            $this->_redirect('/category');
+            return; //extra return for phpunit
         }
         //display confirmation dialog
         $category = Doctrine_Core::getTable('Webenq_Model_Category')

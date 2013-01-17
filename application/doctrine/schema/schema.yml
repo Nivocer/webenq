@@ -601,7 +601,7 @@ Questionnaire:
       foreign: id
       type: one
       onUpdate: CASCADE
-      onDelete: SET NULL
+      onDelete: RESTRICT
     QuestionnaireTitle:
       local: id
       foreign: questionnaire_id

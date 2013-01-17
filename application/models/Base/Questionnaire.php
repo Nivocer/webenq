@@ -106,7 +106,7 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
         $this->hasOne('Webenq_Model_Category as Category', array(
              'local' => 'category_id',
              'foreign' => 'id',
-             'onDelete' => 'SET NULL',
+             'onDelete' => 'RESTRICT',
              'onUpdate' => 'CASCADE'));
 
         $this->hasMany('Webenq_Model_QuestionnaireTitle as QuestionnaireTitle', array(
