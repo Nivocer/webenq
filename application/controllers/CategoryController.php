@@ -25,6 +25,7 @@
 
  class CategoryController extends Zend_Controller_Action
 {
+    public $defaultCategoryId=1;
     /**
      * Controller actions that are ajaxable
      *
@@ -85,22 +86,16 @@
     }
     /**
      * Renders the confirmation form for deleting a category and perform the deleting.
-     * Category can only be deleted when no questionnaire is in category
+     * If a categor has questionnaires, the questionnaires are moved to default category with id =1
+     * So it is forbidden to delete category with id=1
      *
      * @return void
      */
     public function deleteAction()
     {
-        //Do we have questionnaires in this category: don't delete category
-        $questionnaire=Webenq_Model_Questionnaire::getQuestionnaires($this->_request->id);
+        $defaultCategoryId=$this->defaultCategoryId;
 
-        //if we have questionnaires in this category, we cannot delete this category.
-        //we don't have
-        if ($questionnaire->count()>0) {
-            $this->_redirect('/category');
-            return; //extra return for phpunit
-        }
-        //display confirmation dialog
+        //does category exist
         $category = Doctrine_Core::getTable('Webenq_Model_Category')
         ->find($this->_request->id);
 
@@ -109,21 +104,51 @@
             return; //extra return for phpunit
         }
 
-        $confirmationText = sprintf(
-                t(
-                        'Are you sure you want to delete the category: %s (including all translations)?'
-                ),
+        //display confirmation dialog
+        //set confirmationText based on number of questionnaires
+        $q=new Webenq_Model_Questionnaire();
+        $questionnaires=$q->getQuestionnaires($this->_request->id);
 
+        if ($questionnaires->count()>0) {
+            //determin text of default category 1.
+            $categoryDefault = Doctrine_Core::getTable('Webenq_Model_Category')->find($defaultCategoryId);
+            $confirmationText = sprintf(
+                t(
+                        'Are you sure you want to delete the category: %s (the %d questionnaires in this category are moved to the category: %s)?'
+                ),
+                $category->getCategoryText()->text,
+                $questionnaires->count(),
+                $categoryDefault->getCategoryText()->text
+            );
+        } else {
+            $confirmationText = sprintf(
+                t(
+                        'Are you sure you want to delete the category: %s?'
+                ),
                 $category->getCategoryText()->text
-        );
+            );
+        }
 
         $form = new Webenq_Form_Confirm($category->id, $confirmationText);
         $form->setAction($this->view->baseUrl('/category/delete/id/' . $this->_request->id));
 
         /* process posted data */
-        if ($this->_request->isPost()) {
-            if ($this->_request->yes) {
-                $category->delete();
+        //only delete if category not equal to $defaultCategory
+        if ($this->_request->isPost() && $this->_request->id <> $defaultCategoryId) {
+            if ($this->_request->yes ) {
+                //if we have questionnaires in this category we should update questionnaire properties category_id->1
+                if ($questionnaires->count()>0) {
+                    foreach ($questionnaires as $questionnaire){
+                        //var_dump($questionnaire->toArray());
+                        $questionnaire->setArray(array('category_id'=>$defaultCategoryId));
+                        $questionnaire->save(); //moet dit nog gebeuren
+                    }
+                }
+                if (Webenq_Model_Questionnaire::getQuestionnaires($this->_request->id)->count()==0){
+                    $category->delete();
+                } else {
+                    throw new Exception("Cannot delete category, it has still questionnaires");
+                }
             }
             if ($this->_request->isXmlHttpRequest()) {
                 if ($this->_request->yes) {

@@ -551,6 +551,7 @@ Questionnaire:
       type: integer(4)
       fixed: false
       unsigned: true
+      default: 1
       primary: false
       notnull: false
       autoincrement: false

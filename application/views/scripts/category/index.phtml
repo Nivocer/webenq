@@ -9,6 +9,7 @@
             <tr>
                 <th class="move"></th>
                 <th class="title"><?php echo t('title'); ?></th>
+                <th class="countQuestionnaires"><?php echo t('#questionnaires'); ?></th>
                 <th class="published"><?php echo t('published'); ?></th>
                 <th class="actions"><?php echo t('actions'); ?></th>
             </tr>
@@ -22,6 +23,9 @@
                             <?php echo $category->getCategoryText()->text; ?>
                         </a>
                     </td>
+                    <td class="countQuestionnaires">
+                        <?php echo Webenq_Model_Questionnaire::getQuestionnaires($category['id'])->count(); ?>
+                    </td>
                     <td class="published">
                         <?php
                             $publishedState = $category->active;
@@ -33,7 +37,7 @@
                     </td>
                     <td class="action">
                         <a class="icon edit" title="<?php echo t('edit'); ?>" href="<?php echo $this->baseUrl("/category/edit/id/" . $category['id']);?>">&nbsp;</a>
-                        <?php if (Webenq_Model_Questionnaire::getQuestionnaires($category['id'])->count()==0){ ?>
+                        <?php if ($category['id']!=1){ ?>
                         <a class="icon delete" title="<?php echo t('delete'); ?>" href="<?php echo $this->baseUrl("/category/delete/id/" . $category['id']); ?>">&nbsp;</a>
                         <?php }?>
                     </td>

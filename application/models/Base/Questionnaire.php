@@ -41,6 +41,7 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
              'type' => 'integer',
              'fixed' => 0,
              'unsigned' => true,
+             'default' => 1,
              'primary' => false,
              'notnull' => false,
              'autoincrement' => false,

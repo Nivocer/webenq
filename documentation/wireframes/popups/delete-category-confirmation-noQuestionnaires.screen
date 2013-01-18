@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:TextArea" id="1" y="56" width="409" height="49" text="Are you sure you want to delete the category: 'Education'" measuredWidth="409" measuredHeight="49">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="2" x="168" y="120" text="yes" measuredWidth="36" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="3" x="120" y="120" text="no" measuredWidth="32" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="4" x="24" y="24" measuredWidth="268" measuredHeight="23">
+    <screen xsi:type="model:Screen" href="../assets/navigation/hint-popup.screen#/"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

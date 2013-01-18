@@ -72,4 +72,10 @@
   <panels x="75" y="1875">
     <screen href="../screens/manage-questionnaire-add-question-validation.screen#/"/>
   </panels>
+  <panels x="675" y="1875">
+    <screen href="../popups/delete-category-confirmation-noQuestionnaires.screen#/"/>
+  </panels>
+  <panels x="375" y="1875">
+    <screen href="../popups/delete-category-confirmation-withQuestionnaires.screen#/"/>
+  </panels>
 </story:Storyboard>
