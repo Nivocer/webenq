@@ -10,6 +10,15 @@
  */
 class Webenq_Form_Questionnaire_Properties extends Zend_Form
 {
+    const ERR_END_IS_BEFORE_START = 'endDateIsBeforeStartDate';
+
+    /**
+     * @var array
+     */
+    protected $_messageTemplates = array(
+        self::ERR_END_IS_BEFORE_START => "The end date should be after the start date",
+    );
+
     public function init()
     {
         $title = new WebEnq4_Form_Element_MlTextDefaultLanguage('title');
@@ -31,15 +40,13 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
         $active->setLabel('Active');
         $this->addElement($active);
 
-//        $datetime_start = new WebEnq4_Form_Element_DateTimePicker('date_start');
-        $datetime_start = new ZendX_JQuery_Form_Element_DatePicker('date_start');
-        $datetime_start->setLabel('Publish from');
-        $this->addElement($datetime_start);
+        $date_start = new WebEnq4_Form_Element_DateTimePicker('date_start');
+        $date_start->setLabel('Publish from');
+        $this->addElement($date_start);
 
-//        $datetime_end = new WebEnq4_Form_Element_DateTimePicker('date_end');
-        $datetime_end = new ZendX_JQuery_Form_Element_DatePicker('date_end');
-        $datetime_end->setLabel('Publish until');
-        $this->addElement($datetime_end);
+        $date_end = new WebEnq4_Form_Element_DateTimePicker('date_end');
+        $date_end->setLabel('Publish until');
+        $this->addElement($date_end);
 
         $this->addElement(
             'submit',
@@ -63,7 +70,20 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
         if ($this->isCancelled($values)) {
             return true;
         } else {
-            return parent::isValid($values);
+            $result = parent::isValid($values);
+
+            if (isset($values["date_start"])
+                    && isset($values["date_end"])
+                    && ($values["date_start"]!=='')
+                    && ($values["date_end"]!=='')) {
+                if (strtotime($values['date_start']) > strtotime($values['date_end'])) {
+                    $date_end = $this->getElement('date_end');
+                    $date_end->addError($this->_messageTemplates[self::ERR_END_IS_BEFORE_START]);
+                    $result = false;
+                }
+            }
+
+            return $result;
         }
     }
 
