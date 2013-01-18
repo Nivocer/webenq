@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-28 14:23+0100\n"
-"PO-Revision-Date: 2012-12-28 14:25+0100\n"
+"PO-Revision-Date: 2013-01-18 13:11+0100\n"
 "Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -870,25 +870,25 @@ msgstr "add questionnaire"
 
 #: application/views/scripts/questionnaire/index.phtml:10
 msgid "category"
-msgstr "categorie"
+msgstr "category"
 
 #: application/views/scripts/questionnaire/index.phtml:12
 msgid "published"
-msgstr "gepubliceerd"
+msgstr "published"
 
 #: application/views/scripts/questionnaire/index.phtml:13
 msgid "actions"
-msgstr "acties"
+msgstr "actions"
 
 #: application/views/scripts/questionnaire/index.phtml:34
 #: application/views/scripts/questionnaire/index.phtml:37
 msgid "start date"
-msgstr "start datum"
+msgstr "start date"
 
 #: application/views/scripts/questionnaire/index.phtml:35
 #: application/views/scripts/questionnaire/index.phtml:38
 msgid "end date"
-msgstr "eind datum"
+msgstr "end date"
 
 #: application/views/scripts/questionnaire/index.phtml:50
 msgid "No questionnaires have been imported yet"
