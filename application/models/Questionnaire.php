@@ -119,6 +119,13 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         }else {
             $publishedState['published']=false;
         }
+
+        if ($this->Category->active==1){
+            $publishedState['categoryActivated']=true;
+        }else {
+            $publishedState['published']=false;
+        }
+
         return $publishedState;
     }
 
