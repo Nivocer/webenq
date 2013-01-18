@@ -576,6 +576,33 @@ var story = {
       25,
       267
      ]
+    },
+    {
+     "page": 25,
+     "rect": [
+      360,
+      198,
+      385,
+      219
+     ]
+    },
+    {
+     "page": 24,
+     "rect": [
+      360,
+      218,
+      385,
+      243
+     ]
+    },
+    {
+     "page": 8,
+     "rect": [
+      336,
+      198,
+      361,
+      267
+     ]
     }
    ]
   },
@@ -2122,6 +2149,58 @@ var story = {
       208,
       379,
       231
+     ]
+    }
+   ]
+  },
+  {
+   "title": "delete-category-confirmation-noQuestionnaires",
+   "height": 119,
+   "width": 409,
+   "image": "25-delete-category-confirmation-noQuestionnaires.png",
+   "links": [
+    {
+     "page": 6,
+     "rect": [
+      168,
+      96,
+      204,
+      119
+     ]
+    },
+    {
+     "page": 6,
+     "rect": [
+      120,
+      96,
+      152,
+      119
+     ]
+    }
+   ]
+  },
+  {
+   "title": "delete-category-confirmation-withQuestionnaires",
+   "height": 135,
+   "width": 409,
+   "image": "26-delete-category-confirmation-withQuestionnaires.png",
+   "links": [
+    {
+     "page": 6,
+     "rect": [
+      160,
+      112,
+      196,
+      135
+     ]
+    },
+    {
+     "page": 6,
+     "rect": [
+      115,
+      112,
+      147,
+      135
      ]
     }
    ]
