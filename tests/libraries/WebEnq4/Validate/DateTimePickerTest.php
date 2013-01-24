@@ -25,15 +25,11 @@
  */
 
 /**
- * @see WebEnq4_Validate_DateTimePicker
- */
-require_once 'WebEnq4/Validate/DateTimePicker.php';
-
-/**
  * @category   WebEnq4
  * @package    WebEnq4_Validate
  * @subpackage UnitTests
  * @group      WebEnq4_Validate
+ * @see        WebEnq4_Validate_DateTimePicker
  */
 class WebEnq4_Validate_DateTimePickerTest extends PHPUnit_Framework_TestCase
 {

@@ -24,9 +24,6 @@
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
-/** @see Zend_View_Helper_Abstract */
-require_once 'Zend/View/Helper/Abstract.php';
-
 /**
  * Helper to generate a "multi-lingual text field with choice of default language" element
  *
@@ -57,6 +54,8 @@ class WebEnq4_View_Helper_MlTextDefaultLanguageElement
 
         if (isset($attribs['languages']) && is_array($attribs['languages']))
         {
+            $html = '';
+
             foreach ($attribs['languages'] as $language)
             {
                 $current = '';
@@ -68,8 +67,24 @@ class WebEnq4_View_Helper_MlTextDefaultLanguageElement
                     $defaultLanguage = (isset($value['default_language'])) ? $value['default_language'] : '';
                 }
 
-                $this->_html .= $helperRadio->formRadio($name . '[default_language]', $defaultLanguage, array(), array($language=>t($language)), '');
-                $this->_html .= $helperText->formText($name . '[' . $language . ']', $current, array());
+                $html .= '<span class="languageoption"><span class="selector">';
+
+                $html .= $helperRadio->formRadio($name . '[default_language]',
+                        $defaultLanguage,
+                        array(),
+                        array($language=>t($language)), '');
+
+                $html .= '</span><span class="inputfield">';
+
+                $html .= $helperText->formText($name . '[' . $language . ']',
+                        $current,
+                        array());
+
+                $html .= '</span></span>';
+            }
+
+            if ($html != '') {
+                $this->_html .= "<span class=\"mltextdefaultlanguage\">$html</span>";
             }
         }
 

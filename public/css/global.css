@@ -51,8 +51,8 @@ ul {
 	padding: 0;
 }
 
-form input[type="text"] {
-	width: 97%;
+form input[type="text"].wide {
+    width: 97%;
 }
 
 form input[type="text"].hasDatepicker {
@@ -262,4 +262,21 @@ ul.selectable {
 
 #dialog form dt label {
 	margin: 0;
+}
+
+.mltextdefaultlanguage {
+	display: table;
+}
+.mltextdefaultlanguage .languageoption {
+	display: table-row;
+}
+.mltextdefaultlanguage .selector {
+	display: table-cell;
+	padding-right: 0.5em;
+}
+.mltextdefaultlanguage .inputfield {
+	display: table-cell;
+}
+.mltextdefaultlanguage .inputfield input {
+	width: 25em;
 }

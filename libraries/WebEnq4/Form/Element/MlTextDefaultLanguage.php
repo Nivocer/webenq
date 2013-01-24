@@ -32,14 +32,14 @@
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  *
  */
-class WebEnq4_Form_Element_MlTextDefaultLanguage extends Zend_Form_Element
+class WebEnq4_Form_Element_MlTextDefaultLanguage extends Zend_Form_Element_Xhtml
 {
-    public $helper = 'mlTextDefaultLanguageElement';
+    public $helper = 'MlTextDefaultLanguageElement';
 
     public function init()
     {
         $this->setAutoInsertNotEmptyValidator(false);
-        $this->addPrefixPath('WebEnq4_Validate', 'WebEnq4/Validate/', 'validate');
+        $this->addPrefixPath('WebEnq4_', 'WebEnq4/');
         // @todo The prefix path for extra validators should probably be included elsewhere
         $this->addValidator('MlTextHasDefaultLanguageString');
     }

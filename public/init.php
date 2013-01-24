@@ -1,6 +1,7 @@
 <?php
 
 // set default time zone
+// @todo default timezone setting should move into config
 if (function_exists('date_default_timezone_set')) {
     date_default_timezone_set('Europe/Amsterdam');
 }
@@ -9,10 +10,13 @@ if (function_exists('date_default_timezone_set')) {
 defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
+defined('LIBRARIES_PATH')
+|| define('LIBRARIES_PATH', realpath(dirname(__FILE__) . '/../libraries'));
+
 // set include paths
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/classes'),
-    realpath(APPLICATION_PATH . '/../libraries'),
+    LIBRARIES_PATH,
     get_include_path(),
     )
 ));
