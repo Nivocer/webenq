@@ -369,16 +369,16 @@ $(function() {
 	});
 	
 	// hide form for editing questionnaire title if no errors
-	if ($('form#Webenq_Form_Questionnaire_Edit ul.errors').length == 0) {
-		$('form#Webenq_Form_Questionnaire_Edit').hide();
+	if ($('form#Webenq_Form_Questionnaire_Properties ul.errors').length == 0) {
+		$('form#Webenq_Form_Questionnaire_Properties').hide();
 	}
 	
 	// show form for editing title when edit-buttons is clicked
 	$('a#edit_title').toggle(function() {
-		$('form#Webenq_Form_Questionnaire_Edit').show('slow');
+		$('form#Webenq_Form_Questionnaire_Properties').show('slow');
 		return false;
 	}, function() {
-		$('form#Webenq_Form_Questionnaire_Edit').hide('slow');
+		$('form#Webenq_Form_Questionnaire_Properties').hide('slow');
 		return false;
 	});
 	

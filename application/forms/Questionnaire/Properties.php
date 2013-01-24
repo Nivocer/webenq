@@ -21,6 +21,7 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
 
     public function init()
     {
+        $this->setName(get_class($this));
         $title = new WebEnq4_Form_Element_MlTextDefaultLanguage('title');
         $title->setLabel('Title');
         $title->setRequired();
