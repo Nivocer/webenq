@@ -166,6 +166,11 @@ img {
 .errors {
 	color: red;
 }
+#flash_messenger {
+    color: red;
+    margin-top:5em;
+    margin-left:2em;
+}
 
 ul.droppable,
 ul.draggable,
