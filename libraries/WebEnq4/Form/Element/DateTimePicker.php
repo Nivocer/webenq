@@ -39,7 +39,7 @@ class WebEnq4_Form_Element_DateTimePicker extends Zend_Form_Element_Xhtml
     public function init()
     {
         //$this->setAutoInsertNotEmptyValidator(false);
-        $this->addPrefixPath('WebEnq4_Validate', 'WebEnq4/Validate/', 'validate');
+        $this->addPrefixPath('WebEnq4_', 'WebEnq4/');
         // @todo The prefix path for extra validators should probably be included elsewhere
         $this->addValidator('DateTimePicker');
     }

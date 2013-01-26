@@ -25,11 +25,6 @@
  */
 
 /**
- * @see Zend_Validate_Abstract
- */
-require_once 'Zend/Validate/Abstract.php';
-
-/**
  * Checks if a multi-lingual text array has a non-empty text in the default language
  * @category   WebEnq4
  * @package    WebEnq4_Validate

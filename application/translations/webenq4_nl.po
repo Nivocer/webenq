@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-28 14:23+0100\n"
-"PO-Revision-Date: 2013-01-18 13:09+0100\n"
-"Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
+"PO-Revision-Date: 2013-01-24 15:21+0100\n"
+"Last-Translator: Rolf Kleef <rolf@drostan.org>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -577,11 +577,11 @@ msgstr "Bestanden samenvoegen"
 
 #: application/translations/WebenqManualStrings.php:85
 msgid "nl"
-msgstr "nl"
+msgstr "Nederlands"
 
 #: application/translations/WebenqManualStrings.php:86
 msgid "en"
-msgstr "en"
+msgstr "Engels"
 
 #: application/translations/WebenqManualStrings.php:87
 msgid "Are you sure?"
@@ -942,28 +942,3 @@ msgstr "naam"
 msgid "one moment please..."
 msgstr "even geduld alstublieft"
 
-#~ msgid "file"
-#~ msgstr "bestand"
-
-#~ msgid "check"
-#~ msgstr "controleer"
-
-#~ msgid "collect"
-#~ msgstr "verzamelen"
-
-#~ msgid "download"
-#~ msgstr "downloaden"
-
-#~ msgid "print"
-#~ msgstr "afdrukken"
-
-#~ msgid "report/generate"
-#~ msgstr "GGenereer rapport"
-
-#, fuzzy
-#~ msgid "Selecteer een klant:"
-#~ msgstr "Selecteer een directorie"
-
-#, fuzzy
-#~ msgid "report_type"
-#~ msgstr "Background type"

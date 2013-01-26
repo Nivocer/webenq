@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: WebEnq 4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-12-28 14:23+0100\n"
-"PO-Revision-Date: 2013-01-18 13:11+0100\n"
-"Last-Translator: Jaap-Andre de Hoop <j.dehoop@nivocer.com>\n"
+"PO-Revision-Date: 2013-01-24 15:24+0100\n"
+"Last-Translator: Rolf Kleef <rolf@drostan.org>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -575,11 +575,11 @@ msgstr "Merge files"
 
 #: application/translations/WebenqManualStrings.php:85
 msgid "nl"
-msgstr "nl"
+msgstr "Dutch"
 
 #: application/translations/WebenqManualStrings.php:86
 msgid "en"
-msgstr "en"
+msgstr "English"
 
 #: application/translations/WebenqManualStrings.php:87
 msgid "Are you sure?"
