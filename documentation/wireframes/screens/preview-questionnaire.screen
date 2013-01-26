@@ -15,7 +15,7 @@
   <widgets xsi:type="model:Button" id="7" y="160" text="{add} Add page" measuredWidth="85" measuredHeight="26">
     <font/>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="13" x="-10" y="200" measuredWidth="827" measuredHeight="497">
+  <widgets xsi:type="model:WidgetGroup" id="13" x="-10" y="200" measuredWidth="827" measuredHeight="497" link="questionnaireQuestion/questionText.screen">
     <widgets xsi:type="model:TabbedPane" id="12" width="827" height="497" text="Page 1, Page 2" measuredWidth="827" measuredHeight="497" selection="0">
       <items x="10" y="0" width="54" height="23" text="Page 1"/>
       <items x="64" y="0" width="54" height="23" text="Page 2"/>

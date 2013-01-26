@@ -24,4 +24,28 @@
   <panels x="975" y="375">
     <screen href="../screens/manage-categories-overview.screen#/"/>
   </panels>
+  <panels x="975" y="975">
+    <screen href="../screens/questionnaireQuestion/addAnswerOptionChoice.screen#/"/>
+  </panels>
+  <panels x="675" y="975">
+    <screen href="../screens/questionnaireQuestion/addAnswerOptionNumber.screen#/"/>
+  </panels>
+  <panels x="375" y="975">
+    <screen href="../screens/questionnaireQuestion/addAnswerOptionText.screen#/"/>
+  </panels>
+  <panels x="75" y="975">
+    <screen href="../screens/questionnaireQuestion/answerTemplate.screen#/"/>
+  </panels>
+  <panels x="975" y="675">
+    <screen href="../screens/questionnaireQuestion/customize.screen#/"/>
+  </panels>
+  <panels x="675" y="675">
+    <screen href="../screens/questionnaireQuestion/likert.screen#/"/>
+  </panels>
+  <panels x="375" y="675">
+    <screen href="../screens/questionnaireQuestion/manage-add-question-new.screen#/"/>
+  </panels>
+  <panels x="75" y="675">
+    <screen href="../screens/questionnaireQuestion/questionText.screen#/"/>
+  </panels>
 </story:Storyboard>

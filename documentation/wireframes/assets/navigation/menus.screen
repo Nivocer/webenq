@@ -47,6 +47,15 @@
       <font/>
     </widgets>
   </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="26" y="560" measuredWidth="300" measuredHeight="23" name="questionnaireQuestion tab">
+    <widgets xsi:type="model:Tabs" id="25" text="Question text,Answer template, Likert,Customize" measuredWidth="300" measuredHeight="23" selection="0">
+      <items link="../../screens/questionnaireQuestion/questionText.screen" x="1" y="0" width="82" height="23" text="Question text"/>
+      <items link="../../screens/questionnaireQuestion/answerTemplate.screen" x="83" y="0" width="100" height="23" text="Answer template"/>
+      <items link="../../screens/questionnaireQuestion/likert.screen" x="183" y="0" width="46" height="23" text="Likert"/>
+      <items link="../../screens/questionnaireQuestion/customize.screen" x="229" y="0" width="70" height="23" text="Customize"/>
+      <font/>
+    </widgets>
+  </widgets>
   <hRuler/>
   <vRuler/>
   <font name="Arial" size="11px"/>
