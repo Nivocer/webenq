@@ -21,10 +21,23 @@ We use Travis-CI for continuous integration testing: each push to the Github rep
 * The repository on Github has a status image indicating the results of the last run.
 
 We're currently testing on PHP versions:
-* 5.2
 * 5.3 (last travis-subversion)
 * 5.3.3 (nivocer server)
 * 5.4
+* 5.5
+
+=== Skipping a CI test ===
+In order to skip a build by Travis, add the following to the commit message:
+
+	''[ci skip]''
+
+
+=== Checking the Travis config ===
+With travis-lint, it's possible to check the configuration before deploying it: https://github.com/travis-ci/travis-lint
+
+	''gem install travis-lint''
+	''travis-lint''
+
 
 ===== Testing coding guidelines =====
 We use [[http://pear.php.net/package/PHP_CodeSniffer/|codesniffer]] to test the guidelines according to a (old) zend guideline.

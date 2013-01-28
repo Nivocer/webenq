@@ -3,13 +3,17 @@ Wiki-Format: zim 0.4
 Creation-Date: 2012-11-26T12:23:40+01:00
 
 ====== Coding guidelines ======
-Created Monday 26 November 2012
 
-For the Zend/php part we use the zend coding guidelines as tested by phpcs. This is a coding standard based on an early Zend Framework coding standard.
-see [[:Tools:Testing|Tools->Testing]]
+===== PHP =====
+For the Zend/PHP part we use the Zend coding guidelines, based on an early Zend Framework coding standard.
+Compliance can be tested with ''phpcs'', see [[:Tools:Testing|Tools->Testing]]
 
-For the java-part we use the coding convention for the Java Programming Language as described by [[http://www.oracle.com/technetwork/java/codeconv-138413.html|Oracle]]
+===== Java =====
+For the Java part we use the coding convention for the Java Programming Language as described by [[http://www.oracle.com/technetwork/java/codeconv-138413.html|Oracle]]
 
-For the jasper part (jrxml) we use the conventions as used by the community, 
+===== Jasper JRXML =====
+For the Jasper part (jrxml report definitions) we use the conventions as used by the community.
 @todo document this convention, maybe could use info from http://community.jaspersoft.com/questions/541964/ireport-developer-standards
 
+===== CSS =====
+@todo naming conventions for classes and identifiers
