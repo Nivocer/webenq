@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="385" dimmed="true">
+    <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
+    <overrides>
+      <widgets ref="6" link="tab-options.screen"/>
+      <widgets ref="2">
+        <attributes key="selection" value="1"/>
+        <items ref="@items.2" noLink="true"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Label" id="24" x="64" y="58" text="Edit answer options" measuredWidth="145" measuredHeight="27">
+    <font size="28px" bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="27" x="64" y="84" text="Name" measuredWidth="38" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="28" x="64" y="113" text="Type" measuredWidth="32" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:List" id="29" x="216" y="112" text="number" measuredWidth="52" measuredHeight="24" border="false" alpha="0" rowHeight="20">
+    <font/>
+    <items x="0" y="2" width="52" height="20" text="number"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="30" x="212" y="84" width="226" text="year-range=1-110" measuredWidth="226" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="31" x="64" y="272" text="Validations" measuredWidth="66" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="33" x="64" y="335" text="Description for respondent" measuredWidth="149" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="34" x="216" y="335" width="385" height="49" text="If you don't know please enter -99" measuredWidth="385" measuredHeight="49">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:List" id="37" x="208" y="272" text="[x] integer&#xA;[] even" measuredWidth="75" measuredHeight="64" border="false" alpha="0">
+    <font/>
+    <items x="0" y="2" width="75" height="30" text="[x] integer"/>
+    <items x="0" y="32" width="75" height="30" text="[] even"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="62" x="214" y="135" width="63" text="0" measuredWidth="63" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="63" x="64" y="212" measuredWidth="579" measuredHeight="56" name="multilingual-text">
+    <widgets xsi:type="model:TextField" id="64" x="58" width="521" text="Year" measuredWidth="521" measuredHeight="22">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="65" x="58" y="34" width="521" text="..." measuredWidth="521" measuredHeight="22">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="66" y="34" width="47" text="French" measuredWidth="47" measuredHeight="22">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="67" width="47" text="English*" measuredWidth="47" measuredHeight="22">
+      <font bold="true"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="68" x="322" y="135" width="73" text="110" measuredWidth="73" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="71" x="472" y="156" text="~measurement level?~" measuredWidth="121" measuredHeight="24" annotation="true" textAlignment="Left">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="73" x="64" y="135" width="59" text="Range" measuredWidth="59" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="74" x="297" y="135" text="till" measuredWidth="17" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="75" x="64" y="192" text="Text after input field" measuredWidth="110" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="80" x="64" y="160" text="Missing value" measuredWidth="80" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="81" x="214" y="160" width="63" text="-99" measuredWidth="63" measuredHeight="22">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="21px"/>
+</model:Screen>

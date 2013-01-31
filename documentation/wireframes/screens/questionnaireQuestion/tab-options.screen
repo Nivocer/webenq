@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" xmlns:o="http://wireframesketcher.com/1.0/model/overrides">
+  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="385" dimmed="true">
+    <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
+    <overrides>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Icon" x="512" y="151" icon="edit (medium)" link="tab-answers-select.screen"/>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Icon" x="608" y="125" icon="edit (medium)" link="tab-question.screen"/>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Label" x="48" y="90" text="Options">
+          <font size="28px"/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Checkbox" x="48" y="304" text="Question is active">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Checkbox" x="48" y="279" text="Answer is required">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Label" x="48" y="240" text="Answer options">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Combo" x="144" y="240" width="143" text="Satisfied-5 (choice)">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Label" x="384" y="90" text="Preview">
+          <font size="28px"/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Combo" x="144" y="152" text="radiobutton/checkbox&#xA;slider&#xA;pulldown&#xA;....">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Label" x="50" y="152" text="Presentation">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:TextField" x="261" y="126" width="26" text="1">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Label" x="50" y="126" text="How many answers are allowed">
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:List" x="384" y="147" text="( ) Very satisfied&#xA;( ) Satisfied&#xA;( ) Neutral&#xA;( ) Unsatisfied&#xA;( ) Very unsatisfied&#xA;" border="false" alpha="0">
+          <font/>
+          <items text="( ) Very satisfied"/>
+          <items text="( ) Satisfied"/>
+          <items text="( ) Neutral"/>
+          <items text="( ) Unsatisfied"/>
+          <items text="( ) Very unsatisfied"/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Label" x="384" y="126" text="How satisfied are you with your house">
+          <font bold="true"/>
+        </object>
+      </widgetChanges>
+      <widgets ref="2">
+        <attributes key="selection" value="3"/>
+        <items ref="@items.3" text="%(color:gray)Sub questions%"/>
+        <itemChanges xsi:type="o:Insert" newIndex="4">
+          <object xsi:type="model:Item" text="Options"/>
+        </itemChanges>
+        <itemChanges xsi:type="o:Delete" ref="@items.2"/>
+      </widgets>
+      <widgets ref="6" text="Done"/>
+      <widgets ref="7" link="tab-answers-select.screen"/>
+    </overrides>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="21px"/>
+</model:Screen>

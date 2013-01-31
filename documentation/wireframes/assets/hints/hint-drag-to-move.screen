@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Note" id="1" x="32" y="16" text="You can drag this item around to&#xA;re-order or to move to a new&#xA;position, category or page" measuredWidth="185" measuredHeight="52" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="2" x="80" y="104" measuredWidth="174" measuredHeight="24">
+    <screen xsi:type="model:Screen" href="hint-go-back.screen#/"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="21px"/>
+</model:Screen>

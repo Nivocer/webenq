@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
   <widgets xsi:type="model:WidgetGroup" id="2" x="24" y="20" measuredWidth="818" measuredHeight="37" name="Top menu (logged in)">
-    <widgets xsi:type="model:Menu" id="3" text="Home, Questionnaires, Import, Management, Users, Log out" measuredWidth="328" measuredHeight="23" selection="">
-      <items link="../../screens/home.screen" x="5" y="0" width="39" height="23" text="Home"/>
-      <items link="../../screens/manage-questionnaires-overview.screen" x="44" y="0" width="81" height="23" text="Questionnaires"/>
-      <items x="125" y="0" width="41" height="23" text="Import"/>
-      <items link="../../screens/home-menu-management-extend.screen" x="166" y="0" width="73" height="23" text="Management"/>
-      <items x="239" y="0" width="38" height="23" text="Users"/>
-      <items link="../../screens/login.screen" x="277" y="0" width="46" height="23" text="Log out"/>
+    <widgets xsi:type="model:Menu" id="3" text="Home, Questionnaires, Import, Management, Users, Log out" measuredWidth="365" measuredHeight="25" selection="">
+      <items link="../../screens/home.screen" x="5" y="0" width="43" height="25" text="Home"/>
+      <items link="../../screens/manage-questionnaires-overview.screen" x="48" y="0" width="93" height="25" text="Questionnaires"/>
+      <items x="141" y="0" width="44" height="25" text="Import"/>
+      <items link="../../screens/home-menu-management-extend.screen" x="185" y="0" width="82" height="25" text="Management"/>
+      <items x="267" y="0" width="42" height="25" text="Users"/>
+      <items link="../../screens/login.screen" x="309" y="0" width="51" height="25" text="Log out"/>
     </widgets>
-    <widgets xsi:type="model:Menu" id="4" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="23">
-      <items x="5" y="0" width="22" height="23" text="en"/>
-      <items x="27" y="0" width="18" height="23" text="nl"/>
+    <widgets xsi:type="model:Menu" id="4" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="25">
+      <items x="5" y="0" width="24" height="25" text="en"/>
+      <items x="29" y="0" width="20" height="25" text="nl"/>
     </widgets>
     <widgets xsi:type="model:Hotspot" id="8" x="758" width="35" height="37" measuredWidth="35" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
     <widgets xsi:type="model:Hotspot" id="10" x="792" width="26" height="37" measuredWidth="26" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="5" x="24" y="56" measuredWidth="818" measuredHeight="37" name="Top menu (logged out)">
-    <widgets xsi:type="model:Menu" id="6" text="Home, Questionnaires" measuredWidth="130" measuredHeight="23" selection="">
-      <items link="../../screens/login.screen" x="5" y="0" width="39" height="23" text="Home"/>
-      <items x="44" y="0" width="81" height="23" text="Questionnaires"/>
+    <widgets xsi:type="model:Menu" id="6" text="Home, Questionnaires" measuredWidth="146" measuredHeight="25" selection="">
+      <items link="../../screens/login.screen" x="5" y="0" width="43" height="25" text="Home"/>
+      <items x="48" y="0" width="93" height="25" text="Questionnaires"/>
     </widgets>
-    <widgets xsi:type="model:Menu" id="7" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="23">
-      <items x="5" y="0" width="22" height="23" text="en"/>
-      <items x="27" y="0" width="18" height="23" text="nl"/>
+    <widgets xsi:type="model:Menu" id="7" x="758" width="60" text="en,nl" measuredWidth="60" measuredHeight="25">
+      <items x="5" y="0" width="24" height="25" text="en"/>
+      <items x="29" y="0" width="20" height="25" text="nl"/>
     </widgets>
     <widgets xsi:type="model:Hotspot" id="11" x="758" width="35" height="37" measuredWidth="35" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
     <widgets xsi:type="model:Hotspot" id="12" x="792" width="26" height="37" measuredWidth="26" measuredHeight="37" link="../../hints/hint-switch-interface-language.screen"/>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="22" x="24" y="92" measuredWidth="100" measuredHeight="92" name="Sub menu management">
-    <widgets xsi:type="model:Popup" id="21" text="Categories&#xA;Questionnaires&#xA;Questions&#xA;Answers" measuredWidth="100" measuredHeight="92" selection="">
-      <items link="../../screens/manage-categories-overview.screen" x="0" y="2" width="100" height="22" text="Categories"/>
-      <items link="../../screens/manage-questionnaires-overview.screen" x="0" y="24" width="100" height="22" text="Questionnaires"/>
-      <items x="0" y="46" width="100" height="22" text="Questions"/>
-      <items x="0" y="68" width="100" height="22" text="Answers"/>
+  <widgets xsi:type="model:WidgetGroup" id="22" x="24" y="92" measuredWidth="120" measuredHeight="92" name="Sub menu management">
+    <widgets xsi:type="model:Popup" id="21" text="Categories&#xA;Questionnaires&#xA;Questions&#xA;Answers" measuredWidth="120" measuredHeight="92" selection="">
+      <items link="../../screens/manage-categories-overview.screen" x="0" y="2" width="120" height="22" text="Categories"/>
+      <items link="../../screens/manage-questionnaires-overview.screen" x="0" y="24" width="120" height="22" text="Questionnaires"/>
+      <items x="0" y="46" width="120" height="22" text="Questions"/>
+      <items x="0" y="68" width="120" height="22" text="Answers"/>
     </widgets>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="24" y="192" measuredWidth="676" measuredHeight="345" name="manage question">
     <widgets xsi:type="model:TabbedPane" id="23" width="676" height="345" text="text, type, lay-out, answer possibilities,validation,advanced" measuredWidth="676" measuredHeight="345" selection="0">
-      <items link="../../screens/manage-questionnaire-add-question-text.screen" x="10" y="0" width="37" height="23" text="text"/>
-      <items link="../../screens/manage-questionnaire-add-question-type.screen" x="47" y="0" width="40" height="23" text="type"/>
-      <items link="../../screens/manage-questionnaire-add-question-layout.screen" x="87" y="0" width="52" height="23" text="lay-out"/>
-      <items link="../../screens/manage-questionnaire-add-question-answerPossibilities.screen" x="139" y="0" width="110" height="23" text="answer possibilities"/>
-      <items link="../../screens/manage-questionnaire-add-question-validation.screen" x="249" y="0" width="64" height="23" text="validation"/>
-      <items link="../../screens/manage-questionnaire-add-question-advanced.screen" x="313" y="0" width="66" height="23" text="advanced"/>
+      <items link="../../screens/manage-questionnaire-add-question-text.screen" x="10" y="0" width="39" height="25" text="text"/>
+      <items link="../../screens/manage-questionnaire-add-question-type.screen" x="49" y="0" width="43" height="25" text="type"/>
+      <items link="../../screens/manage-questionnaire-add-question-layout.screen" x="92" y="0" width="57" height="25" text="lay-out"/>
+      <items link="../../screens/manage-questionnaire-add-question-answerPossibilities.screen" x="149" y="0" width="127" height="25" text="answer possibilities"/>
+      <items link="../../screens/manage-questionnaire-add-question-validation.screen" x="276" y="0" width="73" height="25" text="validation"/>
+      <items link="../../screens/manage-questionnaire-add-question-advanced.screen" x="349" y="0" width="74" height="25" text="advanced"/>
       <font/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="26" y="560" measuredWidth="300" measuredHeight="23" name="questionnaireQuestion tab">
-    <widgets xsi:type="model:Tabs" id="25" text="Question text,Answer template, Likert,Customize" measuredWidth="300" measuredHeight="23" selection="0">
-      <items link="../../screens/questionnaireQuestion/questionText.screen" x="1" y="0" width="82" height="23" text="Question text"/>
-      <items link="../../screens/questionnaireQuestion/answerTemplate.screen" x="83" y="0" width="100" height="23" text="Answer template"/>
-      <items link="../../screens/questionnaireQuestion/likert.screen" x="183" y="0" width="46" height="23" text="Likert"/>
-      <items link="../../screens/questionnaireQuestion/customize.screen" x="229" y="0" width="70" height="23" text="Customize"/>
+  <widgets xsi:type="model:WidgetGroup" id="26" y="560" measuredWidth="332" measuredHeight="25" name="questionnaireQuestion tab">
+    <widgets xsi:type="model:Tabs" id="25" text="Question text,Answer template, Likert,Customize" measuredWidth="332" measuredHeight="25" selection="0">
+      <items link="../../screens/questionnaireQuestion/questionText.screen" x="1" y="0" width="91" height="25" text="Question text"/>
+      <items link="../../screens/questionnaireQuestion/answerTemplate.screen" x="92" y="0" width="111" height="25" text="Answer template"/>
+      <items link="../../screens/questionnaireQuestion/likert.screen" x="203" y="0" width="50" height="25" text="Likert"/>
+      <items link="../../screens/questionnaireQuestion/customize.screen" x="253" y="0" width="78" height="25" text="Customize"/>
       <font/>
     </widgets>
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="11px"/>
+  <font name="Arial" size="21px"/>
 </model:Screen>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" xmlns:o="http://wireframesketcher.com/1.0/model/overrides">
+  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="385" dimmed="true">
+    <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
+    <overrides>
+      <widgets ref="2" text="Question, Answer Options, Sub questions, Options">
+        <attributes key="selection" value="2"/>
+        <items ref="@items.3" text="Sub questions" noLink="true"/>
+        <itemChanges xsi:type="o:Insert" newIndex="4">
+          <object xsi:type="model:Item" link="tab-options.screen" text="Options"/>
+        </itemChanges>
+        <itemChanges xsi:type="o:Delete" ref="@items.2"/>
+      </widgets>
+      <widgets ref="6" link="tab-options.screen"/>
+      <widgets ref="7" link="tab-answers-select.screen"/>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="4" x="120" y="136" width="377" text="How satisfied are you with the papers" measuredWidth="377" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="5" x="120" y="160" width="377" text="How satisfied are you with the emails" measuredWidth="377" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="6" x="120" y="185" width="377" text="How satisfied are you with the support" measuredWidth="377" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="7" x="64" y="84" text="Name of this group of sub questions:" measuredWidth="203" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="8" x="272" y="84" width="225" text="Satisfaction with courseware" measuredWidth="225" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="9" x="64" y="105" text="Questions in this table" measuredWidth="125" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="10" x="64" y="240" measuredWidth="580" measuredHeight="102" name="multilingual-text">
+    <widgets xsi:type="model:TextField" id="11" x="58" width="521" text="How satisfied are you" measuredWidth="521" measuredHeight="22">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="12" width="59" text="English*" measuredWidth="59" measuredHeight="22">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="13" x="59" y="54" width="521" text="..." measuredWidth="521" measuredHeight="22">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="14" y="54" width="47" text="French" measuredWidth="47" measuredHeight="22">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:List" id="15" x="59" y="21" width="396" height="81" text="How satisfied are you with the next items&#xA;How satisfied are you with your house&#xA;-- more texts starting with How satisfied are you with " measuredWidth="396" measuredHeight="81" alpha="192">
+      <font/>
+      <items x="0" y="2" width="396" height="20" text="How satisfied are you with the next items"/>
+      <items x="0" y="22" width="396" height="20" text="How satisfied are you with your house"/>
+      <items x="0" y="42" width="396" height="20" text="-- more texts starting with How satisfied are you with "/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Label" id="19" x="64" y="58" text="Sub Questions" measuredWidth="110" measuredHeight="27">
+    <font size="28px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="20" x="64" y="218" text="Add a sub question" measuredWidth="110" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="24" x="64" y="139" measuredWidth="47" measuredHeight="16">
+    <widgets xsi:type="model:Icon" id="21" x="16" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
+    <widgets xsi:type="model:Icon" id="22" x="31" measuredWidth="16" measuredHeight="16" foreground="#ff0000" icon="delete (small)"/>
+    <widgets xsi:type="model:Icon" id="23" width="16" height="16" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="25" x="64" y="163" measuredWidth="47" measuredHeight="16">
+    <widgets xsi:type="model:Icon" id="26" x="16" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
+    <widgets xsi:type="model:Icon" id="27" x="31" measuredWidth="16" measuredHeight="16" foreground="#ff0000" icon="delete (small)"/>
+    <widgets xsi:type="model:Icon" id="28" width="16" height="16" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="29" x="64" y="188" measuredWidth="47" measuredHeight="16">
+    <widgets xsi:type="model:Icon" id="30" x="16" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
+    <widgets xsi:type="model:Icon" id="31" x="31" measuredWidth="16" measuredHeight="16" foreground="#ff0000" icon="delete (small)"/>
+    <widgets xsi:type="model:Icon" id="32" width="16" height="16" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="21px"/>
+</model:Screen>

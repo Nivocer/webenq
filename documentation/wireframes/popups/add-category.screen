@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
   <widgets xsi:type="model:Panel" id="1" x="48" y="64" width="617" height="457" measuredWidth="617" measuredHeight="457"/>
-  <widgets xsi:type="model:Label" id="2" x="82" y="74" text="Add category" measuredWidth="99" measuredHeight="27">
+  <widgets xsi:type="model:Label" id="2" x="82" y="74" text="Add category" measuredWidth="60" measuredHeight="19">
     <font size="16px"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="3" x="171" y="168" width="431" text="Name of category" measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="3" x="171" y="168" width="431" text="Name of category" measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="4" x="82" y="168" text="English" measuredWidth="39" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="4" x="82" y="168" text="English" measuredWidth="46" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="5" x="171" y="208" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="5" x="171" y="208" width="431" text="..." measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="6" x="82" y="208" text="French" measuredWidth="39" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="6" x="82" y="208" text="French" measuredWidth="43" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="7" x="171" y="248" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="7" x="171" y="248" width="431" text="..." measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="8" x="82" y="248" text="Spanish" measuredWidth="43" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="8" x="82" y="248" text="Spanish" measuredWidth="50" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="9" x="171" y="288" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="9" x="171" y="288" width="431" text="..." measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="10" x="82" y="288" text="Swahili" measuredWidth="38" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="10" x="82" y="288" text="Swahili" measuredWidth="45" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="11" x="79" y="130" text="Title" measuredWidth="32" measuredHeight="26">
+  <widgets xsi:type="model:Label" id="11" x="79" y="130" text="Title" measuredWidth="20" measuredHeight="18">
     <font size="15px" bold="false"/>
   </widgets>
-  <widgets xsi:type="model:Checkbox" id="17" x="82" y="336" text="Active" measuredWidth="49" measuredHeight="21" selected="true">
+  <widgets xsi:type="model:Checkbox" id="17" x="82" y="336" text="Active" measuredWidth="54" measuredHeight="22" selected="true">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="29" x="82" y="368" text="Cancel" measuredWidth="53" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="29" x="82" y="368" text="Cancel" measuredWidth="59" measuredHeight="24" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="30" x="171" y="368" text="Save" measuredWidth="44" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="30" x="171" y="368" text="Save" measuredWidth="48" measuredHeight="24" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Master" id="31" x="24" y="24" measuredWidth="268" measuredHeight="23">
-    <screen xsi:type="model:Screen" href="../assets/navigation/hint-popup.screen#/"/>
+  <widgets xsi:type="model:Master" id="32" x="32" y="24" measuredWidth="305" measuredHeight="24">
+    <screen xsi:type="model:Screen" href="../assets/hints/hint-popup.screen#/"/>
   </widgets>
   <hRuler/>
   <vRuler>
     <guides position="125"/>
   </vRuler>
-  <font name="Arial" size="11px"/>
+  <font name="Arial" size="21px"/>
 </model:Screen>

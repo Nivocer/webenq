@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="385" dimmed="true">
+    <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
+    <overrides>
+      <widgets ref="6" link="tab-options.screen"/>
+      <widgets ref="2">
+        <attributes key="selection" value="1"/>
+      </widgets>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Label" id="24" x="64" y="58" text="Edit answer options" measuredWidth="145" measuredHeight="27">
+    <font size="28px" bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="27" x="64" y="84" text="Name" measuredWidth="38" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="28" x="66" y="113" text="Type" measuredWidth="32" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:List" id="29" x="216" y="112" text="text&#xA;" measuredWidth="29" measuredHeight="24" border="false" alpha="0" rowHeight="20">
+    <font/>
+    <items x="0" y="2" width="29" height="20" text="text"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="30" x="216" y="84" width="226" text="valid-emailaddress" measuredWidth="226" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="31" x="64" y="144" text="Validations" measuredWidth="66" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="33" x="64" y="248" text="Description for respondent" measuredWidth="149" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:TextArea" id="34" x="216" y="248" width="385" height="49" text="If you don't know please enter -99" measuredWidth="385" measuredHeight="49">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="35" x="216" y="218" width="71" measuredWidth="71" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="36" x="64" y="218" text="Max number of characters" measuredWidth="146" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:List" id="37" x="208" y="144" text="[ ] postal code&#xA;[x] email address" measuredWidth="114" measuredHeight="64" border="false" alpha="0">
+    <font/>
+    <items x="0" y="2" width="114" height="30" text="[ ] postal code"/>
+    <items x="0" y="32" width="114" height="30" text="[x] email address"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="21px"/>
+</model:Screen>

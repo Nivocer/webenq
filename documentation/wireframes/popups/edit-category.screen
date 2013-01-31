@@ -1,56 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
   <widgets xsi:type="model:Panel" id="31" x="48" y="64" width="617" height="457" measuredWidth="617" measuredHeight="457"/>
-  <widgets xsi:type="model:Label" id="32" x="82" y="74" text="Edit category properties" measuredWidth="173" measuredHeight="27">
+  <widgets xsi:type="model:Label" id="32" x="82" y="74" text="Edit category properties" measuredWidth="104" measuredHeight="19">
     <font size="16px"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="33" x="171" y="160" width="431" text="Education" measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="33" x="171" y="160" width="431" text="Education" measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="34" x="82" y="160" text="English" measuredWidth="39" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="34" x="82" y="160" text="English" measuredWidth="46" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="35" x="171" y="200" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="35" x="171" y="200" width="431" text="..." measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="36" x="82" y="200" text="French" measuredWidth="39" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="36" x="82" y="200" text="French" measuredWidth="43" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="37" x="171" y="240" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="37" x="171" y="240" width="431" text="..." measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="38" x="82" y="240" text="Spanish" measuredWidth="43" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="38" x="82" y="240" text="Spanish" measuredWidth="50" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="39" x="171" y="280" width="431" text="..." measuredWidth="431" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="39" x="171" y="280" width="431" text="..." measuredWidth="431" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="40" x="82" y="280" text="Swahili" measuredWidth="38" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="40" x="82" y="280" text="Swahili" measuredWidth="45" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="41" x="79" y="130" text="Title" measuredWidth="28" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="41" x="79" y="130" text="Title" measuredWidth="19" measuredHeight="17">
     <font size="11px" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Checkbox" id="44" x="79" y="320" text="Active" measuredWidth="49" measuredHeight="21" selected="true">
+  <widgets xsi:type="model:Checkbox" id="44" x="79" y="320" text="Active" measuredWidth="54" measuredHeight="22" selected="true">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="51" x="77" y="456" text="Cancel" measuredWidth="53" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="51" x="77" y="456" text="Cancel" measuredWidth="59" measuredHeight="24" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="52" x="171" y="456" text="Save" measuredWidth="44" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="52" x="171" y="456" text="Save" measuredWidth="48" measuredHeight="24" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Master" id="53" x="24" y="24" measuredWidth="268" measuredHeight="23">
-    <screen xsi:type="model:Screen" href="../assets/navigation/hint-popup.screen#/"/>
-  </widgets>
-  <widgets xsi:type="model:Note" id="54" x="424" y="451" width="196" height="49" text="cancel or save should bring back to previous screen (questionnaire or category overview)" measuredWidth="196" measuredHeight="49" annotation="true">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Table" id="56" x="82" y="360" text="Questionnaires in this category&#xA;Student satisfaction&#xA;Inactive questionnaire" measuredWidth="155" measuredHeight="64" alternative="#eeeeee">
+  <widgets xsi:type="model:Table" id="56" x="82" y="360" text="Questionnaires in this category&#xA;Student satisfaction&#xA;Inactive questionnaire" measuredWidth="178" measuredHeight="64" alternative="#eeeeee">
     <font/>
   </widgets>
   <widgets xsi:type="model:Hotspot" id="57" x="82" y="383" width="152" height="41" measuredWidth="152" measuredHeight="41" link="edit-questionnaire-properties.screen"/>
+  <widgets xsi:type="model:Master" id="58" x="174" y="31" measuredWidth="305" measuredHeight="24">
+    <screen xsi:type="model:Screen" href="../assets/hints/hint-popup.screen#/"/>
+  </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="11px"/>
+  <font name="Arial" size="21px"/>
 </model:Screen>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
   <widgets xsi:type="model:Table" id="5" x="2" y="176" width="485" text="(w:1). ,Category,Title,(w:1).Active,(w:1).Actions&#xA;{move},Education,Student satisfaction,{check},{wrench} %(color:red){delete}%&#xA;{move},Education,Inactive questionnaire,,{wrench} %(color:red){delete}%&#xA;{move},Agriculture,Farmers Household Survey,{check},{wrench} %(color:red){delete}%&#xA;" measuredWidth="485" measuredHeight="116" selection="0" rowHeight="28" alternative="#eeeeee">
-    <font size="11px"/>
+    <font size="21px"/>
   </widgets>
   <widgets xsi:type="model:Hotspot" id="25" x="31" y="207" width="107" height="84" measuredWidth="107" measuredHeight="84" link="../popups/edit-category.screen"/>
   <widgets xsi:type="model:Master" id="4" measuredWidth="138" measuredHeight="64">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
   </widgets>
   <widgets xsi:type="model:Label" id="9" x="3" y="120" text="Manage questionnaires" measuredWidth="172" measuredHeight="27">
-    <font size="16px"/>
+    <font size="28px"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="10" x="3" y="312" text="{add} Add questionnaire" measuredWidth="125" measuredHeight="26" link="../popups/add-questionnaire.screen">
+  <widgets xsi:type="model:Button" id="10" x="3" y="312" text="{add} Add questionnaire" measuredWidth="147" measuredHeight="34" link="../popups/add-questionnaire.screen">
     <font/>
   </widgets>
   <widgets xsi:type="model:Hotspot" id="11" x="441" y="264" width="24" height="28" measuredWidth="24" measuredHeight="28" link="../popups/edit-questionnaire-properties.screen"/>
@@ -35,5 +35,5 @@
   <vRuler>
     <guides position="218"/>
   </vRuler>
-  <font name="Arial" size="11px"/>
+  <font name="Arial" size="21px"/>
 </model:Screen>

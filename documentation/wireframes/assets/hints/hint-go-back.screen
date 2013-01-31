@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:Note" id="1" x="70" y="57" text="_(go back in your browser now)_" measuredWidth="253" measuredHeight="32" annotation="true" background="#f4cccc">
+  <widgets xsi:type="model:Note" id="1" x="70" y="57" text="_(go back in your browser now)_" measuredWidth="174" measuredHeight="24" annotation="true" background="#f4cccc">
     <font/>
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Ubuntu" size="11px"/>
+  <font name="Arial" size="21px"/>
 </model:Screen>

@@ -6,10 +6,10 @@
   <widgets xsi:type="model:Master" id="2" x="140" measuredWidth="818" measuredHeight="37">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
   </widgets>
-  <widgets xsi:type="model:Master" id="4" x="297" y="22" measuredWidth="102" measuredHeight="92">
+  <widgets xsi:type="model:Master" id="4" x="297" y="22" measuredWidth="120" measuredHeight="92">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Sub%20menu%20management"/>
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Ubuntu" size="11px"/>
+  <font name="Arial" size="21px"/>
 </model:Screen>

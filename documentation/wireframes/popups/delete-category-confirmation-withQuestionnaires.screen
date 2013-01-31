@@ -3,16 +3,16 @@
   <widgets xsi:type="model:TextArea" id="1" y="64" width="409" height="49" text="Are you sure you want to delete the category: 'Agriculture' (the 4 questionnaires in this category are moved to the categorie: 'other')?" measuredWidth="409" measuredHeight="49">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="2" x="160" y="136" text="yes" measuredWidth="36" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="2" x="160" y="136" text="yes" measuredWidth="39" measuredHeight="24" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="3" x="115" y="136" text="no" measuredWidth="32" measuredHeight="23" link="../screens/manage-categories-overview.screen">
+  <widgets xsi:type="model:Button" id="3" x="115" y="136" text="no" measuredWidth="34" measuredHeight="24" link="../screens/manage-categories-overview.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Master" id="4" x="24" y="24" measuredWidth="268" measuredHeight="23">
-    <screen xsi:type="model:Screen" href="../assets/navigation/hint-popup.screen#/"/>
+  <widgets xsi:type="model:Master" id="5" x="32" y="32" measuredWidth="305" measuredHeight="24">
+    <screen xsi:type="model:Screen" href="../assets/hints/hint-popup.screen#/"/>
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="11px"/>
+  <font name="Arial" size="21px"/>
 </model:Screen>

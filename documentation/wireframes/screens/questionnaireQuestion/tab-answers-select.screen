@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="385" dimmed="true">
+    <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
+    <overrides>
+      <widgets ref="2">
+        <attributes key="selection" value="1"/>
+      </widgets>
+      <widgets ref="7" link="tab-question.screen"/>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:List" id="18" x="144" y="84" text="( ) Satisfaction questions (Likert)&#xA;( ) 5-point satisfaction (choice)&#xA;( ) Text-only (not a question)&#xA;( ) Grade (number)&#xA;( ) Feedback (text)&#xA;" measuredWidth="197" measuredHeight="154" selection="" border="false" alpha="0" rowHeight="20">
+    <font/>
+    <items link="tab-subquestions.screen" x="0" y="2" width="197" height="30" text="( ) Satisfaction questions (Likert)"/>
+    <items link="tab-options.screen" x="0" y="32" width="197" height="30" text="( ) 5-point satisfaction (choice)"/>
+    <items link="tab-options.screen" x="0" y="62" width="197" height="30" text="( ) Text-only (not a question)"/>
+    <items link="tab-options.screen" x="0" y="92" width="197" height="30" text="( ) Grade (number)"/>
+    <items link="tab-options.screen" x="0" y="122" width="197" height="30" text="( ) Feedback (text)"/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="19" x="144" y="237" text="...pick a set of answer options to reuse...&#xA;Country list (choice)&#xA;Feedback (text)&#xA;Gender (choice)&#xA;" measuredWidth="241" measuredHeight="82">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="20" x="64" y="304" text="Add new" measuredWidth="53" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="21" x="144" y="304" text="...or add a new set of answer options...&#xA;Choice&#xA;Numeric&#xA;Text&#xA;Likert" measuredWidth="233" measuredHeight="102">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="22" x="64" y="237" text="Reuse" measuredWidth="41" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="23" x="64" y="84" text="Suggestions" measuredWidth="73" measuredHeight="22">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="24" x="64" y="58" text="Select answer options" measuredWidth="162" measuredHeight="27">
+    <font size="28px" bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Hotspot" id="25" x="144" y="368" width="233" height="17" measuredWidth="233" measuredHeight="17" link="tab-answers-edit-text.screen"/>
+  <widgets xsi:type="model:Hotspot" id="26" x="144" y="346" width="233" height="23" measuredWidth="233" measuredHeight="23" link="tab-answers-edit-number.screen"/>
+  <widgets xsi:type="model:Hotspot" id="27" x="144" y="325" width="233" height="22" measuredWidth="233" measuredHeight="22" link="tab-answers-edit-choice.screen"/>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="21px"/>
+</model:Screen>
