@@ -12,8 +12,8 @@ var story = {
      "rect": [
       21,
       313,
-      70,
-      336
+      75,
+      337
      ]
     },
     {
@@ -21,8 +21,8 @@ var story = {
      "rect": [
       140,
       310,
-      269,
-      346
+      286,
+      348
      ]
     },
     {
@@ -30,33 +30,15 @@ var story = {
      "rect": [
       145,
       0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
+      188,
+      25
      ]
     }
    ]
   },
   {
    "title": "login-error",
-   "height": 245,
+   "height": 248,
    "width": 958,
    "image": "2-login-error.png",
    "links": [
@@ -65,26 +47,8 @@ var story = {
      "rect": [
       145,
       0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
+      188,
+      25
      ]
     },
     {
@@ -92,15 +56,15 @@ var story = {
      "rect": [
       26,
       196,
-      174,
-      245
+      194,
+      248
      ]
     }
    ]
   },
   {
    "title": "manage-questionnaires-overview",
-   "height": 338,
+   "height": 346,
    "width": 958,
    "image": "3-manage-questionnaires-overview.png",
    "links": [
@@ -118,8 +82,8 @@ var story = {
      "rect": [
       3,
       312,
-      128,
-      338
+      150,
+      346
      ]
     },
     {
@@ -141,57 +105,39 @@ var story = {
      ]
     },
     {
-     "page": 11,
+     "page": 9,
      "rect": [
       145,
       0,
-      184,
-      23
+      188,
+      25
      ]
     },
     {
      "page": 2,
      "rect": [
-      184,
+      188,
       0,
-      265,
-      23
+      281,
+      25
      ]
     },
     {
-     "page": 12,
+     "page": 10,
      "rect": [
-      306,
+      325,
       0,
-      379,
-      23
+      407,
+      25
      ]
     },
     {
      "page": 0,
      "rect": [
-      417,
+      449,
       0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
+      500,
+      25
      ]
     },
     {
@@ -228,33 +174,6 @@ var story = {
       206,
       401,
       234
-     ]
-    },
-    {
-     "page": 9,
-     "rect": [
-      2,
-      207,
-      32,
-      232
-     ]
-    },
-    {
-     "page": 9,
-     "rect": [
-      2,
-      236,
-      32,
-      261
-     ]
-    },
-    {
-     "page": 9,
-     "rect": [
-      2,
-      265,
-      32,
-      290
      ]
     },
     {
@@ -270,193 +189,175 @@ var story = {
   },
   {
    "title": "add-questionnaire",
-   "height": 497,
-   "width": 641,
+   "height": 457,
+   "width": 617,
    "image": "4-add-questionnaire.png",
    "links": [
     {
      "page": 2,
      "rect": [
-      58,
-      449,
-      111,
-      472
+      34,
+      409,
+      93,
+      433
      ]
     },
     {
      "page": 2,
      "rect": [
-      151,
-      449,
-      195,
-      472
+      127,
+      409,
+      175,
+      433
      ]
     }
    ]
   },
   {
    "title": "edit-questionnaire-properties",
-   "height": 497,
-   "width": 641,
+   "height": 489,
+   "width": 617,
    "image": "5-edit-questionnaire-properties.png",
    "links": [
     {
      "page": 2,
      "rect": [
-      58,
-      449,
-      111,
-      472
+      34,
+      441,
+      93,
+      465
      ]
     },
     {
      "page": 2,
      "rect": [
-      151,
-      449,
-      195,
-      472
+      127,
+      441,
+      175,
+      465
      ]
     }
    ]
   },
   {
    "title": "preview-questionnaire",
-   "height": 730,
-   "width": 968,
+   "height": 762,
+   "width": 958,
    "image": "6-preview-questionnaire.png",
    "links": [
     {
-     "page": 11,
+     "page": 9,
      "rect": [
-      155,
+      145,
       0,
-      194,
-      23
+      188,
+      25
      ]
     },
     {
      "page": 2,
      "rect": [
-      194,
+      188,
       0,
-      275,
-      23
+      281,
+      25
      ]
     },
     {
-     "page": 12,
+     "page": 10,
      "rect": [
-      316,
+      325,
       0,
-      389,
-      23
+      407,
+      25
      ]
     },
     {
      "page": 0,
      "rect": [
-      427,
+      449,
       0,
-      473,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      908,
-      0,
-      943,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      942,
-      0,
-      968,
-      37
+      500,
+      25
      ]
     },
     {
      "page": 4,
      "rect": [
-      13,
+      3,
       120,
-      152,
+      142,
       147
      ]
     },
     {
-     "page": 21,
+     "page": 18,
      "rect": [
       0,
-      704,
-      101,
-      730
+      728,
+      119,
+      762
      ]
     },
     {
-     "page": 21,
+     "page": 18,
      "rect": [
-      50,
-      381,
-      803,
-      574
+      72,
+      395,
+      825,
+      588
      ]
     },
     {
-     "page": 21,
+     "page": 18,
      "rect": [
-      50,
-      573,
-      441,
-      686
+      72,
+      596,
+      463,
+      709
      ]
     },
     {
-     "page": 21,
+     "page": 18,
      "rect": [
-      50,
-      223,
-      441,
-      373
+      72,
+      238,
+      463,
+      392
      ]
     },
     {
-     "page": 21,
+     "page": 18,
      "rect": [
-      28,
-      223,
-      52,
-      240
+      48,
+      238,
+      64,
+      254
      ]
     },
     {
-     "page": 21,
+     "page": 18,
      "rect": [
-      28,
-      383,
-      52,
-      400
+      48,
+      395,
+      64,
+      411
      ]
     },
     {
-     "page": 21,
+     "page": 18,
      "rect": [
-      28,
-      575,
-      52,
-      592
+      48,
+      596,
+      64,
+      612
      ]
     }
    ]
   },
   {
    "title": "manage-categories-overview",
-   "height": 338,
+   "height": 346,
    "width": 958,
    "image": "7-manage-categories-overview.png",
    "links": [
@@ -465,8 +366,8 @@ var story = {
      "rect": [
       3,
       312,
-      105,
-      338
+      122,
+      346
      ]
     },
     {
@@ -479,57 +380,39 @@ var story = {
      ]
     },
     {
-     "page": 11,
+     "page": 9,
      "rect": [
       145,
       0,
-      184,
-      23
+      188,
+      25
      ]
     },
     {
      "page": 2,
      "rect": [
-      184,
+      188,
       0,
-      265,
-      23
+      281,
+      25
      ]
     },
     {
-     "page": 12,
+     "page": 10,
      "rect": [
-      306,
+      325,
       0,
-      379,
-      23
+      407,
+      25
      ]
     },
     {
      "page": 0,
      "rect": [
-      417,
+      449,
       0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
+      500,
+      25
      ]
     },
     {
@@ -551,34 +434,7 @@ var story = {
      ]
     },
     {
-     "page": 9,
-     "rect": [
-      3,
-      194,
-      25,
-      219
-     ]
-    },
-    {
-     "page": 9,
-     "rect": [
-      3,
-      218,
-      25,
-      243
-     ]
-    },
-    {
-     "page": 9,
-     "rect": [
-      3,
-      242,
-      25,
-      267
-     ]
-    },
-    {
-     "page": 25,
+     "page": 12,
      "rect": [
       360,
       198,
@@ -587,7 +443,7 @@ var story = {
      ]
     },
     {
-     "page": 24,
+     "page": 11,
      "rect": [
       360,
       218,
@@ -609,136 +465,104 @@ var story = {
   {
    "title": "add-category",
    "height": 497,
-   "width": 641,
+   "width": 633,
    "image": "8-add-category.png",
    "links": [
     {
      "page": 6,
      "rect": [
-      58,
+      50,
       344,
-      111,
-      367
+      109,
+      368
      ]
     },
     {
      "page": 6,
      "rect": [
-      147,
+      139,
       344,
-      191,
-      367
+      187,
+      368
      ]
     }
    ]
   },
   {
    "title": "edit-category",
-   "height": 497,
-   "width": 641,
+   "height": 490,
+   "width": 617,
    "image": "9-edit-category.png",
    "links": [
     {
      "page": 6,
      "rect": [
-      53,
-      432,
-      106,
-      455
+      29,
+      425,
+      88,
+      449
      ]
     },
     {
      "page": 6,
      "rect": [
-      147,
-      432,
-      191,
-      455
+      123,
+      425,
+      171,
+      449
      ]
     },
     {
      "page": 4,
      "rect": [
-      58,
-      359,
-      210,
-      400
+      34,
+      352,
+      186,
+      393
      ]
     }
    ]
   },
   {
-   "title": "hint-drag-to-move",
-   "height": 111,
-   "width": 197,
-   "image": "10-hint-drag-to-move.png",
-   "links": []
-  },
-  {
-   "title": "hint-switch-interface-language",
-   "height": 176,
-   "width": 260,
-   "image": "11-hint-switch-interface-language.png",
-   "links": []
-  },
-  {
    "title": "home",
-   "height": 191,
+   "height": 192,
    "width": 958,
-   "image": "12-home.png",
+   "image": "10-home.png",
    "links": [
     {
-     "page": 11,
+     "page": 9,
      "rect": [
       145,
       0,
-      184,
-      23
+      188,
+      25
      ]
     },
     {
      "page": 2,
      "rect": [
-      184,
+      188,
       0,
-      265,
-      23
+      281,
+      25
      ]
     },
     {
-     "page": 12,
+     "page": 10,
      "rect": [
-      306,
+      325,
       0,
-      379,
-      23
+      407,
+      25
      ]
     },
     {
      "page": 0,
      "rect": [
-      417,
+      449,
       0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
+      500,
+      25
      ]
     }
    ]
@@ -747,60 +571,42 @@ var story = {
    "title": "home-menu-management-extend",
    "height": 114,
    "width": 958,
-   "image": "13-home-menu-management-extend.png",
+   "image": "11-home-menu-management-extend.png",
    "links": [
     {
-     "page": 11,
+     "page": 9,
      "rect": [
       145,
       0,
-      184,
-      23
+      188,
+      25
      ]
     },
     {
      "page": 2,
      "rect": [
-      184,
+      188,
       0,
-      268,
-      23
+      281,
+      25
      ]
     },
     {
-     "page": 12,
+     "page": 10,
      "rect": [
-      310,
+      325,
       0,
-      384,
-      23
+      407,
+      25
      ]
     },
     {
      "page": 0,
      "rect": [
-      421,
+      449,
       0,
-      467,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
+      500,
+      25
      ]
     },
     {
@@ -808,7 +614,7 @@ var story = {
      "rect": [
       297,
       24,
-      399,
+      417,
       46
      ]
     },
@@ -817,1390 +623,503 @@ var story = {
      "rect": [
       297,
       46,
-      399,
+      417,
       68
      ]
     }
    ]
   },
   {
-   "title": "manage-questionnaire-add-question-advanced",
-   "height": 529,
-   "width": 958,
-   "image": "14-manage-questionnaire-add-question-advanced.png",
-   "links": [
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    },
-    {
-     "page": 21,
-     "rect": [
-      10,
-      184,
-      47,
-      207
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      184,
-      87,
-      207
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      184,
-      139,
-      207
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      184,
-      249,
-      207
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      184,
-      313,
-      207
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      184,
-      379,
-      207
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-answerPossibilities",
-   "height": 551,
-   "width": 958,
-   "image": "15-manage-questionnaire-add-question-answerPossibilities.png",
-   "links": [
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    },
-    {
-     "page": 21,
-     "rect": [
-      10,
-      206,
-      47,
-      229
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      206,
-      87,
-      229
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      206,
-      139,
-      229
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      206,
-      249,
-      229
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      206,
-      313,
-      229
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      206,
-      379,
-      229
-     ]
-    },
-    {
-     "page": 15,
-     "rect": [
-      127,
-      302,
-      181,
-      325
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-answerPossibilities-translations",
-   "height": 537,
-   "width": 958,
-   "image": "16-manage-questionnaire-add-question-answerPossibilities-translations.png",
-   "links": [
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    },
-    {
-     "page": 21,
-     "rect": [
-      13,
-      192,
-      50,
-      215
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      50,
-      192,
-      90,
-      215
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      90,
-      192,
-      142,
-      215
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      142,
-      192,
-      252,
-      215
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      252,
-      192,
-      316,
-      215
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      316,
-      192,
-      382,
-      215
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      30,
-      302,
-      127,
-      325
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-layout",
-   "height": 553,
-   "width": 958,
-   "image": "17-manage-questionnaire-add-question-layout.png",
-   "links": [
-    {
-     "page": 21,
-     "rect": [
-      10,
-      208,
-      47,
-      231
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      208,
-      87,
-      231
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      208,
-      139,
-      231
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      208,
-      249,
-      231
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      208,
-      313,
-      231
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      208,
-      379,
-      231
-     ]
-    },
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    },
-    {
-     "page": 20,
-     "rect": [
-      33,
-      320,
-      117,
-      341
-     ]
-    },
-    {
-     "page": 18,
-     "rect": [
-      33,
-      360,
-      154,
-      381
-     ]
-    },
-    {
-     "page": 17,
-     "rect": [
-      33,
-      383,
-      168,
-      404
-     ]
-    },
-    {
-     "page": 19,
-     "rect": [
-      33,
-      340,
-      78,
-      361
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-layout-openMultiple",
-   "height": 553,
-   "width": 958,
-   "image": "18-manage-questionnaire-add-question-layout-openMultiple.png",
-   "links": [
-    {
-     "page": 21,
-     "rect": [
-      10,
-      208,
-      47,
-      231
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      208,
-      87,
-      231
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      208,
-      139,
-      231
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      208,
-      249,
-      231
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      208,
-      313,
-      231
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      208,
-      379,
-      231
-     ]
-    },
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-layout-openSingle",
-   "height": 553,
-   "width": 958,
-   "image": "19-manage-questionnaire-add-question-layout-openSingle.png",
-   "links": [
-    {
-     "page": 21,
-     "rect": [
-      10,
-      208,
-      47,
-      231
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      208,
-      87,
-      231
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      208,
-      139,
-      231
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      208,
-      249,
-      231
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      208,
-      313,
-      231
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      208,
-      379,
-      231
-     ]
-    },
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-layout-pulldown",
-   "height": 553,
-   "width": 958,
-   "image": "20-manage-questionnaire-add-question-layout-pulldown.png",
-   "links": [
-    {
-     "page": 21,
-     "rect": [
-      10,
-      208,
-      47,
-      231
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      208,
-      87,
-      231
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      208,
-      139,
-      231
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      208,
-      249,
-      231
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      208,
-      313,
-      231
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      208,
-      379,
-      231
-     ]
-    },
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-layout-radio",
-   "height": 553,
-   "width": 958,
-   "image": "21-manage-questionnaire-add-question-layout-radio.png",
-   "links": [
-    {
-     "page": 21,
-     "rect": [
-      10,
-      208,
-      47,
-      231
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      208,
-      87,
-      231
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      208,
-      139,
-      231
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      208,
-      249,
-      231
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      208,
-      313,
-      231
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      208,
-      379,
-      231
-     ]
-    },
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-text",
-   "height": 557,
-   "width": 958,
-   "image": "22-manage-questionnaire-add-question-text.png",
-   "links": [
-    {
-     "page": 21,
-     "rect": [
-      10,
-      212,
-      47,
-      235
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      212,
-      87,
-      235
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      212,
-      139,
-      235
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      212,
-      249,
-      235
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      212,
-      313,
-      235
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      212,
-      379,
-      235
-     ]
-    },
-    {
-     "page": 11,
-     "rect": [
-      145,
-      0,
-      184,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      184,
-      0,
-      265,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      306,
-      0,
-      379,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      417,
-      0,
-      463,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      898,
-      0,
-      933,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      932,
-      0,
-      958,
-      37
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-type",
-   "height": 553,
-   "width": 998,
-   "image": "23-manage-questionnaire-add-question-type.png",
-   "links": [
-    {
-     "page": 21,
-     "rect": [
-      10,
-      208,
-      47,
-      231
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      208,
-      87,
-      231
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      208,
-      139,
-      231
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      208,
-      249,
-      231
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      208,
-      313,
-      231
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      208,
-      379,
-      231
-     ]
-    },
-    {
-     "page": 11,
-     "rect": [
-      185,
-      0,
-      224,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      224,
-      0,
-      305,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      346,
-      0,
-      419,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      457,
-      0,
-      503,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      938,
-      0,
-      973,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      972,
-      0,
-      998,
-      37
-     ]
-    }
-   ]
-  },
-  {
-   "title": "manage-questionnaire-add-question-validation",
-   "height": 657,
-   "width": 966,
-   "image": "24-manage-questionnaire-add-question-validation.png",
-   "links": [
-    {
-     "page": 11,
-     "rect": [
-      153,
-      0,
-      192,
-      23
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      192,
-      0,
-      273,
-      23
-     ]
-    },
-    {
-     "page": 12,
-     "rect": [
-      314,
-      0,
-      387,
-      23
-     ]
-    },
-    {
-     "page": 0,
-     "rect": [
-      425,
-      0,
-      471,
-      23
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      906,
-      0,
-      941,
-      37
-     ]
-    },
-    {
-     "page": 10,
-     "rect": [
-      940,
-      0,
-      966,
-      37
-     ]
-    },
-    {
-     "page": 21,
-     "rect": [
-      10,
-      208,
-      47,
-      231
-     ]
-    },
-    {
-     "page": 22,
-     "rect": [
-      47,
-      208,
-      87,
-      231
-     ]
-    },
-    {
-     "page": 16,
-     "rect": [
-      87,
-      208,
-      139,
-      231
-     ]
-    },
-    {
-     "page": 14,
-     "rect": [
-      139,
-      208,
-      249,
-      231
-     ]
-    },
-    {
-     "page": 23,
-     "rect": [
-      249,
-      208,
-      313,
-      231
-     ]
-    },
-    {
-     "page": 13,
-     "rect": [
-      313,
-      208,
-      379,
-      231
-     ]
-    }
-   ]
-  },
-  {
    "title": "delete-category-confirmation-noQuestionnaires",
-   "height": 119,
+   "height": 122,
    "width": 409,
-   "image": "25-delete-category-confirmation-noQuestionnaires.png",
+   "image": "12-delete-category-confirmation-noQuestionnaires.png",
    "links": [
     {
      "page": 6,
      "rect": [
       168,
-      96,
-      204,
-      119
+      98,
+      207,
+      122
      ]
     },
     {
      "page": 6,
      "rect": [
       120,
-      96,
-      152,
-      119
+      98,
+      154,
+      122
      ]
     }
    ]
   },
   {
    "title": "delete-category-confirmation-withQuestionnaires",
-   "height": 135,
+   "height": 128,
    "width": 409,
-   "image": "26-delete-category-confirmation-withQuestionnaires.png",
+   "image": "13-delete-category-confirmation-withQuestionnaires.png",
    "links": [
     {
      "page": 6,
      "rect": [
       160,
-      112,
-      196,
-      135
+      104,
+      199,
+      128
      ]
     },
     {
      "page": 6,
      "rect": [
       115,
-      112,
-      147,
-      135
+      104,
+      149,
+      128
+     ]
+    }
+   ]
+  },
+  {
+   "title": "tab-answers-edit-choice",
+   "height": 385,
+   "width": 673,
+   "image": "14-tab-answers-edit-choice.png",
+   "links": [
+    {
+     "page": 18,
+     "rect": [
+      17,
+      0,
+      86,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      86,
+      0,
+      192,
+      25
+     ]
+    },
+    {
+     "page": 19,
+     "rect": [
+      192,
+      0,
+      290,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      290,
+      0,
+      352,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      64,
+      351,
+      109,
+      375
+     ]
+    }
+   ]
+  },
+  {
+   "title": "tab-answers-edit-number",
+   "height": 385,
+   "width": 673,
+   "image": "15-tab-answers-edit-number.png",
+   "links": [
+    {
+     "page": 18,
+     "rect": [
+      17,
+      0,
+      86,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      86,
+      0,
+      192,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      290,
+      0,
+      352,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      64,
+      351,
+      109,
+      375
+     ]
+    }
+   ]
+  },
+  {
+   "title": "tab-answers-edit-text",
+   "height": 385,
+   "width": 673,
+   "image": "16-tab-answers-edit-text.png",
+   "links": [
+    {
+     "page": 18,
+     "rect": [
+      17,
+      0,
+      86,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      86,
+      0,
+      192,
+      25
+     ]
+    },
+    {
+     "page": 19,
+     "rect": [
+      192,
+      0,
+      290,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      290,
+      0,
+      352,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      64,
+      351,
+      109,
+      375
+     ]
+    }
+   ]
+  },
+  {
+   "title": "tab-answers-select",
+   "height": 385,
+   "width": 673,
+   "image": "17-tab-answers-select.png",
+   "links": [
+    {
+     "page": 18,
+     "rect": [
+      17,
+      0,
+      86,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      86,
+      0,
+      192,
+      25
+     ]
+    },
+    {
+     "page": 19,
+     "rect": [
+      192,
+      0,
+      290,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      290,
+      0,
+      352,
+      25
+     ]
+    },
+    {
+     "page": 18,
+     "rect": [
+      16,
+      351,
+      61,
+      375
+     ]
+    },
+    {
+     "page": 19,
+     "rect": [
+      96,
+      62,
+      293,
+      92
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      96,
+      92,
+      293,
+      122
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      96,
+      122,
+      293,
+      152
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      96,
+      152,
+      293,
+      182
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      96,
+      182,
+      293,
+      212
+     ]
+    },
+    {
+     "page": 15,
+     "rect": [
+      96,
+      344,
+      329,
+      361
+     ]
+    },
+    {
+     "page": 14,
+     "rect": [
+      96,
+      322,
+      329,
+      345
+     ]
+    },
+    {
+     "page": 13,
+     "rect": [
+      96,
+      301,
+      329,
+      323
+     ]
+    }
+   ]
+  },
+  {
+   "title": "tab-options",
+   "height": 385,
+   "width": 673,
+   "image": "18-tab-options.png",
+   "links": [
+    {
+     "page": 18,
+     "rect": [
+      17,
+      0,
+      86,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      86,
+      0,
+      192,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      192,
+      0,
+      290,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      16,
+      351,
+      61,
+      375
+     ]
+    },
+    {
+     "page": 18,
+     "rect": [
+      576,
+      69,
+      600,
+      93
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      480,
+      95,
+      504,
+      119
+     ]
+    }
+   ]
+  },
+  {
+   "title": "tab-question",
+   "height": 385,
+   "width": 673,
+   "image": "19-tab-question.png",
+   "links": [
+    {
+     "page": 18,
+     "rect": [
+      17,
+      0,
+      86,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      86,
+      0,
+      192,
+      25
+     ]
+    },
+    {
+     "page": 19,
+     "rect": [
+      192,
+      0,
+      290,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      290,
+      0,
+      352,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      64,
+      351,
+      109,
+      375
+     ]
+    }
+   ]
+  },
+  {
+   "title": "tab-subquestions",
+   "height": 385,
+   "width": 673,
+   "image": "20-tab-subquestions.png",
+   "links": [
+    {
+     "page": 18,
+     "rect": [
+      17,
+      0,
+      86,
+      25
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      86,
+      0,
+      192,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      290,
+      0,
+      352,
+      25
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      64,
+      351,
+      109,
+      375
+     ]
+    },
+    {
+     "page": 16,
+     "rect": [
+      16,
+      351,
+      61,
+      375
      ]
     }
    ]
