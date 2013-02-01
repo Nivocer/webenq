@@ -11,7 +11,7 @@
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
         <object xsi:type="model:Label" x="48" y="90" text="Options">
-          <font size="28px"/>
+          <font size="13px" bold="true"/>
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
@@ -36,7 +36,7 @@
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
         <object xsi:type="model:Label" x="384" y="90" text="Preview">
-          <font size="28px"/>
+          <font size="13px" bold="true"/>
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
@@ -88,5 +88,5 @@
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="21px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>

@@ -9,61 +9,61 @@
       </widgets>
     </overrides>
   </widgets>
-  <widgets xsi:type="model:Label" id="24" x="64" y="58" text="Edit answer options" measuredWidth="145" measuredHeight="27">
-    <font size="28px" bold="false"/>
+  <widgets xsi:type="model:Label" id="24" x="64" y="58" text="Edit answer options" measuredWidth="120" measuredHeight="24">
+    <font size="13px" bold="false"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="27" x="64" y="84" text="Name" measuredWidth="38" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="27" x="64" y="84" text="Name" measuredWidth="34" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="28" x="64" y="113" text="Type" measuredWidth="32" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="28" x="64" y="113" text="Type" measuredWidth="29" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:List" id="29" x="216" y="112" text="choice" measuredWidth="46" measuredHeight="24" border="false" alpha="0" rowHeight="20">
+  <widgets xsi:type="model:List" id="29" x="216" y="112" text="choice" measuredWidth="40" measuredHeight="24" border="false" alpha="0" rowHeight="20">
     <font/>
-    <items x="0" y="2" width="46" height="20" text="choice"/>
+    <items x="0" y="2" width="40" height="20" text="choice"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="30" x="212" y="84" width="226" text="satisfaction-5-reverse" measuredWidth="226" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="30" x="212" y="84" width="226" text="satisfaction-5-reverse" measuredWidth="226" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="33" x="64" y="307" text="Description for respondent" measuredWidth="149" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="33" x="64" y="307" text="Description for respondent" measuredWidth="131" measuredHeight="21">
     <font bold="false"/>
   </widgets>
   <widgets xsi:type="model:TextArea" id="34" x="216" y="307" width="385" height="49" text="If you don't know please enter -99" measuredWidth="385" measuredHeight="49">
     <font/>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="63" x="64" y="244" measuredWidth="579" measuredHeight="56" name="multilingual-text">
-    <widgets xsi:type="model:TextField" id="64" x="58" width="521" text="Neutral" measuredWidth="521" measuredHeight="22">
+  <widgets xsi:type="model:WidgetGroup" id="63" x="64" y="244" measuredWidth="579" measuredHeight="55" name="multilingual-text">
+    <widgets xsi:type="model:TextField" id="64" x="58" width="521" text="Neutral" measuredWidth="521" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:TextField" id="65" x="58" y="34" width="521" text="..." measuredWidth="521" measuredHeight="22">
+    <widgets xsi:type="model:TextField" id="65" x="58" y="34" width="521" text="..." measuredWidth="521" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="66" y="34" width="47" text="French" measuredWidth="47" measuredHeight="22">
+    <widgets xsi:type="model:Label" id="66" y="34" width="47" text="French" measuredWidth="47" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="67" width="47" text="English*" measuredWidth="47" measuredHeight="22">
+    <widgets xsi:type="model:Label" id="67" width="47" text="English*" measuredWidth="47" measuredHeight="21">
       <font bold="true"/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:Note" id="71" x="552" y="83" text="~measurement level?~" measuredWidth="121" measuredHeight="24" annotation="true" textAlignment="Left">
+  <widgets xsi:type="model:Note" id="71" x="552" y="83" text="~measurement level?~" measuredWidth="106" measuredHeight="23" annotation="true" textAlignment="Left">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="75" x="64" y="224" text="Add answer option" measuredWidth="107" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="75" x="64" y="224" text="Add answer option" measuredWidth="94" measuredHeight="21">
     <font bold="false"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="83" x="120" y="165" text="Very satisfied" measuredWidth="83" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="83" x="120" y="165" text="Very satisfied" measuredWidth="73" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="90" x="120" y="192" text="Satisfied" measuredWidth="57" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="90" x="120" y="192" text="Satisfied" measuredWidth="50" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="97" x="238" y="135" text="Missing value?" measuredWidth="87" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="97" x="238" y="135" text="Missing value?" measuredWidth="74" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:List" id="98" x="238" y="156" text="[ ]&#xA;[ ]&#xA;" measuredWidth="34" measuredHeight="64" border="false" alpha="0">
+  <widgets xsi:type="model:List" id="98" x="238" y="156" text="[ ]&#xA;[ ]&#xA;" measuredWidth="26" measuredHeight="50" border="false" alpha="0">
     <font/>
-    <items x="0" y="2" width="34" height="30" text="[ ]"/>
-    <items x="0" y="32" width="34" height="30" text="[ ]"/>
+    <items x="0" y="2" width="26" height="23" text="[ ]"/>
+    <items x="0" y="25" width="26" height="23" text="[ ]"/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="101" x="64" y="168" measuredWidth="47" measuredHeight="16">
     <widgets xsi:type="model:Icon" id="102" x="16" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
@@ -75,10 +75,10 @@
     <widgets xsi:type="model:Icon" id="107" x="31" measuredWidth="16" measuredHeight="16" foreground="#ff0000" icon="delete (small)"/>
     <widgets xsi:type="model:Icon" id="108" width="16" height="16" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="109" x="64" y="135" text="Possible answers:" measuredWidth="104" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="109" x="64" y="135" text="Possible answers:" measuredWidth="90" measuredHeight="21">
     <font bold="false"/>
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="21px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>

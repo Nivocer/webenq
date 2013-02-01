@@ -15,35 +15,35 @@
       <widgets ref="7" link="tab-answers-select.screen"/>
     </overrides>
   </widgets>
-  <widgets xsi:type="model:TextField" id="4" x="120" y="136" width="377" text="How satisfied are you with the papers" measuredWidth="377" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="4" x="120" y="136" width="377" text="How satisfied are you with the papers" measuredWidth="377" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="5" x="120" y="160" width="377" text="How satisfied are you with the emails" measuredWidth="377" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="5" x="120" y="160" width="377" text="How satisfied are you with the emails" measuredWidth="377" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="6" x="120" y="185" width="377" text="How satisfied are you with the support" measuredWidth="377" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="6" x="120" y="185" width="377" text="How satisfied are you with the support" measuredWidth="377" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="7" x="64" y="84" text="Name of this group of sub questions:" measuredWidth="203" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="7" x="64" y="84" text="Name of this group of sub questions:" measuredWidth="179" measuredHeight="21">
     <font bold="false"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="8" x="272" y="84" width="225" text="Satisfaction with courseware" measuredWidth="225" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="8" x="272" y="84" width="225" text="Satisfaction with courseware" measuredWidth="225" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="9" x="64" y="105" text="Questions in this table" measuredWidth="125" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="9" x="64" y="105" text="Questions in this table" measuredWidth="108" measuredHeight="21">
     <font bold="false"/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="10" x="64" y="240" measuredWidth="580" measuredHeight="102" name="multilingual-text">
-    <widgets xsi:type="model:TextField" id="11" x="58" width="521" text="How satisfied are you" measuredWidth="521" measuredHeight="22">
+    <widgets xsi:type="model:TextField" id="11" x="58" width="521" text="How satisfied are you" measuredWidth="521" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="12" width="59" text="English*" measuredWidth="59" measuredHeight="22">
+    <widgets xsi:type="model:Label" id="12" width="59" text="English*" measuredWidth="59" measuredHeight="21">
       <font bold="true"/>
     </widgets>
-    <widgets xsi:type="model:TextField" id="13" x="59" y="54" width="521" text="..." measuredWidth="521" measuredHeight="22">
+    <widgets xsi:type="model:TextField" id="13" x="59" y="54" width="521" text="..." measuredWidth="521" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="14" y="54" width="47" text="French" measuredWidth="47" measuredHeight="22">
+    <widgets xsi:type="model:Label" id="14" y="54" width="47" text="French" measuredWidth="47" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:List" id="15" x="59" y="21" width="396" height="81" text="How satisfied are you with the next items&#xA;How satisfied are you with your house&#xA;-- more texts starting with How satisfied are you with " measuredWidth="396" measuredHeight="81" alpha="192">
@@ -53,10 +53,10 @@
       <items x="0" y="42" width="396" height="20" text="-- more texts starting with How satisfied are you with "/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:Label" id="19" x="64" y="58" text="Sub Questions" measuredWidth="110" measuredHeight="27">
-    <font size="28px"/>
+  <widgets xsi:type="model:Label" id="19" x="64" y="58" text="Sub Questions" measuredWidth="97" measuredHeight="24">
+    <font size="13px" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="20" x="64" y="218" text="Add a sub question" measuredWidth="110" measuredHeight="22">
+  <widgets xsi:type="model:Label" id="20" x="64" y="218" text="Add a sub question" measuredWidth="96" measuredHeight="21">
     <font/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="24" x="64" y="139" measuredWidth="47" measuredHeight="16">
@@ -76,5 +76,5 @@
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="21px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>

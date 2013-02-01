@@ -3,16 +3,16 @@
   <widgets xsi:type="model:Master" id="4" measuredWidth="138" measuredHeight="64">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/basic.screen#logo"/>
   </widgets>
-  <widgets xsi:type="model:Table" id="5" y="176" width="385" text="(w:1). ,Category,(w:1).#questionnaires,(w:1).Active,(w:1).Actions&#xA;{move},Agriculture,=.4,{check},{edit} %(color:red){delete}%&#xA;{move},Education,=.0,{check},{edit} %(color:red){delete}%&#xA;{move},other,=.3,{check},(align:left).{edit} &#xA;" measuredWidth="385" measuredHeight="105" selection="1" alternative="#eeeeee">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Label" id="9" x="3" y="120" text="Manage categories" measuredWidth="84" measuredHeight="19">
+  <widgets xsi:type="model:Table" id="5" y="176" width="385" text="(w:1). ,Category,(w:1).#questionnaires,(w:1).Active,(w:1).Actions&#xA;{move},Agriculture,=.4,{check},{edit} %(color:red){delete}%&#xA;{move},Education,=.0,{check},{edit} %(color:red){delete}%&#xA;{move},other,=.3,{check},(align:left).{edit} &#xA;" measuredWidth="385" measuredHeight="108" selection="1" alternative="#eeeeee">
     <font size="16px"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="10" x="3" y="312" text="{add} Add category" measuredWidth="119" measuredHeight="34" link="../popups/add-category.screen">
+  <widgets xsi:type="model:Label" id="9" x="3" y="120" text="Manage categories" measuredWidth="149" measuredHeight="27">
+    <font size="16px" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="10" x="3" y="312" text="{add} Add category" measuredWidth="102" measuredHeight="26" link="../popups/add-category.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Hotspot" id="12" x="24" y="244" width="201" height="24" measuredWidth="201" measuredHeight="24" link="../popups/edit-category.screen"/>
+  <widgets xsi:type="model:Hotspot" id="12" x="24" y="256" width="117" height="24" measuredWidth="117" measuredHeight="24" link="../popups/edit-category.screen"/>
   <widgets xsi:type="model:Master" id="13" x="140" measuredWidth="818" measuredHeight="37">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
     <overrides>
@@ -21,17 +21,17 @@
       </widgets>
     </overrides>
   </widgets>
-  <widgets xsi:type="model:Hotspot" id="15" x="24" y="217" width="201" height="28" measuredWidth="201" measuredHeight="28" link="../popups/edit-category.screen"/>
-  <widgets xsi:type="model:Hotspot" id="17" x="24" y="193" width="201" height="25" measuredWidth="201" measuredHeight="25" link="../popups/edit-category.screen"/>
-  <widgets xsi:type="model:Hotspot" id="18" x="3" y="194" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
-  <widgets xsi:type="model:Hotspot" id="19" x="3" y="218" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
-  <widgets xsi:type="model:Hotspot" id="20" x="3" y="242" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../hints/hint-drag-to-move.screen"/>
-  <widgets xsi:type="model:Hotspot" id="22" x="360" y="198" width="25" height="21" measuredWidth="25" measuredHeight="21" link="../popups/delete-category-confirmation-withQuestionnaires.screen"/>
-  <widgets xsi:type="model:Hotspot" id="23" x="360" y="218" width="25" height="25" measuredWidth="25" measuredHeight="25" link="../popups/delete-category-confirmation-noQuestionnaires.screen"/>
-  <widgets xsi:type="model:Hotspot" id="25" x="336" y="198" width="25" height="69" measuredWidth="25" measuredHeight="69" link="../popups/edit-category.screen"/>
+  <widgets xsi:type="model:Hotspot" id="15" x="24" y="229" width="117" height="28" measuredWidth="117" measuredHeight="28" link="../popups/edit-category.screen"/>
+  <widgets xsi:type="model:Hotspot" id="17" x="24" y="205" width="117" height="25" measuredWidth="117" measuredHeight="25" link="../popups/edit-category.screen"/>
+  <widgets xsi:type="model:Hotspot" id="18" x="3" y="206" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../assets/hints/hint-drag-to-move.screen"/>
+  <widgets xsi:type="model:Hotspot" id="19" x="3" y="230" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../assets/hints/hint-drag-to-move.screen"/>
+  <widgets xsi:type="model:Hotspot" id="20" x="3" y="254" width="22" height="25" measuredWidth="22" measuredHeight="25" link="../assets/hints/hint-drag-to-move.screen"/>
+  <widgets xsi:type="model:Hotspot" id="22" x="344" y="210" width="25" height="21" measuredWidth="25" measuredHeight="21" link="../popups/delete-category-confirmation-withQuestionnaires.screen"/>
+  <widgets xsi:type="model:Hotspot" id="23" x="344" y="230" width="25" height="25" measuredWidth="25" measuredHeight="25" link="../popups/delete-category-confirmation-noQuestionnaires.screen"/>
+  <widgets xsi:type="model:Hotspot" id="25" x="320" y="208" width="25" height="69" measuredWidth="25" measuredHeight="69" link="../popups/edit-category.screen"/>
   <hRuler/>
   <vRuler>
     <guides position="218"/>
   </vRuler>
-  <font name="Arial" size="21px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>

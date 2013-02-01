@@ -6,19 +6,19 @@
   <widgets xsi:type="model:Master" id="4" x="140" measuredWidth="818" measuredHeight="37">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20in)"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="5" x="3" y="120" text="Test Questionnaire" measuredWidth="139" measuredHeight="27" link="../popups/edit-questionnaire-properties.screen">
-    <font size="28px"/>
+  <widgets xsi:type="model:Label" id="5" x="3" y="120" text="Test Questionnaire" measuredWidth="148" measuredHeight="27" link="../popups/edit-questionnaire-properties.screen">
+    <font size="16px" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="6" y="728" text="{add} Add question" measuredWidth="119" measuredHeight="34" link="questionnaireQuestion/tab-question.screen">
+  <widgets xsi:type="model:Button" id="6" y="728" text="{add} Add question" measuredWidth="101" measuredHeight="26" link="questionnaireQuestion/tab-question.screen">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Button" id="7" y="160" text="{add} Add page" measuredWidth="100" measuredHeight="34">
+  <widgets xsi:type="model:Button" id="7" y="160" text="{add} Add page" measuredWidth="85" measuredHeight="26">
     <font/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="13" y="200" measuredWidth="827" measuredHeight="521">
     <widgets xsi:type="model:TabbedPane" id="12" width="827" height="521" text="Page 1, Page 2" measuredWidth="827" measuredHeight="521" selection="0">
-      <items x="10" y="0" width="59" height="25" text="Page 1"/>
-      <items x="69" y="0" width="59" height="25" text="Page 2"/>
+      <items x="10" y="0" width="54" height="23" text="Page 1"/>
+      <items x="64" y="0" width="54" height="23" text="Page 2"/>
       <font/>
     </widgets>
     <widgets xsi:type="model:Master" id="9" x="72" y="195" measuredWidth="753" measuredHeight="193" link="questionnaireQuestion/tab-question.screen">
@@ -27,7 +27,7 @@
     <widgets xsi:type="model:Master" id="10" x="72" y="396" measuredWidth="391" measuredHeight="113" link="questionnaireQuestion/tab-question.screen">
       <screen xsi:type="model:WidgetGroup" href="../assets/data-elements/question-types.screen#Open-text-area"/>
     </widgets>
-    <widgets xsi:type="model:Master" id="11" x="72" y="38" measuredWidth="391" measuredHeight="154" link="questionnaireQuestion/tab-question.screen">
+    <widgets xsi:type="model:Master" id="11" x="72" y="38" measuredWidth="391" measuredHeight="150" link="questionnaireQuestion/tab-question.screen">
       <screen xsi:type="model:WidgetGroup" href="../assets/data-elements/question-types.screen#Choice%20-%20single%20select"/>
     </widgets>
     <widgets xsi:type="model:Icon" id="23" x="612" y="447" width="24" height="24" measuredWidth="24" measuredHeight="24" icon="move (medium)"/>
@@ -46,5 +46,5 @@
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="21px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>

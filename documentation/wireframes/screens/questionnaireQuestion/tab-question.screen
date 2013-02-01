@@ -13,16 +13,16 @@
     </overrides>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="5" x="64" y="88" measuredWidth="628" measuredHeight="102" name="multilingual-text">
-    <widgets xsi:type="model:TextField" id="6" x="107" width="521" text="How satisfied are you" measuredWidth="521" measuredHeight="22">
+    <widgets xsi:type="model:TextField" id="6" x="107" width="521" text="How satisfied are you" measuredWidth="521" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="7" width="59" text="English*" measuredWidth="59" measuredHeight="22">
+    <widgets xsi:type="model:Label" id="7" width="59" text="English*" measuredWidth="59" measuredHeight="21">
       <font bold="true"/>
     </widgets>
-    <widgets xsi:type="model:TextField" id="8" x="107" y="54" width="521" text="..." measuredWidth="521" measuredHeight="22">
+    <widgets xsi:type="model:TextField" id="8" x="107" y="54" width="521" text="..." measuredWidth="521" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Label" id="9" y="54" width="47" text="French" measuredWidth="47" measuredHeight="22">
+    <widgets xsi:type="model:Label" id="9" y="54" width="47" text="French" measuredWidth="47" measuredHeight="21">
       <font/>
     </widgets>
     <widgets xsi:type="model:List" id="10" x="107" y="21" width="396" height="81" text="How satisfied are you with the next items&#xA;How satisfied are you with your house&#xA;-- more texts starting with How satisfied are you with " measuredWidth="396" measuredHeight="81" selection="" alpha="192">
@@ -32,13 +32,13 @@
       <items x="0" y="42" width="396" height="20" text="-- more texts starting with How satisfied are you with "/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:Label" id="13" x="64" y="58" text="Question text" measuredWidth="98" measuredHeight="27">
-    <font size="28px"/>
+  <widgets xsi:type="model:Label" id="13" x="64" y="58" text="Question text" measuredWidth="87" measuredHeight="24">
+    <font size="13px" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="14" x="111" y="375" text="Next" measuredWidth="45" measuredHeight="24">
+  <widgets xsi:type="model:Button" id="14" x="111" y="375" text="Next" measuredWidth="42" measuredHeight="23">
     <font/>
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="21px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>

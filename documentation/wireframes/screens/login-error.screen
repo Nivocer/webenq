@@ -3,7 +3,7 @@
   <widgets xsi:type="model:Master" id="8" x="140" measuredWidth="818" measuredHeight="37">
     <screen xsi:type="model:WidgetGroup" href="../assets/navigation/menus.screen#Top%20menu%20(logged%20out)"/>
   </widgets>
-  <widgets xsi:type="model:Note" id="1" x="26" y="196" text="No error handling yet, when&#xA;a login error occurs, you get&#xA;redirected to the login screen" measuredWidth="168" measuredHeight="52" annotation="true" link="login.screen">
+  <widgets xsi:type="model:Note" id="1" x="26" y="196" text="No error handling yet, when&#xA;a login error occurs, you get&#xA;redirected to the login screen" measuredWidth="148" measuredHeight="49" annotation="true" link="login.screen">
     <font/>
   </widgets>
   <widgets xsi:type="model:Master" id="9" measuredWidth="138" measuredHeight="64">
@@ -11,5 +11,5 @@
   </widgets>
   <hRuler/>
   <vRuler/>
-  <font name="Arial" size="21px"/>
+  <font name="Arial" size="11px"/>
 </model:Screen>
