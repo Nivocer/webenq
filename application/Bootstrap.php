@@ -8,6 +8,7 @@
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    /* this doesn't do anything:
     protected function _initResourceAutoLoading()
     {
         $loader = new Zend_Loader_Autoloader_Resource(
@@ -19,6 +20,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $loader->addResourceType('model', 'models', 'Model');
         $loader->addResourceType('actionHelper', 'controllers/helpers', 'Controller_Action_Helper');
     }
+    */
 
     protected function _initDoctrine()
     {
