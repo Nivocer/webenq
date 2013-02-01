@@ -28,22 +28,22 @@
   <widgets xsi:type="model:Label" id="31" x="64" y="144" text="Validations" measuredWidth="56" measuredHeight="21">
     <font bold="false"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="33" x="64" y="248" text="Description for respondent" measuredWidth="131" measuredHeight="21">
-    <font bold="false"/>
-  </widgets>
-  <widgets xsi:type="model:TextArea" id="34" x="216" y="248" width="385" height="49" text="If you don't know please enter -99" measuredWidth="385" measuredHeight="49">
-    <font/>
-  </widgets>
   <widgets xsi:type="model:TextField" id="35" x="216" y="218" width="71" measuredWidth="71" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="36" x="64" y="218" text="Max number of characters" measuredWidth="130" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="36" x="64" y="218" text="Min number of characters" measuredWidth="127" measuredHeight="21">
     <font/>
   </widgets>
   <widgets xsi:type="model:List" id="37" x="208" y="144" text="[ ] postal code&#xA;[x] email address" measuredWidth="95" measuredHeight="50" border="false" alpha="0">
     <font/>
     <items x="0" y="2" width="95" height="23" text="[ ] postal code"/>
     <items x="0" y="25" width="95" height="23" text="[x] email address"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="38" x="216" y="248" width="71" measuredWidth="71" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="39" x="64" y="248" text="Max number of characters" measuredWidth="130" measuredHeight="21">
+    <font/>
   </widgets>
   <hRuler/>
   <vRuler/>

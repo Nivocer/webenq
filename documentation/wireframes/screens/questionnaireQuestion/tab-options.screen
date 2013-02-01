@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" xmlns:o="http://wireframesketcher.com/1.0/model/overrides">
-  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="385" dimmed="true">
+  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="383" dimmed="true">
     <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
     <overrides>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Label" x="188" y="126" text="Satisfied-5 (choice)">
+          <font/>
+        </object>
+      </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
         <object xsi:type="model:Icon" x="512" y="151" icon="edit (medium)" link="tab-answers-select.screen"/>
       </widgetChanges>
@@ -25,13 +30,8 @@
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
-        <object xsi:type="model:Label" x="48" y="240" text="Answer options">
-          <font/>
-        </object>
-      </widgetChanges>
-      <widgetChanges xsi:type="o:Insert" newIndex="4">
-        <object xsi:type="model:Combo" x="144" y="240" width="143" text="Satisfied-5 (choice)">
-          <font/>
+        <object xsi:type="model:Label" x="48" y="126" text="Answer options">
+          <font bold="true"/>
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
@@ -40,23 +40,23 @@
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
-        <object xsi:type="model:Combo" x="144" y="152" text="radiobutton/checkbox&#xA;slider&#xA;pulldown&#xA;....">
+        <object xsi:type="model:Combo" x="157" y="185" text="radiobutton/checkbox&#xA;slider&#xA;pulldown&#xA;....">
           <font/>
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
-        <object xsi:type="model:Label" x="50" y="152" text="Presentation">
+        <object xsi:type="model:Label" x="47" y="185" text="Presentation">
+          <font bold="true"/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:TextField" x="258" y="159" width="26" text="1">
           <font/>
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
-        <object xsi:type="model:TextField" x="261" y="126" width="26" text="1">
-          <font/>
-        </object>
-      </widgetChanges>
-      <widgetChanges xsi:type="o:Insert" newIndex="4">
-        <object xsi:type="model:Label" x="50" y="126" text="How many answers are allowed">
-          <font/>
+        <object xsi:type="model:Label" x="47" y="159" text="How many answers are allowed">
+          <font bold="true"/>
         </object>
       </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
@@ -75,14 +75,14 @@
         </object>
       </widgetChanges>
       <widgets ref="2">
-        <attributes key="selection" value="3"/>
-        <items ref="@items.3" text="%(color:gray)Sub questions%"/>
-        <itemChanges xsi:type="o:Insert" newIndex="4">
+        <attributes key="selection" value="2"/>
+        <itemChanges xsi:type="o:Insert" newIndex="3">
           <object xsi:type="model:Item" text="Options"/>
         </itemChanges>
         <itemChanges xsi:type="o:Delete" ref="@items.2"/>
       </widgets>
-      <widgets ref="6" text="Done"/>
+      <widgets ref="5" y="78"/>
+      <widgets ref="6" text="Done" link="../preview-questionnaire.screen"/>
       <widgets ref="7" link="tab-answers-select.screen"/>
     </overrides>
   </widgets>

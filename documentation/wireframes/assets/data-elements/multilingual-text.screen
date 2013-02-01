@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:WidgetGroup" id="1" x="64" y="88" name="multilingual-text">
+    <widgets xsi:type="model:TextField" id="2" x="107" width="521" text="How satisfied are you">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="3" width="59" text="English*">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="4" x="107" y="54" width="521" text="...">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="5" y="54" width="47" text="French">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:List" id="6" x="107" y="21" width="396" height="81" text="How satisfied are you with the next items&#xA;How satisfied are you with your house&#xA;-- more texts starting with How satisfied are you with " selection="" alpha="192">
+      <font/>
+      <items text="How satisfied are you with the next items"/>
+      <items text="How satisfied are you with your house"/>
+      <items text="-- more texts starting with How satisfied are you with "/>
+    </widgets>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

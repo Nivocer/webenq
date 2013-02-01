@@ -13,32 +13,27 @@
   <widgets xsi:type="model:Label" id="24" x="64" y="58" text="Edit answer options" measuredWidth="129" measuredHeight="24">
     <font size="13px" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="27" x="64" y="84" text="Name" measuredWidth="34" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="27" x="66" y="104" text="Name" measuredWidth="34" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="28" x="64" y="113" text="Type" measuredWidth="29" measuredHeight="21">
+  <widgets xsi:type="model:Label" id="28" x="66" y="82" text="Type" measuredWidth="29" measuredHeight="21">
     <font/>
   </widgets>
-  <widgets xsi:type="model:List" id="29" x="216" y="112" text="number" measuredWidth="47" measuredHeight="24" border="false" alpha="0" rowHeight="20">
+  <widgets xsi:type="model:List" id="29" x="208" y="81" text="number" measuredWidth="47" measuredHeight="24" border="false" alpha="0" rowHeight="20">
     <font/>
     <items x="0" y="2" width="47" height="20" text="number"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="30" x="212" y="84" width="226" text="year-range=1-110" measuredWidth="226" measuredHeight="21">
+  <widgets xsi:type="model:TextField" id="30" x="214" y="104" width="226" text="year-range=1-110" measuredWidth="226" measuredHeight="21">
     <font/>
   </widgets>
   <widgets xsi:type="model:Label" id="31" x="64" y="272" text="Validations" measuredWidth="56" measuredHeight="21">
     <font bold="false"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="33" x="64" y="335" text="Description for respondent" measuredWidth="131" measuredHeight="21">
-    <font bold="false"/>
-  </widgets>
-  <widgets xsi:type="model:TextArea" id="34" x="216" y="335" width="385" height="49" text="If you don't know please enter -99" measuredWidth="385" measuredHeight="49">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:List" id="37" x="208" y="272" text="[x] integer&#xA;[] even" measuredWidth="62" measuredHeight="50" border="false" alpha="0">
+  <widgets xsi:type="model:List" id="37" x="208" y="272" text="[x] integer&#xA;[] even&#xA;[] odd" measuredWidth="62" measuredHeight="73" border="false" alpha="0">
     <font/>
     <items x="0" y="2" width="62" height="23" text="[x] integer"/>
     <items x="0" y="25" width="62" height="23" text="[] even"/>
+    <items x="0" y="48" width="62" height="23" text="[] odd"/>
   </widgets>
   <widgets xsi:type="model:TextField" id="62" x="214" y="135" width="63" text="0" measuredWidth="63" measuredHeight="21">
     <font/>

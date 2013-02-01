@@ -5,9 +5,11 @@
     <overrides>
       <widgets ref="2" text="Question, Answer Options, Sub questions, Options">
         <attributes key="selection" value="2"/>
-        <items ref="@items.3" text="Sub questions" noLink="true"/>
-        <itemChanges xsi:type="o:Insert" newIndex="4">
+        <itemChanges xsi:type="o:Insert" newIndex="3">
           <object xsi:type="model:Item" link="tab-options.screen" text="Options"/>
+        </itemChanges>
+        <itemChanges xsi:type="o:Insert" newIndex="3">
+          <object xsi:type="model:Item" text="Sub questions"/>
         </itemChanges>
         <itemChanges xsi:type="o:Delete" ref="@items.2"/>
       </widgets>
@@ -73,6 +75,9 @@
     <widgets xsi:type="model:Icon" id="30" x="16" measuredWidth="16" measuredHeight="16" icon="edit (small)"/>
     <widgets xsi:type="model:Icon" id="31" x="31" measuredWidth="16" measuredHeight="16" foreground="#ff0000" icon="delete (small)"/>
     <widgets xsi:type="model:Icon" id="32" width="16" height="16" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="33" x="514" y="98" text="Used for likert, nog currently sketched.&#xA;" measuredWidth="192" measuredHeight="23" annotation="true">
+    <font/>
   </widgets>
   <hRuler/>
   <vRuler/>

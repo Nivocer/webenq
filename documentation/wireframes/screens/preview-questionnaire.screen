@@ -21,25 +21,25 @@
       <items x="64" y="0" width="54" height="23" text="Page 2"/>
       <font/>
     </widgets>
-    <widgets xsi:type="model:Master" id="9" x="72" y="195" measuredWidth="753" measuredHeight="193" link="questionnaireQuestion/tab-question.screen">
+    <widgets xsi:type="model:Master" id="9" x="72" y="195" measuredWidth="753" measuredHeight="193" link="questionnaireQuestion/tab-options.screen">
       <screen xsi:type="model:WidgetGroup" href="../assets/data-elements/question-types.screen#Likert%20-%20radio%20buttons"/>
     </widgets>
-    <widgets xsi:type="model:Master" id="10" x="72" y="396" measuredWidth="391" measuredHeight="113" link="questionnaireQuestion/tab-question.screen">
+    <widgets xsi:type="model:Master" id="10" x="72" y="396" measuredWidth="391" measuredHeight="113" link="questionnaireQuestion/tab-options.screen">
       <screen xsi:type="model:WidgetGroup" href="../assets/data-elements/question-types.screen#Open-text-area"/>
     </widgets>
-    <widgets xsi:type="model:Master" id="11" x="72" y="38" measuredWidth="391" measuredHeight="150" link="questionnaireQuestion/tab-question.screen">
+    <widgets xsi:type="model:Master" id="11" x="72" y="38" measuredWidth="391" measuredHeight="150" link="questionnaireQuestion/tab-options.screen">
       <screen xsi:type="model:WidgetGroup" href="../assets/data-elements/question-types.screen#Choice%20-%20single%20select"/>
     </widgets>
     <widgets xsi:type="model:Icon" id="23" x="612" y="447" width="24" height="24" measuredWidth="24" measuredHeight="24" icon="move (medium)"/>
-    <widgets xsi:type="model:WidgetGroup" id="26" x="28" y="38" measuredWidth="36" measuredHeight="16">
+    <widgets xsi:type="model:WidgetGroup" id="26" x="28" y="38" measuredWidth="36" measuredHeight="16" link="questionnaireQuestion/tab-options.screen">
       <widgets xsi:type="model:Icon" id="24" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
       <widgets xsi:type="model:Icon" id="25" x="20" measuredWidth="16" measuredHeight="16" icon="edit (small)" link="questionnaireQuestion/tab-question.screen"/>
     </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="27" x="28" y="195" measuredWidth="36" measuredHeight="16">
+    <widgets xsi:type="model:WidgetGroup" id="27" x="28" y="195" measuredWidth="36" measuredHeight="16" link="questionnaireQuestion/tab-options.screen">
       <widgets xsi:type="model:Icon" id="28" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
       <widgets xsi:type="model:Icon" id="29" x="20" measuredWidth="16" measuredHeight="16" icon="edit (small)" link="questionnaireQuestion/tab-question.screen"/>
     </widgets>
-    <widgets xsi:type="model:WidgetGroup" id="30" x="28" y="396" measuredWidth="36" measuredHeight="16">
+    <widgets xsi:type="model:WidgetGroup" id="30" x="28" y="396" measuredWidth="36" measuredHeight="16" link="questionnaireQuestion/tab-options.screen">
       <widgets xsi:type="model:Icon" id="31" measuredWidth="16" measuredHeight="16" icon="move (small)"/>
       <widgets xsi:type="model:Icon" id="32" x="20" measuredWidth="16" measuredHeight="16" icon="edit (small)" link="questionnaireQuestion/tab-question.screen"/>
     </widgets>
