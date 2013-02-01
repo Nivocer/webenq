@@ -18,18 +18,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category   WebEnq4
- * @package    WebEnq4_View
- * @subpackage Helper
+ * @package    WebEnq4_Library
+ * @subpackage Form_Handling
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
  * Helper to generate a "multi-lingual text field with choice of default language" element
- *
- * @category   WebEnq4
- * @package    WebEnq4_View
- * @subpackage Helper
  */
 class WebEnq4_View_Helper_MlTextDefaultLanguageElement
     extends Zend_View_Helper_FormElement
@@ -52,33 +48,35 @@ class WebEnq4_View_Helper_MlTextDefaultLanguageElement
         $helperText = new Zend_View_Helper_FormText();
         $helperText->setView($this->view);
 
-        if (isset($attribs['languages']) && is_array($attribs['languages']))
-        {
+        if (isset($attribs['languages']) && is_array($attribs['languages'])) {
             $html = '';
 
-            foreach ($attribs['languages'] as $language)
-            {
+            foreach ($attribs['languages'] as $language) {
                 $current = '';
                 $defaultLanguage = '';
 
-                if (is_array($value))
-                {
+                if (is_array($value)) {
                     $current = (isset($value[$language])) ? $value[$language] : '';
                     $defaultLanguage = (isset($value['default_language'])) ? $value['default_language'] : '';
                 }
 
                 $html .= '<span class="languageoption"><span class="selector">';
 
-                $html .= $helperRadio->formRadio($name . '[default_language]',
-                        $defaultLanguage,
-                        array(),
-                        array($language=>t($language)), '');
+                $html .= $helperRadio->formRadio(
+                    $name . '[default_language]',
+                    $defaultLanguage,
+                    array(),
+                    array($language=>t($language)),
+                    ''
+                );
 
                 $html .= '</span><span class="inputfield">';
 
-                $html .= $helperText->formText($name . '[' . $language . ']',
-                        $current,
-                        array());
+                $html .= $helperText->formText(
+                    $name . '[' . $language . ']',
+                    $current,
+                    array()
+                );
 
                 $html .= '</span></span>';
             }
@@ -91,4 +89,3 @@ class WebEnq4_View_Helper_MlTextDefaultLanguageElement
         return $this->_html;
     }
 }
-?>

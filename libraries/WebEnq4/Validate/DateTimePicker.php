@@ -18,17 +18,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @category   WebEnq4
- * @package    WebEnq4_Validate
- * @subpackage Validator
+ * @package    WebEnq4_Library
+ * @subpackage Form_Handling
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
  * Checks if a multi-lingual text array has a non-empty text in the default language
- * @category   WebEnq4
- * @package    WebEnq4_Validate
- * @subpackage Validator
  */
 class WebEnq4_Validate_DateTimePicker extends Zend_Validate_Abstract
 {
@@ -69,5 +66,3 @@ class WebEnq4_Validate_DateTimePicker extends Zend_Validate_Abstract
         return $result;
     }
 }
-
-?>
