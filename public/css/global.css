@@ -166,6 +166,20 @@ img {
 .errors {
 	color: red;
 }
+.flash_messenger_success {
+    border: 1px solid #008000;
+    color: #008000;
+    background: #E5E5D8;
+    margin: 0 2em 2em;
+    padding: 0.5em 1em;
+}
+.flash_messenger_error {
+    border: 1px solid #B20000;
+    color: #B20000;
+    background: #E5E5D8;
+    margin: 0 2em 2em;
+    padding: 0.5em 1em;
+}
 #flash_messenger {
     color: red;
     margin-top:5em;

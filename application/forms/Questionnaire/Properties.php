@@ -22,6 +22,7 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
     public function init()
     {
         $this->setName(get_class($this));
+
         $title = new WebEnq4_Form_Element_MlTextDefaultLanguage('title');
         $title->setLabel('Title');
         $title->setRequired();
@@ -39,6 +40,7 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
 
         $active = new Zend_Form_Element_Checkbox('active');
         $active->setLabel('Active');
+        $active->getDecorator('Label')->setOption('placement', 'append');
         $this->addElement($active);
 
         $date_start = new WebEnq4_Form_Element_DateTimePicker('date_start');
@@ -49,20 +51,26 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
         $date_end->setLabel('Publish until');
         $this->addElement($date_end);
 
-        $this->addElement(
-            'submit',
-            'cancel',
-            array(
-                'label' => 'cancel',
-            )
+        $this->addDisplayGroup(
+            array('active', 'date_start', 'date_end'),
+            'publishing',
+            array('class' => 'table')
         );
 
-        $this->addElement(
-            'submit',
-            'submit',
-            array(
-                'label' => 'save',
-            )
+        $cancel = new Zend_Form_Element_Submit('cancel');
+        $cancel->setLabel('Cancel');
+        $cancel->removeDecorator('DtDdWrapper');
+        $this->addElement($cancel);
+
+        $submit = new Zend_Form_Element_Submit('submit');
+        $submit->setLabel('Save');
+        $submit->removeDecorator('DtDdWrapper');
+        $this->addElement($submit);
+
+        $this->addDisplayGroup(
+            array('cancel', 'submit'),
+            'buttons',
+            array('class' => 'table')
         );
     }
 

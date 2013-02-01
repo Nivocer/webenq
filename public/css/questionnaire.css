@@ -55,3 +55,23 @@ li.ui-sortable-helper {
 	height: 16px;
 	overflow: hidden;
 }
+
+fieldset.table {
+    display: table;
+    border: 0;
+    padding: 0; 
+}
+
+fieldset.table dl {
+    display: table-row; 
+}
+
+fieldset.table dl dt, 
+fieldset.table dl dd {
+    display: table-cell;
+    margin-left: 0; 
+}
+  
+fieldset.table label {
+    margin-left: 0; 
+}

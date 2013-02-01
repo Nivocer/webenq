@@ -121,6 +121,14 @@ class QuestionnaireController extends Zend_Controller_Action
                 $questionnaire->fromArray($form->getValues());
                 $questionnaire->meta = serialize(array('timestamp' => time()));
                 $questionnaire->save();
+                $this->_helper->FlashMessenger()
+                    ->setNamespace('success')
+                    ->addMessage(
+                        sprintf(
+                            t('Questionnaire "%s" added succesfully'),
+                            $questionnaire->getQuestionnaireTitle()->text
+                        )
+                    );
             }
             $this->_redirect('questionnaire');
             // in the pop-up-days: $this->_helper->json(array('reload' => true));
@@ -339,9 +347,13 @@ class QuestionnaireController extends Zend_Controller_Action
         $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
         ->find($this->_request->id);
 
-        $confirmationText = t('Are you sure you want to delete questionnaire')
-        . " $questionnaire->id "
-        . t('(including all questions and answers)?');
+        $title = $questionnaire->getQuestionnaireTitle()->text;
+
+        $confirmationText = sprintf(
+            t('Are you sure you want to delete questionnaire "%s"
+                (including all questions and answers)?'),
+            $title
+        );
 
         $form = new Webenq_Form_Confirm($questionnaire->id, $confirmationText);
 
@@ -349,6 +361,13 @@ class QuestionnaireController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             if ($this->_request->yes) {
                 $questionnaire->delete();
+                $this->_helper->FlashMessenger()
+                    ->setNamespace('success')
+                    ->addMessage(
+                        sprintf(
+                            t('Questionnaire "%s" deleted'),
+                            $title)
+                        );
             }
             $this->_redirect('/questionnaire');
         }

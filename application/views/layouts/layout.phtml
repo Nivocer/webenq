@@ -20,6 +20,21 @@
                 <?php echo $this->languageSelection; ?>
                 <?php echo $this->messenger($this->messages); ?>
             </div>
+            <?php $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger'); ?>
+            <?php if ($flashMessenger->setNamespace('success')->hasMessages()): ?>
+                <div class="flash_messenger_success">
+                <?php foreach ($flashMessenger->getMessages() as $msg): ?>
+                    <?php echo $msg ?>
+                <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+            <?php if ($flashMessenger->setNamespace('error')->hasMessages()): ?>
+                <div class="flash_messenger_error">
+                <?php foreach ($flashMessenger->getMessages() as $msg): ?>
+                    <?php echo $msg ?>
+                <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
             <div id="content">
                 <?php echo $this->layout()->content ?>
             </div>
