@@ -1,6 +1,6 @@
 <?php
 /**
- * WebEnq4 Library
+ * Webenq
  *
  *  LICENSE
  *
@@ -17,16 +17,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   Webenq
- * @package    Forms
+ * @package    Webenq_Tests_Questionnaires
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
- * @category   Webenq
- * @package    Forms
- * @subpackage UnitTests
+ * @package    Webenq_Tests_Questionnaires
  */
 class Webenq_Test_Form_Questionnaire_Properties extends Webenq_Test_Case_Form
 {

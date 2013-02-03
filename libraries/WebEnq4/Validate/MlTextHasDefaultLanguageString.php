@@ -17,15 +17,15 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   WebEnq4
- * @package    WebEnq4_Library
- * @subpackage Form_Handling
+ * @package    WebEnq4_Forms
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
  * Checks if a multi-lingual text array has a non-empty text in the default language
+ *
+ * @package    WebEnq4_Forms
  */
 class WebEnq4_Validate_MlTextHasDefaultLanguageString extends Zend_Validate_Abstract
 {

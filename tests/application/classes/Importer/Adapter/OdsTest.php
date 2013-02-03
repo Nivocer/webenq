@@ -1,6 +1,6 @@
 <?php
 /**
- * WebEnq4 Library
+ * Webenq
  *
  *  LICENSE
  *
@@ -17,12 +17,14 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   Webenq
- * @package    Webenq_Classes
+ * @package    Webenq_Tests_Data
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
+/**
+ * @package    Webenq_Tests_Data
+ */
 class Webenq_Test_Class_Importer_Adapter_OdsTest extends Webenq_Test_Case_Class
 {
     public function testCanGetDataFromDefaultFile()

@@ -1,15 +1,41 @@
 <?php
+/**
+ * WebEnq4
+ *
+ *  LICENSE
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package    Webenq_Application
+ * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
+ * @license    http://www.gnu.org/licenses/agpl.html
+ */
+
+/**
+ * @package    Webenq_Application
+ */
 class Zend_View_Helper_ProgressBar extends Zend_View_Helper_Abstract
 {
     /**
      * Renders a progressbar
-     * 
+     *
      * @param array $data Can contain the keys 'total', 'ready' and 'percentage'
      */
     public function progressBar($data)
     {
         $percentage = 0;
-        
+
         if (isset($data['percentage'])) {
             $percentage = round($data['percentage']);
         } else if (isset($data['total'])) {
@@ -17,10 +43,10 @@ class Zend_View_Helper_ProgressBar extends Zend_View_Helper_Abstract
                 $percentage = round(100 / ($data['total'] / $data['ready']));
             }
         }
-        
+
         $js = "$('#progressbar').progressbar({value: $percentage});";
         $this->view->jQuery()->addOnLoad($js);
-        
+
         return '<div id="progressbar"></div>';
     }
 }

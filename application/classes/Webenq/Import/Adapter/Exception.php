@@ -1,6 +1,6 @@
 <?php
 /**
- * WebEnq4
+ * Webenq
  *
  *  LICENSE
  *
@@ -17,9 +17,7 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   WebEnq4
- * @package    WebEnq4_Data
- * @subpackage Import
+ * @package    Webenq_Data_Import
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
@@ -27,7 +25,8 @@
 /**
  * Exception for import adapters
  *
- * @author		Bart Huttinga <b.huttinga@nivocer.com>
+ * @package    Webenq_Data_Import
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
  */
 class Webenq_Import_Adapter_Exception extends Exception
 {

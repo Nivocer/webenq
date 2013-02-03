@@ -1,6 +1,6 @@
 <?php
 /**
- * WebEnq4 Library
+ * Webenq
  *
  *  LICENSE
  *
@@ -17,16 +17,18 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   Webenq
- * @package    Webenq_Forms
+ * @package    Webenq_Tests
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
+/**
+ * @package    Webenq_Tests
+ */
 class Webenq_Test_Form_Question_AddTest extends Webenq_Test_Case_Form
 {
     public $setupDatabase = true;
-    
+
     public function testOneLanguageIsRequired()
     {
         $form = $this->getForm();

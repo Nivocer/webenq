@@ -17,9 +17,7 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   WebEnq4
- * @package    WebEnq4_Validate
- * @subpackage UnitTests
+ * @package    WebEnq4_Tests
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
@@ -30,10 +28,7 @@
 require_once 'WebEnq4/Validate/MlTextHasDefaultLanguageString.php';
 
 /**
- * @category   WebEnq4
- * @package    WebEnq4_Validate
- * @subpackage UnitTests
- * @group      WebEnq4_Validate
+ * @package    WebEnq4_Tests
  */
 class WebEnq4_Validate_MlTextHasDefaultLanguageStringTest extends PHPUnit_Framework_TestCase
 {

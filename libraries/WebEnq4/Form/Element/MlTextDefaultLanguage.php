@@ -17,15 +17,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   WebEnq4
- * @package    WebEnq4_Library
- * @subpackage Form_Handling
+ * @package    WebEnq4_Forms
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
- *
+ * @package    WebEnq4_Forms
  */
 class WebEnq4_Form_Element_MlTextDefaultLanguage extends Zend_Form_Element_Xhtml
 {

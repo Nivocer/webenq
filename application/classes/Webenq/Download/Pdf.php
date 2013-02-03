@@ -1,6 +1,6 @@
 <?php
 /**
- * WebEnq4
+ * Webenq
  *
  *  LICENSE
  *
@@ -17,9 +17,7 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category   WebEnq4
- * @package    WebEnq4_Data
- * @subpackage Export
+ * @package    Webenq_Data_Export
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
@@ -30,7 +28,8 @@
  * This class generates a PDF download and sends
  * it to the client.
  *
- * @author      Bart Huttinga <b.huttinga@nivocer.com>
+ * @package    Webenq_Data_Export
+ * @author     Bart Huttinga <b.huttinga@nivocer.com>
  */
 class Webenq_Download_Pdf extends Webenq_Download_Xls
 {
