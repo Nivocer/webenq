@@ -43,7 +43,7 @@
       format="frames" 
       usesorttable="true" />
       
-    <echo message="Test results available in ${local_http}${dev_output_path}/tests/"/>
+    <echo message="Test results available in ${local_http}/${dev_output_path}/tests/"/>
 
   </target>
 
