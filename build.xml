@@ -1,51 +1,140 @@
-<?xml version="1.0"?>
-<project name="WebEnq" basedir="." default="testsuite">
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="WebEnq" basedir="." default="help">
 
-  <target name="testsuite">
-    <phingcall target="runTestSuite" />
-    <mkdir dir="public/tests/report" />
-    <phpunitreport todir="public/tests/report"
-      infile="logs/testsuites.xml" 
-      format="frames" 
-      usesorttable="true" />
+  <!-- create a file build.properties with key/value pairs to 
+       override the property defaults below.
+   -->
+  <if><available file="build.properties"/>
+  <then><property file="build.properties"/></then>
+  </if>
+
+  <!-- set defaults (if not set yet) -->
+  <property name="doc_output_path" value="public/doc"/>
+  <property name="dev_output_path" value="public/dev"/>
+  <property name="tmp_path"        value="logs"/>
+  <property name="local_http"      value="http://localhost/"/>
+  <property name="eclipse_exec"    value="eclipse"/>
+
+  <target name="help" description="List available targets">
+    <exec command='bash -c "phing -l"' passthru="true"/>
+    <echo message="run 'phing -?' for command-line options"/>
   </target>
 
-  <target name="testcoverage">
-    <coverage-setup database="logs/coverage.db">
-      <fileset refid="application" />
-      <fileset refid="libraries" />
-    </coverage-setup>
+  <target name="testsuite"
+  	description="Run the complete testsuite">
+  	
+    <!-- set codecoverage property if not set yet -->
+    <property name="codecoverage" value="false" />
+  	
+    <mkdir dir="${tmp_path}"/>
 
-    <phingcall target="runTestSuite">
-      <property name="codecoverage" value="true" />
-    </phingcall>
-
-    <mkdir dir="public/tests/coverage" />
-    <coverage-report outfile="log/coverage.xml">
-      <report todir="public/tests/coverage"
-        usesorttable="true" />
-    </coverage-report>
-  </target>
-
-  <target name="runTestSuite">
-    <phpunit bootstrap="tests/bootstrap.php" printsummary="true">
-      <formatter todir="logs" type="xml"/>
+    <phpunit bootstrap="tests/bootstrap.php" printsummary="true"
+      codecoverage="${codecoverage}">
+      <formatter todir="${tmp_path}" type="xml"/>
       <batchtest>
       	<fileset refid="tests" />
       </batchtest>
     </phpunit>
+    
+    <mkdir dir="${dev_output_path}/tests" />
+
+    <phpunitreport todir="${dev_output_path}/tests"
+      infile="${tmp_path}/testsuites.xml" 
+      format="frames" 
+      usesorttable="true" />
+      
+    <echo message="Test results available in ${local_http}${dev_output_path}/tests/"/>
+
   </target>
 
+  <target name="testcoverage" 
+  	description="Run the complete testsuite with code coverage recording">
+
+    <mkdir dir="${tmp_path}"/>
+
+    <coverage-setup database="${tmp_path}/coverage.db">
+      <fileset refid="application" />
+      <fileset refid="libraries" />
+    </coverage-setup>
+
+    <phingcall target="testsuite">
+      <property name="codecoverage" value="true" />
+    </phingcall>
+
+    <!-- <phingcall target="reportcoverage"/> doesn't seem to work... -->
+    <exec command='bash -c "phing _reportcoverage"' passthru="true"/>
+  </target>
+
+  <target name="_reportcoverage">
+    <property name="coverage.database" value="${tmp_path}/coverage.db"/>
+    
+    <mkdir dir="${dev_output_path}/coverage" />
+
+    <adhoc><![CDATA[
+      /* somehow needed to find classes in libraries etc */
+      require_once 'tests/bootstrap.php';
+    ]]></adhoc>
+
+    <coverage-report outfile="${tmp_path}/coverage.xml">
+      <report todir="${dev_output_path}/coverage"
+      	usesorttable="true" />
+    </coverage-report>
+
+    <echo message="Test results available in ${local_http}/${dev_output_path}/coverage/"/>
+  </target>
+	
+  <target name="doc-site" description="Generate documentation for website"
+    depends="phpdoc, wireframes"/>	
+
+  <target name="phpdoc" 
+  	description="Generate PHP documentation">
+  	
+    <mkdir dir="${doc_output_path}/phpdoc"/>
+
+    <phpdoc2 title="WebEnq4 PHP Documentation"
+    	destdir="${doc_output_path}/phpdoc">
+      <fileset refid="application"/>
+      <fileset refid="libraries"/>
+      <fileset refid="tests"/>
+    </phpdoc2>
+
+  </target>
+
+  <target name="wireframes"
+    description="Generate web-based wireframes (requires WireframeSketcher)">
+
+    <if>
+      <not><isset property="eclipse_workspace"/></not>
+    <then>
+      <echo message="You need to have WireframeSketcher (stand-alone or as Eclipse plugin)"/>
+      <echo message="Set two properties in build.properties"/>
+      <echo message="* eclipse_exec      - path to the executable if 'eclipse' is not in your PATH"/>
+      <echo message="* eclipse_workspace - path to your workspace directory"/>
+    </then>
+    <else>    
+      <mkdir dir="${doc_output_path}/wireframes"/>
+      <exec command="${eclipse_exec} 
+        -application com.wireframesketcher.ui.screenExport 
+        -data ${eclipse_workspace} 
+        -source documentation/wireframes/stories/index.story
+        -dest ${doc_output_path}/wireframes
+        -format HTML"/>
+        
+      <echo message="Wireframes available in ${local_http}/${doc_output_path}/wireframes/"/>
+    </else>
+    </if>
+  </target>
+  
   <fileset dir="application" id="application">
-    <include name="**/*.php" />
+    <include name="**/*.php"/>
   </fileset>
 
   <fileset dir="libraries" id="libraries">
-    <include name="WebEnq4/**/*.php" />
+    <include name="WebEnq4/**/*.php"/>
   </fileset>
 	
   <fileset dir="tests" id="tests">
-    <include name="**/*Test.php"/>
+    <include name="application/**/*Test.php"/>
+    <include name="libraries/**/*Test.php"/>
   </fileset>
-
 </project>
