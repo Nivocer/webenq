@@ -98,6 +98,7 @@
       <fileset refid="tests"/>
     </phpdoc2>
 
+  	<echo message="PHPDocumentation available in ${local_http}/${doc_output_path}/phpdoc/"/>
   </target>
 
   <target name="wireframes"
