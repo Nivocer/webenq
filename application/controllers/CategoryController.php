@@ -67,7 +67,7 @@
             $category->fromArray($form->getValues());
             $category->save();
             //$this->_helper->json(array('reload' => true));
-            $this->_flashMessenger->addMessage('category added succesfull');
+            $this->_flashMessenger->addMessage('category added succesfully');
             $this->_redirect('category');
         }
         $this->view->pageTitle = t("Add category");
@@ -89,7 +89,7 @@
             $category->fromArray($form->getValues());
             $category->save();
             //$this->_redirect($this->_request->getPathInfo());
-            $this->_flashMessenger->addMessage('category saved succesfull');
+            $this->_flashMessenger->addMessage('category saved succesfully');
 
             $this->_redirect('category');
         }
@@ -172,7 +172,7 @@
                     $this->_helper->json(array('reload' => false));
                 }
             } else {
-                $this->_flashMessenger->addMessage('category deleted succesfull');
+                $this->_flashMessenger->addMessage('category deleted succesfully');
                 $this->_redirect('/category');
             }
         }
