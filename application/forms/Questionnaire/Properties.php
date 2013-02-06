@@ -45,6 +45,11 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
     {
         $this->setName(get_class($this));
 
+        $id = new Zend_Form_Element_Hidden('id');
+        $id->removeDecorator('DtDdWrapper');
+        $id->removeDecorator('Label');
+        $this->addElement($id);
+
         $title = new WebEnq4_Form_Element_MlTextDefaultLanguage('title');
         $title->setLabel('Title');
         $title->setRequired();

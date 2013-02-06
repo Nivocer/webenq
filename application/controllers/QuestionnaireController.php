@@ -131,6 +131,7 @@ class QuestionnaireController extends Zend_Controller_Action
      * Renders the form for adding a questionnaire
      *
      * @return void
+     * @todo Add Questionnaire Properties Controller Tests
      */
     public function addAction()
     {
@@ -140,7 +141,11 @@ class QuestionnaireController extends Zend_Controller_Action
         if ($this->_helper->form->isPostedAndValid($form)) {
             if (!$this->_helper->form->isCancelled($form)) {
                 $questionnaire = new Webenq_Model_Questionnaire();
-                $questionnaire->fromArray($form->getValues());
+                $newValues = $form->getValues();
+                if (isset($newValues['id'])) {
+                    unset($newValues['id']);
+                }
+                $questionnaire->fromArray($newValues);
                 $questionnaire->meta = serialize(array('timestamp' => time()));
                 $questionnaire->save();
                 $this->_helper->FlashMessenger()
@@ -156,15 +161,6 @@ class QuestionnaireController extends Zend_Controller_Action
             // in the pop-up-days: $this->_helper->json(array('reload' => true));
         }
 
-
-//        $formpopulate = $this->_helper->form->getValues();
-//        $form->populate($this->_helper->form->getValues());
-      //  $form->setDefaults(
-        //    array(
-          //      'title' => array('en'=>'English', 'nl'=>'Nederlands', 'default_language'=>'nl')
-         //   )
-       // );
-
         $this->view->form = $form;
     }
 
@@ -172,6 +168,7 @@ class QuestionnaireController extends Zend_Controller_Action
      * Renders the form for editing a questionnaire's properties
      *
      * @return void
+     * @todo Add Questionnaire Properties Controller Tests
      */
     public function editAction()
     {
@@ -179,27 +176,37 @@ class QuestionnaireController extends Zend_Controller_Action
         if (!$questionnaire) $this->_redirect('questionnaire');
 
         $form = new Webenq_Form_Questionnaire_Properties();
+        $form->setAction($this->_request->getRequestUri());
 
         if ($this->_helper->form->isPostedAndValid($form)) {
-            $questionnaire->fromArray($form->getValues());
-            $questionnaire->save();
+            if (!$this->_helper->form->isCancelled($form)) {
+                $newValues = $form->getValues();
+                if (isset($newValues['id']) && $newValues['id']==$questionnaire->get('id')) {
+                    $questionnaire->fromArray($newValues);
+                    $questionnaire->meta = serialize(array('timestamp' => time()));
+                    $questionnaire->save();
+                    $this->_helper->FlashMessenger()
+                    ->setNamespace('success')
+                    ->addMessage(
+                            sprintf(
+                                    t('Questionnaire "%s" updated succesfully'),
+                                    $questionnaire->getQuestionnaireTitle()->text
+                            )
+                        );
+                } else {
+                    $this->_helper->FlashMessenger()
+                    ->setNamespace('error')
+                    ->addMessage(
+                            t('Questionnaire identifier mismatch, something went wrong')
+                        );
+                }
+            }
+
             $this->_redirect($this->_request->getPathInfo());
         }
 
-        $formsetDefaults = $questionnaire->toArray();
         $form->setDefaults($questionnaire->toArray());
 
-/*        $defaultLanguage = (isset($values['default_language'])) ? $values['default_language'] : '';
-        $titleValues = array('default_language'=>$defaultLanguage);
-
-        if (isset($values['QuestionnaireTitle'])) {
-            foreach ($values['QuestionnaireTitle'] as $translation) {
-                $titleValues[$translation['language']] = $translation['text'];
-            }
-        };
-
-        $this->getElement('title')->setValue($titleValues);
- */
         $this->view->form = $form;
         $this->view->questionnaire = $questionnaire;
         $this->view->totalPages = Webenq_Model_Questionnaire::getTotalPages($questionnaire['id']);

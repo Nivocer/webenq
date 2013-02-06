@@ -211,9 +211,40 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
         if (isset($array['title'])) {
             foreach ($array['title'] as $language => $title) {
-                if ($title) $this->addQuestionnaireTitle($language, $title);
+                if ($title && $language!='default_language') {
+                    $this->addQuestionnaireTitle($language, $title);
+                }
             }
         }
+    }
+
+    /**
+     * Fills array with data in record and fills related objects with
+     * translations
+     *
+     * @param bool $deep
+     * @param bool $prefixKey Not used
+     * @return array
+     * @see Doctrine_Record::fromArray()
+     */
+    public function toArray($deep = true, $prefixKey = false)
+    {
+        $result = parent::toArray($deep, $prefixKey);
+
+        if (isset($result['default_language'])) {
+            $result['title']['default_language'] = $result['default_language'];
+        }
+
+        if (isset($result['QuestionnaireTitle'])
+        && ($result['QuestionnaireTitle'])) {
+            foreach ($result['QuestionnaireTitle'] as $title) {
+                if (isset($title['text']) && isset($title['language'])) {
+                    $result['title'][$title['language']] = $title['text'];
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**

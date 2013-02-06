@@ -27,4 +27,34 @@
  */
 abstract class Webenq_Test_Case_Model extends Webenq_Test_Case_Fixture
 {
+    /**
+     * Verify that all elements expected in an array are actually present.
+     * Both arrays can contain nested levels.
+     *
+     * @param array $expected
+     * @param array $haystack
+     */
+    public function arrayNestedElementsPresent($expected, $haystack)
+    {
+        if (is_array($expected) && is_array($haystack)) {
+            foreach ($expected as $key=>$value) {
+                if (isset($haystack[$key])) {
+                    if (is_array($value)) {
+                        if (!$this->arrayNestedElementsPresent($value, $haystack[$key])){
+                            return false;
+                        }
+                    } else {
+                        if ($value !== $haystack[$key]) {
+                            return false;
+                        }
+                    }
+                } else {
+                    return false;
+                }
+            };
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
