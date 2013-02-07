@@ -9,8 +9,8 @@
   </if>
 
   <!-- set defaults (if not set yet) -->
-  <property name="doc_output_path" value="public/doc"/>
-  <property name="dev_output_path" value="public/dev"/>
+  <property name="doc_output_path" value="public/developer"/>
+  <property name="dev_output_path" value="public/developer"/>
   <property name="tmp_path"        value="logs"/>
   <property name="local_http"      value="http://localhost/"/>
   <property name="eclipse_exec"    value="eclipse"/>
@@ -36,14 +36,14 @@
       </batchtest>
     </phpunit>
     
-    <mkdir dir="${dev_output_path}/tests" />
+    <mkdir dir="${dev_output_path}/testsuite" />
 
-    <phpunitreport todir="${dev_output_path}/tests"
+    <phpunitreport todir="${dev_output_path}/testsuite"
       infile="${tmp_path}/testsuites.xml" 
       format="frames" 
       usesorttable="true" />
       
-    <echo message="Test results available in ${local_http}/${dev_output_path}/tests/"/>
+    <echo message="Test results available in ${local_http}/${dev_output_path}/testsuite/"/>
 
   </target>
 
@@ -68,7 +68,7 @@
   <target name="_reportcoverage">
     <property name="coverage.database" value="${tmp_path}/coverage.db"/>
     
-    <mkdir dir="${dev_output_path}/coverage" />
+    <mkdir dir="${dev_output_path}/testcoverage" />
 
     <adhoc><![CDATA[
       /* somehow needed to find classes in libraries etc */
@@ -76,11 +76,11 @@
     ]]></adhoc>
 
     <coverage-report outfile="${tmp_path}/coverage.xml">
-      <report todir="${dev_output_path}/coverage"
+      <report todir="${dev_output_path}/testcoverage"
       	usesorttable="true" />
     </coverage-report>
 
-    <echo message="Test results available in ${local_http}/${dev_output_path}/coverage/"/>
+    <echo message="Test results available in ${local_http}/${dev_output_path}/testcoverage/"/>
   </target>
 	
   <target name="doc-site" description="Generate documentation for website"

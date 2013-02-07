@@ -1,4 +1,3 @@
-/java/createReport.error
 .buildpath
 .project
 .settings
@@ -7,26 +6,16 @@ build.properties
 public/tests/log/*
 public/tests/phpdocs/*
 public/tests/report/
+public/developer/
 
-
-tests/init_testing.db:
-tests/testing.db:
-
-public/reports/*.pdf
-public/reports/*.zip
-public/reports/test*
-public/reports/images
-public/reports/tempout
 public/reports/*
-
-public/outputs/*.xls
-public/outputs/*.xlsx
-
-/logs/application.log
+public/outputs/*
+/logs/*
 
 /application/configs/override.ini
 /application/translations/webenq4.mo
 
+/java/createReport.error
 /java/tempout/createIntroduction.error
 /java/tempout/createReport.error
 /java/tempout/amazon
