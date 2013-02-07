@@ -139,4 +139,26 @@ class Webenq_Test_Form_Questionnaire_Properties extends Webenq_Test_Case_Form
         );
         $this->assertTrue($this->_form->isValid($value));
     }
+
+    public function testDatesOutOfPhp32BitRangeWork()
+    {
+        // PHP date functions on 32-bit platforms have a limited range of
+        // supported dates: "The valid range of a timestamp is typically from
+        // Fri, 13 Dec 1901 20:45:54 GMT to Tue, 19 Jan 2038 03:14:07 GMT"
+        $this->getForm();
+
+        $value = array(
+                'title' => array('en' => 'test', 'default_language' => 'en'),
+                'date_start' => '1812-02-03',
+                'date_end' => '2012-02-03'
+        );
+        $this->assertTrue($this->_form->isValid($value));
+
+        $value = array(
+                'title' => array('en' => 'test', 'default_language' => 'en'),
+                'date_start' => '2012-02-03',
+                'date_end' => '2050-01-01'
+        );
+        $this->assertTrue($this->_form->isValid($value));
+    }
 }

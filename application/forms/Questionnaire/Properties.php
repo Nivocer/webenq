@@ -109,12 +109,16 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
             $result = parent::isValid($values);
 
             if (isset($values["date_start"])
-                    && isset($values["date_end"])
-                    && ($values["date_start"]!=='')
-                    && ($values["date_end"]!=='')) {
-                if (strtotime($values['date_start']) > strtotime($values['date_end'])) {
-                    $date_end = $this->getElement('date_end');
-                    $date_end->addError($this->_messageTemplates[self::ERR_END_IS_BEFORE_START]);
+            && isset($values["date_end"])
+            && ($values["date_start"]!=='')
+            && ($values["date_end"]!=='')) {
+                $date_start = new Zend_Date($values['date_start']);
+                $date_end = new Zend_Date($values['date_end']);
+                if ($date_start->getTimestamp() > $date_end->getTimestamp()) {
+                    $date_end_element = $this->getElement('date_end');
+                    $date_end_element->addError(
+                        $this->_messageTemplates[self::ERR_END_IS_BEFORE_START]
+                    );
                     $result = false;
                 }
             }
