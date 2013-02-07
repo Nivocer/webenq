@@ -71,10 +71,6 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $viewRenderer->setView($view);
         Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
 
-        /* flash messenger */
-        $messenger = Zend_Controller_Action_HelperBroker::getStaticHelper('flashMessenger');
-        $view->messages = $messenger->getMessages();
-
         /* navigation */
         $view->navigation($this->_getNavigation($request));
 

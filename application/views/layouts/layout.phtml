@@ -18,7 +18,6 @@
                 <div class="loading"><?php echo t('one moment please...'); ?></div>
                 <?php echo $this->navigation()->menu(); ?>
                 <?php echo $this->languageSelection; ?>
-                <?php echo $this->messenger($this->messages); ?>
             </div>
             <?php $flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger'); ?>
             <?php if ($flashMessenger->setNamespace('success')->hasMessages()): ?>

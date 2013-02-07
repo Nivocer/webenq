@@ -38,15 +38,6 @@
         //'edit' => array('html'),
     );
 
-    /*
-     * initiate flash messenger, to display message after redirect
-     */
-    public function init()
-    {
-        $this->_flashMessenger = $this->_helper->getHelper('FlashMessenger');
-        $this->initView();
-    }
-
     /**
      * Renders the overview of categories
      *
@@ -67,7 +58,10 @@
             $category->fromArray($form->getValues());
             $category->save();
             //$this->_helper->json(array('reload' => true));
-            $this->_flashMessenger->addMessage('category added succesfully');
+            $this->_helper->FlashMessenger()
+                ->setNamespace('success')
+                ->addMessage('category added succesfully');
+
             $this->_redirect('category');
         }
         $this->view->pageTitle = t("Add category");
@@ -89,7 +83,9 @@
             $category->fromArray($form->getValues());
             $category->save();
             //$this->_redirect($this->_request->getPathInfo());
-            $this->_flashMessenger->addMessage('category saved succesfully');
+            $this->_helper->FlashMessenger()
+                ->setNamespace('success')
+                ->addMessage('category saved succesfully');
 
             $this->_redirect('category');
         }
@@ -114,7 +110,9 @@
         ->find($this->_request->id);
 
         if (!$category){
-            $this->_flashMessenger->addMessage('category does not exist, or no category selected');
+            $this->_helper->FlashMessenger()
+                ->setNamespace('success')
+                ->addMessage('category does not exist, or no category selected');
             $this->_redirect('/category');
             return; //extra return for phpunit
         }
@@ -172,7 +170,9 @@
                     $this->_helper->json(array('reload' => false));
                 }
             } else {
-                $this->_flashMessenger->addMessage('category deleted succesfully');
+                $this->_helper->FlashMessenger()
+                ->setNamespace('success')
+                ->addMessage('category deleted succesfully');
                 $this->_redirect('/category');
             }
         }
@@ -226,6 +226,4 @@
             $c->save();
         }
     }
-
-
 }
