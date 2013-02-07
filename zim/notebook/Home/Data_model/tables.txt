@@ -1,0 +1,35 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-01-24T13:54:46+01:00
+
+====== tables ======
+Created Thursday 24 January 2013
+
+==== Strorage of a questionnaire: ====
+* questionnaire: questionnaire properties
+* questionnaire-question: lookup table
+	* questionnaire: properties
+	* question: id, create time
+		* questionText: label of question.
+	* answerpossibility group (group of answerpossibilities) (name, number, level)
+		* answerpossibility (id, active, answer_possibilitygroup_id, value)
+			* AnswerpossibilityText
+	* questiongroup ??????????????????????????????????????????
+	* collectionPresentation
+		* fields:
+			* type
+			* filters
+			* validators
+			* page
+			* weight (order on page)
+
+
+database aanpassingen:
+active: qq
+spss variable name: qq
+measurement level: qq
+layout: cp
+
+code:
+testen serializen of validators and value=$cp->validators without form variable is correct (guess not)
+question repository
