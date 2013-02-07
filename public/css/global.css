@@ -225,6 +225,16 @@ div.clear {
 	text-decoration: none;
 }
 
+a.with_icon {
+	padding: 0 4px 0 20px;
+	text-decoration: none;
+	background-repeat: no-repeat;
+}
+
+.hidden {
+    display: none;
+}
+
 a.link {
 	display: block;
 	margin: 0 4px;

@@ -40,12 +40,19 @@ class QuestionnaireController extends Zend_Controller_Action
     );
 
     /**
-     * Renders the overview of questoinnaires
+     * Renders the overview of questionnaires, and a form to add a new questionnaire.
      *
      * @return void
     */
     public function indexAction()
     {
+        if (!isset($this->view->form)) {
+            $form = new Webenq_Form_Questionnaire_Properties();
+            $form->setAction($this->_request->getBaseUrl() . '/questionnaire/add');
+            $form->setAttrib('class', 'hidden');
+            $this->view->form = $form;
+        }
+
         $this->view->questionnaires = Webenq_Model_Questionnaire::getQuestionnaires();
     }
 
@@ -128,7 +135,8 @@ class QuestionnaireController extends Zend_Controller_Action
     }
 
     /**
-     * Renders the form for adding a questionnaire
+     * Add a questionnaire: process the properties form, then continue to
+     * the questionnaires index.
      *
      * @return void
      * @todo Add Questionnaire Properties Controller Tests
@@ -157,15 +165,17 @@ class QuestionnaireController extends Zend_Controller_Action
                         )
                     );
             }
+            // redirect via URL to prevent re-posting
             $this->_redirect('questionnaire');
-            // in the pop-up-days: $this->_helper->json(array('reload' => true));
         }
 
         $this->view->form = $form;
+        $this->_forward('index');
     }
 
     /**
-     * Renders the form for editing a questionnaire's properties
+     * Edit a questionnaire: process the properties form, and show the questions
+     * in this questionnaire with its own edit features.
      *
      * @return void
      * @todo Add Questionnaire Properties Controller Tests
@@ -188,24 +198,26 @@ class QuestionnaireController extends Zend_Controller_Action
                     $this->_helper->FlashMessenger()
                     ->setNamespace('success')
                     ->addMessage(
-                            sprintf(
-                                    t('Questionnaire "%s" updated succesfully'),
-                                    $questionnaire->getQuestionnaireTitle()->text
-                            )
-                        );
+                        sprintf(
+                            t('Questionnaire "%s" updated succesfully'),
+                            $questionnaire->getQuestionnaireTitle()->text
+                        )
+                    );
                 } else {
                     $this->_helper->FlashMessenger()
                     ->setNamespace('error')
                     ->addMessage(
-                            t('Questionnaire identifier mismatch, something went wrong')
-                        );
+                        t('Questionnaire identifier mismatch, something went wrong')
+                    );
                 }
             }
 
+            // redirect via URL to prevent re-posting
             $this->_redirect($this->_request->getPathInfo());
         }
 
         $form->setDefaults($questionnaire->toArray());
+        $form->setAttrib('class', 'hidden');
 
         $this->view->form = $form;
         $this->view->questionnaire = $questionnaire;

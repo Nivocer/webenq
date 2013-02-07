@@ -1,6 +1,7 @@
-<a class="link add" href="<?php echo $this->baseUrl('/questionnaire/add') ?>" title="<?php echo t('add questionnaire'); ?>">
-    <?php echo t('add questionnaire'); ?>
-</a>
+<a id="add_questionnaire" class="add with_icon" href="#"><?php echo t('add questionnaire'); ?></a>
+<br clear="all" />
+<?php echo $this->form ?>
+<br clear="all" />
 
 <?php if (isset($this->questionnaires[0])): ?>
     <table>

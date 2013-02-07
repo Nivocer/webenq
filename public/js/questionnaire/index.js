@@ -16,3 +16,20 @@ function saveState(event, reload)
 		 }); 
 	}
 };
+
+$(function() {
+	// hide form for editing questionnaire title if no errors
+	if ($('form#Webenq_Form_Questionnaire_Properties ul.errors').length != 0) {
+		$('form#Webenq_Form_Questionnaire_Properties').show();
+	}
+
+	// show form for editing title when edit-buttons is clicked
+	$('a#add_questionnaire').toggle(function() {
+		$('form#Webenq_Form_Questionnaire_Properties').show('slow');
+		return false;
+	}, function() {
+		$('form#Webenq_Form_Questionnaire_Properties').hide('slow');
+		return false;
+	});
+	
+});
