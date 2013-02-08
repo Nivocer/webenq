@@ -46,11 +46,12 @@ class QuestionnaireController extends Zend_Controller_Action
     */
     public function indexAction()
     {
-        if (!isset($this->view->form)) {
+        if (!isset($this->view->confirmForm)
+        && !isset($this->view->propertiesForm)) {
             $form = new Webenq_Form_Questionnaire_Properties();
             $form->setAction($this->_request->getBaseUrl() . '/questionnaire/add');
             $form->setAttrib('class', 'hidden');
-            $this->view->form = $form;
+            $this->view->propertiesForm = $form;
         }
 
         $this->view->questionnaires = Webenq_Model_Questionnaire::getQuestionnaires();
@@ -149,11 +150,12 @@ class QuestionnaireController extends Zend_Controller_Action
         if ($this->_helper->form->isPostedAndValid($form)) {
             if (!$this->_helper->form->isCancelled($form)) {
                 $questionnaire = new Webenq_Model_Questionnaire();
-                $newValues = $form->getValues();
-                if (isset($newValues['id'])) {
-                    unset($newValues['id']);
+                $formValues = $form->getValues();
+                if (isset($formValues['id'])) {
+                    unset($formValues['id']);
                 }
-                $questionnaire->fromArray($newValues);
+                $questionnaire->fromArray($formValues);
+                // @todo remove this from here, perhaps into model (if needed)
                 $questionnaire->meta = serialize(array('timestamp' => time()));
                 $questionnaire->save();
                 $this->_helper->FlashMessenger()
@@ -169,20 +171,22 @@ class QuestionnaireController extends Zend_Controller_Action
             $this->_redirect('questionnaire');
         }
 
-        $this->view->form = $form;
+        $this->view->propertiesForm = $form;
         $this->_forward('index');
     }
 
     /**
      * Edit a questionnaire: process the properties form, and show the questions
-     * in this questionnaire with its own edit features.
+     * in this questionnaire (with its own edit features).
      *
      * @return void
      * @todo Add Questionnaire Properties Controller Tests
      */
     public function editAction()
     {
-        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire($this->_request->id, $this->_helper->language());
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
+            $this->_request->id, $this->_helper->language()
+        );
         if (!$questionnaire) $this->_redirect('questionnaire');
 
         $form = new Webenq_Form_Questionnaire_Properties();
@@ -190,9 +194,11 @@ class QuestionnaireController extends Zend_Controller_Action
 
         if ($this->_helper->form->isPostedAndValid($form)) {
             if (!$this->_helper->form->isCancelled($form)) {
-                $newValues = $form->getValues();
-                if (isset($newValues['id']) && $newValues['id']==$questionnaire->get('id')) {
-                    $questionnaire->fromArray($newValues);
+                $formValues = $form->getValues();
+                if (isset($formValues['id'])
+                && $formValues['id']==$questionnaire->get('id')) {
+                    $questionnaire->fromArray($formValues);
+                    // @todo remove this from here, perhaps into model (if needed)
                     $questionnaire->meta = serialize(array('timestamp' => time()));
                     $questionnaire->save();
                     $this->_helper->FlashMessenger()
@@ -219,7 +225,7 @@ class QuestionnaireController extends Zend_Controller_Action
         $form->setDefaults($questionnaire->toArray());
         $form->setAttrib('class', 'hidden');
 
-        $this->view->form = $form;
+        $this->view->propertiesForm = $form;
         $this->view->questionnaire = $questionnaire;
         $this->view->totalPages = Webenq_Model_Questionnaire::getTotalPages($questionnaire['id']);
     }
@@ -377,46 +383,56 @@ class QuestionnaireController extends Zend_Controller_Action
     }
 
     /**
-     * Renders the confirmation form for deleting a questionnaire
+     * Delete a questionnaire: process a confirmation form, then continue to
+     * the questionnaires index.
      *
      * @return void
      */
     public function deleteAction()
     {
-        $this->_helper->actionStack('index', 'questionnaire');
-
-        $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
-        ->find($this->_request->id);
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
+            $this->_request->id, $this->_helper->language()
+        );
+        if (!$questionnaire) $this->_redirect('questionnaire');
 
         $title = $questionnaire->getQuestionnaireTitle()->text;
 
-        $confirmationText = sprintf(
-            t('Are you sure you want to delete questionnaire "%s"
-                (including all questions and answers)?'),
-            $title
+        $form = new Webenq_Form_Confirm();
+        $form->setConfirmation(
+            $questionnaire->id,
+            sprintf(
+                t('Are you sure you want to delete questionnaire "%s"
+                    (including all questions and answers)?'),
+                $title
+            )
         );
 
-        $form = new Webenq_Form_Confirm($questionnaire->id, $confirmationText);
-
-        /* process posted data */
-        if ($this->_request->isPost()) {
-            if ($this->_request->yes) {
-                $questionnaire->delete();
-                $this->_helper->FlashMessenger()
+        if ($this->_helper->form->isPostedAndValid($form)) {
+            if (!$this->_helper->form->isCancelled($form)) {
+                $formValues = $form->getValues();
+                if (isset($formValues['id'])
+                && $formValues['id']==$questionnaire->get('id')) {
+                    $questionnaire->delete();
+                    $this->_helper->FlashMessenger()
                     ->setNamespace('success')
                     ->addMessage(
-                        sprintf(
-                            t('Questionnaire "%s" deleted'),
-                            $title)
-                        );
+                        sprintf(t('Questionnaire "%s" deleted'), $title)
+                    );
+                } else {
+                    $this->_helper->FlashMessenger()
+                    ->setNamespace('error')
+                    ->addMessage(
+                        t('Questionnaire identifier mismatch, something went wrong')
+                    );
+                }
             }
+
+            // redirect via URL to prevent re-posting
             $this->_redirect('/questionnaire');
         }
 
-        /* render view */
-        $this->_helper->viewRenderer->setNoRender(true);
-        $this->view->form = $form;
-        $this->_response->setBody($this->view->render('confirm.phtml'));
+        $this->view->confirmForm = $form;
+        $this->_forward('index');
     }
 
     /**

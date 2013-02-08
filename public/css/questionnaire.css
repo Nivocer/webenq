@@ -1,10 +1,6 @@
 @CHARSET "UTF-8";
 
 
-table {
-	width: 50%;
-	margin-left:2px;
-}
 table .move{
 	width: 10px;
 }

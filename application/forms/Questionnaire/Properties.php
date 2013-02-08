@@ -35,12 +35,33 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
     const ERR_END_IS_BEFORE_START = 'endDateIsBeforeStartDate';
 
     /**
+     * Custom messages for questionnaire properties
+     *
      * @var array
      */
     protected $_messageTemplates = array(
         self::ERR_END_IS_BEFORE_START => "The end date should be after the start date",
     );
 
+    /**
+     * Create questionnaire properties form
+     *
+     * The posted form will contain:
+     * <ul>
+     * <li> id
+     * <li> title[default_language]: selected default language for the form
+     * <li> title[en]: English title string
+     * <li> title[..]: (repeated for all available languages)
+     * <li> category_id
+     * <li> active
+     * <li> date_start: expected to be in format YYYY-MM-DD [HH:MM:SS]
+     * <li> date_end: (as date_start)
+     * <li> submit or cancel: depending on submit button
+     * </ul>
+     *
+     * @return void
+     * @see Zend_Form::init()
+     */
     public function init()
     {
         $this->setName(get_class($this));
@@ -101,6 +122,14 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
         );
     }
 
+    /**
+     * Check the questionnaire properties; specifically: make sure the end date
+     * is after the start date
+     *
+     * @param array $values
+     * @return boolean
+     * @see Zend_Form::isValid()
+     */
     public function isValid($values)
     {
         if ($this->isCancelled($values)) {
@@ -127,6 +156,12 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
         }
     }
 
+    /**
+     * Check if the cancel button was submitted
+     *
+     * @param array $values
+     * @return boolean
+     */
     public function isCancelled($values)
     {
         return (isset($values['cancel']));

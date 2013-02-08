@@ -50,8 +50,9 @@ class Webenq_Form_Confirm extends Zend_Form
      * @param string $text
      * @param mixed $options
      * @return void
+     * @todo remove this function, it redefines the constructor signature...
      */
-    public function __construct($id, $text, $options = null)
+    public function __construct($id = '', $text = '', $options = null)
     {
         $this->_id = $id;
         $this->_text = $text;
@@ -78,5 +79,29 @@ class Webenq_Form_Confirm extends Zend_Form
                 $this->createElement('submit', 'no', array('label' => 'no')),
             )
         );
+    }
+
+    /**
+     * Sets the id and text to display in the confirmation dialog
+     *
+     * @param int $id
+     * @param string $text
+     * @return void
+     */
+    public function setConfirmation($id = '', $text = '')
+    {
+        $this->getElement('id')->setLabel($text);
+        $this->getElement('id')->setValue($id);
+    }
+
+    /**
+     * Check if the cancel button was submitted
+     *
+     * @param array $values
+     * @return boolean
+     */
+    public function isCancelled($values)
+    {
+        return (isset($values['no']));
     }
 }

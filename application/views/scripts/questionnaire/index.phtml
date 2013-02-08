@@ -1,7 +1,14 @@
+<?php if (isset($this->confirmForm)) { ?>
+<div class="clear" />
+<?php echo $this->confirmForm ?>
+</div>
+<?php } ?>
+<?php if (isset($this->propertiesForm)) { ?>
 <div class="clear" />
 <a class="add with_icon toggleform" href="#"><?php echo t('add questionnaire'); ?></a>
-<?php echo $this->form ?>
+<?php echo $this->propertiesForm ?>
 </div>
+<?php } ?>
 
 <?php if (isset($this->questionnaires[0])): ?>
     <table>
