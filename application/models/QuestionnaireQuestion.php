@@ -451,12 +451,16 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
      *
      * @return array
      */
-        public static function getAvailablePresentationMethod($type){
+    public static function getAvailablePresentationMethod($type)
+        {
         $availablePresentationMethod['choice']=array('radio/checkbox', 'pulldown','slider');
         $availablePresentationMethod['numeric']=array('open', 'slider');
         $availablePresentationMethod['text']=array('open');
-
-        return $availablePresentationMethod($type);
+        if (isset($availablePresentationMethod[$type])) {
+            return $availablePresentationMethod[$type];
+        } else {
+            return array();
+        }
     }
 
     /*
