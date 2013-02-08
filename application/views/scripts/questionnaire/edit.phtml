@@ -1,9 +1,9 @@
 <h1><?php echo $this->questionnaire->getQuestionnaireTitle()->text; ?></h1>
 
-<a id="edit_questionnaire" class="edit with_icon" href="#"><?php echo t('edit questionnaire properties'); ?></a>
-<br clear="all" />
+<div class="clear" />
+<a class="edit with_icon toggleform" href="#"><?php echo t('edit questionnaire properties'); ?></a>
 <?php echo $this->form ?>
-<br clear="all" />
+</div>
 
 <div class="clear">
     <a class="ajax link add" href="<?php echo $this->baseUrl('/question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo t('add new question'); ?>">

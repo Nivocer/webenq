@@ -368,20 +368,6 @@ $(function() {
 		return false;
 	});
 	
-	// show form for editing questionnaire title if there are errors
-	if ($('form#Webenq_Form_Questionnaire_Properties ul.errors').length != 0) {
-		$('form#Webenq_Form_Questionnaire_Properties').show();
-	}
-	
-	// show form for editing title when edit-buttons is clicked
-	$('a#edit_questionnaire').toggle(function() {
-		$('form#Webenq_Form_Questionnaire_Properties').show('slow');
-		return false;
-	}, function() {
-		$('form#Webenq_Form_Questionnaire_Properties').hide('slow');
-		return false;
-	});
-	
 	// only show delete-page-link when no questions
 	$.each($('a.delete-page'), function() {
 		var page = $(this).closest('.ui-tabs-panel');

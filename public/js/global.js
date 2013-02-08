@@ -3,7 +3,22 @@ $(document).ajaxComplete(function() {
 });
 
 $(function() {
-	
+	/**
+	 * Forms with error lists are always shown
+	 */
+	$('form ul.errors').show();
+
+	/**
+	 * Every <a class="toggleform"> will toggle the form right after it 
+	 */
+	$('a.toggleform').toggle(function() {
+		$(this).next('form').show('slow');
+		return false;
+	}, function() {
+		$(this).next('form').hide('slow');
+		return false;
+	});
+
 	/**
 	 * Every <a class="ajax"/> will open in a dialog box
 	 */
