@@ -309,3 +309,8 @@ ul.selectable {
 .mltextdefaultlanguage .inputfield input {
 	width: 25em;
 }
+
+form .hint {
+    color: #777;
+    padding-left: 0.4em;
+}

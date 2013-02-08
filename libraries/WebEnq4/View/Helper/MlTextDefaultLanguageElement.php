@@ -83,6 +83,7 @@ class WebEnq4_View_Helper_MlTextDefaultLanguageElement
 
             if ($html != '') {
                 $this->_html .= "<span class=\"mltextdefaultlanguage\">$html</span>";
+                $this->_html .= '<span class="hint">&uarr; ' . t("Select the default language") . '</span>';
             }
         }
 
