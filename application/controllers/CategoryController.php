@@ -111,7 +111,7 @@
 
         if (!$category){
             $this->_helper->FlashMessenger()
-                ->setNamespace('success')
+                ->setNamespace('error')
                 ->addMessage('category does not exist, or no category selected');
             $this->_redirect('/category');
             return; //extra return for phpunit
@@ -152,7 +152,6 @@
                 //if we have questionnaires in this category we should update questionnaire properties category_id->1
                 if ($questionnaires->count()>0) {
                     foreach ($questionnaires as $questionnaire){
-                        //var_dump($questionnaire->toArray());
                         $questionnaire->setArray(array('category_id'=>$defaultCategoryId));
                         $questionnaire->save(); //moet dit nog gebeuren
                     }
@@ -174,6 +173,8 @@
                 ->setNamespace('success')
                 ->addMessage('category deleted succesfully');
                 $this->_redirect('/category');
+                return;
+
             }
         }
 
