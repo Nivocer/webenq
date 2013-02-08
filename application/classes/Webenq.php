@@ -30,6 +30,7 @@
  */
 class Webenq
 {
+    const COLLECTION_PRESENTATION_TEXT					    = 'text_only';
     const COLLECTION_PRESENTATION_OPEN_TEXT					= 'open_text';
     const COLLECTION_PRESENTATION_OPEN_TEXTAREA				= 'open_textarea';
     const COLLECTION_PRESENTATION_OPEN_DATE					= 'open_date';
@@ -51,58 +52,45 @@ class Webenq
      *
      * @var array
      */
-    static $_validators = array(
+     static $_validators = array(
             'not_empty' => array(
-                    'name' => 'Verplicht',
-                    'class' => 'Zend_Validate_NotEmpty',
+                'name' => 'Obliged',
+                'class' => 'Zend_Validate_NotEmpty',
             ),
-            'digits' => array(
-                    'name' => 'Numerieke tekens',
-                    'class' => 'Zend_Validate_Digits',
+            'range_min' =>array(
+                'name'=> 'range lower limit',
+                    //@todo find correct validator (alpha  with numbers.s
+                'class' => 'Zend_Validate_Float'
+             ),
+             'range_max' =>array(
+                'name'=> 'range upper limit',
+                'class' => 'Zend_Validate_Float'
+             ),
+            'int' => array(
+                'name' => 'Numerical (integer, specify range below)',
+                'class' => 'Zend_Validate_Int',
             ),
-            'grade' => array(
-                    'name' => 'Rapportcijfer',
-                    'class' => 'Zend_Validate_Between',
-                    'options' =>array('min'=>1, 'max' =>10)
+            'reals' => array(
+                'name' => 'Numerical (reals, specify range below)',
+                'class' => 'Zend_Validate_Float',
             ),
-            'alpha' => array(
-                    'name' => 'Alfabetische tekens',
-                    'class' => 'Zend_Validate_Alpha',
+            'alpha_with_whitespace' => array(
+                'name' => 'Only alphabetical characters (and whitespaces)',
+                'class' => 'Zend_Validate_Alpha',
+                'options' => true
             ),
-            'alnum_with_whitespace' => array(
-            'name' => 'Alfanumerieke tekens inclusief witruimte',
-            'class' => 'Zend_Validate_Alnum',
-            'options' => true,
-            ),
-            'alnum_without_whitespace' => array(
-            'name' => 'Alfanumerieke tekens exclusief witruimte',
-            'class' => 'Zend_Validate_Alnum',
-            'options' => false,
-            ),
-            'date_ddmmyyyy' => array(
-            'name' => 'Datum in de vorm dd-mm-yyyy',
-            'class' => 'Zend_Validate_Date',
-            'options' => array(
-            array('format' => 'dd-MM-yyyy'),
-            ),
-            ),
-            'date_yyyymmdd' => array(
-            'name' => 'Datum in de vorm jjjj-mm-dd',
-            'class' => 'Zend_Validate_Date',
-            'options' => array(
-            array('format' => 'yyyy-MM-dd'),
-            ),
+            'alpha_without_whitespace' => array(
+                'name' => 'Only alphabetical characters (single word)',
+                'class' => 'Zend_Validate_Alpha',
+                'options' => false
             ),
             'email_address' => array(
-            'name' => 'Email-adres',
-            'class' => 'Zend_Validate_EmailAddress',
-            ),
+                'name' => 'Email-adres',
+                'class' => 'Zend_Validate_EmailAddress',
+                ),
             'post_code' => array(
-            'name' => 'Postcode in de vorm 1234 AB',
-            'class' => 'Zend_Validate_PostCode',
-            'options' => array(
-            'locale' => 'nl_NL'
-                    ),
+                'name' => 'Postal code',
+                'class' => 'Zend_Validate_PostCode',
             ),
     );
 
@@ -131,7 +119,7 @@ class Webenq
     {
         $retVal = array();
         foreach (self::$_validators as $key => $validator) {
-            if ($key != 'not_empty') {
+            if (!in_array($key, array('not_empty', 'range_min', 'range_max')))     {
                 $retVal[$key] = $validator['name'];
             }
         }
@@ -150,7 +138,7 @@ class Webenq
     static public function getValidatorInstance($name)
     {
         if (!isset(self::$_validators[$name])) {
-            throw new Exception('Unknown validator!');
+            throw new Exception('Unknown validator:'. $name);
         }
 
         $validator = self::$_validators[$name];
@@ -180,24 +168,29 @@ class Webenq
     static public function getCollectionPresentationTypes()
     {
         return array(
-                'open' => array(
-                        self::COLLECTION_PRESENTATION_OPEN_TEXT => 'text field',
-                        self::COLLECTION_PRESENTATION_OPEN_TEXTAREA => 'text area',
-                        self::COLLECTION_PRESENTATION_OPEN_DATE => 'date selector',
-                        self::COLLECTION_PRESENTATION_OPEN_CURRENTDATE => 'current date',
-                ),
-                'single select' => array(
-                        self::COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST => 'drop-down list',
-                        self::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS => 'radio buttons',
-                        self::COLLECTION_PRESENTATION_SINGLESELECT_SLIDER => 'slider',
-                ),
-                'multiple select' => array(
-                        self::COLLECTION_PRESENTATION_MULTIPLESELECT_LIST => 'list',
-                        self::COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES => 'checkboxes',
-                ),
-                'range select' => array(
-                        self::COLLECTION_PRESENTATION_RANGESELECT_SLIDER => 'slider',
-                ),
+            'text' => array(
+                self::COLLECTION_PRESENTATION_TEXT=>'No answers (text only)'
+            ),
+            'single' => array(
+                self::COLLECTION_PRESENTATION_SINGLESELECT_RADIOBUTTONS => t('One answer from a list (radio)'),
+                self::COLLECTION_PRESENTATION_SINGLESELECT_DROPDOWNLIST => t('One answer from a pulldown menu (pulldown)'),
+                self::COLLECTION_PRESENTATION_SINGLESELECT_SLIDER => t('One answer using a slider (slider)'),
+            ),
+            'multiple' => array(
+                self::COLLECTION_PRESENTATION_MULTIPLESELECT_CHECKBOXES => t('Multiple answers (checkbox)'),
+                self::COLLECTION_PRESENTATION_MULTIPLESELECT_LIST => t('Multiple answers (dropdown (pulldown)'),
+            ),
+            'open' => array(
+                self::COLLECTION_PRESENTATION_OPEN_TEXT => t('Open answer (single lines)'),
+                self::COLLECTION_PRESENTATION_OPEN_TEXTAREA => t('Open answer (multiple lines)'),
+            ),
+            'date' => array(
+                self::COLLECTION_PRESENTATION_OPEN_DATE => t('Date picker'),
+                self::COLLECTION_PRESENTATION_OPEN_CURRENTDATE => t('Current date'),
+            )
+         /*   'range select' => array(
+                self::COLLECTION_PRESENTATION_RANGESELECT_SLIDER => 'slider',
+            ),*/
         );
     }
 
