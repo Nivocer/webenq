@@ -21,8 +21,8 @@ var story = {
      "rect": [
       140,
       310,
-      269,
-      346
+      275,
+      350
      ]
     },
     {
@@ -38,7 +38,7 @@ var story = {
   },
   {
    "title": "login-error",
-   "height": 245,
+   "height": 249,
    "width": 958,
    "image": "2-login-error.png",
    "links": [
@@ -56,17 +56,17 @@ var story = {
      "rect": [
       26,
       196,
-      174,
-      245
+      180,
+      249
      ]
     }
    ]
   },
   {
-   "title": "manage-questionnaires-overview",
-   "height": 338,
+   "title": "questionnaire-index",
+   "height": 292,
    "width": 958,
-   "image": "3-manage-questionnaires-overview.png",
+   "image": "3-questionnaire-index.png",
    "links": [
     {
      "page": 8,
@@ -89,27 +89,27 @@ var story = {
     {
      "page": 3,
      "rect": [
-      3,
-      312,
-      128,
-      338
+      0,
+      144,
+      125,
+      170
      ]
     },
     {
      "page": 4,
      "rect": [
-      424,
+      408,
       264,
-      448,
+      432,
       292
      ]
     },
     {
      "page": 5,
      "rect": [
-      127,
+      140,
       264,
-      369,
+      382,
       292
      ]
     },
@@ -152,36 +152,36 @@ var story = {
     {
      "page": 4,
      "rect": [
-      424,
+      408,
       235,
-      448,
+      432,
       263
      ]
     },
     {
      "page": 5,
      "rect": [
-      127,
+      140,
       235,
-      369,
+      382,
       263
      ]
     },
     {
      "page": 4,
      "rect": [
-      424,
+      408,
       206,
-      448,
+      432,
       234
      ]
     },
     {
      "page": 5,
      "rect": [
-      127,
+      140,
       206,
-      369,
+      382,
       234
      ]
     },
@@ -193,66 +193,345 @@ var story = {
       138,
       207
      ]
-    }
-   ]
-  },
-  {
-   "title": "add-questionnaire",
-   "height": 457,
-   "width": 617,
-   "image": "4-add-questionnaire.png",
-   "links": [
-    {
-     "page": 2,
-     "rect": [
-      34,
-      409,
-      121,
-      444
-     ]
     },
     {
-     "page": 2,
+     "page": 20,
      "rect": [
-      127,
-      409,
-      196,
-      444
+      464,
+      203,
+      485,
+      291
      ]
     }
    ]
   },
   {
-   "title": "edit-questionnaire-properties",
-   "height": 489,
-   "width": 617,
-   "image": "5-edit-questionnaire-properties.png",
-   "links": [
-    {
-     "page": 2,
-     "rect": [
-      34,
-      441,
-      121,
-      476
-     ]
-    },
-    {
-     "page": 2,
-     "rect": [
-      127,
-      441,
-      196,
-      476
-     ]
-    }
-   ]
-  },
-  {
-   "title": "preview-questionnaire",
-   "height": 754,
+   "title": "questionnaire-add",
+   "height": 588,
    "width": 958,
-   "image": "6-preview-questionnaire.png",
+   "image": "4-questionnaire-add.png",
+   "links": [
+    {
+     "page": 8,
+     "rect": [
+      32,
+      503,
+      129,
+      587
+     ]
+    },
+    {
+     "page": 9,
+     "rect": [
+      0,
+      0,
+      138,
+      64
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      0,
+      144,
+      125,
+      170
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      425,
+      560,
+      449,
+      588
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      128,
+      560,
+      370,
+      588
+     ]
+    },
+    {
+     "page": 9,
+     "rect": [
+      145,
+      0,
+      184,
+      23
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      184,
+      0,
+      265,
+      23
+     ]
+    },
+    {
+     "page": 10,
+     "rect": [
+      306,
+      0,
+      379,
+      23
+     ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      417,
+      0,
+      463,
+      23
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      425,
+      531,
+      449,
+      559
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      128,
+      531,
+      370,
+      559
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      425,
+      502,
+      449,
+      530
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      128,
+      502,
+      370,
+      530
+     ]
+    },
+    {
+     "page": 6,
+     "rect": [
+      25,
+      475,
+      139,
+      503
+     ]
+    },
+    {
+     "page": 20,
+     "rect": [
+      464,
+      203,
+      485,
+      291
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      34,
+      429,
+      87,
+      452
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      106,
+      429,
+      150,
+      452
+     ]
+    }
+   ]
+  },
+  {
+   "title": "questionnaire-edit-properties",
+   "height": 1061,
+   "width": 958,
+   "image": "5-questionnaire-edit-properties.png",
+   "links": [
+    {
+     "page": 9,
+     "rect": [
+      145,
+      0,
+      184,
+      23
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      184,
+      0,
+      265,
+      23
+     ]
+    },
+    {
+     "page": 10,
+     "rect": [
+      306,
+      0,
+      379,
+      23
+     ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      417,
+      0,
+      463,
+      23
+     ]
+    },
+    {
+     "page": 18,
+     "rect": [
+      0,
+      476,
+      101,
+      502
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      72,
+      735,
+      825,
+      928
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      72,
+      936,
+      463,
+      1049
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      72,
+      578,
+      463,
+      728
+     ]
+    },
+    {
+     "page": 18,
+     "rect": [
+      48,
+      578,
+      64,
+      594
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      28,
+      578,
+      64,
+      594
+     ]
+    },
+    {
+     "page": 18,
+     "rect": [
+      48,
+      735,
+      64,
+      751
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      28,
+      735,
+      64,
+      751
+     ]
+    },
+    {
+     "page": 18,
+     "rect": [
+      48,
+      936,
+      64,
+      952
+     ]
+    },
+    {
+     "page": 17,
+     "rect": [
+      28,
+      936,
+      64,
+      952
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      0,
+      144,
+      175,
+      170
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      34,
+      427,
+      87,
+      450
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      106,
+      427,
+      150,
+      450
+     ]
+    }
+   ]
+  },
+  {
+   "title": "questionnaire-edit",
+   "height": 761,
+   "width": 958,
+   "image": "6-questionnaire-edit.png",
    "links": [
     {
      "page": 9,
@@ -303,90 +582,99 @@ var story = {
      "page": 18,
      "rect": [
       0,
-      728,
+      176,
       101,
-      754
+      202
      ]
     },
     {
      "page": 17,
      "rect": [
       72,
-      395,
+      435,
       825,
-      588
+      628
      ]
     },
     {
      "page": 17,
      "rect": [
       72,
-      596,
+      636,
       463,
-      709
+      749
      ]
     },
     {
      "page": 17,
      "rect": [
       72,
-      238,
+      278,
       463,
-      388
+      428
      ]
     },
     {
      "page": 18,
      "rect": [
       48,
-      238,
+      278,
       64,
-      254
+      294
      ]
     },
     {
      "page": 17,
      "rect": [
       28,
-      238,
+      278,
       64,
-      254
+      294
      ]
     },
     {
      "page": 18,
      "rect": [
       48,
-      395,
+      435,
       64,
-      411
+      451
      ]
     },
     {
      "page": 17,
      "rect": [
       28,
-      395,
+      435,
       64,
-      411
+      451
      ]
     },
     {
      "page": 18,
      "rect": [
       48,
-      596,
+      636,
       64,
-      612
+      652
      ]
     },
     {
      "page": 17,
      "rect": [
       28,
-      596,
+      636,
       64,
-      612
+      652
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      0,
+      144,
+      175,
+      170
      ]
     }
    ]
@@ -527,7 +815,7 @@ var story = {
   {
    "title": "edit-category",
    "height": 490,
-   "width": 656,
+   "width": 662,
    "image": "9-edit-category.png",
    "links": [
     {
@@ -561,7 +849,7 @@ var story = {
   },
   {
    "title": "home",
-   "height": 191,
+   "height": 195,
    "width": 958,
    "image": "10-home.png",
    "links": [
@@ -668,7 +956,7 @@ var story = {
   {
    "title": "delete-category-confirmation-noQuestionnaires",
    "height": 133,
-   "width": 554,
+   "width": 560,
    "image": "12-delete-category-confirmation-noQuestionnaires.png",
    "links": [
     {
@@ -694,7 +982,7 @@ var story = {
   {
    "title": "delete-category-confirmation-withQuestionnaires",
    "height": 139,
-   "width": 562,
+   "width": 568,
    "image": "13-delete-category-confirmation-withQuestionnaires.png",
    "links": [
     {
@@ -1120,6 +1408,158 @@ var story = {
       351,
       58,
       374
+     ]
+    }
+   ]
+  },
+  {
+   "title": "questionnaire-delete",
+   "height": 292,
+   "width": 958,
+   "image": "21-questionnaire-delete.png",
+   "links": [
+    {
+     "page": 8,
+     "rect": [
+      31,
+      207,
+      128,
+      291
+     ]
+    },
+    {
+     "page": 9,
+     "rect": [
+      0,
+      0,
+      138,
+      64
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      408,
+      264,
+      432,
+      292
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      140,
+      264,
+      382,
+      292
+     ]
+    },
+    {
+     "page": 9,
+     "rect": [
+      145,
+      0,
+      184,
+      23
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      184,
+      0,
+      265,
+      23
+     ]
+    },
+    {
+     "page": 10,
+     "rect": [
+      306,
+      0,
+      379,
+      23
+     ]
+    },
+    {
+     "page": 0,
+     "rect": [
+      417,
+      0,
+      463,
+      23
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      408,
+      235,
+      432,
+      263
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      140,
+      235,
+      382,
+      263
+     ]
+    },
+    {
+     "page": 4,
+     "rect": [
+      408,
+      206,
+      432,
+      234
+     ]
+    },
+    {
+     "page": 5,
+     "rect": [
+      140,
+      206,
+      382,
+      234
+     ]
+    },
+    {
+     "page": 6,
+     "rect": [
+      24,
+      179,
+      138,
+      207
+     ]
+    },
+    {
+     "page": 20,
+     "rect": [
+      464,
+      203,
+      485,
+      291
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      241,
+      127,
+      275,
+      150
+     ]
+    },
+    {
+     "page": 2,
+     "rect": [
+      280,
+      127,
+      318,
+      150
      ]
     }
    ]
