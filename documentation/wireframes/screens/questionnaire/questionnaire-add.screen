@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="31" x="48" y="-53" measuredWidth="958" measuredHeight="588" dimmed="true">
+    <screen xsi:type="model:Screen" href="questionnaire-index.screen#/"/>
+    <overrides>
+      <widgets ref="25" x="32" y="503"/>
+      <widgets ref="18" x="3" y="503"/>
+      <widgets ref="5" y="472"/>
+      <widgets ref="17" x="128" y="502"/>
+      <widgets ref="20" x="3" y="561"/>
+      <widgets ref="12" x="128" y="560"/>
+      <widgets ref="14" x="425" y="531"/>
+      <widgets ref="16" x="425" y="502"/>
+      <widgets ref="15" x="128" y="531"/>
+      <widgets ref="26" x="25" y="475"/>
+      <widgets ref="19" x="3" y="532"/>
+      <widgets ref="11" x="425" y="560"/>
+      <widgets ref="10" link="questionnaire-index.screen"/>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Master" id="32" x="48" y="125" measuredWidth="537" measuredHeight="284" dimmed="true">
+    <screen xsi:type="model:Screen" href="../../assets/forms/questionnaire/questionnaire-properties.screen#/"/>
+  </widgets>
+  <hRuler/>
+  <vRuler>
+    <guides position="125"/>
+  </vRuler>
+  <font name="Arial" size="11px"/>
+</model:Screen>

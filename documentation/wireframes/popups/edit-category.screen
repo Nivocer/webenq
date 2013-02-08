@@ -43,7 +43,7 @@
   <widgets xsi:type="model:Table" id="56" x="82" y="360" text="Questionnaires in this category&#xA;Student satisfaction&#xA;Inactive questionnaire" measuredWidth="178" measuredHeight="64" alternative="#eeeeee">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Hotspot" id="57" x="82" y="383" width="152" height="41" measuredWidth="152" measuredHeight="41" link="edit-questionnaire-properties.screen"/>
+  <widgets xsi:type="model:Hotspot" id="57" x="82" y="383" width="152" height="41" measuredWidth="152" measuredHeight="41" link="../screens/questionnaire/questionnaire-edit-properties.screen"/>
   <widgets xsi:type="model:Master" id="58" x="174" y="31" measuredWidth="305" measuredHeight="24">
     <screen xsi:type="model:Screen" href="../assets/hints/hint-popup.screen#/"/>
   </widgets>

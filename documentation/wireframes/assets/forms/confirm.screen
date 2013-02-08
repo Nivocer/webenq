@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Panel" id="1" x="24" y="48" width="565" height="69" measuredWidth="565" measuredHeight="69"/>
+  <widgets xsi:type="model:Text" id="2" x="204" y="58" text="Are you sure you want to do this action?" measuredWidth="190" measuredHeight="13" textAlignment="Center">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="4" x="265" y="87" text="No" measuredWidth="34" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="5" x="304" y="87" text="Yes" measuredWidth="38" measuredHeight="23">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

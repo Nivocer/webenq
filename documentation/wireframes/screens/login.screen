@@ -13,7 +13,7 @@
     <widgets xsi:type="model:TextField" id="8" x="21" y="37" width="291" text="User name" measuredWidth="291" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Button" id="9" x="21" y="153" text="Log in" measuredWidth="49" measuredHeight="23" link="manage-questionnaires-overview.screen">
+    <widgets xsi:type="model:Button" id="9" x="21" y="153" text="Log in" measuredWidth="49" measuredHeight="23" link="questionnaire/questionnaire-index.screen">
       <font/>
     </widgets>
     <widgets xsi:type="model:Label" id="10" x="21" y="73" text="Password:" measuredWidth="55" measuredHeight="21">

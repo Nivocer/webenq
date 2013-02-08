@@ -7,16 +7,16 @@
     <screen href="../screens/login-error.screen#/"/>
   </panels>
   <panels x="75" y="975">
-    <screen href="../screens/manage-questionnaires-overview.screen#/"/>
+    <screen href="../screens/questionnaire/questionnaire-index.screen#/"/>
   </panels>
   <panels x="675" y="75">
-    <screen href="../popups/add-questionnaire.screen#/"/>
+    <screen href="../screens/questionnaire/questionnaire-add.screen#/"/>
   </panels>
   <panels x="975" y="75">
-    <screen href="../popups/edit-questionnaire-properties.screen#/"/>
+    <screen href="../screens/questionnaire/questionnaire-edit-properties.screen#/"/>
   </panels>
   <panels x="375" y="375">
-    <screen href="../screens/preview-questionnaire.screen#/"/>
+    <screen href="../screens/questionnaire/questionnaire-edit.screen#/"/>
   </panels>
   <panels x="75" y="375">
     <screen href="../screens/manage-categories-overview.screen#/"/>
@@ -59,5 +59,8 @@
   </panels>
   <panels x="975" y="1275">
     <screen href="../screens/questionnaireQuestion/tab-subquestions.screen#/"/>
+  </panels>
+  <panels x="975" y="1575">
+    <screen href="../screens/questionnaire/questionnaire-delete.screen#/"/>
   </panels>
 </story:Storyboard>

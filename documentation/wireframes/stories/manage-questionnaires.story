@@ -4,13 +4,13 @@
     <screen href="../screens/manage-categories-overview.screen#/"/>
   </panels>
   <panels x="75" y="75">
-    <screen href="../popups/add-questionnaire.screen#/"/>
+    <screen href="../screens/questionnaire/questionnaire-add.screen#/"/>
   </panels>
   <panels x="375" y="75">
-    <screen href="../popups/edit-questionnaire-properties.screen#/"/>
+    <screen href="../screens/questionnaire/questionnaire-edit-properties.screen#/"/>
   </panels>
   <panels x="75" y="375">
-    <screen href="../screens/preview-questionnaire.screen#/"/>
+    <screen href="../screens/questionnaire/questionnaire-edit.screen#/"/>
   </panels>
   <panels x="675" y="75">
     <screen href="../hints/hint-drag-to-move.screen#/"/>

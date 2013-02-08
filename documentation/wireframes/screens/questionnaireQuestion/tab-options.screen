@@ -82,7 +82,7 @@
         <itemChanges xsi:type="o:Delete" ref="@items.2"/>
       </widgets>
       <widgets ref="5" y="78"/>
-      <widgets ref="6" text="Done" link="../preview-questionnaire.screen"/>
+      <widgets ref="6" text="Done" link="../questionnaire/questionnaire-edit.screen"/>
       <widgets ref="7" link="tab-answers-select.screen"/>
     </overrides>
   </widgets>

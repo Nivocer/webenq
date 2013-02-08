@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="55" x="16" y="20" measuredWidth="958" measuredHeight="1061" dimmed="true">
+    <screen xsi:type="model:Screen" href="questionnaire-edit.screen#/"/>
+    <overrides>
+      <widgets ref="13" y="540"/>
+      <widgets ref="6" y="476"/>
+      <widgets ref="7" y="508"/>
+      <widgets ref="33" link="questionnaire-edit.screen"/>
+      <widgets ref="5" noLink="true"/>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Master" id="56" x="16" y="196" measuredWidth="537" measuredHeight="284" dimmed="true">
+    <screen xsi:type="model:Screen" href="../../assets/forms/questionnaire/questionnaire-properties.screen#/"/>
+    <overrides>
+      <widgets ref="20" link="questionnaire-edit.screen"/>
+      <widgets ref="21" link="questionnaire-edit.screen"/>
+    </overrides>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

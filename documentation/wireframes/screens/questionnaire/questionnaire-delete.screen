@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" xmlns:o="http://wireframesketcher.com/1.0/model/overrides">
+  <widgets xsi:type="model:Master" id="2" measuredWidth="958" measuredHeight="292" dimmed="true">
+    <screen xsi:type="model:Screen" href="questionnaire-index.screen#/"/>
+    <overrides>
+      <widgetChanges xsi:type="o:Delete" ref="10"/>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Master" id="3" y="88" measuredWidth="565" measuredHeight="69">
+    <screen xsi:type="model:Screen" href="../../assets/forms/confirm.screen#/"/>
+    <overrides>
+      <widgets ref="4" link="questionnaire-index.screen"/>
+      <widgets ref="5" link="questionnaire-index.screen"/>
+      <widgets ref="2" text="Are you sure you want to delete this questionnaire&#xA;(including all questions and answers)?"/>
+    </overrides>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

@@ -3,7 +3,7 @@
   <widgets xsi:type="model:WidgetGroup" id="2" x="24" y="20" measuredWidth="818" measuredHeight="37" name="Top menu (logged in)">
     <widgets xsi:type="model:Menu" id="3" text="Home, Questionnaires, Import, Management, Users, Log out" measuredWidth="365" measuredHeight="25" selection="">
       <items link="../../screens/home.screen" x="5" y="0" width="43" height="25" text="Home"/>
-      <items link="../../screens/manage-questionnaires-overview.screen" x="48" y="0" width="93" height="25" text="Questionnaires"/>
+      <items link="../../screens/questionnaire/questionnaire-index.screen" x="48" y="0" width="93" height="25" text="Questionnaires"/>
       <items x="141" y="0" width="44" height="25" text="Import"/>
       <items link="../../screens/home-menu-management-extend.screen" x="185" y="0" width="82" height="25" text="Management"/>
       <items x="267" y="0" width="42" height="25" text="Users"/>
@@ -31,7 +31,7 @@
   <widgets xsi:type="model:WidgetGroup" id="22" x="24" y="92" measuredWidth="120" measuredHeight="92" name="Sub menu management">
     <widgets xsi:type="model:Popup" id="21" text="Categories&#xA;Questionnaires&#xA;Questions&#xA;Answers" measuredWidth="120" measuredHeight="92" selection="">
       <items link="../../screens/manage-categories-overview.screen" x="0" y="2" width="120" height="22" text="Categories"/>
-      <items link="../../screens/manage-questionnaires-overview.screen" x="0" y="24" width="120" height="22" text="Questionnaires"/>
+      <items link="../../screens/questionnaire/questionnaire-index.screen" x="0" y="24" width="120" height="22" text="Questionnaires"/>
       <items x="0" y="46" width="120" height="22" text="Questions"/>
       <items x="0" y="68" width="120" height="22" text="Answers"/>
     </widgets>
