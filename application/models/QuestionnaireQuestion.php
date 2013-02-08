@@ -223,6 +223,8 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
 
             // instantiate form element
             switch ($this->CollectionPresentation[0]->type) {
+                case Webenq::COLLECTION_PRESENTATION_TEXT:
+                    $element = new WebEnq4_Form_Element_Note($name);
                 case Webenq::COLLECTION_PRESENTATION_OPEN_TEXT:
                     $element = new Zend_Form_Element_Text($name);
                     break;
@@ -303,8 +305,17 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
             if ($this->CollectionPresentation[0]->validators) {
                 $validators = unserialize($this->CollectionPresentation[0]->validators);
                 if (is_array($validators)) {
-                    foreach ($validators as $name) {
+                    foreach ($validators as $key => $value) {
+                        if ($key=='validators'){
+                            $name=$value;
+                            $options=array();
+
+                        }else{
+                            $name=$key;
+                            $options=$value;
+                        }
                         $validator = Webenq::getValidatorInstance($name);
+                        //@todo add options $validator->addOptions($options);
                         $element->addValidator($validator, true);
                         if ($validator instanceof Zend_Validate_NotEmpty) {
                             $element->setRequired(true);
@@ -424,5 +435,237 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         }
         $xpath .=  Webenq::Xmlify('q' . $this->id, 'tag');
         return $xpath;
+    }
+    //new functions as of feb 2013
+    /*
+     * get answer options suggestions based on question text or all answeroptions
+     * ordered by somerthing
+     * @todo write function
+     */
+    public static function getAnswerOptions($questionText=null){
+        return array('test'=>'empty');
+    }
+
+    /*
+     * return the available presentation method based on type of answer possiblity
+     *
+     * @return array
+     */
+        public static function getAvailablePresentationMethod($type){
+        $availablePresentationMethod['choice']=array('radio/checkbox', 'pulldown','slider');
+        $availablePresentationMethod['numeric']=array('open', 'slider');
+        $availablePresentationMethod['text']=array('open');
+
+        return $availablePresentationMethod($type);
+    }
+
+    /*
+     * return question text
+     *
+     * @return string
+     */
+
+    public function getQuestionText()
+    {
+        return $this->Question->getQuestionText();
+    }
+    /*
+     * get answer possiblity type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->CollectionPresentation[0]->type;
+    }
+
+    /*
+     * get Webenq_model_questionnaireQuestion object by id
+     *
+     * @return Webenq_Model_QuestionnaireQuestion
+     */
+    public function find($id)
+    {
+
+        return Doctrine_Query::create()
+            ->from(get_class($this))
+            ->where('id= ?', $id)
+            ->execute();
+
+    }
+    /**
+     * Fills record with data in array and fills related objects with
+     * translations
+     *
+     * @param array $array
+     * @param bool $deep
+     * @see Doctrine_Record::fromArray()
+     * @todo write function
+     */
+    //from form to database
+    public function fromArray(array $array, $deep = true)
+    {
+        parent::fromArray($array, $deep);
+
+//         if (isset($array['question'])) {
+//             foreach ($array['question'] as $language => $text) {
+//                 if ($text && $language!='default_language') {
+//                     $this->saveQuestionText($language, $text);
+//                 }
+//             }
+//         }
+        if (isset($array['question'])){
+            $this->id=$array['question']['id'];
+        }
+    }
+    //database to form
+       /**
+     * Fills array with data in record and fills related objects with
+     * translations
+     *
+     * @param bool $deep
+     * @param bool $prefixKey Not used
+     * @return array
+     * @see Doctrine_Record::fromArray()
+     */
+    public function toArray($deep = true, $prefixKey = false)
+    {
+        $result = parent::toArray($deep, $prefixKey);
+        //text tab
+        if (isset($result['Question']) && ($result['Question'])) {
+            foreach ($result['Question'] as $question) {
+                if (is_array($question)){
+                    foreach ($question as $textOption){
+                        if (isset($textOption['text']) && isset($textOption['language'])) {
+                            $result['question'][$textOption['language']] = $textOption['text'];
+                        }
+                    }
+                }
+            }
+        }
+        if (isset($result['Question']) && ($result['Question'])){
+            $result['question']['id']=$result['Question']['id'];
+        }
+        //answer options tab
+        //@todo get reuse/suggestion value (answerDomain)
+        //$result['answerOptions']['reuse']=$result['answerOptions']['suggestions']='';
+
+        //options tab
+        //@todo write options tab toArray-code
+        return $result;
+    }
+
+    //public function save(){
+//                 // type and answerPossiblitity group
+//         if ($values['answers']['useAnswerPossibilityGroup'] == 1) {
+//             $qq->answerPossibilityGroup_id = $values['answers']['answerPossibilityGroup_id'];
+//             $cp->type = $values['type']['collectionPresentationType'];
+//         } else {
+//             $qq->answerPossibilityGroup_id = null;
+//             $cp->type = $values['type']['collectionPresentationType'];
+//             //$cp->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
+//         }
+//         //TODO if collectionPresentationType is null set default type.
+//         //layout
+//         if (!isset($values['layout'])){
+//             $values['layout']=array();
+//         }
+//         $cp->layout = serialize($values['layout']);
+
+
+//         // get filters and validators (we don't use filters at this moment)
+//         if (!isset($values['validation'])){
+//             $values['validation']=array();
+//         }
+//         $cp->validators = serialize($values['validation']);
+
+//         if (!isset($values['filters'])){
+//             $values['filters']=array();
+//         }
+//         $cp->filters = serialize($filters);
+
+
+//         //advanced
+//         $qq->active=$values['advanced']['active'];
+//         $qq->spss_variable_name=$values['advanced']['spss_variable_name'];
+//         $qq->measurement_level=$values['advanced']['measurement_level'];
+
+
+//         //obsolete:
+//         // get move-to-value
+//         $cp->parent_id = ($values['text']['moveTo'] > 0) ? $values['text']['moveTo'] : null;
+
+
+
+
+//         $qq->save();
+
+//    }
+
+    /*
+     * @todo adjust/check function we moved it from form to here.
+     */
+    public function saveQuestionText()
+    {
+        $qq = $this->_questionnaireQuestion;
+        $cp = $qq->CollectionPresentation[0];
+
+        $values = $this->getValues();
+
+        //text
+        /* check if the question texts have been modified */
+        $isModifiedText = false;
+        foreach ($qq->Question->QuestionText as $qt) {
+            if (!key_exists($qt->language, $values['text']['text'])) {
+                $isModifiedText = true;
+                break;
+            } elseif ($values['text']['text'][$qt->language] !== $qt->text) {
+                $isModifiedText = true;
+                break;
+            }
+        }
+
+        /**
+         * If text changes are set to be made locally, a copy of the
+         * question is made and assigned to the current questionnaire.
+         */
+        if ($isModifiedText) {
+            if ($values['text']['change_globally'] == 'local') {
+                /* copy question */
+                $question = new Webenq_Model_Question();
+                unset($values['text']['change_globally']);
+                foreach ($values['text']['text'] as $language => $text) {
+                    $qt = new Webenq_Model_QuestionText;
+                    $qt->text = $text;
+                    $qt->language = $language;
+                    $question->QuestionText[] = $qt;
+                }
+                $question->save();
+                $qq->Question = $question;
+            } else {
+                // update or delete existing translations
+                $texts = $values['text']['text'];
+                foreach ($qq->Question->QuestionText as $qt) {
+                    if (!key_exists($qt->language, $texts) || empty($texts[$qt->language])) {
+                        $qt->delete();
+                        unset($texts[$qt->language]);
+                    } else {
+                        $qt->text = $texts[$qt->language];
+                        $qt->save();
+                        unset($texts[$qt->language]);
+                    }
+                }
+                // save new translations
+                foreach ($texts as $language => $text) {
+                    if (!empty($text)) {
+                        $qt = new Webenq_Model_QuestionText();
+                        $qt->language = $language;
+                        $qt->text = $text;
+                        $qt->question_id = $qq->question_id;
+                        $qt->save();
+                    }
+                }
+            }
+        }
     }
 }

@@ -80,35 +80,75 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     }
 
     /**
-     * Renders the form for editing a questionnaire
-     *
+     * Renders the form for editing a questionnaire and handle saving of form.
+     * @todo clean function (splits?)
      * @return void
      */
     public function editAction()
     {
         // get requested questionnaire-question
-        $questionnaireQuestion = Doctrine_Core::getTable(
-            'Webenq_Model_QuestionnaireQuestion'
-        )->find(
-            $this->_request->id
-        );
+        $questionnaireQuestionTemp = new Webenq_Model_QuestionnaireQuestion();
+        $questionnaireQuestion=$questionnaireQuestionTemp->find($this->_request->id)->getFirst();
 
+        if (!$questionnaireQuestion){
+            $this->_redirect('/questionnaire/');
+            return;
+        }
         // get form
-        $form = new Webenq_Form_QuestionnaireQuestion_Edit($questionnaireQuestion);
+        $info['suggestions']=Webenq_Model_QuestionnaireQuestion::getAnswerOptions($questionnaireQuestion->getQuestionText());
+        $info['presentation']=Webenq_Model_QuestionnaireQuestion::getAvailablePresentationMethod($questionnaireQuestion->getType());
+        $form = new Webenq_Form_QuestionnaireQuestion_Edit($info);
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         // process form
         if ($this->_helper->form->isPostedAndValid($form)) {
+            if (!$this->_helper->form->isCancelled($form)) {
+                $newValues = $form->getValues();
+                if (isset($newValues['question']['id']) && $newValues['question']['id']==$questionnaireQuestion->get('id')) {
+                    $questionnaireQuestion->fromArray($newValues);
+//                    @todo activated save
+                    //$questionnaireQuestionnaire->save();
 
-            // store the posted values
-            $form->storeValues();
+                    $this->_helper->FlashMessenger()
+                    ->setNamespace('error')
+                    ->addMessage(
+                        t('Save is not activated: qq-controller')
+                    );
 
-            // build redirect url
-            $redirectUrl = 'questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->id;
-            if ((int) $questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
-                $redirectUrl .= '#page-' . $questionnaireQuestion->CollectionPresentation[0]->page;
+                    $this->_helper->FlashMessenger()
+                    ->setNamespace('success')
+                    ->addMessage(
+                        sprintf(
+                            t('Question "%s" updated succesfully'),
+                            //@todo check questiontexst
+                            $questionnaireQuestion->getQuestionText()->text
+                        )
+                    );
+                } else {
+                    $this->_helper->FlashMessenger()
+                    ->setNamespace('error')
+                    ->addMessage(
+                        t('Question identifier mismatch, something went wrong')
+                    );
+                }
             }
 
+            //build redirect url
+            //@todo check redirecturl
+
+            $redirectSubForm=$form->getRedirectSubform();
+            //$formIdTranslation=array('question'=>'questions', 'answerOptions'=>'answerOptions', 'options'=>'options');
+            if ($redirectSubForm=='done'){
+                $redirectUrl = 'questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->id;
+                if ((int) $questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
+                    $redirectUrl .= '#page-' . $questionnaireQuestion->CollectionPresentation[0]->page;
+                }
+            }else {
+                //note: if redirectSubform ==false -> go to first tab
+                $redirectUrl = 'questionnaire-question/edit/id/' . $questionnaireQuestion->id;
+                $redirectUrl .= '#' . $redirectSubForm;
+
+            }
             // close dialog and redirect
             if ($this->_request->isXmlHttpRequest()) {
                 $this->_helper->json(
@@ -121,6 +161,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 $this->_redirect($redirectUrl);
             }
         }
+        //info needed for form
+        $form->setDefaults($questionnaireQuestion->toArray());
 
         $this->view->form = $form;
         $this->view->questionnaireQuestion = $questionnaireQuestion;
@@ -271,4 +313,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             ->execute();
         $this->view->qq = $qq;
     }
+
+
 }

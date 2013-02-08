@@ -2,23 +2,26 @@
     <form action="<?php echo $this->form->getAction(); ?>" method="post">
         <ul>
             <li>
-                <a href="#general"><?php echo t('general'); ?></a>
+                <a href="#question"><?php echo t('question'); ?></a>
             </li>
             <li>
-                <a href="#answer"><?php echo t('answer possibilities'); ?></a>
+                <a href="#answerOptions"><?php echo t('answer options'); ?></a>
             </li>
             <li>
-                <a href="#validation"><?php echo t('validation'); ?></a>
+                <a href="#options"><?php echo t('options'); ?></a>
             </li>
         </ul>
-        <div id="general">
-            <?php echo $this->form->general; ?>
+        <div id=questionText><h3>
+        <?php echo $this->questionnaireQuestion->Question->getQuestionText()->text?>
+        </h3></div>
+        <div id="question">
+            <?php echo $this->form->question; ?>
         </div>
-        <div id="answer">
-            <?php echo $this->form->answers; ?>
+        <div id="answerOptions">
+            <?php echo $this->form->answerOptions; ?>
         </div>
-        <div id="validation">
-            <?php echo $this->form->validation; ?>
+        <div id="options">
+            <?php echo $this->form->options; ?>
         </div>
     </form>
 </div>

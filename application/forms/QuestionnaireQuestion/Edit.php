@@ -26,7 +26,7 @@
  * Form class
  *
  * @package    Webenq_Questionnaires_Manage
- * @author     Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
+ * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
 {
@@ -34,204 +34,137 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
      * Webenq_Model_QuestionnaireQuestion instance
      *
      * @var Webenq_Model_QuestionnaireQuestion $_questionnaireQuestion
-     */
-    protected $_questionnaireQuestion;
+    */
+    protected $_info;
 
-    protected $_rootQuestionsMultiOptions;
-
-    /**
-     * Constructor
-     *
-     * @param Webenq_Model_QuestionnaireQuestion $questionnaireQuestion
-     * @param mixed $options
-     */
-    public function __construct(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion, $options = null)
+    public function __construct(array $info, $options = null)
     {
-        $this->_questionnaireQuestion = $questionnaireQuestion;
-
-        // get all questions in this questionnaire at root level
-        $rootQuestions = Doctrine_Query::create()
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->innerJoin(
-                'qq.CollectionPresentation cp WITH qq.questionnaire_id = ?',
-                $questionnaireQuestion->questionnaire_id
-            )
-            ->innerJoin('qq.Question q')
-            ->leftJoin('q.QuestionText qt WITH qt.language = ?', Zend_Registry::get('Zend_Locale')->getLanguage())
-            ->andWhere('qq.id != ?', $questionnaireQuestion['id'])
-            ->andWhere('cp.parent_id IS NULL OR cp.parent_id = 0')
-            ->orderBy('cp.page, cp.weight')
-            ->execute(null, Doctrine_Core::HYDRATE_ARRAY);
-        $rootQuestionsMultiOptions = array(0 => '---');
-        foreach ($rootQuestions as $question) {
-            $rootQuestionsMultiOptions[$question['CollectionPresentation'][0]['id']] =
-                @$question['Question']['QuestionText'][0]['text'];
-        }
-        $this->_rootQuestionsMultiOptions = $rootQuestionsMultiOptions;
-
+        $this->_info = $info;
         parent::__construct($options);
     }
-
     /**
      * Initialises the form
      *
      * @return void
      */
+
     public function init()
     {
-        $qq = $this->_questionnaireQuestion;
-        $cp = $qq->CollectionPresentation[0];
-        $rp = $qq->ReportPresentation[0];
+        $info = $this->_info;
 
-        /* add subform for question's general settings */
-        $generalForm = new Zend_Form_SubForm();
-        $questionEditForm = new Webenq_Form_Question_Edit($qq->Question);
-        $generalForm->addSubForm($questionEditForm->getSubForm('text'), 'text');
+        /* question form/tab */
+        $questionForm = new Zend_Form_SubForm();
+        $id = new Zend_Form_Element_Hidden('id');
+        $id->removeDecorator('DtDdWrapper');
+        $id->removeDecorator('Label');
+        $questionForm->addElement($id);
 
-        if ($qq->existsInMultipleQuestionnaires()) {
-            $generalForm->addElement(
+        $languages = Webenq_Language::getLanguages();
+        foreach ($languages as $language) {
+            $questionForm->addElement(
                 $this->createElement(
-                    'radio',
-                    'change_globally',
+                    'text',
+                    $language,
                     array(
-                        'label' => 'Hoe wilt u bovenstaande wijzigingen doorvoeren?',
-                        'value' => 'local',
-                        'multiOptions' => array(
-                            'local' => 'Huidige questionnaire',
-                            'global' => 'Alle questionnaires',
+                        'label' => t('text') . ' (' . $language . '):',
+                        'size' => 60,
+                        'autocomplete' => 'on',
+                        'required' => true,
+                        'validators' => array(
+                            new Zend_Validate_NotEmpty(),
                         ),
-                        'order' => 100,
-                    )
-                )
-            );
-        } else {
-            $generalForm->addElement(
-                $this->createElement(
-                    'hidden',
-                    'change_globally',
-                    array(
-                        'value' => 'global',
                     )
                 )
             );
         }
+        $submitQuestionNext=new Zend_Form_Element_Submit('next');
+        $submitQuestionNext->setLabel('next');
+        $questionForm->addElement($submitQuestionNext);
 
-        $generalForm->addElement(
-            $this->createElement(
-                'select',
-                'moveTo',
-                array(
-                    'label' => 'Maak deze vraag een subvraag van:',
-                    'multiOptions' => $this->_rootQuestionsMultiOptions,
-                    'value' => $cp->parent_id,
-                    'order' => 110,
-                )
-            )
-        );
+        $this->addSubForm($questionForm, 'question');
 
-        $generalForm->addElement(
-            $this->createElement(
-                'submit',
-                'submit',
-                array(
-                    'label' => 'opslaan',
-                    'order' => 120,
-                )
-            )
-        );
-        $this->addSubForm($generalForm, 'general');
+        /* answer options form/tab */
+        $answerOptionsForm = new Zend_Form_SubForm();
 
-        /* add subform for question's data-collection settings */
-        $answerForm = new Zend_Form_SubForm();
-        $answerForm->addElements(
-            array(
-                $this->createElement(
-                    'checkbox',
-                    'useAnswerPossibilityGroup',
-                    array(
-                        'label' => 'Maak gebruik van vaste antwoordmogelijkheden:',
-                        'checked' => ($qq->answerPossibilityGroup_id) ? true : false,
-                    )
-                ),
-                $this->createElement(
-                    'select',
-                    'answerPossibilityGroup_id',
-                    array(
-                        'label' => 'Selecteer een groep met antwoordmogelijkheden:',
-                        'multiOptions' => Webenq_Model_AnswerPossibilityGroup::getAll(),
-                        'value' => $qq->answerPossibilityGroup_id,
-                    )
-                ),
-                $this->createElement(
-                    'select',
-                    'collectionPresentationType',
-                    array(
-                        'label' => 'Type:',
-                        'multiOptions' => Webenq::getCollectionPresentationTypes(),
-                        'value' => ($qq->answerPossibilityGroup_id) ?
-                            $cp->type :
-                            Webenq::COLLECTION_PRESENTATION_OPEN_TEXT,
-                    )
-                ),
-                $this->createElement(
-                    'submit',
-                    'submit',
-                    array(
-                        'label' => 'opslaan',
-                    )
-                ),
-            )
-        );
-        $this->addSubForm($answerForm, 'answers');
+        $suggestions=new Zend_Form_Element_Radio('suggestions');
+        $suggestions->setLabel('Suggestions');
+        $suggestions->addMultiOptions($info['suggestions']);
+        $answerOptionsForm->addElement($suggestions);
 
-        /* add subform for question's data-collection settings */
-        $validationForm = new Zend_Form_SubForm();
-        $validationForm->addElements(
-            array(
-                $this->createElement(
-                    'multiCheckbox',
-                    'required',
-                    array(
-                        'label' => 'Algemeen:',
-                        'multiOptions' => array('not_empty' => 'Verplicht'),
-                        'value' => unserialize($cp->validators),
-                    )
-                ),
-                $this->createElement(
-                    'multiCheckbox',
-                    'filters',
-                    array(
-                        'label' => 'Tekst filters:',
-                        'multiOptions' => Webenq::getFilters(),
-                        'value' => unserialize($cp->filters),
-                    )
-                ),
-                $this->createElement(
-                    'multiCheckbox',
-                    'validators',
-                    array(
-                        'label' => 'Tekst validatie:',
-                        'multiOptions' => Webenq::getValidators(),
-                        'value' => unserialize($cp->validators),
-                    )
-                ),
-                $this->createElement(
-                    'submit',
-                    'submit',
-                    array(
-                        'label' => 'opslaan',
-                    )
-                ),
-            )
-        );
-        $this->addSubForm($validationForm, 'validation');
+        $reuse=new Zend_Form_Element_Select('reuse');
+        $reuse->setLabel('Reuse');
+        //$reuse->addMultipleOption(array(0=>t('pick a set of answers options to reuse')));
+        $reuse->addMultiOptions(array_merge(array(0=>t('...pick a set of answers options to reuse...')),Webenq_Model_QuestionnaireQuestion::getAnswerOptions()));
+        $answerOptionsForm->addElement($reuse);
+
+        $new=new Zend_Form_Element_Select('new');
+        $new->setLabel('Add new');
+        $new->addMultiOptions(array_merge(array(0=>t('...or add a new set of answer options...')),Webenq_Model_AnswerDomain::getAvailableTypes()));
+        $answerOptionsForm->addElement($new);
+
+        $submitAnswerOptionsPrevious=new Zend_Form_Element_Submit('previous');
+        $submitAnswerOptionsPrevious->setLabel('previous');
+        $answerOptionsForm->addElement($submitAnswerOptionsPrevious);
+
+        $submitAnswerOptionsNext=new Zend_Form_Element_Submit('next');
+        $submitAnswerOptionsNext->setLabel('next');
+        $answerOptionsForm->addElement($submitAnswerOptionsNext);
+
+        $this->addSubForm($answerOptionsForm,'answerOptions');
+
+
+        /* options form/tab */
+        //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
+        $optionsForm=new Zend_Form_SubForm();
+
+        //@todo only for choice
+        $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');
+        $numberOfAnswers->setLabel('How many answers are allowed');
+        $optionsForm->addElement($numberOfAnswers);
+
+        $presentation=new Zend_Form_Element_Select('presentation');
+        $presentation->setLabel('Presentation');
+        $presentation->setMultiOptions($info['presentation']);
+        $optionsForm->addElement($presentation);
+
+        //@todo only display for if $presentation=open
+        $presentationWidth=new Zend_Form_Element_Select('presentationWith');
+        $presentationWidth->setLabel('Width of answer box');
+        $presentationWidth->addMultiOptions(Webenq_Model_AnswerDomain::getAnswerBoxWidthOptions());
+        $optionsForm->addElement($presentationWidth);
+
+        //@todo only display if $presentation==open && type==text
+        $presentationHeight=new Zend_Form_Element_text('presentationWith');
+        $presentationHeight->setLabel('Number of rows of answer box');
+        $optionsForm->addElement($presentationHeight);
+
+        $required = new Zend_Form_Element_Checkbox('required');
+        $required->setLabel('Answer is required');
+        $required->getDecorator('Label')->setOption('placement', 'append');
+        $optionsForm->addElement($required);
+
+        $active = new Zend_Form_Element_Checkbox('active');
+        $active->setLabel('Question is active');
+        $active->getDecorator('Label')->setOption('placement', 'append');
+        $optionsForm->addElement($active);
+
+        $submitOptionsPrevious=new Zend_Form_Element_Submit('previous');
+        $submitOptionsPrevious->setLabel('previous');
+        $optionsForm->addElement($submitOptionsPrevious);
+
+        $submitOptionsDone=new Zend_Form_Element_Submit('done');
+        $submitOptionsDone->setLabel('done');
+        $optionsForm->addElement($submitOptionsDone);
+
+        $this->addSubForm($optionsForm,'options');
+
     }
 
     public function isValid($data)
     {
-        // check if at least one language is filled out
+/*        // check if at least one language is filled out
         $hasAtLeastOneLanguage = false;
-        foreach ($data['general']['text'] as $language => $translation) {
+        foreach ($data['question']['text'] as $language => $translation) {
             if (trim($translation) != '') {
                 $hasAtLeastOneLanguage = true;
                 break;
@@ -240,98 +173,48 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
 
         // disable required setting if at least one language was found
         if ($hasAtLeastOneLanguage) {
-            foreach ($this->getSubForm('general')->getSubForm('text')->getElements() as $elm) {
+            foreach ($this->getSubForm('text')->getSubForm('text')->getElements() as $elm) {
                 $elm->setRequired(false);
             }
         }
-
+*/
         return parent::isValid($data);
     }
 
-    public function storeValues()
+    /**
+     * Get the subform name based on the submit button pressed (next/previous/done)
+     *
+     * assumptions: subforms are in correct order
+     *
+     * @return boolean|string
+     */
+    public function getRedirectSubForm (){
+        foreach ($this->getSubForms() as $subForm){
+            $subForms[]=$subForm->getName();
+        }
+        foreach ($this->getSubForms() as $subForm){
+            $key=array_search($subForm->getName(), $subForms);
+            if (isset($subForm->previous) && $subForm->previous->isChecked()){
+                if ($key>0){
+                    return $subForms[$key-1];
+                }else {
+                    return false;
+                }
+            } elseif  (isset($subForm->next) && $subForm->next->isChecked()){
+                if ($key<count($subForms)-1){
+                    return $subForms[$key+1];
+                }else {
+                    return 'done';
+                }
+            } elseif  (isset($subForm->done) && $subForm->done->isChecked()){
+                return 'done';
+            }
+        }
+        return false;
+    }
+
+ public function isCancelled($values)
     {
-        $qq = $this->_questionnaireQuestion;
-        $cp = $qq->CollectionPresentation[0];
-
-        $values = $this->getValues();
-
-        /* check if the question texts have been modified */
-        $isModifiedText = false;
-        foreach ($qq->Question->QuestionText as $qt) {
-            if (!key_exists($qt->language, $values['general']['text'])) {
-                $isModifiedText = true;
-                break;
-            } elseif ($values['general']['text'][$qt->language] !== $qt->text) {
-                $isModifiedText = true;
-                break;
-            }
-        }
-
-        /**
-         * If text changes are set to be made locally, a copy of the
-         * question is made and assigned to the current questionnaire.
-         */
-        if ($isModifiedText) {
-            if ($values['general']['change_globally'] == 'local') {
-                /* copy question */
-                $question = new Webenq_Model_Question();
-                unset($values['general']['change_globally']);
-                foreach ($values['general']['text'] as $language => $text) {
-                    $qt = new Webenq_Model_QuestionText;
-                    $qt->text = $text;
-                    $qt->language = $language;
-                    $question->QuestionText[] = $qt;
-                }
-                $question->save();
-                $qq->Question = $question;
-            } else {
-                // update or delete existing translations
-                $texts = $values['general']['text'];
-                foreach ($qq->Question->QuestionText as $qt) {
-                    if (!key_exists($qt->language, $texts) || empty($texts[$qt->language])) {
-                        $qt->delete();
-                        unset($texts[$qt->language]);
-                    } else {
-                        $qt->text = $texts[$qt->language];
-                        $qt->save();
-                        unset($texts[$qt->language]);
-                    }
-                }
-                // save new translations
-                foreach ($texts as $language => $text) {
-                    if (!empty($text)) {
-                        $qt = new Webenq_Model_QuestionText();
-                        $qt->language = $language;
-                        $qt->text = $text;
-                        $qt->question_id = $qq->question_id;
-                        $qt->save();
-                    }
-                }
-            }
-        }
-
-        if ($values['answers']['useAnswerPossibilityGroup'] == 1) {
-            $qq->answerPossibilityGroup_id = $values['answers']['answerPossibilityGroup_id'];
-            $cp->type = $values['answers']['collectionPresentationType'];
-        } else {
-            $qq->answerPossibilityGroup_id = null;
-            $cp->type = $values['answers']['collectionPresentationType'];
-            //$cp->type = Webenq::COLLECTION_PRESENTATION_OPEN_TEXT;
-        }
-        //TODO if collectionPresentationType is null set default type.
-
-        // get filters and validators
-        if (!isset($values['validation']['filters'])) $values['validation']['filters'] = array();
-        if (!isset($values['validation']['required'])) $values['validation']['required'] = array();
-        if (!isset($values['validation']['validators'])) $values['validation']['validators'] = array();
-        $filters = $values['validation']['filters'];
-        $validators = array_merge($values['validation']['required'], $values['validation']['validators']);
-
-        // get move-to-value
-        $cp->parent_id = ($values['general']['moveTo'] > 0) ? $values['general']['moveTo'] : null;
-
-        $cp->filters = serialize($filters);
-        $cp->validators = serialize($validators);
-        $qq->save();
+        return (isset($values['cancel']));
     }
 }
