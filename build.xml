@@ -95,7 +95,6 @@
     	destdir="${doc_output_path}/phpdoc">
       <fileset refid="application"/>
       <fileset refid="libraries"/>
-      <fileset refid="tests"/>
     </phpdoc2>
 
   	<echo message="PHPDocumentation available in ${local_http}/${doc_output_path}/phpdoc/"/>
