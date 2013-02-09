@@ -109,13 +109,13 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 //                    @todo activated save
                     //$questionnaireQuestionnaire->save();
 
-                    $this->_helper->FlashMessenger()
+                    $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('error')
                     ->addMessage(
                         t('Save is not activated: qq-controller')
                     );
 
-                    $this->_helper->FlashMessenger()
+                    $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('success')
                     ->addMessage(
                         sprintf(
@@ -125,7 +125,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                         )
                     );
                 } else {
-                    $this->_helper->FlashMessenger()
+                    $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('error')
                     ->addMessage(
                         t('Question identifier mismatch, something went wrong')

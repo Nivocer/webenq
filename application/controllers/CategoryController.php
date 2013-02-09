@@ -58,7 +58,7 @@
             $category->fromArray($form->getValues());
             $category->save();
             //$this->_helper->json(array('reload' => true));
-            $this->_helper->FlashMessenger()
+            $this->_helper->getHelper('FlashMessenger')
                 ->setNamespace('success')
                 ->addMessage('category added succesfully');
 
@@ -71,6 +71,7 @@
 
     public function editAction()
     {
+
         $category = Webenq_Model_Category::getCategories($this->_request->id)->getFirst();
         if (!$category) {
             $this->_redirect('category');
@@ -83,7 +84,7 @@
             $category->fromArray($form->getValues());
             $category->save();
             //$this->_redirect($this->_request->getPathInfo());
-            $this->_helper->FlashMessenger()
+            $this->_helper->getHelper('FlashMessenger')
                 ->setNamespace('success')
                 ->addMessage('category saved succesfully');
 
@@ -110,7 +111,7 @@
         ->find($this->_request->id);
 
         if (!$category){
-            $this->_helper->FlashMessenger()
+            $this->_helper->getHelper('FlashMessenger')
                 ->setNamespace('error')
                 ->addMessage('category does not exist, or no category selected');
             $this->_redirect('/category');
@@ -169,7 +170,7 @@
                     $this->_helper->json(array('reload' => false));
                 }
             } else {
-                $this->_helper->FlashMessenger()
+                $this->_helper->getHelper('FlashMessenger')
                 ->setNamespace('success')
                 ->addMessage('category deleted succesfully');
                 $this->_redirect('/category');

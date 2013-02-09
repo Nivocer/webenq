@@ -158,7 +158,7 @@ class QuestionnaireController extends Zend_Controller_Action
                 // @todo remove this from here, perhaps into model (if needed)
                 $questionnaire->meta = serialize(array('timestamp' => time()));
                 $questionnaire->save();
-                $this->_helper->FlashMessenger()
+                $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('success')
                     ->addMessage(
                         sprintf(
@@ -201,7 +201,7 @@ class QuestionnaireController extends Zend_Controller_Action
                     // @todo remove this from here, perhaps into model (if needed)
                     $questionnaire->meta = serialize(array('timestamp' => time()));
                     $questionnaire->save();
-                    $this->_helper->FlashMessenger()
+                    $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('success')
                     ->addMessage(
                         sprintf(
@@ -210,7 +210,7 @@ class QuestionnaireController extends Zend_Controller_Action
                         )
                     );
                 } else {
-                    $this->_helper->FlashMessenger()
+                    $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('error')
                     ->addMessage(
                         t('Questionnaire identifier mismatch, something went wrong')
@@ -413,13 +413,13 @@ class QuestionnaireController extends Zend_Controller_Action
                 if (isset($formValues['id'])
                 && $formValues['id']==$questionnaire->get('id')) {
                     $questionnaire->delete();
-                    $this->_helper->FlashMessenger()
+                    $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('success')
                     ->addMessage(
                         sprintf(t('Questionnaire "%s" deleted'), $title)
                     );
                 } else {
-                    $this->_helper->FlashMessenger()
+                    $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('error')
                     ->addMessage(
                         t('Questionnaire identifier mismatch, something went wrong')
