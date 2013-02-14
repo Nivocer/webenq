@@ -109,7 +109,11 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         $submitAnswerOptionsNext=new Zend_Form_Element_Submit('next');
         $submitAnswerOptionsNext->setLabel('next');
         $answerOptionsForm->addElement($submitAnswerOptionsNext);
-
+        $answerOptionsForm->addDisplayGroup(
+            array('previous','next','done'),
+            'submitTable',
+            array('class' => 'table')
+        );
         $this->addSubForm($answerOptionsForm,'answerOptions');
 
 
@@ -142,11 +146,23 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         $required->setLabel('Answer is required');
         $required->getDecorator('Label')->setOption('placement', 'append');
         $optionsForm->addElement($required);
+        $optionsForm->addDisplayGroup(
+            array('required'),
+            'requiredTable',
+            array('class' => 'table')
+        );
 
         $active = new Zend_Form_Element_Checkbox('active');
         $active->setLabel('Question is active');
         $active->getDecorator('Label')->setOption('placement', 'append');
+
         $optionsForm->addElement($active);
+        $optionsForm->addDisplayGroup(
+            array('active'),
+            'activeTable',
+            array('class' => 'table')
+        );
+
 
         $submitOptionsPrevious=new Zend_Form_Element_Submit('previous');
         $submitOptionsPrevious->setLabel('previous');
@@ -155,6 +171,11 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         $submitOptionsDone=new Zend_Form_Element_Submit('done');
         $submitOptionsDone->setLabel('done');
         $optionsForm->addElement($submitOptionsDone);
+        $optionsForm->addDisplayGroup(
+            array('previous','next','done'),
+            'submitTable',
+            array('class' => 'table')
+        );
 
         $this->addSubForm($optionsForm,'options');
 

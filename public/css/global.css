@@ -314,3 +314,24 @@ form .hint {
     color: #777;
     padding-left: 0.4em;
 }
+
+/* present form elements in display group as table */
+fieldset.table {
+    display: table;
+    border: 0;
+    padding: 0; 
+}
+
+fieldset.table dl {
+    display: table-row; 
+}
+
+fieldset.table dl dt, 
+fieldset.table dl dd {
+    display: table-cell;
+    margin-left: 0; 
+}
+  
+fieldset.table label {
+    margin-left: 0; 
+}
