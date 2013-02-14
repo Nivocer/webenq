@@ -12,8 +12,8 @@
   <property name="doc_output_path" value="public/developer"/>
   <property name="dev_output_path" value="public/developer"/>
   <property name="tmp_path"        value="logs"/>
-  <property name="local_http"      value="http://localhost/"/>
-  <property name="local_file_root"      value="./"/>
+  <property name="local_http"      value="http://localhost"/>
+  <property name="local_file_root" value="."/>
   <property name="eclipse_exec"    value="eclipse"/>
 
   <target name="help" description="List available targets">
