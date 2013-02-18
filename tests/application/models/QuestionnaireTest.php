@@ -43,12 +43,22 @@ class Webenq_Test_Model_QuestionnaireTest extends Webenq_Test_Case_Model
 
     public function arrayTestCases() {
         return array(
+            // minimal data
             array(0 => array('default_language' => 'az')),
+            // normal data
             array(1 => array(
                 'title'=>array(
                     'en' => 'English title',
                     'nl' => 'Dutch title',
                     'default_language' => 'en'
+                )
+            )),
+            // try another (non-default) default_language
+            array(2 => array(
+                'title'=>array(
+                    'en' => 'English title',
+                    'nl' => 'Dutch title',
+                    'default_language' => 'nl'
                 )
             )),
         );

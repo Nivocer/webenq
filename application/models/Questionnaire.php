@@ -209,9 +209,11 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     {
         parent::fromArray($array, $deep);
 
-        if (isset($array['title'])) {
+            if (isset($array['title']) && is_array($array['title'])) {
             foreach ($array['title'] as $language => $title) {
-                if ($title && $language!='default_language') {
+                if ($language == 'default_language') {
+                    $this->default_language = $title;
+                } elseif ($title) {
                     $this->addQuestionnaireTitle($language, $title);
                 }
             }
