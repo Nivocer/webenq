@@ -50,11 +50,12 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         //   example: drag question from one Likert table into another
     }
 
-    public function render($format?)
+    public function render($format)
     {
         // het door-lopen van de tree levert objecten van juiste subtype
         // maar niet zeker of de property via element_id ook de juiste subclasse
         // oplevert? zo ja, dan zou het via gewone views+view helpers moeten
         // kunnen en is deze functie niet nodig
+
     }
 }

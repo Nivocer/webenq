@@ -7,7 +7,6 @@
  * 
  * @property string $name
  * @property string $type
- * @property Doctrine_Collection $QuestionnaireNode
  * 
  * @package    Webenq_Models
  * @subpackage ##SUBPACKAGE##
@@ -50,8 +49,6 @@ abstract class Webenq_Model_Base_QuestionnaireElement extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Webenq_Model_QuestionnaireNode as QuestionnaireNode', array(
-             'local' => 'id',
-             'foreign' => 'questionnaire_element_id'));
+        
     }
 }

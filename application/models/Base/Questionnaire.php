@@ -13,15 +13,17 @@
  * @property integer $active
  * @property string $meta
  * @property int $weight
+ * @property integer $node_id
  * @property Webenq_Model_Category $Category
+ * @property Webenq_Model_QuestionnaireNode $QuestionnaireNode
  * @property Doctrine_Collection $QuestionnaireTitle
  * @property Doctrine_Collection $QuestionnaireQuestion
- * @property Doctrine_Collection $Respondent
  * @property Doctrine_Collection $Report
+ * @property Doctrine_Collection $Respondent
  * 
- * @package    Webenq
- * @subpackage Models
- * @author     ##NAME## <##EMAIL##>
+ * @package    Webenq_Models
+ * @subpackage ##SUBPACKAGE##
+ * @author     Nivocer <webenq@nivocer.com>
  * @version    SVN: $Id: Builder.php,v 1.2 2011/07/12 13:39:03 bart Exp $
  */
 abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
@@ -99,6 +101,9 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
         $this->hasColumn('weight', 'int', null, array(
              'type' => 'int',
              ));
+        $this->hasColumn('node_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
     }
 
     public function setUp()
@@ -110,6 +115,10 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
              'onDelete' => 'RESTRICT',
              'onUpdate' => 'CASCADE'));
 
+        $this->hasOne('Webenq_Model_QuestionnaireNode as QuestionnaireNode', array(
+             'local' => 'node_id',
+             'foreign' => 'id'));
+
         $this->hasMany('Webenq_Model_QuestionnaireTitle as QuestionnaireTitle', array(
              'local' => 'id',
              'foreign' => 'questionnaire_id'));
@@ -118,11 +127,11 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
              'local' => 'id',
              'foreign' => 'questionnaire_id'));
 
-        $this->hasMany('Webenq_Model_Respondent as Respondent', array(
+        $this->hasMany('Webenq_Model_Report as Report', array(
              'local' => 'id',
              'foreign' => 'questionnaire_id'));
 
-        $this->hasMany('Webenq_Model_Report as Report', array(
+        $this->hasMany('Webenq_Model_Respondent as Respondent', array(
              'local' => 'id',
              'foreign' => 'questionnaire_id'));
     }

@@ -1,3 +1,80 @@
+# =========================================
+# ===== QUESTIONNAIRE-RELATED CLASSES =====
+# =========================================
+
+Questionnaire:
+  tableName: questionnaire
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      primary: true
+      autoincrement: true
+    category_id:
+      type: integer(4)
+      fixed: false
+      unsigned: true
+      default: 1
+      primary: false
+      notnull: false
+      autoincrement: false
+    default_language:
+      type: string(2)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: en
+      notnull: true
+      autoincrement: false
+    date_start:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '2012-01-01 00:00:00'
+      notnull: true
+      autoincrement: false
+    date_end:
+      type: timestamp(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '2050-01-01 00:00:00'
+      notnull: true
+      autoincrement: false
+    active:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      primary: false
+      default: '1'
+      notnull: true
+      autoincrement: false
+    meta:
+      type: string()
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    weight:
+      type: int
+    node_id: integer
+  relations:
+    Category:
+      onUpdate: CASCADE
+      onDelete: RESTRICT
+    QuestionnaireNode:
+      local: node_id
+    QuestionnaireTitle:
+      local: id
+      foreign: questionnaire_id
+      type: many
+
+#
+# ===== QUESTIONNAIRE NODE HIERARCHY CLASSES =====
+#
 QuestionnaireNode:
   actAs:
     NestedSet:
@@ -5,7 +82,7 @@ QuestionnaireNode:
   columns:
     element_id: integer
   relations:
-    QuestionnaireElement:
+#    QuestionnaireElement:
 QuestionnaireGroupNode:
   inheritance: 
     extends: QuestionnaireNode
@@ -23,10 +100,13 @@ QuestionnaireTextNode:
     extends: QuestionnaireNode
     type: simple
 
+#
+# ===== QUESTIONNAIRE ELEMENT CLASSES =====
+#
 QuestionnaireElement:
   columns:
     name: string
-    hash: string
+    # hash: string
     # advanced save feature for later: md5($this->toArray()->serialize()), then
     # change save to check if the md5 hash already exists - if so, use the id
     # of the record instead of creating a new record
@@ -47,6 +127,51 @@ QuestionnaireTextElement:
     extends: QuestionnaireElement
     type: column_aggregation
 
+# =========================================
+# ===== ANSWER DOMAIN-RELATED CLASSES =====
+# =========================================
+AnswerDomain:
+  columns:
+    # name (ML)
+    validators: array
+    filters: array
+    options: array # contains default properties that the Question can override,
+                   # e.g. presentation form, textfield width & height, show null values
+AnswerDomainText:
+  inheritance:
+    extends: AnswerDomain
+    type: column_aggregation
+  columns:
+    min_length: integer
+    max_length: integer
+AnswerDomainNumeric:
+  inheritance:
+    extends: AnswerDomain
+    type: column_aggregation
+  columns:
+    min: float
+    max: float
+AnswerDomainChoice:
+  inheritance:
+    extends: AnswerDomain
+    type: column_aggregation
+  columns:
+    min_choices: integer
+    max_choices: integer
+AnswerDomainItem:
+  actAs:
+    NestedSet:
+      hasManyRoots: true
+  columns:
+    label: string
+    value: string
+    isNullValue: boolean
+    isActive: boolean
+    isHidden: boolean
+
+#
+# ===== "THE REST..." =====
+#
 
 Answer:
   tableName: answer
@@ -588,87 +713,6 @@ QuestionText:
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
-Questionnaire:
-  tableName: questionnaire
-  columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    category_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      default: 1
-      primary: false
-      notnull: false
-      autoincrement: false
-    default_language:
-      type: string(2)
-      fixed: false
-      unsigned: false
-      primary: false
-      default: en
-      notnull: true
-      autoincrement: false
-    date_start:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      default: '2012-01-01 00:00:00'
-      notnull: true
-      autoincrement: false
-    date_end:
-      type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      default: '2050-01-01 00:00:00'
-      notnull: true
-      autoincrement: false
-    active:
-      type: integer(1)
-      fixed: false
-      unsigned: false
-      primary: false
-      default: '1'
-      notnull: true
-      autoincrement: false
-    meta:
-      type: string()
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    weight:
-      type: int
-  relations:
-    Category:
-      local: category_id
-      foreign: id
-      type: one
-      onUpdate: CASCADE
-      onDelete: RESTRICT
-    QuestionnaireTitle:
-      local: id
-      foreign: questionnaire_id
-      type: many
-    QuestionnaireQuestion:
-      local: id
-      foreign: questionnaire_id
-      type: many
-    Respondent:
-      local: id
-      foreign: questionnaire_id
-      type: many
-    Report:
-      local: id
-      foreign: questionnaire_id
-      type: many
 QuestionnaireQuestion:
   tableName: questionnaire_question
   columns:
