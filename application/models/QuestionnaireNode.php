@@ -19,7 +19,7 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
      * more than one QuestionnaireNode, make a copy of the object and update the
      * reference to it
      */
-    public function save($conn)
+    public function save(Doctrine_Connection $conn = null)
     {
         if ($this->QuestionnaireElement->isModified()) {
             if (1 < Doctrine_Query::create()
