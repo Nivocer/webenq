@@ -1,3 +1,53 @@
+QuestionnaireNode:
+  actAs:
+    NestedSet:
+      hasManyRoots: true
+  columns:
+    element_id: integer
+  relations:
+    QuestionnaireElement:
+QuestionnaireGroupNode:
+  inheritance: 
+    extends: QuestionnaireNode
+    type: simple
+QuestionnairePageNode:
+  inheritance: 
+    extends: QuestionnaireGroupNode
+    type: simple
+QuestionnaireQuestionNode:
+  inheritance: 
+    extends: QuestionnaireNode
+    type: simple
+QuestionnaireTextNode:
+  inheritance: 
+    extends: QuestionnaireNode
+    type: simple
+
+QuestionnaireElement:
+  columns:
+    name: string
+    hash: string
+    # advanced save feature for later: md5($this->toArray()->serialize()), then
+    # change save to check if the md5 hash already exists - if so, use the id
+    # of the record instead of creating a new record
+QuestionnaireGroupElement:
+  inheritance: 
+    extends: QuestionnaireElement
+    type: column_aggregation
+QuestionnairePageElement:
+  inheritance:
+    extends: QuestionnaireGroupElement
+    type: column_aggregation
+QuestionnaireQuestionElement:
+  inheritance: 
+    extends: QuestionnaireElement
+    type: column_aggregation
+QuestionnaireTextElement:
+  inheritance: 
+    extends: QuestionnaireElement
+    type: column_aggregation
+
+
 Answer:
   tableName: answer
   columns:
