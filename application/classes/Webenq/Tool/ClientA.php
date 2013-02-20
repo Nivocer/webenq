@@ -389,7 +389,7 @@ class Webenq_Tool_ClientA extends Webenq_Tool
             $definition = $row[0];
             foreach ($this->_modules as $name) {
                 $nameQuote=preg_quote($name, '/');
-                $pattern = "/^(\d*):.*($nameQuote)/";
+                $pattern = "/^(\d*):.*($nameQuote)/i";
                 if (preg_match($pattern, $definition, $matches)) {
                     $groups[$matches[1]] = $matches[2];
                 }
