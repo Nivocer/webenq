@@ -49,7 +49,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         require_once 'Doctrine.php';
 
         $loader = Zend_Loader_Autoloader::getInstance();
-//         $loader->setFallbackAutoloader(true);
         $loader->suppressNotFoundWarnings(true);
         $loader->pushAutoloader(array('Doctrine', 'autoload'));
         $loader->registerNamespace('sfYaml')
@@ -61,6 +60,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $manager->setAttribute(Doctrine_Core::ATTR_USE_NATIVE_ENUM, true);
         $manager->setAttribute(Doctrine_Core::ATTR_MODEL_LOADING, Doctrine_Core::MODEL_LOADING_CONSERVATIVE);
         $manager->setAttribute(Doctrine_Core::ATTR_MODEL_CLASS_PREFIX, 'Webenq_Model_');
+//        $manager->setAttribute(Doctrine_Core::ATTR_USE_DQL_CALLBACKS, true);
 
         $config = $this->getOption('doctrine');
         Doctrine_Core::loadModels($config['models_path'], null, 'Webenq_Model_');
@@ -203,5 +203,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 return $translate->translate($string, $locale);
             }
         }
+
+        // set default time zone
+        // @todo default timezone setting should move into config
+        if (function_exists('date_default_timezone_set')) {
+            date_default_timezone_set('Europe/Amsterdam');
+        }
+
     }
 }

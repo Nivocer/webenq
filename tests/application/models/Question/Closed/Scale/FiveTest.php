@@ -35,7 +35,8 @@ class Webenq_Test_Model_Question_Closed_Scale_FiveTest extends Webenq_Test_Case_
         $this->loadDatabase();
 
         $question = Webenq_Model_Question::factory($data, 'nl');
-    	$this->assertTrue($question instanceof Webenq_Model_Question_Closed_Scale_Five);
+    	//$this->assertTrue($question instanceof Webenq_Model_Question_Closed_Scale_Five);
+        $this->assertTrue(in_array('Webenq_Model_Question_Closed_Scale_Five', $question->getValidTypes()));
     }
 
     /**

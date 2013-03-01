@@ -131,35 +131,36 @@ class Webenq_Plugin_Access extends Zend_Controller_Plugin_Abstract
 
     protected function _setupAcl()
     {
-        $roles = Doctrine_Core::getTable('Webenq_Model_Role')->findAll();
-        $resources = Doctrine_Core::getTable('Webenq_Model_Resource')->findAll();
-        $rolesResources = Doctrine_Core::getTable('Webenq_Model_RoleResource')->findAll();
-        $acl = new Zend_Acl();
+        if (!Zend_Registry::isRegistered('acl')) {
+            $roles = Doctrine_Core::getTable('Webenq_Model_Role')->findAll();
+            $resources = Doctrine_Core::getTable('Webenq_Model_Resource')->findAll();
+            $rolesResources = Doctrine_Core::getTable('Webenq_Model_RoleResource')->findAll();
+            $acl = new Zend_Acl();
 
-        /* add roles */
-        foreach ($roles as $role) {
-            $acl->addRole($role->name);
+            /* add roles */
+            foreach ($roles as $role) {
+                $acl->addRole($role->name);
+            }
+
+            try {
+                $acl->getRole(self::$_anonymousRole);
+            } catch (Zend_Acl_Role_Registry_Exception $e) {
+                throw new Exception('The role \'' . self::$_anonymousRole . '\' must be defined!');
+            }
+
+            /* add resources */
+            foreach ($resources as $resource) {
+                $acl->add(new Zend_Acl_Resource($resource->name));
+            }
+
+            /* add permissions */
+            foreach ($rolesResources as $roleResource) {
+                $acl->allow($roleResource->Role->name, $roleResource->Resource->name);
+            }
+            /* register ACL */
+            Zend_Registry::set('acl', $acl);
         }
 
-        try {
-            $acl->getRole(self::$_anonymousRole);
-        } catch (Zend_Acl_Role_Registry_Exception $e) {
-            throw new Exception('The role \'' . self::$_anonymousRole . '\' must be defined!');
-        }
-
-        /* add resources */
-        foreach ($resources as $resource) {
-            $acl->add(new Zend_Acl_Resource($resource->name));
-        }
-
-        /* add permissions */
-        foreach ($rolesResources as $roleResource) {
-            $acl->allow($roleResource->Role->name, $roleResource->Resource->name);
-        }
-
-        /* register ACL */
-        Zend_Registry::set('acl', $acl);
-
-        return $acl;
+        return Zend_Registry::get('acl');
     }
 }

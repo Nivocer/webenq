@@ -3,10 +3,14 @@
 // define application environment
 define('APPLICATION_ENV', 'testing');
 
+// define path to application directory (if not set yet)
+defined('APPLICATION_PATH')
+|| define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+
 //make sure override.ini exist
-if (!file_exists(realpath(dirname(__FILE__)) . '/../application/configs/override.ini')) {
-    copy(realpath(dirname(__FILE__) . '/../application/configs/override.ini.sample'),
-	realpath(dirname(__FILE__)) . '/../application/configs/override.ini'  );
+if (!file_exists(APPLICATION_PATH . '/configs/override.ini')) {
+    copy(APPLICATION_PATH . '/configs/override.ini.sample',
+    APPLICATION_PATH . '/configs/override.ini');
 }
 
 // initialize

@@ -31,6 +31,8 @@ class Webenq_Test_Model_QuestionnaireQuestionTest extends Webenq_Test_Case_Model
 
     public function testFormElementIsGenerated()
     {
+        $this->loadDatabase();
+
         $questionnaire = new Webenq_Model_Questionnaire();
         $questionnaire->save();
 
