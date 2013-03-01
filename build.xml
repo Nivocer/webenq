@@ -84,10 +84,10 @@
     <echo message="Test results available in ${local_http}/${dev_output_path}/testcoverage/"/>
   </target>
 
-  <target name="doc-site" description="Generate documentation for website"
-    depends="phpdoc, wireframes"/>
+  <target name="doc-all" description="Generate everything for doc.webenq.org"
+    depends="doc-zim, doc-phpdoc, doc-mockup"/>
 
-  <target name="phpdoc"
+  <target name="doc-phpdoc"
     description="Generate PHP documentation">
 
     <mkdir dir="${local_file_root}/${doc_output_path}/phpdoc"/>
@@ -101,8 +101,8 @@
     <echo message="PHPDocumentation available in ${local_http}/${doc_output_path}/phpdoc/"/>
   </target>
 
-  <target name="wireframes"
-    description="Generate web-based wireframes (requires WireframeSketcher)">
+  <target name="doc-mockup"
+    description="Generate wireframes mockup (requires WireframeSketcher)">
 
     <if>
       <not><isset property="eclipse_workspace"/></not>
@@ -124,6 +124,30 @@
       <echo message="Wireframes available in ${local_http}/${doc_output_path}/wireframes/"/>
     </else>
     </if>
+  </target>
+
+  <target name="doc-zim"
+    description="Export Zim documentation to HTML">
+
+      <if>
+        <not><available file="${local_file_root}/${doc_output_path}/zim" type="dir"/></not>
+      <then>
+        <echo message="No zim directory found in ${local_file_root}/${doc_output_path}"/>
+      </then>
+      <else>
+        <delete dir="${local_file_root}/${doc_output_path}/Home" quiet="yes"/>
+        <delete dir="${local_file_root}/${doc_output_path}/Tools" quiet="yes"/>
+        
+        <exec command="zim --index ${local_file_root}/${doc_output_path}/zim/notebook"/>
+        
+        <exec command="zim --export --format=html
+          --output=${local_file_root}/${doc_output_path} 
+          --template=${local_file_root}/${doc_output_path}/zim/template/webenq.html 
+          ${local_file_root}/${doc_output_path}/zim/notebook"/>
+        
+        <echo message="Zim HTML available in ${local_http}/${doc_output_path}/"/>
+      </else>
+      </if>
   </target>
 
   <fileset dir="application" id="application">

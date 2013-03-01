@@ -3,6 +3,9 @@
 .settings
 build.properties
 
+sandbox*
+Sandbox*
+
 public/tests/log/*
 public/tests/phpdocs/*
 public/tests/report/
