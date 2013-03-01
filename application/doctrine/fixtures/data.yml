@@ -1,3 +1,48 @@
+Webenq_Model_Questionnaire:
+  Webenq_Model_Questionnaire_1:
+#    Translation:
+#      en:
+#        title: Test questionnaire
+#      nl:
+#        title: Testvragenlijst
+    Category: Webenq_Model_Category_1
+    default_language: en
+    date_start: '2002-01-01 00:00:00'
+    date_end: '2022-12-31 00:00:00'
+    active: '1'
+    meta: null
+    weight: null
+  Webenq_Model_Questionnaire_2:
+#    Translation:
+#      en:
+#        title: Second test questionnaire
+#      nl:
+#        title: Tweede testvragenlijst
+    Category: Webenq_Model_Category_2
+    default_language: en
+    date_start: '2012-01-01 00:00:00'
+    date_end: '2050-01-01 00:00:00'
+    active: '1'
+    meta: null
+    weight: null
+  Webenq_Model_Questionnaire_3:
+#    Translation:
+#      en:
+#        title: Third test questionnaire
+#      nl:
+#        title: Derde testvragenlijst
+    Category: Webenq_Model_Category_1
+    default_language: en
+    date_start: '2012-01-01 00:00:00'
+    date_end: '2012-05-01 00:00:00'
+    active: '1'
+    meta: null
+    weight: null
+
+#
+# ===== "THE REST..." =====
+#
+
 Webenq_Model_AnswerPossibilityNullValue:
   Webenq_Model_AnswerPossibilityNullValue_1:
     value: 'weet niet / nvt'
@@ -582,7 +627,13 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_87:
     name: tool/client
     description: null
+  Webenq_Model_Resource_1001:
+    name: sandbox/index
+    description: 'Use the sandbox'
 Webenq_Model_RoleResource:
+  Webenq_Model_RoleResource_1001:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_1001
   Webenq_Model_RoleResource_1:
     Role: Webenq_Model_Role_1
     Resource: Webenq_Model_Resource_1
@@ -1025,31 +1076,6 @@ Webenq_Model_ReportElement:
     Report: Webenq_Model_Report_1
     data: 'a:4:{s:4:"type";s:17:"barchart and mean";s:12:"header_qq_id";s:1:"4";s:13:"report_qq_ids";a:2:{i:0;s:1:"5";i:1;s:1:"6";}s:12:"color_schema";s:5:"white";}'
     sort: '3'
-Webenq_Model_Questionnaire:
-  Webenq_Model_Questionnaire_1:
-    Category: Webenq_Model_Category_1
-    default_language: en
-    date_start: '2002-01-01 00:00:00'
-    date_end: '2022-12-31 00:00:00'
-    active: '1'
-    meta: null
-    weight: null
-  Webenq_Model_Questionnaire_2:
-    Category: Webenq_Model_Category_2
-    default_language: en
-    date_start: '2012-01-01 00:00:00'
-    date_end: '2050-01-01 00:00:00'
-    active: '1'
-    meta: 'a:1:{s:9:"timestamp";i:1355733867;}'
-    weight: null
-  Webenq_Model_Questionnaire_3:
-    Category: Webenq_Model_Category_1
-    default_language: en
-    date_start: '2012-01-01 00:00:00'
-    date_end: '2012-05-01 00:00:00'
-    active: '1'
-    meta: 'a:1:{s:9:"timestamp";i:1355733940;}'
-    weight: null
 Webenq_Model_ReportPresentation:
   Webenq_Model_ReportPresentation_1:
     QuestionnaireQuestion: Webenq_Model_QuestionnaireQuestion_1
@@ -1114,10 +1140,6 @@ Webenq_Model_CollectionPresentation:
     weight: '-1'
 Webenq_Model_MigrationVersion:
   Webenq_Model_MigrationVersion_1:
-    version: '9'
-  Webenq_Model_MigrationVersion_2:
-    version: '9'
-  Webenq_Model_MigrationVersion_3:
     version: '9'
 Webenq_Model_Answer:
   Webenq_Model_Answer_1:

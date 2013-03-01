@@ -3,70 +3,41 @@
 # =========================================
 
 Questionnaire:
-  tableName: questionnaire
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    category_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      default: 1
-      primary: false
-      notnull: false
-      autoincrement: false
+    title: string(255)
+    category_id: integer
     default_language:
       type: string(2)
       fixed: false
-      unsigned: false
-      primary: false
       default: en
       notnull: true
-      autoincrement: false
     date_start:
       type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
       default: '2012-01-01 00:00:00'
       notnull: true
-      autoincrement: false
     date_end:
       type: timestamp(25)
-      fixed: false
-      unsigned: false
-      primary: false
       default: '2050-01-01 00:00:00'
       notnull: true
-      autoincrement: false
-    active:
+    active: # @todo make it a boolean
       type: integer(1)
       fixed: false
       unsigned: false
-      primary: false
       default: '1'
       notnull: true
-      autoincrement: false
-    meta:
+    meta: # @todo to be removed
       type: string()
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
-    weight:
+    weight: # @todo to be removed
       type: int
-    node_id: integer
+    questionnaire_node_id: integer
   relations:
     Category:
       onUpdate: CASCADE
       onDelete: RESTRICT
     QuestionnaireNode:
-      local: node_id
     QuestionnaireTitle:
       local: id
       foreign: questionnaire_id
@@ -80,9 +51,9 @@ QuestionnaireNode:
     NestedSet:
       hasManyRoots: true
   columns:
-    element_id: integer
+    questionnaire_element_id: integer
   relations:
-#    QuestionnaireElement:
+    QuestionnaireElement:
 QuestionnaireGroupNode:
   inheritance: 
     extends: QuestionnaireNode
@@ -176,65 +147,32 @@ AnswerDomainItem:
 Answer:
   tableName: answer
   columns:
-    id:
-      type: integer(10)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    answerPossibility_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: false
-      autoincrement: false
+    answerPossibility_id: integer
     text:
       type: string()
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
-    respondent_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: false
-      autoincrement: false
-    questionnaire_question_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    respondent_id: integer
+    questionnaire_question_id: integer
     timestamp:
       type: timestamp(25)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
   relations:
     AnswerPossibility:
       local: answerPossibility_id
-      foreign: id
       foreignKeyName: answer_answerPossibility_answerPossibility_id_fk
       type: one
       onUpdate: RESTRICT
       onDelete: RESTRICT
     QuestionnaireQuestion:
-      local: questionnaire_question_id
-      foreign: id
       foreignKeyName: answer_questionnaire_question_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     Respondent:
-      local: respondent_id
-      foreign: id
       foreignKeyName: answer_respondent_id_fk
       type: one
       onUpdate: CASCADE
@@ -242,34 +180,18 @@ Answer:
 AnswerPossibility:
   tableName: answerPossibility
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     active:
       type: integer(1)
       fixed: false
       unsigned: false
-      primary: false
       default: 1
       notnull: true
-      autoincrement: false
-    answerPossibilityGroup_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    answerPossibilityGroup_id: integer
     value:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
   relations:
     AnswerPossibilityGroup:
       local: answerPossibilityGroup_id
@@ -289,26 +211,16 @@ AnswerPossibility:
 AnswerPossibilityGroup:
   tableName: answerPossibilityGroup
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     name:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
     number:
       type: integer(4)
       fixed: false
       unsigned: true
-      primary: false
       notnull: false
-      autoincrement: false
     measurement_level:
       type: enum(10)
       fixed: false
@@ -316,10 +228,8 @@ AnswerPossibilityGroup:
       values:
         - metric
         - non-metric
-      primary: false
       default: non-metric
       notnull: true
-      autoincrement: false
   relations:
     AnswerPossibility:
       local: id
@@ -332,49 +242,25 @@ AnswerPossibilityGroup:
 AnswerPossibilityNullValue:
   tableName: answerPossibilityNullValue
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     value:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
 AnswerPossibilityText:
   tableName: answerPossibilityText
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     text:
       type: string(255)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     language:
       type: string(2)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
-    answerPossibility_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    answerPossibility_id: integer
   relations:
     AnswerPossibility:
       local: answerPossibility_id
@@ -390,26 +276,12 @@ AnswerPossibilityText:
 AnswerPossibilityTextSynonym:
   tableName: answerPossibilityTextSynonym
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     text:
       type: string(255)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
-    answerPossibilityText_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    answerPossibilityText_id: integer
   relations:
     AnswerPossibilityText:
       local: answerPossibilityText_id
@@ -421,28 +293,18 @@ AnswerPossibilityTextSynonym:
 Category:
   tableName: category
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     active:
       type: integer(1)
       fixed: false
       unsigned: false
-      primary: false
       default: '1'
       notnull: true
-      autoincrement: false
     weight:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: false
       default: 0
       notnull: true
-      autoincrement: false
   relations:
     CategoryText:
       local: id
@@ -455,34 +317,18 @@ Category:
 CategoryText:
   tableName: categoryText
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     text:
       type: string(255)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     language:
       type: string(2)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
       default: en
-    category_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    category_id: integer
   relations:
     Category:
       local: category_id
@@ -494,67 +340,37 @@ CategoryText:
 CollectionPresentation:
   tableName: collectionPresentation
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    parent_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: false
-      autoincrement: false
-    questionnaire_question_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    parent_id: integer
+    questionnaire_question_id: integer
     type:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     filters:
       type: string()
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
     validators:
       type: string()
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
     page:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: false
       default: 1
       notnull: true
-      autoincrement: false
     weight:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: false
       default: 0
       notnull: true
-      autoincrement: false
   relations:
     QuestionnaireQuestion:
-      local: questionnaire_question_id
-      foreign: id
       foreignKeyName: collectionPresentation_questionnaire_question_id_fk
       type: one
       onUpdate: CASCADE
@@ -562,33 +378,19 @@ CollectionPresentation:
 MigrationVersion:
   tableName: migration_version
   columns:
-    id:
-      type: integer(8)
-      autoincrement: true
-      primary: true
     version:
       type: integer(4)
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
 Question:
   tableName: question
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     created:
       type: timestamp(25)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
   relations:
     QuestionText:
       local: id
@@ -657,19 +459,11 @@ Question_Open_Text:
 QuestionGroup:
   tableName: questionGroup
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     name:
       type: string(63)
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
   relations:
     QuestionnaireQuestion:
       local: id
@@ -678,37 +472,19 @@ QuestionGroup:
 QuestionText:
   tableName: questionText
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     text:
       type: string(255)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     language:
       type: string(2)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
-    question_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    question_id: integer
   relations:
     Question:
-      local: question_id
-      foreign: id
       foreignKeyName: questionText_question_id_fk
       type: one
       onUpdate: CASCADE
@@ -716,40 +492,10 @@ QuestionText:
 QuestionnaireQuestion:
   tableName: questionnaire_question
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    questionnaire_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
-    question_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
-    answerPossibilityGroup_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: false
-      autoincrement: false
-    questionGroup_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: false
-      autoincrement: false
+    questionnaire_id: integer
+    question_id: integer
+    answerPossibilityGroup_id: integer
+    questionGroup_id: integer
     type:
       type: enum(8)
       fixed: false
@@ -759,42 +505,32 @@ QuestionnaireQuestion:
         - single
         - multiple
         - hidden
-      primary: false
       default: open
       notnull: true
-      autoincrement: false
     meta:
       type: string()
       fixed: false
       unsigned: false
-      primary: false
       notnull: false
-      autoincrement: false
   relations:
     Questionnaire:
-      local: questionnaire_id
-      foreign: id
       foreignKeyName: questionnaire_question_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     Question:
-      local: question_id
-      foreign: id
       foreignKeyName: questionnaire_question_question_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     AnswerPossibilityGroup:
       local: answerPossibilityGroup_id
-      foreign: id
       foreignKeyName: questionnaire_question_answerPossibilityGroup_id_fk
       type: one
       onUpdate: RESTRICT
       onDelete: RESTRICT
     QuestionGroup:
       local: questionGroup_id
-      foreign: id
       foreignKeyName: questionnaire_question_questionGroup_id_fk
       type: one
       onUpdate: CASCADE
@@ -818,12 +554,6 @@ QuestionnaireQuestion:
 QuestionnaireTitle:
   tableName: questionnaireTitle
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     text:
       type: string(255)
       fixed: false
@@ -838,17 +568,9 @@ QuestionnaireTitle:
       primary: false
       notnull: true
       autoincrement: false
-    questionnaire_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    questionnaire_id: integer
   relations:
     Questionnaire:
-      local: questionnaire_id
-      foreign: id
       foreignKeyName: questionnaireTitle_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
@@ -856,30 +578,14 @@ QuestionnaireTitle:
 Report:
   tableName: report
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    questionnaire_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    questionnaire_id: integer
     language:
       type: string(5)
       notnull: true
     customer:
       type: string(64)
       notnull: true
-    split_qq_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      notnull: false
+    split_qq_id: integer
     output_dir:
       type: string(255)
       notnull: true
@@ -903,15 +609,12 @@ Report:
       foreign: report_id
       type: many
     Questionnaire:
-      local: questionnaire_id
-      foreign: id
       foreignKeyName: report_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     QuestionnaireQuestion:
       local: split_qq_id
-      foreign: id
       foreignKeyName: report_split_qq_id_fk
       type: one
       onUpdate: SET NULL
@@ -923,37 +626,19 @@ Report:
 ReportTitle:
   tableName: reportTitle
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
     text:
       type: string(255)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     language:
       type: string(2)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
-    report_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    report_id: integer
   relations:
     Report:
-      local: report_id
-      foreign: id
       foreignKeyName: reportTitle_report_id_fk
       type: one
       onUpdate: CASCADE
@@ -961,19 +646,7 @@ ReportTitle:
 ReportElement:
   tableName: reportElement
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    report_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    report_id: integer
     data:
       type: string
       notnull: false
@@ -982,8 +655,6 @@ ReportElement:
       default: 0
   relations:
     Report:
-      local: report_id
-      foreign: id
       foreignKeyName: reportElement_report_id_fk
       type: one
       onUpdate: CASCADE
@@ -991,30 +662,14 @@ ReportElement:
 ReportPresentation:
   tableName: reportPresentation
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    questionnaire_question_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    questionnaire_question_id: integer
     type:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
   relations:
     QuestionnaireQuestion:
-      local: questionnaire_question_id
-      foreign: id
       foreignKeyName: reportPresentation_questionnaire_question_id_fk
       type: one
       onUpdate: CASCADE
@@ -1022,19 +677,11 @@ ReportPresentation:
 Resource:
   tableName: resource
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
     name:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     description:
       type: string(255)
   indexes:
@@ -1051,23 +698,9 @@ Resource:
 Respondent:
   tableName: respondent
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: true
-      autoincrement: true
-    questionnaire_id:
-      type: integer(4)
-      fixed: false
-      unsigned: true
-      primary: false
-      notnull: true
-      autoincrement: false
+    questionnaire_id: integer
   relations:
     Questionnaire:
-      local: questionnaire_id
-      foreign: id
       foreignKeyName: respondent_questionnaire_id_fk
       type: one
       onUpdate: CASCADE
@@ -1079,19 +712,11 @@ Respondent:
 Role:
   tableName: role
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
     name:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
   relations:
     RoleResource:
       local: id
@@ -1104,37 +729,15 @@ Role:
 RoleResource:
   tableName: role_resource
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    role_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    resource_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
+    role_id: integer
+    resource_id: integer
   relations:
     Role:
-      local: role_id
-      foreign: id
       foreignKeyName: role_resource_role_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE
     Resource:
-      local: resource_id
-      foreign: id
       foreignKeyName: role_resource_resource_id_fk
       type: one
       onUpdate: CASCADE
@@ -1142,65 +745,39 @@ RoleResource:
 User:
   tableName: user
   columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
     username:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     password:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     fullname:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     api_key:
       type: string(64)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     created:
       type: timestamp(25)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     lastlogin:
       type: timestamp(25)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
-    role_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
+    role_id: integer
   relations:
     Role:
-      local: role_id
-      foreign: id
       foreignKeyName: user_role_id_fk
       type: one
       onUpdate: RESTRICT
@@ -1208,6 +785,7 @@ User:
 Session:
   tableName: session
   columns:
+    # required: specific id column
     id:
       type: string(64)
       fixed: false
@@ -1218,13 +796,9 @@ Session:
       type: blob
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
     timestamp:
       type: timestamp(25)
       fixed: false
       unsigned: false
-      primary: false
       notnull: true
-      autoincrement: false
