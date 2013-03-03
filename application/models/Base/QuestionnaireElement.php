@@ -7,9 +7,10 @@
  * 
  * @property string $name
  * @property string $type
+ * @property Doctrine_Collection $QuestionnaireNode
  * 
  * @package    Webenq_Models
- * @subpackage ##SUBPACKAGE##
+ * @subpackage 
  * @author     Nivocer <webenq@nivocer.com>
  * @version    SVN: $Id: Builder.php,v 1.2 2011/07/12 13:39:03 bart Exp $
  */
@@ -49,6 +50,8 @@ abstract class Webenq_Model_Base_QuestionnaireElement extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasMany('Webenq_Model_QuestionnaireNode as QuestionnaireNode', array(
+             'local' => 'id',
+             'foreign' => 'questionnaire_element_id'));
     }
 }
