@@ -34,6 +34,8 @@ abstract class Webenq_Test_Case_Controller extends Zend_Test_PHPUnit_ControllerT
 
     // as in Webenq_Test_Case_Fixture
     public function createDatabase() {
+        Webenq_Application::$defaultConfig = APPLICATION_PATH . '/configs/application.ini';
+        Webenq_Application::$overrideConfig = APPLICATION_PATH . '/configs/override.ini';
         $this->application = new Webenq_Application(APPLICATION_ENV);
         $this->doctrineConfig = $this->application->getBootstrap()->getOption('doctrine');
 

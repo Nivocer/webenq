@@ -33,6 +33,8 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
 
     public function createDatabase() {
         // @todo: can this be done via singleton, getInstance?
+        Webenq_Application::$defaultConfig = APPLICATION_PATH . '/configs/application.ini';
+        Webenq_Application::$overrideConfig = APPLICATION_PATH . '/configs/override.ini';
         $this->application = new Webenq_Application(APPLICATION_ENV);
         $this->doctrineConfig = $this->application->getBootstrap()->getOption('doctrine');
 
