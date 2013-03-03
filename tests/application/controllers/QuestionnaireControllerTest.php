@@ -23,6 +23,7 @@
  */
 
 /**
+ * @todo dependencies on default database ids in various tests
  * @package    Webenq_Tests_Questionnaires
  */
 class Webenq_Test_Controller_QuestionnaireControllerTest extends Webenq_Test_Case_Controller
@@ -33,24 +34,28 @@ class Webenq_Test_Controller_QuestionnaireControllerTest extends Webenq_Test_Cas
 //        $this->dispatch('/questionnaire');
 //        $this->assertController('questionnaire');
     }
+
     public function testCorrectActionIsUsedIndex()
     {
 //        $this->createDatabase();
 //        $this->dispatch('/questionnaire/index');
 //        $this->assertAction("index");
     }
+
     public function testCorrectActionIsUsedXform()
     {
         $this->loadDatabase();
         $this->dispatch('/questionnaire/xform/id/1');
         $this->assertAction("xform");
     }
+
     public function testCorrectActionIsUsedXformData()
     {
         $this->loadDatabase();
         $this->dispatch('/questionnaire/xform-data/id/1');
         $this->assertAction("xform-data");
     }
+
     public function testCorrectActionIsUsedAdd()
     {
 //        $this->createDatabase();
@@ -68,44 +73,29 @@ class Webenq_Test_Controller_QuestionnaireControllerTest extends Webenq_Test_Cas
         $this->dispatch('/questionnaire/order');
         $this->assertAction("order");
     }
-    /*
-    * @todo inactive test, don't yet know the needed input
-    */
-    /*
-    public function testCorrectActionIsUsedaddQuestion()
-    {
-        $this->dispatch('/questionnaire/add-question');
-        $this->assertAction("addQuestion");
-    }
-    */
+
     public function testCorrectActionIsUsedDelete()
     {
         $this->loadDatabase();
         $this->dispatch('/questionnaire/delete/id/1');
         $this->assertAction("index");// index is added to action stack
     }
-    /* @todo inactive test, we need to change this controller
-     */
-     /*public function testCorrectControlleIsUsedCollect()
-    {
-        $this->dispatch('/questionnaire/collect/id/1');
-        $this->assertAction("collect");
-    }
-    */
+
     public function testCorrectActionIsUsedDownload()
     {
         $this->dispatch('/questionnaire/download/id/1');
         $this->assertAction("download");
     }
+
     public function testCorrectActionIsUsedPrint()
     {
         $this->dispatch('/questionnaire/print/id/1');
         $this->assertAction("print");
     }
+
     public function testQuestionnaireViewIsRendered()
     {
         $this->dispatch('/questionnaire');
         //$this->assertQuery('tbody.questionnaire');
-
     }
 }

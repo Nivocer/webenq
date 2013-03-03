@@ -30,37 +30,54 @@ class Webenq_Test_ControllerTestCase_CategoryControllerTest extends Webenq_Test_
 
     public $setupDatabase=true;
 
+    private $_c1_id;
+    private $_c2_id;
+    private $_c3_id;
+    private $_q_id;
+
     public function mockup(){
         $c=new Webenq_Model_Category();
         $c->save();
-        $testString='id=1, should not get deleted';
+        $this->_c1_id = $c->get('id');
+        $testString='cat=1, should not get deleted';
         $c->addCategoryText('en',$testString);
 
         $c2=new Webenq_Model_Category();
         $c2->save();
-        $testString2='id=2,has questionnaire';
+        $this->_c2_id = $c2->get('id');
+        $testString2='cat=2,has questionnaire';
         $c2->addCategoryText('en',$testString2);
+
         $c3=new Webenq_Model_Category();
         $c3->save();
-        $testString3='id=3 has no questionnire';
+        $this->_c3_id = $c3->get('id');
+        $testString3='cat=3 has no questionnire';
         $c3->addCategoryText('en',$testString3);
+
+        // set a non-existing category id
+        $this->_noc_id = 1;
+        while (in_array($this->_noc_id, array(
+            $this->_c1_id, $this->_c2_id, $this->_c3_id) )) {
+            $this->_noc_id +=1;
+        }
+
         $q=new Webenq_Model_Questionnaire();
+        $q->category_id=$this->_c2_id;
         $q->save();
-        $q->category_id=2;
-        $q->save();
+        $this->_q_id = $q->get('id');
     }
     public function testMockup()
     {
         $this->mockup();
         $c=new Webenq_Model_Category();
         $this->assertEquals(3,$c->getCategories()->count(), "we should have 3 categories");
-        $this->assertEquals(1,$c->getCategories(3)->count(),"we should have category with id=3");
-        $this->assertNotEquals(1,$c->getCategories(4)->count(),"we should not have category with id=4"); //
+        $this->assertEquals(1,$c->getCategories($this->_c3_id)->count(),"we should have category with cat=3");
+        $this->assertNotEquals(1,$c->getCategories($this->_noc_id)->count(),"we should not have category with cat=4"); //
 
         $q=new Webenq_Model_Questionnaire();
-        $this->assertEquals(0,$q->getQuestionnaires(1)->count(), "category 1 should have zero questionnaires");
-        $this->assertEquals(1,$q->getQuestionnaires(2)->count(), "category 2 should have one questionnaires");
-        $this->assertEquals(0,$q->getQuestionnaires(3)->count(), "category 3 should have zero questionnaires");
+        $this->assertEquals(0,$q->getQuestionnaires($this->_c1_id)->count(), "category 1 should have zero questionnaires");
+        $this->assertEquals(1,$q->getQuestionnaires($this->_c2_id)->count(), "category 2 should have one questionnaires");
+        $this->assertEquals(0,$q->getQuestionnaires($this->_c3_id)->count(), "category 3 should have zero questionnaires");
     }
 
     public function testCorrectControllerIsUsed()
@@ -101,17 +118,17 @@ class Webenq_Test_ControllerTestCase_CategoryControllerTest extends Webenq_Test_
         //if we have questionnaires in a category, it should get the category id 1 before deleting the category
         $this->mockup();
         $c=new Webenq_Model_Category();
-        $this->assertEquals(1,$c->getCategories(3)->count(),"testing precondition: we should have 1 category with id=3");
+        $this->assertEquals(1,$c->getCategories($this->_c3_id)->count(),"testing precondition: we should have 1 category with cat=3");
         $this->request->setMethod('POST')
             ->setPost(
                 array(
-                    'id' => '3',
+                    'id' => $this->_c3_id,
                     'yes' => 'yes',
                 )
             );
         $this->dispatch('/category/delete/');
         $this->assertAction("delete");
-        $this->assertEquals(0,$c->getCategories(3)->count(), "we should have zero categories with id=3");
+        $this->assertEquals(0,$c->getCategories($this->_c3_id)->count(), "we should have zero categories with id=3");
     }
     public function testDeleteCategoryDontDeleteDefaultCategory()
     {
@@ -137,21 +154,21 @@ class Webenq_Test_ControllerTestCase_CategoryControllerTest extends Webenq_Test_
         $this->mockup();
         $c=new Webenq_Model_Category();
         $q=new Webenq_Model_Questionnaire();
-        $this->assertEquals(0,$q->getQuestionnaires(1)->count(), "testing precondition: we should have zero questionnaire in category 1");
-        $this->assertEquals(1,$q->getQuestionnaires(2)->count(), "testing precondition: we should have one questionnaire in category 2");
-        $this->assertEquals(1,$c->getCategories(2)->count(), "testing precondition: we should have category with id=1");
+        $this->assertEquals(0,$q->getQuestionnaires($this->_c1_id)->count(), "testing precondition: we should have zero questionnaire in category 1");
+        $this->assertEquals(1,$q->getQuestionnaires($this->_c2_id)->count(), "testing precondition: we should have one questionnaire in category 2");
+        $this->assertEquals(1,$c->getCategories($this->_c2_id)->count(), "testing precondition: we should have category with cat=2");
         $this->request->setMethod('POST')
         ->setPost(
                 array(
-                        'id' => '2',
+                        'id' => $this->_c2_id,
                         'yes' => 'yes',
                 )
         );
         $this->dispatch('/category/delete/');
         $this->assertAction("delete");
         $this->assertEquals(1,$q->getQuestionnaires(1)->count(), "we should have one questionnaire in category 1");
-        $this->assertEquals(0,$q->getQuestionnaires(2)->count(), "we should have zero questionnaire in category 2");
-        $this->assertEquals(0,$c->getCategories(2)->count(), "not able to delete category with questionnaires");
+        $this->assertEquals(0,$q->getQuestionnaires($this->_c2_id)->count(), "we should have zero questionnaire in category 2");
+        $this->assertEquals(0,$c->getCategories($this->_c2_id)->count(), "not able to delete category with questionnaires");
 
     }
     public function testCategoryOneExist(){

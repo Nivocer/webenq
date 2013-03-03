@@ -332,12 +332,15 @@ Webenq_Model_AnswerPossibilityTextSynonym:
     AnswerPossibilityText: Webenq_Model_AnswerPossibilityText_14
 Webenq_Model_Category:
   Webenq_Model_Category_1:
+    id: 1 # required for tests in models/CategoryTest and as default category
     active: '1'
     weight: '1'
   Webenq_Model_Category_2:
+    id: 2 # required for tests in models/CategoryTest
     active: '1'
     weight: '0'
   Webenq_Model_Category_3:
+    id: 3 # required for tests in models/CategoryTest
     active: '0'
     weight: '2'
 Webenq_Model_QuestionnaireTitle:

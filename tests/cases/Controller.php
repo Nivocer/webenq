@@ -29,26 +29,36 @@ abstract class Webenq_Test_Case_Controller extends Zend_Test_PHPUnit_ControllerT
 {
     // as in Webenq_Test_Case_Fixture
     public $setupDatabase = false;
+    private $_databaseCreated = false;
+    private $_databaseFilled = false;
 
     // as in Webenq_Test_Case_Fixture
     public function createDatabase() {
-        Webenq_Application::$defaultConfig = APPLICATION_PATH . '/configs/application.ini';
-        Webenq_Application::$overrideConfig = APPLICATION_PATH . '/configs/override.ini';
-
         $this->application = new Webenq_Application(APPLICATION_ENV);
         $this->doctrineConfig = $this->application->getBootstrap()->getOption('doctrine');
 
         // set up database for testing
+        $this->dropDatabase();
         Doctrine_Core::createDatabases();
         Doctrine_Core::createTablesFromModels($this->doctrineConfig['models_path']);
+        $this->_databaseCreated = true;
+        $this->_databaseFilled = false;
+    }
+
+    public function dropDatabase() {
+        try {
+            Doctrine_Core::dropDatabases();
+            $this->_databaseCreated = false;
+            $this->_databaseFilled = false;
+        } catch (Exception $e) {
+        }
     }
 
     // as in Webenq_Test_Case_Fixture
     public function loadDatabase() {
-        if (!$this->setupDatabase) {
-            $this->createDatabase();
-        }
+        $this->createDatabase();
         Doctrine_Core::loadData($this->doctrineConfig['data_fixtures_path'], false);
+        $this->_databaseFilled = true;
     }
 
     protected function setUp()
@@ -65,12 +75,7 @@ abstract class Webenq_Test_Case_Controller extends Zend_Test_PHPUnit_ControllerT
 
     protected function tearDown()
     {
-        try {
-            Doctrine_Core::dropDatabases();
-        } catch (Exception $e) {
-        }
-
+        $this->dropDatabase();
         parent::tearDown();
     }
-
 }

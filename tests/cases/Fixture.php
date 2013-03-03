@@ -28,21 +28,35 @@
 abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
 {
     public $setupDatabase = false;
+    private $_databaseCreated = false;
+    private $_databaseFilled = false;
 
     public function createDatabase() {
+        // @todo: can this be done via singleton, getInstance?
         $this->application = new Webenq_Application(APPLICATION_ENV);
         $this->doctrineConfig = $this->application->getBootstrap()->getOption('doctrine');
 
         // set up database for testing
+        //$this->dropDatabase();
         Doctrine_Core::createDatabases();
         Doctrine_Core::createTablesFromModels($this->doctrineConfig['models_path']);
+        $this->_databaseCreated = true;
+        $this->_databaseFilled = false;
+    }
+
+    public function dropDatabase() {
+        try {
+            Doctrine_Core::dropDatabases();
+            $this->_databaseCreated = false;
+            $this->_databaseFilled = false;
+        } catch (Exception $e) {
+        }
     }
 
     public function loadDatabase() {
-        if (!$this->setupDatabase) {
-            $this->createDatabase();
-        }
+        $this->createDatabase();
         Doctrine_Core::loadData($this->doctrineConfig['data_fixtures_path'], false);
+        $this->_databaseFilled = true;
     }
 
     protected function setUp()
@@ -56,11 +70,7 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        try {
-            Doctrine_Core::dropDatabases();
-        } catch (Exception $e) {
-        }
-
+        $this->dropDatabase();
         parent::tearDown();
     }
 }

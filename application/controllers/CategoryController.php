@@ -27,6 +27,12 @@
  */
  class CategoryController extends Zend_Controller_Action
 {
+    /**
+     * Default category, should not be deleted
+     *
+     * @todo Remove dependency on database-specific setup
+     * @var integer
+     */
     public $defaultCategoryId=1;
     /**
      * Controller actions that are ajaxable

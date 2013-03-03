@@ -103,6 +103,8 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
     /*
      * get all categories from the database fixture, currently we have 3 categories,
      * the first one (by weight) is 11
+     *
+     * @todo remove dependency on default database content and on explicit ids
      */
     public function testGetAllCategoriesIsCorrect(){
         $this->loadDatabase();
@@ -110,8 +112,10 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
         $this->assertEquals(3, $category->getCategories()->count(), "don't have three categories");
         $this->assertEquals(2, $category->getCategories()->getFirst()->id, "id 2 is not the first id in the data fixture");
         $category->delete();
-
     }
+    /*
+     * @todo remove dependency on default database content and on explicit ids
+     */
     public function testGetCategorieByIdIsCorrect(){
         $this->loadDatabase();
         $category=new Webenq_Model_Category();
