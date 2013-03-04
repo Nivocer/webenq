@@ -282,7 +282,7 @@
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[(!$V{averageMeasure}.equals(0.0)? $V{averageMeasure} : "-")]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
@@ -326,7 +326,7 @@
 								<rightPen lineWidth="0.5"/>
 							</box>
 							<textElement verticalAlignment="Middle"/>
-							<textFieldExpression><![CDATA[$V{averageMeasure}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[(!$V{averageMeasure}.equals(0.0)? $V{averageMeasure} : "-")]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
