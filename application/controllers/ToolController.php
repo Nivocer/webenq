@@ -373,6 +373,10 @@ class ToolController extends Zend_Controller_Action
             if (count(array_unique($questionsNewClean))<>count(array_unique($questionsNew))) {
                 //questions are not unique!!!!
                 echo "questions new are not unique: $setId<br>";
+                echo "<pre>";
+                echo "check for questions with module code, id above + 1 is the file which is wrong in the zip";
+                var_dump($questionsNewClean);
+                echo "</pre>";
                 return false;
 
             }
