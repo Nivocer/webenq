@@ -44,6 +44,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
     */
 
+    /**
+     * Create the view and add the view helper paths
+     */
+    protected function _initView()
+    {
+        $view = new Zend_View();
+        $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
+        $view->addHelperPath('WebEnq4/View/Helper/', 'WebEnq4_View_Helper');
+
+        $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
+        $viewRenderer->setView($view);
+        Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+
+        return $view;
+    }
+
     protected function _initDoctrine()
     {
         require_once 'Doctrine.php';

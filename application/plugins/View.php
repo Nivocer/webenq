@@ -32,7 +32,8 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
 {
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
-        $view = new Zend_View();
+        $frontController = Zend_Controller_Front::getInstance();
+        $view = $frontController->getParam('bootstrap')->getResource('view');
 
         $view->doctype('XHTML1_STRICT');
         $view->headTitle()->setSeparator(' - ')->append('WebEnq 4');
@@ -46,7 +47,6 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->headScript()->appendScript('baseUrl = "' . $view->baseUrl() . '";');
 
         /* jQuery core & UI */
-        $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
         $view->jQuery()->enable();
         $view->jQuery()->uiEnable();
         $view->jQuery()->setLocalPath($view->baseUrl('js/jquery/jquery.min.js'));
@@ -62,25 +62,15 @@ class Webenq_Plugin_View extends Zend_Controller_Plugin_Abstract
         $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/jquery.json.min.js'));
 //        $view->headScript()->appendFile($view->baseUrl('js/jquery/plugins/date-format.js'));
 
-        /* WebEnq4 library */
-        $view->addHelperPath('WebEnq4/View/Helper/', 'WebEnq4_View_Helper');
-
         /* JS */
         $view->headScript()->appendFile($view->baseUrl('js/global.js'));
         $this->_addJs($request, $view);
-
-        $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
-        $viewRenderer->setView($view);
-        Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
 
         /* navigation */
         $view->navigation($this->_getNavigation($request));
 
         /* language selector */
         $view->languageSelection = $this->_getLanguageSelector($view);
-
-        /* store view object in registry */
-        Zend_Registry::set('view', $view);
     }
 
     protected function _addJs(Zend_Controller_Request_Abstract $request, Zend_View $view)
