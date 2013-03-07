@@ -30,28 +30,23 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
     public $setupDatabase = false;
     private $_databaseCreated = false;
     private $_databaseFilled = false;
+    private $_manager;
 
     public function createDatabase() {
-        // @todo: can this be done via singleton, getInstance?
-        Webenq_Application::$defaultConfig = APPLICATION_PATH . '/configs/application.ini';
-        Webenq_Application::$overrideConfig = APPLICATION_PATH . '/configs/override.ini';
-        $this->application = new Webenq_Application(APPLICATION_ENV);
-        $this->doctrineConfig = $this->application->getBootstrap()->getOption('doctrine');
-
         // set up database for testing
-        //$this->dropDatabase();
-        Doctrine_Core::createDatabases();
+        $this->dropDatabase();
+
+        $this->_manager->createDatabases($this->_manager->getConnections());
         Doctrine_Core::createTablesFromModels($this->doctrineConfig['models_path']);
         $this->_databaseCreated = true;
         $this->_databaseFilled = false;
     }
 
     public function dropDatabase() {
-        try {
-            Doctrine_Core::dropDatabases();
+        if ($this->_databaseCreated) {
+            $this->_manager->dropDatabases($this->_manager->getConnections());
             $this->_databaseCreated = false;
             $this->_databaseFilled = false;
-        } catch (Exception $e) {
         }
     }
 
@@ -64,6 +59,14 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
+
+        Webenq_Application::$defaultConfig = APPLICATION_PATH . '/configs/application.ini';
+        Webenq_Application::$overrideConfig = APPLICATION_PATH . '/configs/override.ini';
+        $this->application = new Webenq_Application(APPLICATION_ENV);
+        $this->application->bootstrap();
+        $this->doctrineConfig = $this->application->getBootstrap()->getOption('doctrine');
+
+        $this->_manager = Doctrine_Manager::getInstance();
 
         if ($this->setupDatabase) {
             $this->createDatabase();

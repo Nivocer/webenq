@@ -60,7 +60,9 @@ class Webenq_Test_Controller_QuestionnaireControllerTest extends Webenq_Test_Cas
     {
 //        $this->createDatabase();
 //        $this->dispatch('/questionnaire/add');
+// @todo this is redirected to index...
 //        $this->assertAction("add");
+//        $this->assertAction("index");
     }
     public function testCorrectActionIsUsedEdit()
     {

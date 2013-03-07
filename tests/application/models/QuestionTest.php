@@ -46,6 +46,7 @@ class Webenq_Test_Model_QuestionTest extends Webenq_Test_Case_Model_Question
 
     public function testQuestionIsSearchable()
     {
+        $this->loadDatabase();
         $result = Webenq_Model_Question::search('e', null, 1);
         $this->assertTrue($result instanceof Doctrine_Collection);
     }
