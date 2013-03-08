@@ -18,6 +18,8 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
      * Check the linked QuestionnaireElement: if it has changes and is used in
      * more than one QuestionnaireNode, make a copy of the object and update the
      * reference to it
+     * @todo check function
+     *
      */
     public function save(Doctrine_Connection $conn = null)
     {
@@ -25,15 +27,16 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
             if (1 < Doctrine_Query::create()
                 ->select('COUNT(id)')
                 ->from('Webenq_Model_QuestionnaireNode qn')
-                ->where('qn.element_id = ?', $this->QuestionnaireElement->identifier())) {
+                ->where('qn.element_id = ?', $this->QuestionnaireElement->id)->count()) {
                 $this->QuestionnaireElement = clone $this->QuestionnaireElement;
                 $this->QuestionnaireElement->save($conn);
-                $this->element_id = $this->QuestionnaireElement->identifier();
-                parent::save($conn);
+                $this->element_id = $this->QuestionnaireElement->id;
             } else {
                 $this->QuestionnaireElement->save($conn);
+
             }
         }
+        parent::save($conn);
     }
 
     // Reorder the children
