@@ -71,7 +71,7 @@ class QuestionnaireController extends Zend_Controller_Action
                 '-', array(
                     'xform-def',
                     $questionnaire->id,
-                    $questionnaire->getQuestionnaireTitle()->text,
+                    $questionnaire->getTitle(),
                     date('YmdHis')
                 )
             ) . '.xml'
@@ -105,7 +105,7 @@ class QuestionnaireController extends Zend_Controller_Action
                 '-', array(
                     'xform-data',
                     $questionnaire->id,
-                    $questionnaire->getQuestionnaireTitle()->text,
+                    $questionnaire->getTitle(),
                     date('YmdHis')
                 )
             )
@@ -163,7 +163,7 @@ class QuestionnaireController extends Zend_Controller_Action
                     ->addMessage(
                         sprintf(
                             t('Questionnaire "%s" added succesfully'),
-                            $questionnaire->getQuestionnaireTitle()->text
+                            $questionnaire->getTitle()
                         )
                     );
             }
@@ -206,7 +206,7 @@ class QuestionnaireController extends Zend_Controller_Action
                     ->addMessage(
                         sprintf(
                             t('Questionnaire "%s" updated succesfully'),
-                            $questionnaire->getQuestionnaireTitle()->text
+                            $questionnaire->getTitle()
                         )
                     );
                 } else {
@@ -395,7 +395,7 @@ class QuestionnaireController extends Zend_Controller_Action
         );
         if (!$questionnaire) $this->_redirect('questionnaire');
 
-        $title = $questionnaire->getQuestionnaireTitle()->text;
+        $title = $questionnaire->getTitle();
 
         $form = new Webenq_Form_Confirm();
         $form->setConfirmation(

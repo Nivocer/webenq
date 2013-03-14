@@ -16,7 +16,6 @@
  * @property integer $questionnaire_node_id
  * @property Webenq_Model_Category $Category
  * @property Webenq_Model_QuestionnaireNode $QuestionnaireNode
- * @property Doctrine_Collection $QuestionnaireTitle
  * @property Doctrine_Collection $QuestionnaireQuestion
  * @property Doctrine_Collection $Report
  * @property Doctrine_Collection $Respondent
@@ -93,10 +92,6 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
              'local' => 'questionnaire_node_id',
              'foreign' => 'id'));
 
-        $this->hasMany('Webenq_Model_QuestionnaireTitle as QuestionnaireTitle', array(
-             'local' => 'id',
-             'foreign' => 'questionnaire_id'));
-
         $this->hasMany('Webenq_Model_QuestionnaireQuestion as QuestionnaireQuestion', array(
              'local' => 'id',
              'foreign' => 'questionnaire_id'));
@@ -108,5 +103,13 @@ abstract class Webenq_Model_Base_Questionnaire extends Doctrine_Record
         $this->hasMany('Webenq_Model_Respondent as Respondent', array(
              'local' => 'id',
              'foreign' => 'questionnaire_id'));
+
+        $webenq4_template_i18n0 = new WebEnq4_Template_I18n(array(
+             'fields' => 
+             array(
+              0 => 'title',
+             ),
+             ));
+        $this->actAs($webenq4_template_i18n0);
     }
 }

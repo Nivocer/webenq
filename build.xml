@@ -160,6 +160,7 @@
 
   <fileset dir="tests" id="tests">
     <include name="application/**/*Test.php"/>
+    <exclude name="application/controllers/*"/>
     <include name="libraries/**/*Test.php"/>
   </fileset>
 </project>

@@ -48,7 +48,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
         $pairs = array();
         foreach ($questionnaires as $questionnaire) {
-            $pairs[$questionnaire->id] = $questionnaire->getQuestionnaireTitle($language)->text;
+            $pairs[$questionnaire->id] = $questionnaire->getTitle($language);
         }
         return $pairs;
     }
@@ -64,48 +64,34 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
     * database.
     *
     * @param string $language
-    * @return Webenq_Model_QuestionnaireText
+    * @return string Title or empty string
     */
-    public function getQuestionnaireTitle($language = null)
+    public function getTitle($language = null)
     {
         // get curren language if not given
         if (!$language) {
             $language = Zend_Registry::get('Zend_Locale')->getLanguage();
         }
 
-        // build array with available languages
-        $available = array();
-        foreach ($this->QuestionnaireTitle as $title) {
-            $available[$title->language] = $title;
-        }
-
-        // return current language if set
-        if (key_exists($language, $available)) {
-            return $available[$language];
+        if (isset($this->Translation[$language])) {
+           return $this->Translation[$language]->title;
         }
 
         // return the first preferred language that is set
         $preferredLanguages = Zend_Registry::get('preferredLanguages');
-        foreach ($preferredLanguages as $preferredLanguage) {
-            if (key_exists($preferredLanguage, $available)) {
-                return $available[$preferredLanguage];
+        foreach ($preferredLanguages as $lang) {
+            if (isset($this->Translation[$lang])) {
+                return $this->Translation[$lang]->title;
             }
         }
 
         // return any found language
-        if (count($this->QuestionnaireTitle) > 0)
-            return $this->QuestionnaireTitle[0];
-
-        // create empty translation if nothing was found
-        if ($this->id) {
-            $title = new Webenq_Model_QuestionnaireTitle();
-            $title->language = $language;
-            $title->Questionnaire = $this;
-            $title->save();
-            return $title;
+        if (count($this->Translation) > 0) {
+            return $this->Translation[0]->title;
         }
 
-        return new Webenq_Model_QuestionnaireTitle();
+        // nothing, return empty string
+        return '';
     }
 
     /**
@@ -160,26 +146,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
      */
     public function addQuestionnaireTitle($language, $title)
     {
-        if ($this->id) {
-            // get translation
-            $translation = Doctrine_Core::getTable('Webenq_Model_QuestionnaireTitle')
-                ->findOneByQuestionnaireIdAndLanguage($this->id, $language);
-            // or create new one
-            if (!$translation) {
-                $translation = new Webenq_Model_QuestionnaireTitle();
-                $translation->questionnaire_id = $this->id;
-                $translation->language = $language;
-            }
-            // save changes
-            $translation->text = $title;
-            $translation->save();
-        } else {
-            // create new and attatch translation
-            $translation = new Webenq_Model_QuestionnaireTitle();
-            $translation->language = $language;
-            $translation->text = $title;
-            $this->QuestionnaireTitle[] = $translation;
-        }
+        $this->Translation[$language]->title = $title;
         return $this;
     }
 
@@ -198,11 +165,11 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 
 
     /**
-     * Fills record with data in array and fills related objects with
-     * translations
+     * Fills questionnaire properties with data in the given array
      *
      * @param array $array
      * @param bool $deep
+     * @see toArray()
      * @see Doctrine_Record::fromArray()
      */
     public function fromArray(array $array, $deep = true)
@@ -214,19 +181,26 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
                 if ($language == 'default_language') {
                     $this->default_language = $title;
                 } elseif ($title) {
-                    $this->addQuestionnaireTitle($language, $title);
+                    $this->Translation[$language]->title = $title;
                 }
             }
         }
     }
 
     /**
-     * Fills array with data in record and fills related objects with
-     * translations
+     * Fills array with questionnaire properties, and makes translations of the
+     * field title available for form element "multi-lingual with default
+     * language choice":
+     *
+     * <ul>
+     * <li>result['title']['default_language'] maps to the property 'default_language'
+     * <li>result['title']['en'] contains the English version, etc
+     * </ul>
      *
      * @param bool $deep
      * @param bool $prefixKey Not used
      * @return array
+     * @see fromArray()
      * @see Doctrine_Record::fromArray()
      */
     public function toArray($deep = true, $prefixKey = false)
@@ -237,12 +211,9 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             $result['title']['default_language'] = $result['default_language'];
         }
 
-        if (isset($result['QuestionnaireTitle'])
-        && ($result['QuestionnaireTitle'])) {
-            foreach ($result['QuestionnaireTitle'] as $title) {
-                if (isset($title['text']) && isset($title['language'])) {
-                    $result['title'][$title['language']] = $title['text'];
-                }
+        foreach ($this->Translation as $lang=>$translation) {
+            if (isset($translation->title)) {
+                $result['title'][$lang] = $translation->title;
             }
         }
 
@@ -349,7 +320,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 //            ->leftJoin('apg.AnswerPossibility ap')
 //            ->leftJoin('ap.AnswerPossibilityText apt WITH apt.language = ?', $language)
 //            ->leftJoin('qn.QuestionText qt WITH qt.language = ?', $language)
-            ->leftJoin('qe.QuestionnaireTitle qt')
+            ->leftJoin('qe.Translation qt')
             ->leftJoin('qq.CollectionPresentation cp')
             ->where('qe.id = ?', $id)
             ->andWhere('cp.parent_id IS NULL')
@@ -493,7 +464,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         // generate head
         $head = $xml->createElement('h:head');
         $html->appendChild($head);
-        $title = $xml->createElement('h:title', Webenq::Xmlify($this->getQuestionnaireTitle()->text));
+        $title = $xml->createElement('h:title', Webenq::Xmlify($this->getTitle()));
         $head->appendChild($title);
 
         $model = $xml->createElement('model');
@@ -506,7 +477,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         $questionnaire->setAttribute(
             'id',
             Webenq::Xmlify(
-                $this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'),
+                $this->getTitle() . ' ' . date('YmdHis'),
                 'attr'
             )
         );
@@ -557,7 +528,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
             $qn = $xml->createElement(Webenq::Xmlify('questionnaire', 'tag'));
             $qn->setAttribute(
                 'id',
-                Webenq::Xmlify($this->getQuestionnaireTitle()->text . ' ' . date('YmdHis'), 'attr')
+                Webenq::Xmlify($this->getTitle() . ' ' . date('YmdHis'), 'attr')
             );
             $r->appendChild($qn);
 

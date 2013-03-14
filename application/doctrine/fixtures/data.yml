@@ -1,11 +1,7 @@
 Webenq_Model_Questionnaire:
   Webenq_Model_Questionnaire_1:
-#    Translation:
-#      en:
-#        title: Test questionnaire
-#      nl:
-#        title: Testvragenlijst
     Category: Webenq_Model_Category_1
+    translation_id: 1
     default_language: en
     date_start: '2002-01-01 00:00:00'
     date_end: '2022-12-31 00:00:00'
@@ -13,12 +9,8 @@ Webenq_Model_Questionnaire:
     meta: null
     weight: null
   Webenq_Model_Questionnaire_2:
-#    Translation:
-#      en:
-#        title: Second test questionnaire
-#      nl:
-#        title: Tweede testvragenlijst
     Category: Webenq_Model_Category_2
+    translation_id: 2
     default_language: en
     date_start: '2012-01-01 00:00:00'
     date_end: '2050-01-01 00:00:00'
@@ -26,18 +18,40 @@ Webenq_Model_Questionnaire:
     meta: null
     weight: null
   Webenq_Model_Questionnaire_3:
-#    Translation:
-#      en:
-#        title: Third test questionnaire
-#      nl:
-#        title: Derde testvragenlijst
     Category: Webenq_Model_Category_1
+    translation_id: 3
     default_language: en
     date_start: '2012-01-01 00:00:00'
     date_end: '2012-05-01 00:00:00'
     active: '1'
     meta: null
     weight: null
+
+Webenq_Model_QuestionnaireTranslation:
+  Webenq_Model_Questionnaire_Translation_1_en:
+    id: 1 
+    lang: en
+    title: Test questionnaire
+  Webenq_Model_Questionnaire_Translation_1_nl:
+    id: 1 
+    lang: nl
+    title: Testvragenlijst
+  Webenq_Model_Questionnaire_Translation_2_en:
+    id: 2 
+    lang: en
+    title: Second test questionnaire
+  Webenq_Model_Questionnaire_Translation_2_nl:
+    id: 2 
+    lang: nl
+    title: Tweede testvragenlijst
+  Webenq_Model_Questionnaire_Translation_3_en:
+    id: 3
+    lang: en
+    title: Third test questionnaire
+  Webenq_Model_Questionnaire_Translation_3_nl:
+    id: 3
+    lang: nl
+    title: Derde testvragenlijst
 
 #
 # ===== "THE REST..." =====
@@ -343,31 +357,6 @@ Webenq_Model_Category:
     id: 3 # required for tests in models/CategoryTest
     active: '0'
     weight: '2'
-Webenq_Model_QuestionnaireTitle:
-  Webenq_Model_QuestionnaireTitle_1:
-    text: Testvragenlijst
-    language: nl
-    Questionnaire: Webenq_Model_Questionnaire_1
-  Webenq_Model_QuestionnaireTitle_2:
-    text: 'Test questionnaire'
-    language: en
-    Questionnaire: Webenq_Model_Questionnaire_1
-  Webenq_Model_QuestionnaireTitle_3:
-    text: 'Second test questionnaire'
-    language: en
-    Questionnaire: Webenq_Model_Questionnaire_2
-  Webenq_Model_QuestionnaireTitle_4:
-    text: 'Tweede testvragenlijst'
-    language: nl
-    Questionnaire: Webenq_Model_Questionnaire_2
-  Webenq_Model_QuestionnaireTitle_5:
-    text: 'Third test questionnaire'
-    language: en
-    Questionnaire: Webenq_Model_Questionnaire_3
-  Webenq_Model_QuestionnaireTitle_6:
-    text: 'Derde testvragenlijst'
-    language: nl
-    Questionnaire: Webenq_Model_Questionnaire_3
 Webenq_Model_Resource:
   Webenq_Model_Resource_1:
     name: error/error

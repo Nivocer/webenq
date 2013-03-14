@@ -130,7 +130,7 @@ abstract class Webenq_Download extends Webenq
             implode(
                 '-', array(
                 $this->_questionnaire->id,
-                $this->_questionnaire->getQuestionnaireTitle()->text,
+                $this->_questionnaire->getTitle(),
                 date('YmdHis')
                 )
             )

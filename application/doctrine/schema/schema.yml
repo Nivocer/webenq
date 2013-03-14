@@ -3,6 +3,9 @@
 # =========================================
 
 Questionnaire:
+  actAs:
+    WebEnq4_Template_I18n:
+      fields: [title]
   columns:
     title: string(255)
     category_id: integer
@@ -38,10 +41,6 @@ Questionnaire:
       onUpdate: CASCADE
       onDelete: RESTRICT
     QuestionnaireNode:
-    QuestionnaireTitle:
-      local: id
-      foreign: questionnaire_id
-      type: many
 
 #
 # ===== QUESTIONNAIRE NODE HIERARCHY CLASSES =====
@@ -551,30 +550,6 @@ QuestionnaireQuestion:
       local: id
       foreign: questionnaire_question_id
       type: many
-QuestionnaireTitle:
-  tableName: questionnaireTitle
-  columns:
-    text:
-      type: string(255)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    language:
-      type: string(2)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    questionnaire_id: integer
-  relations:
-    Questionnaire:
-      foreignKeyName: questionnaireTitle_questionnaire_id_fk
-      type: one
-      onUpdate: CASCADE
-      onDelete: CASCADE
 Report:
   tableName: report
   columns:

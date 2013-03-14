@@ -5,7 +5,7 @@
     <?php echo t('Report'); ?>
     "<?php echo $this->report->getReportTitle()->text; ?>"
     <?php echo t('for questionnaire'); ?>
-    "<?php echo $this->report->Questionnaire->getQuestionnaireTitle()->text; ?>"
+    "<?php echo $this->report->Questionnaire->getTitle(); ?>"
 </h2>
 
 <a class="link report"  href="<?php echo $this->baseUrl('report/generate/id/' .$this->report->id) ?>" title="<?php echo t('generate report'); ?>"><?php echo t('generate report'); ?></a>
