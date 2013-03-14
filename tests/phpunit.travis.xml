@@ -1,7 +1,7 @@
 <phpunit bootstrap="./bootstrap.php" colors="true">
     <testsuite name="Webenq Test Suite">
         <directory>./application/</directory>
-        <exclude>./application/controllers</exclude>
+        <exclude>./tests/application/controllers</exclude>
 	</testsuite>
 
     <testsuite name="Webenq4 Libraries Test Suite">
