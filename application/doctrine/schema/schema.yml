@@ -56,19 +56,19 @@ QuestionnaireNode:
 QuestionnaireGroupNode:
   inheritance: 
     extends: QuestionnaireNode
-    type: simple
+    type: column_aggregation
 QuestionnairePageNode:
   inheritance: 
     extends: QuestionnaireGroupNode
-    type: simple
+    type: column_aggregation
 QuestionnaireQuestionNode:
   inheritance: 
     extends: QuestionnaireNode
-    type: simple
+    type: column_aggregation
 QuestionnaireTextNode:
   inheritance: 
     extends: QuestionnaireNode
-    type: simple
+    type: column_aggregation
 
 #
 # ===== QUESTIONNAIRE ELEMENT CLASSES =====
