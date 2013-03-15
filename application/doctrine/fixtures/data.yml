@@ -53,6 +53,50 @@ Webenq_Model_QuestionnaireTranslation:
     lang: nl
     title: Derde testvragenlijst
 
+Webenq_Model_Category:
+  Webenq_Model_Category_1:
+    id: 1 # required for tests in models/CategoryTest and as default category
+    active: '1'
+    weight: '1'
+    translation_id: 1
+  Webenq_Model_Category_2:
+    id: 2 # required for tests in models/CategoryTest
+    active: '1'
+    weight: '0'
+    translation_id: 2
+  Webenq_Model_Category_3:
+    id: 3 # required for tests in models/CategoryTest
+    active: '0'
+    weight: '2'
+    translation_id: 3
+    
+Webenq_Model_CategoryTranslation:
+  Webenq_Model_CategoryTranslation_1_en:
+    id: 1
+    text: other
+    lang: en
+  Webenq_Model_CategoryTranslation_1_nl:
+    id: 1
+    text: anders
+    lang: nl
+  Webenq_Model_CategoryTranslation_2_en:
+    id: 2
+    text: 'Some category'
+    lang: en
+  Webenq_Model_CategoryTranslation_2_nl:
+    id: 2
+    text: 'Een categorie'
+    lang: nl
+  Webenq_Model_CategoryTranslation_3_en:
+    id: 3
+    text: 'Category without questionnaires'
+    lang: en
+  Webenq_Model_CategoryTranslation_3_nl:
+    id: 3
+    text: 'Categorie zonder vragenlijsten'
+    lang: nl
+
+
 #
 # ===== "THE REST..." =====
 #
@@ -344,19 +388,6 @@ Webenq_Model_AnswerPossibilityTextSynonym:
   Webenq_Model_AnswerPossibilityTextSynonym_2:
     text: 'zeer oneens'
     AnswerPossibilityText: Webenq_Model_AnswerPossibilityText_14
-Webenq_Model_Category:
-  Webenq_Model_Category_1:
-    id: 1 # required for tests in models/CategoryTest and as default category
-    active: '1'
-    weight: '1'
-  Webenq_Model_Category_2:
-    id: 2 # required for tests in models/CategoryTest
-    active: '1'
-    weight: '0'
-  Webenq_Model_Category_3:
-    id: 3 # required for tests in models/CategoryTest
-    active: '0'
-    weight: '2'
 Webenq_Model_Resource:
   Webenq_Model_Resource_1:
     name: error/error
@@ -1300,31 +1331,6 @@ Webenq_Model_AnswerPossibilityGroup:
     name: no-yes
     number: '2'
     measurement_level: metric
-Webenq_Model_CategoryText:
-  Webenq_Model_CategoryText_1:
-    text: other
-    language: en
-    Category: Webenq_Model_Category_1
-  Webenq_Model_CategoryText_2:
-    text: anders
-    language: nl
-    Category: Webenq_Model_Category_1
-  Webenq_Model_CategoryText_3:
-    text: 'Some category'
-    language: en
-    Category: Webenq_Model_Category_2
-  Webenq_Model_CategoryText_4:
-    text: 'Een categorie'
-    language: nl
-    Category: Webenq_Model_Category_2
-  Webenq_Model_CategoryText_5:
-    text: 'Category without questionnaires'
-    language: en
-    Category: Webenq_Model_Category_3
-  Webenq_Model_CategoryText_6:
-    text: 'Categorie zonder vragenlijsten'
-    language: nl
-    Category: Webenq_Model_Category_3
 Webenq_Model_QuestionnaireQuestion:
   Webenq_Model_QuestionnaireQuestion_1:
     Questionnaire: Webenq_Model_Questionnaire_1

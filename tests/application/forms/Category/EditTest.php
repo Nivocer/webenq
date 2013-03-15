@@ -86,7 +86,6 @@ class Webenq_Test_Form_Category_Edit extends Webenq_Test_Case_Form
     public function testFormHasCorrectDefaults()
     {
         $c=new Webenq_Model_Category();
-        $c->construct();
         $c->fromArray(array('text'=>array('nl'=>'form has correct defaults: nl', 'en'=>'form has correct defaults: en'), 'active'=>true));
         $c->save();
         $form = new Webenq_Form_Category_Edit($c);

@@ -7,7 +7,7 @@
  * 
  * @property integer $active
  * @property integer $weight
- * @property Doctrine_Collection $CategoryText
+ * @property string $text
  * @property Doctrine_Collection $Questionnaire
  * 
  * @package    Webenq_Models
@@ -36,17 +36,25 @@ abstract class Webenq_Model_Base_Category extends Doctrine_Record
              'notnull' => true,
              'length' => '4',
              ));
+        $this->hasColumn('text', 'string', 255, array(
+             'type' => 'string',
+             'length' => '255',
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Webenq_Model_CategoryText as CategoryText', array(
-             'local' => 'id',
-             'foreign' => 'category_id'));
-
         $this->hasMany('Webenq_Model_Questionnaire as Questionnaire', array(
              'local' => 'id',
              'foreign' => 'category_id'));
+
+        $webenq4_template_i18n0 = new WebEnq4_Template_I18n(array(
+             'fields' => 
+             array(
+              0 => 'text',
+             ),
+             ));
+        $this->actAs($webenq4_template_i18n0);
     }
 }

@@ -34,7 +34,7 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
         $category->save();
         $testString='add category text is succesfull';
         $category->addCategoryText('en',$testString);
-        $this->assertEquals($testString, $category->getCategoryText('en')->text);
+        $this->assertEquals($testString, $category->getCategoryText('en'));
         $category->delete();
 
         //can we add empty string
@@ -42,7 +42,7 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
         $category->save();
         $emptyString='';
         $category->addCategoryText('nl',$emptyString);
-        $this->assertEquals($emptyString, $category->getCategoryText('nl')->text);
+        $this->assertEquals($emptyString, $category->getCategoryText('nl'));
         $category->delete();
 
     }
@@ -54,11 +54,11 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
         $category->addCategoryText('en',$oldString);
         $testString='update category text is succesfull new string';
         $category->addCategoryText('en',$testString);
-        $this->assertEquals($testString, $category->getCategoryText('en')->text);
+        $this->assertEquals($testString, $category->getCategoryText('en'));
         //delete text if empty string
         $emptyString='';
         $category->addCategoryText('en',$emptyString);
-        $this->assertEquals($emptyString, $category->getCategoryText('en')->text);
+        $this->assertEquals($emptyString, $category->getCategoryText('en'));
         $category->delete();
 
     }
@@ -70,8 +70,8 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
         $testString2='add multiple category Text:nl';
         $values = array('en' => $testString1, 'nl'=>$testString2);
         $category->addCategoryTexts($values);
-        $this->assertEquals($testString1, $category->getCategoryText('en')->text);
-        $this->assertEquals($testString2, $category->getCategoryText('nl')->text);
+        $this->assertEquals($testString1, $category->getCategoryText('en'));
+        $this->assertEquals($testString2, $category->getCategoryText('nl'));
         $category->delete();
     }
     public function testgetCategoryTextIsCorrect(){
@@ -79,13 +79,13 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
         $category->save();
         $testString='get Category Text is correct:en';
         $category->addCategoryText('en',$testString);
-        $this->assertEquals($testString, $category->getCategoryText('en')->text);
+        $this->assertEquals($testString, $category->getCategoryText('en'));
 
         //if we question not existent language, we get string of first prefered language
-        $this->assertEquals($testString, $category->getCategoryText('nl')->text);
+        $this->assertEquals($testString, $category->getCategoryText('nl'));
 
         //language not in prefered language
-        $this->assertEquals($testString, $category->getCategoryText('xx')->text);
+        $this->assertEquals($testString, $category->getCategoryText('xx'));
         $category->delete();
     }
     /*
@@ -98,7 +98,7 @@ class Webenq_Test_Model_CategoryTest extends Webenq_Test_Case_Model
         $category=new Webenq_Model_Category();
         $category->save();
         $testString="getCategoryTextIsCorrectNoTranslationFound";
-        $this->assertEquals($testString, $category->getCategoryText('en')->text);
+        $this->assertEquals($testString, $category->getCategoryText('en'));
     } */
     /*
      * get all categories from the database fixture, currently we have 3 categories,

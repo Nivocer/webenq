@@ -139,6 +139,34 @@ AnswerDomainItem:
     isActive: boolean
     isHidden: boolean
 
+# ====================================
+# ===== CATEGORY-RELATED CLASSES =====
+# ====================================
+
+Category:
+  actAs:
+    WebEnq4_Template_I18n:
+      fields: [text]
+  columns:
+    active:
+      type: integer(1)
+      fixed: false
+      unsigned: false
+      default: '1'
+      notnull: true
+    weight:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      default: 0
+      notnull: true
+    text: string(255)
+  relations:
+    Questionnaire:
+      local: id
+      foreign: category_id
+      type: many
+
 #
 # ===== "THE REST..." =====
 #
@@ -286,53 +314,6 @@ AnswerPossibilityTextSynonym:
       local: answerPossibilityText_id
       foreign: id
       foreignKeyName: answerPossibilityTextSynonym_answerPossibilityText_id_fk
-      type: one
-      onUpdate: CASCADE
-      onDelete: CASCADE
-Category:
-  tableName: category
-  columns:
-    active:
-      type: integer(1)
-      fixed: false
-      unsigned: false
-      default: '1'
-      notnull: true
-    weight:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      default: 0
-      notnull: true
-  relations:
-    CategoryText:
-      local: id
-      foreign: category_id
-      type: many
-    Questionnaire:
-      local: id
-      foreign: category_id
-      type: many
-CategoryText:
-  tableName: categoryText
-  columns:
-    text:
-      type: string(255)
-      fixed: false
-      unsigned: false
-      notnull: true
-    language:
-      type: string(2)
-      fixed: false
-      unsigned: false
-      notnull: true
-      default: en
-    category_id: integer
-  relations:
-    Category:
-      local: category_id
-      foreign: id
-      foreignKeyName: categoryText_category_id_fk
       type: one
       onUpdate: CASCADE
       onDelete: CASCADE

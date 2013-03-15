@@ -66,9 +66,9 @@ class Webenq_Form_Category_Edit extends Webenq_Form_Category_Add
 
     public function setDefaults(array $values)
     {
-        if (isset($values['CategoryText'])) {
-            foreach ($values['CategoryText'] as $translation) {
-                $this->getElement($translation['language'])->setValue($translation['text']);
+        if (isset($values['Translation'])) {
+            foreach ($values['Translation'] as $language => $translation) {
+                $this->getElement($language)->setValue($translation['text']);
             }
         }
     }

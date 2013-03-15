@@ -82,7 +82,7 @@ class Webenq_Form_Questionnaire_Properties extends Zend_Form
         $category->setLabel('Category');
         $categories = Webenq_Model_Category::getCategories();
         foreach ($categories as $option) {
-            $category->addMultiOption($option->get('id'), $option->getCategoryText()->text);
+            $category->addMultiOption($option->get('id'), $option->getCategoryText());
         }
         $this->addElement($category);
 

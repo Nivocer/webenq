@@ -136,16 +136,16 @@
                 t(
                         'Are you sure you want to delete the category: %s (the %d questionnaires in this category are moved to the category: %s)?'
                 ),
-                $category->getCategoryText()->text,
+                $category->getCategoryText(),
                 $questionnaires->count(),
-                $categoryDefault->getCategoryText()->text
+                $categoryDefault->getCategoryText()
             );
         } else {
             $confirmationText = sprintf(
                 t(
                         'Are you sure you want to delete the category: %s?'
                 ),
-                $category->getCategoryText()->text
+                $category->getCategoryText()
             );
         }
 
