@@ -2,6 +2,7 @@
     <testsuite name="Webenq Test Suite">
         <directory>./application/</directory>
         <exclude>./tests/application/controllers</exclude>
+        <exclude>./application/controllers</exclude>
 	</testsuite>
 
     <testsuite name="Webenq4 Libraries Test Suite">
