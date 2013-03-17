@@ -1,7 +1,11 @@
 Webenq_Model_Questionnaire:
   Webenq_Model_Questionnaire_1:
     Category: Webenq_Model_Category_1
-    translation_id: 1
+    Translation:
+      en:
+        title: Test questionnaire
+      nl:
+        title: Testvragenlijst
     default_language: en
     date_start: '2002-01-01 00:00:00'
     date_end: '2022-12-31 00:00:00'
@@ -10,7 +14,11 @@ Webenq_Model_Questionnaire:
     weight: null
   Webenq_Model_Questionnaire_2:
     Category: Webenq_Model_Category_2
-    translation_id: 2
+    Translation:
+      en:
+        title: Second test questionnaire
+      nl:
+        title: Tweede testvragenlijst
     default_language: en
     date_start: '2012-01-01 00:00:00'
     date_end: '2050-01-01 00:00:00'
@@ -19,7 +27,11 @@ Webenq_Model_Questionnaire:
     weight: null
   Webenq_Model_Questionnaire_3:
     Category: Webenq_Model_Category_1
-    translation_id: 3
+    Translation:
+      en:
+        title: Third test questionnaire
+      nl:
+        title: Derde testvragenlijst
     default_language: en
     date_start: '2012-01-01 00:00:00'
     date_end: '2012-05-01 00:00:00'
@@ -27,75 +39,34 @@ Webenq_Model_Questionnaire:
     meta: null
     weight: null
 
-Webenq_Model_QuestionnaireTranslation:
-  Webenq_Model_Questionnaire_Translation_1_en:
-    id: 1 
-    lang: en
-    title: Test questionnaire
-  Webenq_Model_Questionnaire_Translation_1_nl:
-    id: 1 
-    lang: nl
-    title: Testvragenlijst
-  Webenq_Model_Questionnaire_Translation_2_en:
-    id: 2 
-    lang: en
-    title: Second test questionnaire
-  Webenq_Model_Questionnaire_Translation_2_nl:
-    id: 2 
-    lang: nl
-    title: Tweede testvragenlijst
-  Webenq_Model_Questionnaire_Translation_3_en:
-    id: 3
-    lang: en
-    title: Third test questionnaire
-  Webenq_Model_Questionnaire_Translation_3_nl:
-    id: 3
-    lang: nl
-    title: Derde testvragenlijst
-
 Webenq_Model_Category:
   Webenq_Model_Category_1:
     id: 1 # required for tests in models/CategoryTest and as default category
     active: '1'
     weight: '1'
-    translation_id: 1
+    Translation:
+      en:
+        text: other
+      nl:
+        text: anders
   Webenq_Model_Category_2:
     id: 2 # required for tests in models/CategoryTest
     active: '1'
     weight: '0'
-    translation_id: 2
+    Translation:
+      en:
+        text: Some category
+      nl:
+        text: Een categorie
   Webenq_Model_Category_3:
     id: 3 # required for tests in models/CategoryTest
     active: '0'
     weight: '2'
-    translation_id: 3
-    
-Webenq_Model_CategoryTranslation:
-  Webenq_Model_CategoryTranslation_1_en:
-    id: 1
-    text: other
-    lang: en
-  Webenq_Model_CategoryTranslation_1_nl:
-    id: 1
-    text: anders
-    lang: nl
-  Webenq_Model_CategoryTranslation_2_en:
-    id: 2
-    text: 'Some category'
-    lang: en
-  Webenq_Model_CategoryTranslation_2_nl:
-    id: 2
-    text: 'Een categorie'
-    lang: nl
-  Webenq_Model_CategoryTranslation_3_en:
-    id: 3
-    text: 'Category without questionnaires'
-    lang: en
-  Webenq_Model_CategoryTranslation_3_nl:
-    id: 3
-    text: 'Categorie zonder vragenlijsten'
-    lang: nl
-
+    Translation:
+      en:
+        text: Category without questionnaires
+      nl:
+        text: Categorie zonder vragenlijsten
 
 #
 # ===== "THE REST..." =====

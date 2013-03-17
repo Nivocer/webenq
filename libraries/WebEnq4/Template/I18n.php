@@ -65,8 +65,6 @@
  * table that supports re-use of translations.
  *
  * @package     WebEnq4_I18n
- * @link        www.doctrine-project.org
- * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Rolf Kleef <r.kleef@nivocer.com>
  */
 class WebEnq4_Template_I18n extends Doctrine_Template

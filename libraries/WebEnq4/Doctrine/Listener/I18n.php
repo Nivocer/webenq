@@ -17,54 +17,84 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package    WebEnq4
+ * @package    WebEnq4_I18n
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
- * Listener for the I18n behavior: for now just stores the translation strings
- * but is intented to take care about re-using translations.
+ * Listener for the I18n behavior: try to reuse existing translations
  *
- * @package     WebEnq4
+ * If there is a multi-lingual text in the database that has the same
+ * strings for all the fields and languages we have, assign that id as our
+ * translation_id
+ *
+ * This means that it is possible to save a text in just one language,
+ * and get translations in all other available languages 'for free'.
+ *
+ * @package     WebEnq4_I18n
  * @author      Rolf Kleef <r.kleef@nivocer.com>
  */
 class WebEnq4_Doctrine_Listener_I18n extends Doctrine_Record_Listener
 {
     /**
-     * Array of options
+     * Before saving the record, check if we can re-use existing translations.
      *
-     * @var string
+     * @see Doctrine_Record_Listener::preSave()
      */
-    protected $_options = array();
-
-    /**
-     * __construct
-     *
-     * @param string $options
-     * @return void
-     */
-    public function __construct(array $options)
-    {
-        $this->_options = $options;
-    }
-
     public function preSave(Doctrine_Event $event)
     {
         $data = $event->getInvoker();
 
-        // @todo eventually check if we have a proper translation already
-        // for now: see if the translation has an id, assign time() if not
-        // (this leads to problems when two save()'s happen at the same time)
+        // @todo not doing re-use yet, just assign a new id
         if (!isset($data->translation_id) || ($data->translation_id == 0)) {
-            if ((count($data->Translation) > 0)
-            && ($data->Translation->getFirst()->id == 0)) {
-                $data->translation_id = time();
+            $item_id = $this->findTranslation($data);
+            if ($item_id) {
+                $this->assignTranslationId($data, $item_id);
+            } else {
+                $this->assignTranslationId($data, $this->newTranslationId());
             }
-        }
+        };
+    }
 
-        // not a beauty either... make sure the translations have the id we think they have
+    /**
+     * Determine a new pseudo-unique id for a translation
+     *
+     * @return integer New id
+     */
+    private function newTranslationId()
+    {
+        return (int) (microtime(true)*1000000);
+    }
+
+    /**
+     * Assign a new id to a translation
+     *
+     * @param Object Object with translations
+     * @param integer Id to be assigned
+     */
+    private function assignTranslationId($data, $id)
+    {
+        $data->translation_id = $id;
         foreach ($data->Translation as $t) {
-            $t->id = $data->translation_id;
+            $t->id = $id;
         }
+    }
+
+    /**
+     * Find the best translations we already have
+     *
+     * Try to find a translation id where non of the fields is conflicting with
+     * the fields we have (that are non-empty strings)
+     *
+     * @param Object Record that holds translations
+     * @return mixed Item id with translation to be reused or false if none found
+     * @todo Add better ways to check for actual changes?
+     * @todo Not possible to store a text without a translation for a field we want to keep empty?
+     * @todo Garbage collection?
+     */
+    private function findTranslation($data)
+    {
+        // don't re-use for now...
+        return false;
     }
 }

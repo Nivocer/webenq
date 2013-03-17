@@ -34,15 +34,12 @@
  *     active: boolean
  * </code>
  *
- * Based on the Doctrine I18n behavior, adapted to support a language table
- * that supports re-use of translations.
+ * Based on Doctrine I18n, adapted to support re-use of translations.
  *
  * @package     WebEnq4_I18n
- * @link        www.doctrine-project.org
- * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq4_Doctrine_I18n extends Doctrine_Record_Generator
+class Webenq4_Doctrine_I18n extends Doctrine_I18n
 {
     protected $_options = array(
                             'className'     => '%CLASS%Translation',
@@ -62,106 +59,66 @@ class Webenq4_Doctrine_I18n extends Doctrine_Record_Generator
                             );
 
     /**
-     * __construct
+     * Adds a translation_id column to the (semi)owner table and returns it as
+     * the intended foreign key for the translations table.
+     * The column is automatically added to the generated translation model so
+     * we can create foreign keys back to the table object that refers to it.
      *
-     * @param string $options
+     * @param Doctrine_Table $table     the table object that owns the plugin
+     * @return array                    an array of foreign key definitions
+     */
+    public function buildForeignKeys(Doctrine_Table $table)
+    {
+        $foreignKey = $this->_options['foreignKey'];
+
+        // add a field in the calling table, to link to translation records
+        $table->setColumn($foreignKey, 'integer', null,
+            array('unsigned' => false, 'notnull' => true, 'default' => 0)
+        );
+        // make it an index, so we can use it as foreign key
+        $table->addIndex($foreignKey, array('fields' => array($foreignKey)));
+
+        $def = $table->getColumnDefinition($foreignKey);
+        $def['primary'] = true;
+        $fk['id'] = $def;
+
+        return $fk;
+    }
+
+    /**
+     * Build the local relationship on the generated model for this generator
+     * instance which points to the invoking table in $this->_options['table']
+     *
+     * @param string $alias Alias of the foreign relation
      * @return void
      */
-    public function __construct($options)
+    public function buildLocalRelation($alias = null)
     {
-        $this->_options = Doctrine_Lib::arrayDeepMerge($this->_options, $options);
-    }
-
-    public function buildRelation()
-    {
-        // almost like $this->buildForeignRelation('Translation');
-        // but with a different 'local' field
         $options = array(
-            'local'    => $this->_options['foreignKey'],
-            'foreign'  => $this->getRelationLocalKey(),
-            'localKey' => false
+                'local'      => $this->getRelationLocalKey(),
+                'foreign'    => $this->getRelationForeignKey(),
         );
 
-        // @todo can probably be removed since we don't do cascading
-        if (isset($this->_options['cascadeDelete']) && $this->_options['cascadeDelete'] && $this->_options['appLevelDelete']) {
-            $options['cascade'] = array('delete');
-        }
-
-        $this->ownerHasMany($this->_table->getComponentName() . ' as Translation', $options);
-
-        // @todo $this->buildLocalRelation() should do a similar thing in the other direction,
-        // but the hasMany() leads to "General error: 1005" in defining the foreign key relation
+        $this->hasMany($this->_options['table']->getComponentName(), $options);
     }
 
-    public function setTableDefinition()
+    /**
+     * Get the local key of the generated relationship
+     *
+     * @return string $local
+     */
+    public function getRelationLocalKey()
     {
-        if (empty($this->_options['fields'])) {
-            throw new Doctrine_I18n_Exception('Fields not set.');
-        }
+        return 'id';
+    }
 
-        $options = array('className' => $this->_options['className']);
-
-        $cols = $this->_options['table']->getColumns();
-
-        $columns = array();
-        $reusableFields = array();
-        foreach ($cols as $column => $definition) {
-            $fieldName = $this->_options['table']->getFieldName($column);
-            if (in_array($fieldName, $this->_options['fields'])) {
-                if ($column != $fieldName) {
-                    $column .= ' as ' . $fieldName;
-                }
-                $columns[$column] = $definition;
-                $this->_options['table']->removeColumn($fieldName);
-
-                $reusableFields[] = $fieldName;
-            }
-        }
-
-        $this->hasColumns($columns);
-
-        $defaultOptions = array(
-                'fixed' => true,
-                'primary' => true
-        );
-        $options = array_merge($defaultOptions, $this->_options['options']);
-
-        //$this->hasColumn('id', 'integer', 4, array_merge($options, array('autoincrement' => true)));
-        $this->hasColumn($this->_options['i18nField'], $this->_options['type'], $this->_options['length'], $options);
-
-        $this->bindQueryParts(array('indexBy' => $this->_options['i18nField']));
-
-        // add a field to the owner class to link here
-        // @todo figure out how to do this the Doctrine-way
-        $this->_options['table']->setColumn($this->_options['foreignKey'],
-            'integer', null, array('unsigned' => true, 'notnull' => true, 'default' => 0)
-        );
-
-        // Rewrite any relations to our original table
-        // @todo verify that this still works... but we don't have our text fields in relations at the moment
-        $originalName = $this->_options['table']->getClassnameToReturn();
-        $relations = $this->_options['table']->getRelationParser()->getPendingRelations();
-        foreach($relations as $table => $relation) {
-            if ($table != $this->_table->getTableName() ) {
-                // check that the localColumn is part of the moved col
-                if (isset($relation['local']) && in_array($relation['local'], $this->_options['fields'])) {
-                    // found one, let's rewrite it
-                    $this->_options['table']->getRelationParser()->unsetPendingRelations($table);
-
-                    // and bind the rewritten one
-                    $this->_table->getRelationParser()->bind($table, $relation);
-
-                    // now try to get the reverse relation, to rewrite it
-                    $rp = Doctrine_Core::getTable($table)->getRelationParser();
-                    $others = $rp->getPendingRelation($originalName);
-                    if (isset($others)) {
-                        $others['class'] = $this->_table->getClassnameToReturn();
-                        $others['alias'] = $this->_table->getClassnameToReturn();
-                        $rp->unsetPendingRelations($originalName);
-                        $rp->bind($this->_table->getClassnameToReturn() ,$others);
-                    }
-                }
-            }
-        }
+    /**
+     * Get the foreign key of the generated relationship
+     *
+     * @return string $foreign
+     */
+    public function getRelationForeignKey()
+    {
+        return $this->_options['foreignKey'];
     }
 }
