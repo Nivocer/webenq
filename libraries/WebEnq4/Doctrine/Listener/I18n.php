@@ -53,7 +53,9 @@ class WebEnq4_Doctrine_Listener_I18n extends Doctrine_Record_Listener
             } else {
                 $this->assignTranslationId($data, $this->newTranslationId());
             }
-        };
+        } else {
+            $this->assignTranslationId($data, $data->translation_id);
+        }
     }
 
     /**
