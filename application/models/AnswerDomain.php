@@ -28,25 +28,15 @@
  * @package    Webenq_Models
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>, Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerPossibilityGroup
+class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
 {
     /*
      * Return the available answer options types
      */
     public static function getAvailableTypes()
     {
-        $return=array('choice','numeric','text');
-        return $return;
+        return array('choice','numeric','text');
     }
-    public static function getAnswerBoxWidthOptions()
-    {
-        return array(
-            4=>"tiny (4)",
-                8=>"very small (8)",
-                15 =>"small (15)",
-                50 =>"medium (50)",
-                70 =>"large (70)",
-                100 =>"very large (100)",
-        );
-    }
+
+
 }

@@ -68,9 +68,234 @@ Webenq_Model_Category:
       nl:
         text: Categorie zonder vragenlijsten
 
-#
+Webenq_Model_AnswerDomainText:
+  AnswerDomainText_1:
+    Translation:
+      en:
+        name: Text 
+      nl:
+        name: Tekst
+    min_length: null
+    max_length: null
+
+Webenq_Model_AnswerDomainNumeric:
+  AnswerDomainNumeric_1:
+    Translation:
+      en:
+        name: Numeric 
+      nl:
+        name: Numeriek
+    min: null
+    max: null
+
+Webenq_Model_AnswerDomainChoice:
+  AnswerDomainChoice_1:
+    Translation:
+      en:
+        name: Yes/no/don't know
+      nl:
+        name: Ja/nee/weet niet
+    min_choices: null
+    max_choices: null
+    AnswerDomainItem: AnswerDomainItem_1
+
+  AnswerDomainChoice_2:
+    Translation:
+      en:
+        name: 5-point "(dis)agree"
+      nl:
+        name: 5-punts "mee (on)eens" 
+    min_choices: null
+    max_choices: null
+    AnswerDomainItem: AnswerDomainItem_3
+    
+Webenq_Model_AnswerDomainItem:
+  AnswerDomainItem_1:
+    value: yesno
+    children:
+      AnswerDomainItem_1_1:
+        value: no
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Yes
+          nl:
+            label: Ja
+      AnswerDomainItem_1_2:
+        value: yes
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: No
+          nl:
+            label: Nee
+      AnswerDomainItem_1_3:
+        value: dontknow
+        isNullValue: true
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Don't know
+          nl:
+            label: Weet niet
+  AnswerDomainItem_2:
+    value: gender
+    children:
+      AnswerDomainItem_2_1:
+        value: 1
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Female
+          nl:
+            label: Vrouw
+      AnswerDomainItem_2_2:
+        value: 2
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Male
+          nl:
+            label: Man
+  AnswerDomainItem_3:
+    value: scale5
+    children:
+      AnswerDomainItem_3_1:
+        value: 1
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Strongly disagree
+          nl:
+            label: Helemaal mee oneens
+      AnswerDomainItem_3_2:
+        value: 2
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Disagree
+          nl:
+            label: Mee oneens
+      AnswerDomainItem_3_3:
+        value: 3
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Neutral
+          nl:
+            label: Neutraal
+      AnswerDomainItem_3_4:
+        value: 4
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Agree
+          nl:
+            label: Mee eens
+      AnswerDomainItem_3_5:
+        value: 5
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Strongly agree
+          nl:
+            label: Helemaal mee eens
+  AnswerDomainItem_4:
+    value: scale7
+    children:
+      AnswerDomainItem_4_1:
+        value: 1
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Strongly disagree
+          nl:
+            label: Helemaal mee oneens
+      AnswerDomainItem_4_2:
+        value: 2
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Disagree
+          nl:
+            label: Mee oneens
+      AnswerDomainItem_4_3:
+        value: 3
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Somewhat disagree
+          nl:
+            label: Enigszins mee oneens
+      AnswerDomainItem_4_4:
+        value: 4
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Neutral
+          nl:
+            label: Neutraal
+      AnswerDomainItem_4_5:
+        value: 5
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Somewhat agree
+          nl:
+            label: Enigszins mee eens
+      AnswerDomainItem_4_6:
+        value: 6
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Agree
+          nl:
+            label: Mee eens
+      AnswerDomainItem_4_7:
+        value: 7
+        isNullValue: false
+        isActive: true
+        isHidden: false
+        Translation:
+          en:
+            label: Strongly agree
+          nl:
+            label: Helemaal mee eens
+    
+# =========================
 # ===== "THE REST..." =====
-#
+# =========================
 
 Webenq_Model_AnswerPossibilityNullValue:
   Webenq_Model_AnswerPossibilityNullValue_1:

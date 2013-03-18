@@ -101,8 +101,11 @@ QuestionnaireTextElement:
 # ===== ANSWER DOMAIN-RELATED CLASSES =====
 # =========================================
 AnswerDomain:
+  actAs:
+    WebEnq4_Template_I18n:
+      fields: [name]
   columns:
-    # name (ML)
+    name: string
     validators: array
     filters: array
     options: array # contains default properties that the Question can override,
@@ -126,10 +129,15 @@ AnswerDomainChoice:
     extends: AnswerDomain
     type: column_aggregation
   columns:
+    answer_domain_item_id: integer
     min_choices: integer
     max_choices: integer
+  relations:
+    AnswerDomainItem:
 AnswerDomainItem:
   actAs:
+    WebEnq4_Template_I18n:
+      fields: [label]
     NestedSet:
       hasManyRoots: true
   columns:
@@ -167,9 +175,9 @@ Category:
       foreign: category_id
       type: many
 
-#
+# =========================
 # ===== "THE REST..." =====
-#
+# =========================
 
 Answer:
   tableName: answer

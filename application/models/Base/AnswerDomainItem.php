@@ -10,6 +10,7 @@
  * @property boolean $isNullValue
  * @property boolean $isActive
  * @property boolean $isHidden
+ * @property Doctrine_Collection $AnswerDomainChoice
  * 
  * @package    Webenq_Models
  * @subpackage 
@@ -41,9 +42,20 @@ abstract class Webenq_Model_Base_AnswerDomainItem extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasMany('Webenq_Model_AnswerDomainChoice as AnswerDomainChoice', array(
+             'local' => 'id',
+             'foreign' => 'answer_domain_item_id'));
+
+        $webenq4_template_i18n0 = new WebEnq4_Template_I18n(array(
+             'fields' => 
+             array(
+              0 => 'label',
+             ),
+             ));
         $nestedset0 = new Doctrine_Template_NestedSet(array(
              'hasManyRoots' => true,
              ));
+        $this->actAs($webenq4_template_i18n0);
         $this->actAs($nestedset0);
     }
 }
