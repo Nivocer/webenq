@@ -23,30 +23,28 @@
 
 <div class="tabs">
     <ul>
-        <?php for($page = 1; $page <= $this->totalPages; $page++): ?>
-            <li>
-                <a href="#page-<?php echo $page; ?>">
-                    <?php echo t('page') . " $page"; ?>
-                </a>
-            </li>
-        <?php endfor; ?>
+    <!-- page tab setup -->
+<!-- //render via model (at this moment) -->
+    <?php  echo $this->questionnaire->QuestionnaireNode->render('previewTab'); ?>
+
     </ul>
-    <?php for($page = 1; $page <= $this->totalPages; $page++): ?>
-        <div id="page-<?php echo $page; ?>">
+<!-- content per page -->
+<?php //walk through hierarchy in plugin, call render in model at the plugin ?>
+<?php echo $this->questionnaireElement($this->questionnaire->QuestionnaireNode); ?>
+<?php /* ?>
+    <?php foreach ($this->questionnaire->QuestionnaireNode->getNode()->getChildren() as $group) : ?>
+        <div id="<?php echo "group-".$group->id; ?>">
             <a href="#" class="delete-page link delete"><?php echo t('Delete this page'); ?></a>
             <div class="questions">
                 <ul class="questions-list sortable droppable">
                     <?php
-                        foreach ($this->questionnaire->QuestionnaireQuestion as $qq) {
-                            if (($page === 1 && !isset($qq['CollectionPresentation'][0])) ||
-                                $page === (int) $qq['CollectionPresentation'][0]['page'])
-                            {
-                                echo $this->questionElement($qq, $this->totalPages)->render();
-                            }
+                        foreach ($group->getNode()->getChildren() as $qq) {
+                             echo $qq->render('preview')." </br>";
                         }
                     ?>
                 </ul>
             </div>
         </div>
-    <?php endfor; ?>
+    <?php endforeach; ?>
+    <?php */ ?>
 </div>

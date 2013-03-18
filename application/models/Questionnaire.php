@@ -299,13 +299,19 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
      * Returns a questionnaire, based on the given id and language.
      *
      * @param int $id
-     * @param string $language
-     * @return Questionnaire
+     * @param string $language @obsolete?
+     * @param int $page @obsolete
+     * @param Webenq_Model_Respondent $respondent @obsolete
+     * @param boolean $inludeAnswers @obsolete
+     * @return Webenq_Model_Questionnaire
      */
 
     static public function getQuestionnaire($id, $language, $page = null,
         Webenq_Model_Respondent $respondent = null, $includeAnswers = false)
     {
+        $questionnaire=Doctrine_Core::getTable('Webenq_Model_Questionnaire')->find($id);
+        return $questionnaire;
+/* old code (pre hierarchical)
         $query = Doctrine_Query::create()
             ->from('Webenq_Model_Questionnaire qe')
             ->leftJoin('qe.QuestionnaireQuestion qq')
@@ -344,6 +350,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
         }
 
         return false;
+*/
     }
 
     /**

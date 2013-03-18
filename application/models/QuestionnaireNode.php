@@ -53,12 +53,25 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         //   example: drag question from one Likert table into another
     }
 
+    // prepare the output (
+    //return  Zend_Form_Element_*
     public function render($format)
     {
-        // het door-lopen van de tree levert objecten van juiste subtype
-        // maar niet zeker of de property via element_id ook de juiste subclasse
-        // oplevert? zo ja, dan zou het via gewone views+view helpers moeten
-        // kunnen en is deze functie niet nodig
-
+        switch ($format){
+            case 'previewTab':
+                $return='';
+                if ($this->getNode()->hasChildren()){
+                    foreach ($this->getNode()->getChildren() as $group){
+                        $return.=$group->render($format);
+                    }
+                }
+                return $return;
+            break;
+            default:
+                $return=new Zend_Form_Element_Text('dummy-'.$this->id);
+                $return->setLabel($this->QuestionnaireElement->name);
+                return $return;
+            break;
+        }
     }
 }
