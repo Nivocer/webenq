@@ -12,7 +12,10 @@
             </li>
         </ul>
         <div id=questionText><h3>
-        <?php echo $this->questionnaireQuestion->Question->getQuestionText()->text?>
+
+        <?php // @todo next should get text in stead of name?>
+        <?php echo $this->questionnaireQuestion->QuestionnaireElement->name; ?>
+        <?php //echo $this->questionnaireQuestion->QuestionnaireElement->getTranslation('text'); ?>
         </h3></div>
         <div id="question">
             <?php echo $this->form->question; ?>

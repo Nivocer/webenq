@@ -132,13 +132,14 @@ class Webenq_Form_QuestionnaireQuestion_Edit extends Zend_Form
         $optionsForm->addElement($presentation);
 
         //@todo only display for if $presentation=open
-        $presentationWidth=new Zend_Form_Element_Select('presentationWith');
+        //$presentationWidth=new Zend_Form_Element_Select('presentationWith');
+        //$presentationWidth->addMultiOptions(Webenq_Model_AnswerDomain::getAnswerBoxWidthOptions());
+        $presentationWidth=new Zend_Form_Element_text('presentationWith');
         $presentationWidth->setLabel('Width of answer box');
-        $presentationWidth->addMultiOptions(Webenq_Model_AnswerDomain::getAnswerBoxWidthOptions());
         $optionsForm->addElement($presentationWidth);
 
         //@todo only display if $presentation==open && type==text
-        $presentationHeight=new Zend_Form_Element_text('presentationWith');
+        $presentationHeight=new Zend_Form_Element_text('presentationHeight');
         $presentationHeight->setLabel('Number of rows of answer box');
         $optionsForm->addElement($presentationHeight);
 

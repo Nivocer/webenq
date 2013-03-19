@@ -74,12 +74,20 @@ QuestionnaireTextNode:
 # ===== QUESTIONNAIRE ELEMENT CLASSES =====
 #
 QuestionnaireElement:
+# todo add name to I18n?
+  actAs:
+    WebEnq4_Template_I18n:
+      fields: [text]
   columns:
     name: string
+    text: string
+    answer_domain_id: integer
     # hash: string
     # advanced save feature for later: md5($this->toArray()->serialize()), then
     # change save to check if the md5 hash already exists - if so, use the id
     # of the record instead of creating a new record
+  relations:
+    AnswerDomain:
 QuestionnaireGroupElement:
   inheritance: 
     extends: QuestionnaireElement
@@ -106,10 +114,12 @@ AnswerDomain:
       fields: [name]
   columns:
     name: string
+    text: string
     validators: array
     filters: array
     options: array # contains default properties that the Question can override,
                    # e.g. presentation form, textfield width & height, show null values
+
 AnswerDomainText:
   inheritance:
     extends: AnswerDomain
