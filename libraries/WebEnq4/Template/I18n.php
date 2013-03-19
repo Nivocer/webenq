@@ -101,4 +101,48 @@ class WebEnq4_Template_I18n extends Doctrine_Template
     {
         return $this->_plugin;
     }
+
+    /**
+     * Get localized field string
+     *
+     * if $language not set, use current language
+     * first try to return string in requested language
+     * if not succeeded, try to return string language in the first preferredLanguage
+     * if not succeeded, try to return string in any language
+     * if not succeeded, return empty string
+     *
+     * @param string $field
+     * @param string $language
+     * @return string
+     */
+    public function getTranslation($field='text', $language = null)
+    {
+        // get curren language if not given
+        //var_dump(__LINE__, __FILE__,  $this);
+        $invoker=$this->getInvoker();
+        if (!$language) {
+            $language = Zend_Registry::get('Zend_Locale')->getLanguage();
+        }
+
+        if (isset($invoker->Translation[$language]) && isset($invoker->Translation[$language]->$field)) {
+           return $invoker->Translation[$language]->$field;
+        }
+
+        // return the first preferred language that is set
+        $preferredLanguages = Zend_Registry::get('preferredLanguages');
+        foreach ($preferredLanguages as $lang) {
+            if (isset($invoker->Translation[$lang]) && isset($invoker->Translation[$lang]->$field)) {
+                return $invoker->Translation[$lang]->$field;
+            }
+        }
+
+        // return any found language
+        if (count($invoker->Translation) > 0 && isset($invoker->Translation[0]->$field)) {
+            return $invoker->Translation[0]->$field;
+        }
+
+        // nothing, return empty string
+        return '';
+    }
+
 }
