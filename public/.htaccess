@@ -1,4 +1,7 @@
 SetEnv APPLICATION_ENV "development"
+<IfModule mod_expires.c>
+    Header set Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+</IfModule>
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -s [OR]
