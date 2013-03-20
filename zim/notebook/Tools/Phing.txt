@@ -1,0 +1,26 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-03-20T15:15:22+01:00
+
+====== Phing ======
+
+Phing is a build-tool for PHP.
+
+Our ''build.xml'' has a default target 'help': just run phing to get a list of available targets.
+
+'''
+Default target:
+-------------------------------------------------------------------------------
+ help          List available targets
+
+Main targets:
+-------------------------------------------------------------------------------
+ doc-all       Generate everything for doc.webenq.org
+ doc-mockup    Generate wireframes mockup (requires WireframeSketcher)
+ doc-phpdoc    Generate PHP documentation
+ doc-zim       Export Zim documentation to HTML
+ help          List available targets
+ testcoverage  Run the complete testsuite with code coverage recording
+ testsuite     Run the complete testsuite
+'''
+

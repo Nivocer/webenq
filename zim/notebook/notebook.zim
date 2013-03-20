@@ -2,5 +2,11 @@
 name=webenq 4 gh-pages
 version=0.4
 endofline=unix
-profile=None
+profile=
+home=Home
+icon=/var/www/nivocer/pix/favicons/nivocer.png
+document_root=/var/www/dev_nivocer/webenq-gh-pages
+shared=False
+disable_trash=False
+interwiki=
 

@@ -2,11 +2,16 @@ Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.4
 Creation-Date: 2012-12-05T11:06:45+01:00
 
-====== i18n and l10n (multilingualism) ======
+====== I18n and l10n ======
 
-The default language is English. Active languages are defined in: application/classes/Webenq/Language.php
-(currently:  en, nl, & languages from database).
+The application has two ways to deal with multi-lingual texts:
 
+* Interface strings are handled via Zend_translate
+* Questionnaire content is handled via a modified version of the Doctrine I18n behavior
+
+The default language is English. Active languages are defined in: application/classes/Webenq/Language.php (currently:  en, nl, & languages from database).
+
+===== Zend_translate =====
 Strings are translated by using Zend_translate
 http://framework.zend.com/manual/1.12/en/zend.translate.html
 We use the gettext variant.

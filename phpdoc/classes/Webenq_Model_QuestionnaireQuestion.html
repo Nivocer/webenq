@@ -1,0 +1,474 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>WebEnq4 PHP Documentation » \Webenq_Model_QuestionnaireQuestion</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">WebEnq4 PHP Documentation</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/WebEnq4.html"><i class="icon-folder-open"></i> WebEnq4</a></li>
+<li><a href="../packages/Webenq.html"><i class="icon-folder-open"></i> Webenq</a></li>
+<li><a href="../packages/Zend.html"><i class="icon-folder-open"></i> Zend</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">476</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">21</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">3</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_edit" title="edit :: "><span class="description">edit()
+        </span><pre>edit()</pre></a></li>
+<li class="method public "><a href="#method_existsInMultipleQuestionnaires" title="existsInMultipleQuestionnaires :: Returns true if this question is present in more than one questionnaire,
+and returns false otherwise."><span class="description">Returns true if this question is present in more than one questionnaire,
+and returns false otherwise.</span><pre>existsInMultipleQuestionnaires()</pre></a></li>
+<li class="method public "><a href="#method_find" title="find :: "><span class="description">find()
+        </span><pre>find()</pre></a></li>
+<li class="method public "><a href="#method_fromArray" title="fromArray :: "><span class="description">fromArray()
+        </span><pre>fromArray()</pre></a></li>
+<li class="method public "><a href="#method_getAnswer" title="getAnswer :: "><span class="description">getAnswer()
+        </span><pre>getAnswer()</pre></a></li>
+<li class="method public "><a href="#method_getAnswerOptions" title="getAnswerOptions :: "><span class="description">getAnswerOptions()
+        </span><pre>getAnswerOptions()</pre></a></li>
+<li class="method public "><a href="#method_getAvailablePresentationMethod" title="getAvailablePresentationMethod :: "><span class="description">getAvailablePresentationMethod()
+        </span><pre>getAvailablePresentationMethod()</pre></a></li>
+<li class="method public "><a href="#method_getFormElement" title="getFormElement :: Returns an instance of Zend_Form_SubForm if it has sub-questions,
+and an instance of Zend_Form_Element otherwise."><span class="description">Returns an instance of Zend_Form_SubForm if it has sub-questions,
+and an instance of Zend_Form_Element otherwise.</span><pre>getFormElement()</pre></a></li>
+<li class="method public "><a href="#method_getQuestionText" title="getQuestionText :: "><span class="description">getQuestionText()
+        </span><pre>getQuestionText()</pre></a></li>
+<li class="method public "><a href="#method_getSubQuestions" title="getSubQuestions :: Returns the subquestions for the given questionnaire-question."><span class="description">Returns the subquestions for the given questionnaire-question.</span><pre>getSubQuestions()</pre></a></li>
+<li class="method public "><a href="#method_getType" title="getType :: "><span class="description">getType()
+        </span><pre>getType()</pre></a></li>
+<li class="method public "><a href="#method_getXformBindElements" title="getXformBindElements :: Returns a xform bind element, to be used in the html head of a
+html/xform document"><span class="description">Returns a xform bind element, to be used in the html head of a
+html/xform document</span><pre>getXformBindElements()</pre></a></li>
+<li class="method public "><a href="#method_getXformData" title="getXformData :: "><span class="description">getXformData()
+        </span><pre>getXformData()</pre></a></li>
+<li class="method public "><a href="#method_getXformElement" title="getXformElement :: Returns a xform element or nested group of xform elements, to be used
+in the html body of a html/xform document"><span class="description">Returns a xform element or nested group of xform elements, to be used
+in the html body of a html/xform document</span><pre>getXformElement()</pre></a></li>
+<li class="method public "><a href="#method_getXformInstanceElement" title="getXformInstanceElement :: Returns a xform instance element or nested group of xform instance
+elements, to be used in the html head of a html/xform document"><span class="description">Returns a xform instance element or nested group of xform instance
+elements, to be used in the html head of a html/xform document</span><pre>getXformInstanceElement()</pre></a></li>
+<li class="method public "><a href="#method_getXpath" title="getXpath :: Returns the xpath to the current question for use in a xform"><span class="description">Returns the xpath to the current question for use in a xform</span><pre>getXpath()</pre></a></li>
+<li class="method public "><a href="#method_hasAnswer" title="hasAnswer :: "><span class="description">hasAnswer()
+        </span><pre>hasAnswer()</pre></a></li>
+<li class="method public "><a href="#method_saveQuestionText" title="saveQuestionText :: "><span class="description">saveQuestionText()
+        </span><pre>saveQuestionText()</pre></a></li>
+<li class="method public inherited"><a href="#method_setTableDefinition" title="setTableDefinition :: "><span class="description">setTableDefinition()
+        </span><pre>setTableDefinition()</pre></a></li>
+<li class="method public inherited"><a href="#method_setUp" title="setUp :: "><span class="description">setUp()
+        </span><pre>setUp()</pre></a></li>
+<li class="method public "><a href="#method_toArray" title="toArray :: Fills array with data in record and fills related objects with
+translations"><span class="description">Fills array with data in record and fills related objects with
+translations</span><pre>toArray()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul><li class="method protected "><a href="#method__getParents" title="_getParents :: "><span class="description">_getParents()
+        </span><pre>_getParents()</pre></a></li></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul><li class="property protected "><a href="#property__questionText" title="$_questionText :: The question text in the current language"><span class="description"></span><pre>$_questionText</pre></a></li></ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Webenq_Model_QuestionnaireQuestion"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Webenq_Model_QuestionnaireQuestion.html">Webenq_Model_QuestionnaireQuestion</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Questionnaire class definition</p>
+<div class="details">
+<div class="long_description"><p>This class has been auto-generated by the Doctrine ORM Framework</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Webenq.Models.html">Webenq_Models</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:b.huttinga@nivocer.com">Bart Huttinga</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td></td>
+</tr>
+<tr>
+<th>version</th>
+<td>SVN: $Id: Builder.php,v 1.2 2011/07/12 13:39:03 bart Exp $</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_edit"></a><div class="element clickable method public method_edit" data-toggle="collapse" data-target=".method_edit .collapse">
+<h2>edit()
+        </h2>
+<pre>edit() </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_existsInMultipleQuestionnaires"></a><div class="element clickable method public method_existsInMultipleQuestionnaires" data-toggle="collapse" data-target=".method_existsInMultipleQuestionnaires .collapse">
+<h2>Returns true if this question is present in more than one questionnaire,
+and returns false otherwise.</h2>
+<pre>existsInMultipleQuestionnaires() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>True or false</div>
+</div></div>
+</div>
+<a id="method_find"></a><div class="element clickable method public method_find" data-toggle="collapse" data-target=".method_find .collapse">
+<h2>find()
+        </h2>
+<pre>find($id) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_fromArray"></a><div class="element clickable method public method_fromArray" data-toggle="collapse" data-target=".method_fromArray .collapse">
+<h2>fromArray()
+        </h2>
+<pre>fromArray(array $array, $deep) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$array</h4></div>
+<div class="subelement argument"><h4>$deep</h4></div>
+</div></div>
+</div>
+<a id="method_getAnswer"></a><div class="element clickable method public method_getAnswer" data-toggle="collapse" data-target=".method_getAnswer .collapse">
+<h2>getAnswer()
+        </h2>
+<pre>getAnswer(\Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method_getAnswerOptions"></a><div class="element clickable method public method_getAnswerOptions" data-toggle="collapse" data-target=".method_getAnswerOptions .collapse">
+<h2>getAnswerOptions()
+        </h2>
+<pre>getAnswerOptions($questionText) </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$questionText</h4></div>
+</div></div>
+</div>
+<a id="method_getAvailablePresentationMethod"></a><div class="element clickable method public method_getAvailablePresentationMethod" data-toggle="collapse" data-target=".method_getAvailablePresentationMethod .collapse">
+<h2>getAvailablePresentationMethod()
+        </h2>
+<pre>getAvailablePresentationMethod($type) </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$type</h4></div>
+</div></div>
+</div>
+<a id="method_getFormElement"></a><div class="element clickable method public method_getFormElement" data-toggle="collapse" data-target=".method_getFormElement .collapse">
+<h2>Returns an instance of Zend_Form_SubForm if it has sub-questions,
+and an instance of Zend_Form_Element otherwise.</h2>
+<pre>getFormElement(\Webenq_Model_Respondent $respondent) : \Zend_Form_SubForm | \Zend_Form_Element</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$respondent</h4>
+<code><a href="../classes/Webenq_Model_Respondent.html">\Webenq_Model_Respondent</a></code><p>(optional) If provided the form element is filled
+  with the respondent's answer</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\Zend_Form_SubForm</code><code>\Zend_Form_Element</code>
+</div>
+</div></div>
+</div>
+<a id="method_getQuestionText"></a><div class="element clickable method public method_getQuestionText" data-toggle="collapse" data-target=".method_getQuestionText .collapse">
+<h2>getQuestionText()
+        </h2>
+<pre>getQuestionText() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_getSubQuestions"></a><div class="element clickable method public method_getSubQuestions" data-toggle="collapse" data-target=".method_getSubQuestions .collapse">
+<h2>Returns the subquestions for the given questionnaire-question.</h2>
+<pre>getSubQuestions(<a href="../classes/Webenq_Model_QuestionnaireQuestion.html">\Webenq_Model_QuestionnaireQuestion</a> | array $qq, $mode) : \Doctrine_Collection</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Note that the grouping of questions can be different for collection
+mode and reporting mode. Therefor, the mode can be given as second
+parameter. It defaults to the mode 'collection'.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$qq</h4>
+<code><a href="../classes/Webenq_Model_QuestionnaireQuestion.html">\Webenq_Model_QuestionnaireQuestion</a></code><code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$mode</h4><p>Can be 'collection' or 'report'</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\Doctrine_Collection</code>containing instances of QuestionnaireQuestion</div>
+</div></div>
+</div>
+<a id="method_getType"></a><div class="element clickable method public method_getType" data-toggle="collapse" data-target=".method_getType .collapse">
+<h2>getType()
+        </h2>
+<pre>getType() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_getXformBindElements"></a><div class="element clickable method public method_getXformBindElements" data-toggle="collapse" data-target=".method_getXformBindElements .collapse">
+<h2>Returns a xform bind element, to be used in the html head of a
+html/xform document</h2>
+<pre>getXformBindElements(\DOMDocument $xml, array $elements) : <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$xml</h4>
+<code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code>
+</div>
+<div class="subelement argument">
+<h4>$elements</h4>
+<code>array</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code></div>
+</div></div>
+</div>
+<a id="method_getXformData"></a><div class="element clickable method public method_getXformData" data-toggle="collapse" data-target=".method_getXformData .collapse">
+<h2>getXformData()
+        </h2>
+<pre>getXformData(\Webenq_Model_Respondent $respondent, \DOMDocument $xml, \DOMElement $group) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$respondent</h4></div>
+<div class="subelement argument"><h4>$xml</h4></div>
+<div class="subelement argument"><h4>$group</h4></div>
+</div></div>
+</div>
+<a id="method_getXformElement"></a><div class="element clickable method public method_getXformElement" data-toggle="collapse" data-target=".method_getXformElement .collapse">
+<h2>Returns a xform element or nested group of xform elements, to be used
+in the html body of a html/xform document</h2>
+<pre>getXformElement(\DOMDocument $xml, \DOMElement $group) : <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$xml</h4>
+<code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code>
+</div>
+<div class="subelement argument">
+<h4>$group</h4>
+<code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code></div>
+</div></div>
+</div>
+<a id="method_getXformInstanceElement"></a><div class="element clickable method public method_getXformInstanceElement" data-toggle="collapse" data-target=".method_getXformInstanceElement .collapse">
+<h2>Returns a xform instance element or nested group of xform instance
+elements, to be used in the html head of a html/xform document</h2>
+<pre>getXformInstanceElement(\DOMDocument $xml, \DOMElement $group) : <a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$xml</h4>
+<code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code>
+</div>
+<div class="subelement argument">
+<h4>$group</h4>
+<code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.domelement.php">\DOMElement</a></code></div>
+</div></div>
+</div>
+<a id="method_getXpath"></a><div class="element clickable method public method_getXpath" data-toggle="collapse" data-target=".method_getXpath .collapse">
+<h2>Returns the xpath to the current question for use in a xform</h2>
+<pre>getXpath() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a id="method_hasAnswer"></a><div class="element clickable method public method_hasAnswer" data-toggle="collapse" data-target=".method_hasAnswer .collapse">
+<h2>hasAnswer()
+        </h2>
+<pre>hasAnswer(\Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method_saveQuestionText"></a><div class="element clickable method public method_saveQuestionText" data-toggle="collapse" data-target=".method_saveQuestionText .collapse">
+<h2>saveQuestionText()
+        </h2>
+<pre>saveQuestionText() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_setTableDefinition"></a><div class="element clickable method public method_setTableDefinition" data-toggle="collapse" data-target=".method_setTableDefinition .collapse">
+<h2>setTableDefinition()
+        </h2>
+<pre>setTableDefinition() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_QuestionnaireQuestion::setTableDefinition()</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_setUp"></a><div class="element clickable method public method_setUp" data-toggle="collapse" data-target=".method_setUp .collapse">
+<h2>setUp()
+        </h2>
+<pre>setUp() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_QuestionnaireQuestion::setUp()</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_toArray"></a><div class="element clickable method public method_toArray" data-toggle="collapse" data-target=".method_toArray .collapse">
+<h2>Fills array with data in record and fills related objects with
+translations</h2>
+<pre>toArray(bool $deep, bool $prefixKey) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>see</th>
+<td><a href="">\Doctrine_Record::fromArray()</a></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$deep</h4>
+<code>bool</code>
+</div>
+<div class="subelement argument">
+<h4>$prefixKey</h4>
+<code>bool</code><p>Not used</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method__getParents"></a><div class="element clickable method protected method__getParents" data-toggle="collapse" data-target=".method__getParents .collapse">
+<h2>_getParents()
+        </h2>
+<pre>_getParents() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>It now returns the parents of the current questionnaire-quesiton,
+following the hierarchy of the data collection. In the future this should
+be changed to reporting hierarchy. Data collection and data reporting
+do not need to follow the same structure.</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property__questionText"> </a><div class="element clickable property protected property__questionText" data-toggle="collapse" data-target=".property__questionText .collapse">
+<h2></h2>
+<pre>$_questionText : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-03-20T15:13:08+01:00.<br></footer></div>
+</div>
+</body>
+</html>

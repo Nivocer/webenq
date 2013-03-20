@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebEnq by Nivocer</title>
+
+    <link rel="stylesheet" href="../../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../../_resources/stylesheets/pygment_trac.css">
+    <script src="../../_resources/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">WebEnq</h1>
+        <p class="header">Online surveys and reporting</p>
+
+	<ul>
+<li><a href="../../Home.html" title="Home" class="page">Home</a></li>
+<ul>
+<li><a href="../Architecture.html" title="Architecture" class="page">Architecture</a></li>
+<li><a href="../Data_model.html" title="Data model" class="page">Data model</a></li>
+<ul>
+<li><strong class="activepage">Doctrine</strong></li>
+<li><a href="./tables.html" title="tables" class="page">tables</a></li>
+</ul>
+<li><a href="../Developing.html" title="Developing" class="page">Developing</a></li>
+<li><a href="../Directory_layout.html" title="Directory layout" class="page">Directory layout</a></li>
+</ul>
+<li><a href="../../Surveys.html" title="Surveys" class="page">Surveys</a></li>
+<li><a href="../../Tools.html" title="Tools" class="page">Tools</a></li>
+</ul>
+
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Nivocer/webenq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Nivocer">Nivocer</a></p>
+
+      </header>
+      <section>
+
+<h1>Doctrine</h1>
+
+<h2>Gotchas</h2>
+
+<h3>Nested sets</h3>
+<p>
+Doctrine has a behaviour NestedSet to make it easy to work with hierarchical data. The manual is not quite complete, though: after inserting a node, you should do a refresh on the root node of the tree:<br>
+</p>
+
+<pre>
+$category       = new Category();
+$category-&gt;name = 'Root Category 1';
+$category-&gt;save();
+
+$treeObject = Doctrine_Core::getTable('Category')-&gt;getTree();
+$treeObject-&gt;createRoot($category);
+
+$child1       = new Category();
+$child1-&gt;name = 'Child Category 1';
+
+$child2       = new Category();
+$child2-&gt;name = 'Child Category 1';
+
+$child1-&gt;getNode()-&gt;insertAsLastChildOf($category);
+$category-&gt;refresh();   // &lt;=== not mentioned in documentation
+$child2-&gt;getNode()-&gt;insertAsLastChildOf($category);
+$category-&gt;refresh();   // &lt;=== not mentioned in documentation
+</pre>
+
+
+<h3>I18n</h3>
+<p>
+Doctrine's load-data function contains a hard-coded reference to Doctrine_Template_I18n to deal with importing Translation: relations in the data fixture.<br>
+</p>
+
+<p>
+We had to patch that function (libraries/Doctrine/Data/Import.php) to add our own WebEnq4_Template_I18n<br>
+</p>
+
+
+      </section>
+<!--
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
+      </footer>
+-->
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

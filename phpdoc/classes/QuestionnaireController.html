@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>WebEnq4 PHP Documentation » \QuestionnaireController</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">WebEnq4 PHP Documentation</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/WebEnq4.html"><i class="icon-folder-open"></i> WebEnq4</a></li>
+<li><a href="../packages/Webenq.html"><i class="icon-folder-open"></i> Webenq</a></li>
+<li><a href="../packages/Zend.html"><i class="icon-folder-open"></i> Zend</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">476</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">21</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">3</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_addAction" title="addAction :: Add a questionnaire: process the properties form, then continue to
+the questionnaires index."><span class="description">Add a questionnaire: process the properties form, then continue to
+the questionnaires index.</span><pre>addAction()</pre></a></li>
+<li class="method public "><a href="#method_addQuestionAction" title="addQuestionAction :: "><span class="description">addQuestionAction()
+        </span><pre>addQuestionAction()</pre></a></li>
+<li class="method public "><a href="#method_collectAction" title="collectAction :: Renders the data collection for the given questionnaire"><span class="description">Renders the data collection for the given questionnaire</span><pre>collectAction()</pre></a></li>
+<li class="method public "><a href="#method_deleteAction" title="deleteAction :: Delete a questionnaire: process a confirmation form, then continue to
+the questionnaires index."><span class="description">Delete a questionnaire: process a confirmation form, then continue to
+the questionnaires index.</span><pre>deleteAction()</pre></a></li>
+<li class="method public "><a href="#method_downloadAction" title="downloadAction :: "><span class="description">downloadAction()
+        </span><pre>downloadAction()</pre></a></li>
+<li class="method public "><a href="#method_editAction" title="editAction :: Edit a questionnaire: process the properties form, and show the questions
+in this questionnaire (with its own edit features)."><span class="description">Edit a questionnaire: process the properties form, and show the questions
+in this questionnaire (with its own edit features).</span><pre>editAction()</pre></a></li>
+<li class="method public "><a href="#method_groupAction" title="groupAction :: "><span class="description">groupAction()
+        </span><pre>groupAction()</pre></a></li>
+<li class="method public "><a href="#method_indexAction" title="indexAction :: Renders the overview of questionnaires, and a form to add a new questionnaire."><span class="description">Renders the overview of questionnaires, and a form to add a new questionnaire.</span><pre>indexAction()</pre></a></li>
+<li class="method public "><a href="#method_orderAction" title="orderAction :: "><span class="description">orderAction()
+        </span><pre>orderAction()</pre></a></li>
+<li class="method public "><a href="#method_printAction" title="printAction :: "><span class="description">printAction()
+        </span><pre>printAction()</pre></a></li>
+<li class="method public "><a href="#method_xformAction" title="xformAction :: Renders an xform"><span class="description">Renders an xform</span><pre>xformAction()</pre></a></li>
+<li class="method public "><a href="#method_xformDataAction" title="xformDataAction :: Renders xform data"><span class="description">Renders xform data</span><pre>xformDataAction()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method__orderPagesAndQuestions" title="_orderPagesAndQuestions :: "><span class="description">_orderPagesAndQuestions()
+        </span><pre>_orderPagesAndQuestions()</pre></a></li>
+<li class="method protected "><a href="#method__orderQuestionnaires" title="_orderQuestionnaires :: save new sort order of questionnaire, triggered by javascript sortable action"><span class="description">save new sort order of questionnaire, triggered by javascript sortable action</span><pre>_orderQuestionnaires()</pre></a></li>
+<li class="method protected "><a href="#method__orderSubQuestions" title="_orderSubQuestions :: "><span class="description">_orderSubQuestions()
+        </span><pre>_orderSubQuestions()</pre></a></li>
+<li class="method protected "><a href="#method__processPostedValue" title="_processPostedValue :: "><span class="description">_processPostedValue()
+        </span><pre>_processPostedValue()</pre></a></li>
+<li class="method protected "><a href="#method__removeAnswers" title="_removeAnswers :: Removes all answers for the given question and respondent combination"><span class="description">Removes all answers for the given question and respondent combination</span><pre>_removeAnswers()</pre></a></li>
+<li class="method protected "><a href="#method__saveAnswerId" title="_saveAnswerId :: "><span class="description">_saveAnswerId()
+        </span><pre>_saveAnswerId()</pre></a></li>
+<li class="method protected "><a href="#method__saveAnswerText" title="_saveAnswerText :: "><span class="description">_saveAnswerText()
+        </span><pre>_saveAnswerText()</pre></a></li>
+<li class="method protected "><a href="#method__saveEmptyAnswer" title="_saveEmptyAnswer :: "><span class="description">_saveEmptyAnswer()
+        </span><pre>_saveEmptyAnswer()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul><li class="property public "><a href="#property_ajaxable" title="$ajaxable :: Controller actions that are ajaxable"><span class="description"></span><pre>$ajaxable</pre></a></li></ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\QuestionnaireController"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/QuestionnaireController.html">QuestionnaireController</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Controller class</p>
+<div class="details">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Webenq.Questionnaires.Manage.html">Webenq_Questionnaires_Manage</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:b.huttinga@nivocer.com">Bart Huttinga</a></td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_addAction"></a><div class="element clickable method public method_addAction" data-toggle="collapse" data-target=".method_addAction .collapse">
+<h2>Add a questionnaire: process the properties form, then continue to
+the questionnaires index.</h2>
+<pre>addAction() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Add Questionnaire Properties Controller Tests</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_addQuestionAction"></a><div class="element clickable method public method_addQuestionAction" data-toggle="collapse" data-target=".method_addQuestionAction .collapse">
+<h2>addQuestionAction()
+        </h2>
+<pre>addQuestionAction() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_collectAction"></a><div class="element clickable method public method_collectAction" data-toggle="collapse" data-target=".method_collectAction .collapse">
+<h2>Renders the data collection for the given questionnaire</h2>
+<pre>collectAction() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_deleteAction"></a><div class="element clickable method public method_deleteAction" data-toggle="collapse" data-target=".method_deleteAction .collapse">
+<h2>Delete a questionnaire: process a confirmation form, then continue to
+the questionnaires index.</h2>
+<pre>deleteAction() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_downloadAction"></a><div class="element clickable method public method_downloadAction" data-toggle="collapse" data-target=".method_downloadAction .collapse">
+<h2>downloadAction()
+        </h2>
+<pre>downloadAction() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_editAction"></a><div class="element clickable method public method_editAction" data-toggle="collapse" data-target=".method_editAction .collapse">
+<h2>Edit a questionnaire: process the properties form, and show the questions
+in this questionnaire (with its own edit features).</h2>
+<pre>editAction() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>todo</th>
+<td>Add Questionnaire Properties Controller Tests</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_groupAction"></a><div class="element clickable method public method_groupAction" data-toggle="collapse" data-target=".method_groupAction .collapse">
+<h2>groupAction()
+        </h2>
+<pre>groupAction() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_indexAction"></a><div class="element clickable method public method_indexAction" data-toggle="collapse" data-target=".method_indexAction .collapse">
+<h2>Renders the overview of questionnaires, and a form to add a new questionnaire.</h2>
+<pre>indexAction() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_orderAction"></a><div class="element clickable method public method_orderAction" data-toggle="collapse" data-target=".method_orderAction .collapse">
+<h2>orderAction()
+        </h2>
+<pre>orderAction() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_printAction"></a><div class="element clickable method public method_printAction" data-toggle="collapse" data-target=".method_printAction .collapse">
+<h2>printAction()
+        </h2>
+<pre>printAction() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_xformAction"></a><div class="element clickable method public method_xformAction" data-toggle="collapse" data-target=".method_xformAction .collapse">
+<h2>Renders an xform</h2>
+<pre>xformAction() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_xformDataAction"></a><div class="element clickable method public method_xformDataAction" data-toggle="collapse" data-target=".method_xformDataAction .collapse">
+<h2>Renders xform data</h2>
+<pre>xformDataAction() : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method__orderPagesAndQuestions"></a><div class="element clickable method protected method__orderPagesAndQuestions" data-toggle="collapse" data-target=".method__orderPagesAndQuestions .collapse">
+<h2>_orderPagesAndQuestions()
+        </h2>
+<pre>_orderPagesAndQuestions(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method__orderQuestionnaires"></a><div class="element clickable method protected method__orderQuestionnaires" data-toggle="collapse" data-target=".method__orderQuestionnaires .collapse">
+<h2>save new sort order of questionnaire, triggered by javascript sortable action</h2>
+<pre>_orderQuestionnaires(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>array</code>
+</div>
+</div></div>
+</div>
+<a id="method__orderSubQuestions"></a><div class="element clickable method protected method__orderSubQuestions" data-toggle="collapse" data-target=".method__orderSubQuestions .collapse">
+<h2>_orderSubQuestions()
+        </h2>
+<pre>_orderSubQuestions(array $data) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$data</h4></div>
+</div></div>
+</div>
+<a id="method__processPostedValue"></a><div class="element clickable method protected method__processPostedValue" data-toggle="collapse" data-target=".method__processPostedValue .collapse">
+<h2>_processPostedValue()
+        </h2>
+<pre>_processPostedValue($key, $value, \Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$key</h4></div>
+<div class="subelement argument"><h4>$value</h4></div>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method__removeAnswers"></a><div class="element clickable method protected method__removeAnswers" data-toggle="collapse" data-target=".method__removeAnswers .collapse">
+<h2>Removes all answers for the given question and respondent combination</h2>
+<pre>_removeAnswers(\Webenq_Model_QuestionnaireQuestion $qq, \Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$qq</h4>
+<code><a href="../classes/Webenq_Model_QuestionnaireQuestion.html">\Webenq_Model_QuestionnaireQuestion</a></code>
+</div>
+<div class="subelement argument">
+<h4>$respondent</h4>
+<code><a href="../classes/Webenq_Model_Respondent.html">\Webenq_Model_Respondent</a></code>
+</div>
+</div></div>
+</div>
+<a id="method__saveAnswerId"></a><div class="element clickable method protected method__saveAnswerId" data-toggle="collapse" data-target=".method__saveAnswerId .collapse">
+<h2>_saveAnswerId()
+        </h2>
+<pre>_saveAnswerId(\Webenq_Model_QuestionnaireQuestion $qq, $answerIds, \Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$qq</h4></div>
+<div class="subelement argument"><h4>$answerIds</h4></div>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method__saveAnswerText"></a><div class="element clickable method protected method__saveAnswerText" data-toggle="collapse" data-target=".method__saveAnswerText .collapse">
+<h2>_saveAnswerText()
+        </h2>
+<pre>_saveAnswerText(\Webenq_Model_QuestionnaireQuestion $qq, $answerValues, \Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$qq</h4></div>
+<div class="subelement argument"><h4>$answerValues</h4></div>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method__saveEmptyAnswer"></a><div class="element clickable method protected method__saveEmptyAnswer" data-toggle="collapse" data-target=".method__saveEmptyAnswer .collapse">
+<h2>_saveEmptyAnswer()
+        </h2>
+<pre>_saveEmptyAnswer(\Webenq_Model_QuestionnaireQuestion $qq, \Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$qq</h4></div>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_ajaxable"> </a><div class="element clickable property public property_ajaxable" data-toggle="collapse" data-target=".property_ajaxable .collapse">
+<h2></h2>
+<pre>$ajaxable : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-03-20T15:13:11+01:00.<br></footer></div>
+</div>
+</body>
+</html>

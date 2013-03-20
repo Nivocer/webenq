@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>WebEnq4 PHP Documentation » \Webenq_Model_Questionnaire</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">WebEnq4 PHP Documentation</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/WebEnq4.html"><i class="icon-folder-open"></i> WebEnq4</a></li>
+<li><a href="../packages/Webenq.html"><i class="icon-folder-open"></i> Webenq</a></li>
+<li><a href="../packages/Zend.html"><i class="icon-folder-open"></i> Zend</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">476</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">21</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">3</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method_addQuestionnaireTitle" title="addQuestionnaireTitle :: Sets the questionnaire title for a given language"><span class="description">Sets the questionnaire title for a given language</span><pre>addQuestionnaireTitle()</pre></a></li>
+<li class="method public "><a href="#method_addQuestionnaireTitles" title="addQuestionnaireTitles :: Sets the questionnaire titles for every language"><span class="description">Sets the questionnaire titles for every language</span><pre>addQuestionnaireTitles()</pre></a></li>
+<li class="method public "><a href="#method_countAnsweredQuestions" title="countAnsweredQuestions :: "><span class="description">countAnsweredQuestions()
+        </span><pre>countAnsweredQuestions()</pre></a></li>
+<li class="method public "><a href="#method_fromArray" title="fromArray :: Fills questionnaire properties with data in the given array"><span class="description">Fills questionnaire properties with data in the given array</span><pre>fromArray()</pre></a></li>
+<li class="method public "><a href="#method_getAnsweredQuestions" title="getAnsweredQuestions :: "><span class="description">getAnsweredQuestions()
+        </span><pre>getAnsweredQuestions()</pre></a></li>
+<li class="method public "><a href="#method_getCurrentPage" title="getCurrentPage :: "><span class="description">getCurrentPage()
+        </span><pre>getCurrentPage()</pre></a></li>
+<li class="method public "><a href="#method_getDataAsSpreadsheetArray" title="getDataAsSpreadsheetArray :: Returns an array with the question text in the first row
+and the answers in the following rows."><span class="description">Returns an array with the question text in the first row
+and the answers in the following rows.</span><pre>getDataAsSpreadsheetArray()</pre></a></li>
+<li class="method public "><a href="#method_getKeyValuePairs" title="getKeyValuePairs :: Returns an array with ids as keys and titles as values"><span class="description">Returns an array with ids as keys and titles as values</span><pre>getKeyValuePairs()</pre></a></li>
+<li class="method public "><a href="#method_getPublishedState" title="getPublishedState :: Get the published state of a questionnaire"><span class="description">Get the published state of a questionnaire</span><pre>getPublishedState()</pre></a></li>
+<li class="method public "><a href="#method_getQuestionnaire" title="getQuestionnaire :: Returns a questionnaire, based on the given id and language."><span class="description">Returns a questionnaire, based on the given id and language.</span><pre>getQuestionnaire()</pre></a></li>
+<li class="method public "><a href="#method_getQuestionnaires" title="getQuestionnaires :: "><span class="description">getQuestionnaires()
+        </span><pre>getQuestionnaires()</pre></a></li>
+<li class="method public "><a href="#method_getQuestionsAndAnswersAsArray" title="getQuestionsAndAnswersAsArray :: "><span class="description">getQuestionsAndAnswersAsArray()
+        </span><pre>getQuestionsAndAnswersAsArray()</pre></a></li>
+<li class="method public "><a href="#method_getRespondents" title="getRespondents :: Returns the respondents for the current questionnaire"><span class="description">Returns the respondents for the current questionnaire</span><pre>getRespondents()</pre></a></li>
+<li class="method public "><a href="#method_getTitle" title="getTitle :: Gets the questionnaire title in the given, current or preferred language."><span class="description">Gets the questionnaire title in the given, current or preferred language.</span><pre>getTitle()</pre></a></li>
+<li class="method public "><a href="#method_getTotalPages" title="getTotalPages :: Returns the total number of pages for the current questionnaire"><span class="description">Returns the total number of pages for the current questionnaire</span><pre>getTotalPages()</pre></a></li>
+<li class="method public "><a href="#method_getTotalQuestions" title="getTotalQuestions :: "><span class="description">getTotalQuestions()
+        </span><pre>getTotalQuestions()</pre></a></li>
+<li class="method public "><a href="#method_getXform" title="getXform :: Returns an xform"><span class="description">Returns an xform</span><pre>getXform()</pre></a></li>
+<li class="method public "><a href="#method_getXformData" title="getXformData :: Returns xform data"><span class="description">Returns xform data</span><pre>getXformData()</pre></a></li>
+<li class="method public inherited"><a href="#method_setTableDefinition" title="setTableDefinition :: "><span class="description">setTableDefinition()
+        </span><pre>setTableDefinition()</pre></a></li>
+<li class="method public inherited"><a href="#method_setUp" title="setUp :: "><span class="description">setUp()
+        </span><pre>setUp()</pre></a></li>
+<li class="method public "><a href="#method_toArray" title='toArray :: Fills array with questionnaire properties, and makes translations of the
+field title available for form element "multi-lingual with default
+language choice":'><span class="description">Fills array with questionnaire properties, and makes translations of the
+field title available for form element "multi-lingual with default
+language choice":</span><pre>toArray()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="method protected "><a href="#method__getAnswerCell" title="_getAnswerCell :: "><span class="description">_getAnswerCell()
+        </span><pre>_getAnswerCell()</pre></a></li>
+<li class="method protected "><a href="#method__getQuestionCell" title="_getQuestionCell :: "><span class="description">_getQuestionCell()
+        </span><pre>_getQuestionCell()</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Webenq_Model_Questionnaire"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Webenq_Model_Questionnaire.html">Webenq_Model_Questionnaire</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Questionnaire class definition</p>
+<div class="details">
+<div class="long_description"><p>This class has been auto-generated by the Doctrine ORM Framework</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Webenq.Models.html">Webenq_Models</a></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:b.huttinga@nivocer.com">Bart Huttinga</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td></td>
+</tr>
+<tr>
+<th>version</th>
+<td>SVN: $Id: Builder.php,v 1.2 2011/07/12 13:39:03 bart Exp $</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_addQuestionnaireTitle"></a><div class="element clickable method public method_addQuestionnaireTitle" data-toggle="collapse" data-target=".method_addQuestionnaireTitle .collapse">
+<h2>Sets the questionnaire title for a given language</h2>
+<pre>addQuestionnaireTitle(string $language, string $title) : <a href="../classes/Webenq_Model_Questionnaire.html">\Webenq_Model_Questionnaire</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code><p>The language to set the title for</p></div>
+<div class="subelement argument">
+<h4>$title</h4>
+<code>string</code><p>The questionnaire title for the given language</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Questionnaire.html">\Webenq_Model_Questionnaire</a></code></div>
+</div></div>
+</div>
+<a id="method_addQuestionnaireTitles"></a><div class="element clickable method public method_addQuestionnaireTitles" data-toggle="collapse" data-target=".method_addQuestionnaireTitles .collapse">
+<h2>Sets the questionnaire titles for every language</h2>
+<pre>addQuestionnaireTitles(array $titles) : <a href="../classes/Webenq_Model_Questionnaire.html">\Webenq_Model_Questionnaire</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$titles</h4>
+<code>array</code><p>Array with language codes as keys and questionnaire titles as values</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Questionnaire.html">\Webenq_Model_Questionnaire</a></code></div>
+</div></div>
+</div>
+<a id="method_countAnsweredQuestions"></a><div class="element clickable method public method_countAnsweredQuestions" data-toggle="collapse" data-target=".method_countAnsweredQuestions .collapse">
+<h2>countAnsweredQuestions()
+        </h2>
+<pre>countAnsweredQuestions(\Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method_fromArray"></a><div class="element clickable method public method_fromArray" data-toggle="collapse" data-target=".method_fromArray .collapse">
+<h2>Fills questionnaire properties with data in the given array</h2>
+<pre>fromArray(array $array, bool $deep) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>see</th>
+<td><a href="">\toArray()</a></td>
+</tr>
+<tr>
+<th>see</th>
+<td><a href="">\Doctrine_Record::fromArray()</a></td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$array</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$deep</h4>
+<code>bool</code>
+</div>
+</div></div>
+</div>
+<a id="method_getAnsweredQuestions"></a><div class="element clickable method public method_getAnsweredQuestions" data-toggle="collapse" data-target=".method_getAnsweredQuestions .collapse">
+<h2>getAnsweredQuestions()
+        </h2>
+<pre>getAnsweredQuestions(\Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>deprecated</th>
+<td></td>
+</tr>
+<tr>
+<th>todo</th>
+<td>This method has been renamed to countAnsweredQuestions, so this one
+should be removed when all calls have been renamed as well</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method_getCurrentPage"></a><div class="element clickable method public method_getCurrentPage" data-toggle="collapse" data-target=".method_getCurrentPage .collapse">
+<h2>getCurrentPage()
+        </h2>
+<pre>getCurrentPage(\Webenq_Model_Questionnaire $questionaire, \Webenq_Model_Respondent $respondent) </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$questionaire</h4></div>
+<div class="subelement argument"><h4>$respondent</h4></div>
+</div></div>
+</div>
+<a id="method_getDataAsSpreadsheetArray"></a><div class="element clickable method public method_getDataAsSpreadsheetArray" data-toggle="collapse" data-target=".method_getDataAsSpreadsheetArray .collapse">
+<h2>Returns an array with the question text in the first row
+and the answers in the following rows.</h2>
+<pre>getDataAsSpreadsheetArray() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Each row contains the
+answers of one respondent.</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getKeyValuePairs"></a><div class="element clickable method public method_getKeyValuePairs" data-toggle="collapse" data-target=".method_getKeyValuePairs .collapse">
+<h2>Returns an array with ids as keys and titles as values</h2>
+<pre>getKeyValuePairs(string $language) : array</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>If a language is provided the corresponding translation of the
+title is used. If not provided, the current language is used. Else
+one of the preferred languages is used. Otherwise just any language.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getPublishedState"></a><div class="element clickable method public method_getPublishedState" data-toggle="collapse" data-target=".method_getPublishedState .collapse">
+<h2>Get the published state of a questionnaire</h2>
+<pre>getPublishedState() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>active is defined as: the questionnaire is activated and current time is between start and end date</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getQuestionnaire"></a><div class="element clickable method public method_getQuestionnaire" data-toggle="collapse" data-target=".method_getQuestionnaire .collapse">
+<h2>Returns a questionnaire, based on the given id and language.</h2>
+<pre>getQuestionnaire(int $id, string $language, int $page, \Webenq_Model_Respondent $respondent, $includeAnswers) : <a href="../classes/Webenq_Model_Questionnaire.html">\Webenq_Model_Questionnaire</a></pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$id</h4>
+<code>int</code>
+</div>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code><p>@obsolete?</p>
+</div>
+<div class="subelement argument">
+<h4>$page</h4>
+<code>int</code><p>@obsolete</p>
+</div>
+<div class="subelement argument">
+<h4>$respondent</h4>
+<code><a href="../classes/Webenq_Model_Respondent.html">\Webenq_Model_Respondent</a></code><p>@obsolete</p>
+</div>
+<div class="subelement argument"><h4>$includeAnswers</h4></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Questionnaire.html">\Webenq_Model_Questionnaire</a></code></div>
+</div></div>
+</div>
+<a id="method_getQuestionnaires"></a><div class="element clickable method public method_getQuestionnaires" data-toggle="collapse" data-target=".method_getQuestionnaires .collapse">
+<h2>getQuestionnaires()
+        </h2>
+<pre>getQuestionnaires($category, $id) </pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$category</h4></div>
+<div class="subelement argument"><h4>$id</h4></div>
+</div></div>
+</div>
+<a id="method_getQuestionsAndAnswersAsArray"></a><div class="element clickable method public method_getQuestionsAndAnswersAsArray" data-toggle="collapse" data-target=".method_getQuestionsAndAnswersAsArray .collapse">
+<h2>getQuestionsAndAnswersAsArray()
+        </h2>
+<pre>getQuestionsAndAnswersAsArray() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_getRespondents"></a><div class="element clickable method public method_getRespondents" data-toggle="collapse" data-target=".method_getRespondents .collapse">
+<h2>Returns the respondents for the current questionnaire</h2>
+<pre>getRespondents() : \Doctrine_Collection</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>\Doctrine_Collection</code></div>
+</div></div>
+</div>
+<a id="method_getTitle"></a><div class="element clickable method public method_getTitle" data-toggle="collapse" data-target=".method_getTitle .collapse">
+<h2>Gets the questionnaire title in the given, current or preferred language.</h2>
+<pre>getTitle(string $language) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Creates
+an empty translation if nothing was found and the questionnaire exists in the
+database.</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Title or empty string</div>
+</div></div>
+</div>
+<a id="method_getTotalPages"></a><div class="element clickable method public method_getTotalPages" data-toggle="collapse" data-target=".method_getTotalPages .collapse">
+<h2>Returns the total number of pages for the current questionnaire</h2>
+<pre>getTotalPages(int $id) : int</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$id</h4>
+<code>int</code><p>ID of the questionnaire</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Number of pages</div>
+</div></div>
+</div>
+<a id="method_getTotalQuestions"></a><div class="element clickable method public method_getTotalQuestions" data-toggle="collapse" data-target=".method_getTotalQuestions .collapse">
+<h2>getTotalQuestions()
+        </h2>
+<pre>getTotalQuestions() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_getXform"></a><div class="element clickable method public method_getXform" data-toggle="collapse" data-target=".method_getXform .collapse">
+<h2>Returns an xform</h2>
+<pre>getXform() : <a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code></div>
+</div></div>
+</div>
+<a id="method_getXformData"></a><div class="element clickable method public method_getXformData" data-toggle="collapse" data-target=".method_getXformData .collapse">
+<h2>Returns xform data</h2>
+<pre>getXformData() : <a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.domdocument.php">\DOMDocument</a></code></div>
+</div></div>
+</div>
+<a id="method_setTableDefinition"></a><div class="element clickable method public method_setTableDefinition" data-toggle="collapse" data-target=".method_setTableDefinition .collapse">
+<h2>setTableDefinition()
+        </h2>
+<pre>setTableDefinition() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Questionnaire::setTableDefinition()</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_setUp"></a><div class="element clickable method public method_setUp" data-toggle="collapse" data-target=".method_setUp .collapse">
+<h2>setUp()
+        </h2>
+<pre>setUp() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Questionnaire::setUp()</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_toArray"></a><div class="element clickable method public method_toArray" data-toggle="collapse" data-target=".method_toArray .collapse">
+<h2>Fills array with questionnaire properties, and makes translations of the
+field title available for form element "multi-lingual with default
+language choice":</h2>
+<pre>toArray(bool $deep, bool $prefixKey) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><ul>
+<li>result['title']['default_language'] maps to the property 'default_language'
+<li>result['title']['en'] contains the English version, etc
+</ul></div>
+<table class="table table-bordered">
+<tr>
+<th>see</th>
+<td><a href="">\fromArray()</a></td>
+</tr>
+<tr>
+<th>see</th>
+<td><a href="">\Doctrine_Record::fromArray()</a></td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$deep</h4>
+<code>bool</code>
+</div>
+<div class="subelement argument">
+<h4>$prefixKey</h4>
+<code>bool</code><p>Not used</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method__getAnswerCell"></a><div class="element clickable method protected method__getAnswerCell" data-toggle="collapse" data-target=".method__getAnswerCell .collapse">
+<h2>_getAnswerCell()
+        </h2>
+<pre>_getAnswerCell(\Webenq_Model_QuestionnaireQuestion $parent, \Webenq_Model_Respondent $respondent, array $row) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parent</h4></div>
+<div class="subelement argument"><h4>$respondent</h4></div>
+<div class="subelement argument"><h4>$row</h4></div>
+</div></div>
+</div>
+<a id="method__getQuestionCell"></a><div class="element clickable method protected method__getQuestionCell" data-toggle="collapse" data-target=".method__getQuestionCell .collapse">
+<h2>_getQuestionCell()
+        </h2>
+<pre>_getQuestionCell(\Webenq_Model_QuestionnaireQuestion $parent, array $row) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$parent</h4></div>
+<div class="subelement argument"><h4>$row</h4></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-03-20T15:13:08+01:00.<br></footer></div>
+</div>
+</body>
+</html>

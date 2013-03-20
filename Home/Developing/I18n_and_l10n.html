@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>WebEnq by Nivocer</title>
+
+    <link rel="stylesheet" href="../../_resources/stylesheets/styles.css">
+    <link rel="stylesheet" href="../../_resources/stylesheets/pygment_trac.css">
+    <script src="../../_resources/javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">WebEnq</h1>
+        <p class="header">Online surveys and reporting</p>
+
+	<ul>
+<li><a href="../../Home.html" title="Home" class="page">Home</a></li>
+<ul>
+<li><a href="../Architecture.html" title="Architecture" class="page">Architecture</a></li>
+<li><a href="../Data_model.html" title="Data model" class="page">Data model</a></li>
+<li><a href="../Developing.html" title="Developing" class="page">Developing</a></li>
+<ul>
+<li><a href="./Add_report_element.html" title="Add report element" class="page">Add report element</a></li>
+<li><a href="./Coding_guidelines.html" title="Coding guidelines" class="page">Coding guidelines</a></li>
+<li><strong class="activepage">I18n and l10n</strong></li>
+<li><a href="./Import_data.html" title="Import data" class="page">Import data</a></li>
+<li><a href="./Jquery.html" title="Jquery" class="page">Jquery</a></li>
+<li><a href="./Quality_Assurance.html" title="Quality Assurance" class="page">Quality Assurance</a></li>
+<li><a href="./Report_definition.html" title="Report definition" class="page">Report definition</a></li>
+</ul>
+<li><a href="../Directory_layout.html" title="Directory layout" class="page">Directory layout</a></li>
+</ul>
+<li><a href="../../Surveys.html" title="Surveys" class="page">Surveys</a></li>
+<li><a href="../../Tools.html" title="Tools" class="page">Tools</a></li>
+</ul>
+
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/Nivocer/webenq/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/Nivocer/webenq">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Nivocer">Nivocer</a></p>
+
+      </header>
+      <section>
+
+<h1>I18n and l10n</h1>
+
+<p>
+The application has two ways to deal with multi-lingual texts:<br>
+</p>
+
+<p>
+<ul>
+<li>Interface strings are handled via Zend_translate</li>
+<li>Questionnaire content is handled via a modified version of the Doctrine I18n behavior</li>
+</ul>
+</p>
+
+<p>
+The default language is English. Active languages are defined in: application/classes/Webenq/Language.php (currently:  en, nl, &amp; languages from database).<br>
+</p>
+
+<h2>Zend_translate</h2>
+<p>
+Strings are translated by using Zend_translate<br>
+<a href="http://framework.zend.com/manual/1.12/en/zend.translate.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.html" class="http">http://framework.zend.com/manual/1.12/en/zend.translate.html</a><br>
+We use the gettext variant.<br>
+In application/translation/webenq4.pot we have a set of translatable strings. These strings are mostly harvest by scanning the code (.php and .phtml)for: <br>
+setMessage, _ translate, setLabel, setLegend, _refresh, setValue, append, t<br>
+t is a method we wrote to perform the translation, customized for our needs.<br>
+Some strings are not found in the code (eg controller/methods used in user management). To be able to find those strings when we harvest the strings, we add these strings in a3pplications/translation/WebenqManualStrings.php. <br>
+</p>
+
+<p>
+We use <a href="../../Tools/Poedit.html" title="poedit" class="page">poedit</a> to  scan the code for translatable strings. These are stored in application/translations/webenq4.pot.<br>
+To translate, we use this file to scan for new strings.<br>
+</p>
+
+<h4>zend_validate</h4>
+<p>
+We use zend-validate to validate forms we want to use the translations shipped with the zend-framework (<a href="https://github.com/zendframework/zf2/tree/master/resources/languages" title="https://github.com/zendframework/zf2/tree/master/resources/languages" class="https">https://github.com/zendframework/zf2/tree/master/resources/languages</a> (assuming we use zf2)), but this is array based, so we combine multiple sources<br>
+</p>
+
+<h4>javascript</h4>
+<p>
+<a href="http://docs.jquery.com/UI/Datepicker/Localization" title="http://docs.jquery.com/UI/Datepicker/Localization" class="http">http://docs.jquery.com/UI/Datepicker/Localization</a> (<a href="http://jqueryui.com/datepicker/#localization" title="http://jqueryui.com/datepicker/#localization" class="http">http://jqueryui.com/datepicker/#localization</a>)<br>
+ translations for datapicker can be found in the development bundle : /jquery-ui-x.y.z.custom/development-bundle/ui/i18n/<br>
+<span class="zim-tag">@todo</span> always the dutch translation is used see also <a href="https://www.pivotaltracker.com/story/show/41151863" title="https://www.pivotaltracker.com/story/show/41151863" class="https">https://www.pivotaltracker.com/story/show/41151863</a><br>
+</p>
+
+<h4>See also</h4>
+<p>
+<a href="http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/" title="http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/" class="http">http://blog.hackix.com/2010/01/configuring-poedit-for-zend-framework-projects/</a><br>
+<a href="http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext" title="http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext" class="http">http://framework.zend.com/manual/1.12/en/zend.translate.sourcecreation.html#zend.translate.sourcecreation.gettext</a><br>
+<a href="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html" title="http://framework.zend.com/manual/1.12/en/zend.translate.additional.html" class="http">http://framework.zend.com/manual/1.12/en/zend.translate.additional.html</a><br>
+</p>
+
+
+      </section>
+<!--
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> based on the Dinky theme</small></p>
+      </footer>
+-->
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

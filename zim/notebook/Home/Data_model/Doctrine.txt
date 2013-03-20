@@ -1,0 +1,36 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-03-07T14:56:51+01:00
+
+====== Doctrine ======
+
+===== Gotchas =====
+
+==== Nested sets ====
+Doctrine has a behaviour NestedSet to make it easy to work with hierarchical data. The manual is not quite complete, though: after inserting a node, you should do a refresh on the root node of the tree:
+
+'''
+$category       = new Category();
+$category->name = 'Root Category 1';
+$category->save();
+
+$treeObject = Doctrine_Core::getTable('Category')->getTree();
+$treeObject->createRoot($category);
+
+$child1       = new Category();
+$child1->name = 'Child Category 1';
+
+$child2       = new Category();
+$child2->name = 'Child Category 1';
+
+$child1->getNode()->insertAsLastChildOf($category);
+$category->refresh();   // <=== not mentioned in documentation
+$child2->getNode()->insertAsLastChildOf($category);
+$category->refresh();   // <=== not mentioned in documentation
+'''
+
+
+==== I18n ====
+Doctrine's load-data function contains a hard-coded reference to Doctrine_Template_I18n to deal with importing Translation: relations in the data fixture.
+
+We had to patch that function (libraries/Doctrine/Data/Import.php) to add our own WebEnq4_Template_I18n

@@ -13,3 +13,10 @@ Zend works with URLs in the format ''..../controller/action/key/value/key/value/
 A Zend controller can call multiple actions:
 * via front controler plugins via event hooks (start request, stop request)
 * by putting controllers on a stack
+
+===== PHPDoc =====
+The code is documented through PHPDocumentor. You can generate an up-to-date version of that documentation with [[:Tools:Phing|Phing]]:
+
+''phing doc-phpdoc''
+
+We also have an [[../../phpdoc|online version of this PHP Documentation]].

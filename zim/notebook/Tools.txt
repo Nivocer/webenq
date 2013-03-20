@@ -9,3 +9,5 @@ Overview of the various tools we use (see menu)
 Our main git repository is hosted at Github and contains two major branches:
 * ''master'' contains the code and accompanying detailed documentation on code and design
 * ''gh-pages'' provides documentation for developers (and perhaps, in the future, for users)
+
+{{./WebEnq-toolset.png}}

@@ -1,0 +1,1459 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>WebEnq4 PHP Documentation » \Webenq_Model_Question_Open_Text</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">WebEnq4 PHP Documentation</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/WebEnq4.html"><i class="icon-folder-open"></i> WebEnq4</a></li>
+<li><a href="../packages/Webenq.html"><i class="icon-folder-open"></i> Webenq</a></li>
+<li><a href="../packages/Zend.html"><i class="icon-folder-open"></i> Zend</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">476</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul><li>todo 
+                <span class="label label-info">21</span>
+</li></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">3</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public inherited"><a href="#method_addAnswer" title="addAnswer :: Adds an answer to the current question"><span class="description">Adds an answer to the current question</span><pre>addAnswer()</pre></a></li>
+<li class="method public inherited"><a href="#method_addAnswers" title="addAnswers :: Adds a collection of answers to the current question"><span class="description">Adds a collection of answers to the current question</span><pre>addAnswers()</pre></a></li>
+<li class="method public inherited"><a href="#method_addInvalidType" title="addInvalidType :: Add a type that has not been validated"><span class="description">Add a type that has not been validated</span><pre>addInvalidType()</pre></a></li>
+<li class="method public inherited"><a href="#method_addInvalidTypes" title="addInvalidTypes :: Add an array of types that have not been validated"><span class="description">Add an array of types that have not been validated</span><pre>addInvalidTypes()</pre></a></li>
+<li class="method public inherited"><a href="#method_addQuestionText" title="addQuestionText :: Sets the question text for a given language"><span class="description">Sets the question text for a given language</span><pre>addQuestionText()</pre></a></li>
+<li class="method public inherited"><a href="#method_addQuestionTexts" title="addQuestionTexts :: Sets the question texts for every language"><span class="description">Sets the question texts for every language</span><pre>addQuestionTexts()</pre></a></li>
+<li class="method public inherited"><a href="#method_addValidType" title="addValidType :: Add a type that has been validated"><span class="description">Add a type that has been validated</span><pre>addValidType()</pre></a></li>
+<li class="method public inherited"><a href="#method_addValidTypes" title="addValidTypes :: Add an array of types that have been validated"><span class="description">Add an array of types that have been validated</span><pre>addValidTypes()</pre></a></li>
+<li class="method public inherited"><a href="#method_answersGiven" title="answersGiven :: Checks if at least one answer is not-empty"><span class="description">Checks if at least one answer is not-empty</span><pre>answersGiven()</pre></a></li>
+<li class="method public inherited"><a href="#method_autocomplete" title="autocomplete :: "><span class="description">autocomplete()
+        </span><pre>autocomplete()</pre></a></li>
+<li class="method public inherited"><a href="#method_count" title="count :: Counts the number of values"><span class="description">Counts the number of values</span><pre>count()</pre></a></li>
+<li class="method public inherited"><a href="#method_countUnique" title="countUnique :: Counts the number of unique values"><span class="description">Counts the number of unique values</span><pre>countUnique()</pre></a></li>
+<li class="method public inherited"><a href="#method_countUniqueExcludingNullValues" title="countUniqueExcludingNullValues :: Counts the number of unique values, excluding null values"><span class="description">Counts the number of unique values, excluding null values</span><pre>countUniqueExcludingNullValues()</pre></a></li>
+<li class="method public inherited"><a href="#method_diffLen" title="diffLen :: Finds the maximum difference in length of the values"><span class="description">Finds the maximum difference in length of the values</span><pre>diffLen()</pre></a></li>
+<li class="method public inherited"><a href="#method_factory" title="factory :: Factors a question object of the right type"><span class="description">Factors a question object of the right type</span><pre>factory()</pre></a></li>
+<li class="method public inherited"><a href="#method_findByQuestionText" title="findByQuestionText :: "><span class="description">findByQuestionText()
+        </span><pre>findByQuestionText()</pre></a></li>
+<li class="method public inherited"><a href="#method_getAnswerValues" title="getAnswerValues :: Returns the answer values"><span class="description">Returns the answer values</span><pre>getAnswerValues()</pre></a></li>
+<li class="method public inherited"><a href="#method_getInvalidTypes" title="getInvalidTypes :: Gets all types for which this question would not validate"><span class="description">Gets all types for which this question would not validate</span><pre>getInvalidTypes()</pre></a></li>
+<li class="method public inherited"><a href="#method_getQuestionText" title="getQuestionText :: Gets the question text in the given, current or preferred language"><span class="description">Gets the question text in the given, current or preferred language</span><pre>getQuestionText()</pre></a></li>
+<li class="method public inherited"><a href="#method_getQuestionnaires" title="getQuestionnaires :: Returns the questionnaires using this question"><span class="description">Returns the questionnaires using this question</span><pre>getQuestionnaires()</pre></a></li>
+<li class="method public inherited"><a href="#method_getUniqueValues" title="getUniqueValues :: Returns unique values"><span class="description">Returns unique values</span><pre>getUniqueValues()</pre></a></li>
+<li class="method public inherited"><a href="#method_getUniqueValuesExcludingNullValues" title="getUniqueValuesExcludingNullValues :: Returns unique values"><span class="description">Returns unique values</span><pre>getUniqueValuesExcludingNullValues()</pre></a></li>
+<li class="method public inherited"><a href="#method_getValidTypes" title="getValidTypes :: Gets all types for which this question would validate"><span class="description">Gets all types for which this question would validate</span><pre>getValidTypes()</pre></a></li>
+<li class="method public inherited"><a href="#method_isNumeric" title="isNumeric :: Determines whether the values are numeric values only"><span class="description">Determines whether the values are numeric values only</span><pre>isNumeric()</pre></a></li>
+<li class="method public "><a href="#method_isType" title="isType :: Checks if the given result set validates for this type"><span class="description">Checks if the given result set validates for this type</span><pre>isType()</pre></a></li>
+<li class="method public inherited"><a href="#method_maxLen" title="maxLen :: Finds the length of the value with the biggest lenth"><span class="description">Finds the length of the value with the biggest lenth</span><pre>maxLen()</pre></a></li>
+<li class="method public inherited"><a href="#method_maxVal" title="maxVal :: Finds the biggest value"><span class="description">Finds the biggest value</span><pre>maxVal()</pre></a></li>
+<li class="method public inherited"><a href="#method_minLen" title="minLen :: Finds the length of the value with the smallest lenth"><span class="description">Finds the length of the value with the smallest lenth</span><pre>minLen()</pre></a></li>
+<li class="method public inherited"><a href="#method_minVal" title="minVal :: Finds the smallest value"><span class="description">Finds the smallest value</span><pre>minVal()</pre></a></li>
+<li class="method public inherited"><a href="#method_preInsert" title="preInsert :: "><span class="description">preInsert()
+        </span><pre>preInsert()</pre></a></li>
+<li class="method public inherited"><a href="#method_search" title="search :: Searches the question repository for the given term in the given language."><span class="description">Searches the question repository for the given term in the given language.</span><pre>search()</pre></a></li>
+<li class="method public inherited"><a href="#method_setAnswerValues" title="setAnswerValues :: Sets the answer values"><span class="description">Sets the answer values</span><pre>setAnswerValues()</pre></a></li>
+<li class="method public inherited"><a href="#method_setInvalidTypes" title="setInvalidTypes :: Sets the types for which the data would not validate"><span class="description">Sets the types for which the data would not validate</span><pre>setInvalidTypes()</pre></a></li>
+<li class="method public inherited"><a href="#method_setQuestionnaire" title="setQuestionnaire :: "><span class="description">setQuestionnaire()
+        </span><pre>setQuestionnaire()</pre></a></li>
+<li class="method public inherited"><a href="#method_setTableDefinition" title="setTableDefinition :: "><span class="description">setTableDefinition()
+        </span><pre>setTableDefinition()</pre></a></li>
+<li class="method public inherited"><a href="#method_setUp" title="setUp :: "><span class="description">setUp()
+        </span><pre>setUp()</pre></a></li>
+<li class="method public inherited"><a href="#method_setValidTypes" title="setValidTypes :: Sets the types for which the data would validate"><span class="description">Sets the types for which the data would validate</span><pre>setValidTypes()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul><li class="method protected inherited"><a href="#method__determineType" title="_determineType :: Determines the question type based on the data provided"><span class="description">Determines the question type based on the data provided</span><pre>_determineType()</pre></a></li></ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul><li class="property public "><a href="#property_children" title="$children :: Child classes"><span class="description"></span><pre>$children</pre></a></li></ul>
+</li>
+<li class="nav-header protected">» Protected
+                    <ul>
+<li class="property protected inherited"><a href="#property__answerValues" title="$_answerValues :: Array of answer values"><span class="description"></span><pre>$_answerValues</pre></a></li>
+<li class="property protected inherited"><a href="#property__invalidTypes" title="$_invalidTypes :: Types that do not validate for the given set of values"><span class="description"></span><pre>$_invalidTypes</pre></a></li>
+<li class="property protected inherited"><a href="#property__questionnaire" title="$_questionnaire :: "><span class="description"></span><pre>$_questionnaire</pre></a></li>
+<li class="property protected inherited"><a href="#property__validTypes" title="$_validTypes :: Types that validate for the given set of values"><span class="description"></span><pre>$_validTypes</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\Webenq_Model_Question_Open_Text"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/Webenq_Model_Question_Open_Text.html">Webenq_Model_Question_Open_Text</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">Class definition for the open question data type text</p>
+<div class="details">
+<div class="long_description"><p>This class has been auto-generated by the Doctrine ORM Framework</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/Webenq.Models.html">Webenq_Models</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td></td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:webenq@nivocer.com">Nivocer</a></td>
+</tr>
+<tr>
+<th>version</th>
+<td>SVN: $Id: Builder.php,v 1.2 2011/07/12 13:39:03 bart Exp $</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method_addAnswer"></a><div class="element clickable method public method_addAnswer" data-toggle="collapse" data-target=".method_addAnswer .collapse">
+<h2>Adds an answer to the current question</h2>
+<pre>addAnswer(<a href="../classes/Webenq_Model_Answer.html">\Webenq_Model_Answer</a> | string $answer, \Respondent $respondent) : <a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addAnswer()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addAnswer()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addAnswer()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addAnswer()</td>
+</tr>
+<tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$answer</h4>
+<code><a href="../classes/Webenq_Model_Answer.html">\Webenq_Model_Answer</a></code><code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$respondent</h4>
+<code>\Respondent</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></code></div>
+</div></div>
+</div>
+<a id="method_addAnswers"></a><div class="element clickable method public method_addAnswers" data-toggle="collapse" data-target=".method_addAnswers .collapse">
+<h2>Adds a collection of answers to the current question</h2>
+<pre>addAnswers(array $answers, array $respondents) : <a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addAnswers()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addAnswers()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addAnswers()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addAnswers()</td>
+</tr>
+<tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$answers</h4>
+<code>array</code>
+</div>
+<div class="subelement argument">
+<h4>$respondents</h4>
+<code>array</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></code></div>
+</div></div>
+</div>
+<a id="method_addInvalidType"></a><div class="element clickable method public method_addInvalidType" data-toggle="collapse" data-target=".method_addInvalidType .collapse">
+<h2>Add a type that has not been validated</h2>
+<pre>addInvalidType(string $invalidType) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addInvalidType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addInvalidType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addInvalidType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addInvalidType()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$invalidType</h4>
+<code>string</code><p>Class names</p></div>
+</div></div>
+</div>
+<a id="method_addInvalidTypes"></a><div class="element clickable method public method_addInvalidTypes" data-toggle="collapse" data-target=".method_addInvalidTypes .collapse">
+<h2>Add an array of types that have not been validated</h2>
+<pre>addInvalidTypes(array $invalidTypes) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addInvalidTypes()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$invalidTypes</h4>
+<code>array</code><p>Array of valid class names</p></div>
+</div></div>
+</div>
+<a id="method_addQuestionText"></a><div class="element clickable method public method_addQuestionText" data-toggle="collapse" data-target=".method_addQuestionText .collapse">
+<h2>Sets the question text for a given language</h2>
+<pre>addQuestionText(string $language, string $text) : <a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addQuestionText()</td>
+</tr>
+<tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code><p>The language to set the text for</p></div>
+<div class="subelement argument">
+<h4>$text</h4>
+<code>string</code><p>The question text for the given language</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></code></div>
+</div></div>
+</div>
+<a id="method_addQuestionTexts"></a><div class="element clickable method public method_addQuestionTexts" data-toggle="collapse" data-target=".method_addQuestionTexts .collapse">
+<h2>Sets the question texts for every language</h2>
+<pre>addQuestionTexts(array $texts) : <a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addQuestionTexts()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addQuestionTexts()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addQuestionTexts()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addQuestionTexts()</td>
+</tr>
+<tr>
+<th>fluent</th>
+<td>This method is part of a fluent interface and will return the same instance</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$texts</h4>
+<code>array</code><p>Array with language codes as keys and question texts as values</p></div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Question_Open_Text.html">\Webenq_Model_Question_Open_Text</a></code></div>
+</div></div>
+</div>
+<a id="method_addValidType"></a><div class="element clickable method public method_addValidType" data-toggle="collapse" data-target=".method_addValidType .collapse">
+<h2>Add a type that has been validated</h2>
+<pre>addValidType(string $validType) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addValidType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addValidType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addValidType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addValidType()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$validType</h4>
+<code>string</code><p>Class names</p></div>
+</div></div>
+</div>
+<a id="method_addValidTypes"></a><div class="element clickable method public method_addValidTypes" data-toggle="collapse" data-target=".method_addValidTypes .collapse">
+<h2>Add an array of types that have been validated</h2>
+<pre>addValidTypes(array $validTypes) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::addValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::addValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::addValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::addValidTypes()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$validTypes</h4>
+<code>array</code><p>Array of valid class names</p></div>
+</div></div>
+</div>
+<a id="method_answersGiven"></a><div class="element clickable method public method_answersGiven" data-toggle="collapse" data-target=".method_answersGiven .collapse">
+<h2>Checks if at least one answer is not-empty</h2>
+<pre>answersGiven(array $values) : bool</pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::answersGiven()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::answersGiven()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::answersGiven()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::answersGiven()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$values</h4>
+<code>array</code><p>Array with values</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>True if any answers, false otherwise</div>
+</div></div>
+</div>
+<a id="method_autocomplete"></a><div class="element clickable method public method_autocomplete" data-toggle="collapse" data-target=".method_autocomplete .collapse">
+<h2>autocomplete()
+        </h2>
+<pre>autocomplete($term, $lang, $limit) </pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::autocomplete()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::autocomplete()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::autocomplete()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::autocomplete()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$term</h4></div>
+<div class="subelement argument"><h4>$lang</h4></div>
+<div class="subelement argument"><h4>$limit</h4></div>
+</div></div>
+</div>
+<a id="method_count"></a><div class="element clickable method public method_count" data-toggle="collapse" data-target=".method_count .collapse">
+<h2>Counts the number of values</h2>
+<pre>count() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::count()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::count()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::count()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::count()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Number of values</div>
+</div></div>
+</div>
+<a id="method_countUnique"></a><div class="element clickable method public method_countUnique" data-toggle="collapse" data-target=".method_countUnique .collapse">
+<h2>Counts the number of unique values</h2>
+<pre>countUnique() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::countUnique()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::countUnique()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::countUnique()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::countUnique()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Number of unique values</div>
+</div></div>
+</div>
+<a id="method_countUniqueExcludingNullValues"></a><div class="element clickable method public method_countUniqueExcludingNullValues" data-toggle="collapse" data-target=".method_countUniqueExcludingNullValues .collapse">
+<h2>Counts the number of unique values, excluding null values</h2>
+<pre>countUniqueExcludingNullValues() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::countUniqueExcludingNullValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::countUniqueExcludingNullValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::countUniqueExcludingNullValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::countUniqueExcludingNullValues()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Number of unique values</div>
+</div></div>
+</div>
+<a id="method_diffLen"></a><div class="element clickable method public method_diffLen" data-toggle="collapse" data-target=".method_diffLen .collapse">
+<h2>Finds the maximum difference in length of the values</h2>
+<pre>diffLen() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::diffLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::diffLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::diffLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::diffLen()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Difference in length</div>
+</div></div>
+</div>
+<a id="method_factory"></a><div class="element clickable method public method_factory" data-toggle="collapse" data-target=".method_factory .collapse">
+<h2>Factors a question object of the right type</h2>
+<pre>factory(array $answers, string $language) : <a href="../classes/Webenq_Model_Question.html">\Webenq_Model_Question</a></pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>The provided data is used for detecting the proper question type,
+but is not included in the returned question object because answers
+can only be added to questions that are connected to a questionnaire
+(which is beyond the scope of this factory).</p></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::factory()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::factory()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::factory()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::factory()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$answers</h4>
+<code>array</code><p>Array of answer values to test against</p></div>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_Question.html">\Webenq_Model_Question</a></code></div>
+</div></div>
+</div>
+<a id="method_findByQuestionText"></a><div class="element clickable method public method_findByQuestionText" data-toggle="collapse" data-target=".method_findByQuestionText .collapse">
+<h2>findByQuestionText()
+        </h2>
+<pre>findByQuestionText($questionText, $language) </pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::findByQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::findByQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::findByQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::findByQuestionText()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$questionText</h4></div>
+<div class="subelement argument"><h4>$language</h4></div>
+</div></div>
+</div>
+<a id="method_getAnswerValues"></a><div class="element clickable method public method_getAnswerValues" data-toggle="collapse" data-target=".method_getAnswerValues .collapse">
+<h2>Returns the answer values</h2>
+<pre>getAnswerValues() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::getAnswerValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::getAnswerValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::getAnswerValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::getAnswerValues()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>An array with answer values</div>
+</div></div>
+</div>
+<a id="method_getInvalidTypes"></a><div class="element clickable method public method_getInvalidTypes" data-toggle="collapse" data-target=".method_getInvalidTypes .collapse">
+<h2>Gets all types for which this question would not validate</h2>
+<pre>getInvalidTypes() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::getInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::getInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::getInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::getInvalidTypes()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getQuestionText"></a><div class="element clickable method public method_getQuestionText" data-toggle="collapse" data-target=".method_getQuestionText .collapse">
+<h2>Gets the question text in the given, current or preferred language</h2>
+<pre>getQuestionText(string $language) : <a href="../classes/Webenq_Model_QuestionText.html">\Webenq_Model_QuestionText</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::getQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::getQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::getQuestionText()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::getQuestionText()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="http://php.net/manual/en/class.exception.php">\Exception</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/Webenq_Model_QuestionText.html">\Webenq_Model_QuestionText</a></code></div>
+</div></div>
+</div>
+<a id="method_getQuestionnaires"></a><div class="element clickable method public method_getQuestionnaires" data-toggle="collapse" data-target=".method_getQuestionnaires .collapse">
+<h2>Returns the questionnaires using this question</h2>
+<pre>getQuestionnaires() : \Doctrine_Collection</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::getQuestionnaires()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::getQuestionnaires()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::getQuestionnaires()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::getQuestionnaires()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>\Doctrine_Collection</code></div>
+</div></div>
+</div>
+<a id="method_getUniqueValues"></a><div class="element clickable method public method_getUniqueValues" data-toggle="collapse" data-target=".method_getUniqueValues .collapse">
+<h2>Returns unique values</h2>
+<pre>getUniqueValues() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::getUniqueValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::getUniqueValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::getUniqueValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::getUniqueValues()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getUniqueValuesExcludingNullValues"></a><div class="element clickable method public method_getUniqueValuesExcludingNullValues" data-toggle="collapse" data-target=".method_getUniqueValuesExcludingNullValues .collapse">
+<h2>Returns unique values</h2>
+<pre>getUniqueValuesExcludingNullValues() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::getUniqueValuesExcludingNullValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::getUniqueValuesExcludingNullValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::getUniqueValuesExcludingNullValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::getUniqueValuesExcludingNullValues()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_getValidTypes"></a><div class="element clickable method public method_getValidTypes" data-toggle="collapse" data-target=".method_getValidTypes .collapse">
+<h2>Gets all types for which this question would validate</h2>
+<pre>getValidTypes() : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::getValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::getValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::getValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::getValidTypes()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a id="method_isNumeric"></a><div class="element clickable method public method_isNumeric" data-toggle="collapse" data-target=".method_isNumeric .collapse">
+<h2>Determines whether the values are numeric values only</h2>
+<pre>isNumeric() : bool</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::isNumeric()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::isNumeric()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::isNumeric()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::isNumeric()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>True or false</div>
+</div></div>
+</div>
+<a id="method_isType"></a><div class="element clickable method public method_isType" data-toggle="collapse" data-target=".method_isType .collapse">
+<h2>Checks if the given result set validates for this type</h2>
+<pre>isType(\Webenq_Model_Question $question, string $language) : bool</pre>
+<div class="labels"><span class="label">Static</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$question</h4>
+<code><a href="../classes/Webenq_Model_Question.html">\Webenq_Model_Question</a></code><p>Question containing the answervalues to test against</p></div>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>bool</code>True if is this type, false otherwise</div>
+</div></div>
+</div>
+<a id="method_maxLen"></a><div class="element clickable method public method_maxLen" data-toggle="collapse" data-target=".method_maxLen .collapse">
+<h2>Finds the length of the value with the biggest lenth</h2>
+<pre>maxLen() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::maxLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::maxLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::maxLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::maxLen()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Length of the value with the biggest length</div>
+</div></div>
+</div>
+<a id="method_maxVal"></a><div class="element clickable method public method_maxVal" data-toggle="collapse" data-target=".method_maxVal .collapse">
+<h2>Finds the biggest value</h2>
+<pre>maxVal() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::maxVal()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::maxVal()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::maxVal()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::maxVal()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Biggest value</div>
+</div></div>
+</div>
+<a id="method_minLen"></a><div class="element clickable method public method_minLen" data-toggle="collapse" data-target=".method_minLen .collapse">
+<h2>Finds the length of the value with the smallest lenth</h2>
+<pre>minLen() : int</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::minLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::minLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::minLen()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::minLen()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>int</code>Length of the value with the smallest length</div>
+</div></div>
+</div>
+<a id="method_minVal"></a><div class="element clickable method public method_minVal" data-toggle="collapse" data-target=".method_minVal .collapse">
+<h2>Finds the smallest value</h2>
+<pre>minVal() : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::minVal()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::minVal()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::minVal()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::minVal()</td>
+</tr>
+</table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>Smallest value</div>
+</div></div>
+</div>
+<a id="method_preInsert"></a><div class="element clickable method public method_preInsert" data-toggle="collapse" data-target=".method_preInsert .collapse">
+<h2>preInsert()
+        </h2>
+<pre>preInsert($event) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::preInsert()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::preInsert()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::preInsert()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::preInsert()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$event</h4></div>
+</div></div>
+</div>
+<a id="method_search"></a><div class="element clickable method public method_search" data-toggle="collapse" data-target=".method_search .collapse">
+<h2>Searches the question repository for the given term in the given language.</h2>
+<pre>search(string $term, string $lang, $limit) : \Doctrine_Collection</pre>
+<div class="labels">
+<span class="label">Inherited</span><span class="label">Static</span>
+</div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>If no language is given, all languages are searched.</p></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::search()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::search()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::search()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::search()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$term</h4>
+<code>string</code>
+</div>
+<div class="subelement argument">
+<h4>$lang</h4>
+<code>string</code>
+</div>
+<div class="subelement argument"><h4>$limit</h4></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>\Doctrine_Collection</code>containing instances of Question</div>
+</div></div>
+</div>
+<a id="method_setAnswerValues"></a><div class="element clickable method public method_setAnswerValues" data-toggle="collapse" data-target=".method_setAnswerValues .collapse">
+<h2>Sets the answer values</h2>
+<pre>setAnswerValues(array $answers) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::setAnswerValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::setAnswerValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::setAnswerValues()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::setAnswerValues()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$answers</h4>
+<code>array</code><p>An array with answer values</p></div>
+</div></div>
+</div>
+<a id="method_setInvalidTypes"></a><div class="element clickable method public method_setInvalidTypes" data-toggle="collapse" data-target=".method_setInvalidTypes .collapse">
+<h2>Sets the types for which the data would not validate</h2>
+<pre>setInvalidTypes(array $types) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::setInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::setInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::setInvalidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::setInvalidTypes()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$types</h4>
+<code>array</code><p>Array of class names</p></div>
+</div></div>
+</div>
+<a id="method_setQuestionnaire"></a><div class="element clickable method public method_setQuestionnaire" data-toggle="collapse" data-target=".method_setQuestionnaire .collapse">
+<h2>setQuestionnaire()
+        </h2>
+<pre>setQuestionnaire(\Questionnaire $questionnaire) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::setQuestionnaire()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::setQuestionnaire()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::setQuestionnaire()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::setQuestionnaire()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$questionnaire</h4></div>
+</div></div>
+</div>
+<a id="method_setTableDefinition"></a><div class="element clickable method public method_setTableDefinition" data-toggle="collapse" data-target=".method_setTableDefinition .collapse">
+<h2>setTableDefinition()
+        </h2>
+<pre>setTableDefinition() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question::setTableDefinition()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::setTableDefinition()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::setTableDefinition()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::setTableDefinition()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::setTableDefinition()</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="method_setUp"></a><div class="element clickable method public method_setUp" data-toggle="collapse" data-target=".method_setUp .collapse">
+<h2>setUp()
+        </h2>
+<pre>setUp() </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::setUp()</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_setValidTypes"></a><div class="element clickable method public method_setValidTypes" data-toggle="collapse" data-target=".method_setValidTypes .collapse">
+<h2>Sets the types for which the data would validate</h2>
+<pre>setValidTypes(array $types) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::setValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::setValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::setValidTypes()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::setValidTypes()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$types</h4>
+<code>array</code><p>Array of class names</p></div>
+</div></div>
+</div>
+<a id="method__determineType"></a><div class="element clickable method protected method__determineType" data-toggle="collapse" data-target=".method__determineType .collapse">
+<h2>Determines the question type based on the data provided</h2>
+<pre>_determineType(\Webenq_Model_Question $callingObject, string $language) : <a href="../classes/Webenq_Model_Question.html">\Webenq_Model_Question</a></pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::_determineType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::_determineType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::_determineType()</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::_determineType()</td>
+</tr>
+</table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$callingObject</h4>
+<code><a href="../classes/Webenq_Model_Question.html">\Webenq_Model_Question</a></code><p>The calling object</p></div>
+<div class="subelement argument">
+<h4>$language</h4>
+<code>string</code>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/Webenq_Model_Question.html">\Webenq_Model_Question</a></code>An instance of Webenq_Model_Question</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_children"> </a><div class="element clickable property public property_children" data-toggle="collapse" data-target=".property_children .collapse">
+<h2></h2>
+<pre>$children : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property__answerValues"> </a><div class="element clickable property protected property__answerValues" data-toggle="collapse" data-target=".property__answerValues .collapse">
+<h2></h2>
+<pre>$_answerValues : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>Used for quickly storing answer values, i.e. by the factory
+method. Storing all answers as Webenq_Model_Answer objects
+would cause unnecessary overhead.</p></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::$$_answerValues</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::$$_answerValues</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::$$_answerValues</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::$$_answerValues</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property__invalidTypes"> </a><div class="element clickable property protected property__invalidTypes" data-toggle="collapse" data-target=".property__invalidTypes .collapse">
+<h2></h2>
+<pre>$_invalidTypes : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::$$_invalidTypes</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::$$_invalidTypes</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::$$_invalidTypes</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::$$_invalidTypes</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property__questionnaire"> </a><div class="element clickable property protected property__questionnaire" data-toggle="collapse" data-target=".property__questionnaire .collapse">
+<h2></h2>
+<pre>$_questionnaire </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::$$_questionnaire</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::$$_questionnaire</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::$$_questionnaire</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::$$_questionnaire</td>
+</tr>
+</table>
+</div></div>
+</div>
+<a id="property__validTypes"> </a><div class="element clickable property protected property__validTypes" data-toggle="collapse" data-target=".property__validTypes .collapse">
+<h2></h2>
+<pre>$_validTypes : array</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered">
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question::$$_validTypes</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open::$$_validTypes</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Question_Open::$$_validTypes</td>
+</tr>
+<tr>
+<th>inherited_from</th>
+<td>\Webenq_Model_Base_Question_Open_Text::$$_validTypes</td>
+</tr>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-03-20T15:13:07+01:00.<br></footer></div>
+</div>
+</body>
+</html>
