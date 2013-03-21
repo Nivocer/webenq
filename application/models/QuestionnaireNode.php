@@ -69,7 +69,7 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
             break;
             default:
                 $return=new Zend_Form_Element_Text('dummy-'.$this->id);
-                $return->setLabel($this->QuestionnaireElement->name);
+                $return->setLabel($this->QuestionnaireElement->getTranslation('text'));
                 return $return;
             break;
         }
