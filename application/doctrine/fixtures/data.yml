@@ -211,7 +211,6 @@ Webenq_Model_AnswerDomainChoice:
     min_choices: null
     max_choices: null
     AnswerDomainItem: AnswerDomainItem_1
-
   AnswerDomainChoice_2:
     Translation:
       en:
@@ -236,7 +235,7 @@ Webenq_Model_AnswerDomainItem:
     value: yesno
     children:
       AnswerDomainItem_1_1:
-        value: no
+        value: yes
         isNullValue: false
         isActive: true
         isHidden: false
@@ -246,7 +245,7 @@ Webenq_Model_AnswerDomainItem:
           nl:
             label: Ja
       AnswerDomainItem_1_2:
-        value: yes
+        value: no
         isNullValue: false
         isActive: true
         isHidden: false
