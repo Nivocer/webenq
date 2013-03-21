@@ -12,7 +12,7 @@
       <widgets ref="6" link="tab-answers-select.screen"/>
     </overrides>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="5" x="64" y="88" measuredWidth="628" measuredHeight="102" name="multilingual-text">
+  <widgets xsi:type="model:WidgetGroup" id="5" x="64" y="79" measuredWidth="628" measuredHeight="90" name="multilingual-text">
     <widgets xsi:type="model:TextField" id="6" x="107" width="521" text="How satisfied are you" measuredWidth="521" measuredHeight="21">
       <font/>
     </widgets>
@@ -25,7 +25,7 @@
     <widgets xsi:type="model:Label" id="9" y="54" width="47" text="French" measuredWidth="47" measuredHeight="21">
       <font/>
     </widgets>
-    <widgets xsi:type="model:List" id="10" x="107" y="21" width="396" height="81" text="How satisfied are you with the next items&#xA;How satisfied are you with your house&#xA;-- more texts starting with How satisfied are you with " measuredWidth="396" measuredHeight="81" selection="" alpha="192">
+    <widgets xsi:type="model:List" id="10" x="107" y="21" width="396" height="69" text="How satisfied are you with the next items&#xA;How satisfied are you with your house&#xA;-- more texts starting with How satisfied are you with " measuredWidth="396" measuredHeight="69" selection="" alpha="192">
       <font/>
       <items x="0" y="2" width="396" height="20" text="How satisfied are you with the next items"/>
       <items x="0" y="22" width="396" height="20" text="How satisfied are you with your house"/>
@@ -38,6 +38,25 @@
   <widgets xsi:type="model:Button" id="14" x="111" y="375" text="Next" measuredWidth="42" measuredHeight="23">
     <font/>
   </widgets>
+  <widgets xsi:type="model:Combo" id="16" x="144" y="201" text="...pick a set of answer options to reuse...&#xA;Country list (choice)&#xA;Feedback (text)&#xA;Gender (choice)&#xA;" measuredWidth="217" measuredHeight="81">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="17" x="64" y="293" text="Add new" measuredWidth="47" measuredHeight="21">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="18" x="144" y="293" text="...or add a new set of answer options...&#xA;Choice&#xA;Numeric&#xA;Text" measuredWidth="211" measuredHeight="81">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="19" x="64" y="201" text="Reuse" measuredWidth="36" measuredHeight="21">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="21" x="64" y="178" text="Select answer options" measuredWidth="142" measuredHeight="24">
+    <font size="13px" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:Hotspot" id="22" x="144" y="357" width="211" height="17" measuredWidth="211" measuredHeight="17" link="tab-answers-edit-text.screen"/>
+  <widgets xsi:type="model:Hotspot" id="23" x="144" y="335" width="211" height="23" measuredWidth="211" measuredHeight="23" link="tab-answers-edit-number.screen"/>
+  <widgets xsi:type="model:Hotspot" id="24" x="144" y="314" width="211" height="22" measuredWidth="211" measuredHeight="22" link="tab-answers-edit-choice.screen"/>
+  <widgets xsi:type="model:Hotspot" id="25" x="144" y="227" width="217" height="55" measuredWidth="217" measuredHeight="55" link="tab-options.screen"/>
   <hRuler/>
   <vRuler/>
   <font name="Arial" size="11px"/>
