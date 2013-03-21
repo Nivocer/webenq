@@ -26,7 +26,7 @@ Webenq_Model_Questionnaire:
     active: '1'
     meta: null
     weight: null
-    QuestionnaireNode: Webenq_Model_QuestionnaireNode_1
+    QuestionnaireNode: Webenq_Model_QuestionnaireNode_2
   Webenq_Model_Questionnaire_3:
     Category: Webenq_Model_Category_1
     Translation:
@@ -40,117 +40,212 @@ Webenq_Model_Questionnaire:
     active: '1'
     meta: null
     weight: null
-    QuestionnaireNode: Webenq_Model_QuestionnaireNode_1
+    QuestionnaireNode: Webenq_Model_QuestionnaireNode_3
 
-
+  
 Webenq_Model_QuestionnaireNode:
   Webenq_Model_QuestionnaireNode_1:
     QuestionnaireElement:
-      name: root node
       Translation:
         en:
           text: root node
         nl:
           text: root node
     children:
-      QuestionnairePageNode_1:
+      QuestionnairePageNode_1_1:
         type: QuestionnairePageNode
         QuestionnaireElement:
-          name: page 1
+          type: QuestionnairePageElement
           Translation:
             en:
               text: page 1
             nl:
               text: pagina 1
         children:
-          QuestionnaireTextNode_1_1:
+          QuestionnaireTextNode_1_1_1:
             type: QuestionnaireTextNode
             QuestionnaireElement:
-              name: introduction text page 1
+              type: QuestionnaireTextElement
               Translation:
                 en:
-#                  name: introduction text page 1
                   text: Welcome to this test questionnaire
                 nl:
-#                  name: introductietekst pagina 1
                   text: Welkom bij deze testvragenlijst
-          QuestionnaireQuestionNode_1_2:
+          QuestionnaireQuestionNode_1_1_2:
             type: QuestionnaireQuestionNode
             QuestionnaireElement:
-              name: question 1 page 1
+              type: QuestionnaireQuestionElement
               Translation:
                 en:
-#                  name: question 1 page 1
-                  text: question 1 page 1
+                  text: What is your age?
                 nl:
-                  text: vraag 1, pagina 1
-#                  name: vraag 1, pagina 1
-          QuestionnaireQuestionNode_1_3:
+                  text: Wat is je leeftijd?
+          QuestionnaireQuestionNode_1_1_3:
             type: QuestionnaireQuestionNode
             QuestionnaireElement:
-              name: question 2 page 1
+              type: QuestionnaireQuestionElement
               Translation:
                 en:
-#                  name: question 2 page 1
-                  text: question 2 page 1
+                  text: What is your gender?
                 nl:
-                  text: vraag 2, pagina 1
-#                  name: vraag 2, pagina 1
-      QuestionnairePageNode_2:
+                  text: Wat is je geslacht?
+              #AnswerDomain: AnswerDomainChoice_3
+          QuestionnaireQuestionNode_1_1_4:
+            type: QuestionnaireQuestionNode
+            QuestionnaireElement:
+              type: QuestionnaireQuestionElement
+              Translation:
+                en:
+                  text: In which country do you live?
+                nl:
+                  text: In welk land woon je?
+      QuestionnairePageNode_1_2:
         type: QuestionnairePageNode
         QuestionnaireElement:
-          name: page 2
+          type: QuestionnairePageElement
           Translation:
             en:
               text: page 2
-#              name: page 2
             nl:
               text: pagina 2
-#              name: pagina 2
         children:
-          QuestionnaireTextNode_2_1:
+          QuestionnaireTextNode_1_2_1:
             type: QuestionnaireTextNode
             QuestionnaireElement:
-              name: introduction text page 2
+              type: QuestionnaireTextElement
               Translation:
                 en:
                   text: Introduction text page 2
                 nl:
                   text: Introductietekst pagina 2
+          QuestionnaireGroupNode_1_2_1:
+            type: QuestionnaireGroupNode
+            QuestionnaireElement:
+              type: QuestionnaireGroupElement
+            children:
+              QuestionnaireTextNode_1_2_1_1:
+                type: QuestionnaireTextNode
+                QuestionnaireElement:
+                  type: QuestionnaireTextElement
+                  Translation:
+                    en:
+                      text: To what extend do you agree on....
+                    nl:
+                      text: In hoeverre ben je het eens met ....
+              QuestionnaireQuestionNode_1_2_1_2:
+                type: QuestionnaireQuestionNode
+                QuestionnaireElement:
+                  type: QuestionnaireQuestionElement
+                  Translation:
+                    en:
+                      text: topic 1
+                    nl:
+                      text: onderwerp 1
+                  #AnswerDomain: AnswerDomainChoice_2
+              QuestionnaireQuestionNode_1_2_1_3:
+                type: QuestionnaireQuestionNode
+                QuestionnaireElement:
+                  type: QuestionnaireQuestionElement
+                  Translation:
+                    en:
+                      text: topic 2
+                    nl:
+                      text: onderwerp 2
+                  #AnswerDomain: AnswerDomainChoice_2
+  Webenq_Model_QuestionnaireNode_2:
+    QuestionnaireElement:
+      Translation:
+        en:
+          text: root node
+        nl:
+          text: root node
+    children:
+      QuestionnairePageNode_2_1:
+        type: QuestionnairePageNode
+        QuestionnaireElement:
+          type: QuestionnairePageElement
+          Translation:
+            en:
+              text: page 1
+            nl:
+              text: pagina 1
+        children:
+          QuestionnaireTextNode_2_1_1:
+            type: QuestionnaireTextNode
+            QuestionnaireElement:
+              type: QuestionnaireTextElement
+              Translation:
+                en:
+                  text: Welcome to the second test questionnaire
+                nl:
+                  text: Welkom bij de tweede testvragenlijst
+          QuestionnaireQuestionNode_2_1_2:
+            type: QuestionnaireQuestionNode
+            QuestionnaireElement:
+              type: QuestionnaireQuestionElement
+              Translation:
+                en:
+                  text: What is your age?
+                nl:
+                  text: Wat is je leeftijd?
+          QuestionnaireQuestionNode_2_1_3:
+            type: QuestionnaireQuestionNode
+            QuestionnaireElement:
+              type: QuestionnaireQuestionElement
+              Translation:
+                en:
+                  text: What is your gender?
+                nl:
+                  text: Wat is je geslacht?
+              #AnswerDomain: AnswerDomainChoice_3
+  Webenq_Model_QuestionnaireNode_3:
+    QuestionnaireElement:
+      Translation:
+        en:
+          text: root node
+        nl:
+          text: root node
+    children:
+      QuestionnairePageNode_3_1:
+        type: QuestionnairePageNode
+        QuestionnaireElement:
+          type: QuestionnairePageElement
+          Translation:
+            en:
+              text: page 1
+            nl:
+              text: pagina 1
+        children:
+          QuestionnaireTextNode_3_1_1:
+            type: QuestionnaireTextNode
+            QuestionnaireElement:
+              type: QuestionnaireTextElement
+              Translation:
+                en:
+                  text: Welcome to this third test questionnaire
+                nl:
+                  text: Welkom bij deze derde testvragenlijst
+          QuestionnaireQuestionNode_3_1_2:
+            type: QuestionnaireQuestionNode
+            QuestionnaireElement:
+              type: QuestionnaireQuestionElement
+              Translation:
+                en:
+                  text: What is your age?
+                nl:
+                  text: Wat is je leeftijd?
+          QuestionnaireQuestionNode_3_1_3:
+            type: QuestionnaireQuestionNode
+            QuestionnaireElement:
+              type: QuestionnaireQuestionElement
+              Translation:
+                en:
+                  text: What is your gender?
+                nl:
+                  text: Wat is je geslacht?
+              #AnswerDomain: AnswerDomainChoice_3
 
-#      QuestionnairePageNode_3:
-#        type: QuestionnairePageNode
-#        QuestionnaireElement:
-#          name: group on page 2
-#          Translation:
-#            en:
-#              #name: group on page 2
-#              text: Introduction text group on page 2
-#            nl:
-#              #name: groep op pagina 2
-#              text: Introductie tekst groep op pagina 2
-#          children:
-#            QuestionnaireTextNode_3_1:
-#              type: QuestionnaireTextNode
-#              QuestionnaireElement:
-#                name: introduction text in group
-#                Translation:
-#                  en:
-#                    text: Introduction text in group
-#                  nl:
-#                    text: Introductietekst in groep
-#            QuestionnaireQuestionNode_3_2:
-#              type: QuestionnaireQuestionNode
-#              QuestionnaireElement:
-#                name: question 1 page 2 in group
-#                Translation:
-#                  en:
-#                    #name: question 1 page 2 in group
-#                    text: question 1 on page 2 in group
-#                  nl:
-#                    text: vraag 1, pagina 2 in groep
-#                    #name: vraag 1, pagina 2 in group
-    
+
   
 Webenq_Model_Category:
   Webenq_Model_Category_1:
