@@ -21,13 +21,13 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
      * @todo check function
      *
      */
-    public function save(Doctrine_Connection $conn = null)
+    public function xsave(Doctrine_Connection $conn = null)
     {
         if ($this->QuestionnaireElement->isModified()) {
             if (1 < Doctrine_Query::create()
                 ->select('COUNT(id)')
                 ->from('Webenq_Model_QuestionnaireNode qn')
-                ->where('qn.element_id = ?', $this->QuestionnaireElement->id)->count()) {
+                ->where('qn.questionnaire_element_id = ?', $this->QuestionnaireElement->id)->count()) {
                 $this->QuestionnaireElement = clone $this->QuestionnaireElement;
                 $this->QuestionnaireElement->save($conn);
                 $this->element_id = $this->QuestionnaireElement->id;
