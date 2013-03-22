@@ -83,14 +83,9 @@ QuestionnaireElement:
     active: boolean
     required: boolean
     answer_domain_id: integer
-    # hash: string
-    # advanced save feature for later: md5($this->toArray()->serialize()), then
-    # change save to check if the md5 hash already exists - if so, use the id
-    # of the record instead of creating a new record
   relations:
     AnswerDomain:
 
-      
 QuestionnaireGroupElement:
   inheritance: 
     extends: QuestionnaireElement
@@ -136,6 +131,7 @@ AnswerDomainNumeric:
   columns:
     min: float
     max: float
+    missing: float
 AnswerDomainChoice:
   inheritance:
     extends: AnswerDomain

@@ -315,11 +315,20 @@ form .hint {
     padding-left: 0.4em;
 }
 
+/* fieldset */
+fieldset {
+    border:0;
+    padding: 0;
+}
+
+fieldset dd p.description {
+    display: inline;
+    color: #777;
+}
+
 /* present form elements in display group as table */
 fieldset.table {
     display: table;
-    border: 0;
-    padding: 0; 
 }
 
 fieldset.table dl {
@@ -334,4 +343,44 @@ fieldset.table dl dd {
   
 fieldset.table label {
     margin-left: 0; 
+}
+
+/* present form elements in display group as list */
+fieldset.list dt,
+fieldset.list dd {
+    display: inline;
+}
+
+fieldset.list dd,
+fieldset.list label {
+    margin-left: 0;
+}
+
+dd fieldset.list {
+    margin-left: -2em; 
+}
+
+fieldset.list dd:after {
+    content: "\A";
+    white-space: pre;
+}
+
+/* present form elements in display group as checkbox list (label after element) */
+fieldset.optionlist dt,
+fieldset.optionlist dd {
+    display: inline;
+}
+
+fieldset.optionlist dd,
+fieldset.optionlist label {
+    margin-left: 0;
+}
+
+dd fieldset.optionlist {
+    margin-left: -2em; 
+}
+
+fieldset.optionlist dt:after {
+    content: "\A";
+    white-space: pre;
 }

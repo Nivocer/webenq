@@ -30,13 +30,57 @@
  */
 class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
 {
-    /*
-     * Return the available answer options types
+    /**
+     * Return the available answer domain types
+     *
+     * @return Array List of available answer domain types
      */
     public static function getAvailableTypes()
     {
-        return array('choice','numeric','text');
+        return array(
+            'Choice' => array(
+                'label' => ''
+            ),
+            'Numeric' => array(
+                'label' => ''
+            ),
+            'Text' => array(
+                'label' => ''
+            )
+        );
     }
 
+    /**
+     * Return the available presentation formats
+     *
+     * @return Array List of available presentation formats
+     */
+    public static function getAvailablePresentations()
+    {
+        return array(
+            'Text' => array(
+                'label' => ''
+            )
+        );
+    }
 
+    /**
+     * Return the available validators for the answer domain type.
+     *
+     * @return Array List of available validators
+     */
+    public static function getAvailableValidators()
+    {
+        return array();
+    }
+
+    /**
+     * Return the available filters for the answer domain type.
+     *
+     * @return Array List of available filters
+     */
+    public static function getAvailableFilters()
+    {
+        return array();
+    }
 }
