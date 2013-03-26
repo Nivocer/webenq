@@ -178,14 +178,14 @@ class Zend_View_Helper_QuestionElement extends Zend_View_Helper_Abstract
 
         $html = '
             <div class="admin">
-                <div class="handle" title="Sleep de vraag naar een andere positie of andere pagina"></div>
+                <div class="handle" title="'.t('Move question to other position or page').'"></div>
                 <div class="options">';
 
         if (!$isSubQuestion) $html .= t('move to page') . $pageSelect;
 
-        $html .= '  <a class="ajax icon edit" title="bewerken" href="' .
+        $html .= '  <a class="ajax icon edit" title="'.t('edit').'" href="' .
             $view->baseUrl('/questionnaire-question/edit/id/' . $qq->id) . '">&nbsp;</a>
-                    <a class="ajax icon delete" title="verwijderen" href="' .
+                    <a class="ajax icon delete" title="'.t('delete').'" href="' .
                         $view->baseUrl('/questionnaire-question/delete/id/' . $qq->id) . '">&nbsp;
                     </a>
                 </div>
