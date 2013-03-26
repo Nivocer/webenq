@@ -35,6 +35,7 @@ class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
      *
      * @return Array List of available answer domain types
      */
+
     public static function getAvailableTypes()
     {
         return array(
@@ -47,6 +48,21 @@ class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
             'Text' => array(
                 'label' => ''
             )
+        );
+    }
+    public static function getAvailablePrestentationMethods(){
+        return array(
+            t('Zend_Form_Element_Textarea'),
+            t('Zend_Form_Element_Text'),
+            t('ZendX_JQuery_Form_Element_AutoComplete'),
+
+            t('Zend_Form_Element_File'),
+            t('ZendX_JQuery_Form_Element_Slider'),
+            t('Zend_Form_Element_Radio'),
+            t('Zend_Form_Element_Select'),
+            t('Zend_Form_Element_MultiCheckbox'),
+            t('Zend_Form_Element_Checkbox'),
+            t('Zend_Form_Element_Image'),
         );
     }
 

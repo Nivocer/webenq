@@ -26,6 +26,7 @@
  * Answer domain class definition
  *
  * @package    Webenq_Models
+ * @subpackage
  * @author     Nivocer <webenq@nivocer.com>
  */
 class Webenq_Model_AnswerDomainNumeric extends Webenq_Model_Base_AnswerDomainNumeric
@@ -75,9 +76,16 @@ class Webenq_Model_AnswerDomainNumeric extends Webenq_Model_Base_AnswerDomainNum
     public static function getAvailableFilters()
     {
         return array(
-                'StringTrim' => array(
-                        'label' => 'Remove spaces, tabs and line breaks from the beginning and the end'
+            'StringTrim' => array(
+                'label' => 'Remove spaces, tabs and line breaks from the beginning and the end'
                 ),
+            );
+    }
+    //todo merge with getAvailablePresentations
+    public static function getAvailablePrestentationMethods(){
+        return array(
+            t('Zend_Form_Element_Text'),
+            t('ZendX_JQuery_Form_Element_Slider'),
         );
     }
 

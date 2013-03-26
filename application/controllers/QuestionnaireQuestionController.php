@@ -89,16 +89,15 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
         $questionnaireNode=new Webenq_Model_QuestionnaireNode();
         $questionnaireQuestion=$questionnaireNode->getTable()->find($this->_request->id);
+        $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
 
         if (!$questionnaireQuestion){
             $this->_redirect('/questionnaire/');
             return;
         }
         // get form
-        $info['suggestions']=array();
-        //$info['suggestions']=Webenq_Model_QuestionnaireQuestion::getAnswerOptions($questionnaireQuestion->QuestionnaireElement->getTranslation('text'));
-        $info['presentation']=Webenq_Model_QuestionnaireQuestion::getAvailablePresentationMethod($questionnaireQuestion->QuestionnaireElement->AnswerDomain->type);
-        $form = new Webenq_Form_QuestionnaireQuestion_Edit($info);
+
+        $form = new Webenq_Form_Question_Properties($answerDomainType);
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         // process form

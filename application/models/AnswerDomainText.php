@@ -26,10 +26,13 @@
  * Answer domain class definition
  *
  * @package    Webenq_Models
+ * @package    Webenq_Models
+ * @subpackage
  * @author     Nivocer <webenq@nivocer.com>
  */
 class Webenq_Model_AnswerDomainText extends Webenq_Model_Base_AnswerDomainText
 {
+
     /**
      * Return the available presentation formats
      *
@@ -78,7 +81,15 @@ class Webenq_Model_AnswerDomainText extends Webenq_Model_Base_AnswerDomainText
             'StringTrim' => array(
                 'label' => 'Remove spaces, tabs and line breaks from the beginning and the end'
             ),
+
         );
     }
-
+    //todo merge with getAvailablePresentations
+    public static function getAvailablePrestentationMethods(){
+        return array(
+            t('Zend_Form_Element_Textarea'),
+            t('Zend_Form_Element_Text'),
+            t('Zend_Form_Element_File'),
+        );
+    }
 }

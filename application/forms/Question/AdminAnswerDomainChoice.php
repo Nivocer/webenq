@@ -17,30 +17,29 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package    Webenq_Models
+ * @package    Webenq_Questionnaires_Manage
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
- * Answer domain class definition
+ * Form class
  *
- *
- * @package    Webenq_Models
- * @subpackage
- * @author     Nivocer <webenq@nivocer.com>
+ * @package    Webenq_Questionnaires_Manage
+ * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoice
+class Webenq_Form_Question_AdminAnswerDomainChoice extends Webenq_Form_Question_AdminAnswerDomain
 {
-//todo merge with getAvailablePresentations (not yet implemented in this class
-public static function getAvailablePrestentationMethods(){
-        return array(
-            t('Zend_Form_Element_Radio'),
-            t('Zend_Form_Element_Select'),
-            t('ZendX_JQuery_Form_Element_Slider'),
-            t('Zend_Form_Element_MultiCheckbox'),
-            t('Zend_Form_Element_Text'),
-            t('ZendX_JQuery_Form_Element_AutoComplete')
-        );
-    }
+
+     public function optionsForm(){
+        /* options form/tab */
+        //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
+        parent::$_presentationOptions=Webenq_Model_AnswerDomainChoice::getAvailablePrestentationMethods();
+
+        // only for choice
+        $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');
+        $numberOfAnswers->setLabel('How many answers are allowed');
+        $this->addElement($numberOfAnswers);
+        parent::optionsForm();
+     }
 }
