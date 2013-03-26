@@ -9,14 +9,15 @@
  * @property array $validators
  * @property array $filters
  * @property array $options
+ * @property integer $answer_domain_item_id
  * @property string $type
  * @property integer $min_length
  * @property integer $max_length
  * @property float $min
  * @property float $max
- * @property integer $answer_domain_item_id
  * @property integer $min_choices
  * @property integer $max_choices
+ * @property Webenq_Model_AnswerDomainItem $AnswerDomainItem
  * @property Doctrine_Collection $QuestionnaireElement
  * 
  * @package    Webenq_Models
@@ -41,6 +42,9 @@ abstract class Webenq_Model_Base_AnswerDomain extends Doctrine_Record
         $this->hasColumn('options', 'array', null, array(
              'type' => 'array',
              ));
+        $this->hasColumn('answer_domain_item_id', 'integer', null, array(
+             'type' => 'integer',
+             ));
         $this->hasColumn('type', 'string', 255, array(
              'type' => 'string',
              'length' => 255,
@@ -56,9 +60,6 @@ abstract class Webenq_Model_Base_AnswerDomain extends Doctrine_Record
              ));
         $this->hasColumn('max', 'float', null, array(
              'type' => 'float',
-             ));
-        $this->hasColumn('answer_domain_item_id', 'integer', null, array(
-             'type' => 'integer',
              ));
         $this->hasColumn('min_choices', 'integer', null, array(
              'type' => 'integer',
@@ -86,6 +87,10 @@ abstract class Webenq_Model_Base_AnswerDomain extends Doctrine_Record
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Webenq_Model_AnswerDomainItem as AnswerDomainItem', array(
+             'local' => 'answer_domain_item_id',
+             'foreign' => 'id'));
+
         $this->hasMany('Webenq_Model_QuestionnaireElement as QuestionnaireElement', array(
              'local' => 'id',
              'foreign' => 'answer_domain_id'));

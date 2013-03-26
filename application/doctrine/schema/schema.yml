@@ -116,7 +116,10 @@ AnswerDomain:
     filters: array
     options: array # contains default properties that the Question can override,
                    # e.g. presentation form, textfield width & height, show null values
-
+    answer_domain_item_id: integer
+  relations:
+    AnswerDomainItem:
+    
 AnswerDomainText:
   inheritance:
     extends: AnswerDomain
@@ -137,7 +140,6 @@ AnswerDomainChoice:
     extends: AnswerDomain
     type: column_aggregation
   columns:
-    answer_domain_item_id: integer
     min_choices: integer
     max_choices: integer
   relations:
