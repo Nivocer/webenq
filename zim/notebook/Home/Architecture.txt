@@ -12,10 +12,14 @@ Questionnaires can be exported to Xforms and then imported into Open Data Kit (O
 
 [[https://github.com/Nivocer/webenq/blob/master/INSTALL|Installation instructions and detailed requirements are provided in an INSTALL file with the source code.]]
 
-===== PHP/Zend =====
-See the Directory layout for an overview of the source code.
-See the Developing section for specifics on developing features for WebEnq.
-See Testing for the unit testing documentation
+===== PHP/Zend/Doctrine =====
+* PHP 5.3+
+* Zend 1.10.8 (bundled)
+* Doctrine 1.2.4
+
+See the [[:Home:Directory layout|Directory layout]] for an overview of the source code.
+See the [[:Home:Developing|Developing]] section for specifics on developing features for WebEnq.
+See [[:Tools:Testing|Testing]] for the unit testing documentation
 
 ===== Jasper =====
 If survey data is processed in a batch, it is sufficient to have Jasper running for only the duration of those batches, for instance on a local machine.
