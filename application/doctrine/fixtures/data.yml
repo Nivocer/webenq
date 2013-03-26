@@ -65,6 +65,7 @@ Webenq_Model_QuestionnaireElement:
         text: What is your age?
       nl:
         text: Wat is je leeftijd?
+    AnswerDomain: AnswerDomainNumeric_Age
   QuestionnaireQuestionElement_1_1_3:
     type: QuestionnaireQuestionElement
     Translation:
@@ -80,6 +81,7 @@ Webenq_Model_QuestionnaireElement:
         text: In which country do you live?
       nl:
         text: In welk land woon je?
+    AnswerDomain: AnswerDomainText_1
   QuestionnairePageElement_1_2:
     type: QuestionnairePageElement
     Translation:
@@ -141,6 +143,7 @@ Webenq_Model_QuestionnaireElement:
         text: What is your age?
       nl:
         text: Wat is je leeftijd?
+    AnswerDomain: AnswerDomainNumeric_Age
   QuestionnaireQuestionElement_2_1_3:
     type: QuestionnaireQuestionElement
     Translation:
@@ -176,6 +179,7 @@ Webenq_Model_QuestionnaireElement:
         text: What is your age?
       nl:
         text: Wat is je leeftijd?
+    AnswerDomain: AnswerDomainNumeric_Age
   QuestionnaireQuestionElement_3_1_3:
     type: QuestionnaireQuestionElement
     Translation:
@@ -306,6 +310,15 @@ Webenq_Model_AnswerDomainNumeric:
         name: Numeriek
     min: null
     max: null
+
+  AnswerDomainNumeric_Age:
+    Translation:
+      en:
+        name: Age 
+      nl:
+        name: Leeftijd
+    min: 0
+    max: 110
 
 Webenq_Model_AnswerDomainChoice:
   AnswerDomainChoice_1:
