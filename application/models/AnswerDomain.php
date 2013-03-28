@@ -30,6 +30,11 @@
  */
 class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
 {
+    public static function getAll(){
+        $answerDomain=Doctrine_Core::getTable('Webenq_Model_AnswerDomain')->findAll();
+        return $answerDomain;
+    }
+
     /**
      * Return the available answer domain types
      *
@@ -40,13 +45,13 @@ class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
     {
         return array(
             'Choice' => array(
-                'label' => ''
+                'label' => 'Choice'
             ),
             'Numeric' => array(
-                'label' => ''
+                'label' => 'Numeric'
             ),
             'Text' => array(
-                'label' => ''
+                'label' => 'Text'
             )
         );
     }

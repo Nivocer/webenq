@@ -72,12 +72,21 @@ class Webenq_Form_Question_Question extends Zend_Form
         $reuse=new Zend_Form_Element_Select('reuse');
         $reuse->setLabel('Reuse');
         //$reuse->addMultipleOption(array(0=>t('pick a set of answers options to reuse')));
-        $reuse->addMultiOptions(array_merge(array(0=>t('...pick a set of answers options to reuse...')),Webenq_Model_QuestionnaireQuestion::getAnswerOptions()));
+        $reuse->addMultiOption(0,t('...pick a set of answers options to reuse...'));
+
+        foreach (Webenq_Model_AnswerDomain::getAll() as $answerDomain){
+            $formOptions[$answerDomain->id]=$answerDomain->getTranslation('name').' ('. t($answerDomain->type).')';
+        }
+        asort($formOptions);
+        $reuse->addMultiOptions($formOptions);
         $this->addElement($reuse);
 
         $new=new Zend_Form_Element_Select('new');
         $new->setLabel('Add new');
-        $new->addMultiOptions(array_merge(array(0=>t('...or add a new set of answer options...')),Webenq_Model_AnswerDomain::getAvailableTypes()));
+        $new->addMultiOption(0,t('...or add a new set of answer options...'));
+        foreach (Webenq_Model_AnswerDomain::getAvailableTypes() as $key=>$value) {
+            $new->addMultiOption($key,$value['label']);
+        }
         $this->addElement($new);
 
         $submitQuestionNext=new Zend_Form_Element_Submit('next');
