@@ -60,6 +60,15 @@ Webenq_Model_QuestionnaireElement:
         text: Welkom bij deze testvragenlijst
   QuestionnaireQuestionElement_1_1_2:
     type: QuestionnaireQuestionElement
+    options:
+      answersettings:
+        min: 10
+        max: 20
+      options:
+        presentation: Input
+        presentationWidth: 10
+        active: true
+        required: true
     Translation:
       en:
         text: What is your age?
@@ -68,6 +77,12 @@ Webenq_Model_QuestionnaireElement:
     AnswerDomain: AnswerDomainNumeric_Age
   QuestionnaireQuestionElement_1_1_3:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: radio
+        numberOfAnswers: 1
+        active: true
+        required: true
     Translation:
       en:
         text: What is your gender?
@@ -76,6 +91,12 @@ Webenq_Model_QuestionnaireElement:
     AnswerDomain: AnswerDomainChoice_Gender
   QuestionnaireQuestionElement_1_1_4:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: text
+        presentationWidth: 70
+        active: true
+        required: true
     Translation:
       en:
         text: In which country do you live?
@@ -107,6 +128,11 @@ Webenq_Model_QuestionnaireElement:
         text: In hoeverre ben je het eens met ....
   QuestionnaireQuestionElement_1_2_1_2:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: slider
+        active: true
+        required: false
     Translation:
       en:
         text: topic 1
@@ -115,6 +141,11 @@ Webenq_Model_QuestionnaireElement:
     AnswerDomain: AnswerDomainChoice_2
   QuestionnaireQuestionElement_1_2_1_3:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: slider
+        active: true
+        required: true
     Translation:
       en:
         text: topic 2
@@ -138,6 +169,12 @@ Webenq_Model_QuestionnaireElement:
         text: Welkom bij de tweede testvragenlijst
   QuestionnaireQuestionElement_2_1_2:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: text
+        presentationWidth: 10
+        active: true
+        required: false
     Translation:
       en:
         text: What is your age?
@@ -146,6 +183,12 @@ Webenq_Model_QuestionnaireElement:
     AnswerDomain: AnswerDomainNumeric_Age
   QuestionnaireQuestionElement_2_1_3:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: radio
+        numberOfAnswers: 1
+        active: true
+        required: true
     Translation:
       en:
         text: What is your gender?
@@ -174,6 +217,12 @@ Webenq_Model_QuestionnaireElement:
         text: Welkom bij deze derde testvragenlijst
   QuestionnaireQuestionElement_3_1_2:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: text
+        presentationWidth: 10
+        active: true
+        required: false
     Translation:
       en:
         text: What is your age?
@@ -182,6 +231,12 @@ Webenq_Model_QuestionnaireElement:
     AnswerDomain: AnswerDomainNumeric_Age
   QuestionnaireQuestionElement_3_1_3:
     type: QuestionnaireQuestionElement
+    options:
+      options:
+        presentation: radio
+        numberOfAnswers: 1
+        active: true
+        required: true
     Translation:
       en:
         text: What is your gender?

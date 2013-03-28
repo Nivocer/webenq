@@ -107,7 +107,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 if (isset($newValues['question']['id']) && $newValues['question']['id']==$questionnaireQuestion->get('id')) {
                     $questionnaireQuestion->fromArray($newValues);
 //                    @todo activated save
-                    //$questionnaireQuestionnaire->save();
+//                    $questionnaireQuestion->save();
 
                     $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('error')
@@ -120,8 +120,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     ->addMessage(
                         sprintf(
                             t('Question "%s" updated succesfully'),
-                            //@todo check questiontexst
-                            $questionnaireQuestion->getQuestionText()->text
+                            //@todo check questiontext
+                            $questionnaireQuestion->QuestionnaireElement->getTranslation('text')
                         )
                     );
                 } else {
@@ -163,7 +163,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         }
         //info needed for form
         $form->setDefaults($questionnaireQuestion->toArray());
-
         $this->view->form = $form;
         $this->view->questionnaireQuestion = $questionnaireQuestion;
     }

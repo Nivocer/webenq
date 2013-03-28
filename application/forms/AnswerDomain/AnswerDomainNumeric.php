@@ -41,7 +41,7 @@ class Webenq_Form_AnswerDomain_AnswerDomainNumeric extends Zend_Form
     {
         $this->setName(get_class($this));
 
-        $id = new Zend_Form_Element_Hidden('id');
+        $id = new Zend_Form_Element_Hidden('answerDomainId');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
         $this->addElement($id);

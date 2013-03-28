@@ -74,4 +74,65 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
             break;
         }
     }
+    public function toArray($deep = true, $prefixKey = false)
+    {
+        $result = parent::toArray($deep, $prefixKey);
+        if (isset($this->id)) {
+            $result['question']['id']=$this->id;
+        }
+        foreach ($this->QuestionnaireElement->Translation as $lang=>$translation) {
+            if (isset($translation->text)) {
+                //$result['question'][$lang] = $translation->text;
+                $result['question']['text'][$lang] = $translation->text;
+            }
+        }
+
+        if (isset($this->QuestionnaireElement->answer_domain_id)){
+            $result['question']['reuse']=$this->QuestionnaireElement->answer_domain_id;
+        }
+
+        if (isset($this->QuestionnaireElement->AnswerDomain)){
+            $result['answerOptions']['answersettings']=$this->QuestionnaireElement->AnswerDomain->toArray();
+            $result['answerOptions']['answersettings']['name']=$this->QuestionnaireElement->AnswerDomain->getTranslation('name');
+        }
+        foreach ($this->QuestionnaireElement->options['answersettings'] as $key=>$value){
+            $result['answerOptions']['answersettings'][$key]=$value;
+        }
+        if (isset($this->QuestionnaireElement->options['options'])){
+            $result['options']=$this->QuestionnaireElement->options['options'];
+        }
+        return $result;
+    }
+
+    /*
+     * untested
+     */
+    public function fromArray(array $array, $deep = true)
+    {
+        $language = Zend_Registry::get('Zend_Locale')->getLanguage();
+        parent::fromArray($array, $deep);
+            if (isset($array['question']['id'])) {
+                $this->id=$array['question']['id'];
+            }
+            if (isset($array['question']) && is_array($array['question'])) {
+            foreach ($array['question'] as $language => $text) {
+                if ($text) {
+                    $this->QuestionnaireElement->Translation[$language]->text = $text;
+                }
+            }
+            if (isset($array['reuse'])){
+                $this->QuestionnaireElement->answer_domain_id=$array['reuse'];
+            }
+            //changes need to be stored in options, not in aswerdomain.
+            if (isset($array['answerOptions']['answersettings'])){
+                $this->QuestionnaireElement->options['answersettings']=$array['answerOptions']['answersettings'];
+            }
+            if (isset($array['answerOptions']['answersettings']['name'])){
+                $this->QuestionnaireElement->AnswerDomain->Translation[$language]->name=$array['answerOptions']['answersettings']['name'];
+            }
+
+            $result['answerOptions']['answersettings']['name']=$this->QuestionnaireElement->AnswerDomain->getTranslation('name');
+        }
+    }
+
 }

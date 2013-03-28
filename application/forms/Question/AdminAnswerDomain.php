@@ -53,7 +53,7 @@ class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form
 
 
         //@todo dependent of presentation method, use javascript/ajax
-        $presentationWidth=new Zend_Form_Element_text('presentationWith');
+        $presentationWidth=new Zend_Form_Element_text('presentationWidth');
         $presentationWidth->setLabel('Width of answer box');
         $presentationWidth->setDescription('todo: js-> only display if presentation is open');
         $this->addElement($presentationWidth);
