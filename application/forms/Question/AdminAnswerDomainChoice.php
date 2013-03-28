@@ -34,7 +34,7 @@ class Webenq_Form_Question_AdminAnswerDomainChoice extends Webenq_Form_Question_
      public function optionsForm(){
         /* options form/tab */
         //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
-        parent::$_presentationOptions=Webenq_Model_AnswerDomainChoice::getAvailablePrestentationMethods();
+        parent::$_presentationOptions=Webenq_Model_AnswerDomainChoice::getAvailablePresentations();
 
         // only for choice
         $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');

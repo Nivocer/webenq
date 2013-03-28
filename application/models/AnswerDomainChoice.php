@@ -32,15 +32,38 @@
  */
 class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoice
 {
-//todo merge with getAvailablePresentations (not yet implemented in this class
-public static function getAvailablePrestentationMethods(){
+//todo merge with getAvailablePresentations (not yet implemented in this class)
+    public static function getAvailablePresentations()
+    {
         return array(
-            t('Zend_Form_Element_Radio'),
-            t('Zend_Form_Element_Select'),
-            t('ZendX_JQuery_Form_Element_Slider'),
-            t('Zend_Form_Element_MultiCheckbox'),
-            t('Zend_Form_Element_Text'),
-            t('ZendX_JQuery_Form_Element_AutoComplete')
+            'Text' => array(
+                'label' => 'Present as text',
+                'element'=>'WebEnq4_Form_Element_Note'
+            ),
+            'radio' => array(
+                'label' => 'Ask as single choice list',
+                'element'=>'Zend_Form_Element_Radio',
+            ),
+                'pulldown' => array(
+                'label' => 'Ask as pulldown list',
+                'element'=>'Zend_Form_Element_Select',
+            ),
+            'checkbox' => array(
+                'label' => 'Ask as multiple choice list',
+                'element'=>'Zend_Form_Element_MultiCheckbox',
+            ),
+            'textComplete' => array(
+                'label' => 'Ask as open text (with autocomplete)',
+                'element'=>'ZendX_JQuery_Form_Element_AutoComplete'
+            ),
+            'Input' => array(
+                'label' => 'Ask as open text',
+                'element'=>'Zend_Form_Element_Text'
+            ),
+            'Slider' => array(
+                'label' => 'Ask as a slider',
+                'element'=>'ZendX_JQuery_Form_Element_Slider'
+            ),
         );
     }
 }

@@ -61,11 +61,13 @@ class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form
         //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
         $presentationOptions=self::$_presentationOptions;
         if (empty($presentationOptions)){
-            $presentationOptions=Webenq_Model_AnswerDomain::getAvailablePrestentationMethods();
+            $presentationOptions=Webenq_Model_AnswerDomain::getAvailablePresentations();
         }
         $presentation=new Zend_Form_Element_Select('presentation');
         $presentation->setLabel('Presentation');
-        $presentation->setMultiOptions($presentationOptions);
+        foreach ($presentationOptions as $key => $value){
+            $presentation->addMultiOption($key, $value['label']);
+    }
         $this->addElement($presentation);
 
 

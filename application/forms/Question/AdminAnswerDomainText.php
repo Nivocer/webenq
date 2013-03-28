@@ -31,7 +31,7 @@
 class Webenq_Form_Question_AdminAnswerDomainText extends Webenq_Form_Question_AdminAnswerDomain
 {
 public function optionsForm(){
-        parent::$_presentationOptions=Webenq_Model_AnswerDomainText::getAvailablePrestentationMethods();
+        parent::$_presentationOptions=Webenq_Model_AnswerDomainText::getAvailablePresentations();
         parent::optionsForm();
      }
 

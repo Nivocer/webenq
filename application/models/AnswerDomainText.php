@@ -42,13 +42,16 @@ class Webenq_Model_AnswerDomainText extends Webenq_Model_Base_AnswerDomainText
     {
         return array(
             'Text' => array(
-                'label' => 'Present as text'
+                'label' => 'Present as text',
+                'element'=>'WebEnq4_Form_Element_Note'
             ),
             'Input' => array(
-                'label' => 'Ask a single line of text'
+                'label' => 'Ask a single line of text',
+                'element'=> 'Zend_Form_Element_Text'
             ),
             'TextArea' => array(
-                'label' => 'Ask multiple lines of text'
+                'label' => 'Ask multiple lines of text',
+                'element' => 'Zend_Form_Element_Textarea'
             ),
         );
     }
@@ -81,15 +84,6 @@ class Webenq_Model_AnswerDomainText extends Webenq_Model_Base_AnswerDomainText
             'StringTrim' => array(
                 'label' => 'Remove spaces, tabs and line breaks from the beginning and the end'
             ),
-
-        );
-    }
-    //todo merge with getAvailablePresentations
-    public static function getAvailablePrestentationMethods(){
-        return array(
-            t('Zend_Form_Element_Textarea'),
-            t('Zend_Form_Element_Text'),
-            t('Zend_Form_Element_File'),
         );
     }
 }

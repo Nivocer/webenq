@@ -36,18 +36,22 @@ class Webenq_Model_AnswerDomainNumeric extends Webenq_Model_Base_AnswerDomainNum
      *
      * @return Array List of available presentation formats
      */
+
     public static function getAvailablePresentations()
     {
         return array(
-                'Text' => array(
-                        'label' => 'Present as text'
-                ),
-                'Input' => array(
-                        'label' => 'Ask as open text'
-                ),
-                'Slider' => array(
-                        'label' => 'Ask as a slider'
-                ),
+            'Text' => array(
+                'label' => 'Present as text',
+                'element'=>'WebEnq4_Form_Element_Note'
+            ),
+            'Input' => array(
+                'label' => 'Ask as open text',
+                'element'=>'Zend_Form_Element_Text'
+            ),
+            'Slider' => array(
+                'label' => 'Ask as a slider',
+                'element'=>'ZendX_JQuery_Form_Element_Slider'
+            ),
         );
     }
 
@@ -56,6 +60,7 @@ class Webenq_Model_AnswerDomainNumeric extends Webenq_Model_Base_AnswerDomainNum
      *
      * @return Array List of available validators
      */
+
     public static function getAvailableValidators()
     {
         return array(
@@ -81,12 +86,4 @@ class Webenq_Model_AnswerDomainNumeric extends Webenq_Model_Base_AnswerDomainNum
                 ),
             );
     }
-    //todo merge with getAvailablePresentations
-    public static function getAvailablePrestentationMethods(){
-        return array(
-            t('Zend_Form_Element_Text'),
-            t('ZendX_JQuery_Form_Element_Slider'),
-        );
-    }
-
 }
