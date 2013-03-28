@@ -46,17 +46,21 @@ public $answerDomainType;
     {
         /* question form/tab */
         $answerDomainType=$this->answerDomainType;
-        //only implementend subclasses,
 
+        //only implementend subclasses
         if (!in_array($answerDomainType,array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
             $answerDomainType='AnswerDomain';
         }
+        //question tab
         $this->addSubForm(new Webenq_Form_Question_Question(), 'question');
 
+        //answer options tab
+        $classAnswerOptions= 'Webenq_Form_AnswerDomain_'.$answerDomainType;
+        $this->addSubForm(new $classAnswerOptions(), 'answerOptions');
 
-        $class='Webenq_Form_Question_Admin'.$answerDomainType;
-        $this->addSubForm(new $class('answerOptionsForm'), 'answerOptions');
-        $this->addSubForm(new $class('optionsForm'), 'options');
+        //options tab
+        $classOptions='Webenq_Form_Question_Admin'.$answerDomainType;
+        $this->addSubForm(new $classOptions(), 'options');
 
         foreach ($this->getSubForms() as $subForm){
             $subForm->removeDecorator('Form');

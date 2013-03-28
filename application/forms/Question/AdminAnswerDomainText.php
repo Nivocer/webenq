@@ -30,9 +30,9 @@
  */
 class Webenq_Form_Question_AdminAnswerDomainText extends Webenq_Form_Question_AdminAnswerDomain
 {
-public function optionsForm(){
+public function init(){
         parent::$_presentationOptions=Webenq_Model_AnswerDomainText::getAvailablePresentations();
-        parent::optionsForm();
+        parent::init();
      }
 
 

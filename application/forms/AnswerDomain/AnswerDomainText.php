@@ -29,10 +29,10 @@
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_Numeric extends Zend_Form
+class Webenq_Form_AnswerDomain_AnswerDomainText extends Zend_Form
 {
     /**
-     * Properties form for answer domains of type numeric
+     * Properties form for answer domains of type text
      *
      * @return void
      * @see Zend_Form::init()
@@ -46,7 +46,7 @@ class Webenq_Form_AnswerDomain_Numeric extends Zend_Form
         $id->removeDecorator('Label');
         $this->addElement($id);
 
-        $sub1 = new Webenq_Form_AnswerDomain_Sub_NumericAnswers();
+        $sub1 = new Webenq_Form_AnswerDomain_Sub_TextAnswers();
         $this->addSubForm($sub1, 'answersettings');
 
         $cancel = new Zend_Form_Element_Submit('cancel');

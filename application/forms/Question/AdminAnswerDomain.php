@@ -32,31 +32,12 @@
 class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form
 {
     public static $_presentationOptions;
-    public function __construct($form){
-
-        if ($form=='optionsForm'){
-            $this->optionsForm();
-
-        }elseif($form=='answerOptionsForm'){
-            $this->answerOptionsForm();
-        }
-        parent::__construct();
-    }
 
     public function isCancelled($values)
     {
         return (isset($values['cancel']));
     }
-
-    public function answerOptionsForm(){
-        $note=new WebEnq4_Form_Element_Note('notitie');
-        $note->setLabel('hier komt mooi formulier van Rolf');
-        $this->addElement($note);
-        $this->_submitButtonsAdminOptions();
-
-
-    }
-    public function optionsForm(){
+    public function init(){
         /* options form/tab */
         //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
         $presentationOptions=self::$_presentationOptions;

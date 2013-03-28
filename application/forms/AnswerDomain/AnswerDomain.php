@@ -29,7 +29,7 @@
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_Choice extends Zend_Form
+class Webenq_Form_AnswerDomain_AnswerDomainChoice extends Zend_Form
 {
     /**
      * Properties form for answer domains of type text
@@ -46,8 +46,14 @@ class Webenq_Form_AnswerDomain_Choice extends Zend_Form
         $id->removeDecorator('Label');
         $this->addElement($id);
 
-        $sub1 = new Webenq_Form_AnswerDomain_Sub_ChoiceAnswers();
+
+        $notyet=new WebEnq4_Form_Element_Note('notyet');
+        $notyet->setLabel('Not yet implemented');
+        $notyet->removeDecorator('DtDdWrapper');
+        $this->addElement($notyet);
+        /*$sub1 = new Webenq_Form_AnswerDomain_Sub_Answers();
         $this->addSubForm($sub1, 'answersettings');
+        */
 
         $cancel = new Zend_Form_Element_Submit('cancel');
         $cancel->setLabel('Cancel');

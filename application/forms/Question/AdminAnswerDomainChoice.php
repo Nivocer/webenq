@@ -31,7 +31,7 @@
 class Webenq_Form_Question_AdminAnswerDomainChoice extends Webenq_Form_Question_AdminAnswerDomain
 {
 
-     public function optionsForm(){
+     public function init(){
         /* options form/tab */
         //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
         parent::$_presentationOptions=Webenq_Model_AnswerDomainChoice::getAvailablePresentations();
@@ -40,6 +40,6 @@ class Webenq_Form_Question_AdminAnswerDomainChoice extends Webenq_Form_Question_
         $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');
         $numberOfAnswers->setLabel('How many answers are allowed');
         $this->addElement($numberOfAnswers);
-        parent::optionsForm();
+        parent::init();
      }
 }
