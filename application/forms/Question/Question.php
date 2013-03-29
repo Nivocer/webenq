@@ -38,6 +38,7 @@ class Webenq_Form_Question_Question extends Zend_Form
     public function init()
     {
         //$questionForm = new Zend_Form();
+        $this->setName(get_class($this));
         $id = new Zend_Form_Element_Hidden('id');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
@@ -90,7 +91,7 @@ class Webenq_Form_Question_Question extends Zend_Form
         $this->addElement($new);
 
         $submitQuestionNext=new Zend_Form_Element_Submit('next');
-        $submitQuestionNext->setLabel('next');
+        $submitQuestionNext->setLabel('Next (answer options)');
         $this->addElement($submitQuestionNext);
 
     }

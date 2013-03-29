@@ -29,7 +29,7 @@
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_AnswerDomainChoice extends Zend_Form
+class Webenq_Form_AnswerDomain_AnswerDomainChoice extends Webenq_Form_AnswerDomain_AnswerDomain
 {
     /**
      * Properties form for answer domains of type text
@@ -39,59 +39,13 @@ class Webenq_Form_AnswerDomain_AnswerDomainChoice extends Zend_Form
      */
     public function init()
     {
+        parent::init();//submitbuttons /answer id
         $this->setName(get_class($this));
-
-        $id = new Zend_Form_Element_Hidden('answerDomainId');
-        $id->removeDecorator('DtDdWrapper');
-        $id->removeDecorator('Label');
-        $this->addElement($id);
 
         $sub1 = new Webenq_Form_AnswerDomain_Sub_ChoiceAnswers();
         $this->addSubForm($sub1, 'answersettings');
 
-        $cancel = new Zend_Form_Element_Submit('cancel');
-        $cancel->setLabel('Cancel');
-        $cancel->removeDecorator('DtDdWrapper');
-        $this->addElement($cancel);
-
-        $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Save');
-        $submit->removeDecorator('DtDdWrapper');
-        $this->addElement($submit);
-
-        $this->addDisplayGroup(
-            array('cancel', 'submit'),
-            'buttons',
-            array('class' => 'table')
-        );
     }
 
-    /**
-     * Check the answer domain properties
-     *
-     * @param array $values
-     * @return boolean
-     * @see Zend_Form::isValid()
-     */
-    public function isValid($values)
-    {
-        if ($this->isCancelled($values)) {
-            return true;
-        } else {
-            $result = parent::isValid($values);
 
-            return $result;
-        }
-    }
-
-    /**
-     * Check if the cancel button was submitted
-     *
-     * @param array $values
-     * @return boolean
-     */
-    public function isCancelled($values)
-    {
-        return (isset($values['cancel']));
-    }
 }

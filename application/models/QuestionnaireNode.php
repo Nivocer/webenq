@@ -80,13 +80,13 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         if (isset($this->id)) {
             $result['question']['id']=$this->id;
         }
+
         foreach ($this->QuestionnaireElement->Translation as $lang=>$translation) {
             if (isset($translation->text)) {
                 //$result['question'][$lang] = $translation->text;
                 $result['question']['text'][$lang] = $translation->text;
             }
         }
-
         if (isset($this->QuestionnaireElement->answer_domain_id)){
             $result['question']['reuse']=$this->QuestionnaireElement->answer_domain_id;
         }
@@ -95,8 +95,10 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
             $result['answerOptions']['answersettings']=$this->QuestionnaireElement->AnswerDomain->toArray();
             $result['answerOptions']['answersettings']['name']=$this->QuestionnaireElement->AnswerDomain->getTranslation('name');
         }
-        foreach ($this->QuestionnaireElement->options['answersettings'] as $key=>$value){
-            $result['answerOptions']['answersettings'][$key]=$value;
+        if (!empty($this->QuestionnaireElement->options['answersettings'])){
+            foreach ($this->QuestionnaireElement->options['answersettings'] as $key=>$value){
+                $result['answerOptions']['answersettings'][$key]=$value;
+            }
         }
         if (isset($this->QuestionnaireElement->options['options'])){
             $result['options']=$this->QuestionnaireElement->options['options'];
@@ -109,30 +111,39 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
      */
     public function fromArray(array $array, $deep = true)
     {
+
         $language = Zend_Registry::get('Zend_Locale')->getLanguage();
         parent::fromArray($array, $deep);
-            if (isset($array['question']['id'])) {
-                $this->id=$array['question']['id'];
-            }
-            if (isset($array['question']) && is_array($array['question'])) {
-            foreach ($array['question'] as $language => $text) {
+        //set id
+        if (isset($array['question']['id'])) {
+            $this->id=$array['question']['id'];
+        }
+        //set language
+        if (isset($array['question']['text']) && is_array($array['question']['text'])) {
+            foreach ($array['question']['text'] as $language => $text) {
                 if ($text) {
                     $this->QuestionnaireElement->Translation[$language]->text = $text;
                 }
             }
-            if (isset($array['reuse'])){
-                $this->QuestionnaireElement->answer_domain_id=$array['reuse'];
-            }
-            //changes need to be stored in options, not in aswerdomain.
-            if (isset($array['answerOptions']['answersettings'])){
-                $this->QuestionnaireElement->options['answersettings']=$array['answerOptions']['answersettings'];
-            }
-            if (isset($array['answerOptions']['answersettings']['name'])){
-                $this->QuestionnaireElement->AnswerDomain->Translation[$language]->name=$array['answerOptions']['answersettings']['name'];
-            }
-
-            $result['answerOptions']['answersettings']['name']=$this->QuestionnaireElement->AnswerDomain->getTranslation('name');
         }
+        //set answer_domain_id to reuse-value
+        if (isset($array['question']['reuse']) && $array['question']['reuse']<>''){
+            $this->QuestionnaireElement->answer_domain_id=$array['question']['reuse'];
+        }
+        //changes need to be stored in options, not in aswerdomain.
+        if (isset($array['answerOptions']['answersettings'])){
+            $questionnaireElementoptions['answersettings']=$array['answerOptions']['answersettings'];
+        }
+        //option tab?
+        if (isset($array['options'])){
+            $questionnaireElementoptions['options']=$array['options'];
+            //$this->QuestionnaireElement->options['answersettings']=$array['answerOptions']['answersettings'];
+        }
+        //store changed name, but we don't want this i quess.
+        if (isset($array['answerOptions']['answersettings']['name'])){
+    //        $this->QuestionnaireElement->AnswerDomain->Translation[$language]->name=$array['answerOptions']['answersettings']['name'];
+        }
+        //finally put questionnaireElement options
+        $this->QuestionnaireElement->options=$questionnaireElementoptions;
     }
-
 }

@@ -89,14 +89,16 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
         $questionnaireNode=new Webenq_Model_QuestionnaireNode();
         $questionnaireQuestion=$questionnaireNode->getTable()->find($this->_request->id);
-        $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
+        $questionnaire=new Webenq_Model_Questionnaire();
+        //fix add questionnaire to questionnaireQuestion, maybe relation problem?
+        $questionnaireQuestion->Questionnaire=$questionnaire->getTable()->findBy('questionnaire_node_id', $questionnaireQuestion->root_id);
 
         if (!$questionnaireQuestion){
             $this->_redirect('/questionnaire/');
             return;
         }
         // get form
-
+        $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
         $form = new Webenq_Form_Question_Properties($answerDomainType);
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
@@ -105,15 +107,16 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             if (!$this->_helper->form->isCancelled($form)) {
                 $newValues = $form->getValues();
                 if (isset($newValues['question']['id']) && $newValues['question']['id']==$questionnaireQuestion->get('id')) {
-                    $questionnaireQuestion->fromArray($newValues);
-//                    @todo activated save
-//                    $questionnaireQuestion->save();
 
-                    $this->_helper->getHelper('FlashMessenger')
-                    ->setNamespace('error')
-                    ->addMessage(
-                        t('Save is not activated: qq-controller')
-                    );
+                    $questionnaireQuestion->fromArray($newValues);
+
+//                    @todo activated save
+                      $questionnaireQuestion->save();
+//                     $this->_helper->getHelper('FlashMessenger')
+//                     ->setNamespace('error')
+//                     ->addMessage(
+//                         t('Save is not activated: qq-controller')
+//                     );
 
                     $this->_helper->getHelper('FlashMessenger')
                     ->setNamespace('success')
@@ -135,20 +138,20 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
             //build redirect url
             //@todo check redirecturl
-
             $redirectSubForm=$form->getRedirectSubform();
             //$formIdTranslation=array('question'=>'questions', 'answerOptions'=>'answerOptions', 'options'=>'options');
             if ($redirectSubForm=='done'){
-                $redirectUrl = 'questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->id;
-                if ((int) $questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
-                    $redirectUrl .= '#page-' . $questionnaireQuestion->CollectionPresentation[0]->page;
-                }
+                $redirectUrl = 'questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->getFirst()->id;
+                //if ((int) $questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
+                //    $redirectUrl .= '#page-' . $questionnaireQuestion->CollectionPresentation[0]->page;
+                //}
             }else {
                 //note: if redirectSubform ==false -> go to first tab
                 $redirectUrl = 'questionnaire-question/edit/id/' . $questionnaireQuestion->id;
                 $redirectUrl .= '#' . $redirectSubForm;
 
             }
+
             // close dialog and redirect
             if ($this->_request->isXmlHttpRequest()) {
                 $this->_helper->json(

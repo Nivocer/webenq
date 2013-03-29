@@ -40,6 +40,7 @@ class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form
     public function init(){
         /* options form/tab */
         //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
+        $this->setName(get_class($this));
         $presentationOptions=self::$_presentationOptions;
         if (empty($presentationOptions)){
             $presentationOptions=Webenq_Model_AnswerDomain::getAvailablePresentations();
@@ -85,38 +86,29 @@ class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form
             'activeTable',
             array('class' => 'table')
         );
-        $this->_submitButtonsOptions($this);
 
+        $cancel = new Zend_Form_Element_Submit('cancel');
+        $cancel->setLabel('Cancel');
+        $cancel->setOrder(970);
+        $cancel->removeDecorator('DtDdWrapper');
+        $this->addElement($cancel);
 
+        $submitPrevious=new Zend_Form_Element_Submit('previous');
+        $submitPrevious->setLabel('Previous (answer options)');
+        $submitPrevious->setOrder(980);
+        $submitPrevious->removeDecorator('DtDdWrapper');
+        $this->addElement($submitPrevious);
 
-    }
-    public function _submitButtonsAdminOptions(){
-//
-        $submitAnswerOptionsPrevious=new Zend_Form_Element_Submit('previous');
-        $submitAnswerOptionsPrevious->setLabel('previous');
-        $this->addElement($submitAnswerOptionsPrevious);
+        $submitDone=new Zend_Form_Element_Submit('done');
+        $submitDone->setLabel('Done');
+        $submitDone->setOrder(990);
+        $submitDone->removeDecorator('DtDdWrapper');
+        $this->addElement($submitDone);
 
-        $submitAnswerOptionsNext=new Zend_Form_Element_Submit('next');
-        $submitAnswerOptionsNext->setLabel('next');
-        $this->addElement($submitAnswerOptionsNext);
         $this->addDisplayGroup(
-            array('previous','next','done'),
-            'submitTable',
-            array('class' => 'table')
-        );
-    }
-    public function _submitButtonsOptions(){
-        $submitAnswerOptionsPrevious=new Zend_Form_Element_Submit('previous');
-        $submitAnswerOptionsPrevious->setLabel('previous');
-        $this->addElement($submitAnswerOptionsPrevious);
-
-        $submitAnswerOptionsNext=new Zend_Form_Element_Submit('done');
-        $submitAnswerOptionsNext->setLabel('done');
-        $this->addElement($submitAnswerOptionsNext);
-        $this->addDisplayGroup(
-            array('previous','next','done'),
-            'submitTable',
-            array('class' => 'table')
+            array('cancel', 'next', 'previous', 'done'),
+            'buttons',
+            array('class' => 'table', 'order'=>999)
         );
     }
 }

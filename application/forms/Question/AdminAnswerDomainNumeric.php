@@ -33,5 +33,6 @@ class Webenq_Form_Question_AdminAnswerDomainNumeric extends Webenq_Form_Question
 public function init(){
         parent::$_presentationOptions=Webenq_Model_AnswerDomainNumeric::getAvailablePresentations();
         parent::init();
+        $this->setName(get_class($this));
      }
 }

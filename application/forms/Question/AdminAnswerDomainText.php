@@ -33,6 +33,7 @@ class Webenq_Form_Question_AdminAnswerDomainText extends Webenq_Form_Question_Ad
 public function init(){
         parent::$_presentationOptions=Webenq_Model_AnswerDomainText::getAvailablePresentations();
         parent::init();
+        $this->setName(get_class($this));
      }
 
 

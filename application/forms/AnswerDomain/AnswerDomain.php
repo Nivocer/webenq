@@ -29,7 +29,7 @@
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_AnswerDomainChoice extends Zend_Form
+class Webenq_Form_AnswerDomain_AnswerDomain extends Zend_Form
 {
     /**
      * Properties form for answer domains of type text
@@ -41,34 +41,33 @@ class Webenq_Form_AnswerDomain_AnswerDomainChoice extends Zend_Form
     {
         $this->setName(get_class($this));
 
-        $id = new Zend_Form_Element_Hidden('answerDomainId');
+        $id = new Zend_Form_Element_Hidden('answerId');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
         $this->addElement($id);
 
-
-        $notyet=new WebEnq4_Form_Element_Note('notyet');
-        $notyet->setLabel('Not yet implemented');
-        $notyet->removeDecorator('DtDdWrapper');
-        $this->addElement($notyet);
-        /*$sub1 = new Webenq_Form_AnswerDomain_Sub_Answers();
-        $this->addSubForm($sub1, 'answersettings');
-        */
-
         $cancel = new Zend_Form_Element_Submit('cancel');
         $cancel->setLabel('Cancel');
+        $cancel->setOrder(970);
         $cancel->removeDecorator('DtDdWrapper');
         $this->addElement($cancel);
 
-        $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Save');
-        $submit->removeDecorator('DtDdWrapper');
-        $this->addElement($submit);
+        $submitPrevious=new Zend_Form_Element_Submit('previous');
+        $submitPrevious->setLabel('Previous (question)');
+        $submitPrevious->setOrder(980);
+        $submitPrevious->removeDecorator('DtDdWrapper');
+        $this->addElement($submitPrevious);
+
+        $submitNext=new Zend_Form_Element_Submit('next');
+        $submitNext->setLabel('Next (options)');
+        $submitNext->setOrder(990);
+        $submitNext->removeDecorator('DtDdWrapper');
+        $this->addElement($submitNext);
 
         $this->addDisplayGroup(
-            array('cancel', 'submit'),
+            array('cancel', 'next', 'previous', 'done'),
             'buttons',
-            array('class' => 'table')
+            array('class' => 'table', 'order'=>999)
         );
     }
 
