@@ -39,7 +39,7 @@
  * @package     WebEnq4_I18n
  * @author      Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq4_Doctrine_I18n extends Doctrine_I18n
+class WebEnq4_Doctrine_I18n extends Doctrine_I18n
 {
     protected $_options = array(
                             'className'     => '%CLASS%Translation',

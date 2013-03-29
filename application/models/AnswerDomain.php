@@ -105,4 +105,23 @@ class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
     {
         return array();
     }
+
+    /**
+     * Fills array with object properties, and adds translations
+     *
+     * @param bool $deep
+     * @param bool $prefixKey Not used
+     * @return array
+     * @see Doctrine_Record::fromArray()
+     */
+    public function toArray($deep = true, $prefixKey = false)
+    {
+        $result = parent::toArray($deep, $prefixKey);
+
+        // @todo We should find a way to do this via the I18n behavior
+        $result['Translation'] = $this->Translation->toArray();
+
+        return $result;
+    }
+
 }

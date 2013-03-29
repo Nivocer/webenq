@@ -29,7 +29,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_Sub_ChoiceAnswers extends Webenq_Form_AnswerDomain_Sub_Form
+class Webenq_Form_AnswerDomain_Sub_ChoiceAnswers extends WebEnq4_Form
 {
     /**
      * Subform to ask answer domain properties when editing a question
@@ -42,10 +42,14 @@ class Webenq_Form_AnswerDomain_Sub_ChoiceAnswers extends Webenq_Form_AnswerDomai
         $this->setName(get_class($this));
 
         $name = new Zend_Form_Element_Text('name');
+        $name->setBelongsTo('x[Translation][en]');
         $name->setLabel('Name');
-        $name->setDescription('For later re-use of these settings');
+        $name->setDescription('Name of this set of choices');
         $name->setRequired();
         $this->addElement($name);
+
+        $this->items = new Webenq_Form_AnswerDomain_Sub_Items();
+        $this->addSubForm($this->items, 'items');
 
         $this->addCheckboxOptions(
             array(
@@ -62,5 +66,35 @@ class Webenq_Form_AnswerDomain_Sub_ChoiceAnswers extends Webenq_Form_AnswerDomai
             ),
             Webenq_Model_AnswerDomainChoice::getAvailableFilters()
         );
+    }
+
+    /**
+     * Set defaults for all elements
+     */
+    public function setDefaults(array $defaults)
+    {
+        if (isset($defaults['answer_domain_item_id'])) {
+            $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
+            $domainitems = $tree->fetchTree(array('root_id' => $defaults['answer_domain_item_id']));
+
+            // get the subform with items and cast it to our sub class
+            $items = new Webenq_Form_AnswerDomain_Sub_Items($this->getSubForm('items'));
+
+            foreach ($domainitems as $item) {
+                if ($item->id != $item->root_id) { // skip the root of the items
+                    $items->addItemRow('items[' . $item->id . ']');
+                    $defaults['items'][$item->id] = $item->toArray();
+                }
+            }
+            $this->addSubForm($items, 'items');
+            $items->setDefaults($defaults);
+        }
+/* debug: dump $defaults as note field
+        $cell = new WebEnq4_Form_Element_Note('defaults-to-be-set');
+        $cell->setValue(var_export($defaults, true));
+        $cell->addDecorator('HtmlTag', array('tag' => 'pre'));
+        $this->addElement($cell);
+*/
+        parent::setDefaults($defaults);
     }
 }

@@ -29,7 +29,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_Sub_NumericAnswers extends Webenq_Form_AnswerDomain_Sub_Form
+class Webenq_Form_AnswerDomain_Sub_NumericAnswers extends WebEnq4_Form
 {
     /**
      * Subform to ask answer domain properties when editing a question

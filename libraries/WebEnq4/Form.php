@@ -17,25 +17,26 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package    Webenq_Questionnaires_Manage
+ * @package    WebEnq4
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
- * Form to edit answer domain information within the context of editing a
- * question in a questionnaire.
+ * Base class for our forms, to include some helper functions for arranging
+ * form elements
  *
- * @package    Webenq_Questionnaires_Manage
+ * @package    WebEnq4
  * @author     Nivocer <webenq@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_Sub_Form extends Zend_Form_SubForm
+class WebEnq4_Form extends Zend_Form
 {
     /**
      * Add a set of checkboxes with options to a form in a display group
      *
      * @param array Array with the name for the options, the group legend
      * @param array The options to present as checkboxes, with their info
+     * @todo Move this to a more generic place, WebEnq4 library for instance
      * @return void
      */
     public function addCheckboxOptions($group, $options)
@@ -64,6 +65,36 @@ class Webenq_Form_AnswerDomain_Sub_Form extends Zend_Form_SubForm
                 )
             );
         }
+    }
+
+    /**
+     * Decorate group or element as table cell or table header cell
+     *
+     * @param Form_Element Form element to decorate
+     * @param boolean Whether to decorate as table header cell (default: false)
+     * @return Form_Element
+     */
+    public function decorateAsTableCell($element, $header = false) {
+        $tag = ($header ? 'th' : 'td');
+        $element->removeDecorator('DtDdWrapper');
+        $element->removeDecorator('Label');
+        $element->addDecorator('HtmlTag', array('tag' => $tag));
+        return $element;
+    }
+
+    /**
+     * Decorate group or element as table row
+     *
+     * @param Form_Element Form element to decorate
+     * @return Form_Element
+     */
+    public function decorateAsTableRow($element) {
+        $element->removeDecorator('Fieldset');
+        $element->removeDecorator('HtmlTag');
+        $element->removeDecorator('DtDdWrapper');
+        $element->removeDecorator('Label');
+        $element->addDecorator('HtmlTag', array('tag' => 'tr'));
+        return $element;
     }
 
 }

@@ -315,13 +315,17 @@ form .hint {
     padding-left: 0.4em;
 }
 
+form dd {
+    
+}
+
 /* fieldset */
 fieldset {
     border:0;
     padding: 0;
 }
 
-fieldset dd p.description {
+form p.description {
     display: inline;
     color: #777;
 }
@@ -341,10 +345,6 @@ fieldset.table dl dd {
     margin-left: 0; 
 }
   
-fieldset.table label {
-    margin-left: 0; 
-}
-
 /* present form elements in display group as list */
 fieldset.list dt,
 fieldset.list dd {

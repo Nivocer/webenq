@@ -155,7 +155,12 @@ AnswerDomainItem:
     value: string
     isNullValue: boolean
     isActive: boolean
-    isHidden: boolean
+    isHidden: boolean # a list of items may contains values that may be 
+                      # submitted/imported via free text response, and that
+                      # are considered synonyms for a preferred item as the only 
+                      # item to be shown when presenting the list
+                      # e.g. gender choice: present only "Male" but also accept
+                      # "Man" as response or import value.
 
 # ====================================
 # ===== CATEGORY-RELATED CLASSES =====
