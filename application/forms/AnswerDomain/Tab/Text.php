@@ -29,7 +29,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_Sub_NumericAnswers extends WebEnq4_Form
+class Webenq_Form_AnswerDomain_Tab_Text extends Webenq_Form_AnswerDomain_Tab
 {
     /**
      * Subform to ask answer domain properties when editing a question
@@ -39,7 +39,7 @@ class Webenq_Form_AnswerDomain_Sub_NumericAnswers extends WebEnq4_Form
      */
     public function init()
     {
-        $this->setName(get_class($this));
+        parent::init();
 
         $name = new Zend_Form_Element_Text('name');
         $name->setLabel('Name');
@@ -47,32 +47,26 @@ class Webenq_Form_AnswerDomain_Sub_NumericAnswers extends WebEnq4_Form
         $name->setRequired();
         $this->addElement($name);
 
-        $min = new Zend_Form_Element_Text('min',
-            array('size' => 4, 'label' => 'Minimum value allowed'));
-        $this->addElement($min);
+        $min_length = new Zend_Form_Element_Text('min_length',
+            array('size' => 4, 'label' => 'Minimum length allowed'));
+        $this->addElement($min_length);
 
-        $max = new Zend_Form_Element_Text('max',
-            array('size' => 4, 'label' => 'Maximum value allowed'));
-        $this->addElement($max);
-
-        $missing = new Zend_Form_Element_Text('missing',
-            array('size' => 4,
-            'description' => 'Value to store if an answer is missing or declined',
-            'label' => 'Value for missing answer'));
-        $this->addElement($missing);
+        $max_length = new Zend_Form_Element_Text('max_length',
+            array('size' => 4, 'label' => 'Maximum length allowed'));
+        $this->addElement($max_length);
 
         $this->addDisplayGroup(
-            array('min', 'max', 'missing'),
+            array('min_length', 'max_length'),
             'minmax',
             array('class' => 'list')
         );
 
         $this->addCheckboxOptions(
-                array(
-                        'name' => 'validator',
-                        'legend' => 'Perform these validations before accepting an answer:'
-                ),
-                Webenq_Model_AnswerDomainNumeric::getAvailableValidators()
+            array(
+                'name' => 'validator',
+                'legend' => 'Perform these validations before accepting an answer:'
+            ),
+            Webenq_Model_AnswerDomainText::getAvailableValidators()
         );
 
         $this->addCheckboxOptions(
@@ -80,7 +74,7 @@ class Webenq_Form_AnswerDomain_Sub_NumericAnswers extends WebEnq4_Form
                 'name' => 'filter',
                 'legend' => 'Apply these changes before storing an answer:'
             ),
-            Webenq_Model_AnswerDomainNumeric::getAvailableFilters()
+            Webenq_Model_AnswerDomainText::getAvailableFilters()
         );
     }
 }

@@ -99,7 +99,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         }
         // get form
         $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        $form = new Webenq_Form_Question_Properties($answerDomainType);
+        $form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType));
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         // process form

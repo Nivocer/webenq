@@ -35,36 +35,46 @@ public $answerDomainType;
     /**
      * Initialises the form
      *
+     * @param mixed $options
      * @return void
      */
-    public function __construct($answerDomainType){
-        $this->answerDomainType=$answerDomainType;
+    public function __construct($options = null)
+    {
+        if (is_array($options) && isset($options['answerDomainType'])) {
+            $this->answerDomainType=$options['answerDomainType'];
+        }
+
         parent::__construct();
     }
 
     public function init()
     {
-        /* question form/tab */
-        $answerDomainType=$this->answerDomainType;
-
-        //only implementend subclasses
-        if (!in_array($answerDomainType,array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
-            $answerDomainType='AnswerDomain';
-        }
-        //question tab
+        /* question text and type tab */
         $this->addSubForm(new Webenq_Form_Question_Question(), 'question');
 
-        //answer options tab
-        $classAnswerOptions= 'Webenq_Form_AnswerDomain_'.$answerDomainType;
-        $this->addSubForm(new $classAnswerOptions(), 'answerOptions');
+        /* answer domain settings tab */
+        // determine appropriate tab form for answer domain settings
+        $answerDomainType=$this->answerDomainType;
 
-        //options tab
-        $classOptions='Webenq_Form_Question_Admin'.$answerDomainType;
-        $this->addSubForm(new $classOptions(), 'options');
-
-        foreach ($this->getSubForms() as $subForm){
-            $subForm->removeDecorator('Form');
+        if (in_array($answerDomainType, array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
+            $classAnswerOptions = 'Webenq_Form_AnswerDomain_Tab_' . substr($answerDomainType, 12);
+        } else {
+            $classAnswerOptions = 'Webenq_Form_AnswerDomain_Tab';
         }
+
+        // @todo extra wrapper for now to cut refactoring of Answerdomain tabs from rest
+        $tempExtra = new Zend_Form_SubForm();
+        $tempExtra->removeDecorator('Fieldset');
+        $tempExtra->removeDecorator('DtDdWrapper');
+        $tempExtra->removeDecorator('HtmlTag');
+        $tempExtra->addSubForm(new $classAnswerOptions(), 'answersettings');
+        $this->addSubForm($tempExtra, 'answerOptions');
+
+        /* question options settings tab */
+        $classOptions='Webenq_Form_Question_Admin'.$answerDomainType;
+        $options = new $classOptions();
+        $options->removeDecorator('Form');
+        $this->addSubForm($options, 'options');
 
     }
 

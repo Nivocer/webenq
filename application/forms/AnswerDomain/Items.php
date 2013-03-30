@@ -23,13 +23,13 @@
  */
 
 /**
- * Sub form to edit answer domain information within the context of editing a
+ * Subform to edit answer domain information within the context of editing a
  * question in a questionnaire.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_Sub_Items extends WebEnq4_Form
+class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
 {
     /**
      * List of fields to show for items
@@ -65,7 +65,7 @@ class Webenq_Form_AnswerDomain_Sub_Items extends WebEnq4_Form
     /**
      * Load the default decorators
      *
-     * @return Webenq_Form_AnswerDomain_Sub_Items
+     * @return Webenq_Form_AnswerDomain_Items
      */
     public function loadDefaultDecorators()
     {
@@ -89,9 +89,8 @@ class Webenq_Form_AnswerDomain_Sub_Items extends WebEnq4_Form
      */
     public function init()
     {
-        $this->setName(get_class($this));
-
-        $id = new Zend_Form_Element_Hidden('answer_domain_item_id');
+        $id = new Zend_Form_Element_Hidden('id');
+        $id->setBelongsTo($this->getName());
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
         $this->addElement($id);
@@ -99,7 +98,7 @@ class Webenq_Form_AnswerDomain_Sub_Items extends WebEnq4_Form
         // add the table headers
         $header = array();
         foreach ($this->_fields as $fieldname => $fieldinfo) {
-            $cell = new WebEnq4_Form_Element_Note('th-'.$fieldname);
+            $cell = new WebEnq4_Form_Element_Note('th_'.$fieldname);
             $cell->setValue($fieldinfo['label']);
             $this->decorateAsTableCell($cell, true);
             $this->addElement($cell);

@@ -23,24 +23,44 @@
  */
 
 /**
- * Form to edit answer domain information.
+ * Abstract sub form for the tab with answer domain settings and/or items.
+ * Sets the default decorators to make it work as subform.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_AnswerDomain_AnswerDomain extends Zend_Form
+class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
 {
     /**
-     * Properties form for answer domains of type text
+     * Load the default decorators, much the same as in Zend_Form_SubForm
+     *
+     * @return Webenq_Form_AnswerDomain_Items
+     */
+    public function loadDefaultDecorators()
+    {
+        if ($this->loadDefaultDecoratorsIsDisabled()) {
+            return $this;
+        }
+
+        $decorators = $this->getDecorators();
+        if (empty($decorators)) {
+            $this->addDecorator('FormElements')
+                ->addDecorator('HtmlTag', array('tag' => 'dl', 'class' => 'zend_form'));
+            //->addDecorator('HtmlTag', array('tag' => 'div', 'id' => 'test'));
+            // Zend subform also does: ->addDecorator('Fieldset')
+        }
+        return $this;
+    }
+
+    /**
+     * Adds buttons at the end of the (sub)form.
      *
      * @return void
      * @see Zend_Form::init()
      */
     public function init()
     {
-        $this->setName(get_class($this));
-
         $id = new Zend_Form_Element_Hidden('answerId');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
@@ -48,24 +68,18 @@ class Webenq_Form_AnswerDomain_AnswerDomain extends Zend_Form
 
         $cancel = new Zend_Form_Element_Submit('cancel');
         $cancel->setLabel('Cancel');
-        $cancel->setOrder(970);
-        $cancel->removeDecorator('DtDdWrapper');
         $this->addElement($cancel);
 
         $submitPrevious=new Zend_Form_Element_Submit('previous');
         $submitPrevious->setLabel('Previous (question)');
-        $submitPrevious->setOrder(980);
-        $submitPrevious->removeDecorator('DtDdWrapper');
         $this->addElement($submitPrevious);
 
         $submitNext=new Zend_Form_Element_Submit('next');
         $submitNext->setLabel('Next (options)');
-        $submitNext->setOrder(990);
-        $submitNext->removeDecorator('DtDdWrapper');
         $this->addElement($submitNext);
 
         $this->addDisplayGroup(
-            array('cancel', 'next', 'previous', 'done'),
+            array('cancel', 'previous', 'next', 'done'),
             'buttons',
             array('class' => 'table', 'order'=>999)
         );
