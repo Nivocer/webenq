@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Properties extends Zend_Form
+class Webenq_Form_Question_Properties extends WebEnq4_Form
 {
 public $answerDomainType;
 
@@ -50,7 +50,9 @@ public $answerDomainType;
     public function init()
     {
         /* question text and type tab */
-        $this->addSubForm(new Webenq_Form_Question_Question(), 'question');
+        $question = new Webenq_Form_Question_Question();
+        $question->removeDecorator('DtDdWrapper');
+        $this->addSubForm($question, 'question');
 
         /* answer domain settings tab */
         // determine appropriate tab form for answer domain settings
@@ -62,9 +64,8 @@ public $answerDomainType;
             $classAnswerOptions = 'Webenq_Form_AnswerDomain_Tab';
         }
 
-        // @todo extra wrapper for now to cut refactoring of Answerdomain tabs from rest
+        // @todo extra wrapper for now; refactoring of Answerdomain tabs separate from form handling
         $tempExtra = new Zend_Form_SubForm();
-        $tempExtra->removeDecorator('Fieldset');
         $tempExtra->removeDecorator('DtDdWrapper');
         $tempExtra->removeDecorator('HtmlTag');
         $tempExtra->addSubForm(new $classAnswerOptions(), 'answersettings');
@@ -73,9 +74,8 @@ public $answerDomainType;
         /* question options settings tab */
         $classOptions='Webenq_Form_Question_Admin'.$answerDomainType;
         $options = new $classOptions();
-        $options->removeDecorator('Form');
+        $options->removeDecorator('DtDdWrapper');
         $this->addSubForm($options, 'options');
-
     }
 
     public function isValid($data)

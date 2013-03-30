@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Question extends Zend_Form
+class Webenq_Form_Question_Question extends Zend_Form_SubForm
 {
     /**
      * Initialises the form
@@ -90,10 +90,20 @@ class Webenq_Form_Question_Question extends Zend_Form
         }
         $this->addElement($new);
 
+        $cancel = new Zend_Form_Element_Submit('cancel');
+        $cancel->setLabel('Cancel');
+        $cancel->removeDecorator('DtDdWrapper');
+        $this->addElement($cancel);
+
         $submitQuestionNext=new Zend_Form_Element_Submit('next');
         $submitQuestionNext->setLabel('Next (answer options)');
         $this->addElement($submitQuestionNext);
 
+        $this->addDisplayGroup(
+                array('cancel', 'next'),
+                'buttons',
+                array('class' => 'table', 'order'=>999)
+        );
     }
 
     public function isValid($data)

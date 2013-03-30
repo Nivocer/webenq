@@ -29,7 +29,7 @@
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 
-class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form
+class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form_SubForm
 {
     public static $_presentationOptions;
 
@@ -89,24 +89,21 @@ class Webenq_Form_Question_AdminAnswerDomain extends Zend_Form
 
         $cancel = new Zend_Form_Element_Submit('cancel');
         $cancel->setLabel('Cancel');
-        $cancel->setOrder(970);
         $cancel->removeDecorator('DtDdWrapper');
         $this->addElement($cancel);
 
         $submitPrevious=new Zend_Form_Element_Submit('previous');
         $submitPrevious->setLabel('Previous (answer options)');
-        $submitPrevious->setOrder(980);
         $submitPrevious->removeDecorator('DtDdWrapper');
         $this->addElement($submitPrevious);
 
         $submitDone=new Zend_Form_Element_Submit('done');
         $submitDone->setLabel('Done');
-        $submitDone->setOrder(990);
         $submitDone->removeDecorator('DtDdWrapper');
         $this->addElement($submitDone);
 
         $this->addDisplayGroup(
-            array('cancel', 'next', 'previous', 'done'),
+            array('cancel', 'previous', 'next', 'done'),
             'buttons',
             array('class' => 'table', 'order'=>999)
         );
