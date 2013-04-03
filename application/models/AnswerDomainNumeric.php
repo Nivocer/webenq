@@ -40,15 +40,15 @@ class Webenq_Model_AnswerDomainNumeric extends Webenq_Model_Base_AnswerDomainNum
     public static function getAvailablePresentations()
     {
         return array(
-            'Text' => array(
+            'text' => array(
                 'label' => 'Present as text',
                 'element'=>'WebEnq4_Form_Element_Note'
             ),
-            'Input' => array(
+            'input' => array(
                 'label' => 'Ask as open text',
                 'element'=>'Zend_Form_Element_Text'
             ),
-            'Slider' => array(
+            'slider' => array(
                 'label' => 'Ask as a slider',
                 'element'=>'ZendX_JQuery_Form_Element_Slider'
             ),

@@ -65,7 +65,7 @@ Webenq_Model_QuestionnaireElement:
         min: 10
         max: 20
       options:
-        presentation: Input
+        presentation: input
         presentationWidth: 10
         active: true
         required: true
@@ -93,7 +93,7 @@ Webenq_Model_QuestionnaireElement:
     type: QuestionnaireQuestionElement
     options:
       options:
-        presentation: text
+        presentation: input
         presentationWidth: 70
         active: true
         required: true

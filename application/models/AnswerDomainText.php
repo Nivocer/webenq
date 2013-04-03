@@ -41,15 +41,15 @@ class Webenq_Model_AnswerDomainText extends Webenq_Model_Base_AnswerDomainText
     public static function getAvailablePresentations()
     {
         return array(
-            'Text' => array(
+            'text' => array(
                 'label' => 'Present as text',
                 'element'=>'WebEnq4_Form_Element_Note'
             ),
-            'Input' => array(
+            'input' => array(
                 'label' => 'Ask a single line of text',
                 'element'=> 'Zend_Form_Element_Text'
             ),
-            'TextArea' => array(
+            'textArea' => array(
                 'label' => 'Ask multiple lines of text',
                 'element' => 'Zend_Form_Element_Textarea'
             ),

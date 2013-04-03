@@ -36,7 +36,7 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     public static function getAvailablePresentations()
     {
         return array(
-            'Text' => array(
+            'text' => array(
                 'label' => 'Present as text',
                 'element'=>'WebEnq4_Form_Element_Note'
             ),
@@ -56,14 +56,21 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
                 'label' => 'Ask as open text (with autocomplete)',
                 'element'=>'ZendX_JQuery_Form_Element_AutoComplete'
             ),
-            'Input' => array(
+            'input' => array(
                 'label' => 'Ask as open text',
                 'element'=>'Zend_Form_Element_Text'
             ),
-            'Slider' => array(
+            'slider' => array(
                 'label' => 'Ask as a slider',
                 'element'=>'ZendX_JQuery_Form_Element_Slider'
             ),
         );
+    }
+    public function getAnswerOptionsArray(){
+
+        foreach ($this->AnswerDomainItem->getNode()->getChildren() as $answerItem){
+            $return[$answerItem->id]=$answerItem->getTranslation('label');
+        }
+        return $return;
     }
 }
