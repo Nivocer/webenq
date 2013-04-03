@@ -61,9 +61,10 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
      */
     public function init()
     {
-        $id = new Zend_Form_Element_Hidden('answerId');
+        $id = new Zend_Form_Element_Hidden('id');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
+        $id->setBelongsTo('answers');
         $this->addElement($id);
 
         $cancel = new Zend_Form_Element_Submit('cancel');

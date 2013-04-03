@@ -32,6 +32,22 @@
 class WebEnq4_Form extends Zend_Form
 {
     /**
+     * Constructor
+     *
+     * Registers form view helper as decorator
+     *
+     * @param mixed $options
+     * @return void
+     */
+    public function __construct($options = null)
+    {
+        $this->addPrefixPath('WebEnq4_Form_', 'WebEnq4/Form/');
+        $this->addPrefixPath('ZendX_JQuery_Form_', 'ZendX/JQuery/Form/');
+
+        parent::__construct($options);
+    }
+
+    /**
      * Add a set of checkboxes with options to a form in a display group
      *
      * @param array Array with the name for the options, the group legend
@@ -78,6 +94,7 @@ class WebEnq4_Form extends Zend_Form
         $tag = ($header ? 'th' : 'td');
         $element->removeDecorator('DtDdWrapper');
         $element->removeDecorator('Label');
+        $element->addDecorator('Tooltip');
         $element->addDecorator('HtmlTag', array('tag' => $tag));
         return $element;
     }
@@ -97,4 +114,64 @@ class WebEnq4_Form extends Zend_Form
         return $element;
     }
 
+    /**
+     * See if there are Translations, swap field name and language and add
+     * as new array elements, to allow easier inclusion via Zend Form elements.
+     *
+     * So if <code>$defaults['Translation']['en']['text']</code> is available,
+     * this will make <code>$defaults['text']['en']</code> available too.
+     *
+     * It is assumed that the defaults come from an object toArray() call:
+     *
+     * <ul>
+     * <li>translated fields don't exist as object properties
+     * <li>no additional defaults are added that conflict with field names
+     * </ul>
+     *
+     * @see Zend_Form::setDefaults()
+     * @see getValues() for the converse operation
+     */
+    public function setDefaults(array $defaults)
+    {
+        if (isset($defaults['Translation'])) {
+            foreach ($defaults['Translation'] as $lang => $record) {
+                foreach ($record as $field => $value) {
+                    if (($field != 'id') && ($field != 'lang')) {
+                        $defaults[$field][$lang] = $value;
+                    }
+                }
+            }
+        }
+
+        parent::setDefaults($defaults);
+    }
+
+    /**
+     * Check if either cancel is clicked or all validators succeed
+     *
+     * @param array $values
+     * @return boolean
+     * @see Zend_Form::isValid()
+     */
+    public function isValid($values)
+    {
+        if ($this->isCancelled($values)) {
+            return true;
+        } else {
+            $result = parent::isValid($values);
+
+            return $result;
+        }
+    }
+
+    /**
+     * Check if the cancel button was submitted
+     *
+     * @param array $values
+     * @return boolean
+     */
+    public function isCancelled($values)
+    {
+        return (isset($values['cancel']));
+    }
 }

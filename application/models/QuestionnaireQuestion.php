@@ -523,41 +523,6 @@ class Webenq_Model_QuestionnaireQuestion extends Webenq_Model_Base_Questionnaire
         }
     }
     //database to form
-       /**
-     * Fills array with data in record and fills related objects with
-     * translations
-     *
-     * @param bool $deep
-     * @param bool $prefixKey Not used
-     * @return array
-     * @see Doctrine_Record::fromArray()
-     */
-    public function toArray($deep = true, $prefixKey = false)
-    {
-        $result = parent::toArray($deep, $prefixKey);
-        //text tab
-        if (isset($result['Question']) && ($result['Question'])) {
-            foreach ($result['Question'] as $question) {
-                if (is_array($question)){
-                    foreach ($question as $textOption){
-                        if (isset($textOption['text']) && isset($textOption['language'])) {
-                            $result['question'][$textOption['language']] = $textOption['text'];
-                        }
-                    }
-                }
-            }
-        }
-        if (isset($result['Question']) && ($result['Question'])){
-            $result['question']['id']=$result['Question']['id'];
-        }
-        //answer options tab
-        //@todo get reuse/suggestion value (answerDomain)
-        //$result['answerOptions']['reuse']=$result['answerOptions']['suggestions']='';
-
-        //options tab
-        //@todo write options tab toArray-code
-        return $result;
-    }
 
     //public function save(){
 //                 // type and answerPossiblitity group

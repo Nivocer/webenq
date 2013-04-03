@@ -41,8 +41,9 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
     {
         parent::init();
 
-        $name = new Zend_Form_Element_Text('name');
-        $name->setBelongsTo('AnswerDomain[Translation][en]');
+        // @todo hard-coded to English version of the name now
+        $name = new Zend_Form_Element_Text('en');
+        $name->setBelongsTo('answers[name]');
         $name->setLabel('Name');
         $name->setDescription('Name of this set of choices');
         $name->setRequired();
@@ -74,25 +75,10 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
      */
     public function setDefaults(array $defaults)
     {
-        if (isset($defaults['answer_domain_item_id'])) {
-            $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
-            $domainitems = $tree->fetchTree(array('root_id' => $defaults['answer_domain_item_id']));
-
-            foreach ($domainitems as $item) {
-                if ($item->id != $item->root_id) { // skip the root of the items
-                    $this->items->addItemRow('items[' . $item->id . ']');
-                    $defaults['items'][$item->id] = $item->toArray();
-                }
-            }
-            $this->addSubForm($this->items, 'items');
+        if (isset($defaults['AnswerDomainItem'])) {
+            $defaults['items'] = $defaults['AnswerDomainItem'];
         }
 
-/* debug: dump $defaults as note field
-        $cell = new WebEnq4_Form_Element_Note('defaults-to-be-set');
-        $cell->setValue(var_export($defaults, true));
-        $cell->addDecorator('HtmlTag', array('tag' => 'pre'));
-        $this->addElement($cell);
-*/
         parent::setDefaults($defaults);
     }
 }

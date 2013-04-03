@@ -50,32 +50,85 @@ public $answerDomainType;
     public function init()
     {
         /* question text and type tab */
-        $question = new Webenq_Form_Question_Question();
+        $question = new Webenq_Form_Question_Tab_Question();
         $question->removeDecorator('DtDdWrapper');
+
+        $node_id = new Zend_Form_Element_Hidden('id');
+        $node_id->removeDecorator('DtDdWrapper');
+        $node_id->removeDecorator('Label');
+        $question->addElement($node_id);
+
         $this->addSubForm($question, 'question');
 
         /* answer domain settings tab */
         // determine appropriate tab form for answer domain settings
-        $answerDomainType=$this->answerDomainType;
+        $answerDomainType = $this->answerDomainType;
 
         if (in_array($answerDomainType, array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
-            $classAnswerOptions = 'Webenq_Form_AnswerDomain_Tab_' . substr($answerDomainType, 12);
+            $classAnswers = 'Webenq_Form_AnswerDomain_Tab_' . substr($answerDomainType, 12);
+            $classOptions = 'Webenq_Form_Question_Tab_' . substr($answerDomainType, 12);
         } else {
-            $classAnswerOptions = 'Webenq_Form_AnswerDomain_Tab';
+            $classAnswers = 'Webenq_Form_AnswerDomain_Tab';
+            $classOptions = 'Webenq_Form_Question_Tab';
         }
 
-        // @todo extra wrapper for now; refactoring of Answerdomain tabs separate from form handling
-        $tempExtra = new Zend_Form_SubForm();
-        $tempExtra->removeDecorator('DtDdWrapper');
-        $tempExtra->removeDecorator('HtmlTag');
-        $tempExtra->addSubForm(new $classAnswerOptions(), 'answersettings');
-        $this->addSubForm($tempExtra, 'answerOptions');
+        $answers=new $classAnswers();
+        $answers->removeDecorator('DtDdWrapper');
+        $this->addSubForm($answers, 'answers');
 
         /* question options settings tab */
         $classOptions='Webenq_Form_Question_Admin'.$answerDomainType;
         $options = new $classOptions();
         $options->removeDecorator('DtDdWrapper');
         $this->addSubForm($options, 'options');
+
+        /* debug tab with defaults given to form */
+        $tempExtra = new WebEnq4_Form();
+        $tempExtra->removeDecorator('Form');
+        $tempExtra->removeDecorator('Fieldset');
+        $this->debugelement = new WebEnq4_Form_Element_Note('defaults-to-be-set');
+        $this->debugelement->addDecorator('HtmlTag', array('tag' => 'pre'));
+        $this->debugelement->removeDecorator('DtDdWrapper');
+        $tempExtra->addElement($this->debugelement);
+        $this->addSubForm($tempExtra, 'debug');
+    }
+
+    /**
+     * Set defaults for all elements
+     */
+    public function setDefaults(array $defaults)
+    {
+        if (isset($defaults['QuestionnaireElement'])) {
+            $defaults['question'] = $defaults['QuestionnaireElement'];
+            $defaults['question']['node_id'] = $defaults['id'];
+            $defaults['question']['id'] = $defaults['id'];
+
+            if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
+                $defaults['answers'] = $defaults['QuestionnaireElement']['AnswerDomain'];
+            }
+        }
+        $this->debugelement->setValue(var_export($defaults, true));
+        parent::setDefaults($defaults);
+
+        /*
+        if (isset($this->QuestionnaireElement->answer_domain_id)){
+        $result['question']['reuse']=$this->QuestionnaireElement->answer_domain_id;
+        }
+
+        if (isset($this->QuestionnaireElement->AnswerDomain)){
+        $result['answerOptions']=$this->QuestionnaireElement->AnswerDomain->toArray();
+        $result['answerOptions']['name']=$this->QuestionnaireElement->AnswerDomain->getTranslation('name');
+        }
+        if (!empty($this->QuestionnaireElement->options['answersettings'])){
+        foreach ($this->QuestionnaireElement->options['answersettings'] as $key=>$value){
+        $result['answerOptions']['answersettings'][$key]=$value;
+        }
+        }
+        if (isset($this->QuestionnaireElement->options['options'])){
+        $result['options']=$this->QuestionnaireElement->options['options'];
+        }
+        */
+
     }
 
     public function isValid($data)

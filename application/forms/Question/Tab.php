@@ -23,18 +23,31 @@
  */
 
 /**
- * Form class
+ * Abstract sub form for the tab with answer domain settings and/or items.
+ * Sets the default decorators to make it work as subform.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
+ * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_Question_AdminAnswerDomainText extends Webenq_Form_Question_AdminAnswerDomain
+class Webenq_Form_Question_Tab extends WebEnq4_Form
 {
-public function init(){
-        parent::$_presentationOptions=Webenq_Model_AnswerDomainText::getAvailablePresentations();
-        parent::init();
-        $this->setName(get_class($this));
-     }
+    /**
+     * Load the default decorators, much the same as in Zend_Form_SubForm
+     *
+     * @return Webenq_Form_AnswerDomain_Items
+     */
+    public function loadDefaultDecorators()
+    {
+        if ($this->loadDefaultDecoratorsIsDisabled()) {
+            return $this;
+        }
 
-
+        $decorators = $this->getDecorators();
+        if (empty($decorators)) {
+            $this->addDecorator('FormElements')
+                ->addDecorator('HtmlTag', array('tag' => 'dl', 'class' => 'zend_form'));
+        }
+        return $this;
+    }
 }

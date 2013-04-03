@@ -74,37 +74,6 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
             break;
         }
     }
-    public function toArray($deep = true, $prefixKey = false)
-    {
-        $result = parent::toArray($deep, $prefixKey);
-        if (isset($this->id)) {
-            $result['question']['id']=$this->id;
-        }
-
-        foreach ($this->QuestionnaireElement->Translation as $lang=>$translation) {
-            if (isset($translation->text)) {
-                //$result['question'][$lang] = $translation->text;
-                $result['question']['text'][$lang] = $translation->text;
-            }
-        }
-        if (isset($this->QuestionnaireElement->answer_domain_id)){
-            $result['question']['reuse']=$this->QuestionnaireElement->answer_domain_id;
-        }
-
-        if (isset($this->QuestionnaireElement->AnswerDomain)){
-            $result['answerOptions']['answersettings']=$this->QuestionnaireElement->AnswerDomain->toArray();
-            $result['answerOptions']['answersettings']['name']=$this->QuestionnaireElement->AnswerDomain->getTranslation('name');
-        }
-        if (!empty($this->QuestionnaireElement->options['answersettings'])){
-            foreach ($this->QuestionnaireElement->options['answersettings'] as $key=>$value){
-                $result['answerOptions']['answersettings'][$key]=$value;
-            }
-        }
-        if (isset($this->QuestionnaireElement->options['options'])){
-            $result['options']=$this->QuestionnaireElement->options['options'];
-        }
-        return $result;
-    }
 
     /*
      * untested

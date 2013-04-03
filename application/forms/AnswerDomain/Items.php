@@ -37,27 +37,27 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
     private $_fields = array(
         'value' => array(
             'label' => 'Value',
-            'description' => 'Stored in the database',
+            'description' => "The value stored\nin the database",
             'type' => 'string'
         ),
         'label' => array(
             'label' => 'Label',
-            'description' => 'Presented in forms and reports',
+            'description' => "How the value is presented\nin forms and reports",
             'type' => 'i18n'
         ),
         'isNullValue' => array(
             'label' => 'Null value?',
-            'description' => 'Consider this as "non-response"?',
+            'description' => "Consider this as \"non-response\"?",
             'type' => 'boolean'
         ),
         'isActive' => array(
             'label' => 'Active?',
-            'description' => 'Is this item in use?',
+            'description' => "Is this item in use?",
             'type' => 'boolean'
         ),
         'isHidden' => array(
             'label' => 'Hidden?',
-            'description' => 'Should this item be shown in lists?',
+            'description' => "Should this item be shown in lists?",
             'type' => 'boolean'
         ),
     );
@@ -93,6 +93,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $id->setBelongsTo($this->getName());
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
+        $id->setBelongsTo('items');
         $this->addElement($id);
 
         // add the table headers
@@ -100,15 +101,53 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         foreach ($this->_fields as $fieldname => $fieldinfo) {
             $cell = new WebEnq4_Form_Element_Note('th_'.$fieldname);
             $cell->setValue($fieldinfo['label']);
+            $id->setBelongsTo('items');
             $this->decorateAsTableCell($cell, true);
             $this->addElement($cell);
             $header[] = $cell->getName();
         }
         $this->addDisplayGroup($header, 'header', array());
         $this->decorateAsTableRow($this->getDisplayGroup('header'));
+    }
 
-        // add an empty row to add a new item
-        //$this->addItemRow('new_item', array('order'=>'999'));
+    /**
+     * Set defaults, in our case: add some form elements
+     */
+    public function setDefaults(array $defaults)
+    {
+        if (isset($defaults['id'])) {
+            $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
+            $domainitems = $tree->fetchTree(array('root_id' => $defaults['id']));
+
+            foreach ($domainitems as $item) {
+                if ($item->id != $item->root_id) { // skip the root of the items
+                    $this->addItemRow('items[' . $item->id . ']');
+
+                    $itemArray = $item->toArray();
+
+                    /**
+                     * @todo DRY... maybe move this to model toArray()?
+                     * @see WebEnq4_Form::setDefaults()
+                     */
+                    if (isset($itemArray['Translation'])) {
+                        foreach ($itemArray['Translation'] as $lang => $record) {
+                            foreach ($record as $field => $value) {
+                                if (($field != 'id') && ($field != 'lang')) {
+                                    $itemArray[$field][$lang] = $value;
+                                }
+                            }
+                        }
+                    }
+
+                    $defaults['items'][$item->id] = $itemArray;
+                }
+            }
+
+            // add an empty row to add a new item
+            //$this->addItemRow('items[]');
+        }
+
+        parent::setDefaults($defaults);
     }
 
     /**
@@ -119,13 +158,15 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      */
     public function addItemRow($name, $options = array())
     {
+        $rowForm = new WebEnq4_Form();
+
         $row = array();
         foreach ($this->_fields as $fieldname => $fieldinfo) {
             switch ($fieldinfo['type']) {
                 case 'i18n':
                     // @todo this doesn't work yet... we're just picking the English translation
-                    $cell = new Zend_Form_Element_Text($fieldname);
-                    $cell->setBelongsTo($name . '[Translation][en]');
+                    $cell = new Zend_Form_Element_Text('en');
+                    $cell->setBelongsTo($name . "[$fieldname]");
                     break;
                 case 'boolean':
                     $cell = new Zend_Form_Element_Checkbox($fieldname);
@@ -138,11 +179,14 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
                     break;
             }
 
-            $this->addElement($cell);
-            $this->decorateAsTableCell($cell);
+            if (isset($fieldinfo['description'])) {
+                $cell->setAttrib('title', $fieldinfo['description']);
+            }
+            $rowForm->addElement($cell);
+            $rowForm->decorateAsTableCell($cell);
             $row[] = $cell->getName();
         }
-        $this->addDisplayGroup($row, $name, $options);
-        $this->decorateAsTableRow($this->getDisplayGroup($name));
+        $this->addSubForm($rowForm, $name);
+        $this->decorateAsTableRow($this->getSubForm($name));
     }
 }

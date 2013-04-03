@@ -5,10 +5,13 @@
                 <a href="#question"><?php echo t('question'); ?></a>
             </li>
             <li>
-                <a href="#answerOptions"><?php echo t('answer options'); ?></a>
+                <a href="#answers"><?php echo t('answer options'); ?></a>
             </li>
             <li>
                 <a href="#options"><?php echo t('options'); ?></a>
+            </li>
+            <li>
+                <a href="#debug">debug: defaults</a>
             </li>
         </ul>
         <div id=questionText><h3>
@@ -20,11 +23,14 @@
         <div id="question">
             <?php echo $this->form->question; ?>
         </div>
-        <div id="answerOptions">
-            <?php echo $this->form->answerOptions; ?>
+        <div id="answers">
+            <?php echo $this->form->answers; ?>
         </div>
         <div id="options">
             <?php echo $this->form->options; ?>
+        </div>
+        <div id="debug">
+            <?php echo $this->form->debug; ?>
         </div>
     </div>
 </form>

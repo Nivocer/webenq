@@ -15,6 +15,7 @@
  * @property integer $max_length
  * @property float $min
  * @property float $max
+ * @property float $missing
  * @property integer $min_choices
  * @property integer $max_choices
  * @property Webenq_Model_AnswerDomainItem $AnswerDomainItem
@@ -59,6 +60,9 @@ abstract class Webenq_Model_Base_AnswerDomain extends Doctrine_Record
              'type' => 'float',
              ));
         $this->hasColumn('max', 'float', null, array(
+             'type' => 'float',
+             ));
+        $this->hasColumn('missing', 'float', null, array(
              'type' => 'float',
              ));
         $this->hasColumn('min_choices', 'integer', null, array(

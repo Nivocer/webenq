@@ -24,7 +24,7 @@ class Webenq_Model_AnswerDomainItem extends Webenq_Model_Base_AnswerDomainItem
     {
         $result = parent::toArray($deep, $prefixKey);
 
-        // @todo We should find a way to do this via the I18n behavior
+        // @todo We should find a way to do this via the I18n behavior, of find out why 'deep=true' doesn't do this
         $result['Translation'] = $this->Translation->toArray();
 
         return $result;

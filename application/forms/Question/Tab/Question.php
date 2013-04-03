@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Question extends Zend_Form_SubForm
+class Webenq_Form_Question_Tab_Question extends Webenq_Form_Question_Tab
 {
     /**
      * Initialises the form
@@ -37,32 +37,36 @@ class Webenq_Form_Question_Question extends Zend_Form_SubForm
      */
     public function init()
     {
-        //$questionForm = new Zend_Form();
-        $this->setName(get_class($this));
         $id = new Zend_Form_Element_Hidden('id');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
+        $id->setBelongsTo('question');
         $this->addElement($id);
 
         $languages = Webenq_Language::getLanguages();
+        $textList = array();
         foreach ($languages as $language) {
-            $this->addElement(
-                $this->createElement(
-                    'text',
-                    $language,
-                    array(
-                        'belongsTo'=>'text',
-                        'label' => t('text') . ' (' . $language . '):',
-                        'size' => 60,
-                        'autocomplete' => 'on',
-                        'required' => true,
-                        'validators' => array(
-                            new Zend_Validate_NotEmpty(),
-                        ),
-                    )
+            $text = new Zend_Form_Element_Text($language,
+                array(
+                    'autocomplete' => 'on',
+                    'size' => 60,
+                    'label' => $language,
+                    'belongsTo' => "question[text]"
                 )
             );
+            $this->addElement($text);
+
+            $textList[] = $text->getName();
         }
+
+        if (count($textList) > 0) {
+            $this->addDisplayGroup(
+                $textList,
+                'text',
+                array('legend' => 'Text')
+            );
+        }
+
         /*$suggestionsOptions=array();
         //$info['suggestions']=Webenq_Model_QuestionnaireQuestion::getAnswerOptions($questionnaireQuestion->QuestionnaireElement->getTranslation('text'));
 
@@ -71,8 +75,9 @@ class Webenq_Form_Question_Question extends Zend_Form_SubForm
         $suggestions->addMultiOptions($suggestionsOptions);
         $this->addElement($suggestions);
 */
-        $reuse=new Zend_Form_Element_Select('reuse');
+        $reuse=new Zend_Form_Element_Select('answer_domain_id');
         $reuse->setLabel('Reuse');
+        $reuse->setBelongsTo('question');
         $reuse->addMultiOption("",t('...pick a set of answers options to reuse...'));
 
         foreach (Webenq_Model_AnswerDomain::getAll() as $answerDomain){
@@ -96,7 +101,7 @@ class Webenq_Form_Question_Question extends Zend_Form_SubForm
         $this->addElement($cancel);
 
         $submitQuestionNext=new Zend_Form_Element_Submit('next');
-        $submitQuestionNext->setLabel('Next (answer options)');
+        $submitQuestionNext->setLabel('Next >');
         $this->addElement($submitQuestionNext);
 
         $this->addDisplayGroup(
@@ -104,17 +109,6 @@ class Webenq_Form_Question_Question extends Zend_Form_SubForm
                 'buttons',
                 array('class' => 'table', 'order'=>999)
         );
-    }
-
-    public function isValid($data)
-    {
-        return parent::isValid($data);
-    }
-
-
-     public function isCancelled($values)
-    {
-        return (isset($values['cancel']));
     }
 
 }
