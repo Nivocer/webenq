@@ -48,34 +48,28 @@ function initOptionsTab(){
 		$('#numberOfAnswers-element').show();
 	}
 }
+
 // add empty row to ad an new answerchoice item
 function addItemRow(){
 	
-	var tid = Math.floor( Math.random()*999999 );
-	var regName= /^items\[(\w)\]\.*/;
-	var regId= /^items-(\w)-\.*/;
-	  $("table#answerItems tr:last").clone().find("input").each(function() {
+	var tid = new Date().getTime();
+	$("table#answerItems tr#newitem").clone().removeAttr('id').find('input').each(function() {
 	    $(this).attr({
 	      'id': function(_, id) { 
 	    	  	if (id){
-	    	  		return id.replace(regId,'items-'+tid+'-'); 
+	    	  		return id.replace(/^items-new-/,'items-'+tid+'-'); 
 	    	  	}
 	    	  	},
-	      'name': function(_, name) { return name.replace(regName, 'items['+tid+']'); },
+	      'name': function(_, name) { return name.replace(/^items\[new\]/, 'items['+tid+']'); },
 	      'value': '',
           'checked': false
 	    });
-	  }).end().appendTo("table");
-
-
+	  }).end().insertBefore($("table#answerItems tr#newitem")).fadeIn('slow').removeClass('hidden');
 }
 
 $(function() {
 	initColWidth();
 	initOptionsTab();
-	addItemRow();
-	addItemRow();
-
 	
 	/* hide answerBox width if not applicable */
 	$('#options-options-presentation').change(function() {

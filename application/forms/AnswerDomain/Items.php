@@ -149,8 +149,23 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
                 }
             }
 
-            // add an empty row to add a new item
-            //$this->addItemRow('items[]');
+            // add a hidden empty row to add as new item
+            $this->addItemRow('items[new]');
+            $newItemsRow = $this->getSubForm('items[new]');
+            $newItemsRow->addDecorator('HtmlTag', array(
+                    'tag' => 'tr',
+                    'class' => 'hidden',
+                    'id' => 'newitem'
+            ));
+
+            // button to add an item
+            $cell = new WebEnq4_Form_Element_Note('addItemRow');
+            $cell->setValue('<a class="add with_icon" id="addItemRow" href="#">' . t('Add an item') . '</a>');
+            $this->decorateAsTableCell($cell);
+            $cell->addDecorator('HtmlTag', array('tag' => 'td', 'colspan' => count($this->_fields)));
+            $this->addElement($cell);
+            $this->addDisplayGroup(array('addItemRow'), 'footer', array('order' => '999'));
+            $this->decorateAsTableRow($this->getDisplayGroup('footer'));
         }
 
         parent::setDefaults($defaults);

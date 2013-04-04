@@ -66,11 +66,6 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
         $id->setBelongsTo('answers');
         $this->addElement($id);
 
-        $addItem = new WebEnq4_Form_Element_Note('addItemRow');
-        $addItem->setValue('<a class="add with_icon" id="addItemRow" href="#">' . t('Add an item') . '</a>');
-        $addItem->setOrder(990);
-        $this->addElement($addItem);
-
         $cancel = new Zend_Form_Element_Submit('cancel');
         $cancel->setLabel('Cancel');
         $this->addElement($cancel);
