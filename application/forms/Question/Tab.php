@@ -109,7 +109,7 @@ class Webenq_Form_Question_Tab extends WebEnq4_Form
         $this->addDisplayGroup(
             array('required', 'active'),
             'checkboxes',
-            array('class' => 'optionlist')
+            array('class' => 'optionlist', 'order' =>500)
         );
 
         $cancel = new Zend_Form_Element_Submit('cancel');

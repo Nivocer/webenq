@@ -5,6 +5,7 @@ function saveState() {
 	var $list = $('ul.sortable');
 	
 	var $data = $list.sortable('serialize') + '&cols=' + $('#cols').val() + '&parent=' + $qqId;
+	
 	$.post(baseUrl + '/questionnaire-question/save-state', $data, function() {
 		$('body').removeClass('loading');
 	});
@@ -23,9 +24,41 @@ function initColWidth() {
 	});
 }
 
+function initOptionsTab(){
+	//display boxwidth/boxheight if it element is input or textComplete
+	var boxwidth = ['input', 'textComplete'];
+	if (($.inArray($('#options-options-presentation').val(), boxwidth))==-1){
+		$('#presentationWidth-label').hide();
+		$('#presentationWidth-element').hide();
+		$('#presentationHeight-label').hide();
+		$('#presentationHeight-element').hide();
+	}else{
+		$('#presentationWidth-label').show();
+		$('#presentationWidth-element').show();
+		$('#presentationHeight-label').show();
+		$('#presentationHeight-element').show();
+	}
+	//display number of answer input 
+	var numberAnswer = ['checkbox', 'radio','pulldown', 'slider'];
+	if (($.inArray($('#options-options-presentation').val(), numberAnswer))==-1){
+		$('#numberOfAnswers-label').hide();
+		$('#numberOfAnswers-element').hide();
+	}else{
+		$('#numberOfAnswers-label').show();
+		$('#numberOfAnswers-element').show();
+	}
+}
+
 $(function() {
-	
 	initColWidth();
+	initOptionsTab();
+	
+	
+	/* hide answerBox width if not applicable */
+	$('#options-options-presentation').change(function() {
+		initOptionsTab();
+	});
+	
 	
 	$('#less').click(function() {
 		$containerWidth = parseInt($('ul.sortable').css('width'));
@@ -77,4 +110,5 @@ function postOpenDialog() {
 			saveState();
 		}
 	});
+	
 }
