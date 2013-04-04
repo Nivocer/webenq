@@ -79,18 +79,13 @@ class Webenq_Form_Question_Tab extends WebEnq4_Form
         $presentation->setBelongsTo('options[options]');
         $this->addElement($presentation);
 
-        //@todo dependent of presentation method, use javascript/ajax
         $presentationWidth=new Zend_Form_Element_text('presentationWidth');
         $presentationWidth->setLabel('Width of answer box');
-        $presentationWidth->setDescription('todo: js-> only display if presentation is open');
         $presentationWidth->setBelongsTo('options[options]');
         $this->addElement($presentationWidth);
 
-        //@todo dependent of presentation method, use javascript/ajax
-        //@todo only display if $presentation==open && type==text
         $presentationHeight=new Zend_Form_Element_text('presentationHeight');
         $presentationHeight->setLabel('Number of rows of answer box');
-        $presentationHeight->setDescription('todo: js-> only display if presentation is open and type=text');
         $presentationHeight->setBelongsTo('options[options]');
         $this->addElement($presentationHeight);
 
