@@ -53,6 +53,10 @@ class WebEnq4_View_Helper_MlTextElement extends Zend_View_Helper_FormElement
 
             $defaultLanguage = (isset($attribs['default_language'])) ? $attribs['default_language'] : '';
 
+            if (isset($attribs['id'])) {
+                $id = $attribs['id'];
+            }
+
             foreach ($attribs['languages'] as $language) {
                 $current = '';
 
@@ -76,6 +80,9 @@ class WebEnq4_View_Helper_MlTextElement extends Zend_View_Helper_FormElement
                     $html .= '<span class="inputfield">';
                 }
 
+                if (isset($id)) {
+                    $attribs['id'] = $id . '-' . $language;
+                }
                 $html .= $helperText->formText(
                     $name . '[' . $language . ']',
                     $current,

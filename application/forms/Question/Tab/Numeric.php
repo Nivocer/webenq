@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_AdminAnswerDomainNumeric extends Webenq_Form_Question_AdminAnswerDomain
+class Webenq_Form_Question_Tab_Numeric extends Webenq_Form_Question_Tab
 {
     public function init(){
         $this->_presentationOptions=Webenq_Model_AnswerDomainNumeric::getAvailablePresentations();

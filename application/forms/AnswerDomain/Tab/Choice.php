@@ -42,10 +42,11 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
         parent::init();
 
         // @todo hard-coded to English version of the name now
-        $name = new Zend_Form_Element_Text('en');
-        $name->setBelongsTo('answers[name]');
+        $name = new WebEnq4_Form_Element_MlText('name');
+        $name->setAttrib('languages', $this->_languages);
+        $name->setBelongsTo('answers');
         $name->setLabel('Name');
-        $name->setDescription('Name of this set of choices');
+        $name->setDescription('Name for this set of choices');
         $name->setRequired();
         $this->addElement($name);
 

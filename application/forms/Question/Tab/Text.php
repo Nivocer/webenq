@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_AdminAnswerDomainText extends Webenq_Form_Question_AdminAnswerDomain
+class Webenq_Form_Question_Tab_Text extends Webenq_Form_Question_Tab
 {
     public function init()
     {

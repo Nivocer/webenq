@@ -41,9 +41,11 @@ class Webenq_Form_AnswerDomain_Tab_Text extends Webenq_Form_AnswerDomain_Tab
     {
         parent::init();
 
-        $name = new Zend_Form_Element_Text('name');
+        $name = new WebEnq4_Form_Element_MlText('name');
+        $name->setAttrib('languages', $this->_languages);
+        $name->setBelongsTo('answers');
         $name->setLabel('Name');
-        $name->setDescription('For later re-use of these settings');
+        $name->setDescription('Name for later re-use of these settings');
         $name->setRequired();
         $this->addElement($name);
 

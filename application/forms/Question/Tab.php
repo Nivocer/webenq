@@ -79,12 +79,12 @@ class Webenq_Form_Question_Tab extends WebEnq4_Form
         $presentation->setBelongsTo('options[options]');
         $this->addElement($presentation);
 
-        $presentationWidth=new Zend_Form_Element_text('presentationWidth');
+        $presentationWidth=new Zend_Form_Element_Text('presentationWidth');
         $presentationWidth->setLabel('Width of answer box');
         $presentationWidth->setBelongsTo('options[options]');
         $this->addElement($presentationWidth);
 
-        $presentationHeight=new Zend_Form_Element_text('presentationHeight');
+        $presentationHeight=new Zend_Form_Element_Text('presentationHeight');
         $presentationHeight->setLabel('Number of rows of answer box');
         $presentationHeight->setBelongsTo('options[options]');
         $this->addElement($presentationHeight);

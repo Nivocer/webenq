@@ -43,29 +43,11 @@ class Webenq_Form_Question_Tab_Question extends Webenq_Form_Question_Tab
         $id->setBelongsTo('question');
         $this->addElement($id);
 
-        $languages = Webenq_Language::getLanguages();
-        $textList = array();
-        foreach ($languages as $language) {
-            $text = new Zend_Form_Element_Text($language,
-                array(
-                    'autocomplete' => 'on',
-                    'size' => 60,
-                    'label' => $language,
-                    'belongsTo' => "question[text]"
-                )
-            );
-            $this->addElement($text);
-
-            $textList[] = $text->getName();
-        }
-
-        if (count($textList) > 0) {
-            $this->addDisplayGroup(
-                $textList,
-                'text',
-                array('legend' => 'Text')
-            );
-        }
+        $text = new WebEnq4_Form_Element_MlText('text');
+        $text->setAttrib('languages', $this->_languages);
+        $text->setLabel('Text');
+        $text->setBelongsTo('question');
+        $this->addElement($text);
 
         /*$suggestionsOptions=array();
         //$info['suggestions']=Webenq_Model_QuestionnaireQuestion::getAnswerOptions($questionnaireQuestion->QuestionnaireElement->getTranslation('text'));
