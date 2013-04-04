@@ -298,20 +298,22 @@ ul.selectable {
 	margin: 0;
 }
 
-.mltextdefaultlanguage {
+.mltext {
 	display: table;
 }
-.mltextdefaultlanguage .languageoption {
+.mltext .languageoption {
 	display: table-row;
 }
-.mltextdefaultlanguage .selector {
+.mltext .label,
+.mltext .selector {
 	display: table-cell;
 	padding-right: 0.5em;
+	text-align: left;
 }
-.mltextdefaultlanguage .inputfield {
+.mltext .inputfield {
 	display: table-cell;
 }
-.mltextdefaultlanguage .inputfield input {
+.mltext .inputfield input {
 	width: 25em;
 }
 

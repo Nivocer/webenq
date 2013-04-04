@@ -30,7 +30,7 @@
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_Questionnaire_Properties extends Zend_Form
+class Webenq_Form_Questionnaire_Properties extends WebEnq4_Form
 {
     const ERR_END_IS_BEFORE_START = 'endDateIsBeforeStartDate';
 

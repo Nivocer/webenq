@@ -116,6 +116,11 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
     public function setDefaults(array $defaults)
     {
         if (isset($defaults['id'])) {
+            if (!isset($defaults['item'])) {
+                $defaults['item'] = array();
+            }
+            $defaults['items']['id'] = $defaults['id'];
+
             $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
             $domainitems = $tree->fetchTree(array('root_id' => $defaults['id']));
 
@@ -159,32 +164,30 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
     public function addItemRow($name, $options = array())
     {
         $rowForm = new WebEnq4_Form();
+        $rowForm->removeDecorator('Form');
 
-        $row = array();
         foreach ($this->_fields as $fieldname => $fieldinfo) {
             switch ($fieldinfo['type']) {
                 case 'i18n':
-                    // @todo this doesn't work yet... we're just picking the English translation
-                    $cell = new Zend_Form_Element_Text('en');
-                    $cell->setBelongsTo($name . "[$fieldname]");
+                    $cell = new WebEnq4_Form_Element_MlText($fieldname);
+                    $cell->setAttrib('languages', $this->_languages);
+                    $cell->setAttrib('default_language', 'en');
                     break;
                 case 'boolean':
                     $cell = new Zend_Form_Element_Checkbox($fieldname);
-                    $cell->setBelongsTo($name);
                     break;
                 case 'string':
                 default:
                     $cell = new Zend_Form_Element_Text($fieldname);
-                    $cell->setBelongsTo($name);
                     break;
             }
 
             if (isset($fieldinfo['description'])) {
                 $cell->setAttrib('title', $fieldinfo['description']);
             }
-            $rowForm->addElement($cell);
+            $cell->setBelongsTo($name);
             $rowForm->decorateAsTableCell($cell);
-            $row[] = $cell->getName();
+            $rowForm->addElement($cell);
         }
         $this->addSubForm($rowForm, $name);
         $this->decorateAsTableRow($this->getSubForm($name));

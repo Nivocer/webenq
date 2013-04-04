@@ -27,8 +27,7 @@
  *
  * @package    WebEnq4_Forms
  */
-class WebEnq4_View_Helper_MlTextDefaultLanguageElement
-    extends Zend_View_Helper_FormElement
+class WebEnq4_View_Helper_MlTextElement extends Zend_View_Helper_FormElement
 {
     protected $_html = '';
 
@@ -40,50 +39,54 @@ class WebEnq4_View_Helper_MlTextDefaultLanguageElement
      *     language codes to present
      * @return string Xhtml code for this element
      */
-    public function mlTextDefaultLanguageElement($name, $value = null, $attribs = null)
+    public function mlTextElement($name, $value = null, $attribs = null)
     {
-        $helperRadio = new Zend_View_Helper_FormRadio();
-        $helperRadio->setView($this->view);
-
+        $helperLabel = new Zend_View_Helper_FormLabel();
+        $helperLabel->setView($this->view);
         $helperText = new Zend_View_Helper_FormText();
         $helperText->setView($this->view);
 
-        if (isset($attribs['languages']) && is_array($attribs['languages'])) {
+        if (is_array($attribs)
+        && isset($attribs['languages'])
+        && is_array($attribs['languages'])) {
             $html = '';
+
+            $defaultLanguage = (isset($attribs['default_language'])) ? $attribs['default_language'] : '';
 
             foreach ($attribs['languages'] as $language) {
                 $current = '';
-                $defaultLanguage = '';
 
                 if (is_array($value)) {
                     $current = (isset($value[$language])) ? $value[$language] : '';
-                    $defaultLanguage = (isset($value['default_language'])) ? $value['default_language'] : '';
                 }
 
                 $html .= '<span class="languageoption"><span class="selector">';
 
-                $html .= $helperRadio->formRadio(
-                    $name . '[default_language]',
-                    $defaultLanguage,
-                    array(),
-                    array($language=>t($language)),
-                    ''
+                $html .= $helperLabel->formLabel(
+                    $name,
+                    t($language),
+                    array()
                 );
 
-                $html .= '</span><span class="inputfield">';
+                $html .= '</span>';
+
+                if ($language == $defaultLanguage) {
+                    $html .= '<span class="inputfield default">';
+                } else {
+                    $html .= '<span class="inputfield">';
+                }
 
                 $html .= $helperText->formText(
                     $name . '[' . $language . ']',
                     $current,
-                    array()
+                    $attribs
                 );
 
                 $html .= '</span></span>';
             }
 
             if ($html != '') {
-                $this->_html .= "<span class=\"mltext\">$html</span>";
-                $this->_html .= '<span class="hint">&uarr; ' . t("Select the default language") . '</span>';
+                $this->_html = "<span class=\"mltext\">$html</span>";
             }
         }
 

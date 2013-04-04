@@ -32,6 +32,22 @@
 class WebEnq4_Form extends Zend_Form
 {
     /**
+     * List of languages to use for multi-lingual strings
+     *
+     * @var array Default is set to 'en' and 'nl'
+     */
+    public $_languages = array('en', 'nl');
+
+    /**
+     * Default language to use for multi-lingual strings
+     *
+     * Note: not dealing with fallback languages or full translation.
+     *
+     * @var array Default is set to 'en'
+     */
+    public $_defaultLanguage = 'en';
+
+    /**
      * Constructor
      *
      * Registers form view helper as decorator

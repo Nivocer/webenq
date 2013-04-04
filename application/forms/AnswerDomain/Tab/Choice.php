@@ -51,6 +51,7 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
 
         // keep the items subform to be able to add things to it in setDefaults
         $this->items = new Webenq_Form_AnswerDomain_Items();
+        $this->items->_languages = $this->_languages;
         $this->addSubForm($this->items, 'items');
 
         $this->addCheckboxOptions(
