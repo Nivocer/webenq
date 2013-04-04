@@ -108,6 +108,14 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         }
         $this->addDisplayGroup($header, 'header', array());
         $this->decorateAsTableRow($this->getDisplayGroup('header'));
+
+        // add the table headers
+        $cell = new WebEnq4_Form_Element_Note('addItemRow');
+        $cell->setValue('<a class="add with_icon" href="#">' . t('Add an item') . '</a>');
+        $this->decorateAsTableCell($cell);
+        $this->addElement($cell);
+        $this->addDisplayGroup(array('addItemRow'), 'footer', array('order' => '999'));
+        $this->decorateAsTableRow($this->getDisplayGroup('footer'));
     }
 
     /**
