@@ -23,17 +23,22 @@
  */
 
 /**
- * Form class
+ * Form to deal with question properties (text, answers, options).
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_Question_Properties extends WebEnq4_Form
 {
-public $answerDomainType;
+    /**
+     * Type of answer domain: text, numeric, choice
+     *
+     * @var string
+     */
+    public $answerDomainType;
 
     /**
-     * Initialises the form
+     * Initialises the form, sets the answer domain type
      *
      * @param mixed $options
      * @return void
@@ -102,27 +107,6 @@ public $answerDomainType;
         parent::setDefaults($defaults);
     }
 
-    public function isValid($data)
-    {
-/*        // check if at least one language is filled out
-        $hasAtLeastOneLanguage = false;
-        foreach ($data['question']['text'] as $language => $translation) {
-            if (trim($translation) != '') {
-                $hasAtLeastOneLanguage = true;
-                break;
-            }
-        }
-
-        // disable required setting if at least one language was found
-        if ($hasAtLeastOneLanguage) {
-            foreach ($this->getSubForm('text')->getSubForm('text')->getElements() as $elm) {
-                $elm->setRequired(false);
-            }
-        }
-*/
-        return parent::isValid($data);
-    }
-
     /**
      * Get the subform name based on the submit button pressed (next/previous/done)
      *
@@ -154,165 +138,4 @@ public $answerDomainType;
         }
         return false;
     }
-
-     public function isCancelled($values)
-    {
-        return (isset($values['cancel']));
-    }
-//     public function subFormQuestion($info=null){
-//         $questionForm = new Zend_Form_SubForm();
-//         $id = new Zend_Form_Element_Hidden('id');
-//         $id->removeDecorator('DtDdWrapper');
-//         $id->removeDecorator('Label');
-//         $questionForm->addElement($id);
-
-
-//         $languages = Webenq_Language::getLanguages();
-//         foreach ($languages as $language) {
-//             $questionForm->addElement(
-//                 $this->createElement(
-//                     'text',
-//                     $language,
-//                     array(
-//                         'label' => t('text') . ' (' . $language . '):',
-//                         'size' => 60,
-//                         'autocomplete' => 'on',
-//                         'required' => true,
-//                         'validators' => array(
-//                             new Zend_Validate_NotEmpty(),
-//                         ),
-//                     )
-//                 )
-//             );
-//         }
-//         $suggestions=new Zend_Form_Element_Radio('suggestions');
-//         $suggestions->setLabel('Suggestions');
-//         $suggestions->addMultiOptions($info['suggestions']);
-//         $questionForm->addElement($suggestions);
-
-//         $reuse=new Zend_Form_Element_Select('reuse');
-//         $reuse->setLabel('Reuse');
-//         //$reuse->addMultipleOption(array(0=>t('pick a set of answers options to reuse')));
-//         $reuse->addMultiOptions(array_merge(array(0=>t('...pick a set of answers options to reuse...')),Webenq_Model_QuestionnaireQuestion::getAnswerOptions()));
-//         $questionForm->addElement($reuse);
-
-//         $new=new Zend_Form_Element_Select('new');
-//         $new->setLabel('Add new');
-//         $new->addMultiOptions(array_merge(array(0=>t('...or add a new set of answer options...')),Webenq_Model_AnswerDomain::getAvailableTypes()));
-//         $questionForm->addElement($new);
-
-//         $submitQuestionNext=new Zend_Form_Element_Submit('next');
-//         $submitQuestionNext->setLabel('next');
-//         $questionForm->addElement($submitQuestionNext);
-//         return $questionForm;
-
-//     }
-//     public function subFormAnswerOptionsChoice($info=null){
-//         $answerOptionsForm = new Zend_Form_SubForm();
-//         $answerOptionsForm=$this->_submitAnswerOptions($answerOptionsForm);
-//         return $answerOptionsForm;
-//     }
-//     public function subFormAnswerOptionsNumeric($info=null){
-//         $answerOptionsForm = new Zend_Form_SubForm();
-//         $answerOptionsForm=$this->_submitAnswerOptions($answerOptionsForm);
-//         return $answerOptionsForm;
-//     }
-//     public function subFormAnswerOptionsText($info=null){
-//         $answerOptionsForm = new Zend_Form_SubForm();
-//         $answerOptionsForm=$this->_submitAnswerOptions($answerOptionsForm);
-//         return $answerOptionsForm;
-//     }
-//     public function subFormOptionsChoice($info=null){
-//         /* options form/tab */
-//         //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
-//         $optionsForm=new Zend_Form_SubForm();
-
-
-//         //@todo only for choice
-//         $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');
-//         $numberOfAnswers->setLabel('How many answers are allowed');
-//         $optionsForm->addElement($numberOfAnswers);
-
-//         $presentation=new Zend_Form_Element_Select('presentation');
-//         $presentation->setLabel('Presentation');
-//         $presentation->setMultiOptions($info['presentation']);
-//         $optionsForm->addElement($presentation);
-
-//         //@todo only display for if $presentation=open
-//         //$presentationWidth=new Zend_Form_Element_Select('presentationWith');
-//         //$presentationWidth->addMultiOptions(Webenq_Model_AnswerDomain::getAnswerBoxWidthOptions());
-//         $presentationWidth=new Zend_Form_Element_text('presentationWith');
-//         $presentationWidth->setLabel('Width of answer box');
-//         $optionsForm->addElement($presentationWidth);
-
-//         //@todo only display if $presentation==open && type==text
-//         $presentationHeight=new Zend_Form_Element_text('presentationHeight');
-//         $presentationHeight->setLabel('Number of rows of answer box');
-//         $optionsForm->addElement($presentationHeight);
-
-//         $required = new Zend_Form_Element_Checkbox('required');
-//         $required->setLabel('Answer is required');
-//         $required->getDecorator('Label')->setOption('placement', 'append');
-//         $optionsForm->addElement($required);
-//         $optionsForm->addDisplayGroup(
-//             array('required'),
-//             'requiredTable',
-//             array('class' => 'table')
-//         );
-
-//         $active = new Zend_Form_Element_Checkbox('active');
-//         $active->setLabel('Question is active');
-//         $active->getDecorator('Label')->setOption('placement', 'append');
-
-//         $optionsForm->addElement($active);
-//         $optionsForm->addDisplayGroup(
-//             array('active'),
-//             'activeTable',
-//             array('class' => 'table')
-//         );
-//         $optionsForm=$this->_submitOptions($optionsForm);
-//         return $optionsForm;
-
-//     }
-//     public function subFormOptionsNumeric($info=null){
-
-//     }
-//     public function subFormOptionsText($info=null){
-
-//     }
-
-//     private function _submitAnswerOptions($form){
-
-//         $submitAnswerOptionsPrevious=new Zend_Form_Element_Submit('previous');
-//         $submitAnswerOptionsPrevious->setLabel('previous');
-//         $form->addElement($submitAnswerOptionsPrevious);
-
-//         $submitAnswerOptionsNext=new Zend_Form_Element_Submit('next');
-//         $submitAnswerOptionsNext->setLabel('next');
-//         $form->addElement($submitAnswerOptionsNext);
-//         $form->addDisplayGroup(
-//             array('previous','next','done'),
-//             'submitTable',
-//             array('class' => 'table')
-//         );
-//         return $form;
-//     }
-
-
-//     private function _submitOptions($form){
-//         $submitOptionsPrevious=new Zend_Form_Element_Submit('previous');
-//         $submitOptionsPrevious->setLabel('previous');
-//         $form->addElement($submitOptionsPrevious);
-
-//         $submitOptionsDone=new Zend_Form_Element_Submit('done');
-//         $submitOptionsDone->setLabel('done');
-//         $form->addElement($submitOptionsDone);
-//         $form->addDisplayGroup(
-//             array('previous','next','done'),
-//             'submitTable',
-//             array('class' => 'table')
-//         );
-//         return $form;
-//     }
-
 }

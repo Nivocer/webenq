@@ -23,7 +23,7 @@
  */
 
 /**
- * Form class
+ * Tab form for question properties when dealing with a "choice" question.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
@@ -33,7 +33,8 @@ class Webenq_Form_Question_Tab_Choice extends Webenq_Form_Question_Tab
     public function init(){
         /* options form/tab */
         //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
-        $this->_presentationOptions=Webenq_Model_AnswerDomainChoice::getAvailablePresentations();
+        $this->_presentationOptions = Webenq_Model_AnswerDomainChoice::getAvailablePresentations();
+
         parent::init();
 
         $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');

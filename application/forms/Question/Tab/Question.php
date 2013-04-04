@@ -23,7 +23,7 @@
  */
 
 /**
- * Form class
+ * Tab form for the question text and selection of answer domain (re-use or new)
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>

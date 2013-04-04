@@ -320,7 +320,7 @@ form .hint {
     padding-left: 0.4em;
 }
 
-form fieldset {
+form dd>fieldset {
     margin-left: -40px;
 }
 

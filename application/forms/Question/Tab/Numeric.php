@@ -23,7 +23,7 @@
  */
 
 /**
- * Form class
+ * Tab form for question properties when dealing with a "numeric" question.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>

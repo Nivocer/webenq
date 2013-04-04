@@ -23,8 +23,7 @@
  */
 
 /**
- * Abstract sub form for the tab with answer domain settings and/or items.
- * Sets the default decorators to make it work as subform.
+ * Abstract sub form for the tabs with question settings.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
@@ -52,7 +51,8 @@ class Webenq_Form_Question_Tab extends WebEnq4_Form
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
-                ->addDecorator('HtmlTag', array('tag' => 'dl', 'class' => 'zend_form'));
+                ->addDecorator('HtmlTag', array('tag' => 'dl'))
+                ->addDecorator('Fieldset');
         }
         return $this;
     }
@@ -133,16 +133,4 @@ class Webenq_Form_Question_Tab extends WebEnq4_Form
             array('class' => 'table', 'order'=>999)
         );
     }
-
-    /**
-     * Set the defaults for the question options. If there are no values yet
-     * specified for the question, see if we have answer domain defaults.
-     *
-     * @param array
-     */
-    public function setDefaults(array $defaults)
-    {
-        parent::setDefaults($defaults);
-    }
-
 }

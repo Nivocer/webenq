@@ -23,7 +23,7 @@
  */
 
 /**
- * Sub form to edit answer domain information within the context of editing a
+ * Tab form to edit answer domain information within the context of editing a
  * question in a questionnaire.
  *
  * @package    Webenq_Questionnaires_Manage
@@ -32,7 +32,7 @@
 class Webenq_Form_AnswerDomain_Tab_Numeric extends Webenq_Form_AnswerDomain_Tab
 {
     /**
-     * Subform to ask answer domain properties when editing a question
+     * Prepare form
      *
      * @return void
      * @see Zend_Form::init()

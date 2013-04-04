@@ -46,9 +46,8 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
-                ->addDecorator('HtmlTag', array('tag' => 'dl', 'class' => 'zend_form'));
-            //->addDecorator('HtmlTag', array('tag' => 'div', 'id' => 'test'));
-            // Zend subform also does: ->addDecorator('Fieldset')
+                ->addDecorator('HtmlTag', array('tag' => 'dl'))
+                ->addDecorator('Fieldset');
         }
         return $this;
     }
@@ -84,34 +83,5 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
             'buttons',
             array('class' => 'table', 'order'=>999)
         );
-    }
-
-    /**
-     * Check the answer domain properties
-     *
-     * @param array $values
-     * @return boolean
-     * @see Zend_Form::isValid()
-     */
-    public function isValid($values)
-    {
-        if ($this->isCancelled($values)) {
-            return true;
-        } else {
-            $result = parent::isValid($values);
-
-            return $result;
-        }
-    }
-
-    /**
-     * Check if the cancel button was submitted
-     *
-     * @param array $values
-     * @return boolean
-     */
-    public function isCancelled($values)
-    {
-        return (isset($values['cancel']));
     }
 }
