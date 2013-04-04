@@ -48,17 +48,44 @@ function initOptionsTab(){
 		$('#numberOfAnswers-element').show();
 	}
 }
+// add empty row to ad an new answerchoice item
+function addItemRow(){
+	
+	var tid = Math.floor( Math.random()*999999 );
+	var regName= /^items\[(\w)\]\.*/;
+	var regId= /^items-(\w)-\.*/;
+	  $("table#answerItems tr:last").clone().find("input").each(function() {
+	    $(this).attr({
+	      'id': function(_, id) { 
+	    	  	if (id){
+	    	  		return id.replace(regId,'items-'+tid+'-'); 
+	    	  	}
+	    	  	},
+	      'name': function(_, name) { return name.replace(regName, 'items['+tid+']'); },
+	      'value': '',
+          'checked': false
+	    });
+	  }).end().appendTo("table");
+
+
+}
 
 $(function() {
 	initColWidth();
 	initOptionsTab();
-	
+	addItemRow();
+	addItemRow();
+
 	
 	/* hide answerBox width if not applicable */
 	$('#options-options-presentation').change(function() {
 		initOptionsTab();
 	});
-	
+
+	// add empty row to ad an new answerchoice item
+	$('#addItemRow').click(function() {
+		addItemRow();
+	});
 	
 	$('#less').click(function() {
 		$containerWidth = parseInt($('ul.sortable').css('width'));

@@ -76,7 +76,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
-            ->addDecorator('HtmlTag', array('tag' => 'table'));
+            ->addDecorator('HtmlTag', array('tag' => 'table', 'id'=>'answerItems'));
         }
         return $this;
     }
