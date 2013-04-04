@@ -34,6 +34,7 @@ abstract class Webenq_Model_Base_AnswerDomainItem extends Doctrine_Record
              ));
         $this->hasColumn('isActive', 'boolean', null, array(
              'type' => 'boolean',
+             'default' => true,
              ));
         $this->hasColumn('isHidden', 'boolean', null, array(
              'type' => 'boolean',

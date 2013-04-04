@@ -154,7 +154,9 @@ AnswerDomainItem:
     label: string
     value: string
     isNullValue: boolean
-    isActive: boolean
+    isActive: 
+      type: boolean
+      default: true
     isHidden: boolean # a list of items may contains values that may be 
                       # submitted/imported via free text response, and that
                       # are considered synonyms for a preferred item as the only 

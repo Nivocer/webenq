@@ -53,7 +53,7 @@ function initOptionsTab(){
 function addItemRow(){
 	
 	var tid = new Date().getTime();
-	$("table#answerItems tr#newitem").clone().removeAttr('id').find('input').each(function() {
+	$("table#answerItems tr#newitem").clone().find('input').each(function() {
 	    $(this).attr({
 	      'id': function(_, id) { 
 	    	  	if (id){
@@ -61,10 +61,8 @@ function addItemRow(){
 	    	  	}
 	    	  	},
 	      'name': function(_, name) { return name.replace(/^items\[new\]/, 'items['+tid+']'); },
-	      'value': '',
-          'checked': false
 	    });
-	  }).end().insertBefore($("table#answerItems tr#newitem")).fadeIn('slow').removeClass('hidden');
+	  }).end().insertBefore($("table#answerItems tr#newitem")).attr('id','items-'+tid).show('slow');
 }
 
 $(function() {

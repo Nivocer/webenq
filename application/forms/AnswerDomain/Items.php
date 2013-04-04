@@ -152,6 +152,9 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             // add a hidden empty row to add as new item
             $this->addItemRow('items[new]');
             $newItemsRow = $this->getSubForm('items[new]');
+            $defaultItemValues=new Webenq_Model_AnswerDomainItem();
+            $newItemsRow->setDefaults($defaultItemValues->toArray());
+
             $newItemsRow->addDecorator('HtmlTag', array(
                     'tag' => 'tr',
                     'class' => 'hidden',
