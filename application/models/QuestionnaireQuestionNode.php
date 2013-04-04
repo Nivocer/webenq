@@ -17,7 +17,6 @@ class Webenq_Model_QuestionnaireQuestionNode extends Webenq_Model_Base_Questionn
         switch ($format){
             case 'previewTab':
                 return '';
-
             break;
             default:
                 $presentationType=$this->QuestionnaireElement->options['options']['presentation'];
@@ -31,17 +30,21 @@ class Webenq_Model_QuestionnaireQuestionNode extends Webenq_Model_Base_Questionn
                 case 'WebEnq4_Form_Element_Note':
                     break;
                 case 'ZendX_JQuery_Form_Element_Slider':
-                    //var_dump(__LINE__, __FILE__,  $this->QuestionnaireElement->options['min']);
                     $answerOptions=$this->QuestionnaireElement->AnswerDomain->getAnswerOptionsArray();
+                    //@todo labels?
                     //@todo get min max from something
-                    $min=1; $max=5;
-                    //$max=$this->QuestionnaireElement->options['max'];
-                    $return->setJQueryParams(array('min' => $min, 'max' => $max));
+                    $min=1.0; $max=5.0; $value=3;
+                    $return->setJQueryParams(array('min' => $min, 'max' => $max, 'value'=>$value));
                     break;
                 case 'Zend_Form_Element_Text':
-                    //width height of textbox etc.
+                    //@todo check which options to add
+                    //width of textbox
+                    if (isset($this->QuestionnaireElement->options['options']['presentationWidth'])){
+                        $return->setAttrib('size',$this->QuestionnaireElement->options['options']['presentationWidth']);
+                    }
                     break;
                 default:
+                    //@todo throw exception
                     var_dump(__LINE__, __FILE__,  $formElement);
                 }
 
