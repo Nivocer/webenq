@@ -47,7 +47,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         ),
         'isNullValue' => array(
             'label' => 'Null value?',
-            'description' => "Consider this as \"non-response\"?",
+            'description' => "Should this be considered\nas \"non-response\"?",
             'type' => 'boolean'
         ),
         'isActive' => array(

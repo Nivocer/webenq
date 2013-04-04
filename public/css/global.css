@@ -45,6 +45,12 @@ form {
 	background-color: #E5E5D8;
 	border: 1px solid #B20000;
 	margin: 1em auto;
+	padding: 0.5em;	   
+}
+
+form.tabs {
+    background-color: none;
+	border: none;
 }
 
 ul {
@@ -60,10 +66,9 @@ form input[type="text"].hasDatepicker {
 }
 
 form dt label {
-	margin-left: 1em;
 	font-weight: bold;
 	color: #65B2D8;
-	padding: 2px 5px;
+	padding: 0px 0px;
 }
 /* align yes/no button next to each other */
 dl.zend_form{
@@ -315,8 +320,8 @@ form .hint {
     padding-left: 0.4em;
 }
 
-form dd {
-    
+form fieldset {
+    margin-left: -40px;
 }
 
 /* fieldset */

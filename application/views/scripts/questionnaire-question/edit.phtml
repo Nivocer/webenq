@@ -1,4 +1,4 @@
-<form action="<?php echo $this->form->getAction(); ?>" method="post">
+<form action="<?php echo $this->form->getAction(); ?>" method="post" class="tabs">
     <div class="tabs">
         <ul>
             <li>
@@ -9,9 +9,6 @@
             </li>
             <li>
                 <a href="#options"><?php echo t('options'); ?></a>
-            </li>
-            <li>
-                <a href="#debug">debug: defaults</a>
             </li>
         </ul>
         <div id=questionText><h3>
@@ -28,9 +25,6 @@
         </div>
         <div id="options">
             <?php echo $this->form->options; ?>
-        </div>
-        <div id="debug">
-            <?php echo $this->form->debug; ?>
         </div>
     </div>
 </form>

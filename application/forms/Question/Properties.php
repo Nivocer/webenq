@@ -53,15 +53,14 @@ public $answerDomainType;
         $question = new Webenq_Form_Question_Tab_Question();
         $question->removeDecorator('DtDdWrapper');
 
-        $node_id = new Zend_Form_Element_Hidden('id');
+        $node_id = new Zend_Form_Element_Hidden('node_id');
         $node_id->removeDecorator('DtDdWrapper');
         $node_id->removeDecorator('Label');
         $question->addElement($node_id);
 
         $this->addSubForm($question, 'question');
 
-        /* answer domain settings tab */
-        // determine appropriate tab form for answer domain settings
+        /* determine appropriate tab forms for answer settings and options */
         $answerDomainType = $this->answerDomainType;
 
         if (in_array($answerDomainType, array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
@@ -72,25 +71,15 @@ public $answerDomainType;
             $classOptions = 'Webenq_Form_Question_Tab';
         }
 
-        $answers=new $classAnswers();
+        /* answer domain settings tab */
+        $answers = new $classAnswers();
         $answers->removeDecorator('DtDdWrapper');
         $this->addSubForm($answers, 'answers');
 
         /* question options settings tab */
-        $classOptions='Webenq_Form_Question_Admin'.$answerDomainType;
         $options = new $classOptions();
         $options->removeDecorator('DtDdWrapper');
         $this->addSubForm($options, 'options');
-
-        /* debug tab with defaults given to form */
-        $tempExtra = new WebEnq4_Form();
-        $tempExtra->removeDecorator('Form');
-        $tempExtra->removeDecorator('Fieldset');
-        $this->debugelement = new WebEnq4_Form_Element_Note('defaults-to-be-set');
-        $this->debugelement->addDecorator('HtmlTag', array('tag' => 'pre'));
-        $this->debugelement->removeDecorator('DtDdWrapper');
-        $tempExtra->addElement($this->debugelement);
-        $this->addSubForm($tempExtra, 'debug');
     }
 
     /**
@@ -101,34 +90,16 @@ public $answerDomainType;
         if (isset($defaults['QuestionnaireElement'])) {
             $defaults['question'] = $defaults['QuestionnaireElement'];
             $defaults['question']['node_id'] = $defaults['id'];
-            $defaults['question']['id'] = $defaults['id'];
+
+            $defaults['options'] = $defaults['QuestionnaireElement'];
 
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
                 $defaults['answers'] = $defaults['QuestionnaireElement']['AnswerDomain'];
+                // pass the answer domain settings to the options tab as possible defaults
+                $defaults['options']['AnswerDomain'] = $defaults['QuestionnaireElement']['AnswerDomain'];
             }
         }
-        $this->debugelement->setValue(var_export($defaults, true));
         parent::setDefaults($defaults);
-
-        /*
-        if (isset($this->QuestionnaireElement->answer_domain_id)){
-        $result['question']['reuse']=$this->QuestionnaireElement->answer_domain_id;
-        }
-
-        if (isset($this->QuestionnaireElement->AnswerDomain)){
-        $result['answerOptions']=$this->QuestionnaireElement->AnswerDomain->toArray();
-        $result['answerOptions']['name']=$this->QuestionnaireElement->AnswerDomain->getTranslation('name');
-        }
-        if (!empty($this->QuestionnaireElement->options['answersettings'])){
-        foreach ($this->QuestionnaireElement->options['answersettings'] as $key=>$value){
-        $result['answerOptions']['answersettings'][$key]=$value;
-        }
-        }
-        if (isset($this->QuestionnaireElement->options['options'])){
-        $result['options']=$this->QuestionnaireElement->options['options'];
-        }
-        */
-
     }
 
     public function isValid($data)
