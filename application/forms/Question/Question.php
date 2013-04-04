@@ -28,7 +28,8 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Question extends Zend_Form_SubForm
+//class Webenq_Form_Question_Question extends Zend_Form_SubForm
+class Webenq_Form_Question_Question extends WebEnq4_Form
 {
     /**
      * Initialises the form
