@@ -45,8 +45,10 @@ class Webenq_Form_Question_Tab_Question extends Webenq_Form_Question_Tab
 
         $text = new WebEnq4_Form_Element_MlText('text');
         $text->setAttrib('languages', $this->_languages);
+        $text->setAttrib('defaultLanguage',$this->_defaultLanguage);
         $text->setLabel('Text');
         $text->setBelongsTo('question');
+        $text->setRequired();
         $this->addElement($text);
 
         /*$suggestionsOptions=array();

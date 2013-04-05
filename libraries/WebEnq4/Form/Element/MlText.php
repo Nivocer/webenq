@@ -39,17 +39,27 @@ class WebEnq4_Form_Element_MlText extends Zend_Form_Element_Xhtml
     public function isValid($value)
     {
         $result = true;
-
         if (($value != null) && ($value != array())) {
             $result = parent::isValid($value);
         }
 
-        // if $value is valid and has a default language set, it has a string
-        // in that language too
+        if (isset($value['default_language'])){
+            $defaultLanguage=$value['default_language'];
+        }elseif (isset($this->defaultLanguage)) {
+            $defaultLanguage=$this->defaultLanguage;
+        }
+
+        //only test when element is required
         if ($result && $this->isRequired()) {
-            $result = isset($value['default_language']);
-            if (!$result) {
-                $this->addError('You must provide the text in at least one language');
+            //do we have a default language from user input or form initiation
+            if (!isset($defaultLanguage) && $this->iRequired()){
+                $this->addError("no default language set or choosen");
+                return false;
+            }
+            //we need text in default language
+            if (!isset($value[$defaultLanguage]) || empty($value[$defaultLanguage])){
+                $this->addError(sprintf("you must provide the text in the default language: %s", $defaultLanguage));
+                return false;
             }
         }
 

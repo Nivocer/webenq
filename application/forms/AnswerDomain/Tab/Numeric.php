@@ -43,6 +43,7 @@ class Webenq_Form_AnswerDomain_Tab_Numeric extends Webenq_Form_AnswerDomain_Tab
 
         $name = new WebEnq4_Form_Element_MlText('name');
         $name->setAttrib('languages', $this->_languages);
+        $name->setAttrib('defaultLanguage',$this->_defaultLanguage);
         $name->setBelongsTo('answers');
         $name->setLabel('Name');
         $name->setDescription('Name for later re-use of these settings');

@@ -45,7 +45,7 @@ class WebEnq4_Form extends Zend_Form
      *
      * @var array Default is set to 'en'
      */
-    public $_defaultLanguage = 'en';
+    public $_defaultLanguage = 'enform';
 
     /**
      * Constructor
@@ -59,6 +59,9 @@ class WebEnq4_Form extends Zend_Form
     {
         $this->addPrefixPath('WebEnq4_Form_', 'WebEnq4/Form/');
         $this->addPrefixPath('ZendX_JQuery_Form_', 'ZendX/JQuery/Form/');
+        if (is_array($options) && isset($options['defaultLanguage'])) {
+            $this->_defaultLanguage=$options['defaultLanguage'];
+        }
 
         parent::__construct($options);
     }

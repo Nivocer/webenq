@@ -36,6 +36,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      * @var string
      */
     public $answerDomainType;
+    public $_defaultLanguage;
 
     /**
      * Initialises the form, sets the answer domain type
@@ -48,14 +49,16 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         if (is_array($options) && isset($options['answerDomainType'])) {
             $this->answerDomainType=$options['answerDomainType'];
         }
-
+    if (is_array($options) && isset($options['defaultLanguage'])) {
+            $this->_defaultLanguage=$options['defaultLanguage'];
+        }
         parent::__construct();
     }
 
     public function init()
     {
         /* question text and type tab */
-        $question = new Webenq_Form_Question_Tab_Question();
+        $question = new Webenq_Form_Question_Tab_Question(array('defaultLanguage'=>$this->_defaultLanguage));
         $question->removeDecorator('DtDdWrapper');
 
         $node_id = new Zend_Form_Element_Hidden('node_id');
@@ -77,12 +80,12 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         }
 
         /* answer domain settings tab */
-        $answers = new $classAnswers();
+        $answers = new $classAnswers(array('defaultLanguage'=>$this->_defaultLanguage));
         $answers->removeDecorator('DtDdWrapper');
         $this->addSubForm($answers, 'answers');
 
         /* question options settings tab */
-        $options = new $classOptions();
+        $options = new $classOptions(array('defaultLanguage'=>$this->_defaultLanguage));
         $options->removeDecorator('DtDdWrapper');
         $this->addSubForm($options, 'options');
     }

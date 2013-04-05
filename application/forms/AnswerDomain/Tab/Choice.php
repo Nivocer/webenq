@@ -44,6 +44,7 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
         // @todo hard-coded to English version of the name now
         $name = new WebEnq4_Form_Element_MlText('name');
         $name->setAttrib('languages', $this->_languages);
+        $name->setAttrib('defaultLanguage',$this->_defaultLanguage);
         $name->setBelongsTo('answers');
         $name->setLabel('Name');
         $name->setDescription('Name for this set of choices');
