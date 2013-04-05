@@ -106,7 +106,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         if ($this->_helper->form->isPostedAndValid($form)) {
             if (!$this->_helper->form->isCancelled($form)) {
                 $newValues = $form->getValues();
-                if (isset($newValues['question']['id']) && $newValues['question']['id']==$questionnaireQuestion->get('id')) {
+                if (isset($newValues['question']['question']['id']) && $newValues['question']['question']['id']==$questionnaireQuestion->get('id')) {
 
                     $questionnaireQuestion->fromArray($newValues);
 
