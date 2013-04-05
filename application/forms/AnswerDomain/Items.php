@@ -124,28 +124,30 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
 
             $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
             $domainitems = $tree->fetchTree(array('root_id' => $defaults['id']));
+            // only create subforms if they are not already created via $this->isValid()
+            if (count($this->getSubforms())==0){
+                foreach ($domainitems as $item) {
+                    if ($item->id != $item->root_id) { // skip the root of the items
+                        $this->addItemRow('answers[items][' . $item->id . ']');
 
-            foreach ($domainitems as $item) {
-                if ($item->id != $item->root_id) { // skip the root of the items
-                    $this->addItemRow('items[' . $item->id . ']');
+                        $itemArray = $item->toArray();
 
-                    $itemArray = $item->toArray();
-
-                    /**
-                     * @todo DRY... maybe move this to model toArray()?
-                     * @see WebEnq4_Form::setDefaults()
-                     */
-                    if (isset($itemArray['Translation'])) {
-                        foreach ($itemArray['Translation'] as $lang => $record) {
-                            foreach ($record as $field => $value) {
-                                if (($field != 'id') && ($field != 'lang')) {
-                                    $itemArray[$field][$lang] = $value;
+                        /**
+                         * @todo DRY... maybe move this to model toArray()?
+                         * @see WebEnq4_Form::setDefaults()
+                         */
+                        if (isset($itemArray['Translation'])) {
+                            foreach ($itemArray['Translation'] as $lang => $record) {
+                                foreach ($record as $field => $value) {
+                                    if (($field != 'id') && ($field != 'lang')) {
+                                        $itemArray[$field][$lang] = $value;
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    $defaults['items'][$item->id] = $itemArray;
+                        $defaults['items'][$item->id] = $itemArray;
+                    }
                 }
             }
 
@@ -190,7 +192,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
                 case 'i18n':
                     $cell = new WebEnq4_Form_Element_MlText($fieldname);
                     $cell->setAttrib('languages', $this->_languages);
-                    $cell->setAttrib('default_language', 'en');
+                    $cell->setAttrib('defaultLanguage',$this->_defaultLanguage);
                     break;
                 case 'boolean':
                     $cell = new Zend_Form_Element_Checkbox($fieldname);
@@ -210,5 +212,20 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         }
         $this->addSubForm($rowForm, $name);
         $this->decorateAsTableRow($this->getSubForm($name));
+    }
+    /*
+     * validate data and extend form with new domain items form(elements)
+     *
+     */
+    public function isValid($data) {
+        if (!isset($data)) {
+            $data = array();
+        }
+        foreach ($data as $idx => $values) {
+            $this->addItemRow('answers[items]['.$idx.']');
+            $newItemsRow = $this->getSubForm('answers[items]['.$idx.']');
+            $newItemsRow->setDefaults($values);
+        }
+        return parent::isValid($data);
     }
 }

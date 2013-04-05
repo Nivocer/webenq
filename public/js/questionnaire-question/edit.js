@@ -57,10 +57,10 @@ function addItemRow(){
 	    $(this).attr({
 	      'id': function(_, id) { 
 	    	  	if (id){
-	    	  		return id.replace(/^items-new-/,'items-'+tid+'-'); 
+	    	  		return id.replace(/^items-new-/,'answers-items-'+tid+'-'); 
 	    	  	}
 	    	  	},
-	      'name': function(_, name) { return name.replace(/^items\[new\]/, 'items['+tid+']'); },
+	      'name': function(_, name) { return name.replace(/^items\[new\]/, 'answers[items]['+tid+']'); },
 	    });
 	  }).end().insertBefore($("table#answerItems tr#newitem")).attr('id','items-'+tid).show('slow');
 }
