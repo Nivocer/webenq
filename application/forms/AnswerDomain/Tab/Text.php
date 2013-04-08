@@ -52,10 +52,12 @@ class Webenq_Form_AnswerDomain_Tab_Text extends Webenq_Form_AnswerDomain_Tab
 
         $min_length = new Zend_Form_Element_Text('min_length',
             array('size' => 4, 'label' => 'Minimum length allowed'));
+        $min_length->setBelongsTo('answers');
         $this->addElement($min_length);
 
         $max_length = new Zend_Form_Element_Text('max_length',
             array('size' => 4, 'label' => 'Maximum length allowed'));
+        $max_length->setBelongsTo('answers');
         $this->addElement($max_length);
 
         $this->addDisplayGroup(
@@ -64,20 +66,30 @@ class Webenq_Form_AnswerDomain_Tab_Text extends Webenq_Form_AnswerDomain_Tab
             array('class' => 'list')
         );
 
-        $this->addCheckboxOptions(
-            array(
-                'name' => 'validator',
-                'legend' => 'Perform these validations before accepting an answer:'
-            ),
-            Webenq_Model_AnswerDomainText::getAvailableValidators()
-        );
+            //validators
+        foreach (Webenq_Model_AnswerDomainText::getAvailableValidators() as $key=>$value){
+            $validatorArray[$key]=$value['label'];
+        }
+        if (isset($validatorArray) && count($validatorArray)>0) {
+            $validator=new Zend_Form_Element_MultiCheckbox('validator');
+            $validator->setLabel('Perform these validations before accepting an answer');
+            $validator->setMultiOptions($validatorArray);
+            $validator->setBelongsTo('answers');
+            $validator->setAttrib('class', 'optionlist');
+            $this->addElement($validator);
+        }
 
-        $this->addCheckboxOptions(
-            array(
-                'name' => 'filter',
-                'legend' => 'Apply these changes before storing an answer:'
-            ),
-            Webenq_Model_AnswerDomainText::getAvailableFilters()
-        );
+        //filter
+        foreach (Webenq_Model_AnswerDomainText::getAvailableFilters() as $key=>$value){
+            $filterArray[$key]=$value['label'];
+        }
+        if (isset($filterArray) && count($filterArray)>0) {
+            $filter=new Zend_Form_Element_MultiCheckbox('filter');
+            $filter->setLabel('Apply these changes before storing an answer:');
+            $filter->setAttrib('class', 'optionlist');
+            $filter->setMultiOptions($filterArray);
+            $filter->setBelongsTo('answers');
+            $this->addElement($filter);
+        }
     }
 }

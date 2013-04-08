@@ -68,14 +68,17 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
 
         $cancel = new Zend_Form_Element_Submit('cancel');
         $cancel->setLabel('Cancel');
+        $cancel->setBelongsTo('answers');
         $this->addElement($cancel);
 
         $submitPrevious=new Zend_Form_Element_Submit('previous');
         $submitPrevious->setLabel('Previous (question)');
+        $submitPrevious->setBelongsTo('answers');
         $this->addElement($submitPrevious);
 
         $submitNext=new Zend_Form_Element_Submit('next');
         $submitNext->setLabel('Next (options)');
+        $submitNext->setBelongsTo('answers');
         $this->addElement($submitNext);
 
         $this->addDisplayGroup(

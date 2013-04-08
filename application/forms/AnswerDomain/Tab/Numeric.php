@@ -52,16 +52,19 @@ class Webenq_Form_AnswerDomain_Tab_Numeric extends Webenq_Form_AnswerDomain_Tab
 
         $min = new Zend_Form_Element_Text('min',
             array('size' => 4, 'label' => 'Minimum value allowed'));
+        $min->setBelongsTo('answers');
         $this->addElement($min);
 
         $max = new Zend_Form_Element_Text('max',
             array('size' => 4, 'label' => 'Maximum value allowed'));
+        $max->setBelongsTo('answers');
         $this->addElement($max);
 
         $missing = new Zend_Form_Element_Text('missing',
             array('size' => 4,
             'description' => 'Value to store if an answer is missing or declined',
             'label' => 'Value for missing answer'));
+        $missing->setBelongsTo('answers');
         $this->addElement($missing);
 
         $this->addDisplayGroup(
@@ -70,20 +73,31 @@ class Webenq_Form_AnswerDomain_Tab_Numeric extends Webenq_Form_AnswerDomain_Tab
             array('class' => 'list')
         );
 
-        $this->addCheckboxOptions(
-                array(
-                        'name' => 'validator',
-                        'legend' => 'Perform these validations before accepting an answer:'
-                ),
-                Webenq_Model_AnswerDomainNumeric::getAvailableValidators()
-        );
+        //validators
+        foreach (Webenq_Model_AnswerDomainNumeric::getAvailableValidators() as $key=>$value){
+            $validatorArray[$key]=$value['label'];
+        }
+        if (isset($validatorArray) && count($validatorArray)>0) {
+            $validator=new Zend_Form_Element_MultiCheckbox('validator');
+            $validator->setLabel('Perform these validations before accepting an answer');
+            $validator->setMultiOptions($validatorArray);
+            $validator->setBelongsTo('answers');
+            $validator->setAttrib('class', 'optionlist');
+            $this->addElement($validator);
+        }
 
-        $this->addCheckboxOptions(
-            array(
-                'name' => 'filter',
-                'legend' => 'Apply these changes before storing an answer:'
-            ),
-            Webenq_Model_AnswerDomainNumeric::getAvailableFilters()
-        );
+        //filter
+        foreach (Webenq_Model_AnswerDomainNumeric::getAvailableFilters() as $key=>$value){
+            $filterArray[$key]=$value['label'];
+        }
+        if (isset($filterArray) && count($filterArray)>0) {
+            $filter=new Zend_Form_Element_MultiCheckbox('filter');
+            $filter->setLabel('Apply these changes before storing an answer:');
+            $filter->setAttrib('class', 'optionlist');
+
+            $filter->setMultiOptions($filterArray);
+            $filter->setBelongsTo('answers');
+            $this->addElement($filter);
+        }
     }
 }

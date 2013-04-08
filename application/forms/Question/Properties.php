@@ -95,17 +95,37 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      */
     public function setDefaults(array $defaults)
     {
+        //question tab
         if (isset($defaults['QuestionnaireElement'])) {
             $defaults['question'] = $defaults['QuestionnaireElement'];
             $defaults['question']['node_id'] = $defaults['id'];
 
-            $defaults['options'] = $defaults['QuestionnaireElement'];
-
+            //answer options tab
+            //pass info from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
                 $defaults['answers'] = $defaults['QuestionnaireElement']['AnswerDomain'];
-                // pass the answer domain settings to the options tab as possible defaults
-                $defaults['options']['AnswerDomain'] = $defaults['QuestionnaireElement']['AnswerDomain'];
             }
+            // pass the answer domain settings to the options tab as possible defaults
+            if (isset($defaults['QuestionnaireElement']['options']['answerDomain'])){
+                foreach ($defaults['QuestionnaireElement']['options']['answerDomain'] as $key=>$value) {
+                    $defaults['answers'][$key] = $value;
+                }
+            }
+
+            //options tab
+            //get defaults from answerDomain
+            if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
+                $defaults['options']=$defaults['QuestionnaireElement']['AnswerDomain'];
+            }
+            //override from options
+            if (isset($defaults['QuestionnaireElement']['options']['options'])){
+                foreach ($defaults['QuestionnaireElement']['options']['options'] as $key=> $value){
+                    $defaults['options'][$key]=$value;
+                }
+            }
+            //override from questionnaireElement
+            $defaults['options']['active'] = $defaults['QuestionnaireElement']['active'];
+            $defaults['options']['required'] = $defaults['QuestionnaireElement']['required'];
         }
         parent::setDefaults($defaults);
     }

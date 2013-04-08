@@ -76,29 +76,31 @@ class Webenq_Form_Question_Tab extends WebEnq4_Form
         foreach ($presentationOptions as $key => $value){
             $presentation->addMultiOption($key, $value['label']);
         }
-        $presentation->setBelongsTo('options[options]');
+        $presentation->setBelongsTo('options');
         $this->addElement($presentation);
 
         $presentationWidth=new Zend_Form_Element_Text('presentationWidth');
         $presentationWidth->setLabel('Width of answer box');
-        $presentationWidth->setBelongsTo('options[options]');
+        //$presentationWidth->setBelongsTo('options[options]');
+        $presentationWidth->setBelongsTo('options');
         $this->addElement($presentationWidth);
 
         $presentationHeight=new Zend_Form_Element_Text('presentationHeight');
         $presentationHeight->setLabel('Number of rows of answer box');
-        $presentationHeight->setBelongsTo('options[options]');
+        $presentationHeight->setBelongsTo('options');
         $this->addElement($presentationHeight);
 
         $required = new Zend_Form_Element_Checkbox('required');
         $required->setLabel('Answer is required');
         $required->getDecorator('Label')->setOption('placement', 'append');
-        $required->setBelongsTo('options[options]');
+        //$required->setBelongsTo('options[questionnaireElement]');
+        $required->setBelongsTo('options');
         $this->addElement($required);
 
         $active = new Zend_Form_Element_Checkbox('active');
         $active->setLabel('Question is active');
         $active->getDecorator('Label')->setOption('placement', 'append');
-        $active->setBelongsTo('options[options]');
+        $active->setBelongsTo('options');
         $this->addElement($active);
 
         $this->addDisplayGroup(

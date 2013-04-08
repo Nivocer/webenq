@@ -121,9 +121,9 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
                 $defaults['item'] = array();
             }
             $defaults['items']['id'] = $defaults['id'];
-
             $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
             $domainitems = $tree->fetchTree(array('root_id' => $defaults['id']));
+
             // only create subforms if they are not already created via $this->isValid()
             if (count($this->getSubforms())==0){
                 foreach ($domainitems as $item) {
@@ -224,8 +224,9 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         foreach ($data as $idx => $values) {
             $this->addItemRow('answers[items]['.$idx.']');
             $newItemsRow = $this->getSubForm('answers[items]['.$idx.']');
-            $newItemsRow->setDefaults($values);
+            //$newItemsRow->setDefaults($values);
         }
+
         return parent::isValid($data);
     }
 }

@@ -56,21 +56,31 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
         $this->items->_languages = $this->_languages;
         $this->addSubForm($this->items, 'items');
 
-        $this->addCheckboxOptions(
-            array(
-                'name' => 'validator',
-                'legend' => 'Perform these validations before accepting an answer:'
-            ),
-            Webenq_Model_AnswerDomainChoice::getAvailableValidators()
-        );
+            //validators
+        foreach (Webenq_Model_AnswerDomainChoice::getAvailableValidators() as $key=>$value){
+            $validatorArray[$key]=$value['label'];
+        }
+        if (isset($validatorArray) && count($validatorArray)>0) {
+            $validator=new Zend_Form_Element_MultiCheckbox('validator');
+            $validator->setLabel('Perform these validations before accepting an answer');
+            $validator->setMultiOptions($validatorArray);
+            $validator->setBelongsTo('answers');
+            $validator->setAttrib('class', 'optionlist');
+            $this->addElement($validator);
+        }
 
-        $this->addCheckboxOptions(
-            array(
-                'name' => 'filter',
-                'legend' => 'Apply these changes before storing an answer:'
-            ),
-            Webenq_Model_AnswerDomainChoice::getAvailableFilters()
-        );
+        //filter
+        foreach (Webenq_Model_AnswerDomainChoice::getAvailableFilters() as $key=>$value){
+            $filterArray[$key]=$value['label'];
+        }
+        if (isset($filterArray) && count($filterArray)>0) {
+            $filter=new Zend_Form_Element_MultiCheckbox('filter');
+            $filter->setLabel('Apply these changes before storing an answer:');
+            $filter->setAttrib('class', 'optionlist');
+            $filter->setMultiOptions($filterArray);
+            $filter->setBelongsTo('answers');
+            $this->addElement($filter);
+        }
     }
 
     /**
