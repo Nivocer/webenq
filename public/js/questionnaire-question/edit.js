@@ -1,15 +1,15 @@
-function saveState() {
-	$('body').addClass('loading');
-	
-	var $qqId = window.location.href.match(/\/id\/(\d{1,})/)[1].toString();
-	var $list = $('ul.sortable');
-	
-	var $data = $list.sortable('serialize') + '&cols=' + $('#cols').val() + '&parent=' + $qqId;
-	
-	$.post(baseUrl + '/questionnaire-question/save-state', $data, function() {
-		$('body').removeClass('loading');
-	});
+
+
+
+function saveState(event, reload)
+{
+    if ($(event.target).hasClass('answeritems')) { 
+        var $data=$(event.target).sortable('toArray');
+    	//alert($.toJSON($data));
+        $('#answers-sortable').val($.toJSON($data));
+    }
 }
+
 
 function initColWidth() {
 	$containerWidth = parseInt($('ul.sortable').css('width'));
@@ -53,7 +53,7 @@ function initOptionsTab(){
 function addItemRow(){
 	
 	var tid = new Date().getTime();
-	$("table#answerItems tr#newitem").clone().find('input').each(function() {
+	$("table#answeritems tr#newitem").clone().find('input').each(function() {
 	    $(this).attr({
 	      'id': function(_, id) { 
 	    	  	if (id){
@@ -62,12 +62,22 @@ function addItemRow(){
 	    	  	},
 	      'name': function(_, name) { return name.replace(/^items\[new\]/, 'answers[items]['+tid+']'); },
 	    });
-	  }).end().insertBefore($("table#answerItems tr#newitem")).attr('id','items-'+tid).show('slow');
+	  }).end().insertBefore($("table#answeritems tr#newitem")).attr('id','items-'+tid).show('slow');
 }
 
 $(function() {
 	initColWidth();
 	initOptionsTab();
+	
+	$('.sortable2').sortable({
+		placeholder: 'ui-state-highlight',
+		items: "tr:not(#headerRow, hidden, #footerRow)",
+		update: function(event, ui) {
+			saveState(event, ui);
+		}
+	});
+	
+	
 	
 	/* hide answerBox width if not applicable */
 	$('#options-options-presentation').change(function() {

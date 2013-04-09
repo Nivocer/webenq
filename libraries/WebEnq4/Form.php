@@ -124,12 +124,16 @@ class WebEnq4_Form extends Zend_Form
      * @param Form_Element Form element to decorate
      * @return Form_Element
      */
-    public function decorateAsTableRow($element) {
+    public function decorateAsTableRow($element, $options=null) {
         $element->removeDecorator('Fieldset');
         $element->removeDecorator('HtmlTag');
         $element->removeDecorator('DtDdWrapper');
         $element->removeDecorator('Label');
-        $element->addDecorator('HtmlTag', array('tag' => 'tr'));
+        if (isset($options['id'])){
+            $element->addDecorator('HtmlTag', array('tag' => 'tr', 'id'=>$options['id']));
+        }else{
+            $element->addDecorator('HtmlTag', array('tag' => 'tr'));
+        }
         return $element;
     }
 

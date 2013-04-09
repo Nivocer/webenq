@@ -35,6 +35,10 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      * List of fields to show for items
      */
     private $_fields = array(
+        'sortable'=>array(
+            'type'=>'sortable',
+            'label'=>''
+        ),
         'value' => array(
             'label' => 'Value',
             'description' => "The value stored\nin the database",
@@ -76,7 +80,9 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('FormElements')
-            ->addDecorator('HtmlTag', array('tag' => 'table', 'id'=>'answerItems'));
+            ->addDecorator(array('tbody'=>'HtmlTag'), array('tag' => 'tbody', 'class'=>'answeritems sortable2'))
+            ->addDecorator(array('table'=>'HtmlTag'), array('tag' => 'table', 'id'=>'answeritems'));
+
         }
         return $this;
     }
@@ -96,6 +102,13 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $id->setBelongsTo('items');
         $this->addElement($id);
 
+        //element to store the order of the items from javascript
+        $sortable=new Zend_Form_Element_Hidden('sortable');
+        $sortable->setBelongsTo('answers');
+        $sortable->removeDecorator('DtDdWrapper');
+        $sortable->removeDecorator('Label');
+        $this->addElement($sortable);
+
         // add the table headers
         $header = array();
         foreach ($this->_fields as $fieldname => $fieldinfo) {
@@ -107,7 +120,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             $header[] = $cell->getName();
         }
         $this->addDisplayGroup($header, 'header', array());
-        $this->decorateAsTableRow($this->getDisplayGroup('header'));
+        $this->decorateAsTableRow($this->getDisplayGroup('header'),array('id'=>'headerRow'));
 
     }
 
@@ -170,7 +183,8 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             $cell->addDecorator('HtmlTag', array('tag' => 'td', 'colspan' => count($this->_fields)));
             $this->addElement($cell);
             $this->addDisplayGroup(array('addItemRow'), 'footer', array('order' => '999'));
-            $this->decorateAsTableRow($this->getDisplayGroup('footer'));
+            $this->decorateAsTableRow($this->getDisplayGroup('footer'),array('id'=>'footerRow'));
+
         }
 
         parent::setDefaults($defaults);
@@ -189,6 +203,10 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
 
         foreach ($this->_fields as $fieldname => $fieldinfo) {
             switch ($fieldinfo['type']) {
+                case 'sortable':
+                    $cell= new WebEnq4_Form_Element_Note($fieldname);
+                    $cell->setValue('<div class="handle" title="Drag to sort item"></div>');
+                    break;
                 case 'i18n':
                     $cell = new WebEnq4_Form_Element_MlText($fieldname);
                     $cell->setAttrib('languages', $this->_languages);
@@ -208,10 +226,13 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             }
             $cell->setBelongsTo($name);
             $rowForm->decorateAsTableCell($cell);
+
             $rowForm->addElement($cell);
         }
         $this->addSubForm($rowForm, $name);
-        $this->decorateAsTableRow($this->getSubForm($name));
+        //@todo set better id/don't forget to change  edit.js:addItemsrow (id).
+        $this->decorateAsTableRow($this->getSubForm($name),array('id'=>$name));
+
     }
     /*
      * validate data and extend form with new domain items form(elements)
