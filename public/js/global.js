@@ -93,7 +93,7 @@ $(function() {
 		update: function(event, ui) {
 			saveState(event, ui);
 		}
-	}).disableSelection();
+	})
 	
 	$('.draggable').draggable({
 		placeholder: 'ui-state-highlight',
