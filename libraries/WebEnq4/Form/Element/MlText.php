@@ -52,7 +52,7 @@ class WebEnq4_Form_Element_MlText extends Zend_Form_Element_Xhtml
         //only test when element is required
         if ($result && $this->isRequired()) {
             //do we have a default language from user input or form initiation
-            if (!isset($defaultLanguage) && $this->iRequired()){
+            if (!isset($defaultLanguage)){
                 $this->addError("no default language set or choosen");
                 return false;
             }
