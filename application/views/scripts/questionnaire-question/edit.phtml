@@ -1,13 +1,14 @@
 <form action="<?php echo $this->form->getAction(); ?>" method="post" class="tabs">
     <div class="tabs">
         <ul>
-            <li>
+            <?php echo ($this->activeTab=='question'? '<li class="ui-tabs-active">':'<li>')?>
                 <a href="#question"><?php echo t('question'); ?></a>
             </li>
-            <li>
-                <a href="#answers"><?php echo t('answer options'); ?></a>
+            <?php echo ($this->activeTab=='answers'? '<li class="ui-tabs-active">':'<li>')?>
+
+            <a href="#answers"><?php echo t('answer options'); ?></a>
             </li>
-            <li>
+            <?php echo ($this->activeTab=='options'? '<li class="ui-tabs-active">':'<li>')?>
                 <a href="#options"><?php echo t('options'); ?></a>
             </li>
         </ul>

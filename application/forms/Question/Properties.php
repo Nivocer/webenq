@@ -137,27 +137,29 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      *
      * @return boolean|string
      */
-    public function getRedirectSubForm (){
+    public function getRedirectSubForm ($submitInfo){
         foreach ($this->getSubForms() as $subForm){
             $subForms[]=$subForm->getName();
         }
-        foreach ($this->getSubForms() as $subForm){
-            $key=array_search($subForm->getName(), $subForms);
-            if (isset($subForm->previous) && $subForm->previous->isChecked()){
+        $key=array_search($submitInfo['subForm'], $subForms);
+        switch ($submitInfo['name']){
+            case 'previous':
                 if ($key>0){
                     return $subForms[$key-1];
                 }else {
                     return false;
                 }
-            } elseif  (isset($subForm->next) && $subForm->next->isChecked()){
+                break;
+            case 'next':
                 if ($key<count($subForms)-1){
                     return $subForms[$key+1];
                 }else {
                     return 'done';
                 }
-            } elseif  (isset($subForm->done) && $subForm->done->isChecked()){
+                break;
+            case 'done':
                 return 'done';
-            }
+                break;
         }
         return false;
     }

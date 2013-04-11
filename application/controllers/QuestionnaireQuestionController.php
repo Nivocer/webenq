@@ -42,6 +42,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         'add-subquestion' => array('html'),
     );
 
+    public $questionnaireQuestion;
     /**
      * Renders the form for adding an existing question to a questionnaire
      */
@@ -86,90 +87,129 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      */
     public function editAction()
     {
-
         $questionnaireNode=new Webenq_Model_QuestionnaireNode();
-        $questionnaireQuestion=$questionnaireNode->getTable()->find($this->_request->id);
+        $this->questionnaireQuestion=$questionnaireNode->getTable()->find($this->_request->id);
         $questionnaire=new Webenq_Model_Questionnaire();
         //fix add questionnaire to questionnaireQuestion, maybe relation problem?
-        $questionnaireQuestion->Questionnaire=$questionnaire->getTable()->findBy('questionnaire_node_id', $questionnaireQuestion->root_id);
+        $this->questionnaireQuestion->Questionnaire=$questionnaire->getTable()->findBy('questionnaire_node_id', $this->questionnaireQuestion->root_id);
 
-        if (!$questionnaireQuestion){
+        if (!$this->questionnaireQuestion){
             $this->_redirect('/questionnaire/');
             return;
         }
         // get form
-        $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        $form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$questionnaireQuestion->Questionnaire->getFirst()->default_language));
+        $answerDomainType=$this->questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
+        $form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$this->questionnaireQuestion->Questionnaire->getFirst()->default_language));
         $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         // process form
-        if ($this->_helper->form->isPostedAndValid($form)) {
-            if (!$this->_helper->form->isCancelled($form)) {
-                $newValues = $form->getValues();
-                if (isset($newValues['question']['question']['id']) && $newValues['question']['question']['id']==$questionnaireQuestion->get('id')) {
+        //is posted?
+        if ($this->getRequest()->isPost()){
+            //is form cancelled-> redirect to preview questionnaire
+            if ($this->_helper->form->isCancelled($form)) {
+                $redirectUrl = 'questionnaire/edit/id/' . $this->questionnaireQuestion->Questionnaire->getFirst()->id;
+                $this->_redirect($redirectUrl);
+                return;
+            }else{
+                //which subform is posted
+                $formData=$this->getRequest()->getPost();
+                $submitInfo=$this->_helper->form->getSubmitButtonUsed($formData, array('next', 'previous','done'));
+                //is subform valid
+                if ($form->getSubForm($submitInfo['subForm'])->isValid($formData)){
+                    //fill information from all subforms
+                    $form->isValid($formData);
+                    //perform subform action
+                    $newValues = $form->getValues();
 
-                    $questionnaireQuestion->fromArray($newValues);
+                    if (isset($newValues['question']['question']['id']) && $newValues['question']['question']['id']==$this->questionnaireQuestion->get('id')) {
+                        $this->questionnaireQuestion->fromArray($newValues);
+                        switch ($submitInfo['subForm']){
+                        case 'question':
+                        case 'answers':
+                        case 'options':
+                            if ($submitInfo['name']=='done'){
+                                $this->saveQuestionnaireQuestion($this->questionnaireQuestion);
+                            }
+                        break;
+                        }
+                        //redirect to other tab (or preview questionnaire when done)
+                        $this->redirectTo($form, $submitInfo, true);
 
-//                    @todo activated save
-                      $questionnaireQuestion->save();
-//                     $this->_helper->getHelper('FlashMessenger')
-//                     ->setNamespace('error')
-//                     ->addMessage(
-//                         t('Save is not activated: qq-controller')
-//                     );
-
-                    $this->_helper->getHelper('FlashMessenger')
-                    ->setNamespace('success')
-                    ->addMessage(
-                        sprintf(
-                            t('Question "%s" updated succesfully'),
-                            //@todo check questiontext
-                            $questionnaireQuestion->QuestionnaireElement->getTranslation('text')
-                        )
-                    );
-                } else {
-                    $this->_helper->getHelper('FlashMessenger')
-                    ->setNamespace('error')
-                    ->addMessage(
-                        t('Question identifier mismatch, something went wrong')
-                    );
+                    }
+                    else {
+                        $this->_helper->getHelper('FlashMessenger')
+                        ->setNamespace('error')
+                        ->addMessage(
+                            t('Question identifier mismatch, something went wrong')
+                        );
+                    }
                 }
             }
-
-            //build redirect url
-            //@todo check redirecturl
-            $redirectSubForm=$form->getRedirectSubform();
-            //$formIdTranslation=array('question'=>'questions', 'answerOptions'=>'answerOptions', 'options'=>'options');
-            if ($redirectSubForm=='done'){
-                $redirectUrl = 'questionnaire/edit/id/' . $questionnaireQuestion->Questionnaire->getFirst()->id;
-                //if ((int) $questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
-                //    $redirectUrl .= '#page-' . $questionnaireQuestion->CollectionPresentation[0]->page;
-                //}
-            }else {
-                //note: if redirectSubform ==false -> go to first tab
-                $redirectUrl = 'questionnaire-question/edit/id/' . $questionnaireQuestion->id;
-                $redirectUrl .= '#' . $redirectSubForm;
-
-            }
-
-            // close dialog and redirect
-            if ($this->_request->isXmlHttpRequest()) {
-                $this->_helper->json(
-                    array(
-                        'reload' => true,
-                        'href' => $this->view->baseUrl($redirectUrl),
-                    )
-                );
-            } else {
-                $this->_redirect($redirectUrl);
-            }
         }
+        //display form
         //info needed for form
-        $form->setDefaults($questionnaireQuestion->toArray());
+        $form->setDefaults($this->questionnaireQuestion->toArray());
         $this->view->form = $form;
-        $this->view->questionnaireQuestion = $questionnaireQuestion;
+        $this->view->questionnaireQuestion = $this->questionnaireQuestion;
     }
 
+    /**
+     * redirect user to correct location, if soft redirect, we want to redirect to another tab
+     *
+     * @param unknown $form
+     * @param unknown $submitInfo which submitbutton on which tab is pushed
+     * @param unknown $soft
+     */
+    public function redirectTo($form, $submitInfo, $soft) {
+        //build redirect url
+        //@todo check redirecturl
+        $redirectSubForm=$form->getRedirectSubform($submitInfo);
+
+        //$formIdTranslation=array('question'=>'questions', 'answerOptions'=>'answerOptions', 'options'=>'options');
+        if ($redirectSubForm=='done'){
+            $redirectUrl = 'questionnaire/edit/id/' . $this->questionnaireQuestion->Questionnaire->getFirst()->id;
+            //if ((int) $this->questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
+            //    $redirectUrl .= '#page-' . $this->questionnaireQuestion->CollectionPresentation[0]->page;
+            //}
+        }else {
+            if  ($soft){
+                $this->view->activeTab=$redirectSubForm;
+                return;
+            }else {
+                //when we want to get info from database (reset?)
+                //note: if redirectSubform ==false -> go to first tab
+                $redirectUrl = 'questionnaire-question/edit/id/' . $this->questionnaireQuestion->id;
+                $redirectUrl .= '#' . $redirectSubForm;
+            }
+
+        }
+
+        // close dialog and redirect
+        if ($this->_request->isXmlHttpRequest()) {
+            $this->_helper->json(
+                array(
+                    'reload' => true,
+                    'href' => $this->view->baseUrl($redirectUrl),
+                )
+            );
+        } else {
+            $this->_redirect($redirectUrl);
+
+            return;
+        }
+    }
+    public function saveQuestionnaireQuestion(){
+        $this->questionnaireQuestion->save();
+        $this->_helper->getHelper('FlashMessenger')
+        ->setNamespace('success')
+        ->addMessage(
+            sprintf(
+                t('Question "%s" updated succesfully'),
+                //@todo check questiontext
+                $this->questionnaireQuestion->QuestionnaireElement->getTranslation('text')
+            )
+        );
+    }
     /**
      * Renders the form for deleting a question from a questionnaire,
      * or completely deleting it from the repository.

@@ -115,12 +115,14 @@ class Webenq_Form_Question_Tab extends WebEnq4_Form
         $this->addElement($cancel);
 
         $submitPrevious=new Zend_Form_Element_Submit('previous');
-        $submitPrevious->setLabel('Previous (answer options)');
+        $submitPrevious->setLabel('Previous');
+        $submitPrevious->setBelongsTo('options');
         $submitPrevious->removeDecorator('DtDdWrapper');
         $this->addElement($submitPrevious);
 
         $submitDone=new Zend_Form_Element_Submit('done');
         $submitDone->setLabel('Done');
+        $submitDone->setBelongsTo('options');
         $submitDone->removeDecorator('DtDdWrapper');
         $this->addElement($submitDone);
 

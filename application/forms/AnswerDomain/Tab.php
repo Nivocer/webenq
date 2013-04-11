@@ -66,18 +66,18 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
         $id->setBelongsTo('answers');
         $this->addElement($id);
 
+        //cancel element must not have belongsTo, action on buttons is the same
         $cancel = new Zend_Form_Element_Submit('cancel');
         $cancel->setLabel('Cancel');
-        $cancel->setBelongsTo('answers');
         $this->addElement($cancel);
 
         $submitPrevious=new Zend_Form_Element_Submit('previous');
-        $submitPrevious->setLabel('Previous (question)');
+        $submitPrevious->setLabel('Previous');
         $submitPrevious->setBelongsTo('answers');
         $this->addElement($submitPrevious);
 
         $submitNext=new Zend_Form_Element_Submit('next');
-        $submitNext->setLabel('Next (options)');
+        $submitNext->setLabel('Next');
         $submitNext->setBelongsTo('answers');
         $this->addElement($submitNext);
 

@@ -73,6 +73,7 @@ class Webenq_Form_Question_Tab_Question extends Webenq_Form_Question_Tab
 
         $new=new Zend_Form_Element_Select('new');
         $new->setLabel('Add new');
+        $new->setBelongsTo('question');
         $new->addMultiOption(0,t('...or add a new set of answer options...'));
         foreach (Webenq_Model_AnswerDomain::getAvailableTypes() as $key=>$value) {
             $new->addMultiOption($key,$value['label']);
@@ -85,7 +86,8 @@ class Webenq_Form_Question_Tab_Question extends Webenq_Form_Question_Tab
         $this->addElement($cancel);
 
         $submitQuestionNext=new Zend_Form_Element_Submit('next');
-        $submitQuestionNext->setLabel('Next >');
+        $submitQuestionNext->setLabel('Next');
+        $submitQuestionNext->setBelongsTo('question');
         $this->addElement($submitQuestionNext);
 
         $this->addDisplayGroup(
