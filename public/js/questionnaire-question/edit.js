@@ -60,9 +60,9 @@ function addItemRow(){
 	    	  		return id.replace(/^items-new-/,'answers-items-'+tid+'-'); 
 	    	  	}
 	    	  	},
-	      'name': function(_, name) { return name.replace(/^items\[new\]/, 'answers[items]['+tid+']'); },
+	      'name': function(_, name) { return name.replace(/^items\[new\]/, 'answers[items]['+tid+']'); }
 	    });
-	  }).end().insertBefore($("table#answeritems tr#newitem")).attr('id','items-'+tid).show('slow');
+	  }).end().insertBefore($("table#answeritems tr#newitem")).attr('id','items-'+tid).removeClass('hidden').show('slow');
 }
 
 $(function() {
