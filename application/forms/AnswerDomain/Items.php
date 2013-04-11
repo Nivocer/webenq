@@ -67,6 +67,11 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
     );
 
     /**
+     * Track whether item rows have been added
+     */
+    private $_itemsAdded = false;
+
+    /**
      * Load the default decorators
      *
      * @return Webenq_Form_AnswerDomain_Items
@@ -122,6 +127,26 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $this->addDisplayGroup($header, 'header', array());
         $this->decorateAsTableRow($this->getDisplayGroup('header'),array('id'=>'headerRow'));
 
+        // add a hidden empty row to add as new item
+        $this->addItemRow('items[new]', array('order' => 998));
+        //$this->addItemRow('items[new]');
+        $newItemsRow = $this->getSubForm('items[new]');
+        $defaultItemValues=new Webenq_Model_AnswerDomainItem();
+        $newItemsRow->setDefaults($defaultItemValues->toArray());
+        $newItemsRow->addDecorator('HtmlTag', array(
+                'tag' => 'tr',
+                'class' => 'hidden',
+                'id' => 'newitem'
+        ));
+
+        // button to add an item
+        $cell = new WebEnq4_Form_Element_Note('addItemRow');
+        $cell->setValue('<a class="add with_icon" id="addItemRow" href="#">' . t('Add an item') . '</a>');
+        $this->decorateAsTableCell($cell);
+        $cell->addDecorator('HtmlTag', array('tag' => 'td', 'colspan' => count($this->_fields)));
+        $this->addElement($cell);
+        $this->addDisplayGroup(array('addItemRow'), 'footer', array('order' => '999'));
+        $this->decorateAsTableRow($this->getDisplayGroup('footer'),array('id'=>'footerRow'));
     }
 
     /**
@@ -138,7 +163,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             $domainitems = $tree->fetchTree(array('root_id' => $defaults['id']));
 
             // only create subforms if they are not already created via $this->isValid()
-            if (count($this->getSubforms())==0){
+            if (!$this->_itemsAdded){
                 foreach ($domainitems as $item) {
                     if ($item->id != $item->root_id) { // skip the root of the items
                         $this->addItemRow('answers[items][' . $item->id . ']');
@@ -162,29 +187,8 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
                         $defaults['items'][$item->id] = $itemArray;
                     }
                 }
+                $this->_itemsAdded = true;
             }
-
-            // add a hidden empty row to add as new item
-            $this->addItemRow('items[new]');
-            $newItemsRow = $this->getSubForm('items[new]');
-            $defaultItemValues=new Webenq_Model_AnswerDomainItem();
-            $newItemsRow->setDefaults($defaultItemValues->toArray());
-
-            $newItemsRow->addDecorator('HtmlTag', array(
-                    'tag' => 'tr',
-                    'class' => 'hidden',
-                    'id' => 'newitem'
-            ));
-
-            // button to add an item
-            $cell = new WebEnq4_Form_Element_Note('addItemRow');
-            $cell->setValue('<a class="add with_icon" id="addItemRow" href="#">' . t('Add an item') . '</a>');
-            $this->decorateAsTableCell($cell);
-            $cell->addDecorator('HtmlTag', array('tag' => 'td', 'colspan' => count($this->_fields)));
-            $this->addElement($cell);
-            $this->addDisplayGroup(array('addItemRow'), 'footer', array('order' => '999'));
-            $this->decorateAsTableRow($this->getDisplayGroup('footer'),array('id'=>'footerRow'));
-
         }
 
         parent::setDefaults($defaults);
@@ -229,10 +233,15 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
 
             $rowForm->addElement($cell);
         }
-        $this->addSubForm($rowForm, $name);
+
+        if (isset($options['order'])) {
+            $this->addSubForm($rowForm, $name, $options['order']);
+        } else {
+            $this->addSubForm($rowForm, $name);
+        }
+
         //@todo set better id/don't forget to change  edit.js:addItemsrow (id).
         $this->decorateAsTableRow($this->getSubForm($name),array('id'=>$name));
-
     }
 
     /**
@@ -246,10 +255,13 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         }
         foreach ($data as $idx => $values) {
             $this->addItemRow('answers[items]['.$idx.']');
-            $newItemsRow = $this->getSubForm('answers[items]['.$idx.']');
+            $this->_itemsAdded = true;
+            //$newItemsRow = $this->getSubForm('answers[items]['.$idx.']');
             //$newItemsRow->setDefaults($values);
         }
 
         return parent::isValid($data);
     }
+
+
 }
