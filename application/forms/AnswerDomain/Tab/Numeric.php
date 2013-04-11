@@ -73,31 +73,7 @@ class Webenq_Form_AnswerDomain_Tab_Numeric extends Webenq_Form_AnswerDomain_Tab
             array('class' => 'list')
         );
 
-        //validators
-        foreach (Webenq_Model_AnswerDomainNumeric::getAvailableValidators() as $key=>$value){
-            $validatorArray[$key]=$value['label'];
-        }
-        if (isset($validatorArray) && count($validatorArray)>0) {
-            $validator=new Zend_Form_Element_MultiCheckbox('validator');
-            $validator->setLabel('Perform these validations before accepting an answer');
-            $validator->setMultiOptions($validatorArray);
-            $validator->setBelongsTo('answers');
-            $validator->setAttrib('class', 'optionlist');
-            $this->addElement($validator);
-        }
-
-        //filter
-        foreach (Webenq_Model_AnswerDomainNumeric::getAvailableFilters() as $key=>$value){
-            $filterArray[$key]=$value['label'];
-        }
-        if (isset($filterArray) && count($filterArray)>0) {
-            $filter=new Zend_Form_Element_MultiCheckbox('filter');
-            $filter->setLabel('Apply these changes before storing an answer:');
-            $filter->setAttrib('class', 'optionlist');
-
-            $filter->setMultiOptions($filterArray);
-            $filter->setBelongsTo('answers');
-            $this->addElement($filter);
-        }
+        $this->addValidators(Webenq_Model_AnswerDomainNumeric::getAvailableValidators());
+        $this->addFilters(Webenq_Model_AnswerDomainNumeric::getAvailableFilters());
     }
 }

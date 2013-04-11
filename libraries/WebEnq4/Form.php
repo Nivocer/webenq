@@ -43,9 +43,9 @@ class WebEnq4_Form extends Zend_Form
      *
      * Note: not dealing with fallback languages or full translation.
      *
-     * @var array Default is set to 'en'
+     * @var array Default language
      */
-    public $_defaultLanguage = 'enform';
+    public $_defaultLanguage;
 
     /**
      * Constructor

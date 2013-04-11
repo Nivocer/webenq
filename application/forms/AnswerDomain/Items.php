@@ -234,9 +234,11 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $this->decorateAsTableRow($this->getSubForm($name),array('id'=>$name));
 
     }
-    /*
-     * validate data and extend form with new domain items form(elements)
+
+    /**
+     * Validate data and extend form with new domain items form(elements)
      *
+     * @param array Data to be validated
      */
     public function isValid($data) {
         if (!isset($data)) {

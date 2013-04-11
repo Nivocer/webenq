@@ -49,7 +49,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         if (is_array($options) && isset($options['answerDomainType'])) {
             $this->answerDomainType=$options['answerDomainType'];
         }
-    if (is_array($options) && isset($options['defaultLanguage'])) {
+        if (is_array($options) && isset($options['defaultLanguage'])) {
             $this->_defaultLanguage=$options['defaultLanguage'];
         }
         parent::__construct();

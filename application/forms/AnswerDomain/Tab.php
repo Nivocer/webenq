@@ -87,4 +87,50 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
             array('class' => 'table', 'order'=>999)
         );
     }
+
+    /**
+     * Adds the validators
+     *
+     * @param array Array of validators to add
+     */
+    public function addValidators($validators)
+    {
+        if (is_array($validators)) {
+            $validatorArray = array();
+            foreach ($validators as $key=>$value){
+                $validatorArray[$key]=$value['label'];
+            }
+            if (count($validatorArray)>0) {
+                $validator=new Zend_Form_Element_MultiCheckbox('validator');
+                $validator->setLabel('Perform these validations before accepting an answer');
+                $validator->setMultiOptions($validatorArray);
+                $validator->setBelongsTo('answers');
+                $validator->setAttrib('class', 'optionlist');
+                $this->addElement($validator);
+            }
+        }
+    }
+
+    /**
+     * Adds the filters
+     *
+     * @param array Array of filters to add
+     */
+    public function addFilters($filters)
+    {
+        if (is_array($filters)) {
+            $filterArray = array();
+            foreach ($filters as $key=>$value){
+                $filterArray[$key]=$value['label'];
+            }
+            if (count($filterArray)>0) {
+                $filter=new Zend_Form_Element_MultiCheckbox('filter');
+                $filter->setLabel('Apply these changes before storing an answer:');
+                $filter->setAttrib('class', 'optionlist');
+                $filter->setMultiOptions($filterArray);
+                $filter->setBelongsTo('answers');
+                $this->addElement($filter);
+            }
+        }
+    }
 }
