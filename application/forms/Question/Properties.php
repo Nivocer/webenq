@@ -130,9 +130,58 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         parent::setDefaults($defaults);
     }
 
-    public function getSituations()
-    {
-        return array('X');
+
+    /**
+     * @return array: array with situations that needs action before redisplay form
+     */
+    public function getSituations() {
+        $situations=array();
+        $submitInfo=$this->getSubmitButtonUsed(array('next', 'previous','done'));
+        //is subform valid
+        //@todo check if we don't need to feed $formData[$tab]
+        //@todo isValid: only one of question[reuse]/question[new] gebruiken
+
+        switch ($submitInfo['subForm']){
+            case 'question':
+                //change: other existing answer domain: mismatch $question[answer_domain_id] and answers[id] tab
+                if ($this->question->answer_domain_id->getValue()<>'0' &&
+                    $this->answers->id->getValue() <>'0' &&
+                    $this->question->answer_domain_id->getValue() <>$this->answers->id->getValue()){
+                    $situations[]='differentAnswerDomainChosen';
+                }
+
+                //change to a new answer domain: new type is chosen, existing one on answer tab
+                if ($this->question->new->getValue()<>'0' &&
+                    $this->answers->id->getValue() <>'0'
+                    ){
+                    $situations[]='newAnswerDomainChosen';
+                }
+                //change to new answer domain: other answerDomaintType choosen
+                if ($this->question->new->getValue() <>'0' &&
+                    ( $this->answers->id->getValue()=='0') &&
+                    'AnswerDomain'.$this->question->new->getValue()<>$this->answers->type->getValue()
+                        ){
+                    $situations[]='newAnswerDomainTypeChosen';
+                }
+                //change to new answer domain: same answerDomaintType choosen
+                if($this->question->new->getValue()<>'0' &&
+                     $this->answers->id->getValue()=='0' &&
+                    'AnswerDomain'.$this->question->new->getValue()==$this->answers->type->getValue()
+                        ){
+                    $situations[]='newAnswerDomainSameTypeChosen';
+
+                }
+
+                break;
+            case 'answersoptions':
+            case 'options':
+                break;
+        }
+    return $situations;
+    }
+
+    public function getSubmitButtonUsed($names=array()){
+        return parent::getSubmitButtonUsed(array('next','previous','done'));
     }
 
     /**

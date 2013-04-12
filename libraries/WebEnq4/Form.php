@@ -197,4 +197,20 @@ class WebEnq4_Form extends Zend_Form
     {
         return (isset($values['cancel']));
     }
+    /**
+     * @param array $data formdata with multiple submitbuttons
+     * @param array $names names of elements to search
+     * @return array|boolean
+     */
+    public function getSubmitButtonUsed($names){
+        foreach ($this->getSubForms() as $subForm){
+            foreach ($names as $name){
+                if (isset($subForm->$name) && $subForm->$name->isChecked()){
+                    return array('subForm'=>$subForm->getName(), 'name'=>$name);
+                }
+            }
+        }
+        return false;
+    }
+
 }

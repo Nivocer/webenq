@@ -1,0 +1,31 @@
+<form action="<?php echo $this->form->getAction(); ?>" method="post" class="tabs">
+    <div class="tabs">
+        <ul>
+            <?php echo ($this->activeTab=='question'? '<li class="ui-tabs-active">':'<li>')?>
+                <a href="#question"><?php echo t('question'); ?></a>
+            </li>
+            <?php echo ($this->activeTab=='answers'? '<li class="ui-tabs-active">':'<li>')?>
+
+            <a href="#answers"><?php echo t('answer options'); ?></a>
+            </li>
+            <?php echo ($this->activeTab=='options'? '<li class="ui-tabs-active">':'<li>')?>
+                <a href="#options"><?php echo t('options'); ?></a>
+            </li>
+        </ul>
+        <div id=questionText><h3>
+
+        <?php // @todo next should get text in stead of name?>
+
+        <?php //echo $this->questionnaireQuestion->QuestionnaireElement->getTranslation('text'); ?>
+        </h3></div>
+        <div id="question">
+            <?php echo $this->form->question; ?>
+        </div>
+        <div id="answers">
+            <?php echo $this->form->answers; ?>
+        </div>
+        <div id="options">
+            <?php echo $this->form->options; ?>
+        </div>
+    </div>
+</form>

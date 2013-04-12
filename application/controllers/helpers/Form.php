@@ -40,23 +40,6 @@ class Webenq_Controller_Action_Helper_Form
         return ($request->isPost() && $form->isCancelled($request->getPost()));
     }
 
-    /**
-     * @param array $data formdata with multiple submitbuttons
-     * @param array $names names of elements to search
-     * @return array|boolean
-     */
-    public function getSubmitButtonUsed($data, $names){
-        foreach ($data as $subForm => $elements){
-            foreach ($names as $name){
-                if (isset ($data[$subForm][$name])){
-                    return array('subForm'=>$subForm, 'name'=>$name);
-                }
-            }
-        }
-        return false;
-    }
-
-
     public function render(Zend_Form $form)
     {
         $controller = $this->getActionController();

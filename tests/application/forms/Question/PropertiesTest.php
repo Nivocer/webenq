@@ -64,8 +64,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'id' => 4
                     )
                 ),
-                //'action' => array('different_answer_domain_chosen')
-                'action' => array('X')
+                'action' => array('differentAnswerDomainChosen')
             )),
 
             // new answer domain chosen; existing answer domain id on answer tab
@@ -81,8 +80,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'id' => 4
                     )
                 ),
-                //'action' => array('new_answer_domain_type_chosen')
-                'action' => array('X')
+                'action' => array('newAnswerDomainChosen')
             )),
 
             // new answer domain chosen; existing answer domain item id on answer tab
@@ -101,8 +99,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         )
                     )
                 ),
-                //'action' => array('new_answer_domain_type_chosen')
-                'action' => array('X')
+                'action' => array('newAnswerDomainChosen')
             )),
 
             // new "choice" answer domain chosen; answers tab has new "choice" info
@@ -122,8 +119,8 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         )
                     )
                 ),
-                //'action' => array()
-                'action' => array('X')
+                'action' => array('newAnswerDomainSameTypeChosen')
+
             )),
 
             // new "choice" answer domain chosen; answers tab has new "choice" info
@@ -140,8 +137,8 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'type' => 'AnswerDomainChoice'
                     )
                 ),
-                //'action' => array()
-                'action' => array('X')
+                'action' => array('newAnswerDomainSameTypeChosen')
+
             )),
 
             // new "choice" answer domain chosen; answers tab has new "text" or "numeric" info
@@ -158,7 +155,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         // no items[] data, but no other definite way to know what type it is
                     )
                 ),
-                'action' => array('X')
+                'action' => array('newAnswerDomainTypeChosen')
             )),
 
             // new "choice" answer domain chosen; answers tab has "text" info
@@ -174,8 +171,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'type' => 'AnswerDomainText'
                     )
                 ),
-                //'action' => array()
-                'action' => array('X')
+                'action' => array('newAnswerDomainTypeChosen')
             )),
 
             // new "choice" answer domain chosen; answers tab has "numeric" info
@@ -191,8 +187,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'type' => 'AnswerDomainNumeric'
                     )
                 ),
-                //'action' => array()
-                'action' => array('X')
+                'action' => array('newAnswerDomainTypeChosen')
             )),
 
             /*

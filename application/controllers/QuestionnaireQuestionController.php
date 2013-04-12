@@ -36,7 +36,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      * @var array
      */
     public $ajaxable = array(
-        'add' => array('html'),
+       // 'add' => array('html'),
         'edit' => array('html'),
         'delete' => array('html'),
         'add-subquestion' => array('html'),
@@ -48,36 +48,71 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      */
     public function addAction()
     {
+        if (isset ($this->_request->questionnaire_id)){
         $questionnaireId = $this->_request->questionnaire_id;
+        }
+        $formData=$this->getRequest()->getPost();
+        if (isset($formData['questionnaire_id'])){
+            $questionnaireId=$formdata['questionnaire_id'];
+        }
+        //@todo remove hardcoded questionnaireId adjust form
+        $questionnaireId=1;
         if (!$questionnaireId) {
             throw new Exception('No questionnaire id given!');
         }
-        $form = new Webenq_Form_QuestionnaireQuestion_Add($questionnaireId);
+
+        $questionnaireModel=new Webenq_Model_Questionnaire();
+        $questionnaire=$questionnaireModel->getTable()->findById($questionnaireId);
+        $this->questionnaireQuestion=new Webenq_Model_QuestionnaireNode();
+        $this->questionnaireQuestion->Questionnaire=$questionnaire;
+
+        $form = new Webenq_Form_Question_Properties(array('answerDomainType' => 'numeric', 'defaultLanguage'=>$questionnaire->getFirst()->default_language));
+
         $form->setAction($this->view->baseUrl('/questionnaire-question/add'));
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getPost())) {
-                /* store */
-                $qq = new Webenq_Model_QuestionnaireQuestion();
-                $qq->question_id = str_replace('q_', '', $form->id->getValue());
-                $qq->questionnaire_id = $form->questionnaire_id->getValue();
-                $qq->CollectionPresentation[0]->type = 'open_text';
-                $qq->CollectionPresentation[0]->page = 1;
-                $qq->CollectionPresentation[0]->weight = - 1;
-                $qq->save();
-                /* send response */
-                if ($this->_request->isXmlHttpRequest()) {
-                    $this->_helper->json(array('reload' => true,));
+        if ($this->getRequest()->isPost()){
+            //is form cancelled-> redirect to preview questionnaire
+            if ($this->_helper->form->isCancelled($form)) {
+                $redirectUrl = 'questionnaire/edit/id/' . $questionnaireId;
+                $this->_redirect($redirectUrl);
+                return;
+            }else{
+                //which subform is posted
+                $formData=$this->getRequest()->getPost();
+                $submitInfo=$this->_helper->form->getSubmitButtonUsed($formData, array('next', 'previous','done'));
+                //is subform valid
+                if ($form->getSubForm($submitInfo['subForm'])->isValid($formData)){
+                    //fill information from all subforms
+                    $form->isValid($formData);
+                    //perform subform action
+                    $newValues = $form->getValues();
+
+                    $this->questionnaireQuestion->fromArray($newValues);
+                    switch ($submitInfo['subForm']){
+                    case 'question':
+                        $form=$this->questionSubForm($form, $newValues);
+                        break;
+                    case 'answers':
+                        $form=$this->answersSubForm($form, $newValues);
+                        break;
+                    case 'options':
+                        $form=$this->optionsSubForm($form,$newValues);
+                        if ($submitInfo['name']=='done'){
+                            $this->saveQuestionnaireQuestion($this->questionnaireQuestion);
+                        }
+                        break;
+                    }
+                    //redirect to other tab (or preview questionnaire when done)
+                    $this->redirectTo($form, $submitInfo, true);
                 }
             }
         }
-        $questions = Doctrine_Query::create()
-            ->select('q.id, qt.text')
-            ->from('Webenq_Model_Question q')
-            ->innerJoin('q.QuestionText qt')
-            ->where('qt.language = ?', $this->_helper->language())
-            ->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+        //display form
+        //info needed for form
+        $form->setDefaults($this->questionnaireQuestion->toArray());
         $this->view->form = $form;
-        $this->view->questions = $questions;
+        $this->view->questionnaireQuestion = $this->questionnaireQuestion;
+
+
     }
 
     /**
@@ -99,57 +134,54 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         }
         // get form
         $answerDomainType=$this->questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        $form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$this->questionnaireQuestion->Questionnaire->getFirst()->default_language));
-        $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
+        $this->view->form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$this->questionnaireQuestion->Questionnaire->getFirst()->default_language));
+        $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
-        // process form
-        //is posted?
+        //is posted?/process form
         if ($this->getRequest()->isPost()){
             //is form cancelled-> redirect to preview questionnaire
-            if ($this->_helper->form->isCancelled($form)) {
+            if ($this->_helper->form->isCancelled($this->view->form)) {
                 $redirectUrl = 'questionnaire/edit/id/' . $this->questionnaireQuestion->Questionnaire->getFirst()->id;
                 $this->_redirect($redirectUrl);
                 return;
             }else{
-                //which subform is posted
-                $formData=$this->getRequest()->getPost();
-                $submitInfo=$this->_helper->form->getSubmitButtonUsed($formData, array('next', 'previous','done'));
-                //is subform valid
-                if ($form->getSubForm($submitInfo['subForm'])->isValid($formData)){
-                    //fill information from all subforms
-                    $form->isValid($formData);
-                    //perform subform action
-                    $newValues = $form->getValues();
+                //fill information from forms
+                $this->view->form->setDefaults($this->getRequest()->getPost());
+                $postData=$this->view->form->getValues();
+                if (isset($postData['question']['question']['id']) && $postData['question']['question']['id']==$this->questionnaireQuestion->get('id')) {
 
-                    if (isset($newValues['question']['question']['id']) && $newValues['question']['question']['id']==$this->questionnaireQuestion->get('id')) {
-                        $this->questionnaireQuestion->fromArray($newValues);
-                        switch ($submitInfo['subForm']){
-                        case 'question':
-                        case 'answers':
-                        case 'options':
-                            if ($submitInfo['name']=='done'){
-                                $this->saveQuestionnaireQuestion($this->questionnaireQuestion);
+                    $submitInfo=$this->view->form->getSubmitButtonUsed();
+                    if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($this->getRequest()->getPost())){
+                        //get action stack from controller to perform based on the form data
+                        $situations=$this->view->form->getSituations();
+                        //@todo check to see if there is a php/zend-function for it like _forward (__call)?
+                        /*foreach ($nextActions as $nextAction){
+                            if (function_exists($this->$nextAction)){
+                                $this->nextAction();
                             }
-                        break;
-                        }
-                        //redirect to other tab (or preview questionnaire when done)
-                        $this->redirectTo($form, $submitInfo, true);
+                        }*/
 
+                        //redirect to other tab (or preview questionnaire when done)
+                        $this->redirectTo($submitInfo, true);
+                    }else {
+                        //subform is not valid: go to current tab
+                        //@todo need work?
                     }
-                    else {
-                        $this->_helper->getHelper('FlashMessenger')
-                        ->setNamespace('error')
-                        ->addMessage(
-                            t('Question identifier mismatch, something went wrong')
-                        );
-                    }
+                } else {
+                    $this->_helper->getHelper('FlashMessenger')
+                    ->setNamespace('error')
+                    ->addMessage(
+                        t('Question identifier mismatch, something went wrong')
+                    );
                 }
+
             }
+        } else {
+            //data from database
+            $this->view->form->setDefaults($this->questionnaireQuestion->toArray());
         }
-        //display form
-        //info needed for form
-        $form->setDefaults($this->questionnaireQuestion->toArray());
-        $this->view->form = $form;
+        //@todo adjust form so we don't need $questionnaireQuestion in form
+        //add questionnaire info to form, we need the question text, but we could get it from form-data
         $this->view->questionnaireQuestion = $this->questionnaireQuestion;
     }
 
@@ -160,10 +192,10 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      * @param unknown $submitInfo which submitbutton on which tab is pushed
      * @param unknown $soft
      */
-    public function redirectTo($form, $submitInfo, $soft) {
+    public function redirectTo($submitInfo, $soft) {
         //build redirect url
         //@todo check redirecturl
-        $redirectSubForm=$form->getRedirectSubform($submitInfo);
+        $redirectSubForm=$this->view->form->getRedirectSubform($submitInfo);
 
         //$formIdTranslation=array('question'=>'questions', 'answerOptions'=>'answerOptions', 'options'=>'options');
         if ($redirectSubForm=='done'){
