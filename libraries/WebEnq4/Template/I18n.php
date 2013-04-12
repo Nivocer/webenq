@@ -145,4 +145,20 @@ class WebEnq4_Template_I18n extends Doctrine_Template
         return '';
     }
 
+    /**
+     * set translations
+     *
+     * @param  $array array $array[$language][$field]=$value;
+     */
+    public function setTranslations($array){
+        if (is_array($array)) {
+            $invoker=$this->getInvoker();
+            foreach ($array as $language => $textArray) {
+                foreach ($textArray as $field=>$value){
+                    $invoker->Translation[$language]->$field = $value;
+                }
+            }
+        }
+    }
+
 }
