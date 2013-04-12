@@ -130,6 +130,11 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         parent::setDefaults($defaults);
     }
 
+    public function getSituations()
+    {
+        return array('X');
+    }
+
     /**
      * Get the subform name based on the submit button pressed (next/previous/done)
      *
