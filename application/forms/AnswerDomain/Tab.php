@@ -33,6 +33,11 @@
 class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
 {
     /**
+     * Variable to indicate 'type' of answer domain
+     */
+    public $_type = 'Abstract';
+
+    /**
      * Load the default decorators, much the same as in Zend_Form_SubForm
      *
      * @return Webenq_Form_AnswerDomain_Items
@@ -65,6 +70,13 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
         $id->removeDecorator('Label');
         $id->setBelongsTo('answers');
         $this->addElement($id);
+
+        $type = new Zend_Form_Element_Hidden('type');
+        $type->removeDecorator('DtDdWrapper');
+        $type->removeDecorator('Label');
+        $type->setBelongsTo('answers');
+        $type->setValue($this->_type);
+        $this->addElement($type);
 
         //cancel element must not have belongsTo, action on buttons is the same
         $cancel = new Zend_Form_Element_Submit('cancel');

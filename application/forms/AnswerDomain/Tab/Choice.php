@@ -32,6 +32,11 @@
 class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
 {
     /**
+     * Variable to indicate 'type' of answer domain
+     */
+    public $_type = 'AnswerDomainChoice';
+
+    /**
      * Prepare form
      *
      * @return void
