@@ -58,7 +58,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'text' => array('en'=> 'Title'),
                         'answer_domain_id' => 3,
                         'new' => 0,
-                        'next' => 'submit'
+                        'next' => 'Next'
                     ),
                     'answers' => array(
                         'id' => 4
@@ -74,7 +74,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'text' => array('en'=> 'Title'),
                         'answer_domain_id' => '',
                         'new' => 'Choice',
-                        'next' => 'submit'
+                        'next' => 'Next'
                     ),
                     'answers' => array(
                         'id' => 4
@@ -90,7 +90,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'text' => array('en'=> 'Title'),
                         'answer_domain_id' => '',
                         'new' => 'Choice',
-                        'next' => 'submit'
+                        'next' => 'Next'
                     ),
                     'answers' => array(
                         'id' => 0,
@@ -109,7 +109,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'text' => array('en'=> 'Title'),
                         'answer_domain_id' => '',
                         'new' => 'Choice',
-                        'next' => 'submit'
+                        'next' => 'Next'
                     ),
                     'answers' => array(
                         'id' => 0,
@@ -130,7 +130,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'text' => array('en'=> 'Title'),
                         'answer_domain_id' => '',
                         'new' => 'Choice',
-                        'next' => 'submit'
+                        'next' => 'Next'
                     ),
                     'answers' => array(
                         'id' => 0,
@@ -148,7 +148,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'text' => array('en'=> 'Title'),
                         'answer_domain_id' => '',
                         'new' => 'Choice',
-                        'next' => 'submit'
+                        'next' => 'Next'
                     ),
                     'answers' => array(
                         'id' => 0,
@@ -165,7 +165,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                             'text' => array('en'=> 'Title'),
                             'answer_domain_id' => '',
                             'new' => 'Choice',
-                            'next' => 'submit'
+                            'next' => 'Next'
                     ),
                     'answers' => array(
                         'type' => 'AnswerDomainText'
@@ -181,7 +181,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'text' => array('en'=> 'Title'),
                         'answer_domain_id' => '',
                         'new' => 'Choice',
-                        'next' => 'submit'
+                        'next' => 'Next'
                     ),
                     'answers' => array(
                         'type' => 'AnswerDomainNumeric'
@@ -189,6 +189,24 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                 ),
                 'action' => array('newAnswerDomainTypeChosen')
             )),
+            //same as above, but with dutch submit button text
+            array(array(
+                'post' => array(
+                    'question' => array(
+                        'text' => array('en'=> 'Title'),
+                        'answer_domain_id' => '',
+                        'new' => 'Choice',
+                        'next' => 'Volgende'
+                    ),
+                    'answers' => array(
+                        'type' => 'AnswerDomainNumeric'
+                    )
+                ),
+                'action' => array('newAnswerDomainTypeChosen')
+            )),
+
+
+
 
             /*
              * Subform "anwers"
