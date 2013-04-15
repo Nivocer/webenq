@@ -56,6 +56,13 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
         $name->setRequired();
         $this->addElement($name);
 
+        $itemId = new Zend_Form_Element_Hidden('answer_domain_item_id');
+        $itemId->setBelongsTo('answers');
+        $itemId->removeDecorator('DtDdWrapper');
+        $itemId->removeDecorator('Label');
+        $this->addElement($itemId);
+
+
         // keep the items subform to be able to add things to it in setDefaults
         $this->items = new Webenq_Form_AnswerDomain_Items();
         $this->items->_languages = $this->_languages;
@@ -70,10 +77,14 @@ class Webenq_Form_AnswerDomain_Tab_Choice extends Webenq_Form_AnswerDomain_Tab
      */
     public function setDefaults(array $defaults)
     {
+        $defaults['items']['source']='';
         if (isset($defaults['AnswerDomainItem'])) {
             $defaults['items'] = $defaults['AnswerDomainItem'];
+            //@todo saver method to determin source of input
+            $defaults['items']['source'] ='model';
+        } else {
+            $defaults['items']['source']='form';
         }
-
         parent::setDefaults($defaults);
     }
 }

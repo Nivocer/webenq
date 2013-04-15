@@ -65,7 +65,6 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             'type' => 'boolean'
         ),
     );
-
     /**
      * Track whether item rows have been added
      */
@@ -100,13 +99,6 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      */
     public function init()
     {
-        $id = new Zend_Form_Element_Hidden('id');
-        $id->setBelongsTo($this->getName());
-        $id->removeDecorator('DtDdWrapper');
-        $id->removeDecorator('Label');
-        $id->setBelongsTo('items');
-        $this->addElement($id);
-
         //element to store the order of the items from javascript
         $sortable=new Zend_Form_Element_Hidden('sortable');
         $sortable->setBelongsTo('answers');
@@ -119,7 +111,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         foreach ($this->_fields as $fieldname => $fieldinfo) {
             $cell = new WebEnq4_Form_Element_Note('th_'.$fieldname);
             $cell->setValue($fieldinfo['label']);
-            $id->setBelongsTo('items');
+            $cell->setBelongsTo('items');
             $this->decorateAsTableCell($cell, true);
             $this->addElement($cell);
             $header[] = $cell->getName();
@@ -154,22 +146,26 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      */
     public function setDefaults(array $defaults)
     {
+        if ($defaults['source']=='model'){
+            $defaults=$this->createItemsRowsFromModel($defaults);
+        }else{
+            $defaults=$this->createItemsRowsFromForm($defaults);
+        }
+        parent::setDefaults($defaults);
+    }
+
+    public function createItemsRowsFromModel($defaults){
         if (isset($defaults['id'])) {
-            if (!isset($defaults['item'])) {
-                $defaults['item'] = array();
-            }
-            $defaults['items']['id'] = $defaults['id'];
             $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
             $domainitems = $tree->fetchTree(array('root_id' => $defaults['id']));
 
-            // only create subforms if they are not already created via $this->isValid()
+            // only create subforms if they are not already created
             if (!$this->_itemsAdded){
                 foreach ($domainitems as $item) {
                     if ($item->id != $item->root_id) { // skip the root of the items
                         $this->addItemRow('answers[items][' . $item->id . ']');
 
                         $itemArray = $item->toArray();
-
                         /**
                          * @todo DRY... maybe move this to model toArray()?
                          * @see WebEnq4_Form::setDefaults()
@@ -183,17 +179,24 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
                                 }
                             }
                         }
-
                         $defaults['items'][$item->id] = $itemArray;
                     }
                 }
                 $this->_itemsAdded = true;
             }
         }
-
-        parent::setDefaults($defaults);
+        return $defaults;
     }
-
+    public function createItemsRowsFromForm($defaults){
+        foreach ($defaults as $idx => $values) {
+            if ($idx<>'source') {
+                $this->addItemRow('answers[items]['.$idx.']');
+                $this->_itemsAdded = true;
+            }
+        }
+        $this->_itemsAdded=true;
+        return $defaults;
+    }
     /**
      * Add a row for a single item
      *
@@ -250,18 +253,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      * @param array Data to be validated
      */
     public function isValid($data) {
-        if (!isset($data)) {
-            $data = array();
-        }
-        foreach ($data as $idx => $values) {
-            $this->addItemRow('answers[items]['.$idx.']');
-            $this->_itemsAdded = true;
-            //$newItemsRow = $this->getSubForm('answers[items]['.$idx.']');
-            //$newItemsRow->setDefaults($values);
-        }
-
-        return parent::isValid($data);
+    //@todo activate and correct, we don't get the correct data here
+    return true;
     }
-
-
 }
