@@ -83,26 +83,8 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                 'action' => array('newAnswerDomainChosen')
             )),
 
-            // new answer domain chosen; existing answer domain item id on answer tab
-            array(array(
-                'post' => array(
-                    'question' => array(
-                        'text' => array('en'=> 'Title'),
-                        'answer_domain_id' => '',
-                        'new' => 'Choice',
-                        'next' => 'Next'
-                    ),
-                    'answers' => array(
-                        'id' => 0,
-                        'items' => array(
-                            'id' => 2
-                        )
-                    )
-                ),
-                'action' => array('newAnswerDomainChosen')
-            )),
 
-            // new "choice" answer domain chosen; answers tab has new "choice" info
+            // new "choice" answer domain chosen, same type on answers tab
             array(array(
                 'post' => array(
                     'question' => array(
@@ -113,17 +95,14 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                     ),
                     'answers' => array(
                         'id' => 0,
-                        'items' => array(
-                            'id' => 0,
-                            1 => array('label' => array('en' => 'Item 1'))
-                        )
+                        'type' => 'AnswerDomainChoice',
                     )
                 ),
                 'action' => array('newAnswerDomainSameTypeChosen')
-
             )),
 
-            // new "choice" answer domain chosen; answers tab has new "choice" info
+
+            // new "choice" answer domain chosen; answers tab has "numeric" type
             array(array(
                 'post' => array(
                     'question' => array(
@@ -134,31 +113,13 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                     ),
                     'answers' => array(
                         'id' => 0,
-                        'type' => 'AnswerDomainChoice'
-                    )
-                ),
-                'action' => array('newAnswerDomainSameTypeChosen')
-
-            )),
-
-            // new "choice" answer domain chosen; answers tab has new "text" or "numeric" info
-            array(array(
-                'post' => array(
-                    'question' => array(
-                        'text' => array('en'=> 'Title'),
-                        'answer_domain_id' => '',
-                        'new' => 'Choice',
-                        'next' => 'Next'
-                    ),
-                    'answers' => array(
-                        'id' => 0,
-                        // no items[] data, but no other definite way to know what type it is
-                    )
+                        'type'=>'AnswerDomainNumeric',
+                        )
                 ),
                 'action' => array('newAnswerDomainTypeChosen')
             )),
 
-            // new "choice" answer domain chosen; answers tab has "text" info
+            // new "choice" answer domain chosen; answers tab has "text" type
             array(array(
                 'post' => array(
                     'question' => array(
@@ -190,7 +151,8 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                 'action' => array('newAnswerDomainTypeChosen')
             )),
             //same as above, but with dutch submit button text
-            array(array(
+            //@todo move to ml-tests
+            /*array(array(
                 'post' => array(
                     'question' => array(
                         'text' => array('en'=> 'Title'),
@@ -203,10 +165,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                     )
                 ),
                 'action' => array('newAnswerDomainTypeChosen')
-            )),
-
-
-
+            )),*/
 
             /*
              * Subform "anwers"

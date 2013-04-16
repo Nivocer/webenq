@@ -145,14 +145,17 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
             case 'question':
                 //change: other existing answer domain: mismatch $question[answer_domain_id] and answers[id] tab
                 if ($this->question->answer_domain_id->getValue()<>'0' &&
+                    $this->question->new->getValue()=='0' &&
                     $this->answers->id->getValue() <>'0' &&
                     $this->question->answer_domain_id->getValue() <>$this->answers->id->getValue()){
                     $situations[]='differentAnswerDomainChosen';
                 }
 
                 //change to a new answer domain: new type is chosen, existing one on answer tab
+
                 if ($this->question->new->getValue()<>'0' &&
                     $this->answers->id->getValue() <>'0'
+
                     ){
                     $situations[]='newAnswerDomainChosen';
                 }
