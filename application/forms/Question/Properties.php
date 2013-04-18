@@ -154,14 +154,13 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
                 //change to a new answer domain: new type is chosen, existing one on answer tab
 
                 if ($this->question->new->getValue()<>'0' &&
-                    $this->answers->id->getValue() <>'0'
-
+                    $this->answers->id->getValue() <>'0' && $this->answers->id->getValue()<>null
                     ){
                     $situations[]='newAnswerDomainChosen';
                 }
                 //change to new answer domain: other answerDomaintType choosen
                 if ($this->question->new->getValue() <>'0' &&
-                    ( $this->answers->id->getValue()=='0') &&
+                    ( $this->answers->id->getValue()=='0'|| $this->answers->id->getValue()==null ) &&
                     'AnswerDomain'.$this->question->new->getValue()<>$this->answers->type->getValue()
                         ){
                     $situations[]='newAnswerDomainTypeChosen';
