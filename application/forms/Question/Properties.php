@@ -73,10 +73,10 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
 
         if (in_array($answerDomainType, array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
             $classAnswers = 'Webenq_Form_AnswerDomain_Tab_' . substr($answerDomainType, 12);
-            $classOptions = 'Webenq_Form_Question_Tab_' . substr($answerDomainType, 12);
+            $classOptions = 'Webenq_Form_Question_Tab_Options_' . substr($answerDomainType, 12);
         } else {
             $classAnswers = 'Webenq_Form_AnswerDomain_Tab';
-            $classOptions = 'Webenq_Form_Question_Tab';
+            $classOptions = 'Webenq_Form_Question_Tab_Options';
         }
 
         /* answer domain settings tab */

@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Tab_Question extends Webenq_Form_Question_Tab
+class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
 {
     /**
      * Initialises the form

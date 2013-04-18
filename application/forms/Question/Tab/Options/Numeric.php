@@ -23,16 +23,15 @@
  */
 
 /**
- * Tab form for question properties when dealing with a "text" question.
+ * Tab form for question properties when dealing with a "numeric" question.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Tab_Text extends Webenq_Form_Question_Tab
+class Webenq_Form_Question_Tab_Options_Numeric extends Webenq_Form_Question_Tab_Options
 {
-    public function init()
-    {
-        $this->_presentationOptions=Webenq_Model_AnswerDomainText::getAvailablePresentations();
+    public function init(){
+        $this->_presentationOptions=Webenq_Model_AnswerDomainNumeric::getAvailablePresentations();
         parent::init();
     }
 }
