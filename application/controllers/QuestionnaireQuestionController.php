@@ -178,7 +178,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         $this->view->questionnaireQuestion = $this->questionnaireQuestion;
     }
 
-    public function actOnSituation ($situations, $postdata){
+    public function actOnSituation ($situations, $postData){
         //@todo check to see if there is a php/zend-function for it like _forward (__call)?
         foreach ($situations as $situation){
             switch ($situation){
