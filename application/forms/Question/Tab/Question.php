@@ -43,6 +43,12 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
         $id->setBelongsTo('question');
         $this->addElement($id);
 
+        //moved from properties.php, don't know what function is. @todo adjust belongsTo?
+        $node_id = new Zend_Form_Element_Hidden('node_id');
+        $node_id->removeDecorator('DtDdWrapper');
+        $node_id->removeDecorator('Label');
+        $this->addElement($node_id);
+
         $text = new WebEnq4_Form_Element_MlText('text');
         $text->setAttrib('languages', $this->_languages);
         $text->setAttrib('defaultLanguage',$this->_defaultLanguage);
