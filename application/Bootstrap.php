@@ -201,7 +201,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'locale'  => 'en',
                 )
         ); */
-        $translate->addTranslation(array('content' => $translateArray));
+        $translate->addTranslation(array('content' => $translateArray, 'locale'=>'nl'));
         Zend_Registry::set('Zend_Translate', $translate);
 
         if (!function_exists('t')) {
