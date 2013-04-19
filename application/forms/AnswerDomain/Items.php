@@ -37,32 +37,38 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
     private $_fields = array(
         'sortable'=>array(
             'type'=>'sortable',
-            'label'=>''
+            'label'=>'',
+            'required'=> false
         ),
         'value' => array(
             'label' => 'Value',
             'description' => "The value stored\nin the database",
-            'type' => 'string'
+            'type' => 'string',
+            'required'=> true
         ),
         'label' => array(
             'label' => 'Label',
             'description' => "How the value is presented\nin forms and reports",
-            'type' => 'i18n'
+            'type' => 'i18n',
+            'required'=> true
         ),
         'isNullValue' => array(
             'label' => 'Null value?',
             'description' => "Should this be considered\nas \"non-response\"?",
-            'type' => 'boolean'
+            'type' => 'boolean',
+            'required'=> false
         ),
         'isActive' => array(
             'label' => 'Active?',
             'description' => "Is this item in use?",
-            'type' => 'boolean'
+            'type' => 'boolean',
+            'required'=> false
         ),
         'isHidden' => array(
             'label' => 'Hidden?',
             'description' => "Should this item be shown in lists?",
-            'type' => 'boolean'
+            'type' => 'boolean',
+            'required'=> false
         ),
     );
     /**
@@ -116,13 +122,17 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             $this->addElement($cell);
             $header[] = $cell->getName();
         }
+
         $this->addDisplayGroup($header, 'header', array());
         $this->decorateAsTableRow($this->getDisplayGroup('header'),array('id'=>'headerRow'));
 
         // add a hidden empty row to add as new item
-        $this->addItemRow('items[new]', array('order' => 998));
-        //$this->addItemRow('items[new]');
-        $newItemsRow = $this->getSubForm('items[new]');
+        $this->addItemRow('answer[items][new]', array('order' => 998));
+        $newItemsRow = $this->getSubForm('answer[items][new]');
+        foreach($newItemsRow->getElements() as $element){
+            $element->setRequired(false);
+        }
+
         $defaultItemValues=new Webenq_Model_AnswerDomainItem();
         $newItemsRow->setDefaults($defaultItemValues->toArray());
         $newItemsRow->addDecorator('HtmlTag', array(
@@ -139,6 +149,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $this->addElement($cell);
         $this->addDisplayGroup(array('addItemRow'), 'footer', array('order' => '999'));
         $this->decorateAsTableRow($this->getDisplayGroup('footer'),array('id'=>'footerRow'));
+
     }
 
     /**
@@ -227,6 +238,9 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
                     $cell = new Zend_Form_Element_Text($fieldname);
                     break;
             }
+            if ($fieldinfo['required']) {
+                $cell->setRequired();
+            }
 
             if (isset($fieldinfo['description'])) {
                 $cell->setAttrib('title', $fieldinfo['description']);
@@ -245,15 +259,5 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
 
         //@todo set better id/don't forget to change  edit.js:addItemsrow (id).
         $this->decorateAsTableRow($this->getSubForm($name),array('id'=>$name));
-    }
-
-    /**
-     * Validate data and extend form with new domain items form(elements)
-     *
-     * @param array Data to be validated
-     */
-    public function isValid($data) {
-    //@todo activate and correct, we don't get the correct data here
-    return true;
     }
 }
