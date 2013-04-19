@@ -48,71 +48,59 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      */
     public function addAction()
     {
+        //questionnaire id from url
         if (isset ($this->_request->questionnaire_id)){
-        $questionnaireId = $this->_request->questionnaire_id;
+            $questionnaireId = $this->_request->questionnaire_id;
         }
-        $formData=$this->getRequest()->getPost();
-        if (isset($formData['questionnaire_id'])){
-            $questionnaireId=$formdata['questionnaire_id'];
+        //questionnaire id from post data
+        $postData=$this->getRequest()->getPost();
+        if (isset($postData['question']['questionnaire_id'])){
+            $questionnaireId=$postData['question']['questionnaire_id'];
         }
-        //@todo remove hardcoded questionnaireId adjust form
-        $questionnaireId=1;
         if (!$questionnaireId) {
             throw new Exception('No questionnaire id given!');
         }
 
+        //valid questionnaireId?
         $questionnaireModel=new Webenq_Model_Questionnaire();
         $questionnaire=$questionnaireModel->getTable()->findById($questionnaireId);
-        $this->questionnaireQuestion=new Webenq_Model_QuestionnaireNode();
-        $this->questionnaireQuestion->Questionnaire=$questionnaire;
+        if ($questionnaire->count()==0){
+            throw new Exception(sprintf('Invalid questionnaire id given: %s', $questionnaireId));
+        }
 
-        $form = new Webenq_Form_Question_Properties(array('answerDomainType' => 'numeric', 'defaultLanguage'=>$questionnaire->getFirst()->default_language));
-
-        $form->setAction($this->view->baseUrl('/questionnaire-question/add'));
+        if (isset($postData['answers']['type']) && $postData['answers']['type']) {
+            $answerDomainType=$postData['answers']['type'];
+        } else {
+            $answerDomainType='AnswerDomainNumeric';
+        }
+        $this->view->form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$questionnaire->getFirst()->default_language));
+        $this->view->form->setAction($this->view->baseUrl('/questionnaire-question/add'));
         if ($this->getRequest()->isPost()){
-            //is form cancelled-> redirect to preview questionnaire
-            if ($this->_helper->form->isCancelled($form)) {
+            if ($this->_helper->form->isCancelled($this->view->form)) {
                 $redirectUrl = 'questionnaire/edit/id/' . $questionnaireId;
                 $this->_redirect($redirectUrl);
                 return;
             }else{
-                //which subform is posted
-                $formData=$this->getRequest()->getPost();
-                $submitInfo=$this->_helper->form->getSubmitButtonUsed($formData, array('next', 'previous','done'));
-                //is subform valid
-                if ($form->getSubForm($submitInfo['subForm'])->isValid($formData)){
-                    //fill information from all subforms
-                    $form->isValid($formData);
-                    //perform subform action
-                    $newValues = $form->getValues();
-
-                    $this->questionnaireQuestion->fromArray($newValues);
-                    switch ($submitInfo['subForm']){
-                    case 'question':
-                        $form=$this->questionSubForm($form, $newValues);
-                        break;
-                    case 'answers':
-                        $form=$this->answersSubForm($form, $newValues);
-                        break;
-                    case 'options':
-                        $form=$this->optionsSubForm($form,$newValues);
-                        if ($submitInfo['name']=='done'){
-                            $this->saveQuestionnaireQuestion($this->questionnaireQuestion);
-                        }
-                        break;
-                    }
+                //fill information from forms
+                $this->view->form->setDefaults($this->getRequest()->getPost());
+                $formData=$this->view->form->getValues();
+                $submitInfo=$this->view->form->getSubmitButtonUsed();
+                if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($this->getRequest()->getPost())){
+                    //get action stack from controller to perform based on the form data
+                    $situations=$this->view->form->getSituations($formData);
+                    $this->actOnSituation($situations, $formData);
                     //redirect to other tab (or preview questionnaire when done)
-                    $this->redirectTo($form, $submitInfo, true);
+                    $this->redirectTo($submitInfo, true);
+                }else {
+                    //subform is not valid: go to current tab
+                    $this->view->activeTab=$submitInfo['subForm'];
                 }
             }
+        }else{
+            $this->questionnaireQuestion=new Webenq_Model_QuestionnaireNode();
+            $this->questionnaireQuestion->Questionnaire=$questionnaire;
+            $this->view->form->setDefaults($this->questionnaireQuestion->toArray());
         }
-        //display form
-        //info needed for form
-        $form->setDefaults($this->questionnaireQuestion->toArray());
-        $this->view->form = $form;
-        $this->view->questionnaireQuestion = $this->questionnaireQuestion;
-
-
     }
 
     /**
@@ -147,18 +135,18 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             }else{
                 //fill information from forms
                 $this->view->form->setDefaults($this->getRequest()->getPost());
-                $postData=$this->view->form->getValues();
-                if (isset($postData['question']['question']['id']) && $postData['question']['question']['id']==$this->questionnaireQuestion->get('id')) {
+                $formData=$this->view->form->getValues();
+                if (isset($formData['question']['question']['id']) && $formData['question']['question']['id']==$this->questionnaireQuestion->get('id')) {
                     $submitInfo=$this->view->form->getSubmitButtonUsed();
                     if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($this->getRequest()->getPost())){
                         //get action stack from controller to perform based on the form data
                         $situations=$this->view->form->getSituations();
-                        $this->actOnSituation($situations, $postData);
+                        $this->actOnSituation($situations, $formData);
                         //redirect to other tab (or preview questionnaire when done)
                         $this->redirectTo($submitInfo, true);
                     }else {
                         //subform is not valid: go to current tab
-                        //@todo need work?
+                        $this->view->activeTab=$submitInfo['subForm'];
                     }
                 } else {
                     $this->_helper->getHelper('FlashMessenger')
@@ -198,7 +186,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     break;
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
-                    $this->view->form->answerDomainType='AnswerDomain'.$postData['question']['question']['new'];
+                    $this->view->form->answerDomainType=$postData['question']['question']['new'];
                     $this->view->form->initDeterminClasses();
                     $this->view->form->initAnswersTab();
                     $this->view->form->initOptionsTab();
@@ -208,7 +196,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     break;
                 case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
-                    $this->view->form->answerDomainType='AnswerDomain'.$postData['question']['question']['new'];
+                    $this->view->form->answerDomainType=$postData['question']['question']['new'];
                     $this->view->form->initDeterminClasses();
                     $this->view->form->initAnswersTab();
                     $this->view->form->initOptionsTab();
@@ -235,7 +223,13 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
         //$formIdTranslation=array('question'=>'questions', 'answerOptions'=>'answerOptions', 'options'=>'options');
         if ($redirectSubForm=='done'){
-            $redirectUrl = 'questionnaire/edit/id/' . $this->questionnaireQuestion->Questionnaire->getFirst()->id;
+            if ($this->questionnaireQuestion->Questionnaire){
+                $questionnaireId=$this->questionnaireQuestion->Questionnaire->getFirst()->id;
+            }else{
+                $questionnaireId=$this->view->form->question->getValue('questionnaire_id');
+            }
+
+            $redirectUrl = 'questionnaire/edit/id/' . $questionnaireId;
             //if ((int) $this->questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
             //    $redirectUrl .= '#page-' . $this->questionnaireQuestion->CollectionPresentation[0]->page;
             //}

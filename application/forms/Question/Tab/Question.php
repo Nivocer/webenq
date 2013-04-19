@@ -37,6 +37,12 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
      */
     public function init()
     {
+        $qid=new Zend_Form_Element_Hidden('questionnaire_id');
+        $qid->removeDecorator('DtDdWrapper');
+        $qid->removeDecorator('Label');
+        $qid->setBelongsTo('question');
+        $this->addElement($qid);
+
         $id = new Zend_Form_Element_Hidden('id');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
@@ -101,6 +107,23 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
                 'buttons',
                 array('class' => 'table', 'order'=>999)
         );
+    }
+
+    public function isValid($value){
+        $isValid=parent::isValid($value);
+        if ((''==$value['question']['answer_domain_id'] || '0'==$value['question']['answer_domain_id']) &&
+             (''==$value['question']['new'] || '0'==$value['question']['new'])){
+            $this->answer_domain_id->addError(t('Choose one of these options'));
+            $this->new->addError(t('Choose one of these options'));
+            return false;
+        }
+         if (!(''==$value['question']['answer_domain_id'] || '0'==$value['question']['answer_domain_id']) &&
+              !(''==$value['question']['new'] || '0'==$value['question']['new'])){
+            $this->answer_domain_id->addError(t('Choose only one of these options'));
+            $this->new->addError(t('Choose only one of these options'));
+            return false;
+        }
+        return $isValid;
     }
 
 }

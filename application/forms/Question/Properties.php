@@ -102,10 +102,14 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
     public function setDefaults(array $defaults)
     {
         //question tab
+        if (isset($defaults['Questionnaire'][0]['id'])){
+            $defaults['question']['questionnaire_id']=$defaults['Questionnaire'][0]['id'];
+        }
+        if (isset($defaults['id'])){
+            $defaults['question']['node_id']= $defaults['id'];
+        }
         if (isset($defaults['QuestionnaireElement'])) {
             $defaults['question'] = $defaults['QuestionnaireElement'];
-            $defaults['question']['node_id'] = $defaults['id'];
-
             //answer options tab
             //pass info from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
