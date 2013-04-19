@@ -180,13 +180,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 'logUntranslated' => true,
             )
         );
-        $translate ->addTranslation(
-            array(
-                'content' => APPLICATION_PATH . '/translations/webenq4_en.mo',
-                'locale'  => 'en',
-            )
-        );
-
 
         $translateArray=new Zend_Translate(
             array(
@@ -202,6 +195,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                 )
         ); */
         $translate->addTranslation(array('content' => $translateArray, 'locale'=>'nl'));
+        $translate ->addTranslation(
+            array(
+                'content' => APPLICATION_PATH . '/translations/webenq4_en.mo',
+                'locale'  => 'en',
+            )
+        );
+
+
         Zend_Registry::set('Zend_Translate', $translate);
 
         if (!function_exists('t')) {
