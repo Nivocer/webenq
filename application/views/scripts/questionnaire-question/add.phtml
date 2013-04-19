@@ -12,12 +12,12 @@
                 <a href="#options"><?php echo t('options'); ?></a>
             </li>
         </ul>
+
         <div id=questionText><h3>
-
-        <?php // @todo next should get text in stead of name?>
-
-        <?php //echo $this->questionnaireQuestion->QuestionnaireElement->getTranslation('text'); ?>
+        <?php $language = Zend_Registry::get('Zend_Locale')->getLanguage();
+            echo  $this->form->question->getValue('text')[$language]; ?>
         </h3></div>
+
         <div id="question">
             <?php echo $this->form->question; ?>
         </div>
