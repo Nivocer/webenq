@@ -25,9 +25,9 @@ function initColWidth() {
 }
 
 function initOptionsTab(){
-	//display boxwidth/boxheight if it element is input or textComplete
+	//don't display boxwidth/boxheight if  element is input or textComplete
 	var boxwidth = ['input', 'textComplete'];
-	if (($.inArray($('#options-options-presentation').val(), boxwidth))==-1){
+	if (($.inArray($('#options-presentation').val(), boxwidth))==-1){
 		$('#presentationWidth-label').hide();
 		$('#presentationWidth-element').hide();
 		$('#presentationHeight-label').hide();
@@ -40,7 +40,7 @@ function initOptionsTab(){
 	}
 	//display number of answer input 
 	var numberAnswer = ['checkbox', 'radio','pulldown', 'slider'];
-	if (($.inArray($('#options-options-presentation').val(), numberAnswer))==-1){
+	if (($.inArray($('#options-presentation').val(), numberAnswer))==-1){
 		$('#numberOfAnswers-label').hide();
 		$('#numberOfAnswers-element').hide();
 	}else{
@@ -65,6 +65,10 @@ function addItemRow(){
 	  }).end().insertBefore($("table#answeritems tr#newitem")).attr('id','items-'+tid).removeClass('hidden').show('slow');
 }
 
+function resetAnswerDomain($element) {
+	$('#question-'+$element).val('');
+}
+
 $(function() {
 	initColWidth();
 	initOptionsTab();
@@ -77,13 +81,18 @@ $(function() {
 		}
 	});
 	
-	
-	
-	/* hide answerBox width if not applicable */
-	$('#options-options-presentation').change(function() {
+	/* hide/show presentation options on change of presentation type */
+	$('#options-presentation').change(function() {
 		initOptionsTab();
 	});
-
+	// only one of 'reuse' (answer_domain_id) or 'new' should be set
+	$('#question-new').change(function() {
+		resetAnswerDomain('answer_domain_id')
+	});
+	$('#question-answer_domain_id').change(function() {
+		resetAnswerDomain('new');
+	});
+	
 	// add empty row to ad an new answerchoice item
 	$('#addItemRow').click(function() {
 		addItemRow();
