@@ -6,17 +6,12 @@
 </div>
 
 <div class="clear">
-    <a class="ajax link add" href="<?php echo $this->baseUrl('/question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo t('add new question'); ?>">
-        <?php echo t('add new question'); ?>
+    <a class="link add" href="<?php echo $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo t('add a question'); ?>">
+        <?php echo t('add a question'); ?>
     </a>
 </div>
 <div class="clear">
-    <a class="ajax link add" href="<?php echo $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo t('add existing question'); ?>">
-        <?php echo t('add existing question'); ?>
-    </a>
-</div>
-<div class="clear">
-    <a class="link add add_page" href="#" title="<?php echo t('add age'); ?>">
+    <a class="link add add_page" href="#" title="<?php echo t('add page'); ?>">
         <?php echo t('add page'); ?>
     </a>
 </div>
