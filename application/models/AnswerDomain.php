@@ -44,13 +44,13 @@ class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
     public static function getAvailableTypes()
     {
         return array(
-            'Choice' => array(
+            'AnswerDomainChoice' => array(
                 'label' => 'Choice'
             ),
-            'Numeric' => array(
+            'AnswerDomainNumeric' => array(
                 'label' => 'Numeric'
             ),
-            'Text' => array(
+            'AnswerDomainText' => array(
                 'label' => 'Text'
             )
         );
