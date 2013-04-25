@@ -38,7 +38,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     public $ajaxable = array(
        // 'add' => array('html'),
         'edit' => array('html'),
-        'delete' => array('html'),
+        //'delete' => array('html'),
         'add-subquestion' => array('html'),
     );
 
@@ -112,6 +112,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     {
         $questionnaireNode=new Webenq_Model_QuestionnaireNode();
         $this->questionnaireQuestion=$questionnaireNode->getTable()->find($this->_request->id);
+
+        //@todo use $this-questionnaireQuestion->getQuestionnaire, but it has already gitFirst,
+        // check to see if that is a problem (getFirst returns record, findBy a collection)
         $questionnaire=new Webenq_Model_Questionnaire();
         //fix add questionnaire to questionnaireQuestion, maybe relation problem?
         $this->questionnaireQuestion->Questionnaire=$questionnaire->getTable()->findBy('questionnaire_node_id', $this->questionnaireQuestion->root_id);
@@ -275,38 +278,57 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     /**
      * Renders the form for deleting a question from a questionnaire,
      * or completely deleting it from the repository.
-     *
+     * @todo redirect to correct page-tab
      * @return void
      */
     public function deleteAction()
     {
-        $questionnaireQuestion = Doctrine_Query::create()
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->innerJoin('qq.Question q WITH qq.id = ?', $this->_request->id)
-            ->leftJoin('q.QuestionText qt')
-            ->where('qt.language = ?', $this->_helper->language())
-            ->execute()
-            ->getFirst();
+        $questionnaireNode=new Webenq_Model_QuestionnaireNode();
+        $this->questionnaireQuestion=$questionnaireNode->getTable()->find($this->_request->id);
 
-        $form = new Webenq_Form_QuestionnaireQuestion_Delete($questionnaireQuestion);
-        $form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
+        if (!$this->questionnaireQuestion){
+            $this->_redirect('/questionnaire/');
+            return;
+        }
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
+            //get questionnaire before we eventually delete questionnaire question
+            $questionnaire=$this->questionnaireQuestion->getQuestionnaire();
             if (isset($data['yes'])) {
-                $questionnaireQuestion->delete();
+                $this->questionnaireQuestion->delete();
+                $this->_helper->getHelper('FlashMessenger')
+                    ->setNamespace('success')
+                    ->addMessage(sprintf('Question `%s` deleted',
+                        $this->questionnaireQuestion->QuestionnaireElement->getTranslation('text')
+                        ));
                 if ($this->_request->isXmlHttpRequest()) {
                     $this->_helper->json(array('reload' => true));
+                } else {
+                    $this->_redirect('/questionnaire/edit/id/'.$questionnaire->id);
+                    return;
                 }
             } else {
+                $this->_helper->getHelper('FlashMessenger')
+                    ->setNamespace('success')
+                    ->addMessage(sprintf('Question `%s` NOT deleted',
+                         $this->questionnaireQuestion->QuestionnaireElement->getTranslation('text')
+                        ));
                 if ($this->_request->isXmlHttpRequest()) {
                     $this->_helper->json(array('reload' => false));
+                } else {
+                    $this->_redirect('/questionnaire/edit/id/'.$questionnaire->id);
+                    return;
                 }
             }
-        }
 
-        $this->view->form = $form;
-        $this->view->questionnaireQuestion = $questionnaireQuestion;
+        }
+        $confirmationText = sprintf(
+            t('Are you sure you want to remove the question `%s` (and answers) from the current questionniare? It is also possible to hide a question'),
+            $this->questionnaireQuestion->QuestionnaireElement->getTranslation('text')
+            );
+        $this->view->form = new Webenq_Form_Confirm($this->questionnaireQuestion->id, $confirmationText);
+        $this->view->form->setAction($this->view->baseUrl('/questionnaire-question/delete/id/' . $this->_request->id));
     }
 
     protected function _getSubQuestions(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion)

@@ -187,14 +187,18 @@ private function _addDecoratorsPageGroup($node, $elm)
 
         // add edit/delete question button
 //        $html .= '  <a class="ajax icon edit" title="';
-        $html .= '  <a class="icon edit" title="';
+        $html .= '<a class="icon edit" title="';
         $html.=t('edit');
         $html.= '" href="' .
-            $view->baseUrl('/questionnaire-question/edit/id/' . $node->id) . '">&nbsp;</a>
-                    <a class="ajax icon delete" title="verwijderen" href="' .
-                        $view->baseUrl('/questionnaire-question/delete/id/' . $node->id) . '">&nbsp;
-                    </a>
-                </div>
+            $view->baseUrl('/questionnaire-question/edit/id/' . $node->id) . '">&nbsp;
+            </a>';
+        $html.= '<a class="icon delete" title="';
+        $html.=t('delete');
+        $html.='"href="' .
+            $view->baseUrl('/questionnaire-question/delete/id/' . $node->id) . '">&nbsp;
+            </a>';
+        //close option and admin divs
+        $html.='</div>
             </div>';
         return $html;
     }
