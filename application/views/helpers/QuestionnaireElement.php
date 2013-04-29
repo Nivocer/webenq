@@ -41,6 +41,7 @@ class Zend_View_Helper_QuestionnaireElement extends Zend_View_Helper_Abstract
 
     public function questionnaireElement(Webenq_Model_QuestionnaireNode $questionnaireNode, $format='preview', $output='form')
     {
+        $elm=array();
         //@todo get Total number of pages/rootgroups
         self::$_totalPages = 2;
         if ($questionnaireNode->getNode()->hasChildren()) {
