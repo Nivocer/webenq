@@ -100,6 +100,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             $this->questionnaireQuestion=new Webenq_Model_QuestionnaireNode();
             $this->questionnaireQuestion->Questionnaire=$questionnaire;
             $this->view->form->setDefaults($this->questionnaireQuestion->toArray());
+            if (isset($this->_request->parent_id)){
+                $this->view->form->question->setDefaults(array('parent_id'=>$this->_request->parent_id));
+            }
         }
     }
 

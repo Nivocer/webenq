@@ -20,9 +20,7 @@ public function render($format)
                 return '';
             break;
             default:
-                $return=new WebEnq4_Form_Element_Note('dummy-'.$this->id);
-                $return->setLabel('placeholder for group with id: '. $this->id);
-                return $return;
+                return '';
             break;
         }
     }

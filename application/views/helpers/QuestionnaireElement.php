@@ -26,62 +26,87 @@
  * Helper class for rendering a report element
  * @package    Webenq_Questionnaires_Manage
  */
+
 class Zend_View_Helper_QuestionnaireElement extends Zend_View_Helper_Abstract
 {
+    public $form;
+    public $displayGroups=array();
     protected static $_totalPages;
-    public function questionnaireElement(Webenq_Model_QuestionnaireNode $questionnaireNode, $format='preview')
+    public function __construct(){
+        $this->form=new Zend_Form_SubForm();
+        $this->form->removeDecorator('HtmlTag');
+        $this->form->removeDecorator('Fieldset');
+        $this->form->removeDecorator('DtDdWrapper');
+    }
+
+    public function questionnaireElement(Webenq_Model_QuestionnaireNode $questionnaireNode, $format='preview', $output='form')
     {
         //@todo get Total number of pages/rootgroups
         self::$_totalPages = 2;
-        $form='';
-        $elm='';
         if ($questionnaireNode->getNode()->hasChildren()) {
             foreach ($questionnaireNode->getNode()->getChildren() as $node) {
                 switch ($node->type) {
                     case 'QuestionnairePageNode':
-                        //try to use decorator and subform to display page, not succesfull yet
-                        /*$elm=$node->render($format);
-                        $elm=$this->_addDecoratorsPageGroup($node,$elm);
-                        var_dump(__LINE__, __FILE__,  $this->questionnaireElement($node,'formElement'));
-                        $elm->addElement($this->questionnaireElement($node, 'formElement'), $node->QuestionnaireElement->name);
-                        //
-                        $form.=$elm;
-                        */
-                        //@todo move to decorator
-                        $form.=$this->_renderPageElementPre($node);
-                        $form.=$this->questionnaireElement($node, $format);
-                        // @todo move to decorator
-                        //$html.=$this->_renderPageElementPost($node);
-                        $form.='</ul></div></div>';
-                    break;
+                        //render (return subform)
+                        $pageElement=$node->render($format);
+                        //add decorator for page Group/remove unnecessary decorators
+                        $pageElement=$this->_addDecoratorsPageGroup($node, $pageElement);
+                        $pageElement->removeDecorator('DtDdWrapper');
+                        $pageElement->removeDecorator('FieldSet');
+                        $pageElement->removeDecorator('HtmlTag');
+                        $this->form->addSubForm($pageElement, $node->id);
 
-                    default:
-                        //get form element from model
-                        $elm=$node->render($format);
-                        //add decorators to form element
-                        $elm=$this->_addDecoratorsAdmin($node,$elm);
-                        //add form element to form
-                        $form.=$elm;
                         //process children
-                        $form.= $this->questionnaireElement($node, $format);
+                        $pageElement->addElements($this->questionnaireElement($node,$format, 'element'));
+
+                        //add displaygroups (we need elements first)
+                        foreach ($this->displayGroups as $nodeId=>$GroupElementNames){
+                            $pageElement->addDisplayGroup($GroupElementNames, $nodeId);
+                            $displayGroup=$pageElement->getDisplayGroup($nodeId);
+                            $displayGroup=$this->_addDecoratorsGroup($nodeId, $displayGroup);
+                            $displayGroup->removeDecorator('DtDdWrapper');
+                            $displayGroup->removeDecorator('FieldSet');
+                            $displayGroup->removeDecorator('HtmlTag');
+                            //unset displaygroup
+                            unset ($this->displayGroups[$nodeId]);
+                        }
                     break;
+                    case 'QuestionnaireGroupNode':
+                        $groupElement=$node->render($format);
+                        //get children
+                        $elements=$this->questionnaireElement($node, $format, 'element');
+                        $elm=array_merge($elm,$elements);
+                        //get names of elements to group using a display group (defined in questionnairePageNode)
+                        foreach ($elements as $element){
+                            $elementNames[]=$element->getName();
+                        }
+                        //add this group to $this->displayGroup, so we can add it per page/form
+                        $this->displayGroups[$node->id]=$elementNames;
+                        break;
+                    case 'QuestionnaireQuestionNode':
+                    case 'QuestionnaireTextNode':
+                        $element=$node->render($format);
+                        $element=$this->_addDecoratorsAdmin($node, $element);
+                        $elm[]=$element;
+                        //no children (at this moment)
+                    break;
+                    default:
+                        throw new Exception(sprintf('Preview of %s is not implemented!', $node->type));
+
                 }
             }
         }
-        if ($format=='formElement') {
+        if ($output=='form'){
+            return $this->form;
+        } else {
             return $elm;
-        }else {
-            return $form;
         }
-        return false;
-
     }
 
 // add decorators
 private function _addDecoratorsPageGroup($node, $elm)
     {
-
-        if ($elm instanceof Zend_Form_Element) {
+        if ($elm instanceof Zend_Form_SubForm) {
             // add decorators
             $elm->addDecorators(
                 array(
@@ -96,19 +121,44 @@ private function _addDecoratorsPageGroup($node, $elm)
                             ),
                             'placement' => '',
                             'node' => $node,
+                            'view' =>$this->view,
                         )
                     ),
                 )
             );
         }
-        return $elm;
+    return $elm;
     }
 
+
+private function _addDecoratorsGroup($nodeId, $elm)
+    {
+    if ($elm instanceof Zend_Form_DisplayGroup) {
+        // add decorators
+        $elm->addDecorators(
+            array(
+                array(
+                    array(
+                        'group' => 'Callback'
+                    ),
+                    array(
+                        'callback' => array(
+                            get_class($this),
+                            'group'
+                        ),
+                        'placement' => '',
+                        'nodeId' => $nodeId,
+                    )
+                ),
+            )
+        );
+    }
+    return $elm;
+    }
 
 
     private function _addDecoratorsAdmin($node, $elm)
     {
-
         if ($elm instanceof Zend_Form_Element) {
             // add decorators
             $elm->addDecorators(
@@ -145,8 +195,38 @@ private function _addDecoratorsPageGroup($node, $elm)
         return $elm;
 
     }
+/*
+ * @todo make whole group draggable
+ */
+    public static function group($content, $element, $options) {
+        $nodeId=$options['nodeId'];
+        $html='';
+        $html.='Group:';
+        $html.=$content;
+        $html.='/group';
+        //$html.='</li>';
+        return $html;
+    }
 
 //callback functions for decorators
+    public static function pageGroup($content, $element, $options) {
+        $node=$options['node'];
+        $view=$options['view'];
+
+        $html='<div id="pageId-'.$node->id.'">';
+        $html.='<a href="#" class="delete-page link delete">'.t('Delete this page') .'</a>';
+        //add question to page
+        $html.='<a class="link add"  title="'. t('add a question').'" href="';
+        $html.=$view->baseUrl('/questionnaire-question/add/questionnaire_id/' . $view->questionnaire->id.'/parent_id/'.$node->id);
+        $html.= '">'.t('add a question to this page');
+        $html.='</a>';
+
+        //sortable
+        $html.= '<div class="questions"><ul class="questions-list sortable droppable">';
+        $html.=$content;
+        $html.='</ul></div></div>';
+        return $html;
+    }
     public static function adminOptions($content, $element, $options)
     {
         $node            = $options['node'];
@@ -186,7 +266,6 @@ private function _addDecoratorsPageGroup($node, $elm)
         }
 
         // add edit/delete question button
-//        $html .= '  <a class="ajax icon edit" title="';
         $html .= '<a class="icon edit" title="';
         $html.=t('edit');
         $html.= '" href="' .
@@ -194,7 +273,7 @@ private function _addDecoratorsPageGroup($node, $elm)
             </a>';
         $html.= '<a class="icon delete" title="';
         $html.=t('delete');
-        $html.='"href="' .
+        $html.='" href="' .
             $view->baseUrl('/questionnaire-question/delete/id/' . $node->id) . '">&nbsp;
             </a>';
         //close option and admin divs
@@ -206,15 +285,5 @@ private function _addDecoratorsPageGroup($node, $elm)
     static public function listItem($content, $element, $options)
     {
         return '<li id="' . $element->getName() . '" class="question droppable hoverable">' . $content . '</li>';
-    }
-
-
-    // @todo move this to decorator, but not working yet
-    private function _renderPageElementPre($node)
-    {
-        $html='<div id="pageId-'.$node->id.'">';
-        $html.='<a href="#" class="delete-page link delete">'.t('Delete this page') .'</a>';
-        $html.=  '<div class="questions"><ul class="questions-list sortable droppable">';
-        return $html;
     }
 }
