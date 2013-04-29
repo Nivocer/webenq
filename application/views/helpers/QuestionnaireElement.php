@@ -212,7 +212,7 @@ private function _addDecoratorsPageGroup($node, $elm)
     // @todo move this to decorator, but not working yet
     private function _renderPageElementPre($node)
     {
-        $html='<div id="group-'.$node->id.'">';
+        $html='<div id="pageId-'.$node->id.'">';
         $html.='<a href="#" class="delete-page link delete">'.t('Delete this page') .'</a>';
         $html.=  '<div class="questions"><ul class="questions-list sortable droppable">';
         return $html;

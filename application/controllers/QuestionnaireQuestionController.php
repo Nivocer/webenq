@@ -215,24 +215,33 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     /**
      * redirect user to correct location, if soft redirect, we want to redirect to another tab
      *
-     * @param unknown $form
      * @param unknown $submitInfo which submitbutton on which tab is pushed
      * @param unknown $soft
      */
     public function redirectTo($submitInfo, $soft) {
         //build redirect url
-        //@todo check redirecturl
         $redirectSubForm=$this->view->form->getRedirectSubform($submitInfo);
-
-        //$formIdTranslation=array('question'=>'questions', 'answerOptions'=>'answerOptions', 'options'=>'options');
         if ($redirectSubForm=='done'){
-            if ($this->questionnaireQuestion->Questionnaire){
+            //do we have info from database
+            if ($this->questionnaireQuestion && $this->questionnaireQuestion->Questionnaire){
                 $questionnaireId=$this->questionnaireQuestion->Questionnaire->getFirst()->id;
+                $pageId=$this->questionnaireQuestion->getPage()->id;
             }else{
+                //info from form
                 $questionnaireId=$this->view->form->question->getValue('questionnaire_id');
+                //we have a parent_id, in form, it is page id...
+                if ($this->view->form->question->getValue('parent_id')) {
+                    $pageId=$this->view->form->question->getValue('parent_id');
+                } else {
+                    //we don't have a parent_id, question should be added to last page, so redirect to it
+                    $questionnaireModel=new Webenq_Model_Questionnaire();
+                    $questionnaire=$questionnaireModel->getQuestionnaire($questionnaireId);
+                    $pageId=$questionnaire->getLastPage()->id;
+
+                }
             }
 
-            $redirectUrl = 'questionnaire/edit/id/' . $questionnaireId;
+            $redirectUrl = 'questionnaire/edit/id/' . $questionnaireId.'/#pageId-'.$pageId;
             //if ((int) $this->questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
             //    $redirectUrl .= '#page-' . $this->questionnaireQuestion->CollectionPresentation[0]->page;
             //}

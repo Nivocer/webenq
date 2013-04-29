@@ -129,5 +129,18 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         $questionnaire=new Webenq_Model_Questionnaire();
         return $questionnaire->getTable()->findBy('questionnaire_node_id', $this->root_id)->getFirst();
     }
+    /**
+     * Get page node of this question.
+     *
+     * @return unknown|boolean
+     */
+    public function getPage(){
+        foreach  ($this->getNode()->getAncestors() as $questionNode) {
+            if (get_class($questionNode)=='Webenq_Model_QuestionnairePageNode'){
+                return $questionNode;
+            }
+        }
+        return false;
+    }
 
 }

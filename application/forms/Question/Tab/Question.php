@@ -55,6 +55,13 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
         $node_id->removeDecorator('Label');
         $this->addElement($node_id);
 
+        $parentId = new Zend_Form_Element_Hidden('parent_id');
+        $parentId->removeDecorator('DtDdWrapper');
+        $parentId->removeDecorator('Label');
+        $parentId->setBelongsTo('question');
+        $this->addElement($parentId);
+
+
         $text = new WebEnq4_Form_Element_MlText('text');
         $text->setAttrib('languages', $this->_languages);
         $text->setAttrib('defaultLanguage',$this->_defaultLanguage);

@@ -230,6 +230,9 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->view->totalPages = Webenq_Model_Questionnaire::getTotalPages($questionnaire['id']);
     }
 
+    public function addPage() {
+
+    }
     public function orderAction()
     {
         /* disable view/layout rendering */

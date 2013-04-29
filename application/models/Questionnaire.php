@@ -306,7 +306,7 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
      * @return Webenq_Model_Questionnaire
      */
 
-    static public function getQuestionnaire($id, $language, $page = null,
+    static public function getQuestionnaire($id, $language=null, $page = null,
         Webenq_Model_Respondent $respondent = null, $includeAnswers = false)
     {
         $questionnaire=Doctrine_Core::getTable('Webenq_Model_Questionnaire')->find($id);
@@ -353,6 +353,11 @@ class Webenq_Model_Questionnaire extends Webenq_Model_Base_Questionnaire
 */
     }
 
+    public function getLastPage(){
+        $questionnaireQuestionModel=new Webenq_Model_QuestionnaireNode();
+        $questionnaireRootNode=$questionnaireQuestionModel->getTable()->findById($this->questionnaire_node_id)->getFirst();
+        return $questionnaireRootNode->getNode()->getLastChild();
+    }
     /**
      * Returns the total number of pages for the current questionnaire
      *
