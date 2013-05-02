@@ -5,24 +5,18 @@
 <?php echo $this->propertiesForm ?>
 </div>
 
-<div class="clear">
-    <a class="link add" href="<?php echo $this->baseUrl('/questionnaire-question/add/questionnaire_id/' . $this->questionnaire['id']) ?>" title="<?php echo t('add a question'); ?>">
-        <?php echo t('add a question'); ?>
-    </a>
-</div>
-<div class="clear">
-    <a class="link add add_page" href="#" title="<?php echo t('add page'); ?>">
-        <?php echo t('add page'); ?>
-    </a>
-</div>
-
 <div class="tabs">
     <ul>
     <!-- page tab setup -->
 <!-- //render via model (at this moment) -->
     <?php  echo $this->questionnaire->QuestionnaireNode->render('previewTab'); ?>
 
-    </ul>
+    <a  href="<?php echo $this->baseUrl('/questionnaire/add-page/id/' . $this->questionnaire['id']) ?>" title="<?php echo t('add page'); ?>">
+        <?php echo t('New page'); ?>
+    </a>
+</ul>
+
+
 <!-- content per page -->
 <?php //walk through hierarchy in plugin, call render in model at the plugin ?>
 <?php echo $this->questionnaireElement($this->questionnaire->QuestionnaireNode); ?>

@@ -118,7 +118,6 @@ class WebEnq4_Template_I18n extends Doctrine_Template
     public function getTranslation($field='text', $language = null)
     {
         // get curren language if not given
-        //var_dump(__LINE__, __FILE__,  $this);
         $invoker=$this->getInvoker();
         if (!$language) {
             $language = Zend_Registry::get('Zend_Locale')->getLanguage();

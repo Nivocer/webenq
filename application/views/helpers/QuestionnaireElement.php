@@ -215,7 +215,8 @@ private function _addDecoratorsGroup($nodeId, $elm)
         $view=$options['view'];
 
         $html='<div id="pageId-'.$node->id.'">';
-        $html.='<a href="#" class="delete-page link delete">'.t('Delete this page') .'</a>';
+        //todo questionnaire id
+        $html.='<a href="/questionnaire/delete-page/id/'.$view->questionnaire->id.'/page_id/'.$node->id .'" class="delete-page link delete">'.t('Delete this page') .'</a>';
         //add question to page
         $html.='<a class="link add"  title="'. t('add a question').'" href="';
         $html.=$view->baseUrl('/questionnaire-question/add/questionnaire_id/' . $view->questionnaire->id.'/parent_id/'.$node->id);

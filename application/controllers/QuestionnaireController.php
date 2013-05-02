@@ -230,8 +230,85 @@ class QuestionnaireController extends Zend_Controller_Action
         $this->view->totalPages = Webenq_Model_Questionnaire::getTotalPages($questionnaire['id']);
     }
 
-    public function addPage() {
+    /**
+     * Add a page at the end of a questionnaire, we need $questionaireId
+     */
+    public function addPageAction() {
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
+            $this->_request->id, $this->_helper->language()
+        );
+        if (!$questionnaire) $this->_redirect('questionnaire');
 
+        /* disable view/layout rendering */
+        $this->_helper->viewRenderer->setNoRender(true);
+        //check if layout helper is definied before disabling layout (provides errors for phpunit)
+        if ($this->_helper->hasHelper('layout')) {
+            $this->_helper->layout->disableLayout(); // disable layouts
+        }
+        //determin number of pages, we could use getNumberOfChildren, but maybe some other node exist
+        $pages= $questionnaire->QuestionnaireNode->getNode()->getChildren();
+        $numberOfPages=1;
+        foreach ($pages as $page) {
+            if ($page instanceof Webenq_Model_QuestionnairePageNode) {
+                $numberOfPages++;
+            }
+        }
+        //create the new page
+        $pageNode=new Webenq_Model_QuestionnairePageNode();
+        $pageNode->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$numberOfPages++)));
+        $pageNode->getNode()->insertAsLastChildOf($questionnaire->QuestionnaireNode);
+
+        $this->_redirect('questionnaire/edit/id/'.$this->_request->id.'#pageId-'.$pageNode->id);
+        return;
+    }
+    /**
+     * Delete a page
+     *
+     * it is not allowed to delete a page with questions
+     */
+    public function deletePageAction() {
+        /* disable view/layout rendering */
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        //check if we have a valid questionnaire
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
+            $this->_request->id, $this->_helper->language()
+        );
+        $nextPageNumber=1;
+        //getChildren of questionnaire, if it is the one we want to delete, delete it
+        foreach ($questionnaire->QuestionnaireNode->getNode()->getChildren() as $rootChild){
+            if ($rootChild->id==$this->_request->page_id){
+                //don't delete page if it has childrent
+                if (!$rootChild->getNode()->hasChildren()){
+                    $deletePageNumber=$rootChild->QuestionnaireElement->getTranslation('text');
+                    $rootChild->getNode()->delete();
+                    $this->_helper->getHelper('FlashMessenger')
+                    ->setNamespace('success')
+                    ->addMessage(
+                        sprintf('Former page %s is deleted',$deletePageNumber)
+                    );
+                }else {
+                    $this->_helper->getHelper('FlashMessenger')
+                    ->setNamespace('error')
+                    ->addMessage(
+                        t('Unable to delete page, it has questions, move or delete them first')
+                    );
+                    //adjust number of page and reorder page
+                    $rootChild->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$nextPageNumber)));
+                    $rootChild->QuestionnaireElement->save();
+                    $nextPageNumber++;
+                    $rootChild->getNode()->insertAsLastChildOf($questionnaire->QuestionnaireNode);
+                }
+            }else{
+                //adjust name of page and reorder pages
+                $rootChild->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$nextPageNumber)));
+                $rootChild->QuestionnaireElement->save();
+                $nextPageNumber++;
+                $rootChild->getNode()->insertAsLastChildOf($questionnaire->QuestionnaireNode);
+            }
+        }
+
+        $this->_redirect('questionnaire/edit/id/'.$this->_request->id);
     }
     public function orderAction()
     {
@@ -241,7 +318,6 @@ class QuestionnaireController extends Zend_Controller_Action
         if ($this->_helper->hasHelper('layout')) {
             $this->_helper->layout->disableLayout(); // disable layouts
         }
-
         if ($this->_request->data) {
             $this->_orderPagesAndQuestions(Zend_Json::decode($this->_request->data));
         }elseif ($this->_request->questionnaire){

@@ -8,7 +8,6 @@
 function saveState(event, reload)
 {
 	if ($(event.target).hasClass('questions-list') ||
-		$(event.target).hasClass('delete-page') ||
 		$(event.target).attr('name') == 'to-page')
 	{
 		$('body').addClass('loading');
@@ -298,45 +297,6 @@ function postOpenDialog(response) {
 	});
 }
 
-function addPage()
-{
-	// get page tabs
-	var $tabs = $('div.tabs');
-	// calculate new page id
-	var $newPageId = $tabs.tabs('length') + 1;
-	// create new page by cloning
-	var $newPage = $('#page-1').clone();
-	
-	// assign id to new page
-	$newPage.attr('id', 'page-' + $newPageId);
-	// remove cloned questions list
-	$('ul.sortable li', $newPage).remove();
-	// show delete-page-link
-	$('a.delete-page', $newPage).show();
-	// append page
-	$newPage.appendTo($tabs);
-	
-	// add tabs functionality to new page
-	var $elm = $tabs.tabs('add', '#page-' + $newPageId, 'pagina ' + $newPageId);
-	// select the newly added page
-	$tabs.tabs('select', $tabs.tabs('length') - 1);
-	// append the new page to all questions' change-page-select-elements
-	$('select[name="to-page"]').append('<option label="' + $newPageId + '" value="' + $newPageId + '">' + $newPageId + '</option');
-	
-	// make new page's question list sortable
-	$('.questions-list', $newPage).sortable({
-		placeholder: 'ui-state-highlight',
-		update: function(event, ui) {
-			saveState(event, ui);
-		}
-	}).disableSelection();
-	
-	// reset sortable and droppable
-//	makeTabsSortable();
-//	makeTabsDroppable($tabs);
-	
-	return false;
-}
 
 $(function() {
 	
@@ -344,11 +304,6 @@ $(function() {
 //	makeTabsSortable();
 //	var $tabItems = makeTabsDroppable($tabs);
 
-	// add event to add-page button
-	$('.add_page').click(function() {
-		addPage();
-	});
-	
 	// event for moving question to other page
 	$('select[name="to-page"]').change(function(event) {
 		var question = $(this).closest('li.question');
@@ -374,18 +329,6 @@ $(function() {
 		var questions = page.find('ul.questions-list li');
 		if (questions.length === 0) {
 			$(this).show();
-		}
-	});
-	
-	// delete page when clicked on delete-page-link
-	$('a.delete-page').live('click', function(event) {
-		var page = $(this).closest('.ui-tabs-panel');
-		var questions = page.find('ul.questions-list li');
-		if (questions.length === 0) {
-			var pageId = page.attr('id');
-			var pageIndex = parseInt(pageId.replace('page-', '')) - 1;
-			$('div.tabs').tabs('remove', pageIndex);
-			saveState(event, true);
 		}
 	});
 });

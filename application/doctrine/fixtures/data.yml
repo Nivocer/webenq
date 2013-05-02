@@ -48,9 +48,7 @@ Webenq_Model_QuestionnaireElement:
     type: QuestionnairePageElement
     Translation:
       en:
-        text: page 1
-      nl:
-        text: pagina 1
+        text: 1
   QuestionnaireTextElement_1_1_1:
     type: QuestionnaireTextElement
     Translation:
@@ -107,9 +105,7 @@ Webenq_Model_QuestionnaireElement:
     type: QuestionnairePageElement
     Translation:
       en:
-        text: page 2
-      nl:
-        text: pagina 2
+        text: 2
   QuestionnaireTextElement_1_2_1:
     type: QuestionnaireTextElement
     Translation:
@@ -157,9 +153,7 @@ Webenq_Model_QuestionnaireElement:
     type: QuestionnairePageElement
     Translation:
       en:
-        text: page 1
-      nl:
-        text: pagina 1
+        text: 1
   QuestionnaireTextElement_2_1_1:
     type: QuestionnaireTextElement
     Translation:
@@ -205,9 +199,7 @@ Webenq_Model_QuestionnaireElement:
     type: QuestionnairePageElement
     Translation:
       en:
-        text: page 1
-      nl:
-        text: pagina 1
+        text: 1
   QuestionnaireTextElement_3_1_1:
     type: QuestionnaireTextElement
     Translation:
@@ -1141,6 +1133,12 @@ Webenq_Model_Resource:
   Webenq_Model_Resource_87:
     name: tool/client
     description: null
+  Webenq_Model_Resource_88:
+    name: questionnaire/add-page
+    description: Add a page
+  Webenq_Model_Resource_89:
+    name: questionnaire/delete-page
+    description: Delete a page
   Webenq_Model_Resource_1001:
     name: sandbox/index
     description: 'Use the sandbox'
@@ -1421,6 +1419,12 @@ Webenq_Model_RoleResource:
   Webenq_Model_RoleResource_91:
     Role: Webenq_Model_Role_2
     Resource: Webenq_Model_Resource_86
+  Webenq_Model_RoleResource_92:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_88
+  Webenq_Model_RoleResource_93:
+    Role: Webenq_Model_Role_2
+    Resource: Webenq_Model_Resource_89
 Webenq_Model_AnswerPossibility:
   Webenq_Model_AnswerPossibility_1:
     active: '1'

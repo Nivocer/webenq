@@ -28,7 +28,7 @@ ul.draggable {
 	display: block;
 	background-color: #E5E5D8;
 	border: 1px solid #B20000;
-	min-height: 500px;
+	min-height: 200px;
 }
 
 ul.droppable {
