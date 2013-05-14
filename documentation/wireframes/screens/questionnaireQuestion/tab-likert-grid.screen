@@ -57,7 +57,7 @@
   <widgets xsi:type="model:Label" id="21" x="64" y="178" text="Select answer options" measuredWidth="142" measuredHeight="24">
     <font size="13px" bold="true"/>
   </widgets>
-  <widgets xsi:type="model:Hotspot" id="24" x="144" y="314" width="211" height="22" measuredWidth="211" measuredHeight="22" link="tab-answers-edit-choice.screen"/>
+  <widgets xsi:type="model:Hotspot" id="24" x="144" y="314" width="211" height="22" measuredWidth="211" measuredHeight="22" link="tab-likert-questions.screen"/>
   <widgets xsi:type="model:Hotspot" id="25" x="144" y="221" width="217" height="55" measuredWidth="217" measuredHeight="55" link="tab-options.screen"/>
   <hRuler/>
   <vRuler/>
