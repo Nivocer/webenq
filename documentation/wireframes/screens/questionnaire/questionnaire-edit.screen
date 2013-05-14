@@ -13,9 +13,10 @@
     <font/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="13" y="184" measuredWidth="827" measuredHeight="665">
-    <widgets xsi:type="model:TabbedPane" id="12" width="827" height="665" text="Page 1, Page 2" measuredWidth="827" measuredHeight="665" selection="0">
-      <items x="10" y="0" width="54" height="23" text="Page 1"/>
-      <items x="64" y="0" width="54" height="23" text="Page 2"/>
+    <widgets xsi:type="model:TabbedPane" id="12" width="827" height="665" text="Page 1, Page 2, {add} Add Page" measuredWidth="827" measuredHeight="665" selection="0">
+      <items x="10" y="0" width="54" height="26" text="Page 1"/>
+      <items x="64" y="0" width="54" height="26" text="Page 2"/>
+      <items x="118" y="0" width="86" height="26" text="{add} Add Page"/>
       <font/>
     </widgets>
     <widgets xsi:type="model:Master" id="9" x="72" y="270" height="232" measuredWidth="753" measuredHeight="232" link="../questionnaireQuestion/tab-likert-grid.screen">
