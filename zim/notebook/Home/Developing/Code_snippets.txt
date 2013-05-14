@@ -1,0 +1,15 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-02-14T15:15:11+01:00
+
+====== Code snippets ======
+Created Thursday 14 February 2013
+
+==== Form: Styling single checkbox or multiple submit buttons ====
+purpose: display multiple submitbuttons next to each other or a single checkbox on a single line:
+$this->addDisplayGroup(
+            array('previous','next','done'),
+            'submitTable',
+            array('class' => 'table')
+        );
+in global.css this is styled using fieldset.table
