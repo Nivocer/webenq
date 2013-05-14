@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" xmlns:o="http://wireframesketcher.com/1.0/model/overrides">
+  <widgets xsi:type="model:Master" id="3" x="48" y="56" height="369" measuredWidth="673" measuredHeight="369" dimmed="true">
+    <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
+    <overrides>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Tabs" x="48" y="49" text="Grid, Questions, Answers, Options" selection="1">
+          <items link="tab-likert-grid.screen" text="Grid"/>
+          <items text="Questions"/>
+          <items link="tab-likert-answers.screen" text="Answers"/>
+          <items link="tab-likert-options.screen" text="Options"/>
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Delete" ref="2"/>
+      <widgets ref="5" x="40" y="41" height="405"/>
+      <widgets ref="6" y="416" height="17" link="tab-likert-answers.screen"/>
+      <widgets ref="7" y="416" height="17" link="tab-likert-grid.screen"/>
+    </overrides>
+  </widgets>
+  <widgets xsi:type="model:Label" id="20" x="312" y="392" text="{add}Add a question" measuredWidth="92" measuredHeight="24">
+    <font bold="false"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="46" x="64" y="216" measuredWidth="504" measuredHeight="42">
+    <widgets xsi:type="model:Label" id="22" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="38" x="80" width="300" text="Topic 1" measuredWidth="300" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="39" x="32" text="English" measuredWidth="39" measuredHeight="21">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="40" x="32" y="21" text="Dutch" measuredWidth="33" measuredHeight="21">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="41" x="80" y="21" width="300" text="Onderwerp 1" measuredWidth="300" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Checkbox" id="42" x="480" y="12" text=" " measuredWidth="24" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:List" id="44" x="432" y="9" text="[x] &#xA;" measuredWidth="29" measuredHeight="27" border="false" alpha="0">
+      <font/>
+      <items x="0" y="2" width="29" height="23" text="[x] "/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="88" x="144" y="168" measuredWidth="452" measuredHeight="21">
+    <widgets xsi:type="model:Label" id="90" text="Question text" measuredWidth="76" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="92" x="337" text="Active?" measuredWidth="45" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="93" x="392" text="Required?" measuredWidth="60" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="94" x="64" y="271" measuredWidth="504" measuredHeight="42">
+    <widgets xsi:type="model:Label" id="95" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="96" x="80" width="300" text="Topic 2" measuredWidth="300" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="97" x="32" text="English" measuredWidth="39" measuredHeight="21">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="98" x="32" y="21" text="Dutch" measuredWidth="33" measuredHeight="21">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="99" x="80" y="21" width="300" text="Onderwerp 2" measuredWidth="300" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Checkbox" id="100" x="480" y="12" text=" " measuredWidth="24" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:List" id="101" x="432" y="9" text="[x] &#xA;" measuredWidth="29" measuredHeight="27" border="false" alpha="0">
+      <font/>
+      <items x="0" y="2" width="29" height="23" text="[x] "/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="102" x="65" y="328" measuredWidth="504" measuredHeight="42">
+    <widgets xsi:type="model:Label" id="103" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="104" x="80" width="300" text="Topic 3" measuredWidth="300" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="105" x="32" text="English" measuredWidth="39" measuredHeight="21">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="106" x="32" y="21" text="Dutch" measuredWidth="33" measuredHeight="21">
+      <font bold="false"/>
+    </widgets>
+    <widgets xsi:type="model:TextField" id="107" x="80" y="21" width="300" text="Onderwerp 3" measuredWidth="300" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Checkbox" id="108" x="480" y="12" text=" " measuredWidth="24" measuredHeight="21">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:List" id="109" x="432" y="9" text="[x] &#xA;" measuredWidth="29" measuredHeight="27" border="false" alpha="0">
+      <font/>
+      <items x="0" y="2" width="29" height="23" text="[x] "/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Label" id="110" x="72" y="104" text="How satisfied are you with...." measuredWidth="185" measuredHeight="24">
+    <font size="13px" bold="true"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Arial" size="11px"/>
+</model:Screen>

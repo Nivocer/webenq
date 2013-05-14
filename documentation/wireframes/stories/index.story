@@ -63,4 +63,16 @@
   <panels x="975" y="1575">
     <screen href="../screens/questionnaire/questionnaire-delete.screen#/"/>
   </panels>
+  <panels x="675" y="2175">
+    <screen href="../screens/questionnaireQuestion/tab-likert-answers.screen#/"/>
+  </panels>
+  <panels x="375" y="2175">
+    <screen href="../screens/questionnaireQuestion/tab-likert-grid.screen#/"/>
+  </panels>
+  <panels x="75" y="2175">
+    <screen href="../screens/questionnaireQuestion/tab-likert-options.screen#/"/>
+  </panels>
+  <panels x="975" y="1875">
+    <screen href="../screens/questionnaireQuestion/tab-likert-questions.screen#/"/>
+  </panels>
 </story:Storyboard>

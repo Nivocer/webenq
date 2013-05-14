@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:Master" id="3" x="48" y="56" height="513" measuredWidth="673" measuredHeight="513" dimmed="true">
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" xmlns:o="http://wireframesketcher.com/1.0/model/overrides">
+  <widgets xsi:type="model:Master" id="3" x="48" y="56" height="537" measuredWidth="673" measuredHeight="537" dimmed="true">
     <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
     <overrides>
-      <widgets ref="2" y="89">
-        <attributes key="selection" value="1"/>
-      </widgets>
-      <widgets ref="7" y="554" height="29" link="tab-question.screen"/>
-      <widgets ref="6" y="554" height="29" link="tab-options.screen"/>
-      <widgets ref="5" y="119" height="478"/>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Tabs" x="48" y="53" text="Grid, Questions, Answers, Options" selection="2">
+          <items link="tab-likert-grid.screen" text="Grid"/>
+          <items link="tab-likert-questions.screen" text="Questions"/>
+          <items text="Answers"/>
+          <items link="tab-likert-options.screen" text="Options"/>
+          <font/>
+        </object>
+      </widgetChanges>
+      <widgetChanges xsi:type="o:Delete" ref="2"/>
+      <widgets ref="5" x="40" y="77" height="546"/>
+      <widgets ref="6" y="576" height="29" link="tab-likert-options.screen"/>
+      <widgets ref="7" y="576" height="29" link="tab-likert-questions.screen"/>
     </overrides>
   </widgets>
-  <widgets xsi:type="model:Label" id="20" x="312" y="496" text="{add}Add an item" measuredWidth="78" measuredHeight="24">
+  <widgets xsi:type="model:Label" id="20" x="306" y="552" text="{add}Add an item" measuredWidth="78" measuredHeight="24">
     <font bold="false"/>
   </widgets>
   <widgets xsi:type="model:WidgetGroup" id="36" x="71" y="128" measuredWidth="212" measuredHeight="85">
@@ -34,7 +41,7 @@
       <font/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="46" x="64" y="216" measuredWidth="541" measuredHeight="42">
+  <widgets xsi:type="model:WidgetGroup" id="46" x="58" y="272" measuredWidth="541" measuredHeight="42">
     <widgets xsi:type="model:Label" id="22" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
       <font/>
     </widgets>
@@ -65,7 +72,7 @@
       <items x="0" y="2" width="29" height="23" text="[] "/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="47" x="64" y="272" measuredWidth="541" measuredHeight="42">
+  <widgets xsi:type="model:WidgetGroup" id="47" x="58" y="328" measuredWidth="541" measuredHeight="42">
     <widgets xsi:type="model:Label" id="48" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
       <font/>
     </widgets>
@@ -96,7 +103,7 @@
       <items x="0" y="2" width="29" height="23" text="[] "/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="57" x="64" y="328" measuredWidth="541" measuredHeight="42">
+  <widgets xsi:type="model:WidgetGroup" id="57" x="58" y="384" measuredWidth="541" measuredHeight="42">
     <widgets xsi:type="model:Label" id="58" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
       <font/>
     </widgets>
@@ -127,7 +134,7 @@
       <items x="0" y="2" width="29" height="23" text="[] "/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="67" x="64" y="384" measuredWidth="541" measuredHeight="42">
+  <widgets xsi:type="model:WidgetGroup" id="67" x="58" y="440" measuredWidth="541" measuredHeight="42">
     <widgets xsi:type="model:Label" id="68" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
       <font/>
     </widgets>
@@ -158,7 +165,7 @@
       <items x="0" y="2" width="29" height="23" text="[] "/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:WidgetGroup" id="77" x="64" y="432" measuredWidth="541" measuredHeight="42">
+  <widgets xsi:type="model:WidgetGroup" id="77" x="58" y="488" measuredWidth="541" measuredHeight="42">
     <widgets xsi:type="model:Label" id="78" y="11" text="{move}" measuredWidth="21" measuredHeight="24">
       <font/>
     </widgets>
@@ -189,8 +196,25 @@
       <items x="0" y="2" width="29" height="23" text="[] "/>
     </widgets>
   </widgets>
-  <widgets xsi:type="model:Label" id="87" x="72" y="104" text="Some question Text" measuredWidth="128" measuredHeight="24">
+  <widgets xsi:type="model:Label" id="87" x="72" y="104" text="How satisfied are you with...." measuredWidth="185" measuredHeight="24">
     <font size="13px" bold="true"/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="93" x="104" y="239" measuredWidth="513" measuredHeight="21">
+    <widgets xsi:type="model:Label" id="88" text="Value" measuredWidth="34" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="89" x="128" text="Label" measuredWidth="34" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="90" x="304" text="Null value?" measuredWidth="64" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="91" x="384" text="Active?" measuredWidth="45" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
+    <widgets xsi:type="model:Label" id="92" x="463" text="Hidden?" measuredWidth="50" measuredHeight="21">
+      <font bold="true"/>
+    </widgets>
   </widgets>
   <hRuler/>
   <vRuler/>

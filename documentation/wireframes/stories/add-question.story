@@ -18,6 +18,18 @@
   <panels x="800" y="100">
     <screen href="../screens/questionnaireQuestion/tab-answers-edit-number.screen#/"/>
   </panels>
+  <panels x="375" y="975">
+    <screen href="../screens/questionnaireQuestion/tab-likert-answers.screen#/"/>
+  </panels>
+  <panels x="75" y="975">
+    <screen href="../screens/questionnaireQuestion/tab-likert-grid.screen#/"/>
+  </panels>
+  <panels x="375" y="675">
+    <screen href="../screens/questionnaireQuestion/tab-likert-options.screen#/"/>
+  </panels>
+  <panels x="75" y="675">
+    <screen href="../screens/questionnaireQuestion/tab-likert-questions.screen#/"/>
+  </panels>
   <panels x="800" y="440">
     <screen href="../screens/questionnaireQuestion/tab-answers-edit-text.screen#/"/>
   </panels>

@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore" xmlns:o="http://wireframesketcher.com/1.0/model/overrides">
-  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="383" dimmed="true">
+  <widgets xsi:type="model:Master" id="3" x="48" y="24" measuredWidth="673" measuredHeight="386" dimmed="true">
     <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
     <overrides>
+      <widgetChanges xsi:type="o:Insert" newIndex="4">
+        <object xsi:type="model:Tabs" x="48" y="53" text="Grid, Questions, Answers, Options" selection="3">
+          <items link="tab-likert-grid.screen" text="Grid"/>
+          <items link="tab-likert-questions.screen" text="Questions"/>
+          <items link="tab-likert-answers.screen" text="Answers"/>
+          <items text="Options"/>
+          <font/>
+        </object>
+      </widgetChanges>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
         <object xsi:type="model:Label" x="188" y="126" text="Satisfied-5 (choice)">
           <font/>
@@ -48,16 +57,10 @@
           <font bold="true"/>
         </object>
       </widgetChanges>
-      <widgets ref="2">
-        <attributes key="selection" value="2"/>
-        <itemChanges xsi:type="o:Insert" newIndex="3">
-          <object xsi:type="model:Item" text="Options"/>
-        </itemChanges>
-        <itemChanges xsi:type="o:Delete" ref="@items.2"/>
-      </widgets>
+      <widgetChanges xsi:type="o:Delete" ref="2"/>
       <widgets ref="5" y="78"/>
       <widgets ref="6" text="Done" link="../questionnaire/questionnaire-edit.screen"/>
-      <widgets ref="7" link="tab-answers-select.screen"/>
+      <widgets ref="7" link="tab-likert-answers.screen"/>
     </overrides>
   </widgets>
   <hRuler/>
