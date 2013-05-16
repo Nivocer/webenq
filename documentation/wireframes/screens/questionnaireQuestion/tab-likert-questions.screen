@@ -4,8 +4,8 @@
     <screen xsi:type="model:Screen" href="question-properties-tabs.screen#/"/>
     <overrides>
       <widgetChanges xsi:type="o:Insert" newIndex="4">
-        <object xsi:type="model:Tabs" x="48" y="49" text="Grid, Questions, Answers, Options" selection="1">
-          <items link="tab-likert-grid.screen" text="Grid"/>
+        <object xsi:type="model:Tabs" x="50" y="14" text="Group info, Questions, Answers, Options" selection="1">
+          <items link="tab-likert-grid.screen" text="Group info"/>
           <items text="Questions"/>
           <items link="tab-likert-answers.screen" text="Answers"/>
           <items link="tab-likert-options.screen" text="Options"/>

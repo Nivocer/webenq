@@ -32,6 +32,7 @@
       <overrides>
         <widgets ref="59" height="135"/>
         <widgets ref="62" y="37" height="83"/>
+        <widgets ref="60" text="Dummy text question"/>
       </overrides>
     </widgets>
     <widgets xsi:type="model:Master" id="11" x="72" y="79" height="180" measuredWidth="391" measuredHeight="180" link="../questionnaireQuestion/tab-question.screen">
@@ -39,6 +40,7 @@
       <overrides>
         <widgets ref="6" height="180"/>
         <widgets ref="8" y="35" height="115"/>
+        <widgets ref="7" text="Dummy question: single choice"/>
       </overrides>
     </widgets>
     <widgets xsi:type="model:WidgetGroup" id="26" x="28" y="79" height="18" measuredWidth="36" measuredHeight="18" link="../questionnaireQuestion/tab-question.screen">
@@ -56,7 +58,7 @@
     <widgets xsi:type="model:Button" id="36" x="72" y="36" height="28" text="{add} Add question" measuredWidth="101" measuredHeight="28" link="../questionnaireQuestion/tab-question.screen">
       <font/>
     </widgets>
-    <widgets xsi:type="model:Button" id="37" x="192" y="36" height="28" text="{add} Add grid question" measuredWidth="122" measuredHeight="28" link="../questionnaireQuestion/tab-likert-grid.screen">
+    <widgets xsi:type="model:Button" id="37" x="192" y="36" height="28" text="{add} Add a group of questions" measuredWidth="158" measuredHeight="28" link="../questionnaireQuestion/tab-likert-grid.screen">
       <font/>
     </widgets>
   </widgets>
