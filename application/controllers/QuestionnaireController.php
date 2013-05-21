@@ -326,53 +326,37 @@ class QuestionnaireController extends Zend_Controller_Action
             $this->_orderSubQuestions(Zend_Json::decode($this->_request->question));
         }
     }
-
+/*
+ * order pages and questions
+ * 'new model'
+ */
+    protected function _savePagesAndQuestionsOrder($parent, $data){
+        foreach ($data as $key=>$val){
+            if (is_array($val)){
+                //first entry is parent, second is array with descendants
+                $currentParentId=preg_replace("/[^\d]/", "", $val[0]);
+                $currentParent=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($currentParentId);
+                $currentParent->getNode()->moveAsLastChildOf($parent);
+                $this->_savePagesAndQuestionsOrder($currentParent, $val[1]);
+            }else {
+            // no children
+                //insert current val as last child of parent:
+                $nodeId=preg_replace("/[^\d]/", "", $val);
+                $child=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($nodeId);
+                $child->getNode()->moveAsLastChildOf($parent);
+            }
+        }
+    }
     protected function _orderPagesAndQuestions(array $data)
     {
         if (count($data) === 0) return;
+        $questionnaire = Webenq_Model_Questionnaire::getQuestionnaire(
+            $this->_request->id, $this->_helper->language()
+        );
+        if (!$questionnaire) return false;
 
-        foreach ($data as $key => $val) {
-
-            $page = $key + 1;
-
-            $qqIds = array();
-            foreach ($val as $id) {
-                $id = (int) str_replace('qq_', null, $id);
-                $qqIds[] = $id;
-            }
-
-            if (empty($qqIds)) continue;
-
-            // reset all questions on this page
-            Doctrine_Query::create()
-            ->update('Webenq_Model_CollectionPresentation cp')
-            ->set('weight', '?', 0)
-            ->set('page', '?', $page)
-            ->whereIn('cp.questionnaire_question_id', $qqIds)
-            ->execute();
-
-            // get questions on this page
-            $qqs = Doctrine_Query::create()
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->leftJoin('qq.CollectionPresentation cp')
-            ->whereIn('qq.id', $qqIds)
-            ->execute();
-
-            // set new weight
-            foreach ($qqs as $weight => $qq) {
-
-                // set new weight
-                $qq->CollectionPresentation[0]->weight = array_search($qq->id, $qqIds);
-                $qq->save();
-
-                // make sure the page is also set on sub-questions
-                Doctrine_Query::create()
-                ->update('Webenq_Model_CollectionPresentation cp')
-                ->set('page', '?', $page)
-                ->where('cp.parent_id = ?', $qq->CollectionPresentation[0]->id)
-                ->execute();
-            }
-        }
+        $parentNode=$questionnaire->QuestionnaireNode;
+        $this->_savePagesAndQuestionsOrder($parentNode, $data);
     }
 /**
  * save new sort order of questionnaire, triggered by javascript sortable action

@@ -187,3 +187,13 @@ function applyFilter()
 		}
 	});
 }
+//from http://forums.arcgis.com/threads/5324-URL-Parameters adjusted for restful url
+function getUrlParam(name, url) { // optionally pass an URL to parse
+	if (!url) url = window.location.href;								// if no parameter url is given, use the page URL
+	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");			// instruction needed if we want to extract an array
+	var results = new RegExp("[\\/]"+name+"\\/([^&#]*)").exec(url);
+	if( results == null ) 
+		return null;									// if the name is not found, return null
+	else // decodeURIComponent doesn't recognize '+' as encoding for space
+		return decodeURIComponent(results[1].replace(/\+/g," ")); 
+}

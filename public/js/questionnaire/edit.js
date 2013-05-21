@@ -22,7 +22,11 @@ function saveState(event, reload)
 			var $questionsList=$("#"+$pageId).find('.questions-list');
 			$data[$index] = [$pageId, $questionsList.sortable('toArray')];
 		});
-		$.post(baseUrl + '/questionnaire/order', {data: $.toJSON($data)}, function() {
+		
+		
+
+		var $id=getUrlParam("id");
+		$.post(baseUrl + '/questionnaire/order/id/'+$id, {data: $.toJSON($data)}, function() {
 			if (reload === true) {
 				window.location.reload();
 			} else {
@@ -86,6 +90,7 @@ function showDeletePage() {
 	});
 }
 $(document).ready(function() {
+	
 	makeTabsDroppable();
 	makeTabsSortable();
 	makeQuestionsSortable();
