@@ -50,6 +50,7 @@ class Zend_View_Helper_QuestionnaireElement extends Zend_View_Helper_Abstract
                     case 'QuestionnairePageNode':
                         //render (return subform)
                         $pageElement=$node->render($format);
+
                         //add decorator for page Group/remove unnecessary decorators
                         $pageElement=$this->_addDecoratorsPageGroup($node, $pageElement);
                         $pageElement->removeDecorator('DtDdWrapper');
@@ -213,9 +214,9 @@ private function _addDecoratorsGroup($nodeId, $elm)
     public static function pageGroup($content, $element, $options) {
         $node=$options['node'];
         $view=$options['view'];
-
-        $html='<div id="pageId-'.$node->id.'">';
-        //todo questionnaire id
+        $pageNumber=$node->QuestionnaireElement->getTranslation('text');
+        $html="\n";
+        $html.='<div id="pageId-'.$node->id.'">';
         $html.='<a href="/questionnaire/delete-page/id/'.$view->questionnaire->id.'/page_id/'.$node->id .'" class="delete-page link delete">'.t('Delete this page') .'</a>';
         //add question to page
         $html.='<a class="link add"  title="'. t('add a question').'" href="';
@@ -223,9 +224,11 @@ private function _addDecoratorsGroup($nodeId, $elm)
         $html.= '">'.t('add a question to this page');
         $html.='</a>';
 
-        //sortable
-        $html.= '<div class="questions"><ul class="questions-list sortable droppable">';
+        //sortable/droppable
+        $html.="\n";
+        $html.= '<div class="questions"><ul id="sortable'.$pageNumber.'" class="questions-list connectedSortable ui-helper-reset">';
         $html.=$content;
+        $html.="\n";
         $html.='</ul></div></div>';
         return $html;
     }
@@ -246,27 +249,6 @@ private function _addDecoratorsGroup($nodeId, $elm)
         $html.=' </div>
             <div class="options">';
 
-        // add move to page pulldown
-        if (!$isSubQuestion) {
-            $pages = array();
-            for ($page = 1; $page <=  self::$_totalPages; $page++) {
-                $pages[$page] = $page;
-            }
-            //@todo determin current page (if we keep this method)
-            $currentPage = isset($qq['CollectionPresentation'][0]['page'])
-                ? $qq['CollectionPresentation'][0]['page'] : 1;
-
-            $pageSelect = $view->formSelect(
-                'to-page',
-                $currentPage,
-                array(
-                    'id' => 'page-select-qq-' . $node->id
-                ),
-                $pages
-            );
-        $html .= t('move to page') . $pageSelect;
-        }
-
         // add edit/delete question button
         $html .= '<a class="icon edit" title="';
         $html.=t('edit');
@@ -286,6 +268,6 @@ private function _addDecoratorsGroup($nodeId, $elm)
 
     static public function listItem($content, $element, $options)
     {
-        return '<li id="' . $element->getName() . '" class="question droppable hoverable">' . $content . '</li>';
+        return '<li id="' . $element->getName() . '" class="question hoverable">' . $content . '</li>';
     }
 }

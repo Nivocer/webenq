@@ -16,7 +16,7 @@ class Webenq_Model_QuestionnairePageNode extends Webenq_Model_Base_Questionnaire
         switch ($format){
             // @todo we want to use a decorator, but it not working yet
             case 'previewTab':
-                $return='<li><a href=#pageId-'.$this->id.'>';
+                $return='<li class="page" id="tabId-'.$this->id.'"><a href=#pageId-'.$this->id.'>';
                 $return.= sprintf('Page %s', $this-> QuestionnaireElement->getTranslation('text'));
                 $return.='</a></li>';
                 return $return;
