@@ -26,12 +26,23 @@ function saveState(event, reload)
 		
 
 		var $id=getUrlParam("id");
-		$.post(baseUrl + '/questionnaire/order/id/'+$id, {data: $.toJSON($data)}, function() {
-			if (reload === true) {
+		$.post(baseUrl + '/questionnaire/order/id/'+$id, {data: $.toJSON($data)}, function($response) {
+			
+			if ($response.reload === true) {
 				window.location.reload();
 			} else {
-				$('body').removeClass('loading');
+				if ($response.pageText){
+					$('#tabs')
+						.find('.page-list')
+						.find('li')
+						.find('a')
+						.each(function($index){
+						$(this).html($response.pageText.replace('%s',$index+1));
+					});
+					$('body').removeClass('loading');
+				}
 			}
+			
 		});
 	//}
 }

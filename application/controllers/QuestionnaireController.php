@@ -37,6 +37,7 @@ class QuestionnaireController extends Zend_Controller_Action
      */
     public $ajaxable = array(
         //'add' => array('html'),
+    //'order'=>array('html'),
     );
 
     /**
@@ -326,27 +327,13 @@ class QuestionnaireController extends Zend_Controller_Action
             $this->_orderSubQuestions(Zend_Json::decode($this->_request->question));
         }
     }
-/*
- * order pages and questions
- * 'new model'
- */
-    protected function _savePagesAndQuestionsOrder($parent, $data){
-        foreach ($data as $key=>$val){
-            if (is_array($val)){
-                //first entry is parent, second is array with descendants
-                $currentParentId=preg_replace("/[^\d]/", "", $val[0]);
-                $currentParent=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($currentParentId);
-                $currentParent->getNode()->moveAsLastChildOf($parent);
-                $this->_savePagesAndQuestionsOrder($currentParent, $val[1]);
-            }else {
-            // no children
-                //insert current val as last child of parent:
-                $nodeId=preg_replace("/[^\d]/", "", $val);
-                $child=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($nodeId);
-                $child->getNode()->moveAsLastChildOf($parent);
-            }
-        }
-    }
+
+    /**
+     * order pages and questions
+     * 'new model'
+     * @param array $data
+     * @return void|boolean
+     */
     protected function _orderPagesAndQuestions(array $data)
     {
         if (count($data) === 0) return;
@@ -356,8 +343,15 @@ class QuestionnaireController extends Zend_Controller_Action
         if (!$questionnaire) return false;
 
         $parentNode=$questionnaire->QuestionnaireNode;
-        $this->_savePagesAndQuestionsOrder($parentNode, $data);
+        $parentNode->reorderDescendants($data);
+        $parentNode->correctPageNumberText();
+        if ($this->_request->isXmlHttpRequest()) {
+            $this->_helper->json(array('reload' => false, 'pageText'=>t('Page %s')));
+        } else {
+            $this->_redirect('questionnaire/edit/id/' . $this->_request->id);
+        }
     }
+
 /**
  * save new sort order of questionnaire, triggered by javascript sortable action
  *
@@ -392,40 +386,6 @@ class QuestionnaireController extends Zend_Controller_Action
         foreach ($qs as $weight => $q) {
             $q->weight = array_search($q->id, $qIds);
             $q->save();
-        }
-    }
-
-    protected function _orderSubQuestions(array $data)
-    {
-        if (count($data) === 0) {
-            return;
-        }
-
-        $qqIds = array();
-        foreach ($data as $key => $id) {
-            $id = (int) str_replace('qq_', null, $id);
-            $qqIds[] = $id;
-        }
-
-        // reset subquestions
-        Doctrine_Query::create()
-        ->update('Webenq_Model_CollectionPresentation cp')
-        ->set('weight', '?', 0)
-        ->set('page', '?', 0)
-        ->whereIn('cp.questionnaire_question_id', $qqIds)
-        ->execute();
-
-        // get subquestions
-        $qqs = Doctrine_Query::create()
-        ->from('Webenq_Model_QuestionnaireQuestion qq')
-        ->leftJoin('qq.CollectionPresentation cp')
-        ->whereIn('qq.id', $qqIds)
-        ->execute();
-
-        // set new weight
-        foreach ($qqs as $weight => $qq) {
-            $qq->CollectionPresentation[0]->weight = array_search($qq->id, $qqIds);
-            $qq->save();
         }
     }
 

@@ -39,13 +39,31 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         parent::save($conn);
     }
 
-    // Reorder the children
-    public function reorderChildren($ordering)
+    // Reorder all Descendants
+    public function reorderDescendants($data)
     {
-        // query findAll where id in $ordering
-        // foreach result
-        //     moveAsLastChildOf($this->id)
-        //
+        /**
+     * save the pages, groups and questions as children of their parent
+     * @todo adjust js-input to get logic array as input
+     *
+     * @param array $data (structured array, with all the descendants) first val is 'group'-node, second val is array with groups and questions below
+     */
+        foreach ($data as $key=>$val){
+            if (is_array($val)){
+                //first entry is parent, second is array with descendants
+                $currentParentId=preg_replace("/[^\d]/", "", $val[0]);
+                $currentParent=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($currentParentId);
+                $currentParent->getNode()->moveAsLastChildOf($this);
+                $currentParent->reorderDescendants($val[1]);
+            }else {
+            // no children
+                //insert current val as last child of parent:
+                $nodeId=preg_replace("/[^\d]/", "", $val);
+                $child=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($nodeId);
+                $child->getNode()->moveAsLastChildOf($this);
+            }
+        }
+
         // cases:
         // - not all children of this node were given
         // - more nodes were given
@@ -141,6 +159,20 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
             }
         }
         return false;
+    }
+
+    /**
+     * correct pagenumber text after ordering pages/questions (first child gets page 1)
+     */
+    public function correctPageNumberText(){
+        $pageNumber=0;
+        foreach  ($this->getNode()->getDescendants() as $questionNode) {
+            if (get_class($questionNode)=='Webenq_Model_QuestionnairePageNode'){
+                $pageNumber++;
+                $questionNode->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$pageNumber)));
+                $questionNode->QuestionnaireElement->save();
+            }
+        }
     }
 
 }
