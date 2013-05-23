@@ -113,16 +113,14 @@ Webenq_Model_QuestionnaireElement:
         text: Introduction text page 2
       nl:
         text: Introductietekst pagina 2
-  QuestionnaireGroupElement_1_2_1:
-    type: QuestionnaireGroupElement
-  QuestionnaireTextElement_1_2_1_1:
-    type: QuestionnaireTextElement
+  QuestionnaireLikertElement_1_2_2:
+    type: QuestionnaireLikertElement
     Translation:
       en:
         text: To what extend do you agree on....
       nl:
         text: In hoeverre ben je het eens met ....
-  QuestionnaireQuestionElement_1_2_1_2:
+  QuestionnaireQuestionElement_1_2_2_1:
     type: QuestionnaireQuestionElement
     options:
       options:
@@ -135,7 +133,7 @@ Webenq_Model_QuestionnaireElement:
       nl:
         text: onderwerp 1
     AnswerDomain: AnswerDomainChoice_2
-  QuestionnaireQuestionElement_1_2_1_3:
+  QuestionnaireQuestionElement_1_2_2_2:
     type: QuestionnaireQuestionElement
     options:
       options:
@@ -263,19 +261,16 @@ Webenq_Model_QuestionnaireNode:
           QuestionnaireTextNode_1_2_1:
             type: QuestionnaireTextNode
             QuestionnaireElement: QuestionnaireTextElement_1_2_1
-          QuestionnaireGroupNode_1_2_1:
-            type: QuestionnaireGroupNode
-            QuestionnaireElement: QuestionnaireGroupElement_1_2_1
+          QuestionnaireLikertNode_1_2_2:
+            type: QuestionnaireLikertNode
+            QuestionnaireElement: QuestionnaireLikertElement_1_2_2
             children:
-              QuestionnaireTextNode_1_2_1_1:
-                type: QuestionnaireTextNode
-                QuestionnaireElement: QuestionnaireTextElement_1_2_1_1
-              QuestionnaireQuestionNode_1_2_1_2:
+              QuestionnaireQuestionNode_1_2_2_1:
                 type: QuestionnaireQuestionNode
-                QuestionnaireElement: QuestionnaireQuestionElement_1_2_1_2
-              QuestionnaireQuestionNode_1_2_1_3:
+                QuestionnaireElement: QuestionnaireQuestionElement_1_2_2_1
+              QuestionnaireQuestionNode_1_2_2_2:
                 type: QuestionnaireQuestionNode
-                QuestionnaireElement: QuestionnaireQuestionElement_1_2_1_3
+                QuestionnaireElement: QuestionnaireQuestionElement_1_2_2_2
   Webenq_Model_QuestionnaireNode_2:
     QuestionnaireElement: Webenq_Model_QuestionnaireElement_2
     children:

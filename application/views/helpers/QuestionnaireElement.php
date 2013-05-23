@@ -31,7 +31,6 @@ class Zend_View_Helper_QuestionnaireElement extends Zend_View_Helper_Abstract
 {
     public $form;
     public $displayGroups=array();
-    protected static $_totalPages;
     public function __construct(){
         $this->form=new Zend_Form_SubForm();
         $this->form->removeDecorator('HtmlTag');
@@ -39,11 +38,9 @@ class Zend_View_Helper_QuestionnaireElement extends Zend_View_Helper_Abstract
         $this->form->removeDecorator('DtDdWrapper');
     }
 
-    public function questionnaireElement(Webenq_Model_QuestionnaireNode $questionnaireNode, $format='preview', $output='form')
+    public function questionnaireElement(Webenq_Model_QuestionnaireNode $questionnaireNode, $format='preview', $output='form', $subFormId=null)
     {
         $elm=array();
-        //@todo get Total number of pages/rootgroups
-        self::$_totalPages = 2;
         if ($questionnaireNode->getNode()->hasChildren()) {
             foreach ($questionnaireNode->getNode()->getChildren() as $node) {
                 switch ($node->type) {
@@ -57,38 +54,41 @@ class Zend_View_Helper_QuestionnaireElement extends Zend_View_Helper_Abstract
                         $pageElement->removeDecorator('FieldSet');
                         $pageElement->removeDecorator('HtmlTag');
                         $this->form->addSubForm($pageElement, $node->id);
+                        $subFormId=$node->id;
 
                         //process children
-                        $pageElement->addElements($this->questionnaireElement($node,$format, 'element'));
+                        $childElements=$this->questionnaireElement($node,$format, 'element', $subFormId);
 
-                        //add displaygroups (we need elements first)
-                        foreach ($this->displayGroups as $nodeId=>$GroupElementNames){
-                            $pageElement->addDisplayGroup($GroupElementNames, $nodeId);
-                            $displayGroup=$pageElement->getDisplayGroup($nodeId);
-                            $displayGroup=$this->_addDecoratorsGroup($nodeId, $displayGroup);
-                            $displayGroup->removeDecorator('DtDdWrapper');
-                            $displayGroup->removeDecorator('FieldSet');
-                            $displayGroup->removeDecorator('HtmlTag');
-                            //unset displaygroup
-                            unset ($this->displayGroups[$nodeId]);
-                        }
+
                     break;
+                    case 'QuestionnaireLikertNode':
                     case 'QuestionnaireGroupNode':
-                        $groupElement=$node->render($format);
+                        $headerElement=$node->render($format);
+                        $this->form->getSubForm($subFormId)->addElement($headerElement);
                         //get children
-                        $elements=$this->questionnaireElement($node, $format, 'element');
-                        $elm=array_merge($elm,$elements);
-                        //get names of elements to group using a display group (defined in questionnairePageNode)
-                        foreach ($elements as $element){
+                        $groupElements=$this->questionnaireElement($node, $format, 'element', $subFormId);
+                        $groupElements=array_merge(array($headerElement), $groupElements);
+                        $elm=array_merge($elm,$groupElements);
+
+                        //get names of elements to group using a display group
+                        foreach ($groupElements as $element){
                             $elementNames[]=$element->getName();
+                            $element->removeDecorator('adminOptions');
                         }
-                        //add this group to $this->displayGroup, so we can add it per page/form
-                        $this->displayGroups[$node->id]=$elementNames;
+
+                        $this->form->getSubForm($subFormId)->addDisplayGroup($elementNames, $node->id);
+                        $displayGroup=$this->form->getSubForm($subFormId)->getDisplayGroup($node->id);
+                        $displayGroup=$this->_addDecoratorsGroup($node->id, $displayGroup);
+                        $displayGroup->removeDecorator('DtDdWrapper');
+                        $displayGroup->removeDecorator('FieldSet');
+                        $displayGroup->removeDecorator('HtmlTag');
+
                         break;
                     case 'QuestionnaireQuestionNode':
                     case 'QuestionnaireTextNode':
                         $element=$node->render($format);
-                        $element=$this->_addDecoratorsAdmin($node, $element);
+                        $element=$this->_addDecoratorsAdmin($node->id, $element);
+                        $this->form->getSubForm($subFormId)->addElement($element);
                         $elm[]=$element;
                         //no children (at this moment)
                     break;
@@ -141,6 +141,24 @@ private function _addDecoratorsGroup($nodeId, $elm)
             array(
                 array(
                     array(
+                        'adminOptions' => 'Callback'
+                    ),
+                    array(
+                        'callback' => array(
+                            get_class($this),
+                            'adminOptions'
+                        ),
+                        'placement' => Zend_Form_Decorator_Abstract::PREPEND,
+                        'view' => $this->view,
+                        'nodeId' => $nodeId,
+                    )
+                ),
+
+
+
+
+                array(
+                    array(
                         'group' => 'Callback'
                     ),
                     array(
@@ -159,8 +177,17 @@ private function _addDecoratorsGroup($nodeId, $elm)
     }
 
 
-    private function _addDecoratorsAdmin($node, $elm)
+    /**
+     * call adminOptions (move/edit/delete buttons)
+     * call listItems (make it a li)
+     *
+     * @param unknown $node
+     * @param unknown $elm
+     * @return Zend_Form_Element
+     */
+    private function _addDecoratorsAdmin($nodeId, $elm)
     {
+
         if ($elm instanceof Zend_Form_Element) {
             // add decorators
             $elm->addDecorators(
@@ -176,7 +203,7 @@ private function _addDecoratorsGroup($nodeId, $elm)
                             ),
                             'placement' => Zend_Form_Decorator_Abstract::PREPEND,
                             'view' => $this->view,
-                            'node' => $node,
+                            'nodeId' => $nodeId,
                         )
                     ),
                     array(
@@ -201,12 +228,14 @@ private function _addDecoratorsGroup($nodeId, $elm)
  * @todo make whole group draggable
  */
     public static function group($content, $element, $options) {
-        $nodeId=$options['nodeId'];
         $html='';
-        $html.='Group:';
-        $html.=$content;
-        $html.='/group';
-        //$html.='</li>';
+        $nodeId=$options['nodeId'];
+        $html.='<li id="note' . $nodeId . '" class="question hoverable">';
+        //replace first li by <ul><li>
+        $html.=preg_replace("/<li/", '<ul><li',$content, 1);
+
+        $html.='</ul>';
+        $html.='</li>';
         return $html;
     }
 
@@ -234,7 +263,7 @@ private function _addDecoratorsGroup($nodeId, $elm)
     }
     public static function adminOptions($content, $element, $options)
     {
-        $node            = $options['node'];
+        $nodeId            = $options['nodeId'];
         $view          = $options['view'];
         //@todo check if subQuestion, if it is subquestion we don't have a move to page, but we want to change that behavior
         //$isSubQuestion = (bool) $qq->CollectionPresentation[0]->parent_id;
@@ -253,12 +282,12 @@ private function _addDecoratorsGroup($nodeId, $elm)
         $html .= '<a class="icon edit" title="';
         $html.=t('edit');
         $html.= '" href="' .
-            $view->baseUrl('/questionnaire-question/edit/id/' . $node->id) . '">&nbsp;
+            $view->baseUrl('/questionnaire-question/edit/id/' . $nodeId) . '">&nbsp;
             </a>';
         $html.= '<a class="icon delete" title="';
         $html.=t('delete');
         $html.='" href="' .
-            $view->baseUrl('/questionnaire-question/delete/id/' . $node->id) . '">&nbsp;
+            $view->baseUrl('/questionnaire-question/delete/id/' . $nodeId) . '">&nbsp;
             </a>';
         //close option and admin divs
         $html.='</div>

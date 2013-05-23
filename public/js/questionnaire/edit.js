@@ -22,8 +22,6 @@ function saveState(event, reload)
 			var $questionsList=$("#"+$pageId).find('.questions-list');
 			$data[$index] = [$pageId, $questionsList.sortable('toArray')];
 		});
-		
-		
 
 		var $id=getUrlParam("id");
 		$.post(baseUrl + '/questionnaire/order/id/'+$id, {data: $.toJSON($data)}, function($response) {
@@ -69,7 +67,7 @@ function makeQuestionsSortable()
 		update: function(event, ui) {
 			saveState(event, ui);
 		}
-	}).disableSelection();
+	});
 }
 
 function makeTabsDroppable()
