@@ -15,7 +15,9 @@
 
         <div id=questionText><h3>
         <?php $language = Zend_Registry::get('Zend_Locale')->getLanguage();
-            echo  $this->form->question->getValue('text')[$language]; ?>
+            $temp=$this->form->question->getValue('text');
+            echo  $temp[$language];
+            ?>
         </h3></div>
 
         <div id="question">
