@@ -1,29 +1,14 @@
-
-
-
+//no ajax, override global savestate
 function saveState(event, reload)
-{
-    if ($(event.target).hasClass('answeritems')) { 
-        var $data=$(event.target).sortable('toArray');
-    	//alert($.toJSON($data));
-        $('#answer-items-sortable').val($.toJSON($data));
-    }
+{}
+
+//save sort order in hidden field
+function updateSortField(){
+	var $data=$('.answeritems').sortable('toArray');
+    $('#answer-sortable').val($.toJSON($data));
 }
 
-
-function initColWidth() {
-	$containerWidth = parseInt($('ul.sortable').css('width'));
-	$cols = $('#cols').val();
-	if ($cols == 'NaN') {
-		$cols = 1;
-		$('#cols').val($cols);
-	} 
-	$newWidth = $containerWidth / $cols - (5 * $cols);
-	$.each($('ul.sortable li'), function($i, $elm) {
-		$($elm).css('width', $newWidth);
-	});
-}
-
+//specific code for options tab
 function initOptionsTab(){
 	//don't display boxwidth/boxheight if  element is input or textComplete
 	var boxwidth = ['input', 'textComplete'];
@@ -51,7 +36,6 @@ function initOptionsTab(){
 
 // add empty row to ad an new answerchoice item
 function addItemRow(){
-	
 	var tid = new Date().getTime();
 	$("table#answeritems tr#newitem").clone().find('input').each(function() {
 	    $(this).attr({
@@ -65,26 +49,16 @@ function addItemRow(){
 	  }).end().insertBefore($("table#answeritems tr#newitem")).attr('id','items-'+tid).removeClass('hidden').show('slow');
 }
 
+//only one of 'reuse' (answer_domain_id) or 'new' should be set
 function resetAnswerDomain($element) {
 	$('#question-'+$element).val('');
 }
 
 $(function() {
-	initColWidth();
+	$('.tabs').tabs();
 	initOptionsTab();
+	//before submit is send to server, update hidden sort field with order of answer items
 	
-	$('.sortable2').sortable({
-		placeholder: 'ui-state-highlight',
-		items: "tr:not(#headerRow, hidden, #footerRow)",
-		update: function(event, ui) {
-			saveState(event, ui);
-		}
-	});
-	
-	/* hide/show presentation options on change of presentation type */
-	$('#options-presentation').change(function() {
-		initOptionsTab();
-	});
 	// only one of 'reuse' (answer_domain_id) or 'new' should be set
 	$('#question-new').change(function() {
 		resetAnswerDomain('answer_domain_id')
@@ -92,61 +66,34 @@ $(function() {
 	$('#question-answer_domain_id').change(function() {
 		resetAnswerDomain('new');
 	});
-	
-	// add empty row to ad an new answerchoice item
+
+	//make answer items sortable
+	$('.sortable2').sortable({
+		placeholder: 'ui-state-highlight',
+		items: "tr:not(#headerRow, hidden, #footerRow)",
+		update: function(event, ui) {
+			updateSortField();
+		}
+	});
+
+	// add empty row to add an new answerchoice item
 	$('#addItemRow').click(function() {
 		addItemRow();
 	});
 	
-	$('#less').click(function() {
-		$containerWidth = parseInt($('ul.sortable').css('width'));
-		$itemWidth = parseInt($('ul.sortable li').css('width'));
-		$cols = parseInt($containerWidth / $itemWidth);
-		$newCols = $cols - 1;
-		$('#cols').val($newCols);
-		$newWidth = $containerWidth / ($newCols) - (5 * $newCols);
-		$.each($('ul.sortable li'), function($i, $elm) {
-			$($elm).css('width', $newWidth);
-		});
-		saveState();
-		return false;
+	/* hide/show presentation options on change of presentation type */
+	$('#options-presentation').change(function() {
+		initOptionsTab();
 	});
 	
-	$('#more').click(function() {
-		$containerWidth = parseInt($('ul.sortable').css('width'));
-		$itemWidth = parseInt($('ul.sortable li').css('width'));
-		$cols = parseInt($containerWidth / $itemWidth);
-		$newCols = $cols + 1;
-		$('#cols').val($newCols);
-		$newWidth = $containerWidth / ($newCols) - (5 * $newCols);
-		$.each($('ul.sortable li'), function($i, $elm) {
-			$($elm).css('width', $newWidth);
-		});
-		saveState();
-		return false;
-	});
-	
+	//obsolete at this moment
 	$('ul.sortable li a.icon.delete').click(function() {
 		$(this).closest('li').remove();
 		saveState();
 		return false;
 	});
 	
-	$('.tabs').tabs();
+	$("form").submit(function (){
+		updateSortField();
+	})	
 });
-
-function postOpenDialog() {
-	$('.selectable').selectable({
-		stop: function() {
-			$('.ui-selected', this).appendTo('.sortable')
-				.removeClass('ui-widget-content')
-				.removeClass('ui-selectee')
-				.removeClass('ui-selected')
-				.addClass('ui-state-default')
-				.css('width', $('.sortable li').css('width'));
-			$('#dialog').dialog('close');
-			saveState();
-		}
-	});
-	
-}

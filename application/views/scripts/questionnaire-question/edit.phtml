@@ -1,31 +1,22 @@
-<form action="<?php echo $this->form->getAction(); ?>" method="post" class="tabs">
-    <div class="tabs">
-        <ul>
-            <?php echo ($this->activeTab=='question'? '<li class="ui-tabs-active">':'<li>')?>
-                <a href="#question"><?php echo t('question'); ?></a>
-            </li>
-            <?php echo ($this->activeTab=='answers'? '<li class="ui-tabs-active">':'<li>')?>
+<div class="tabs">
+    <?php
+    //tabs based on subforms
+        echo $this->tabsBasedOnSubForms();
+    ?>
 
-            <a href="#answers"><?php echo t('answer options'); ?></a>
-            </li>
-            <?php echo ($this->activeTab=='options'? '<li class="ui-tabs-active">':'<li>')?>
-                <a href="#options"><?php echo t('options'); ?></a>
-            </li>
-        </ul>
-
-        <div id=questionText><h3>
-        <?php $language = Zend_Registry::get('Zend_Locale')->getLanguage();
-            echo  $this->form->question->getValue('text')[$language]; ?>
-        </h3></div>
-
-        <div id="question">
-            <?php echo $this->form->question; ?>
-        </div>
-        <div id="answers">
-            <?php echo $this->form->answer; ?>
-        </div>
-        <div id="options">
-            <?php echo $this->form->options; ?>
-        </div>
-    </div>
-</form>
+    <div id=questionText><h3>
+    <?php
+    $language = Zend_Registry::get('Zend_Locale')->getLanguage();
+        if ($this->form->question){
+            $temp=$this->form->question->getValue('text');
+            echo $temp[$language];
+        }elseif($this->form->grid){
+            $temp=$this->form->grid->getValue('text');
+            echo $temp[$language];
+        }
+        ?>
+    </h3></div>
+    <?php
+        echo $this->form;
+    ?>
+</div>

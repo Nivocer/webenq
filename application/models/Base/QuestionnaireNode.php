@@ -33,6 +33,10 @@ abstract class Webenq_Model_Base_QuestionnaireNode extends Doctrine_Record
              array(
               'type' => 'QuestionnaireGroupNode',
              ),
+             'Webenq_Model_QuestionnaireLikertNode' => 
+             array(
+              'type' => 'QuestionnaireLikertNode',
+             ),
              'Webenq_Model_QuestionnairePageNode' => 
              array(
               'type' => 'QuestionnairePageNode',

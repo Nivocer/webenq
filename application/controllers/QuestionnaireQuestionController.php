@@ -116,7 +116,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      * root of the tree in which the node resides) and the associated question.
      *
      * @todo clean function (splits?)
-     * @todo currently implicitly assumes the element is a "question", not just a "node"
      * @return void
      */
     public function editAction()
@@ -134,8 +133,19 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         ->getFirst();
 
         // @todo getting the type should be delegated, is too dependent on deep data structure
-        $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        $this->view->form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage' => $questionnaire->default_language));
+        // get form
+        if ($questionnaireQuestion->QuestionnaireElement->AnswerDomain){
+            $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
+        }else {
+            $answerDomainType='';
+        }
+        $this->view->form = new Webenq_Form_Question_Properties(
+            array(
+                'answerDomainType' => $answerDomainType,
+                'defaultLanguage'=>$questionnaire->default_language,
+                'nodeType'=>$questionnaireQuestion->type,
+            )
+        );
         $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         $storedData = $questionnaireQuestion->toArray();

@@ -57,6 +57,10 @@ QuestionnaireGroupNode:
   inheritance: 
     extends: QuestionnaireNode
     type: column_aggregation
+QuestionnaireLikertNode:
+  inheritance:
+    extends: QuestionnaireGroupNode
+    type: column_aggregation
 QuestionnairePageNode:
   inheritance: 
     extends: QuestionnaireGroupNode
@@ -89,6 +93,10 @@ QuestionnaireElement:
 QuestionnaireGroupElement:
   inheritance: 
     extends: QuestionnaireElement
+    type: column_aggregation
+QuestionnaireLikertElement:
+  inheritance:
+    extends: QuestionnaireGroupElement
     type: column_aggregation
 QuestionnairePageElement:
   inheritance:

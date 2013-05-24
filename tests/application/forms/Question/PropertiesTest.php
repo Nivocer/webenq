@@ -33,7 +33,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
     public function testAppropriateActionIsDetermined($data)
     {
         $this->loadDatabase();
-        $form = new  Webenq_Form_Question_Properties();
+        $form = new  Webenq_Form_Question_Properties(array('nodeType'=>'QuestionnaireQuestionNode'));
         $form->setDefaults($data['post']);
         $action = $form->getSituations();
         sort($action);

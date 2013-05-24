@@ -49,6 +49,10 @@ abstract class Webenq_Model_Base_QuestionnaireElement extends Doctrine_Record
              array(
               'type' => 'QuestionnaireGroupElement',
              ),
+             'Webenq_Model_QuestionnaireLikertElement' => 
+             array(
+              'type' => 'QuestionnaireLikertElement',
+             ),
              'Webenq_Model_QuestionnairePageElement' => 
              array(
               'type' => 'QuestionnairePageElement',

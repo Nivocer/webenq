@@ -39,36 +39,45 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         parent::save($conn);
     }
 
-    // Reorder all Descendants
+    /**
+     * save the pages, groups and questions as children of their parent
+     *
+     * @param array $data (structured array, with all the descendants) key is parent, val is array with children
+     * @todo determin restrictions of the sorting
+     *  // cases:
+        // - not all children of this node were given: they become the first nodes
+        // - more nodes were given: they are added: wanted behavior
+        // - given nodes were not children of this node: possible wanted behavior
+        //   example: drag question from one Likert table into another: oops (but not possible via ui)
+        // - given nodes don't belong to this questionnaire: big oops
+         *
+         * @param array $data
+
+    */
     public function reorderDescendants($data)
     {
-        /**
-     * save the pages, groups and questions as children of their parent
-     * @todo adjust js-input to get logic array as input
-     *
-     * @param array $data (structured array, with all the descendants) first val is 'group'-node, second val is array with groups and questions below
-     */
         foreach ($data as $key=>$val){
             if (is_array($val)){
-                //first entry is parent, second is array with descendants
-                $currentParentId=preg_replace("/[^\d]/", "", $val[0]);
+                //insert
+                $currentParentId=$this->cleanId($key);
                 $currentParent=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($currentParentId);
                 $currentParent->getNode()->moveAsLastChildOf($this);
-                $currentParent->reorderDescendants($val[1]);
+                $currentParent->reorderDescendants($val);
             }else {
-            // no children
+                // current node has no children
                 //insert current val as last child of parent:
-                $nodeId=preg_replace("/[^\d]/", "", $val);
+                $nodeId=$this->cleanId($val);
                 $child=Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')->find($nodeId);
                 $child->getNode()->moveAsLastChildOf($this);
             }
         }
-
-        // cases:
-        // - not all children of this node were given
-        // - more nodes were given
-        // - given nodes were not children of this node
-        //   example: drag question from one Likert table into another
+    }
+    /**
+     * remove everything but numbers from (html-)id's.
+     * @param  $item
+     */
+    public function cleanId($input){
+        return preg_replace("/[^\d]/", "", $input);
     }
 
     // prepare the output (
