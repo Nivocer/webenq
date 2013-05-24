@@ -227,30 +227,30 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
                 //change: other existing answer domain: mismatch $question[answer_domain_id] and answers[id] tab
                 if ($this->question->answer_domain_id->getValue()<>'0' &&
                     $this->question->new->getValue()=='0' &&
-                    $this->answers->id->getValue() <>'0' &&
-                    $this->question->answer_domain_id->getValue() <>$this->answers->id->getValue()){
+                    $this->answer->id->getValue() <>'0' &&
+                    $this->question->answer_domain_id->getValue() <>$this->answer->id->getValue()){
                     $situations[]='differentAnswerDomainChosen';
                 }
 
                 //change to a new answer domain: new type is chosen, existing one on answer tab
                 if ($this->question->new->getValue()<>'0' &&
-                    $this->answers->id->getValue() <>'0' && $this->answers->id->getValue()<>null
+                    $this->answer->id->getValue() <>'0' && $this->answer->id->getValue()<>null
                     ){
                     $situations[]='newAnswerDomainChosen';
                 }
 
                 //change to new answer domain: other answerDomaintType choosen
                 if ($this->question->new->getValue() <>'0' &&
-                    ( $this->answers->id->getValue()=='0'|| $this->answers->id->getValue()==null ) &&
-                    'AnswerDomain'.$this->question->new->getValue()<>$this->answers->type->getValue()
+                    ( $this->answer->id->getValue()=='0'|| $this->answer->id->getValue()==null ) &&
+                    'AnswerDomain'.$this->question->new->getValue()<>$this->answer->type->getValue()
                         ){
                     $situations[]='newAnswerDomainTypeChosen';
                 }
 
                 //change to new answer domain: same answerDomaintType choosen
                 if($this->question->new->getValue()<>'0' &&
-                     $this->answers->id->getValue()=='0' &&
-                    'AnswerDomain'.$this->question->new->getValue()==$this->answers->type->getValue()
+                     $this->answer->id->getValue()=='0' &&
+                    'AnswerDomain'.$this->question->new->getValue()==$this->answer->type->getValue()
                         ){
                     $situations[]='newAnswerDomainSameTypeChosen';
                 }

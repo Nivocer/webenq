@@ -33,7 +33,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
     public function testAppropriateActionIsDetermined($data)
     {
         $this->loadDatabase();
-        $form = new  Webenq_Form_Question_Properties(array('nodeType'=>'QuestionnaireQuestionNode'));
+        $form = new Webenq_Form_Question_Properties(array('nodeType'=>'QuestionnaireQuestionNode'));
         $form->setDefaults($data['post']);
         $action = $form->getSituations();
         sort($action);
@@ -60,7 +60,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'new' => 0,
                         'next' => 'Next'
                     ),
-                    'answers' => array(
+                    'answer' => array(
                         'id' => 4
                     )
                 ),
@@ -76,7 +76,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'new' => 'Choice',
                         'next' => 'Next'
                     ),
-                    'answers' => array(
+                    'answer' => array(
                         'id' => 4
                     )
                 ),
@@ -93,7 +93,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'new' => 'Choice',
                         'next' => 'Next'
                     ),
-                    'answers' => array(
+                    'answer' => array(
                         'id' => 0,
                         'type' => 'AnswerDomainChoice',
                     )
@@ -111,7 +111,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'new' => 'Choice',
                         'next' => 'Next'
                     ),
-                    'answers' => array(
+                    'answer' => array(
                         'id' => 0,
                         'type'=>'AnswerDomainNumeric',
                         )
@@ -128,7 +128,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                             'new' => 'Choice',
                             'next' => 'Next'
                     ),
-                    'answers' => array(
+                    'answer' => array(
                         'type' => 'AnswerDomainText'
                     )
                 ),
@@ -144,7 +144,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'new' => 'Choice',
                         'next' => 'Next'
                     ),
-                    'answers' => array(
+                    'answer' => array(
                         'type' => 'AnswerDomainNumeric'
                     )
                 ),
@@ -160,7 +160,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'new' => 'Choice',
                         'next' => 'Volgende'
                     ),
-                    'answers' => array(
+                    'answer' => array(
                         'type' => 'AnswerDomainNumeric'
                     )
                 ),
@@ -168,7 +168,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
             )),*/
 
             /*
-             * Subform "anwers"
+             * Subform "answer"
              */
 
             /*
