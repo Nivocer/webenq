@@ -43,6 +43,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     );
 
     public $questionnaireQuestion;
+
     /**
      * Renders the form for adding an existing question to a questionnaire
      */
@@ -107,72 +108,67 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     }
 
     /**
-     * Renders the form for editing a questionnaire and handle saving of form.
+     * Edit a question
+     *
+     * Required: an id of a questionnaire node.
+     *
+     * The questionnaire node id can be used to find both the questionnaire (the
+     * root of the tree in which the node resides) and the associated question.
+     *
      * @todo clean function (splits?)
+     * @todo currently implicitly assumes the element is a "question", not just a "node"
      * @return void
      */
     public function editAction()
     {
-        $questionnaireNode=new Webenq_Model_QuestionnaireNode();
-        $this->questionnaireQuestion=$questionnaireNode->getTable()->find($this->_request->id);
+        $questionnaireQuestion = Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')
+        ->find($this->_request->id);
 
-        //@todo use $this-questionnaireQuestion->getQuestionnaire, but it has already gitFirst,
-        // check to see if that is a problem (getFirst returns record, findBy a collection)
-        $questionnaire=new Webenq_Model_Questionnaire();
-        //fix add questionnaire to questionnaireQuestion, maybe relation problem?
-        $this->questionnaireQuestion->Questionnaire=$questionnaire->getTable()->findBy('questionnaire_node_id', $this->questionnaireQuestion->root_id);
-
-        if (!$this->questionnaireQuestion){
+        if (!$questionnaireQuestion) {
             $this->_redirect('/questionnaire/');
             return;
         }
-        // get form
-        $answerDomainType=$this->questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        $this->view->form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$this->questionnaireQuestion->Questionnaire->getFirst()->default_language));
+
+        $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
+        ->findBy('questionnaire_node_id', $questionnaireQuestion->root_id)
+        ->getFirst();
+
+        // @todo getting the type should be delegated, is too dependent on deep data structure
+        $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
+        $this->view->form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage' => $questionnaire->default_language));
         $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
-        //is posted?/process form
-        if ($this->getRequest()->isPost()){
-            //is form cancelled-> redirect to preview questionnaire
+        $storedData = $questionnaireQuestion->toArray();
+
+        if ($this->getRequest()->isPost()) {
             if ($this->_helper->form->isCancelled($this->view->form)) {
-                $redirectUrl = 'questionnaire/edit/id/' . $this->questionnaireQuestion->Questionnaire->getFirst()->id;
+                $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
                 $this->_redirect($redirectUrl);
                 return;
-            }else{
+            } else {
                 //fill information from forms
                 $this->view->form->setDefaults($this->getRequest()->getPost());
                 $formData=$this->view->form->getValues();
-                if (isset($formData['question']['question']['id']) && $formData['question']['question']['id']==$this->questionnaireQuestion->get('id')) {
-                    $submitInfo=$this->view->form->getSubmitButtonUsed();
-                    if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($this->getRequest()->getPost())){
-                        //get action stack from controller to perform based on the form data
-                        $situations=$this->view->form->getSituations();
-                        $this->actOnSituation($situations, $formData);
-                        //redirect to other tab (or preview questionnaire when done)
-                        $this->redirectTo($submitInfo, true);
-                    }else {
-                        //subform is not valid: go to current tab
-                        $this->view->activeTab=$submitInfo['subForm'];
-                    }
-                } else {
-                    $this->_helper->getHelper('FlashMessenger')
-                    ->setNamespace('error')
-                    ->addMessage(
-                        t('Question identifier mismatch, something went wrong')
-                    );
-                }
 
+                $submitInfo=$this->view->form->getSubmitButtonUsed();
+                if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($formData[$submitInfo['subForm']])) {
+                    //get action stack from controller to perform based on the form data
+                    $situations=$this->view->form->getSituations();
+                    $this->actOnSituations($situations, $formData);
+                    //redirect to other tab (or preview questionnaire when done)
+                    $this->redirectTo($submitInfo, true);
+                } else {
+                    //subform is not valid: go to current tab
+                    $this->view->activeTab=$submitInfo['subForm'];
+                }
             }
         } else {
-            //data from database
-            $this->view->form->setDefaults($this->questionnaireQuestion->toArray());
+            $this->view->form->setDefaults($storedData);
         }
-        //@todo adjust form so we don't need $questionnaireQuestion in form
-        //add questionnaire info to form, we need the question text, but we could get it from form-data
-        $this->view->questionnaireQuestion = $this->questionnaireQuestion;
     }
 
-    public function actOnSituation ($situations, $postData){
+    public function actOnSituations($situations, $postData)
+    {
         //@todo check to see if there is a php/zend-function for it like _forward (__call)?
         foreach ($situations as $situation){
             switch ($situation){
@@ -181,7 +177,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     $answerDomainModel=new Webenq_Model_AnswerDomain();
                     $answerDomain=$answerDomainModel->getTable()->find($postData['question']['question']['answer_domain_id']);
                     $this->view->form->answerDomainType=$answerDomain->type;
-                    $this->view->form->initDeterminClasses();
+                    $this->view->form->initDetermineClasses();
                     $this->view->form->initAnswersTab();
                     $this->view->form->getSubform('answers')->setDefaults($answerDomain->toArray());
                     $this->view->form->initOptionsTab();
@@ -193,7 +189,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
                     $this->view->form->answerDomainType=$postData['question']['question']['new'];
-                    $this->view->form->initDeterminClasses();
+                    $this->view->form->initDetermineClasses();
                     $this->view->form->initAnswersTab();
                     $this->view->form->initOptionsTab();
                     $temp['required']=$postData['options']['options']['required'];
@@ -203,7 +199,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
                     $this->view->form->answerDomainType=$postData['question']['question']['new'];
-                    $this->view->form->initDeterminClasses();
+                    $this->view->form->initDetermineClasses();
                     $this->view->form->initAnswersTab();
                     $this->view->form->initOptionsTab();
                     $this->view->form->setDefaults($postData);
@@ -224,12 +220,12 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     public function redirectTo($submitInfo, $soft) {
         //build redirect url
         $redirectSubForm=$this->view->form->getRedirectSubform($submitInfo);
-        if ($redirectSubForm=='done'){
+        if ($redirectSubForm=='done') {
             //do we have info from database
-            if ($this->questionnaireQuestion && $this->questionnaireQuestion->Questionnaire){
-                $questionnaireId=$this->questionnaireQuestion->Questionnaire->getFirst()->id;
+            if ($this->questionnaireQuestion && $this->questionnaire) {
+                $questionnaireId=$this->questionnaire->id;
                 $pageId=$this->questionnaireQuestion->getPage()->id;
-            }else{
+            } else {
                 //info from form
                 $questionnaireId=$this->view->form->question->getValue('questionnaire_id');
                 //we have a parent_id, in form, it is page id...
@@ -248,17 +244,16 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             //if ((int) $this->questionnaireQuestion->CollectionPresentation[0]->page !== 0) {
             //    $redirectUrl .= '#page-' . $this->questionnaireQuestion->CollectionPresentation[0]->page;
             //}
-        }else {
-            if  ($soft){
+        } else {
+            if ($soft) {
                 $this->view->activeTab=$redirectSubForm;
                 return;
-            }else {
+            } else {
                 //when we want to get info from database (reset?)
                 //note: if redirectSubform ==false -> go to first tab
                 $redirectUrl = 'questionnaire-question/edit/id/' . $this->questionnaireQuestion->id;
                 $redirectUrl .= '#' . $redirectSubForm;
             }
-
         }
 
         // close dialog and redirect
@@ -271,11 +266,12 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             );
         } else {
             $this->_redirect($redirectUrl);
-
             return;
         }
     }
-    public function saveQuestionnaireQuestion(){
+
+    public function saveQuestionnaireQuestion()
+    {
         $this->questionnaireQuestion->save();
         $this->_helper->getHelper('FlashMessenger')
         ->setNamespace('success')
@@ -287,6 +283,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             )
         );
     }
+
     /**
      * Renders the form for deleting a question from a questionnaire,
      * or completely deleting it from the repository.

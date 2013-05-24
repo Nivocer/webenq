@@ -68,13 +68,11 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
         $id = new Zend_Form_Element_Hidden('id');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
-        $id->setBelongsTo('answers');
         $this->addElement($id);
 
         $type = new Zend_Form_Element_Hidden('type');
         $type->removeDecorator('DtDdWrapper');
         $type->removeDecorator('Label');
-        $type->setBelongsTo('answers');
         $type->setValue($this->_type);
         $this->addElement($type);
 
@@ -85,12 +83,10 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
 
         $submitPrevious=new Zend_Form_Element_Submit('previous');
         $submitPrevious->setLabel('Previous');
-        $submitPrevious->setBelongsTo('answers');
         $this->addElement($submitPrevious);
 
         $submitNext=new Zend_Form_Element_Submit('next');
         $submitNext->setLabel('Next');
-        $submitNext->setBelongsTo('answers');
         $this->addElement($submitNext);
 
         $this->addDisplayGroup(
@@ -116,7 +112,6 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
                 $validator=new Zend_Form_Element_MultiCheckbox('validator');
                 $validator->setLabel('Perform these validations before accepting an answer');
                 $validator->setMultiOptions($validatorArray);
-                $validator->setBelongsTo('answers');
                 $validator->setAttrib('class', 'optionlist');
                 $this->addElement($validator);
             }
@@ -140,7 +135,6 @@ class Webenq_Form_AnswerDomain_Tab extends WebEnq4_Form
                 $filter->setLabel('Apply these changes before storing an answer:');
                 $filter->setAttrib('class', 'optionlist');
                 $filter->setMultiOptions($filterArray);
-                $filter->setBelongsTo('answers');
                 $this->addElement($filter);
             }
         }

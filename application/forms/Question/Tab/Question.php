@@ -37,40 +37,31 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
      */
     public function init()
     {
-        $qid=new Zend_Form_Element_Hidden('questionnaire_id');
-        $qid->removeDecorator('DtDdWrapper');
-        $qid->removeDecorator('Label');
-        $qid->setBelongsTo('question');
-        $this->addElement($qid);
-
+        /* question id for a question in a questionnaire */
         $id = new Zend_Form_Element_Hidden('id');
         $id->removeDecorator('DtDdWrapper');
         $id->removeDecorator('Label');
-        $id->setBelongsTo('question');
         $this->addElement($id);
 
-        //moved from properties.php, don't know what function is. @todo adjust belongsTo?
-        $node_id = new Zend_Form_Element_Hidden('node_id');
-        $node_id->removeDecorator('DtDdWrapper');
-        $node_id->removeDecorator('Label');
-        $this->addElement($node_id);
+        $qid=new Zend_Form_Element_Hidden('questionnaire_id');
+        $qid->removeDecorator('DtDdWrapper');
+        $qid->removeDecorator('Label');
+        $this->addElement($qid);
 
         $parentId = new Zend_Form_Element_Hidden('parent_id');
         $parentId->removeDecorator('DtDdWrapper');
         $parentId->removeDecorator('Label');
-        $parentId->setBelongsTo('question');
         $this->addElement($parentId);
-
 
         $text = new WebEnq4_Form_Element_MlText('text');
         $text->setAttrib('languages', $this->_languages);
         $text->setAttrib('defaultLanguage',$this->_defaultLanguage);
         $text->setLabel('Text');
-        $text->setBelongsTo('question');
         $text->setRequired();
         $this->addElement($text);
 
-        /*$suggestionsOptions=array();
+/*
+        $suggestionsOptions=array();
         //$info['suggestions']=Webenq_Model_QuestionnaireQuestion::getAnswerOptions($questionnaireQuestion->QuestionnaireElement->getTranslation('text'));
 
         $suggestions=new Zend_Form_Element_Radio('suggestions');
@@ -80,7 +71,6 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
 */
         $reuse=new Zend_Form_Element_Select('answer_domain_id');
         $reuse->setLabel('Reuse');
-        $reuse->setBelongsTo('question');
         $reuse->addMultiOption("",t('...pick a set of answers options to reuse...'));
 
         foreach (Webenq_Model_AnswerDomain::getAll() as $answerDomain){
@@ -92,7 +82,6 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
 
         $new=new Zend_Form_Element_Select('new');
         $new->setLabel('Add new');
-        $new->setBelongsTo('question');
         $new->addMultiOption(0,t('...or add a new set of answer options...'));
         foreach (Webenq_Model_AnswerDomain::getAvailableTypes() as $key=>$value) {
             $new->addMultiOption($key,$value['label']);
@@ -106,7 +95,6 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
 
         $submitQuestionNext=new Zend_Form_Element_Submit('next');
         $submitQuestionNext->setLabel('Next');
-        $submitQuestionNext->setBelongsTo('question');
         $this->addElement($submitQuestionNext);
 
         $this->addDisplayGroup(
@@ -116,20 +104,22 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
         );
     }
 
-    public function isValid($value){
+    public function isValid($value)
+    {
         $isValid=parent::isValid($value);
-        if ((''==$value['question']['answer_domain_id'] || '0'==$value['question']['answer_domain_id']) &&
-             (''==$value['question']['new'] || '0'==$value['question']['new'])){
-            $this->answer_domain_id->addError(t('Choose one of these options'));
+
+        if ((''==$value['answer_domain_id'] || '0'==$value['answer_domain_id'])
+        && (''==$value['new'] || '0'==$value['new'])) {
             $this->new->addError(t('Choose one of these options'));
             return false;
         }
-         if (!(''==$value['question']['answer_domain_id'] || '0'==$value['question']['answer_domain_id']) &&
-              !(''==$value['question']['new'] || '0'==$value['question']['new'])){
-            $this->answer_domain_id->addError(t('Choose only one of these options'));
+
+        if (!(''==$value['answer_domain_id'] || '0'==$value['answer_domain_id'])
+        && !(''==$value['new'] || '0'==$value['new'])) {
             $this->new->addError(t('Choose only one of these options'));
             return false;
         }
+
         return $isValid;
     }
 

@@ -6,7 +6,7 @@ function saveState(event, reload)
     if ($(event.target).hasClass('answeritems')) { 
         var $data=$(event.target).sortable('toArray');
     	//alert($.toJSON($data));
-        $('#answers-sortable').val($.toJSON($data));
+        $('#answer-items-sortable').val($.toJSON($data));
     }
 }
 
@@ -57,10 +57,10 @@ function addItemRow(){
 	    $(this).attr({
 	      'id': function(_, id) { 
 	    	  	if (id){
-	    	  		return id.replace(/^answer-items-new-/,'answers-items-'+tid+'-'); 
+	    	  		return id.replace(/^answer-items-new-/,'answer-items-'+tid+'-'); 
 	    	  	}
 	    	  	},
-	      'name': function(_, name) { return name.replace(/^answer\[items\]\[new\]/, 'answers[items]['+tid+']'); }
+	      'name': function(_, name) { return name.replace(/^answer\[items\]\[new\]/, 'answer[items]['+tid+']'); }
 	    });
 	  }).end().insertBefore($("table#answeritems tr#newitem")).attr('id','items-'+tid).removeClass('hidden').show('slow');
 }

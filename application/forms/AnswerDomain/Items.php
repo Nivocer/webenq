@@ -107,7 +107,6 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
     {
         //element to store the order of the items from javascript
         $sortable=new Zend_Form_Element_Hidden('sortable');
-        $sortable->setBelongsTo('answers');
         $sortable->removeDecorator('DtDdWrapper');
         $sortable->removeDecorator('Label');
         $this->addElement($sortable);
@@ -117,7 +116,6 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         foreach ($this->_fields as $fieldname => $fieldinfo) {
             $cell = new WebEnq4_Form_Element_Note('th_'.$fieldname);
             $cell->setValue($fieldinfo['label']);
-            $cell->setBelongsTo('items');
             $this->decorateAsTableCell($cell, true);
             $this->addElement($cell);
             $header[] = $cell->getName();
@@ -127,8 +125,8 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         $this->decorateAsTableRow($this->getDisplayGroup('header'),array('id'=>'headerRow'));
 
         // add a hidden empty row to add as new item
-        $this->addItemRow('answer[items][new]', array('order' => 998));
-        $newItemsRow = $this->getSubForm('answer[items][new]');
+        $this->addItemRow('new', array('order' => 998));
+        $newItemsRow = $this->getSubForm('new');
         foreach($newItemsRow->getElements() as $element){
             $element->setRequired(false);
         }
@@ -153,61 +151,54 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
     }
 
     /**
-     * Set defaults, in our case: add some form elements
+     * Set defaults for items list by adding necessary rows for each item.
+     *
+     * If an item id is given but no sub-items are present, try to load them
+     * from the database.
+     *
+     * @todo should move to controller
      */
     public function setDefaults(array $defaults)
     {
-        if ($defaults['source']=='model'){
-            $defaults=$this->createItemsRowsFromModel($defaults);
-        }else{
-            $defaults=$this->createItemsRowsFromForm($defaults);
-        }
-        parent::setDefaults($defaults);
-    }
+        if (!isset($defaults['items'])) {
+            if (isset($defaults['answer_domain_item_id'])) {
+                $items = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')
+                ->getTree()
+                ->fetchTree(array('root_id' => $defaults['answer_domain_item_id']))
+                ->toArray();
 
-    public function createItemsRowsFromModel($defaults){
-        if (isset($defaults['id'])) {
-            $tree = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
-            $domainitems = $tree->fetchTree(array('root_id' => $defaults['id']));
-
-            // only create subforms if they are not already created
-            if (!$this->_itemsAdded){
-                foreach ($domainitems as $item) {
-                    if ($item->id != $item->root_id) { // skip the root of the items
-                        $this->addItemRow('answers[items][' . $item->id . ']');
-
-                        $itemArray = $item->toArray();
-                        /**
-                         * @todo DRY... maybe move this to model toArray()?
-                         * @see WebEnq4_Form::setDefaults()
-                         */
-                        if (isset($itemArray['Translation'])) {
-                            foreach ($itemArray['Translation'] as $lang => $record) {
+                foreach ($items as $item) {
+                    if ($item['id'] != $item['root_id']) { // skip the root of the items
+                        if (isset($item['Translation'])) {
+                            foreach ($item['Translation'] as $lang => $record) {
                                 foreach ($record as $field => $value) {
                                     if (($field != 'id') && ($field != 'lang')) {
-                                        $itemArray[$field][$lang] = $value;
+                                        $item[$field][$lang] = $value;
                                     }
                                 }
                             }
                         }
-                        $defaults['items'][$item->id] = $itemArray;
+                        $defaults['items'][$item['id']] = $item;
                     }
                 }
-                $this->_itemsAdded = true;
+            } else {
+                $defaults['items'] = array();
             }
         }
-        return $defaults;
-    }
-    public function createItemsRowsFromForm($defaults){
-        foreach ($defaults as $idx => $values) {
-            if ($idx<>'source') {
-                $this->addItemRow('answers[items]['.$idx.']');
-                $this->_itemsAdded = true;
+
+        // only create subforms if they are not already created
+        if (!$this->_itemsAdded){
+            foreach ($defaults['items'] as $key => $item) {
+                if (!in_array($key, array('sortable', 'new'))) {
+                    $this->addItemRow($key);
+                }
             }
+            $this->_itemsAdded = true;
         }
-        $this->_itemsAdded=true;
-        return $defaults;
+
+        parent::setDefaults($defaults);
     }
+
     /**
      * Add a row for a single item
      *
@@ -245,11 +236,11 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             if (isset($fieldinfo['description'])) {
                 $cell->setAttrib('title', $fieldinfo['description']);
             }
-            $cell->setBelongsTo($name);
             $rowForm->decorateAsTableCell($cell);
-
             $rowForm->addElement($cell);
         }
+
+        $rowForm->setElementsBelongTo($name);
 
         if (isset($options['order'])) {
             $this->addSubForm($rowForm, $name, $options['order']);

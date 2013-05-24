@@ -59,14 +59,18 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
 
     public function init()
     {
-        $this->initDeterminClasses();
+        $this->initDetermineClasses();
         $this->initQuestionTab();
         $this->initAnswersTab();
         $this->initOptionsTab();
     }
 
-    public function initDeterminClasses(){
-        /* determine appropriate tab forms for answer settings and options */
+    /**
+     * Determine appropriate tab forms for answer settings and options, based
+     * on the answer domain chosen.
+     */
+    public function initDetermineClasses()
+    {
         $answerDomainType = $this->answerDomainType;
 
         if (in_array($answerDomainType, array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
@@ -77,52 +81,82 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
             $this->_classOptions = 'Webenq_Form_Question_Tab_Options';
         }
     }
-    public function initQuestionTab(){
-    /* question text and type tab */
+
+    /**
+     * Add subform for question tab
+     */
+    public function initQuestionTab()
+    {
         $question = new Webenq_Form_Question_Tab_Question(array('defaultLanguage'=>$this->_defaultLanguage));
+        $question->setElementsBelongTo('question');
         $question->removeDecorator('DtDdWrapper');
         $this->addSubForm($question, 'question');
     }
-    public function initAnswersTab(){
-        /* answer domain settings tab */
-        $answers = new $this->_classAnswers(array('defaultLanguage'=>$this->_defaultLanguage));
-        $answers->removeDecorator('DtDdWrapper');
-        $this->addSubForm($answers, 'answers');
 
-}
-    public function initOptionsTab(){
-    /* question options settings tab */
+    /**
+     * Add subform for answers tab
+     */
+    public function initAnswersTab()
+    {
+        $answer = new $this->_classAnswers(array('defaultLanguage'=>$this->_defaultLanguage));
+        $answer->setElementsBelongTo('answer');
+        $answer->removeDecorator('DtDdWrapper');
+        $this->addSubForm($answer, 'answer');
+    }
+
+    /**
+     * Add subform for options tab
+     */
+    public function initOptionsTab()
+    {
+        /* question options settings tab */
         $options = new $this->_classOptions(array('defaultLanguage'=>$this->_defaultLanguage));
+        $options->setElementsBelongTo('options');
         $options->removeDecorator('DtDdWrapper');
         $this->addSubForm($options, 'options');
-}
+    }
+
     /**
-     * Set defaults for all elements
+     * Set defaults for question properties form
+     *
+     * The provided $defaults should be similar to the output of toArray() on
+     * a questionnaire node.
+     *
+     * <ul>
+     * <li>['id'], ['type'], ['root_id'], ...: node attributes
+     * <li>['QuestionnaireElement']: related questionnaire question element
+     * <li>['QuestionnaireElement']['AnswerDomain']: answer domain related to the questionnaire question element
+     * </ul>
+     *
+     * If no ['QuestionnaireElement'] sub array is available, existing values
+     * for ['question'], ['answers'] and ['options'] will be preserved.
+     *
+     * @param array Array with data for a questionnaire node
      */
     public function setDefaults(array $defaults)
     {
-        //question tab
-        if (isset($defaults['Questionnaire'][0]['id'])){
-            $defaults['question']['questionnaire_id']=$defaults['Questionnaire'][0]['id'];
-        }
-        if (isset($defaults['id'])){
-            $defaults['question']['node_id']= $defaults['id'];
-        }
+        /* translate from database data? */
         if (isset($defaults['QuestionnaireElement'])) {
+            /* question tab */
             $defaults['question'] = $defaults['QuestionnaireElement'];
-            //answer options tab
+
+            if (isset($defaults['questionnaire_id'])) {
+                $defaults['question']['questionnaire_id'] = $defaults['questionnaire_id'];
+            }
+
+            /* answer options tab */
             //pass info from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
-                $defaults['answers'] = $defaults['QuestionnaireElement']['AnswerDomain'];
+                $defaults['answer'] = $defaults['QuestionnaireElement']['AnswerDomain'];
             }
             // pass the answer domain settings to the options tab as possible defaults
             if (isset($defaults['QuestionnaireElement']['options']['answerDomain'])){
                 foreach ($defaults['QuestionnaireElement']['options']['answerDomain'] as $key=>$value) {
-                    $defaults['answers'][$key] = $value;
+                    $defaults['answer'][$key] = $value;
                 }
             }
 
-            //options tab
+            /* options tab */
             //get defaults from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
                 $defaults['options']=$defaults['QuestionnaireElement']['AnswerDomain'];
@@ -137,6 +171,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
             $defaults['options']['active'] = $defaults['QuestionnaireElement']['active'];
             $defaults['options']['required'] = $defaults['QuestionnaireElement']['required'];
         }
+
         parent::setDefaults($defaults);
     }
 
@@ -144,7 +179,8 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
     /**
      * @return array: array with situations that needs action before redisplay form
      */
-    public function getSituations() {
+    public function getSituations()
+    {
         $situations=array();
         $submitInfo=$this->getSubmitButtonUsed(array('next', 'previous','done'));
         //is subform valid
@@ -162,12 +198,12 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
                 }
 
                 //change to a new answer domain: new type is chosen, existing one on answer tab
-
                 if ($this->question->new->getValue()<>'0' &&
                     $this->answers->id->getValue() <>'0' && $this->answers->id->getValue()<>null
                     ){
                     $situations[]='newAnswerDomainChosen';
                 }
+
                 //change to new answer domain: other answerDomaintType choosen
                 if ($this->question->new->getValue() <>'0' &&
                     ( $this->answers->id->getValue()=='0'|| $this->answers->id->getValue()==null ) &&
@@ -175,13 +211,13 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
                         ){
                     $situations[]='newAnswerDomainTypeChosen';
                 }
+
                 //change to new answer domain: same answerDomaintType choosen
                 if($this->question->new->getValue()<>'0' &&
                      $this->answers->id->getValue()=='0' &&
                     'AnswerDomain'.$this->question->new->getValue()==$this->answers->type->getValue()
                         ){
                     $situations[]='newAnswerDomainSameTypeChosen';
-
                 }
 
                 break;
@@ -189,10 +225,11 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
             case 'options':
                 break;
         }
-    return $situations;
+        return $situations;
     }
 
-    public function getSubmitButtonUsed($names=array()){
+    public function getSubmitButtonUsed($names = array())
+    {
         return parent::getSubmitButtonUsed(array('next','previous','done'));
     }
 
@@ -203,23 +240,24 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      *
      * @return boolean|string
      */
-    public function getRedirectSubForm ($submitInfo){
-        foreach ($this->getSubForms() as $subForm){
+    public function getRedirectSubForm ($submitInfo)
+    {
+        foreach ($this->getSubForms() as $subForm) {
             $subForms[]=$subForm->getName();
         }
         $key=array_search($submitInfo['subForm'], $subForms);
-        switch ($submitInfo['name']){
+        switch ($submitInfo['name']) {
             case 'previous':
-                if ($key>0){
+                if ($key>0) {
                     return $subForms[$key-1];
-                }else {
+                } else {
                     return false;
                 }
                 break;
             case 'next':
-                if ($key<count($subForms)-1){
+                if ($key<count($subForms)-1) {
                     return $subForms[$key+1];
-                }else {
+                } else {
                     return 'done';
                 }
                 break;

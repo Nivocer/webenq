@@ -150,11 +150,8 @@ class WebEnq4_Form extends Zend_Form
      * <li>translated fields don't exist as object properties
      * <li>no additional defaults are added that conflict with field names
      * </ul>
-     *
-     * @see Zend_Form::setDefaults()
-     * @see getValues() for the converse operation
      */
-    public function setDefaults(array $defaults)
+    public function setTranslation(array $defaults)
     {
         if (isset($defaults['Translation'])) {
             foreach ($defaults['Translation'] as $lang => $record) {
@@ -165,6 +162,29 @@ class WebEnq4_Form extends Zend_Form
                 }
             }
         }
+
+        return $defaults;
+    }
+
+    /**
+     * Add extra translation fields for forms
+     *
+     * Slightly brute force: if the form is an array, do this for sub-arrays
+     * as well, to make it work when such an array will be 'dissolved'.
+     *
+     * @see Zend_Form::setDefaults()
+     */
+    public function setDefaults(array $defaults)
+    {
+        if ($this->isArray()) {
+            foreach ($defaults as $key => $value) {
+                if (is_array($value)) {
+                    $defaults[$key] = $this->setTranslation($value);
+                }
+            }
+        }
+
+        $defaults = $this->setTranslation($defaults);
 
         parent::setDefaults($defaults);
     }
@@ -182,7 +202,6 @@ class WebEnq4_Form extends Zend_Form
             return true;
         } else {
             $result = parent::isValid($values);
-
             return $result;
         }
     }
@@ -197,15 +216,17 @@ class WebEnq4_Form extends Zend_Form
     {
         return (isset($values['cancel']));
     }
+
     /**
      * @param array $data formdata with multiple submitbuttons
      * @param array $names names of elements to search
      * @return array|boolean
      */
-    public function getSubmitButtonUsed($names){
-        foreach ($this->getSubForms() as $subForm){
-            foreach ($names as $name){
-                if (isset($subForm->$name) && $subForm->$name->isChecked()){
+    public function getSubmitButtonUsed($names = array())
+    {
+        foreach ($this->getSubForms() as $subForm) {
+            foreach ($names as $name) {
+                if (isset($subForm->$name) && $subForm->$name->isChecked()) {
                     return array('subForm'=>$subForm->getName(), 'name'=>$name);
                 }
             }

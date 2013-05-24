@@ -12,7 +12,7 @@
  */
 class Webenq_Model_QuestionnaireQuestionNode extends Webenq_Model_Base_QuestionnaireQuestionNode
 {
- public function render($format)
+    public function render($format)
     {
         switch ($format){
             case 'previewTab':
