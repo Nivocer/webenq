@@ -36,6 +36,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      * @var string
      */
     public $answerDomainType;
+    public $_nodeType;
     public $_defaultLanguage;
     public $_classAnswers;
     public $_classOptions;
@@ -54,15 +55,33 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         if (is_array($options) && isset($options['defaultLanguage'])) {
             $this->_defaultLanguage=$options['defaultLanguage'];
         }
+        if (is_array($options) && isset($options['nodeType'])) {
+            $this->_nodeType=$options['nodeType'];
+        }
         parent::__construct();
     }
 
     public function init()
     {
         $this->initDeterminClasses();
-        $this->initQuestionTab();
-        $this->initAnswersTab();
-        $this->initOptionsTab();
+        switch ($this->_nodeType) {
+            case 'QuestionnaireQuestionNode':
+            case 'QuestionnaireTextNode':
+                $this->initQuestionTab();
+                $this->initAnswersTab();
+                $this->initOptionsTab();
+                break;
+            case 'QuestionnaireGroupNode':
+            case 'QuestionnaireLikertNode':
+                $this->initGroupTab();
+                $this->initQuestionsTab();
+                $this->initAnswersTab();
+                $this->initOptionsTab();
+
+                    break;
+            default:
+                var_dump(__FILE__,  __LINE__,$this->nodeType);
+        }
     }
 
     public function initDeterminClasses(){
@@ -77,17 +96,30 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
             $this->_classOptions = 'Webenq_Form_Question_Tab_Options';
         }
     }
+    public function initGroupTab(){
+        $group=new Zend_Form_SubForm();
+        $this->addSubForm($group, 'group');
+        $this->getSubForm('group')->addDecorator('SubFormInTab');
+    }
+    public function initQuestionsTab(){
+        $questions=new Zend_Form_SubForm();
+        $this->addSubForm($questions, 'questions');
+        $this->getSubForm('questions')->addDecorator('SubFormInTab');
+    }
     public function initQuestionTab(){
     /* question text and type tab */
         $question = new Webenq_Form_Question_Tab_Question(array('defaultLanguage'=>$this->_defaultLanguage));
         $question->removeDecorator('DtDdWrapper');
+        //$question->removeDecorator('Form');
         $this->addSubForm($question, 'question');
+        $this->getSubForm('question')->addDecorator('SubFormInTab');
     }
     public function initAnswersTab(){
         /* answer domain settings tab */
         $answers = new $this->_classAnswers(array('defaultLanguage'=>$this->_defaultLanguage));
         $answers->removeDecorator('DtDdWrapper');
         $this->addSubForm($answers, 'answers');
+        $this->getSubForm('answers')->addDecorator('SubFormInTab');
 
 }
     public function initOptionsTab(){
@@ -95,6 +127,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         $options = new $this->_classOptions(array('defaultLanguage'=>$this->_defaultLanguage));
         $options->removeDecorator('DtDdWrapper');
         $this->addSubForm($options, 'options');
+        $this->getSubForm('options')->addDecorator('SubFormInTab');
 }
     /**
      * Set defaults for all elements

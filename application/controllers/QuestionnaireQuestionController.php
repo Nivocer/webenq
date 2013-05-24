@@ -127,8 +127,18 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             return;
         }
         // get form
-        $answerDomainType=$this->questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        $this->view->form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$this->questionnaireQuestion->Questionnaire->getFirst()->default_language));
+        if ($this->questionnaireQuestion->QuestionnaireElement->AnswerDomain){
+            $answerDomainType=$this->questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
+        }else {
+            $answerDomainType='';
+        }
+        $this->view->form = new Webenq_Form_Question_Properties(
+            array(
+                'answerDomainType' => $answerDomainType,
+                'defaultLanguage'=>$this->questionnaireQuestion->Questionnaire->getFirst()->default_language,
+                'nodeType'=>$this->questionnaireQuestion->type,
+            )
+        );
         $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
         //is posted?/process form
