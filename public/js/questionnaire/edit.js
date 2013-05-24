@@ -10,8 +10,8 @@ function saveState(event, reload)
 	//if ($(event.target).hasClass('questions-list')  {
 		$('body').addClass('loading');
 		$('.tabs ul:first li').addClass('ui-state-default');
-		
-		var $data = new Array();
+
+		var $data = new Object();
 		var $forms = $('ul').find('.questions-list');// ul with questions
 		//determin sort order of pages and travers through them
 		var $pageOrder= $('body').find('.page-list').sortable('toArray');
@@ -20,15 +20,14 @@ function saveState(event, reload)
 			var $page=$tabId.replace("tabId-","");
 			var $pageId="pageId-"+$page;
 			var $questionsList=$("#"+$pageId).find('.questions-list');
-			$data[$index] = [$pageId, $questionsList.sortable('toArray')];
+			$data[$pageId] =  $questionsList.sortable('toArray') ;
 		});
-
 		var $id=getUrlParam("id");
 		$.post(baseUrl + '/questionnaire/order/id/'+$id, {data: $.toJSON($data)}, function($response) {
-			
 			if ($response.reload === true) {
 				window.location.reload();
 			} else {
+				//update texts of tabs
 				if ($response.pageText){
 					$('#tabs')
 						.find('.page-list')
@@ -40,7 +39,6 @@ function saveState(event, reload)
 					$('body').removeClass('loading');
 				}
 			}
-			
 		});
 	//}
 }

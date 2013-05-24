@@ -342,6 +342,7 @@ class QuestionnaireController extends Zend_Controller_Action
         );
         if (!$questionnaire) return false;
 
+        //save children in correct order
         $parentNode=$questionnaire->QuestionnaireNode;
         $parentNode->reorderDescendants($data);
         $parentNode->correctPageNumberText();
