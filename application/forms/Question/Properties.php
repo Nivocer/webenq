@@ -63,6 +63,16 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
 
     public function init()
     {
+        $qid=new Zend_Form_Element_Hidden('questionnaire_id');
+        $qid->removeDecorator('DtDdWrapper');
+        $qid->removeDecorator('Label');
+        $this->addElement($qid);
+
+        $parentId = new Zend_Form_Element_Hidden('parent_id');
+        $parentId->removeDecorator('DtDdWrapper');
+        $parentId->removeDecorator('Label');
+        $this->addElement($parentId);
+
         $this->initDetermineClasses();
         switch ($this->_nodeType) {
             case 'QuestionnaireQuestionNode':
@@ -174,10 +184,6 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         if (isset($defaults['QuestionnaireElement'])) {
             /* question tab */
             $defaults['question'] = $defaults['QuestionnaireElement'];
-
-            if (isset($defaults['questionnaire_id'])) {
-                $defaults['question']['questionnaire_id'] = $defaults['questionnaire_id'];
-            }
 
             /* answer options tab */
             //pass info from answerDomain

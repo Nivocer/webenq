@@ -43,16 +43,6 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
         $id->removeDecorator('Label');
         $this->addElement($id);
 
-        $qid=new Zend_Form_Element_Hidden('questionnaire_id');
-        $qid->removeDecorator('DtDdWrapper');
-        $qid->removeDecorator('Label');
-        $this->addElement($qid);
-
-        $parentId = new Zend_Form_Element_Hidden('parent_id');
-        $parentId->removeDecorator('DtDdWrapper');
-        $parentId->removeDecorator('Label');
-        $this->addElement($parentId);
-
         $text = new WebEnq4_Form_Element_MlText('text');
         $text->setAttrib('languages', $this->_languages);
         $text->setAttrib('defaultLanguage',$this->_defaultLanguage);
