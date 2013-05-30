@@ -5,7 +5,9 @@ a.delete-page {
 }
 
 ul.questions-list li {
-	border: 1px solid #B20000;
+    border: 1px solid #CCCCCC;
+    min-height: 50px;
+    height: expression(this.scrollHeight < 50 ? "50px" : "auto");   
 }
 
 ul.questions-list li.hover {
@@ -21,9 +23,7 @@ ul.questions-list li.hover .admin {
 }
 
 ul.questions-list li.ui-state-highlight {
-	height: auto;
-	min-height: 50px;
-	height: expression(this.scrollHeight < 50 ? "50px" : "auto");	
+    height: auto;
 }
 
 ul.questions-list table {
