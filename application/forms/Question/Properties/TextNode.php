@@ -43,15 +43,10 @@ class Webenq_Form_Question_Properties_TextNode extends Webenq_Form_Question_Prop
     {
         parent::init();
         $this->initSubFormAsTab('question');
+        $this->getSubForm('question')->removeElement('answer_domain_id');
+        $this->getSubForm('question')->removeElement('new');
         $this->initSubFormAsTab('options');
-
-/*            case 'QuestionnaireGroupNode':
-            case 'QuestionnaireLikertNode':
-                $this->initSubFormAsTab('group');
-                $this->initSubFormAsTab('questions');
-                $this->initSubFormAsTab('answer');
-                $this->initSubFormAsTab('options');
-*/
+        $this->getSubForm('options')->removeElement('required');
     }
 
 
