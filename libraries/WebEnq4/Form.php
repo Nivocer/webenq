@@ -225,14 +225,24 @@ class WebEnq4_Form extends Zend_Form
     }
 
     /**
-     * Check if the cancel button was submitted
+     * Check if the cancel button was submitted in the main form or in any subform
      *
      * @param array $values
      * @return boolean
      */
     public function isCancelled($values)
     {
-        return (isset($values['cancel']));
+        $cancel = isset($values['cancel']);
+
+        foreach ($this->getSubForms() as $subForm) {
+            $name = $subForm->getName();
+
+            if (isset($values[$name]['cancel'])) {
+                $cancel = true;
+            }
+        }
+
+        return $cancel;
     }
 
     /**
