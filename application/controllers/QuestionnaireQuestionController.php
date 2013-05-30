@@ -139,7 +139,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         }else {
             $answerDomainType='';
         }
-        $this->view->form = new Webenq_Form_Question_Properties(
+        $form='Webenq_Form_Question_Properties_'.substr($questionnaireQuestion->type,13);
+        $this->view->form = new $form(
             array(
                 'answerDomainType' => $answerDomainType,
                 'defaultLanguage'=>$questionnaire->default_language,
@@ -166,7 +167,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     $situations=$this->view->form->getSituations();
                     $this->actOnSituations($situations, $formData);
                     //redirect to other tab (or preview questionnaire when done)
-                    $this->redirectTo($submitInfo, true);
+                    $this->redirectTo($submitInfo,true);
                 } else {
                     //subform is not valid: go to current tab
                     $this->view->activeTab=$submitInfo['subForm'];
@@ -187,10 +188,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     $answerDomainModel=new Webenq_Model_AnswerDomain();
                     $answerDomain=$answerDomainModel->getTable()->find($postData['question']['question']['answer_domain_id']);
                     $this->view->form->answerDomainType=$answerDomain->type;
-                    $this->view->form->initDetermineClasses();
-                    $this->view->form->initAnswersTab();
+                    $this->view->form->initSubFormAsTab('answers');
                     $this->view->form->getSubform('answers')->setDefaults($answerDomain->toArray());
-                    $this->view->form->initOptionsTab();
+                    $this->view->form->initSubFormAsTab('options');
                     $this->view->form->getSubform('options')->setDefaults($answerDomain->toArray());
                     $temp['required']=$postData['options']['options']['required'];
                     $temp['active'] =$postData['options']['options']['active'];
@@ -199,9 +199,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
                     $this->view->form->answerDomainType=$postData['question']['question']['new'];
-                    $this->view->form->initDetermineClasses();
-                    $this->view->form->initAnswersTab();
-                    $this->view->form->initOptionsTab();
+                    $this->view->form->initSubFormAsTab('answers');
+                    $this->view->form->initSubFormAsTab('options');
                     $temp['required']=$postData['options']['options']['required'];
                     $temp['active'] =$postData['options']['options']['active'];
                     $this->view->form->getSubform('options')->setDefaults($temp);
@@ -209,9 +208,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
                     $this->view->form->answerDomainType=$postData['question']['question']['new'];
-                    $this->view->form->initDetermineClasses();
-                    $this->view->form->initAnswersTab();
-                    $this->view->form->initOptionsTab();
+                    $this->view->form->initSubFormAsTab('answers');
+                    $this->view->form->initSubFormAsTab('options');
                     $this->view->form->setDefaults($postData);
                     break;
                 case 'newAnswerDomainSameTypeChosen':
@@ -224,8 +222,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     /**
      * redirect user to correct location, if soft redirect, we want to redirect to another tab
      *
-     * @param unknown $submitInfo which submitbutton on which tab is pushed
-     * @param unknown $soft
+     * @param array $submitInfo which submitbutton on which tab is pushed
+     * @param boolean $soft when true set active tab, else redirect to other page
      */
     public function redirectTo($submitInfo, $soft) {
         //build redirect url
@@ -348,115 +346,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             );
         $this->view->form = new Webenq_Form_Confirm($this->questionnaireQuestion->id, $confirmationText);
         $this->view->form->setAction($this->view->baseUrl('/questionnaire-question/delete/id/' . $this->_request->id));
-    }
-
-    protected function _getSubQuestions(Webenq_Model_QuestionnaireQuestion $questionnaireQuestion)
-    {
-        $subQuestions = array();
-        foreach ($questionnaireQuestion->CollectionPresentation->getFirst()->CollectionPresentation as $subQuestion) {
-            if ($subQuestion->QuestionnaireQuestion->Question->QuestionText->count() > 0) {
-                $subQuestions[$subQuestion->weight][0] = $subQuestion->QuestionnaireQuestion->Question->QuestionText[0];
-                foreach ($subQuestion->CollectionPresentation as $subSubQuestion) {
-                    $subQuestions[$subQuestion->weight][$subSubQuestion->weight] =
-                        $subSubQuestion->QuestionnaireQuestion->Question->QuestionText[0];
-                }
-            }
-        }
-        /* sort recursively */
-        ksort($subQuestions);
-        foreach ($subQuestions as $array) {
-            ksort($array);
-        }
-        return $subQuestions;
-    }
-    /**
-     * Saves the current state of the given questionnaire-question
-     */
-    public function saveStateAction()
-    {
-        /* disable view/layout rendering */
-        $this->_helper->viewRenderer->setNoRender(true);
-        $this->_helper->layout->disableLayout(true);
-        $cols = $this->_request->cols;
-        $qqIds = (is_array($this->_request->qq)) ? $this->_request->qq : array();
-        $parentId = $this->_request->parent;
-        /* reproduce grid */
-        $rowIndex = 0;
-        $grid = array();
-        $row = array();
-        foreach ($qqIds as $colIndex => $qqId) {
-            $rowIndex++;
-            $row[] = $qqId;
-            if ($rowIndex == $cols || $colIndex == count($qqIds) - 1) {
-                $grid[] = $row;
-                $row = array();
-                $rowIndex = 0;
-            }
-        }
-        $this->_saveGridSubquestions($parentId, $grid);
-    }
-
-    /**
-     * Stores the grid of subquestions to the database
-     *
-     * @param int $parentId Parent questionnaire-question
-     * @param array $grid Grid with sub-questionnaire-questions
-     * @return void
-     */
-    protected function _saveGridSubquestions($parentId, array $grid)
-    {
-        /* get collection-presentation object for given parent */
-        $cp = Doctrine_Core::getTable(
-            'Webenq_Model_QuestionnaireQuestion'
-        )->find($parentId)->CollectionPresentation->getFirst();
-        /* clear all for this parent */
-        Doctrine_Query::create()
-            ->update('CollectionPresentation')
-            ->set('parent_id', '?', '')
-            ->set('weight', '?', '0')
-            ->where('parent_id = ?', $cp->id)
-            ->execute();
-        /* save grid */
-        foreach ($grid as $rowIndex => $row) {
-            foreach ($row as $colIndex => $col) {
-                /* get collection-presentation object for current questionnaire-question */
-                $current = Doctrine_Core::getTable('Webenq_Model_QuestionnaireQuestion')
-                    ->find($col)
-                    ->CollectionPresentation
-                    ->getFirst();
-                /* clear all for this parent */
-                Doctrine_Query::create()
-                    ->update('CollectionPresentation')
-                    ->set('parent_id', '?', '')
-                    ->set('weight', '?', '0')
-                    ->where('parent_id = ?', $current->id)
-                    ->execute();
-                /* save new state */
-                if ($colIndex == 0) {
-                    /* set parent */
-                    $current->parent_id = $cp->id;
-                    /* save current as parent for next object */
-                    $parent = $current;
-                } else {
-                    $current->parent_id = $parent->id;
-                }
-                /* set weight */
-                $current->weight = $rowIndex * $rowIndex + $colIndex;
-                /* save object */
-                $current->save();
-            }
-        }
-    }
-
-    public function addSubquestionAction()
-    {
-        $qq = Doctrine_Query::create()
-            ->from('Webenq_Model_QuestionnaireQuestion qq')
-            ->innerJoin('qq.CollectionPresentation cp')
-            ->where('qq.id != ?', $this->_request->id)
-            ->andWhere('cp.parent_id IS NULL')
-            ->execute();
-        $this->view->qq = $qq;
     }
 
 

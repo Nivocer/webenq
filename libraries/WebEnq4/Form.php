@@ -138,6 +138,23 @@ class WebEnq4_Form extends Zend_Form
     }
 
     /**
+     * Initiate a subform and add decorator to show it in a tab
+     *
+     * @param string $tabName
+     */
+    public function initSubFormAsTab($tabName){
+        $formName = $this->_initDetermineFormName($tabName);
+        $tab = new $formName(array('defaultLanguage'=>$this->_defaultLanguage));
+        $tab->setElementsBelongTo($tabName);
+        $tab->removeDecorator('DtDdWrapper');
+        $tab->addDecorator('SubFormInTab');
+        $this->addSubForm($tab, $tabName);
+    }
+ public function _initDetermineFormName($tabName){
+    return 'Webenq_Form_'.$tabName;
+    }
+
+    /**
      * See if there are Translations, swap field name and language and add
      * as new array elements, to allow easier inclusion via Zend Form elements.
      *
@@ -222,7 +239,7 @@ class WebEnq4_Form extends Zend_Form
      * @param array $names names of elements to search
      * @return array|boolean
      */
-    public function getSubmitButtonUsed($names = array())
+    public function getSubmitButtonUsed($names = array('next','previous','done'))
     {
         foreach ($this->getSubForms() as $subForm) {
             foreach ($names as $name) {
@@ -233,5 +250,40 @@ class WebEnq4_Form extends Zend_Form
         }
         return false;
     }
+    /**
+     * Get the subform name based on the submit button pressed (next/previous/done)
+     *
+     * assumptions: subforms are in correct order
+     *
+     * @return boolean|string
+     */
+    public function getRedirectSubForm ($submitInfo)
+    {
+        foreach ($this->getSubForms() as $subForm) {
+            $subForms[]=$subForm->getName();
+        }
+        $key=array_search($submitInfo['subForm'], $subForms);
+        switch ($submitInfo['name']) {
+            case 'previous':
+                if ($key>0) {
+                    return $subForms[$key-1];
+                } else {
+                    return false;
+                }
+                break;
+            case 'next':
+                if ($key<count($subForms)-1) {
+                    return $subForms[$key+1];
+                } else {
+                    return 'done';
+                }
+                break;
+            case 'done':
+                return 'done';
+                break;
+        }
+        return false;
+    }
+
 
 }
