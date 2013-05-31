@@ -53,10 +53,11 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         if (isset ($this->_request->questionnaire_id)){
             $questionnaireId = $this->_request->questionnaire_id;
         }
+
         //questionnaire id from post data
         $postData=$this->getRequest()->getPost();
-        if (isset($postData['question']['questionnaire_id'])){
-            $questionnaireId=$postData['question']['questionnaire_id'];
+        if (isset($postData['questionnaire_id'])){
+            $questionnaireId=$postData['questionnaire_id'];
         }
         if (!$questionnaireId) {
             throw new Exception('No questionnaire id given!');
@@ -74,7 +75,15 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         } else {
             $answerDomainType='AnswerDomainNumeric';
         }
-        $this->view->form = new Webenq_Form_Question_Properties(array('answerDomainType' => $answerDomainType, 'defaultLanguage'=>$questionnaire->getFirst()->default_language));
+        $form='Webenq_Form_Question_Properties_QuestionNode';
+        $this->view->form = new $form(
+            array(
+                'answerDomainType' => $answerDomainType,
+                'defaultLanguage'=>$questionnaire->getFirst()->default_language,
+            )
+        );
+
+
         $this->view->form->setAction($this->view->baseUrl('/questionnaire-question/add'));
         if ($this->getRequest()->isPost()){
             if ($this->_helper->form->isCancelled($this->view->form)) {
@@ -98,11 +107,13 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 }
             }
         }else{
+
             $this->questionnaireQuestion=new Webenq_Model_QuestionnaireNode();
             $this->questionnaireQuestion->Questionnaire=$questionnaire;
+
             $this->view->form->setDefaults($this->questionnaireQuestion->toArray());
             if (isset($this->_request->parent_id)){
-                $this->view->form->question->setDefaults(array('parent_id'=>$this->_request->parent_id));
+                $this->view->form->setDefaults(array('parent_id'=>$this->_request->parent_id));
             }
         }
     }
@@ -144,7 +155,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             array(
                 'answerDomainType' => $answerDomainType,
                 'defaultLanguage'=>$questionnaire->default_language,
-                'nodeType'=>$questionnaireQuestion->type,
             )
         );
         $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
