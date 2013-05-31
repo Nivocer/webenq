@@ -10,8 +10,8 @@
         if ($this->form->question){
             $temp=$this->form->question->getValue('text');
             echo $temp[$language];
-        }elseif($this->form->grid){
-            $temp=$this->form->grid->getValue('text');
+        }elseif($this->form->group){
+            $temp=$this->form->group->getValue('text');
             echo $temp[$language];
         }
         ?>
