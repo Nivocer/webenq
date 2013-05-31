@@ -168,7 +168,7 @@ Webenq_Model_QuestionnaireElement:
     type: QuestionnaireQuestionElement
     options:
       options:
-        presentation: text
+        presentation: input
         presentationWidth: 10
         active: true
         required: false
@@ -214,7 +214,7 @@ Webenq_Model_QuestionnaireElement:
     type: QuestionnaireQuestionElement
     options:
       options:
-        presentation: text
+        presentation: input
         presentationWidth: 10
         active: true
         required: false
