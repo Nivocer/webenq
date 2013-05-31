@@ -147,6 +147,7 @@ class WebEnq4_Form extends Zend_Form
         $tab = new $formName(array('defaultLanguage'=>$this->_defaultLanguage));
         $tab->setElementsBelongTo($tabName);
         $tab->removeDecorator('DtDdWrapper');
+        $tab->removeDecorator('Form');
         $tab->addDecorator('SubFormInTab');
         $this->addSubForm($tab, $tabName);
     }
