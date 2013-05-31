@@ -7,9 +7,13 @@ a.delete-page {
 ul.questions-list li {
     border: 1px solid #CCCCCC;
     min-height: 50px;
-    height: expression(this.scrollHeight < 50 ? "50px" : "auto");   
+    height: expression(this.scrollHeight < 50 ? "50px" : "auto");
+    list-style-type: none;   
 }
 
+ul.subquestions li {
+	margin-left: 10px;
+}
 ul.questions-list li.hover {
     cursor: pointer;
 }

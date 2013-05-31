@@ -232,7 +232,7 @@ private function _addDecoratorsGroup($nodeId, $elm)
         $nodeId=$options['nodeId'];
         $html.='<li id="note' . $nodeId . '" class="question hoverable">';
         //replace first li by <ul><li>
-        $html.=preg_replace("/<li/", '<ul><li',$content, 1);
+        $html.=preg_replace("/<li/", '<ul class="subquestions"><li',$content, 1);
 
         $html.='</ul>';
         $html.='</li>';
