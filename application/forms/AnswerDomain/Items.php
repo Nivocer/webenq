@@ -164,7 +164,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         // only create subforms if they are not already created
         if (!$this->_itemsAdded && isset($defaults['items'])) {
             foreach ($defaults['items'] as $key => $item) {
-                if (!in_array($key, array('sortable', 'new'))) {
+                if (!in_array($key, array('sortable', 'new'), true)) {
                     $this->addItemRow($key);
                 }
             }

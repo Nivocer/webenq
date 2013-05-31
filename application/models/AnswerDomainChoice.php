@@ -76,12 +76,11 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
         $result = parent::toArray($deep, $prefixKey);
 
         if ($deep) {
-            if (isset($this->answer_domain_item_id)) {
-                $items = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')
-                ->getTree()
-                ->fetchTree(array('root_id' => $this->answer_domain_item_id))
+            if (isset($this->AnswerDomainItem)) {
+                $result['items'] = $this->AnswerDomainItem
+                ->getNode()
+                ->getDescendants()
                 ->toArray();
-                $result['items'] = $items;
             }
 
             // @todo We should find a way to do this via the I18n behavior, of find out why 'deep=true' doesn't do this
