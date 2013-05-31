@@ -111,7 +111,6 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
     {
         /* translate from database data? */
         if (isset($defaults['QuestionnaireElement'])) {
-
             /* answer options tab */
             //pass info from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
@@ -139,7 +138,9 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
             $defaults['options']['active'] = $defaults['QuestionnaireElement']['active'];
             $defaults['options']['required'] = $defaults['QuestionnaireElement']['required'];
         }
-
+        if (isset($defaults['Questionnaire'])) {
+            $defaults['questionnaire_id']=$defaults['Questionnaire'][0]['id'];
+        }
         parent::setDefaults($defaults);
     }
 
