@@ -32,20 +32,7 @@
 class Webenq_Form_Question_Properties_QuestionNode extends Webenq_Form_Question_Properties
 {
 
-    public $_subFormNames=array('question', 'answer','options');
-    /**
-     * Initialises the form, sets the answer domain type
-     *
-     * @param mixed $options
-     * @return void
-     */
-
-    public function init()
-    {
-        parent::init();
-
-    }
-
+    public $_subFormNames=array('question', 'answer', 'options');
 
     /**
      * Set defaults for question properties form

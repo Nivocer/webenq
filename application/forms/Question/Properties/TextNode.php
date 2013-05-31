@@ -32,14 +32,14 @@
 class Webenq_Form_Question_Properties_TextNode extends Webenq_Form_Question_Properties
 {
 
-    public $_subFormNames=array('question','options');
+    public $_subFormNames = array('question', 'options');
+
     /**
      * Initialises the form, sets the answer domain type
      *
      * @param mixed $options
      * @return void
      */
-
     public function init()
     {
         parent::init();

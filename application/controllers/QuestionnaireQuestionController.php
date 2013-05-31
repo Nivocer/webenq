@@ -144,10 +144,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         ->getFirst();
 
         // @todo getting the type should be delegated, is too dependent on deep data structure
-        // get form
-        if ($questionnaireQuestion->QuestionnaireElement->AnswerDomain){
+        if ($questionnaireQuestion->QuestionnaireElement->AnswerDomain) {
             $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        }else {
+        } else {
             $answerDomainType='';
         }
         $form='Webenq_Form_Question_Properties_'.substr($questionnaireQuestion->type,13);
@@ -155,7 +154,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         $this->view->form = new $form(
             array(
                 'answerDomainType' => $answerDomainType,
-                'defaultLanguage'=>$questionnaire->default_language,
+                'defaultLanguage' => $questionnaire->default_language,
             )
         );
         $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
@@ -172,6 +171,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 $this->view->form->setDefaults($this->getRequest()->getPost());
                 $formData=$this->view->form->getValues();
 
+                // @todo internal form details to be moved to form class
                 $this->view->form->_submitInfo=$this->view->form->getSubmitButtonUsed();
                 $submitInfo=$this->view->form->_submitInfo;
                 if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($formData[$submitInfo['subForm']])) {
@@ -189,6 +189,13 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         } else {
             $this->view->form->setDefaults($storedData);
         }
+
+        // @todo more ideal: build $questionnaireQuestion with posted and new database data, then re-initialise form before rendering
+        // (validation is now based on form built from database values)
+        //$defaults = $questionnaireQuestion->toArray();
+        //$this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
+        //$defaults['questionnaire_id'] = $questionnaire->id;
+        //$this->view->form->setDefaults($defaults);
     }
 
     public function actOnSituations($situations, $postData)
@@ -237,7 +244,12 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                                 break;
                         }
                     }
+                    // @rolf's parked version:
+                    // $node->QuestionnaireElement->AnswerDomain = Doctrine_Core::getTable('Webenq_Model_AnswerDomain')
+                    // ->find($postData['question']['answer_domain_id']);
+
                     break;
+
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
                     $this->view->form->_answerDomainType=$postData['question']['new'];
@@ -265,6 +277,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                         }
                     }
                     break;
+
                 case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
                     $this->view->form->_answerDomainType=$postData['question']['new'];
@@ -272,6 +285,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     $this->view->form->init();
                     $this->view->form->setDefaults($postData);
                     break;
+
                 case 'newAnswerDomainSameTypeChosen':
                     //no action needed
                     break;

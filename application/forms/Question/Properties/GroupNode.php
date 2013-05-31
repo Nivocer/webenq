@@ -31,19 +31,7 @@
  */
 class Webenq_Form_Question_Properties_GroupNode extends Webenq_Form_Question_Properties
 {
-    public $_subFormNames=array('group', 'questions','answer','options');
-    /**
-     * Initialises the form, sets the answer domain type
-     *
-     * @param mixed $options
-     * @return void
-     */
-
-    public function init()
-    {
-        parent::init();
-
-    }
+    public $_subFormNames = array('group', 'questions', 'answer', 'options');
 
     /**
      * Set defaults for question Group Node properties form

@@ -31,20 +31,7 @@
  */
 class Webenq_Form_Question_Properties_LikertNode extends Webenq_Form_Question_Properties_GroupNode
 {
-    public $_subFormNames=array('group', 'questions','answer','likertOptions');
-    /**
-     * Initialises the form, sets the answer domain type
-     *
-     * @param mixed $options
-     * @return void
-     */
-
-    public function init()
-    {
-        parent::init();
-
-     }
-
+    public $_subFormNames = array('group', 'questions', 'answer', 'likertOptions');
 
     /**
      * Set defaults for likertNode properties form
