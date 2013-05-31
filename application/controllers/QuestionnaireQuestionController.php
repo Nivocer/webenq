@@ -151,6 +151,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             $answerDomainType='';
         }
         $form='Webenq_Form_Question_Properties_'.substr($questionnaireQuestion->type,13);
+
         $this->view->form = new $form(
             array(
                 'answerDomainType' => $answerDomainType,
@@ -171,10 +172,12 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 $this->view->form->setDefaults($this->getRequest()->getPost());
                 $formData=$this->view->form->getValues();
 
-                $submitInfo=$this->view->form->getSubmitButtonUsed();
+                $this->view->form->_submitInfo=$this->view->form->getSubmitButtonUsed();
+                $submitInfo=$this->view->form->_submitInfo;
                 if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($formData[$submitInfo['subForm']])) {
                     //get action stack from controller to perform based on the form data
                     $situations=$this->view->form->getSituations();
+
                     $this->actOnSituations($situations, $formData);
                     //redirect to other tab (or preview questionnaire when done)
                     $this->redirectTo($submitInfo,true);
@@ -196,29 +199,29 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 case 'differentAnswerDomainChosen':
                     //get answerdomain from database, keep active/required from postdata
                     $answerDomainModel=new Webenq_Model_AnswerDomain();
-                    $answerDomain=$answerDomainModel->getTable()->find($postData['question']['question']['answer_domain_id']);
-                    $this->view->form->answerDomainType=$answerDomain->type;
-                    $this->view->form->initSubFormAsTab('answers');
-                    $this->view->form->getSubform('answers')->setDefaults($answerDomain->toArray());
+                    $answerDomain=$answerDomainModel->getTable()->find($postData['question']['answer_domain_id']);
+                    $this->view->form->_answerDomainType=$answerDomain->type;
+                    $this->view->form->initSubFormAsTab('answer');
+                    $this->view->form->getSubform('answer')->setDefaults($answerDomain->toArray());
                     $this->view->form->initSubFormAsTab('options');
                     $this->view->form->getSubform('options')->setDefaults($answerDomain->toArray());
-                    $temp['required']=$postData['options']['options']['required'];
-                    $temp['active'] =$postData['options']['options']['active'];
+                    $temp['required']=$postData['options']['required'];
+                    $temp['active'] =$postData['options']['active'];
                     $this->view->form->getSubform('options')->setDefaults($temp);
                     break;
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
-                    $this->view->form->answerDomainType=$postData['question']['question']['new'];
-                    $this->view->form->initSubFormAsTab('answers');
+                    $this->view->form->_answerDomainType=$postData['question']['new'];
+                    $this->view->form->initSubFormAsTab('answer');
                     $this->view->form->initSubFormAsTab('options');
-                    $temp['required']=$postData['options']['options']['required'];
-                    $temp['active'] =$postData['options']['options']['active'];
+                    $temp['required']=$postData['options']['required'];
+                    $temp['active'] =$postData['options']['active'];
                     $this->view->form->getSubform('options')->setDefaults($temp);
                     break;
                 case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
-                    $this->view->form->answerDomainType=$postData['question']['question']['new'];
-                    $this->view->form->initSubFormAsTab('answers');
+                    $this->view->form->_answerDomainType=$postData['question']['new'];
+                    $this->view->form->initSubFormAsTab('answer');
                     $this->view->form->initSubFormAsTab('options');
                     $this->view->form->setDefaults($postData);
                     break;

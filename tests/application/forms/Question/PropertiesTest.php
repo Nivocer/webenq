@@ -35,6 +35,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
         $this->loadDatabase();
         $form = new Webenq_Form_Question_Properties_QuestionNode();
         $form->setDefaults($data['post']);
+        $form->_submitInfo=$form->getSubmitButtonUsed();
         $action = $form->getSituations();
         sort($action);
         sort($data['action']);

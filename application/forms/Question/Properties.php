@@ -21,7 +21,6 @@
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
   */
-
 /**
  * Form to deal with question properties (text, answers, options).
  *
@@ -30,6 +29,7 @@
  */
 class Webenq_Form_Question_Properties extends WebEnq4_Form
 {
+
     /**
      * Type of answer domain: text, numeric, choice
      *
@@ -37,6 +37,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      */
     public $_answerDomainType;
     public $_defaultLanguage;
+    public $_submitInfo;
     private $_answerTypeSpecificForms=array(
         'Webenq_Form_AnswerDomain_Tab',
         'Webenq_Form_Question_Tab_Options'
@@ -151,7 +152,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
     public function getSituations()
     {
         $situations=array();
-        $submitInfo=$this->getSubmitButtonUsed(array('next', 'previous','done'));
+        $submitInfo=$this->_submitInfo;
         //is subform valid
         //@todo check if we don't need to feed $formData[$tab]
         //@todo isValid: only one of question[reuse]/question[new] gebruiken
