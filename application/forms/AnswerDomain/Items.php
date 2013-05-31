@@ -131,6 +131,7 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
             $element->setRequired(false);
         }
 
+        // @todo check call of setDefaults here, maybe better to add defaults to array of fields
         $defaultItemValues=new Webenq_Model_AnswerDomainItem();
         $newItemsRow->setDefaults($defaultItemValues->toArray());
         $newItemsRow->addDecorator('HtmlTag', array(
@@ -160,34 +161,8 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      */
     public function setDefaults(array $defaults)
     {
-        if (!isset($defaults['items'])) {
-            if (isset($defaults['answer_domain_item_id'])) {
-                $items = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')
-                ->getTree()
-                ->fetchTree(array('root_id' => $defaults['answer_domain_item_id']))
-                ->toArray();
-
-                foreach ($items as $item) {
-                    if ($item['id'] != $item['root_id']) { // skip the root of the items
-                        if (isset($item['Translation'])) {
-                            foreach ($item['Translation'] as $lang => $record) {
-                                foreach ($record as $field => $value) {
-                                    if (($field != 'id') && ($field != 'lang')) {
-                                        $item[$field][$lang] = $value;
-                                    }
-                                }
-                            }
-                        }
-                        $defaults['items'][$item['id']] = $item;
-                    }
-                }
-            } else {
-                $defaults['items'] = array();
-            }
-        }
-
         // only create subforms if they are not already created
-        if (!$this->_itemsAdded){
+        if (!$this->_itemsAdded && isset($defaults['items'])) {
             foreach ($defaults['items'] as $key => $item) {
                 if (!in_array($key, array('sortable', 'new'))) {
                     $this->addItemRow($key);

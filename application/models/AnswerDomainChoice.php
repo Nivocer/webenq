@@ -66,9 +66,57 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
             ),
         );
     }
+
+    /**
+     * Fills array with answer domain items, and adds translations
+     *
+     * @param bool $deep
+     * @param bool $prefixKey Not used
+     * @return array
+     * @see Doctrine_Record::toArray()
+     */
+    public function toArray($deep = true, $prefixKey = false)
+    {
+        $result = parent::toArray($deep, $prefixKey);
+
+        if ($deep) {
+            if (isset($this->answer_domain_item_id)) {
+                $items = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')
+                ->getTree()
+                ->fetchTree(array('root_id' => $this->answer_domain_item_id))
+                ->toArray();
+                $result['items'] = $items;
+            }
+
+            // @todo We should find a way to do this via the I18n behavior, of find out why 'deep=true' doesn't do this
+            $result['Translation'] = $this->Translation->toArray();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Imports data from a php array
+     *
+     * @param string $array  array of data, see link for documentation
+     * @param bool   $deep   whether or not to act on relations
+     * @return void
+     * @see Doctrine_Record::fromArray()
+     */
+    public function fromArray(array $array, $deep = true)
+    {
+        if ($deep) {
+            if (isset($array['items'])) {
+                // now what...
+            }
+        }
+
+        parent::fromArray($array, $deep);
+    }
+
     public function getAnswerOptionsArray(){
 
-        foreach ($this->AnswerDomainItem->getNode()->getChildren() as $answerItem){
+        foreach ($this->AnswerDomainItem->getNode()->getChildren() as $answerItem) {
             $return[$answerItem->id]=$answerItem->getTranslation('label');
         }
         return $return;

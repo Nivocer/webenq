@@ -102,56 +102,6 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         }
     }
 
-    /*
-     * untested
-     */
-    public function fromArray(array $array, $deep = true)
-    {
-        $language = Zend_Registry::get('Zend_Locale')->getLanguage();
-        parent::fromArray($array, $deep);
-        //set id
-        if (isset($array['question']['question']['id'])) {
-            $this->id=$array['question']['question']['id'];
-        }
-        //set language
-        if (isset($array['question']['question']['text']) && is_array($array['question']['question']['text'])) {
-            foreach ($array['question']['question']['text'] as $language => $text) {
-                if ($text) {
-                    $this->QuestionnaireElement->Translation[$language]->text = $text;
-                }
-            }
-        }
-
-        //set answer_domain_id to reuse-value
-        if (isset($array['question']['question']['answer_domain_id']) && $array['question']['question']['answer_domain_id']<>''){
-            $this->QuestionnaireElement->answer_domain_id=$array['question']['question']['answer_domain_id'];
-        }
-
-        //changes need to be stored in options, not in aswerdomain.
-        if (isset($array['answers']['answers'])){
-            $questionnaireElementoptions['answerDomain']=$array['answers']['answers'];
-        }
-        //option tab
-        //$array['options'] needs to be stored in QuestionnaireElement->options except active and required
-        if (isset($array['options']) && isset($array['options']['options']) ){
-                $questionnaireElementoptions['options']=$array['options']['options'];
-        }
-        $questionnaireElementKeys=array('active','required');
-        foreach ($questionnaireElementKeys as $key){
-            if (isset($array['options']['options'][$key])){
-                $this->QuestionnaireElement->$key=$array['options']['options'][$key];
-                unset($questionnaireElementoptions['options'][$key]);
-            }
-        }
-
-        //store changed name, but we don't want this i quess.
-        if (isset($array['answers']['answers']['name'])){
-    //        $this->QuestionnaireElement->AnswerDomain->Translation[$language]->name=$array['answerOptions']['answersettings']['name'];
-        }
-        //finally put all questionnaireElement options in object
-        $this->QuestionnaireElement->options=$questionnaireElementoptions;
-
-    }
     public function getQuestionnaire() {
         $questionnaire=new Webenq_Model_Questionnaire();
         return $questionnaire->getTable()->findBy('questionnaire_node_id', $this->root_id)->getFirst();

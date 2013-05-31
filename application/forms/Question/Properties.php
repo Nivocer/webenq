@@ -21,6 +21,7 @@
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
   */
+
 /**
  * Form to deal with question properties (text, answers, options).
  *
@@ -29,7 +30,6 @@
  */
 class Webenq_Form_Question_Properties extends WebEnq4_Form
 {
-
     /**
      * Type of answer domain: text, numeric, choice
      *
@@ -136,8 +136,12 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
                 }
             }
             //override from questionnaireElement
-            $defaults['options']['active'] = $defaults['QuestionnaireElement']['active'];
-            $defaults['options']['required'] = $defaults['QuestionnaireElement']['required'];
+            if (isset($defaults['QuestionnaireElement']['active'])) {
+                $defaults['options']['active'] = $defaults['QuestionnaireElement']['active'];
+            }
+            if (isset($defaults['QuestionnaireElement']['required'])) {
+                $defaults['options']['required'] = $defaults['QuestionnaireElement']['required'];
+            }
         }
         if (isset($defaults['Questionnaire'])) {
             $defaults['questionnaire_id']=$defaults['Questionnaire'][0]['id'];
@@ -145,8 +149,39 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         parent::setDefaults($defaults);
     }
 
+    /**
+     * Retrieve all form element values
+     *
+     * @param  bool $suppressArrayNotation
+     * @return array
+     */
+    public function getValues($suppressArrayNotation = false) {
+        $values = parent::getValues($suppressArrayNotation);
+
+        if (isset($values['question']) && is_array($values['question'])) {
+            $values['QuestionnaireElement'] = $values['question'];
+        } else {
+            $values['QuestionnaireElement'] = array();
+        }
+
+        if (isset($values['answer']) && is_array($values['answer'])) {
+            $values['QuestionnaireElement']['AnswerDomain'] = $values['answer'];
+        }
+
+        if (isset($values['options']) && is_array($values['options'])) {
+            $values['QuestionnaireElement']['options'] = $values['options'];
+        }
+
+        return $values;
+    }
 
     /**
+     * Analyses the form values to determine the situations that could occur:
+     *
+     * <ul>
+     * <li>The question tab has been submitted
+     * </ul>
+     *
      * @return array: array with situations that needs action before redisplay form
      */
     public function getSituations()
@@ -157,7 +192,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         //@todo check if we don't need to feed $formData[$tab]
         //@todo isValid: only one of question[reuse]/question[new] gebruiken
 
-        switch ($submitInfo['subForm']){
+        switch ($submitInfo['subForm']) {
             case 'question':
                 //change: other existing answer domain: mismatch $question[answer_domain_id] and answers[id] tab
                 if ($this->question->answer_domain_id->getValue()<>'0' &&
