@@ -36,10 +36,6 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     public static function getAvailablePresentations()
     {
         return array(
-            'text' => array(
-                'label' => 'Present as text',
-                'element'=>'WebEnq4_Form_Element_Note'
-            ),
             'radio' => array(
                 'label' => 'Ask as single choice list',
                 'element'=>'Zend_Form_Element_Radio',
