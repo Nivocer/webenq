@@ -32,6 +32,7 @@
 class Webenq_Form_Question_Properties_TextNode extends Webenq_Form_Question_Properties
 {
 
+    public $_subFormNames=array('question','options');
     /**
      * Initialises the form, sets the answer domain type
      *
@@ -42,10 +43,9 @@ class Webenq_Form_Question_Properties_TextNode extends Webenq_Form_Question_Prop
     public function init()
     {
         parent::init();
-        $this->initSubFormAsTab('question');
         $this->getSubForm('question')->removeElement('answer_domain_id');
         $this->getSubForm('question')->removeElement('new');
-        $this->initSubFormAsTab('options');
+
         $this->getSubForm('options')->removeElement('required');
     }
 

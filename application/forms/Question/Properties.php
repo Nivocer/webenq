@@ -35,6 +35,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      *
      * @var string
      */
+    public $_subFormNames;
     public $_answerDomainType;
     public $_defaultLanguage;
     public $_submitInfo;
@@ -71,6 +72,13 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
         $parentId->removeDecorator('DtDdWrapper');
         $parentId->removeDecorator('Label');
         $this->addElement($parentId);
+
+        foreach ($this->_subFormNames as $subForm) {
+            if ($this->getSubForm($subForm)) {
+                $this->removeSubForm($subForm);
+            }
+            $this->initSubFormAsTab($subForm);
+        }
     }
 
     public function _initDetermineFormName($tabName){
@@ -188,48 +196,6 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
     {
         $situations=array();
         $submitInfo=$this->_submitInfo;
-        //is subform valid
-        //@todo check if we don't need to feed $formData[$tab]
-        //@todo isValid: only one of question[reuse]/question[new] gebruiken
-
-        switch ($submitInfo['subForm']) {
-            case 'question':
-                //change: other existing answer domain: mismatch $question[answer_domain_id] and answers[id] tab
-                if ($this->question->answer_domain_id->getValue()<>'0' &&
-                    $this->question->new->getValue()=='0' &&
-                    $this->answer->id->getValue() <>'0' &&
-                    $this->question->answer_domain_id->getValue() <>$this->answer->id->getValue()){
-                    $situations[]='differentAnswerDomainChosen';
-                }
-
-                //change to a new answer domain: new type is chosen, existing one on answer tab
-                if ($this->question->new->getValue()<>'0' &&
-                    $this->answer->id->getValue() <>'0' && $this->answer->id->getValue()<>null
-                    ){
-                    $situations[]='newAnswerDomainChosen';
-                }
-
-                //change to new answer domain: other answerDomaintType choosen
-                if ($this->question->new->getValue() <>'0' &&
-                    ( $this->answer->id->getValue()=='0'|| $this->answer->id->getValue()==null ) &&
-                    'AnswerDomain'.$this->question->new->getValue()<>$this->answer->type->getValue()
-                        ){
-                    $situations[]='newAnswerDomainTypeChosen';
-                }
-
-                //change to new answer domain: same answerDomaintType choosen
-                if($this->question->new->getValue()<>'0' &&
-                     $this->answer->id->getValue()=='0' &&
-                    'AnswerDomain'.$this->question->new->getValue()==$this->answer->type->getValue()
-                        ){
-                    $situations[]='newAnswerDomainSameTypeChosen';
-                }
-
-                break;
-            case 'answersoptions':
-            case 'options':
-                break;
-        }
         return $situations;
     }
 }

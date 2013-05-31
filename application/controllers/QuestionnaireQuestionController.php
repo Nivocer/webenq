@@ -199,30 +199,77 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 case 'differentAnswerDomainChosen':
                     //get answerdomain from database, keep active/required from postdata
                     $answerDomainModel=new Webenq_Model_AnswerDomain();
-                    $answerDomain=$answerDomainModel->getTable()->find($postData['question']['answer_domain_id']);
+                    if (isset($postData['question']['answer_domain_id'])) {
+                        $answerDomain=$answerDomainModel->getTable()->find($postData['question']['answer_domain_id']);
+                    } elseif (isset($postData['group']['answer_domain_id'])) {
+                        $answerDomain=$answerDomainModel->getTable()->find($postData['group']['answer_domain_id']);
+                    }
                     $this->view->form->_answerDomainType=$answerDomain->type;
-                    $this->view->form->initSubFormAsTab('answer');
-                    $this->view->form->getSubform('answer')->setDefaults($answerDomain->toArray());
-                    $this->view->form->initSubFormAsTab('options');
-                    $this->view->form->getSubform('options')->setDefaults($answerDomain->toArray());
-                    $temp['required']=$postData['options']['required'];
-                    $temp['active'] =$postData['options']['active'];
-                    $this->view->form->getSubform('options')->setDefaults($temp);
+
+                    foreach ($this->view->form->_subFormNames as $subForm) {
+                        switch ($subForm){
+                            case 'question':
+                            case 'group':
+                            case 'questions':
+                                break;
+                            case 'answer':
+                                $this->view->form->initSubFormAsTab('answer');
+                                $this->view->form->getSubform('answer')->setDefaults($answerDomain->toArray());
+                                break;
+                            case 'options':
+                                $this->view->form->initSubFormAsTab('options');
+                                $this->view->form->getSubform('options')->setDefaults($answerDomain->toArray());
+                                if (isset($postData['options']['required'])) {
+                                    $temp['required']=$postData['options']['required'];
+                                }
+                                if (isset($postData['options']['active'])) {
+                                    $temp['active'] =$postData['options']['active'];
+                                }
+                                $this->view->form->getSubform('options')->setDefaults($temp);
+                                break;
+                            case 'likertOptions':
+                                $this->view->form->initSubFormAsTab('likertOptions');
+                                $this->view->form->getSubform('likertOptions')->setDefaults($answerDomain->toArray());
+                                if (isset($postData['likertOptions']['active'])) {
+                                    $temp['active'] =$postData['likertOptions']['active'];
+                                }
+                                $this->view->form->getSubform('likertOptions')->setDefaults($temp);
+                                break;
+                        }
+                    }
                     break;
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
                     $this->view->form->_answerDomainType=$postData['question']['new'];
-                    $this->view->form->initSubFormAsTab('answer');
-                    $this->view->form->initSubFormAsTab('options');
-                    $temp['required']=$postData['options']['required'];
-                    $temp['active'] =$postData['options']['active'];
-                    $this->view->form->getSubform('options')->setDefaults($temp);
+                    foreach ($this->view->form->_subFormNames as $subForm) {
+                        switch ($subForm){
+                            case 'question':
+                            case 'group':
+                            case 'questions':
+                                break;
+                            case 'answer':
+                                $this->view->form->initSubFormAsTab('answer');
+                                break;
+                            case 'options':
+                                $this->view->form->initSubFormAsTab('options');
+                                $temp['required']=$postData['options']['required'];
+                                $temp['active'] =$postData['options']['active'];
+                                $this->view->form->getSubform('options')->setDefaults($temp);
+                                break;
+                            case 'likertOptions':
+                                $this->view->form->initSubFormAsTab('likertOptions');
+                                $temp['active'] =$postData['likertOptions']['active'];
+                                $this->view->form->getSubform('likertOptions')->setDefaults($temp);
+                                break;
+
+                        }
+                    }
                     break;
                 case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
                     $this->view->form->_answerDomainType=$postData['question']['new'];
-                    $this->view->form->initSubFormAsTab('answer');
-                    $this->view->form->initSubFormAsTab('options');
+                    $this->view->form->clearSubForms();
+                    $this->view->form->init();
                     $this->view->form->setDefaults($postData);
                     break;
                 case 'newAnswerDomainSameTypeChosen':

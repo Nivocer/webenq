@@ -31,7 +31,7 @@
  */
 class Webenq_Form_Question_Properties_LikertNode extends Webenq_Form_Question_Properties_GroupNode
 {
-
+    public $_subFormNames=array('group', 'questions','answer','likertOptions');
     /**
      * Initialises the form, sets the answer domain type
      *
@@ -42,7 +42,7 @@ class Webenq_Form_Question_Properties_LikertNode extends Webenq_Form_Question_Pr
     public function init()
     {
         parent::init();
-        $this->getSubForm('options')->removeElement('required');
+
      }
 
 
@@ -53,6 +53,24 @@ class Webenq_Form_Question_Properties_LikertNode extends Webenq_Form_Question_Pr
      */
     public function setDefaults(array $defaults)
     {
+
+    /* options tab */
+        //get defaults from answerDomain
+        if (isset($defaults['QuestionnaireElement'])) {
+            if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
+                $defaults['likertOptions']=$defaults['QuestionnaireElement']['AnswerDomain'];
+            }
+            //override from options
+            if (isset($defaults['QuestionnaireElement']['options']['options'])){
+                foreach ($defaults['QuestionnaireElement']['options']['options'] as $key=> $value){
+                    $defaults['likertOptions'][$key]=$value;
+                }
+            }
+            //override from questionnaireElement
+            if (isset($defaults['QuestionnaireElement']['active'])) {
+                $defaults['likertOptions']['active'] = $defaults['QuestionnaireElement']['active'];
+            }
+        }
         parent::setDefaults($defaults);
     }
 }
