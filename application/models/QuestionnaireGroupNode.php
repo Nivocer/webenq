@@ -24,4 +24,17 @@ public function render($format)
             break;
         }
     }
+    public function toArray($deep=true, $prefixKey=false){
+        $return= parent::toArray($deep, $prefixKey);
+//all children in one level
+        foreach ($this->getNode()->getDescendants() as $key=>$descendant) {
+            //hack add questionnaireElement & answerDomain to $descendant
+            $temp=$descendant->QuestionnaireElement;
+            $temp=$descendant->QuestionnaireElement->Translation;
+            $temp=$descendant->QuestionnaireElement->AnswerDomain;
+            $temp=$descendant->QuestionnaireElement->AnswerDomain->Translation;
+            $return['descendants'][]=$descendant->QuestionnaireElement->toArray();
+        }
+    return $return;
+    }
 }

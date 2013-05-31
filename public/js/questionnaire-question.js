@@ -5,7 +5,9 @@ function saveState(event, reload)
 //save sort order in hidden field
 function updateSortField(){
 	var $data=$('.answeritems').sortable('toArray');
-    $('#answer-sortable').val($.toJSON($data));
+	$('#answer-items-sortable').val($.toJSON($data));
+	var $data=$('.questionrows').sortable('toArray');
+	$('#questions-rows-sortable').val($.toJSON($data));
 }
 
 //specific code for options tab
@@ -34,7 +36,7 @@ function initOptionsTab(){
 	}
 }
 
-// add empty row to ad an new answerchoice item
+// add empty row to add an new answerchoice item
 function addItemRow(){
 	var tid = new Date().getTime();
 	$("table#answeritems tr#newitem").clone().find('input').each(function() {
@@ -48,6 +50,23 @@ function addItemRow(){
 	    });
 	  }).end().insertBefore($("table#answeritems tr#newitem")).attr('id','items-'+tid).removeClass('hidden').show('slow');
 }
+
+//add empty row to add an new question
+function addQuestionRow(){
+	//no subform for questions, so different replace and attribute function as answeritems.	
+	var tid = new Date().getTime();
+	$("table#questionrows tr#newitem").clone().find('input').each(function() {
+	    $(this).attr({
+	      'id': function(_, id) { 
+	    	  	if (id){
+	    	  		return id.replace(/^questions-rows-new-/,'questions-rows-'+tid+'-'); 
+	    	  	}
+	    	  	},
+	      'name': function(_, name) { return name.replace(/^questions\[rows\]\[new\]/, 'questions[rows]['+tid+']'); }
+	    });
+	  }).end().insertBefore($("table#questionrows tr#newitem")).attr('id',tid).removeClass('hidden').show('slow');
+}
+
 
 //only one of 'reuse' (answer_domain_id) or 'new' should be set
 function resetAnswerDomain($element) {
@@ -68,11 +87,20 @@ $(function() {
 	});
 
 	//make answer items sortable
-	$('.sortable2').sortable({
+	$('.answeritems.sortable2').sortable({
 		placeholder: 'ui-state-highlight',
 		items: "tr:not(#headerRow, hidden, #footerRow)",
 		update: function(event, ui) {
 			updateSortField();
+		}
+	});
+	//make answer items sortable
+	$('.questionrows.sortable2').sortable({
+		placeholder: 'ui-state-highlight',
+		items: "tr:not(#headerRow, hidden, #footerRow)",
+		update: function(event, ui) {
+			updateSortField();
+			
 		}
 	});
 
@@ -80,6 +108,11 @@ $(function() {
 	$('#addItemRow').click(function() {
 		addItemRow();
 	});
+	// add empty row to add an new question to a group
+	$('#addQuestionRow').click(function() {
+		addQuestionRow();
+	});
+
 	
 	/* hide/show presentation options on change of presentation type */
 	$('#options-presentation').change(function() {

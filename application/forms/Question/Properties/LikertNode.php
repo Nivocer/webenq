@@ -42,6 +42,7 @@ class Webenq_Form_Question_Properties_LikertNode extends Webenq_Form_Question_Pr
     public function init()
     {
         parent::init();
+        $this->getSubForm('options')->removeElement('required');
      }
 
 

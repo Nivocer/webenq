@@ -115,18 +115,23 @@ Webenq_Model_QuestionnaireElement:
         text: Introductietekst pagina 2
   QuestionnaireLikertElement_1_2_2:
     type: QuestionnaireLikertElement
+    options:
+      options:
+        presentation: slider
+    active: true
     Translation:
       en:
         text: To what extend do you agree on....
       nl:
         text: In hoeverre ben je het eens met ....
+    AnswerDomain: AnswerDomainChoice_2
   QuestionnaireQuestionElement_1_2_2_1:
     type: QuestionnaireQuestionElement
     options:
       options:
         presentation: slider
-        active: true
-        required: false
+    active: true
+    required: false
     Translation:
       en:
         text: topic 1
@@ -138,8 +143,8 @@ Webenq_Model_QuestionnaireElement:
     options:
       options:
         presentation: slider
-        active: true
-        required: true
+    active: true
+    required: true
     Translation:
       en:
         text: topic 2
@@ -335,6 +340,7 @@ Webenq_Model_Category:
 
 Webenq_Model_AnswerDomainText:
   AnswerDomainText_1:
+    id: 1 # required for tests in forms/question/tab/question
     Translation:
       en:
         name: Text 
@@ -345,6 +351,7 @@ Webenq_Model_AnswerDomainText:
 
 Webenq_Model_AnswerDomainNumeric:
   AnswerDomainNumeric_1:
+    id: 2 # required for tests in forms/question/tab/question
     Translation:
       en:
         name: Numeric 
@@ -354,6 +361,7 @@ Webenq_Model_AnswerDomainNumeric:
     max: null
 
   AnswerDomainNumeric_Age:
+    id: 3 # required for tests in forms/question/tab/question
     Translation:
       en:
         name: Age 
@@ -364,6 +372,7 @@ Webenq_Model_AnswerDomainNumeric:
 
 Webenq_Model_AnswerDomainChoice:
   AnswerDomainChoice_1:
+    id: 4 # required for tests in forms/question/tab/question
     Translation:
       en:
         name: Yes/no/don't know
@@ -373,6 +382,7 @@ Webenq_Model_AnswerDomainChoice:
     max_choices: null
     AnswerDomainItem: AnswerDomainItem_1
   AnswerDomainChoice_2:
+    id: 5 # required for tests in forms/question/tab/question
     Translation:
       en:
         name: 5-point "(dis)agree"
@@ -382,6 +392,7 @@ Webenq_Model_AnswerDomainChoice:
     max_choices: null
     AnswerDomainItem: AnswerDomainItem_3
   AnswerDomainChoice_Gender:
+    id: 6 # required for tests in forms/question/tab/question
     Translation:
       en:
         name: Gender
