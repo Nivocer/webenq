@@ -28,6 +28,21 @@
 class Webenq_Test_Model_QuestionnaireNodeTest extends Webenq_Test_Case_Model
 {
     /**
+     * Create a node with an associated element of the given type
+     *
+     * @param string $type
+     * @return Webenq_Model_QuestionnaireNode
+     */
+    protected function setUpNode($type)
+    {
+        $nodeClass = "Webenq_Model_Questionnaire${type}Node";
+        $node = new $nodeClass();
+        $node->type = "Questionnaire${type}Node";
+        $node->QuestionnaireElement->type = "Questionnaire${type}Element";
+        return $node;
+    }
+
+    /**
      * @dataProvider casesSave
      */
     public function testFromThenToArrayShouldWork($expectedArray)
@@ -60,16 +75,64 @@ class Webenq_Test_Model_QuestionnaireNodeTest extends Webenq_Test_Case_Model
             $this->arrayNestedElementsPresent($expectedArray, $actualArray));
     }
 
+    public function testSaveChangedNodePropertiesWorks()
+    {
+        $this->createDatabase();
+
+        $node1 = $this->setUpNode('Question');
+        $node1->QuestionnaireElement->Translation->en->text = "Test first";
+        $node1->save();
+
+        $node2 = Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')
+        ->find($node1->id);
+
+        $node2->QuestionnaireElement->Translation->en->text = "Test second";
+        $node2->save();
+
+        $this->assertEquals($node1->id, $node2->id);
+
+        $node1->refresh(true);
+
+        $this->assertEquals($node1->QuestionnaireElement->Translation->en->text,
+                $node2->QuestionnaireElement->Translation->en->text);
+    }
+
+    public function testSaveChangesInSharedElementShouldDuplicateElement()
+    {
+        $this->createDatabase();
+
+        $node1 = $this->setUpNode('Question');
+        $node1->QuestionnaireElement->Translation->en->text = "Test first";
+        $node1->save();
+
+        $node2 = $this->setUpNode('Question');
+        $node2->QuestionnaireElement = $node1->QuestionnaireElement;
+        $node2->save();
+
+        $this->assertNotEquals($node1->id, $node2->id);
+        $this->assertEquals($node1->QuestionnaireElement->id, $node2->QuestionnaireElement->id);
+
+        $node2->QuestionnaireElement->Translation->en->text = "Test second";
+        $node2->save();
+
+        $this->assertNotEquals($node1->QuestionnaireElement->id, $node2->QuestionnaireElement->id);
+    }
+
+    /**
+     * Test cases for saving
+     */
     public function casesSave() {
         return array(
                 // minimal data
-                array(0 => array()),
-                array(1 => array(
+                array(array()),
+
+                array(array(
                     'questionnaire_element_id'=> '1'
-                )),
+                    ),
+                ),
 
                 // normal data
-                array(2 => array(
+                array(array(
                     'QuestionnaireElement'=>array(
                         'Translation' => array(
                             'en' => array('text' => 'English question'),
@@ -77,7 +140,7 @@ class Webenq_Test_Model_QuestionnaireNodeTest extends Webenq_Test_Case_Model
                         )
                     )
                 )),
-                array(3 => array(
+                array(array(
                     'QuestionnaireElement'=>array(
                         'Translation' => array(
                             'en' => array('text' => 'English question'),
@@ -91,7 +154,7 @@ class Webenq_Test_Model_QuestionnaireNodeTest extends Webenq_Test_Case_Model
                         )
                     )
                 )),
-                array(4 => array(
+                array(array(
                     'QuestionnaireElement'=>array(
                         'Translation' => array(
                             'en' => array('text' => 'English question'),

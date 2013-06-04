@@ -16,24 +16,19 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
      * Save this node element
      *
      * Check the linked QuestionnaireElement: if it has changes and is used in
-     * more than one QuestionnaireNode, make a copy of the object and update the
-     * reference to it
+     * more than one QuestionnaireNode, make a copy of it
      * @todo check function
      *
      */
-    public function xsave(Doctrine_Connection $conn = null)
+    public function save(Doctrine_Connection $conn = null)
     {
-        if ($this->QuestionnaireElement->isModified()) {
+        if ($this->QuestionnaireElement->isModified(true)) {
             if (1 < Doctrine_Query::create()
-                ->select('COUNT(id)')
-                ->from('Webenq_Model_QuestionnaireNode qn')
-                ->where('qn.questionnaire_element_id = ?', $this->QuestionnaireElement->id)->count()) {
-                $this->QuestionnaireElement = clone $this->QuestionnaireElement;
-                $this->QuestionnaireElement->save($conn);
-                $this->element_id = $this->QuestionnaireElement->id;
-            } else {
-                $this->QuestionnaireElement->save($conn);
-
+                    ->select('COUNT(id)')
+                    ->from('Webenq_Model_QuestionnaireNode qn')
+                    ->where('qn.questionnaire_element_id = ?', $this->QuestionnaireElement->id)
+                    ->count()) {
+                $this->QuestionnaireElement = $this->QuestionnaireElement->copy();
             }
         }
         parent::save($conn);
@@ -76,7 +71,8 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
      * remove everything but numbers from (html-)id's.
      * @param  $item
      */
-    public function cleanId($input){
+    public function cleanId($input)
+    {
         return preg_replace("/[^\d]/", "", $input);
     }
 
