@@ -29,7 +29,7 @@
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  * @author     Rolf Kleef <r.kleef@nivocer.com>
  */
-class Webenq_Form_Question_Tab_Options extends WebEnq4_Form
+class Webenq_Form_QuestionnaireNode_Tab_Options extends WebEnq4_Form
 {
     /**
      * Array with presentation styles for a questionnaire element

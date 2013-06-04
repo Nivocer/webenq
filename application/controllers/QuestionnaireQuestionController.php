@@ -75,7 +75,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         } else {
             $answerDomainType='AnswerDomainNumeric';
         }
-        $form='Webenq_Form_Question_Properties_QuestionNode';
+        $form='Webenq_Form_QuestionnaireNode_Properties_QuestionNode';
         $this->view->form = new $form(
             array(
                 'answerDomainType' => $answerDomainType,
@@ -138,64 +138,46 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             $this->_redirect('/questionnaire/');
             return;
         }
+        //hack lazy loading?????
+        $questionnaireQuestion->QuestionnaireElement->AnswerDomain->AnswerDomainItem;
 
         $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
         ->findBy('questionnaire_node_id', $questionnaireQuestion->root_id)
         ->getFirst();
 
-        // @todo getting the type should be delegated, is too dependent on deep data structure
-        if ($questionnaireQuestion->QuestionnaireElement->AnswerDomain) {
-            $answerDomainType=$questionnaireQuestion->QuestionnaireElement->AnswerDomain->type;
-        } else {
-            $answerDomainType='';
-        }
-        $form='Webenq_Form_Question_Properties_'.substr($questionnaireQuestion->type,13);
+        $form='Webenq_Form_QuestionnaireNode_Properties_'.substr($questionnaireQuestion->type,13);
 
         $this->view->form = new $form(
             array(
-                'answerDomainType' => $answerDomainType,
-                'defaultLanguage' => $questionnaire->default_language,
+                'defaultLanguage'=>$questionnaire->default_language,
             )
         );
         $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
 
-        $storedData = $questionnaireQuestion->toArray();
-
         if ($this->getRequest()->isPost()) {
+            $this->view->form->adapt($this->getRequest()->getPost());
+
             if ($this->_helper->form->isCancelled($this->view->form)) {
                 $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
                 $this->_redirect($redirectUrl);
                 return;
             } else {
-                //fill information from forms
-                $this->view->form->setDefaults($this->getRequest()->getPost());
-                $formData=$this->view->form->getValues();
-
-                // @todo internal form details to be moved to form class
-                $this->view->form->_submitInfo=$this->view->form->getSubmitButtonUsed();
-                $submitInfo=$this->view->form->_submitInfo;
-                if ($this->view->form->getSubForm($submitInfo['subForm'])->isValid($formData[$submitInfo['subForm']])) {
-                    //get action stack from controller to perform based on the form data
-                    $situations=$this->view->form->getSituations();
-
-                    $this->actOnSituations($situations, $formData);
-                    //redirect to other tab (or preview questionnaire when done)
-                    $this->redirectTo($submitInfo,true);
-                } else {
-                    //subform is not valid: go to current tab
-                    $this->view->activeTab=$submitInfo['subForm'];
+                if ($this->view->form->isValid($this->getRequest()->getPost())) {
+                    $questionnaireQuestion->fromArray($this->view->form->getValues());
+                    $situations = $this->view->form->getSituations($this->getRequest()->getPost());
+//                    $questionnaireQuestion = $this->actOnSituation($questionnaireQuestion, $situations);
+                    if (in_array('done', $situations)) {
+                        //$questionnaireQuestion->save();
+                        $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
+                        $this->_redirect($redirectUrl);
+                        return;
+                    }
                 }
             }
-        } else {
-            $this->view->form->setDefaults($storedData);
         }
 
-        // @todo more ideal: build $questionnaireQuestion with posted and new database data, then re-initialise form before rendering
-        // (validation is now based on form built from database values)
-        //$defaults = $questionnaireQuestion->toArray();
-        //$this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));
-        //$defaults['questionnaire_id'] = $questionnaire->id;
-        //$this->view->form->setDefaults($defaults);
+        $this->view->form->adapt($questionnaireQuestion->toArray());
+        $this->view->form->setDefaults($questionnaireQuestion->toArray());
     }
 
     public function actOnSituations($situations, $postData)
@@ -277,7 +259,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                         }
                     }
                     break;
-
                 case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
                     $this->view->form->_answerDomainType=$postData['question']['new'];
@@ -285,7 +266,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     $this->view->form->init();
                     $this->view->form->setDefaults($postData);
                     break;
-
                 case 'newAnswerDomainSameTypeChosen':
                     //no action needed
                     break;

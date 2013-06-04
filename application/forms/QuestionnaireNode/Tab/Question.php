@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
+class Webenq_Form_QuestionnaireNode_Tab_Question extends WebEnq4_Form
 {
     /**
      * Initialises the form
@@ -97,7 +97,6 @@ class Webenq_Form_Question_Tab_Question extends WebEnq4_Form
     public function isValid($value)
     {
         $isValid=parent::isValid($value);
-
         if ((''==$value['answer_domain_id'] || '0'==$value['answer_domain_id'])
         && (''==$value['new'] || '0'==$value['new'])) {
             $this->new->addError(t('Choose one of these options'));

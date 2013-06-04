@@ -25,7 +25,7 @@
 /**
  * @package    Webenq_Tests
  */
-class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
+class Webenq_Test_Form_QuestionnaireNode_Properties_QuestionNodeTest extends Webenq_Test_Case_Form
 {
     /**
      * @dataProvider formActionTests
@@ -33,10 +33,9 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
     public function testAppropriateActionIsDetermined($data)
     {
         $this->loadDatabase();
-        $form = new Webenq_Form_Question_Properties_QuestionNode();
-        $form->setDefaults($data['post']);
-        $form->_submitInfo=$form->getSubmitButtonUsed();
-        $action = $form->getSituations();
+        $form = new Webenq_Form_QuestionnaireNode_Properties_QuestionNode();
+        //$form->setDefaults($data['post']);
+        $action = $form->getSituations($data['post']);
         sort($action);
         sort($data['action']);
         //@todo comparing sorted arrays, but is order of actions important?
@@ -130,6 +129,7 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                             'next' => 'Next'
                     ),
                     'answer' => array(
+                        'id' => '',
                         'type' => 'AnswerDomainText'
                     )
                 ),
@@ -146,35 +146,28 @@ class Webenq_Test_Form_Question_PropertiesTest extends Webenq_Test_Case_Form
                         'next' => 'Next'
                     ),
                     'answer' => array(
+                        'id' => '',
                         'type' => 'AnswerDomainNumeric'
                     )
                 ),
                 'action' => array('newAnswerDomainTypeChosen')
             )),
-            //same as above, but with dutch submit button text
-            //@todo move to ml-tests
-            /*array(array(
+            array(array(
                 'post' => array(
                     'question' => array(
                         'text' => array('en'=> 'Title'),
-                        'answer_domain_id' => '',
+                        'answer_domain_id' => '4',
                         'new' => 'Choice',
-                        'next' => 'Volgende'
+                        'next' => 'Next'
                     ),
                     'answer' => array(
-                        'type' => 'AnswerDomainNumeric'
+                        'id' => '',
+                        'type' => 'AnswerDomainChoice'
                     )
                 ),
-                'action' => array('newAnswerDomainTypeChosen')
-            )),*/
+                'action' => array('newAndExistingAnswerDomainChoosen')
+            )),
 
-            /*
-             * Subform "answer"
-             */
-
-            /*
-             * Subform "options"
-             */
 
         );
     }

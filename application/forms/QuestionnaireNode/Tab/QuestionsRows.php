@@ -29,7 +29,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Rolf Kleef <r.kleef@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Tab_QuestionsRows extends WebEnq4_Form
+class Webenq_Form_QuestionnaireNode_Tab_QuestionsRows extends WebEnq4_Form
 {
     /**
      * List of fields to show for items

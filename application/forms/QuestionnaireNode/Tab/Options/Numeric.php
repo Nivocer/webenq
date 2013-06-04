@@ -23,23 +23,15 @@
  */
 
 /**
- * Tab form for question properties when dealing with a "choice" question.
+ * Tab form for question properties when dealing with a "numeric" question.
  *
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Tab_Options_Choice extends Webenq_Form_Question_Tab_Options
+class Webenq_Form_QuestionnaireNode_Tab_Options_Numeric extends Webenq_Form_QuestionnaireNode_Tab_Options
 {
     public function init(){
-        /* options form/tab */
-        //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
-        $this->_presentationOptions = Webenq_Model_AnswerDomainChoice::getAvailablePresentations();
-
+        $this->_presentationOptions=Webenq_Model_AnswerDomainNumeric::getAvailablePresentations();
         parent::init();
-
-        $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');
-        $numberOfAnswers->setLabel('How many answers are allowed');
-        $numberOfAnswers->setBelongsTo('options');
-        $this->addElement($numberOfAnswers);
     }
 }

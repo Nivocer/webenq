@@ -29,7 +29,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Rolf Kleef <r.kleef@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Tab_Questions extends WebEnq4_Form
+class Webenq_Form_QuestionnaireNode_Tab_Questions extends WebEnq4_Form
 {
 
     /**
@@ -41,7 +41,7 @@ class Webenq_Form_Question_Tab_Questions extends WebEnq4_Form
     public function init()
     {
         // keep the items subform to be able to add things to it in setDefaults
-        $this->rows = new Webenq_Form_Question_Tab_QuestionsRows();
+        $this->rows = new Webenq_Form_QuestionnaireNode_Tab_QuestionsRows();
         $this->rows->setElementsBelongTo('rows');
         $this->rows->_languages = $this->_languages;
         $this->addSubForm($this->rows, 'rows');

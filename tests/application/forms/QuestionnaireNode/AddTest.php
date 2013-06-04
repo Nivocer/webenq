@@ -25,15 +25,13 @@
 /**
  * @package    Webenq_Tests
  */
-class Webenq_Test_Form_Question_EditTest extends Webenq_Test_Form_Question_AddTest
+class Webenq_Test_Form_QuestionnaireNode_AddTest extends Webenq_Test_Case_Form
 {
+    public $setupDatabase = true;
+
     public function testOneLanguageIsRequired()
     {
-        $question = new Webenq_Model_Question();
-
-        $this->_form = new Webenq_Form_Question_Edit($question);
-
-        $form = $this->_form;
+        $form = $this->getForm();
 
         // invalid without languages
         $values = array('text' => array(

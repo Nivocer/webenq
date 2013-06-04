@@ -20,7 +20,8 @@
  * @package    Webenq_Questionnaires_Manage
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
-  */
+ * @todo       merge initClasses to initTab($name);
+ */
 
 /**
  * Form to deal with question properties (text, answers, options).
@@ -28,77 +29,50 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Properties extends WebEnq4_Form
+class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_QuestionnaireNode_Properties
 {
-    /**
-     * Type of answer domain: text, numeric, choice
+
+    public $_subFormNames=array('question', 'answer', 'options');
+    public $situations=array();
+
+
+    /* (non-PHPdoc)
+     * @see Webenq_Form_QuestionnaireNode_Properties::adapt()
      *
-     * @var string
+     * array $data questionnaireNode->toArray() /postdata
      */
-    public $_subFormNames;
-    public $_answerDomainType;
-    public $_defaultLanguage;
-    public $_submitInfo;
-    private $_answerTypeSpecificForms=array(
-        'Webenq_Form_AnswerDomain_Tab',
-        'Webenq_Form_Question_Tab_Options'
-    );
-
-    /**
-     * Initialises the form, sets the answer domain type
-     *
-     * @param mixed $options
-     * @return void
-     */
-    public function __construct($options = null)
-    {
-        if (is_array($options) && isset($options['answerDomainType'])) {
-            $this->_answerDomainType=$options['answerDomainType'];
-        }
-        if (is_array($options) && isset($options['defaultLanguage'])) {
-            $this->_defaultLanguage=$options['defaultLanguage'];
-        }
-        parent::__construct();
-    }
-
-    public function init()
-    {
-        $qid=new Zend_Form_Element_Hidden('questionnaire_id');
-        $qid->removeDecorator('DtDdWrapper');
-        $qid->removeDecorator('Label');
-        $this->addElement($qid);
-
-        $parentId = new Zend_Form_Element_Hidden('parent_id');
-        $parentId->removeDecorator('DtDdWrapper');
-        $parentId->removeDecorator('Label');
-        $this->addElement($parentId);
-
-        foreach ($this->_subFormNames as $subForm) {
-            if ($this->getSubForm($subForm)) {
-                $this->removeSubForm($subForm);
-            }
-            $this->initSubFormAsTab($subForm);
-        }
-    }
-
-    public function _initDetermineFormName($tabName){
-        switch ($tabName){
-            case 'answer':
-                $formName='Webenq_Form_AnswerDomain_Tab';
-                break;
-            default:
-                $formName='Webenq_Form_Question_Tab_'.ucfirst($tabName);
-                break;
-        }
-        //add answerdomain specific extension if neccessary
-        if (in_array($formName, $this->_answerTypeSpecificForms)){
-            if (in_array($this->_answerDomainType, array('AnswerDomainChoice', 'AnswerDomainNumeric', 'AnswerDomainText'))) {
-                $formName.='_'.substr($this->_answerDomainType, 12);
+    public function adapt(array $data) {
+        //data from database
+        if (isset($data['QuestionnaireElement']['AnswerDomain']['type'])) {
+            $this->_answerDomainType=$data['QuestionnaireElement']['AnswerDomain']['type'];
+        } else {
+            //postdata
+            $this->getSituations($data); //writes to //$this->situations
+            foreach ($this->situations as $situation)
+            switch($situation) {
+                case 'differentAnswerDomainChosen':
+                    $answerDomain = Doctrine_Core::getTable('Webenq_Model_AnswerDomain')
+                        ->find($data['question']['answer_domain_id']);
+                    $this->_answerDomainType=$answerDomain->type;
+                    break;
+                case 'newAnswerDomainChosen':
+                    $this->_answerDomainType=$data['question']['new'];
+                    break;
+                case 'newAnswerDomainTypeChosen':
+                    $this->_answerDomainType=$data['question']['new'];
+                    break;
+                case 'newAnswerDomainSameTypeChosen':
+                    $this->_answerDomainType=$data['question']['new'];//should be the same
+                    break;
+                case 'newAndExistingAnswerDomainChoosen':
+                    $this->_answerDomainType=$data['answer']['type'];
+                    return;//exit the foreach?
+                    break;
             }
         }
-    return $formName;
-    }
 
+        $this->init();
+    }
     /**
      * Set defaults for question properties form
      *
@@ -118,8 +92,15 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
      */
     public function setDefaults(array $defaults)
     {
-        /* translate from database data? */
+        //@todo check set questionnaire id
+        if (isset($defaults['Questionnaire'])) {
+            $defaults['questionnaire_id']=$defaults['Questionnaire'][0]['id'];
+        }
+
         if (isset($defaults['QuestionnaireElement'])) {
+            /* question tab */
+            $defaults['question'] = $defaults['QuestionnaireElement'];
+
             /* answer options tab */
             //pass info from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
@@ -150,9 +131,7 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
             if (isset($defaults['QuestionnaireElement']['required'])) {
                 $defaults['options']['required'] = $defaults['QuestionnaireElement']['required'];
             }
-        }
-        if (isset($defaults['Questionnaire'])) {
-            $defaults['questionnaire_id']=$defaults['Questionnaire'][0]['id'];
+
         }
         parent::setDefaults($defaults);
     }
@@ -184,18 +163,56 @@ class Webenq_Form_Question_Properties extends WebEnq4_Form
     }
 
     /**
-     * Analyses the form values to determine the situations that could occur:
-     *
-     * <ul>
-     * <li>The question tab has been submitted
-     * </ul>
-     *
      * @return array: array with situations that needs action before redisplay form
      */
-    public function getSituations()
+    public function getSituations(array $data)
     {
-        $situations=array();
-        $submitInfo=$this->_submitInfo;
-        return $situations;
+        $this->situations=array();
+        //change: other existing answer domain: mismatch question[answer_domain_id] and answers[id] tab
+        if ($data['question']['answer_domain_id']<>'0' &&
+            $data['question']['new']=='0' &&
+            $data['answer']['id'] <>'0' &&
+            $data['question']['answer_domain_id'] <> $data['answer']['id']
+            ) {
+            $this->situations[]='differentAnswerDomainChosen';
+        }
+
+        //change to a new answer domain: new type is chosen, existing one on answer tab
+        if ($data['question']['new'] <>'0' &&
+            $data['answer']['id'] <>'0' && $data['answer']['id'] <>null
+            ) {
+            $this->situations[]='newAnswerDomainChosen';
+        }
+
+        //change to new answer domain: other answerDomaintType choosen
+        if ($data['question']['new'] <>'0' &&
+            ($data ['answer']['id']=='0'|| $data['answer']['id']==null ) &&
+            'AnswerDomain'.$data['question']['new']<>$data['answer']['type']
+            ) {
+            $this->situations[]='newAnswerDomainTypeChosen';
+        }
+        //change to new answer domain: same answerDomaintType choosen
+        if($data['question']['new'] <>'0' &&
+             $data['answer']['id'] =='0' &&
+            'AnswerDomain'.$data['question']['new'] == $data['answer']['type']
+                ){
+            $this->situations[]='newAnswerDomainSameTypeChosen';
+        }
+        //answer_domain_id and new domain type choosen (is also a validation error)
+        //@todo add test
+        if ($data['question']['answer_domain_id']<>'0' &&
+            $data['question']['answer_domain_id']<>'' &&
+            $data['question']['new']<>'0' &&
+            $data['question']['new']<>''
+            ) {
+            $this->situations[]='newAndExistingAnswerDomainChoosen';
+        }
+
+
+        //@todo submitbutton pressed
+
+
+        return $this->situations;
     }
+
 }

@@ -29,50 +29,34 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Properties_TextNode extends Webenq_Form_Question_Properties
+class Webenq_Form_QuestionnaireNode_Properties_LikertNode extends Webenq_Form_QuestionnaireNode_Properties_GroupNode
 {
-
-    public $_subFormNames = array('question', 'options');
-
-    /**
-     * Initialises the form, sets the answer domain type
-     *
-     * @param mixed $options
-     * @return void
-     */
-    public function init()
-    {
-        parent::init();
-        $this->getSubForm('question')->removeElement('answer_domain_id');
-        $this->getSubForm('question')->removeElement('new');
-
-        $this->getSubForm('options')->removeElement('required');
-    }
-
+    public $_subFormNames = array('group', 'questions', 'answer', 'likertOptions');
 
     /**
-     * Set defaults for question properties form
-     *
-     * The provided $defaults should be similar to the output of toArray() on
-     * a questionnaire node.
-     *
-     * <ul>
-     * <li>['id'], ['type'], ['root_id'], ...: node attributes
-     * <li>['QuestionnaireElement']: related questionnaire question element
-     * <li>['QuestionnaireElement']['AnswerDomain']: answer domain related to the questionnaire question element
-     * </ul>
-     *
-     * If no ['QuestionnaireElement'] sub array is available, existing values
-     * for ['question'], ['answers'] and ['options'] will be preserved.
+     * Set defaults for likertNode properties form
      *
      * @param array Array with data for a questionnaire node
      */
     public function setDefaults(array $defaults)
     {
-        /* translate from database data? */
+
+    /* options tab */
+        //get defaults from answerDomain
         if (isset($defaults['QuestionnaireElement'])) {
-            /* question tab */
-            $defaults['question'] = $defaults['QuestionnaireElement'];
+            if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
+                $defaults['likertOptions']=$defaults['QuestionnaireElement']['AnswerDomain'];
+            }
+            //override from options
+            if (isset($defaults['QuestionnaireElement']['options']['options'])){
+                foreach ($defaults['QuestionnaireElement']['options']['options'] as $key=> $value){
+                    $defaults['likertOptions'][$key]=$value;
+                }
+            }
+            //override from questionnaireElement
+            if (isset($defaults['QuestionnaireElement']['active'])) {
+                $defaults['likertOptions']['active'] = $defaults['QuestionnaireElement']['active'];
+            }
         }
         parent::setDefaults($defaults);
     }

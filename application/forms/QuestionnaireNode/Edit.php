@@ -24,11 +24,11 @@
 
 /**
  * Form class
- *
+ * @deprecated
  * @package    Webenq_Questionnaires_Manage
  * @author     Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Edit extends Webenq_Form_Question_Add
+class Webenq_Form_QuestionnaireNode_Edit extends Webenq_Form_QuestionnaireNode_Add
 {
     /**
      * Current question

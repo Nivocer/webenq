@@ -250,12 +250,14 @@ class WebEnq4_Form extends Zend_Form
      * @param array $names names of elements to search
      * @return array|boolean
      */
-    public function getSubmitButtonUsed($names = array('next','previous','done'))
+    public function getSubmitButtonUsed(array $data, $names = array('next','previous','done'))
     {
         foreach ($this->getSubForms() as $subForm) {
-            foreach ($names as $name) {
-                if (isset($subForm->$name) && $subForm->$name->isChecked()) {
-                    return array('subForm'=>$subForm->getName(), 'name'=>$name);
+            if (isset($data[$subForm->getName()])) {
+                foreach ($names as $name) {
+                    if (isset($data[$subForm->getName()][$name])) {
+                        return array('subForm'=>$subForm->getName(), 'name'=>$name);
+                    }
                 }
             }
         }

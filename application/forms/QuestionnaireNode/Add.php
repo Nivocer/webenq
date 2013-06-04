@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Bart Huttinga <b.huttinga@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Add extends Zend_Form
+class Webenq_Form_QuestionnaireNode_Add extends Zend_Form
 {
     /**
      * Builds the form

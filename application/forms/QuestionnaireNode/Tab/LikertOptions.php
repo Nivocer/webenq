@@ -1,6 +1,6 @@
 <?php
 /**
- * Webenq
+ * WebEnq4
  *
  *  LICENSE
  *
@@ -17,38 +17,27 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package    Webenq_Tests
+ * @package    Webenq_Questionnaires_Manage
  * @copyright  Copyright (c) 2012 Nivocer B.V. (http://www.nivocer.com)
  * @license    http://www.gnu.org/licenses/agpl.html
  */
 
 /**
- * @package    Webenq_Tests
+ * Tab form for question properties when dealing with a "choice" question.
+ *
+ * @package    Webenq_Questionnaires_Manage
+ * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Test_Form_Question_AddTest extends Webenq_Test_Case_Form
+class Webenq_Form_QuestionnaireNode_Tab_LikertOptions extends Webenq_Form_QuestionnaireNode_Tab_Options_Choice
 {
-    public $setupDatabase = true;
+    public function init(){
+        /* options form/tab */
+        //numeric (open: width, slider) choice (radio/checkbox, slider, pulldown)  text (open: num rows, width)
 
-    public function testOneLanguageIsRequired()
-    {
-        $form = $this->getForm();
 
-        // invalid without languages
-        $values = array('text' => array(
-            'en' => '',
-            'nl' => ''));
-        $this->assertFalse($form->isValid($values));
+        parent::init();
 
-        // valid with one language
-        $values = array('text' => array(
-            'en' => 'test',
-            'nl' => ''));
-        $this->assertTrue($form->isValid($values));
 
-        // valid with all languages
-        $values = array('text' => array(
-            'en' => 'test',
-            'nl' => 'test'));
-        $this->assertTrue($form->isValid($values));
+        $this->removeElement('required');
     }
 }

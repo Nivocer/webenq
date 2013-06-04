@@ -28,7 +28,7 @@
  * @package    Webenq_Questionnaires_Manage
  * @author     Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
-class Webenq_Form_Question_Tab_Options_Text extends Webenq_Form_Question_Tab_Options
+class Webenq_Form_QuestionnaireNode_Tab_Options_Text extends Webenq_Form_QuestionnaireNode_Tab_Options
 {
     public function init()
     {
