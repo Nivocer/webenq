@@ -126,11 +126,6 @@ class Webenq_Test_Model_QuestionnaireNodeTest extends Webenq_Test_Case_Model
                 // minimal data
                 array(array()),
 
-                array(array(
-                    'questionnaire_element_id'=> '1'
-                    ),
-                ),
-
                 // normal data
                 array(array(
                     'QuestionnaireElement'=>array(
