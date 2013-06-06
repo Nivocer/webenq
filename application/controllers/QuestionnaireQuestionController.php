@@ -156,7 +156,6 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
         if ($this->getRequest()->isPost()) {
             $this->view->form->adapt($this->getRequest()->getPost());
-
             if ($this->_helper->form->isCancelled($this->view->form)) {
                 $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
                 $this->_redirect($redirectUrl);
@@ -164,14 +163,17 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             } else {
                 if ($this->view->form->isValid($this->getRequest()->getPost())) {
                     $questionnaireNode->fromArray($this->view->form->getValues());
-                    $situations = $this->view->form->getSituations($this->getRequest()->getPost());
-                    $questionnaireNode = $this->actOnSituations($questionnaireNode, $situations, $this->view->form->getValues());
-                    if (in_array('done', $situations)) {
+                    $questionnaireNode = $this->actOnSituations($questionnaireNode, $this->view->form->situations, $this->view->form->getValues());
+
+                    if (in_array('done', $this->view->form->situations)) {
                         //$questionnaireQuestion->save();
                         $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
                         $this->_redirect($redirectUrl);
                         return;
                     }
+                }else {
+                    $questionnaireNode->fromArray($this->view->form->getValues());
+                    $questionnaireNode = $this->actOnSituations($questionnaireNode, $this->view->form->situations, $this->view->form->getValues());
                 }
             }
         }
@@ -195,14 +197,23 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     break;
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
-                    case 'newAnswerDomainTypeChosen':
-                    //other answers/options subform keep as much info from postdata as possible
                     $answerDomain=new Webenq_Model_AnswerDomain();
                     $answerDomain->type=$postData['question']['new'];
                     $questionnaireNode->QuestionnaireElement->AnswerDomain=$answerDomain;
                     break;
+
+                case 'newAnswerDomainTypeChosen':
+                    //other answers/options subform keep as much info from postdata as possible
+                    $answerDomain=new Webenq_Model_AnswerDomain();
+                    $answerDomain->type=$postData['question']['new'];
+                    $answerDomain->fromArray($postData['answer']);
+                    $questionnaireNode->QuestionnaireElement->AnswerDomain=$answerDomain;
+                    break;
                 case 'newAnswerDomainSameTypeChosen':
-                    //no action needed
+                    $answerDomain=new Webenq_Model_AnswerDomain();
+                    $answerDomain->type=$postData['question']['new'];
+                    $answerDomain->fromArray($postData['answer']);
+                    $questionnaireNode->QuestionnaireElement->AnswerDomain=$answerDomain;
                     break;
                 case 'newAndExistingAnswerDomainChoosen':
                     //@todo what should we do:
@@ -218,6 +229,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      *
      * @param array $submitInfo which submitbutton on which tab is pushed
      * @param boolean $soft when true set active tab, else redirect to other page
+     * @deprecated
      */
     public function redirectTo($submitInfo, $soft) {
         //build redirect url
