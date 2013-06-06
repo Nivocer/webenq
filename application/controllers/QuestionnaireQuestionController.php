@@ -131,21 +131,21 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $questionnaireQuestion = Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')
+        $questionnaireNode = Doctrine_Core::getTable('Webenq_Model_QuestionnaireNode')
         ->find($this->_request->id);
 
-        if (!$questionnaireQuestion) {
+        if (!$questionnaireNode) {
             $this->_redirect('/questionnaire/');
             return;
         }
         //hack lazy loading?????
-        $questionnaireQuestion->QuestionnaireElement->AnswerDomain->AnswerDomainItem;
+        $questionnaireNode->QuestionnaireElement->AnswerDomain->AnswerDomainItem;
 
         $questionnaire = Doctrine_Core::getTable('Webenq_Model_Questionnaire')
-        ->findBy('questionnaire_node_id', $questionnaireQuestion->root_id)
+        ->findBy('questionnaire_node_id', $questionnaireNode->root_id)
         ->getFirst();
 
-        $form='Webenq_Form_QuestionnaireNode_Properties_'.substr($questionnaireQuestion->type,13);
+        $form='Webenq_Form_QuestionnaireNode_Properties_'.substr($questionnaireNode->type,13);
 
         $this->view->form = new $form(
             array(
@@ -163,9 +163,9 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 return;
             } else {
                 if ($this->view->form->isValid($this->getRequest()->getPost())) {
-                    $questionnaireQuestion->fromArray($this->view->form->getValues());
+                    $questionnaireNode->fromArray($this->view->form->getValues());
                     $situations = $this->view->form->getSituations($this->getRequest()->getPost());
-//                    $questionnaireQuestion = $this->actOnSituation($questionnaireQuestion, $situations);
+                    $questionnaireNode = $this->actOnSituations($questionnaireNode, $situations, $this->view->form->getValues());
                     if (in_array('done', $situations)) {
                         //$questionnaireQuestion->save();
                         $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
@@ -176,11 +176,11 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
             }
         }
 
-        $this->view->form->adapt($questionnaireQuestion->toArray());
-        $this->view->form->setDefaults($questionnaireQuestion->toArray());
+        $this->view->form->adapt($questionnaireNode->toArray());
+        $this->view->form->setDefaults($questionnaireNode->toArray());
     }
 
-    public function actOnSituations($situations, $postData)
+    public function actOnSituations($questionnaireNode, $situations, $postData)
     {
         //@todo check to see if there is a php/zend-function for it like _forward (__call)?
         foreach ($situations as $situation){
@@ -188,89 +188,29 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 case 'differentAnswerDomainChosen':
                     //get answerdomain from database, keep active/required from postdata
                     $answerDomainModel=new Webenq_Model_AnswerDomain();
-                    if (isset($postData['question']['answer_domain_id'])) {
-                        $answerDomain=$answerDomainModel->getTable()->find($postData['question']['answer_domain_id']);
-                    } elseif (isset($postData['group']['answer_domain_id'])) {
-                        $answerDomain=$answerDomainModel->getTable()->find($postData['group']['answer_domain_id']);
+                    if (isset($questionnaireNode->QuestionnaireElement->answer_domain_id)) {
+                        $answerDomain=$answerDomainModel->getTable()->find($questionnaireNode->QuestionnaireElement->answer_domain_id);
                     }
-                    $this->view->form->_answerDomainType=$answerDomain->type;
-
-                    foreach ($this->view->form->_subFormNames as $subForm) {
-                        switch ($subForm){
-                            case 'question':
-                            case 'group':
-                            case 'questions':
-                                break;
-                            case 'answer':
-                                $this->view->form->initSubFormAsTab('answer');
-                                $this->view->form->getSubform('answer')->setDefaults($answerDomain->toArray());
-                                break;
-                            case 'options':
-                                $this->view->form->initSubFormAsTab('options');
-                                $this->view->form->getSubform('options')->setDefaults($answerDomain->toArray());
-                                if (isset($postData['options']['required'])) {
-                                    $temp['required']=$postData['options']['required'];
-                                }
-                                if (isset($postData['options']['active'])) {
-                                    $temp['active'] =$postData['options']['active'];
-                                }
-                                $this->view->form->getSubform('options')->setDefaults($temp);
-                                break;
-                            case 'likertOptions':
-                                $this->view->form->initSubFormAsTab('likertOptions');
-                                $this->view->form->getSubform('likertOptions')->setDefaults($answerDomain->toArray());
-                                if (isset($postData['likertOptions']['active'])) {
-                                    $temp['active'] =$postData['likertOptions']['active'];
-                                }
-                                $this->view->form->getSubform('likertOptions')->setDefaults($temp);
-                                break;
-                        }
-                    }
-                    // @rolf's parked version:
-                    // $node->QuestionnaireElement->AnswerDomain = Doctrine_Core::getTable('Webenq_Model_AnswerDomain')
-                    // ->find($postData['question']['answer_domain_id']);
-
+                    $questionnaireNode->QuestionnaireElement->AnswerDomain=$answerDomain;
                     break;
-
                 case 'newAnswerDomainChosen':
                     //clear answers and options tab, only keep required and active
-                    $this->view->form->_answerDomainType=$postData['question']['new'];
-                    foreach ($this->view->form->_subFormNames as $subForm) {
-                        switch ($subForm){
-                            case 'question':
-                            case 'group':
-                            case 'questions':
-                                break;
-                            case 'answer':
-                                $this->view->form->initSubFormAsTab('answer');
-                                break;
-                            case 'options':
-                                $this->view->form->initSubFormAsTab('options');
-                                $temp['required']=$postData['options']['required'];
-                                $temp['active'] =$postData['options']['active'];
-                                $this->view->form->getSubform('options')->setDefaults($temp);
-                                break;
-                            case 'likertOptions':
-                                $this->view->form->initSubFormAsTab('likertOptions');
-                                $temp['active'] =$postData['likertOptions']['active'];
-                                $this->view->form->getSubform('likertOptions')->setDefaults($temp);
-                                break;
-
-                        }
-                    }
-                    break;
-                case 'newAnswerDomainTypeChosen':
+                    case 'newAnswerDomainTypeChosen':
                     //other answers/options subform keep as much info from postdata as possible
-                    $this->view->form->_answerDomainType=$postData['question']['new'];
-                    $this->view->form->clearSubForms();
-                    $this->view->form->init();
-                    $this->view->form->setDefaults($postData);
+                    $answerDomain=new Webenq_Model_AnswerDomain();
+                    $answerDomain->type=$postData['question']['new'];
+                    $questionnaireNode->QuestionnaireElement->AnswerDomain=$answerDomain;
                     break;
                 case 'newAnswerDomainSameTypeChosen':
                     //no action needed
                     break;
+                case 'newAndExistingAnswerDomainChoosen':
+                    //@todo what should we do:
+                    //$form->adapt is doing $this->_answerDomainType=$data['answer']['type'];
+                    break;
             }
         }
+        return $questionnaireNode;
     }
 
     /**

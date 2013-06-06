@@ -121,49 +121,7 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
      */
     public function setDefaults(array $defaults)
     {
-        //@todo check set questionnaire id
-        if (isset($defaults['Questionnaire'])) {
-            $defaults['questionnaire_id']=$defaults['Questionnaire'][0]['id'];
-        }
-
-        if (isset($defaults['QuestionnaireElement'])) {
-            /* question tab */
-            $defaults['question'] = $defaults['QuestionnaireElement'];
-
-            /* answer options tab */
-            //pass info from answerDomain
-            if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
-                $defaults['answer'] = $defaults['QuestionnaireElement']['AnswerDomain'];
-            }
-            // pass the answer domain settings to the answer tab as possible defaults
-            if (isset($defaults['QuestionnaireElement']['options']['answerDomain'])){
-                foreach ($defaults['QuestionnaireElement']['options']['answerDomain'] as $key=>$value) {
-                    $defaults['answer'][$key] = $value;
-                }
-            }
-
-            /* options tab */
-            //get defaults from answerDomain
-            if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
-                $defaults['options']=$defaults['QuestionnaireElement']['AnswerDomain'];
-            }
-            //override from options
-            if (isset($defaults['QuestionnaireElement']['options']['options'])){
-                foreach ($defaults['QuestionnaireElement']['options']['options'] as $key=> $value){
-                    $defaults['options'][$key]=$value;
-                }
-            }
-            //override from questionnaireElement
-            if (isset($defaults['QuestionnaireElement']['active'])) {
-                $defaults['options']['active'] = $defaults['QuestionnaireElement']['active'];
-            }
-            if (isset($defaults['QuestionnaireElement']['required'])) {
-                $defaults['options']['required'] = $defaults['QuestionnaireElement']['required'];
-            }
-
-        }
         parent::setDefaults($defaults);
-
     }
 
     public function isValid($data)
@@ -171,9 +129,12 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
         $this->_submitInfo=$this->getSubmitButtonUsed($data);
 
         if (in_array($this->_submitInfo['name'], array('next', 'previous') )) {
-            return $this->getSubForm($this->_submitInfo['subForm'])->isValid($data[$this->_submitInfo['subForm']]);
+            $isValid= $this->getSubForm($this->_submitInfo['subForm'])->isValid($data[$this->_submitInfo['subForm']]);
         }
-        parent::isValid();
+        //process all forms, but don't use it to determin if current submission is valid
+        parent::isValidPartial($data);
+
+        return $isValid;
     }
 
     /**
@@ -187,6 +148,6 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
      */
     public function getSituations(array $data)
     {
-        return $thist->situations;
+        return $this->situations;
     }
 }

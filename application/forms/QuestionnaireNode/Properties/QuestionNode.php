@@ -108,7 +108,13 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
         if (isset($defaults['QuestionnaireElement'])) {
             /* question tab */
             $defaults['question'] = $defaults['QuestionnaireElement'];
-
+            //if we don't have answerId or type get type on question, get type from AnswerDomain
+            if (!isset($defaults['question']['answer_domain_id']) &&
+                  !isset($defaults['question']['new'])&&
+                  isset($defaults['QuestionnaireElement']['AnswerDomain']['type'])
+                  ) {
+                $defaults['question']['new']=$defaults['QuestionnaireElement']['AnswerDomain']['type'];
+            }
             /* answer options tab */
             //pass info from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
@@ -142,6 +148,7 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
 
         }
         parent::setDefaults($defaults);
+
     }
 
     /**
