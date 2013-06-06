@@ -34,7 +34,7 @@ class WebEnq4_View_Helper_TabsBasedOnSubForms extends Zend_View_Helper_Abstract
         $this->_html.='<ul>';
         foreach ($this->view->form->getSubforms() as $subForm){
             $subFormName=$subForm->getName();
-            $this->_html.=($this->view->activeTab==$subFormName ?
+            $this->_html.=($this->view->form->_activeTab==$subFormName ?
                 '<li class="ui-tabs-active">':'<li>');
             $this->_html.= '<a href="#'.$subFormName.'">'. t($subFormName) .'</a>';
             $this->_html.= '</li>';

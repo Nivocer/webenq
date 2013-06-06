@@ -41,6 +41,7 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
     public $_subFormNames;
     public $_defaultLanguage;
     public $_submitInfo;
+    public $_activeTab;
 
     private $_answerTypeSpecificForms=array(
         'Webenq_Form_AnswerDomain_Tab',
@@ -126,13 +127,18 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
 
     public function isValid($data)
     {
+        $isValid=true;
         $this->_submitInfo=$this->getSubmitButtonUsed($data);
-
         if (in_array($this->_submitInfo['name'], array('next', 'previous') )) {
             $isValid= $this->getSubForm($this->_submitInfo['subForm'])->isValid($data[$this->_submitInfo['subForm']]);
         }
+        if ($isValid) {
+            $this->_activeTab=$this->getRedirectSubform($this->_submitInfo);
+        }
         //process all forms, but don't use it to determin if current submission is valid
         parent::isValidPartial($data);
+
+
 
         return $isValid;
     }
