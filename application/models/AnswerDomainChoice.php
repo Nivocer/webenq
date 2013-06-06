@@ -32,6 +32,11 @@
  */
 class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoice
 {
+    /**
+     * @var array Information about the items of a choice element
+     */
+    public $_items;
+
 //todo merge with getAvailablePresentations (not yet implemented in this class)
     public static function getAvailablePresentations()
     {
@@ -76,11 +81,15 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
         $result = parent::toArray($deep, $prefixKey);
 
         if ($deep) {
-            if (isset($this->AnswerDomainItem)) {
-                $result['items'] = $this->AnswerDomainItem
+            if (!isset($this->_items) && isset($this->AnswerDomainItem)) {
+                $this->_items = $this->AnswerDomainItem
                 ->getNode()
                 ->getDescendants()
                 ->toArray();
+            }
+
+            if (isset($this->_items)) {
+                $result['items'] = $this->_items;
             }
 
             // @todo We should find a way to do this via the I18n behavior, of find out why 'deep=true' doesn't do this
@@ -102,7 +111,8 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     {
         if ($deep) {
             if (isset($array['items'])) {
-                // now what...
+                // keep a local copy
+                $this->_items = $array['items'];
             }
         }
 

@@ -35,18 +35,21 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
     public $_subFormNames=array('question', 'answer', 'options');
     public $situations=array();
 
-
-    /* (non-PHPdoc)
+    /**
      * @see Webenq_Form_QuestionnaireNode_Properties::adapt()
      *
      * array $data questionnaireNode->toArray() /postdata
      */
     public function adapt(array $data) {
-        //data from database
         if (isset($data['QuestionnaireElement']['AnswerDomain']['type'])) {
+            //data from database
             $this->_answerDomainType=$data['QuestionnaireElement']['AnswerDomain']['type'];
         } else {
             //postdata
+            if (isset($data['answer']['type'])) {
+                $this->_answerDomainType = $data['answer']['type'];
+            }
+
             $this->getSituations($data); //writes to //$this->situations
             foreach ($this->situations as $situation)
             switch($situation) {
@@ -54,6 +57,8 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
                     $answerDomain = Doctrine_Core::getTable('Webenq_Model_AnswerDomain')
                         ->find($data['question']['answer_domain_id']);
                     $this->_answerDomainType=$answerDomain->type;
+                    // override with new info
+                    $data['answer'] = $answerDomain->toArray();
                     break;
                 case 'newAnswerDomainChosen':
                     $this->_answerDomainType=$data['question']['new'];
@@ -72,7 +77,10 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
         }
 
         $this->init();
+        // @todo this is only needed for Choice, and should become a function to only add rows
+        $this->setDefaults($data);
     }
+
     /**
      * Set defaults for question properties form
      *
