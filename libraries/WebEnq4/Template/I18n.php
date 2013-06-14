@@ -145,19 +145,27 @@ class WebEnq4_Template_I18n extends Doctrine_Template
     }
 
     /**
-     * set translations
+     * set translations from Array (eg postdata)
      *
-     * @param  $array array $array[$language][$field]=$value;
+     * @param  $array array $array[$field][$language]=$value;
      */
-    public function setTranslations($array){
+    public function setTranslationFromArray($array){
+
         if (is_array($array)) {
             $invoker=$this->getInvoker();
-            foreach ($array as $language => $textArray) {
-                foreach ($textArray as $field=>$value){
-                    $invoker->Translation[$language]->$field = $value;
+            $columns=$invoker->Translation->getTable()->getColumnNames();
+            foreach ($array as $field => $values) {
+                if (is_array($values)) {
+                    if (in_array($field, $columns) && !in_array($field, array('id', 'lang'))){
+                        foreach ($values as $language =>$value) {
+                            $invoker->Translation[$language]->$field=$value;
+                        }
+                    }
                 }
             }
+
         }
     }
+
 
 }

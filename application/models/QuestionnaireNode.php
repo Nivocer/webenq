@@ -124,7 +124,7 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
         foreach  ($this->getNode()->getDescendants() as $questionNode) {
             if (get_class($questionNode)=='Webenq_Model_QuestionnairePageNode'){
                 $pageNumber++;
-                $questionNode->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$pageNumber)));
+                $questionNode->QuestionnaireElement->setTranslationFromArray(array('text'=>array('nl'=>$pageNumber)));
                 $questionNode->QuestionnaireElement->save();
             }
         }

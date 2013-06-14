@@ -169,7 +169,7 @@ class WebEnq4_Form extends Zend_Form
      * <li>no additional defaults are added that conflict with field names
      * </ul>
      */
-    public function setTranslation(array $defaults)
+    public function setTranslationDefaults(array $defaults)
     {
         if (isset($defaults['Translation'])) {
             foreach ($defaults['Translation'] as $lang => $record) {
@@ -197,12 +197,12 @@ class WebEnq4_Form extends Zend_Form
         if ($this->isArray()) {
             foreach ($defaults as $key => $value) {
                 if (is_array($value)) {
-                    $defaults[$key] = $this->setTranslation($value);
+                    $defaults[$key] = $this->setTranslationDefaults($value);
                 }
             }
         }
 
-        $defaults = $this->setTranslation($defaults);
+        $defaults = $this->setTranslationDefaults($defaults);
 
         parent::setDefaults($defaults);
     }

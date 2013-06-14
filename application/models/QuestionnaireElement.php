@@ -27,4 +27,21 @@ class Webenq_Model_QuestionnaireElement extends Webenq_Model_Base_QuestionnaireE
         $result['Translation'] = $this->Translation->toArray();
         return $result;
     }
+    /**
+     * Imports data from a php array
+     *
+     * @param string $array  array of data, see link for documentation
+     * @param bool   $deep   whether or not to act on relations
+     * @return void
+     * @see Doctrine_Record::fromArray()
+     */
+    public function fromArray(array $array, $deep = true)
+    {
+        if ($deep) {
+            // @todo We should find a way to do this via the I18n behavior, of find out why 'deep=true' doesn't do this
+            $this->setTranslationFromArray($array);
+        }
+        parent::fromArray($array, $deep);
+    }
+
 }

@@ -256,7 +256,7 @@ class QuestionnaireController extends Zend_Controller_Action
         }
         //create the new page
         $pageNode=new Webenq_Model_QuestionnairePageNode();
-        $pageNode->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$numberOfPages++)));
+        $pageNode->QuestionnaireElement->setTranslationFromArray(array('text'=>array('en'=>$numberOfPages++)));
         $pageNode->getNode()->insertAsLastChildOf($questionnaire->QuestionnaireNode);
 
         $this->_redirect('questionnaire/edit/id/'.$this->_request->id.'#pageId-'.$pageNode->id);
@@ -295,14 +295,14 @@ class QuestionnaireController extends Zend_Controller_Action
                         t('Unable to delete page, it has questions, move or delete them first')
                     );
                     //adjust number of page and reorder page
-                    $rootChild->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$nextPageNumber)));
+                    $rootChild->QuestionnaireElement->setTranslationFromArray('text'=>array('en'=>$nextPageNumber)));
                     $rootChild->QuestionnaireElement->save();
                     $nextPageNumber++;
                     $rootChild->getNode()->insertAsLastChildOf($questionnaire->QuestionnaireNode);
                 }
             }else{
                 //adjust name of page and reorder pages
-                $rootChild->QuestionnaireElement->setTranslations(array('en'=>array('text'=>$nextPageNumber)));
+                $rootChild->QuestionnaireElement->setTranslationFromArray(array('text'=>array('nl'=>$nextPageNumber)));
                 $rootChild->QuestionnaireElement->save();
                 $nextPageNumber++;
                 $rootChild->getNode()->insertAsLastChildOf($questionnaire->QuestionnaireNode);
