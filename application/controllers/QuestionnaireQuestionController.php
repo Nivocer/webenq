@@ -164,9 +164,8 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                 if ($this->view->form->isValid($this->getRequest()->getPost())) {
                     $questionnaireNode->fromArray($this->view->form->getValues());
                     $questionnaireNode = $this->actOnSituations($questionnaireNode, $this->view->form->situations, $this->view->form->getValues());
-
-                    if (in_array('done', $this->view->form->situations)) {
-                        //$questionnaireQuestion->save();
+                    if (in_array('doneButtonPressed', $this->view->form->situations)) {
+                        //$questionnaireNode->save();
                         $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
                         $this->_redirect($redirectUrl);
                         return;
@@ -185,6 +184,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
     public function actOnSituations($questionnaireNode, $situations, $postData)
     {
         //@todo check to see if there is a php/zend-function for it like _forward (__call)?
+        //@todo reset   Webenq_Form_AnswerDomain_Items() private $_itemsAdded ?
         foreach ($situations as $situation){
             switch ($situation){
                 case 'differentAnswerDomainChosen':

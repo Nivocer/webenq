@@ -161,19 +161,23 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      */
     public function setDefaults(array $defaults)
     {
+        $this->addItemRows($defaults);
+
+        parent::setDefaults($defaults);
+    }
+
+    public function addItemRows($data)
+    {
         // only create subforms if they are not already created
-        if (!$this->_itemsAdded && isset($defaults['items'])) {
-            foreach ($defaults['items'] as $key => $item) {
+        if (!$this->_itemsAdded && isset($data['items'])) {
+            foreach ($data['items'] as $key => $item) {
                 if (!in_array($key, array('sortable', 'new'), true)) {
                     $this->addItemRow($key);
                 }
             }
             $this->_itemsAdded = true;
         }
-
-        parent::setDefaults($defaults);
     }
-
     /**
      * Add a row for a single item
      *

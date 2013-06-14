@@ -42,7 +42,7 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
      */
     public function adapt(array $data) {
         if (isset($data['QuestionnaireElement']['AnswerDomain']['type'])) {
-            //data from database
+            //data from database/model
             $this->_answerDomainType=$data['QuestionnaireElement']['AnswerDomain']['type'];
         } else {
             //postdata
@@ -50,7 +50,7 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
                 $this->_answerDomainType = $data['answer']['type'];
             }
 
-            $this->getSituations($data); //writes to //$this->situations
+            $this->getSituations($data); //writes to $this->situations
             foreach ($this->situations as $situation)
             switch($situation) {
                 case 'differentAnswerDomainChosen':
@@ -58,6 +58,7 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
                         ->find($data['question']['answer_domain_id']);
                     $this->_answerDomainType=$answerDomain->type;
                     // override with new info
+                    //@todo reset webenq_forms_Answerdomain_items->$_itemsAdded?
                     $data['answer'] = $answerDomain->toArray();
                     break;
                 case 'newAnswerDomainChosen':
@@ -77,8 +78,14 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
         }
 
         $this->init();
-        // @todo this is only needed for Choice, and should become a function to only add rows
-        $this->setDefaults($data);
+        //add item rows
+        if ($this->_answerDomainType=='AnswerDomainChoice') {
+            if (isset($data['QuestionnaireElement']['AnswerDomain'])) {
+                $this->getSubForm('answer')->getSubForm('items')->addItemRows($data['QuestionnaireElement']['AnswerDomain']);
+            } elseif (isset ($data['answer'])) {
+                $this->getSubForm('answer')->getSubForm('items')->addItemRows($data['answer']);
+            }
+        }
     }
 
     /**
@@ -133,12 +140,12 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
                 $defaults['options']=$defaults['QuestionnaireElement']['AnswerDomain'];
             }
             //override from options
-            if (isset($defaults['QuestionnaireElement']['options']['options'])){
-                foreach ($defaults['QuestionnaireElement']['options']['options'] as $key=> $value){
+            if (isset($defaults['QuestionnaireElement']['options'])){
+                foreach ($defaults['QuestionnaireElement']['options'] as $key=> $value){
                     $defaults['options'][$key]=$value;
                 }
             }
-            //override from questionnaireElement
+            //override from questionnaireElement @todo if we want to override these properties from QuestionnaireElement['options'] we should move this up
             if (isset($defaults['QuestionnaireElement']['active'])) {
                 $defaults['options']['active'] = $defaults['QuestionnaireElement']['active'];
             }
@@ -169,10 +176,17 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
         if (isset($values['answer']) && is_array($values['answer'])) {
             $values['QuestionnaireElement']['AnswerDomain'] = $values['answer'];
         }
-
+        // store active/required in questionnaireElement @todo: check do we want this or are questionnaireElement reusable?
         if (isset($values['options']) && is_array($values['options'])) {
             $values['QuestionnaireElement']['options'] = $values['options'];
+            if (isset($values['options']['required'])) {
+                $values['QuestionnaireElement']['required']=$values['options']['required'];
+            }
+            if (isset($values['options']['active'])) {
+                $values['QuestionnaireElement']['active']=$values['options']['active'];
+            }
         }
+
 
         return $values;
     }
@@ -222,7 +236,9 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
             ) {
             $this->situations[]='newAndExistingAnswerDomainChoosen';
         }
-
+        if ($this->_submitInfo['name']=='done' ) {
+            $this->situation[]='doneButtonPressed';
+        }
 
         //@todo submitbutton pressed
 
