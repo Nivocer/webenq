@@ -193,11 +193,11 @@
 								<bottomPen lineWidth="0.0"/>
 								<rightPen lineWidth="0.0"/>
 							</box>
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" pattern="">
 								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="80">
 									<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
 									<property name="net.sf.jasperreports.text.truncate.suffix" value="..."/>
-									<property name="net.sf.jasperreports.export.html.wrap.break.word" value="true"/>
+									<property name="net.sf.jasperreports.export.html.wrap.break.word" value="false"/>
 									<property name="net.sf.jasperreports.export.pdf.force.linebreak.policy" value="true"/>
 									<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
 								</reportElement>
@@ -211,7 +211,7 @@
 									<font size="7"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
-    str($V{col}).replace("_",": ").replace("-", " "):
+    str($V{col}).replace("_",": ").replace("-", " ").replace("‧","-"):
         str("Total"))]]></textFieldExpression>
 							</textField>
 						</cellContents>
