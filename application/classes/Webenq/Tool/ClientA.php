@@ -200,6 +200,7 @@ class Webenq_Tool_ClientA extends Webenq_Tool
 
         // get extra data from last working sheet
         $extraData = array();
+
         if (isset($data[2])) {
             foreach ($data[2] as $row) {
                 if (isset($row[0])) {
@@ -208,7 +209,7 @@ class Webenq_Tool_ClientA extends Webenq_Tool
             }
         } else {
             //@todo throw error
-            var_dump($this->_filename);
+            var_dump(__FILE__,  __LINE__,'no third sheet', $this->_filename);
             exit;
         }
         // copy headers from original data (all columns)

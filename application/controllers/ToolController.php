@@ -73,6 +73,11 @@ class ToolController extends Zend_Controller_Action
 
                     if (!isset($thirdWorkingSheet)) $thirdWorkingSheet = $set[2];
 
+                    $value = $set[2][0][1];
+                    if (!isset($title)) {
+                        $title='multiple: first'.$set[2][0][1];
+                    }
+
                     $value = $set[2][1][1];
                     if (isset($startDate)) {
                         if ($startDate > new Zend_Date($value)) {
@@ -119,7 +124,7 @@ class ToolController extends Zend_Controller_Action
                         $totalResponseCount = $value;
                     }
                 }
-                $thirdWorkingSheet[0][1] = 'Module-evaluatie';
+                $thirdWorkingSheet[0][1] = $title;
                 $thirdWorkingSheet[1][1] = $startDate->get('Y-MM-dd HH:mm:ss');
                 $thirdWorkingSheet[2][1] = $endDate->get('Y-MM-dd HH:mm:ss');
                 $thirdWorkingSheet[3][1] = $respondentCount;
@@ -215,83 +220,93 @@ class ToolController extends Zend_Controller_Action
                 // calculate data for third working sheet
                 foreach ($data as $i => $set) {
 
-                    if (!isset($thirdWorkingSheet)) $thirdWorkingSheet = $set[2];
+                    if (!isset($thirdWorkingSheet) && isset($set[2])) {
+                        $thirdWorkingSheet = $set[2];
+                    }
 
-                    $value = $set[2][1][1];
-                    if (isset($startDate)) {
-                        if ($startDate > new Zend_Date($value)) {
+                    if (isset($set[2])) {
+                        $value = $set[2][0][1];
+                        if (!isset($title)) {
+                            $title='multiple: first'.$set[2][0][1];
+                        }
+
+                        $value = $set[2][1][1];
+                        if (isset($startDate)) {
+                            if ($startDate > new Zend_Date($value)) {
+                                $startDate = new Zend_Date($value);
+                            }
+                        } else {
                             $startDate = new Zend_Date($value);
                         }
-                    } else {
-                        $startDate = new Zend_Date($value);
-                    }
 
-                    $value = $set[2][2][1];
-                    if (isset($endDate)) {
-                        if ($endDate < new Zend_Date($value)) {
+
+                        $value = $set[2][2][1];
+                        if (isset($endDate)) {
+                            if ($endDate < new Zend_Date($value)) {
+                                $endDate = new Zend_Date($value);
+                            }
+                        } else {
                             $endDate = new Zend_Date($value);
                         }
-                    } else {
-                        $endDate = new Zend_Date($value);
-                    }
 
-                    $value = $set[2][3][1];
-                    if (isset($respondentCount)) {
-                        $respondentCount += $value;
-                    } else {
-                        $respondentCount = $value;
-                    }
-
-                    $value = $set[2][4][1];
-                    if (isset($emailInvitationCount)) {
-                        $emailInvitationCount += $value;
-                    } else {
-                        $emailInvitationCount = $value;
-                    }
-
-                    if (isset($set[2][5][1])) {
-                        $value = $set[2][5][1];
-                        if (isset($emailResponseCount)) {
-                            $emailResponseCount += $value;
+                        $value = $set[2][3][1];
+                        if (isset($respondentCount)) {
+                            $respondentCount += $value;
                         } else {
-                            $emailResponseCount = $value;
+                            $respondentCount = $value;
                         }
-                    } else {
-                        $invalidEmailResponseCount=1;
-                    }
-                    if (isset($set[2][6][1])) {
-                        $value = $set[2][6][1];
-                        if (isset($totalResponseCount)) {
-                            $totalResponseCount += $value;
-                        } else {
-                            $totalResponseCount = $value;
-                        }
-                    } else {
-                        $invalidTotalResponseCount=1;
-                    }
-                }
-                $thirdWorkingSheet[0][1] = 'Module-evaluatie';
-                $thirdWorkingSheet[1][1] = $startDate->get('Y-MM-dd HH:mm:ss');
-                $thirdWorkingSheet[2][1] = $endDate->get('Y-MM-dd HH:mm:ss');
-                $thirdWorkingSheet[3][1] = $respondentCount;
-                $thirdWorkingSheet[4][1] = $emailInvitationCount;
-                if (isset($invalidEmailResponseCount) && $invalidEmailResponseCount==1) {
-                    $thirdWorkingSheet[5][1] = 'invalid';
-                } else {
-                    $thirdWorkingSheet[5][1] = $emailResponseCount;
-                }
-                if (isset($invalidTotalResponseCount)&& $invalidTotalResponseCount==1) {
-                    $thirdWorkingSheet[6][1] = 'invalid';
-                } else {
-                    $thirdWorkingSheet[6][1] = $totalResponseCount;
-                }
-                if ($emailInvitationCount>0) {
-                    $thirdWorkingSheet[7][1] = $emailResponseCount / $emailInvitationCount * 100;
-                } else {
-                    $thirdWorkingSheet[7][1] = '';
-                }
-                $thirdWorkingSheet[8][1] = 'divers';
 
+                        $value = $set[2][4][1];
+                        if (isset($emailInvitationCount)) {
+                            $emailInvitationCount += $value;
+                        } else {
+                            $emailInvitationCount = $value;
+                        }
+
+                        if (isset($set[2][5][1])) {
+                            $value = $set[2][5][1];
+                            if (isset($emailResponseCount)) {
+                                $emailResponseCount += $value;
+                            } else {
+                                $emailResponseCount = $value;
+                            }
+                        } else {
+                            $invalidEmailResponseCount=1;
+                        }
+                        if (isset($set[2][6][1])) {
+                            $value = $set[2][6][1];
+                            if (isset($totalResponseCount)) {
+                                $totalResponseCount += $value;
+                            } else {
+                                $totalResponseCount = $value;
+                            }
+                        } else {
+                            $invalidTotalResponseCount=1;
+                        }
+
+                        $thirdWorkingSheet[0][1] = $title;
+                        $thirdWorkingSheet[1][1] = $startDate->get('Y-MM-dd HH:mm:ss');
+                        $thirdWorkingSheet[2][1] = $endDate->get('Y-MM-dd HH:mm:ss');
+                        $thirdWorkingSheet[3][1] = $respondentCount;
+                        $thirdWorkingSheet[4][1] = $emailInvitationCount;
+                        if (isset($invalidEmailResponseCount) && $invalidEmailResponseCount==1) {
+                            $thirdWorkingSheet[5][1] = 'invalid';
+                        } else {
+                            $thirdWorkingSheet[5][1] = $emailResponseCount;
+                        }
+                        if (isset($invalidTotalResponseCount)&& $invalidTotalResponseCount==1) {
+                            $thirdWorkingSheet[6][1] = 'invalid';
+                        } else {
+                            $thirdWorkingSheet[6][1] = $totalResponseCount;
+                        }
+                        if ($emailInvitationCount>0) {
+                            $thirdWorkingSheet[7][1] = $emailResponseCount / $emailInvitationCount * 100;
+                        } else {
+                            $thirdWorkingSheet[7][1] = '';
+                        }
+                        $thirdWorkingSheet[8][1] = 'divers';
+                    }
+                }
 
 
                 //merge data:
@@ -307,9 +322,15 @@ class ToolController extends Zend_Controller_Action
 
                 // return file for download
                 $download = new Webenq_Download_Xlsx();
-                $download->setData($data[0][0])->init();
-                $download->addWorkingSheet($data[0][1]);
-                $download->addWorkingSheet($thirdWorkingSheet);
+                if (isset($data[0]) && isset($data[0][0])) {
+                    $download->setData($data[0][0])->init();
+                    $download->addWorkingSheet($data[0][1]);
+                } else {
+                    $download->setData($data)->init();
+                }
+                if (isset($thirdWorkingSheet)) {
+                    $download->addWorkingSheet($thirdWorkingSheet);
+                }
                 $this->view->filename = $download->save($archiveInfo['file']['name']);
             }
         }
@@ -331,6 +352,19 @@ class ToolController extends Zend_Controller_Action
     protected function _mergeData(array &$data, array &$newData, $setId=NULL)
     {
         $maxDistance=1;
+        if (!isset($data[0])) {
+            //no earlier data
+            if (!isset($newData[0])) {
+                //no new data
+                return array();
+            } else {
+                //new data
+                return $newData;
+            }
+        } elseif (!isset($newData)) {
+            //earlier data, no newData
+            return $data;
+        }
         $questions = array_map("trim", $data[0][0]);
         $questionsNew=array_map("trim", $newData[0][0]);
         //test if new data has same questions as old data, if so, just add the data and we are done
