@@ -295,7 +295,7 @@ class QuestionnaireController extends Zend_Controller_Action
                         t('Unable to delete page, it has questions, move or delete them first')
                     );
                     //adjust number of page and reorder page
-                    $rootChild->QuestionnaireElement->setTranslationFromArray('text'=>array('en'=>$nextPageNumber)));
+                    $rootChild->QuestionnaireElement->setTranslationFromArray(array('text'=>array('en'=>$nextPageNumber)));
                     $rootChild->QuestionnaireElement->save();
                     $nextPageNumber++;
                     $rootChild->getNode()->insertAsLastChildOf($questionnaire->QuestionnaireNode);
