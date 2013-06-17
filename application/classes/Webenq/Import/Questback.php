@@ -44,7 +44,7 @@ class Webenq_Import_Questback extends Webenq_Import_Default
         $this->_questionnaire->addQuestionnaireTitle($this->_language, $data[0][1]);
         $this->_questionnaire->meta = serialize($newMeta);
         $this->_questionnaire->save();
-
+        unset ($allData);
         return $this;
     }
 
@@ -134,7 +134,8 @@ class Webenq_Import_Questback extends Webenq_Import_Default
             }
             $questionGroup->save();
         }
-
+        unset ($data);
+        unset ($firstWorkSheet);
         return $this;
     }
 }

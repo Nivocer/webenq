@@ -36,8 +36,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
     {
         // get data in spreadsheet format
         $data = $this->_adapter->getData();
-        $firstWorkSheet = $data[0];
-        $questionsAndAnswers = $this->_getDataAsAnswers($firstWorkSheet);
+        $questionsAndAnswers = $this->_getDataAsAnswers($data[0]); //first worksheet
 
         // create new questionnaire
         $questionnaire = $this->_questionnaire = new Webenq_Model_Questionnaire();
@@ -50,8 +49,8 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
 
         // add answers to questions
         $indexQuestion = 0;
-        foreach ($questionsAndAnswers as $question => $answers) {
 
+        foreach ($questionsAndAnswers as $question => $answers) {
             // get current questionnaire-question
             $questionnaireQuestion = $questionnaireQuestions[$indexQuestion];
             $meta = unserialize($questionnaireQuestion->meta);
@@ -115,6 +114,7 @@ class Webenq_Import_Default extends Webenq_Import_Abstract
                 throw new Exception('Unknown question type!');
             }
             $indexQuestion++;
+            $questionnaire->save();
         }
 
         // save questionnaire

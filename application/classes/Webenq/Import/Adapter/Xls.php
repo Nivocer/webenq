@@ -103,6 +103,7 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
         }
 
         // convert date fields
+        /* disable convertion of text to date-field, is very time consuming
         foreach ($data as $sheetId => $sheet) {
             foreach ($sheet as $rowId => $row) {
                 if ($rowId > 0) {
@@ -119,7 +120,7 @@ class Webenq_Import_Adapter_Xls extends Webenq_Import_Adapter_Abstract
                 }
             }
         }
-
+        */
         $this->_data = $data;
         return $data;
     }
