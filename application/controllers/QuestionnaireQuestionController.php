@@ -145,11 +145,10 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
         ->findBy('questionnaire_node_id', $questionnaireNode->root_id)
         ->getFirst();
 
-        $form='Webenq_Form_QuestionnaireNode_Properties_'.substr($questionnaireNode->type,13);
-
-        $this->view->form = new $form(
+        $formClassName = 'Webenq_Form_QuestionnaireNode_Properties_'.substr($questionnaireNode->type, 13);
+        $this->view->form = new $formClassName(
             array(
-                'defaultLanguage'=>$questionnaire->default_language,
+                'defaultLanguage' => $questionnaire->default_language,
             )
         );
         $this->view->form->setAction($this->view->baseUrl($this->_request->getPathInfo()));

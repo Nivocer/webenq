@@ -142,7 +142,8 @@ class WebEnq4_Form extends Zend_Form
      *
      * @param string $tabName
      */
-    public function initSubFormAsTab($tabName){
+    public function initSubFormAsTab($tabName)
+    {
         $formName = $this->_initDetermineFormName($tabName);
         $tab = new $formName(array('defaultLanguage'=>$this->_defaultLanguage));
         $tab->setElementsBelongTo($tabName);
@@ -151,8 +152,10 @@ class WebEnq4_Form extends Zend_Form
         $tab->addDecorator('SubFormInTab');
         $this->addSubForm($tab, $tabName);
     }
- public function _initDetermineFormName($tabName){
-    return 'Webenq_Form_'.$tabName;
+
+    public function _initDetermineFormName($tabName)
+    {
+        return 'Webenq_Form_'.$tabName;
     }
 
     /**

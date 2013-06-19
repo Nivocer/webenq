@@ -85,6 +85,7 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
     public function adapt(array $data) {
 
     }
+
     public function _initDetermineFormName($tabName){
         switch ($tabName){
             case 'answer':

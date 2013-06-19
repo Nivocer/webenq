@@ -23,8 +23,9 @@
  */
 
 /**
- * Helper to generate a "multi-lingual text field with choice of default language" element
+ * Helper to generate jQuery-based tabs for sub forms
  *
+ * @todo Currently hard-coded to use the form named 'form' in the Zend view
  * @package    WebEnq4_Forms
  */
 class WebEnq4_View_Helper_TabsBasedOnSubForms extends Zend_View_Helper_Abstract
