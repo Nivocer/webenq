@@ -12,13 +12,11 @@
  */
 class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
 {
-    /*
+    /**
      * Save this node element
      *
      * Check the linked QuestionnaireElement: if it has changes and is used in
      * more than one QuestionnaireNode, make a copy of it
-     * @todo check function
-     *
      */
     public function save(Doctrine_Connection $conn = null)
     {
@@ -35,20 +33,20 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
     }
 
     /**
-     * save the pages, groups and questions as children of their parent
+     * Save the pages, groups and questions as children of their parent
      *
+     * Cases:
+     * <ul>
+     * <li>not all children of this node were given: they become the first nodes
+     * <li>more nodes were given: they are added: wanted behavior
+     * <li>given nodes were not children of this node: possible wanted behavior
+     * <li>example: drag question from one Likert table into another: oops (but not possible via ui)
+     * <li>given nodes don't belong to this questionnaire: big oops
+     * </ul>
+
      * @param array $data (structured array, with all the descendants) key is parent, val is array with children
      * @todo determin restrictions of the sorting
-     *  // cases:
-        // - not all children of this node were given: they become the first nodes
-        // - more nodes were given: they are added: wanted behavior
-        // - given nodes were not children of this node: possible wanted behavior
-        //   example: drag question from one Likert table into another: oops (but not possible via ui)
-        // - given nodes don't belong to this questionnaire: big oops
-         *
-         * @param array $data
-
-    */
+     */
     public function reorderDescendants($data)
     {
         foreach ($data as $key=>$val){
@@ -67,6 +65,7 @@ class Webenq_Model_QuestionnaireNode extends Webenq_Model_Base_QuestionnaireNode
             }
         }
     }
+
     /**
      * remove everything but numbers from (html-)id's.
      * @param  $item

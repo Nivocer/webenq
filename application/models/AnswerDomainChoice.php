@@ -82,10 +82,10 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
 
         if ($deep) {
             if (!isset($this->_items) && isset($this->AnswerDomainItem)) {
-                $this->_items = $this->AnswerDomainItem
-                ->getNode()
-                ->getDescendants()
-                ->toArray();
+                $items = $this->AnswerDomainItem->getNode()->getDescendants();
+                if ($items) {
+                    $this->_items = $items->toArray();
+                }
             }
 
             if (isset($this->_items)) {
@@ -100,7 +100,10 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     }
 
     /**
-     * Imports data from a php array
+     * Imports data from a php array. If an array element 'items' exists, it
+     * is stored in the object assuming this contains information about the
+     * sub items of the tree root of answer domain items. This information is
+     * processed in the save() function.
      *
      * @param string $array  array of data, see link for documentation
      * @param bool   $deep   whether or not to act on relations
@@ -111,12 +114,33 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     {
         if ($deep) {
             if (isset($array['items'])) {
-                // keep a local copy
+                // keep a local copy assuming
                 $this->_items = $array['items'];
             }
         }
 
         parent::fromArray($array, $deep);
+    }
+
+    /**
+     * Save this choice element
+     *
+     *
+     *
+     */
+    public function save(Doctrine_Connection $conn = null)
+    {
+
+        if ($this->AnswerDomainItem->isModified(true)) {
+            if (1 < Doctrine_Query::create()
+            ->select('COUNT(id)')
+            ->from('Webenq_Model_AnswerDomainChoice adc')
+            ->where('adc.answer_domain_item_id = ?', $this->AnswerDomainItem->id)
+            ->count()) {
+                $this->AnswerDomainItem = $this->AnswerDomainItem->copy();
+            }
+        }
+        parent::save($conn);
     }
 
     public function getAnswerOptionsArray(){
