@@ -100,6 +100,22 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     }
 
     /**
+     * refresh
+     * remove the locally stored array with info on sub items, then
+     * refresh internal data from the database
+     *
+     * @param bool $deep
+     * @throws Doctrine_Record_Exception
+     * @return boolean
+     * @see Doctrine_Record::refresh()
+     */
+    public function refresh($deep = false)
+    {
+        unset($this->_items);
+        parent::refresh($deep);
+    }
+
+    /**
      * Imports data from a php array. If an array element 'items' exists, it
      * is stored in the object assuming this contains information about the
      * sub items of the tree root of answer domain items. This information is
@@ -140,6 +156,7 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
                 $this->AnswerDomainItem = $this->AnswerDomainItem->copy();
             }
         }
+
         parent::save($conn);
     }
 

@@ -53,7 +53,7 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
 
         $answerdomain->fromArray($expectedArray);
         $answerdomain->save();
-        //unset($answerdomain->_items);
+        $answerdomain->refresh(true);
 
         $record = Doctrine_Core::getTable('Webenq_Model_AnswerDomainChoice')
         ->find($answerdomain->id);
