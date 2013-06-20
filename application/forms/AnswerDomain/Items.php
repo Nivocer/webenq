@@ -35,40 +35,40 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
      * List of fields to show for items
      */
     private $_fields = array(
-        'sortable'=>array(
-            'type'=>'sortable',
-            'label'=>'',
-            'required'=> false
+        'id' => array(
+            'label' => '',
+            'type' => 'sortable',
+            'required' => true
         ),
         'value' => array(
             'label' => 'Value',
             'description' => "The value stored\nin the database",
             'type' => 'string',
-            'required'=> true
+            'required' => true
         ),
         'label' => array(
             'label' => 'Label',
             'description' => "How the value is presented\nin forms and reports",
             'type' => 'i18n',
-            'required'=> true
+            'required' => true
         ),
         'isNullValue' => array(
             'label' => 'Null value?',
             'description' => "Should this be considered\nas \"non-response\"?",
             'type' => 'boolean',
-            'required'=> false
+            'required' => false
         ),
         'isActive' => array(
             'label' => 'Active?',
             'description' => "Is this item in use?",
             'type' => 'boolean',
-            'required'=> false
+            'required' => false
         ),
         'isHidden' => array(
             'label' => 'Hidden?',
             'description' => "Should this item be shown in lists?",
             'type' => 'boolean',
-            'required'=> false
+            'required' => false
         ),
     );
     /**
@@ -192,8 +192,8 @@ class Webenq_Form_AnswerDomain_Items extends WebEnq4_Form
         foreach ($this->_fields as $fieldname => $fieldinfo) {
             switch ($fieldinfo['type']) {
                 case 'sortable':
-                    $cell= new WebEnq4_Form_Element_Note($fieldname);
-                    $cell->setValue('<div class="handle" title="Drag to sort item"></div>');
+                    $cell = new Zend_Form_Element_Hidden($fieldname);
+                    $cell->addDecorator('SortableHandle');
                     break;
                 case 'i18n':
                     $cell = new WebEnq4_Form_Element_MlText($fieldname);

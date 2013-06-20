@@ -114,6 +114,10 @@ class WebEnq4_Form extends Zend_Form
         $element->removeDecorator('DtDdWrapper');
         $element->removeDecorator('Label');
         $element->addDecorator('Tooltip');
+
+        // remove, then add decorator, to put it at the end of the chain
+        // (instead of replacing the decorator at the point where it was)
+        $element->removeDecorator('HtmlTag');
         $element->addDecorator('HtmlTag', array('tag' => $tag));
         return $element;
     }
@@ -129,9 +133,9 @@ class WebEnq4_Form extends Zend_Form
         $element->removeDecorator('HtmlTag');
         $element->removeDecorator('DtDdWrapper');
         $element->removeDecorator('Label');
-        if (isset($options['id'])){
+        if (isset($options['id'])) {
             $element->addDecorator('HtmlTag', array('tag' => 'tr', 'id'=>$options['id']));
-        }else{
+        } else {
             $element->addDecorator('HtmlTag', array('tag' => 'tr'));
         }
         return $element;
