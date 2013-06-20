@@ -111,7 +111,7 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
      */
     public function refresh($deep = false)
     {
-        unset($this->_items);
+        $this->_items = null;
         parent::refresh($deep);
     }
 
@@ -141,19 +141,60 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     /**
      * Save this choice element
      *
-     *
-     *
+     * Check for sub items and update the item list if needed
      */
     public function save(Doctrine_Connection $conn = null)
     {
+        if (isset($this->_items)) {
+            // gather the desired items in the list
+            // @todo just picking existing sorted items, not dealing with missing items or items that are not referenced in the sorting
+            if (isset($this->_items['sortable']) && is_array($this->_items['sortable'])) {
+                foreach ($this->_items['sortable'] as $i) {
+                    if (isset($this->_items[$i])) {
+                        $items[] = $items[$i];
+                    }
+                }
+            } else {
+                $items = $this->_items;
+            }
+            // the desired items are sorted in $items
 
-        if ($this->AnswerDomainItem->isModified(true)) {
-            if (1 < Doctrine_Query::create()
-            ->select('COUNT(id)')
-            ->from('Webenq_Model_AnswerDomainChoice adc')
-            ->where('adc.answer_domain_item_id = ?', $this->AnswerDomainItem->id)
-            ->count()) {
-                $this->AnswerDomainItem = $this->AnswerDomainItem->copy();
+            // do we have already have an AnswerDomainItem?
+            if (false && isset($this->answer_domain_item_id)) {
+                // are we the only one using this item list or should we create a copy?
+                $copyItemListOnChange = (1 < Doctrine_Query::create()
+                ->select('COUNT(id)')
+                ->from('Webenq_Model_AnswerDomainChoice adc')
+                ->where('adc.answer_domain_item_id = ?', $this->AnswerDomainItem->id)
+                ->count());
+
+
+                // @todo adapt based on changed sub items
+                if ($copyItemListOnChange && $this->AnswerDomainItem->isModified(true)) {
+                    $this->AnswerDomainItem = $this->AnswerDomainItem->copy();
+                }
+
+            } else {
+                // we don't have an AnswerDomainItem yet, save as new tree
+                $this->AnswerDomainItem = new Webenq_Model_AnswerDomainItem();
+                //$this->AnswerDomainItem =
+                $this->AnswerDomainItem->save();
+
+                $treeObject = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
+                $treeObject->createRoot($this->AnswerDomainItem);
+
+                foreach ($items as $itemData) {
+                    if (isset($itemData['id'])) {
+                        unset($itemData['id']);
+                    }
+
+                    $item = new Webenq_Model_AnswerDomainItem();
+                    $item->fromArray($itemData);
+                    $item->save();
+
+                    $item->getNode()->insertAsLastChildOf($this->AnswerDomainItem);
+
+                }
             }
         }
 

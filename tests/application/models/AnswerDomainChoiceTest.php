@@ -133,7 +133,28 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                 )
             )),
 
-            // with items
+            // with one item
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'AnswerDomainItem' => array(
+                ),
+                'items' => array(
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Single item'
+                        )
+                    ),
+                )
+            )),
+
+/*
+            // with multiple items
             array(array(
                     'type' => 'AnswerDomainChoice',
                     'Translation' => array(
@@ -148,14 +169,14 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                     ),
                     'items' => array(
                         0 => array(
-                            'value' => 1,
+                            'value' => '1',
                             'isActive' => true,
                             'label' => array(
                                 'en' => 'First item'
                             )
                         ),
                         1 => array(
-                            'value' => 2,
+                            'value' => '2',
                             'isActive' => true,
                             'label' => array(
                                 'en' => 'Second item'
@@ -163,6 +184,7 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                         )
                     )
             )),
+*/
 
         );
     }

@@ -27,8 +27,41 @@ class Webenq_Model_AnswerDomainItem extends Webenq_Model_Base_AnswerDomainItem
         if ($deep) {
             // @todo We should find a way to do this via the I18n behavior, of find out why 'deep=true' doesn't do this
             $result['Translation'] = $this->Translation->toArray();
+
+            // @todo Remove hacking the translations into form-formatted array to be able to compare with original in tests
+            if (is_array($result['Translation'])) {
+                foreach ($result['Translation'] as $lang => $record) {
+                    foreach ($record as $field => $value) {
+                        if (($field != 'id') && ($field != 'lang')) {
+                            $result[$field][$lang] = $value;
+                        }
+                    }
+                }
+            }
         }
 
         return $result;
+    }
+
+    /**
+     * Import data from array
+     *
+     * @todo hard-coded dealing with Translation, should change
+     * @param string $array  array of data, see link for documentation
+     * @param bool   $deep   whether or not to act on relations
+     * @return void
+     * @see Doctrine_Record::fromArray()
+     */
+    public function fromArray(array $array, $deep = true)
+    {
+        if (isset($array['label'])) {
+            if (is_array($array['label'])) {
+                foreach ($array['label'] as $lang => $label) {
+                    $array['Translation'][$lang]['label'] = $label;
+                }
+            }
+        }
+
+        parent::fromArray($array, $deep);
     }
 }
