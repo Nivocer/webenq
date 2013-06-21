@@ -55,6 +55,19 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
         $answerdomain->save();
         $answerdomain->refresh(true);
 
+        /* we won't get a sortable field back from the database, but we do
+         * need to reaarange what we expect
+         */
+        if (isset($expectedArray['items']['sortable'])) {
+            $items = array();
+            foreach ($expectedArray['items']['sortable'] as $i) {
+                if (isset($expectedArray['items'][$i])) {
+                    $items[] = $expectedArray['items'][$i];
+                }
+            }
+            $expectedArray['items'] = $items;
+        }
+
         $record = Doctrine_Core::getTable('Webenq_Model_AnswerDomainChoice')
         ->find($answerdomain->id);
         $actualArray = $record->toArray();
@@ -141,6 +154,10 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                     'nl' => array('name' => 'Keuzedomein'),
                 ),
                 'AnswerDomainItem' => array(
+                    'Translation' => array(
+                        'en' => array('label' => 'Item list'),
+                        'nl' => array('label' => 'Itemlijst'),
+                    )
                 ),
                 'items' => array(
                     0 => array(
@@ -153,19 +170,30 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                 )
             )),
 
-/*
+            // with one item but no AnswerDomainItem info
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'items' => array(
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Single item'
+                        )
+                    ),
+                )
+            )),
+
             // with multiple items
             array(array(
                     'type' => 'AnswerDomainChoice',
                     'Translation' => array(
                         'en' => array('name' => 'Choice domain'),
                         'nl' => array('name' => 'Keuzedomein'),
-                    ),
-                    'AnswerDomainItem' => array(
-                        'Translation' => array(
-                                'en' => array('label' => 'Item list'),
-                                'nl' => array('label' => 'Itemlijst'),
-                        )
                     ),
                     'items' => array(
                         0 => array(
@@ -184,7 +212,97 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                         )
                     )
             )),
-*/
+
+            // with multiple items and sortable but already sorted
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'items' => array(
+                    'sortable' => array(0,1),
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'First item'
+                        )
+                    ),
+                    1 => array(
+                        'value' => '2',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Second item'
+                        )
+                    )
+                )
+            )),
+
+            // with multiple items and sortable in different order
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'items' => array(
+                    'sortable' => array(1, 0),
+                    0 => array(
+                        'value' => '2',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Second item'
+                        )
+                    ),
+                    1 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'First item'
+                        )
+                    )
+                )
+            )),
+
+            // with main item info, multiple items, new sorting
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'AnswerDomainItem' => array(
+                    'Translation' => array(
+                        'en' => array('label' => 'Item list'),
+                        'nl' => array('label' => 'Itemlijst'),
+                    )
+                ),
+                'items' => array(
+                    'sortable' => array(3,0,1),
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Middle item'
+                        )
+                    ),
+                    1 => array(
+                        'value' => '2',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Last item'
+                        )
+                    ),
+                    2 => array(
+                        'value' => '0',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'First item'
+                        )
+                    ),
+                )
+            )),
 
         );
     }

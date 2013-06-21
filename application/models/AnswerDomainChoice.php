@@ -149,9 +149,10 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
             // gather the desired items in the list
             // @todo just picking existing sorted items, not dealing with missing items or items that are not referenced in the sorting
             if (isset($this->_items['sortable']) && is_array($this->_items['sortable'])) {
+                $items = array();
                 foreach ($this->_items['sortable'] as $i) {
                     if (isset($this->_items[$i])) {
-                        $items[] = $items[$i];
+                        $items[] = $this->_items[$i];
                     }
                 }
             } else {
@@ -176,9 +177,11 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
 
             } else {
                 // we don't have an AnswerDomainItem yet, save as new tree
-                $this->AnswerDomainItem = new Webenq_Model_AnswerDomainItem();
-                //$this->AnswerDomainItem =
+                if (!isset($this->AnswerDomainItem)) {
+                    $this->AnswerDomainItem = new Webenq_Model_AnswerDomainItem();
+                }
                 $this->AnswerDomainItem->save();
+                $this->answer_domain_item_id = $this->AnswerDomainItem->id;
 
                 $treeObject = Doctrine_Core::getTable('Webenq_Model_AnswerDomainItem')->getTree();
                 $treeObject->createRoot($this->AnswerDomainItem);
@@ -193,7 +196,7 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
                     $item->save();
 
                     $item->getNode()->insertAsLastChildOf($this->AnswerDomainItem);
-
+                    $this->AnswerDomainItem->refresh();
                 }
             }
         }
