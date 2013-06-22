@@ -49,7 +49,6 @@ class Webenq_Form_AnswerDomain_Tab_Numeric extends Webenq_Form_AnswerDomain_Tab
         $name = new WebEnq4_Form_Element_MlText('name');
         $name->setAttrib('languages', $this->_languages);
         $name->setAttrib('defaultLanguage',$this->_defaultLanguage);
-        $name->setBelongsTo('answers');
         $name->setLabel('Name');
         $name->setDescription('Name for later re-use of these settings');
         $name->setRequired();
@@ -57,19 +56,16 @@ class Webenq_Form_AnswerDomain_Tab_Numeric extends Webenq_Form_AnswerDomain_Tab
 
         $min = new Zend_Form_Element_Text('min',
             array('size' => 4, 'label' => 'Minimum value allowed'));
-        $min->setBelongsTo('answers');
         $this->addElement($min);
 
         $max = new Zend_Form_Element_Text('max',
             array('size' => 4, 'label' => 'Maximum value allowed'));
-        $max->setBelongsTo('answers');
         $this->addElement($max);
 
         $missing = new Zend_Form_Element_Text('missing',
             array('size' => 4,
             'description' => 'Value to store if an answer is missing or declined',
             'label' => 'Value for missing answer'));
-        $missing->setBelongsTo('answers');
         $this->addElement($missing);
 
         $this->addDisplayGroup(

@@ -27,7 +27,7 @@
  * question in a questionnaire.
  *
  * @package    Webenq_Questionnaires_Manage
- * @author     Rolf Kleef <r.kleef@nivocer.com>
+ * @author     Rolf Kleef <r.kleef@nivocer.com>, Jaap-Andre de Hoop <j.dehoop@nivocer.com>
  */
 class Webenq_Form_AnswerDomain_Tab_Text extends Webenq_Form_AnswerDomain_Tab
 {
@@ -49,7 +49,6 @@ class Webenq_Form_AnswerDomain_Tab_Text extends Webenq_Form_AnswerDomain_Tab
         $name = new WebEnq4_Form_Element_MlText('name');
         $name->setAttrib('languages', $this->_languages);
         $name->setAttrib('defaultLanguage',$this->_defaultLanguage);
-        $name->setBelongsTo('answers');
         $name->setLabel('Name');
         $name->setDescription('Name for later re-use of these settings');
         $name->setRequired();
@@ -57,12 +56,10 @@ class Webenq_Form_AnswerDomain_Tab_Text extends Webenq_Form_AnswerDomain_Tab
 
         $min_length = new Zend_Form_Element_Text('min_length',
             array('size' => 4, 'label' => 'Minimum length allowed'));
-        $min_length->setBelongsTo('answers');
         $this->addElement($min_length);
 
         $max_length = new Zend_Form_Element_Text('max_length',
             array('size' => 4, 'label' => 'Maximum length allowed'));
-        $max_length->setBelongsTo('answers');
         $this->addElement($max_length);
 
         $this->addDisplayGroup(
