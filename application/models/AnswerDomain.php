@@ -120,7 +120,6 @@ class Webenq_Model_AnswerDomain extends Webenq_Model_Base_AnswerDomain
 
         // @todo We should find a way to do this via the I18n behavior, of find out why 'deep=true' doesn't do this
         $result['Translation'] = $this->Translation->toArray();
-        $result['AnswerDomainItem'] = $this->AnswerDomainItem->toArray();
 
         return $result;
     }
