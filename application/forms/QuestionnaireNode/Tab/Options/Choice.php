@@ -39,7 +39,6 @@ class Webenq_Form_QuestionnaireNode_Tab_Options_Choice extends Webenq_Form_Quest
 
         $numberOfAnswers=new Zend_Form_Element_Text('numberOfAnswers');
         $numberOfAnswers->setLabel('How many answers are allowed');
-        $numberOfAnswers->setBelongsTo('options');
         $this->addElement($numberOfAnswers);
     }
 }

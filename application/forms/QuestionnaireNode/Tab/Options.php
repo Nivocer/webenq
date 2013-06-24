@@ -76,31 +76,24 @@ class Webenq_Form_QuestionnaireNode_Tab_Options extends WebEnq4_Form
         foreach ($presentationOptions as $key => $value){
             $presentation->addMultiOption($key, $value['label']);
         }
-        $presentation->setBelongsTo('options');
         $this->addElement($presentation);
 
         $presentationWidth=new Zend_Form_Element_Text('presentationWidth');
         $presentationWidth->setLabel('Width of answer box');
-        //$presentationWidth->setBelongsTo('options[options]');
-        $presentationWidth->setBelongsTo('options');
         $this->addElement($presentationWidth);
 
         $presentationHeight=new Zend_Form_Element_Text('presentationHeight');
         $presentationHeight->setLabel('Number of rows of answer box');
-        $presentationHeight->setBelongsTo('options');
         $this->addElement($presentationHeight);
 
         $required = new Zend_Form_Element_Checkbox('required');
         $required->setLabel('Answer is required');
         $required->getDecorator('Label')->setOption('placement', 'append');
-        //$required->setBelongsTo('options[questionnaireElement]');
-        $required->setBelongsTo('options');
         $this->addElement($required);
 
         $active = new Zend_Form_Element_Checkbox('active');
         $active->setLabel('Question is active');
         $active->getDecorator('Label')->setOption('placement', 'append');
-        $active->setBelongsTo('options');
         $this->addElement($active);
 
         $this->addDisplayGroup(
@@ -116,13 +109,11 @@ class Webenq_Form_QuestionnaireNode_Tab_Options extends WebEnq4_Form
 
         $submitPrevious=new Zend_Form_Element_Submit('previous');
         $submitPrevious->setLabel('Previous');
-        $submitPrevious->setBelongsTo('options');
         $submitPrevious->removeDecorator('DtDdWrapper');
         $this->addElement($submitPrevious);
 
         $submitDone=new Zend_Form_Element_Submit('done');
         $submitDone->setLabel('Done');
-        $submitDone->setBelongsTo('options');
         $submitDone->removeDecorator('DtDdWrapper');
         $this->addElement($submitDone);
 
