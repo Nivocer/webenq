@@ -115,11 +115,12 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
         return $diff;
     }
 
-    public function assertArrayContainedIn($expected, $haystack)
+    public function assertArrayContainedIn($expected, $haystack, $message=null)
     {
         return $this->assertEquals(
                 $expected,
-                $this->filterArrayKeys($expected, $haystack)
+                $this->filterArrayKeys($expected, $haystack),
+                $message
         );
     }
 }
