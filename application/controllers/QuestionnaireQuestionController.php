@@ -155,6 +155,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
 
         if ($this->getRequest()->isPost()) {
             $this->view->form->adapt($this->getRequest()->getPost());
+
             if ($this->_helper->form->isCancelled($this->view->form)) {
                 $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
                 $this->_redirect($redirectUrl);
@@ -165,6 +166,7 @@ class QuestionnaireQuestionController extends Zend_Controller_Action
                     $questionnaireNode = $this->actOnSituations($questionnaireNode, $this->view->form->situations, $this->view->form->getValues());
                     if (in_array('doneButtonPressed', $this->view->form->situations)) {
                         //$questionnaireNode->save();
+                        $questionnaireNode->QuestionnaireElement->AnswerDomain->save();
                         $redirectUrl = 'questionnaire/edit/id/' . $questionnaire->id;
                         $this->_redirect($redirectUrl);
                         return;

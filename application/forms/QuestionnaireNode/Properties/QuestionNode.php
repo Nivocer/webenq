@@ -36,48 +36,53 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
     public $situations=array();
 
     /**
-     * @see Webenq_Form_QuestionnaireNode_Properties::adapt()
+     * Dynamically adapt the form based on data provided (e.g. the list of
+     * items for a choice domain, a different choice of answer domain, etc).
      *
-     * array $data questionnaireNode->toArray() /postdata
+     * @param array $data Typically questionnaireNode->toArray() or $this->getRequest()->getPost()
+     * @see Webenq_Form_QuestionnaireNode_Properties::adapt()
      */
     public function adapt(array $data) {
         if (isset($data['QuestionnaireElement']['AnswerDomain']['type'])) {
             //data from database/model
             $this->_answerDomainType=$data['QuestionnaireElement']['AnswerDomain']['type'];
         } else {
-            //postdata
+            //post data
             if (isset($data['answer']['type'])) {
                 $this->_answerDomainType = $data['answer']['type'];
             }
 
             $this->getSituations($data); //writes to $this->situations
-            foreach ($this->situations as $situation)
-            switch($situation) {
-                case 'differentAnswerDomainChosen':
-                    $answerDomain = Doctrine_Core::getTable('Webenq_Model_AnswerDomain')
-                        ->find($data['question']['answer_domain_id']);
-                    $this->_answerDomainType=$answerDomain->type;
-                    // override with new info
-                    //@todo reset webenq_forms_Answerdomain_items->$_itemsAdded?
-                    $data['answer'] = $answerDomain->toArray();
-                    break;
-                case 'newAnswerDomainChosen':
-                    $this->_answerDomainType=$data['question']['new'];
-                    break;
-                case 'newAnswerDomainTypeChosen':
-                    $this->_answerDomainType=$data['question']['new'];
-                    break;
-                case 'newAnswerDomainSameTypeChosen':
-                    $this->_answerDomainType=$data['question']['new'];//should be the same
-                    break;
-                case 'newAndExistingAnswerDomainChoosen':
-                    $this->_answerDomainType=$data['answer']['type'];
-                    return;//exit the foreach?
-                    break;
+
+            foreach ($this->situations as $situation) {
+                switch ($situation) {
+                    case 'differentAnswerDomainChosen':
+                        $answerDomain = Doctrine_Core::getTable('Webenq_Model_AnswerDomain')
+                            ->find($data['question']['answer_domain_id']);
+                        $this->_answerDomainType=$answerDomain->type;
+                        // override with new info
+                        //@todo reset webenq_forms_Answerdomain_items->$_itemsAdded?
+                        $data['answer'] = $answerDomain->toArray();
+                        break;
+                    case 'newAnswerDomainChosen':
+                        $this->_answerDomainType=$data['question']['new'];
+                        break;
+                    case 'newAnswerDomainTypeChosen':
+                        $this->_answerDomainType=$data['question']['new'];
+                        break;
+                    case 'newAnswerDomainSameTypeChosen':
+                        $this->_answerDomainType=$data['question']['new'];//should be the same
+                        break;
+                    case 'newAndExistingAnswerDomainChoosen':
+                        $this->_answerDomainType=$data['answer']['type'];
+                        return;//exit the foreach?
+                        break;
+                }
             }
         }
 
         $this->init();
+
         //add item rows
         if ($this->_answerDomainType=='AnswerDomainChoice') {
             if (isset($data['QuestionnaireElement']['AnswerDomain'])) {
@@ -122,6 +127,7 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
                   ) {
                 $defaults['question']['new']=$defaults['QuestionnaireElement']['AnswerDomain']['type'];
             }
+
             /* answer options tab */
             //pass info from answerDomain
             if (isset($defaults['QuestionnaireElement']['AnswerDomain'])) {
@@ -192,7 +198,11 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
     }
 
     /**
-     * @return array: array with situations that needs action before redisplay form
+     * Analyse the data (typically posted) and determine which situations are
+     * present (e.g. different choice of answer domain type)
+     *
+     * @param array Data to analyse
+     * @return array Situations that may need action before redisplay form
      */
     public function getSituations(array $data)
     {
@@ -236,8 +246,10 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
             ) {
             $this->situations[]='newAndExistingAnswerDomainChoosen';
         }
+
+        $this->_submitInfo=$this->getSubmitButtonUsed($data);
         if ($this->_submitInfo['name']=='done' ) {
-            $this->situation[]='doneButtonPressed';
+            $this->situations[]='doneButtonPressed';
         }
 
         //@todo submitbutton pressed

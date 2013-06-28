@@ -148,16 +148,24 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
         if (isset($this->_items)) {
             // gather the desired items in the list
             // @todo just picking existing sorted items, not dealing with missing items or items that are not referenced in the sorting
-            if (isset($this->_items['sortable']) && is_array($this->_items['sortable'])) {
-                $items = array();
-                foreach ($this->_items['sortable'] as $i) {
-                    if (isset($this->_items[$i])) {
-                        $items[] = $this->_items[$i];
+            if (isset($this->_items['sortable'])) {
+                $sortable = Zend_Json::decode($this->_items['sortable']);
+
+                if (is_array($sortable)) {
+                    $items = array();
+                    foreach ($sortable as $i) {
+                        if (isset($this->_items[$i])) {
+                            $items[] = $this->_items[$i];
+                        }
                     }
+                } else {
+                    $items = $this->_items;
+                    unset($items['sortable']);
                 }
             } else {
                 $items = $this->_items;
             }
+            unset($items['new']);
             // the desired items are sorted in $items
 
             // do we have already have an AnswerDomainItem?

@@ -14,7 +14,7 @@ class Webenq_Model_QuestionnaireQuestionNode extends Webenq_Model_Base_Questionn
 {
     public function render($format)
     {
-        switch ($format){
+        switch ($format) {
             case 'previewTab':
                 return '';
             break;
@@ -23,7 +23,7 @@ class Webenq_Model_QuestionnaireQuestionNode extends Webenq_Model_Base_Questionn
                 $availableFormElements=$this->QuestionnaireElement->AnswerDomain->getAvailablePresentations();
                 $formElement=$availableFormElements[$presentationType]['element'];
                 $return=new $formElement('qq-'.$this->id);
-                switch ($formElement){
+                switch ($formElement) {
                 case 'Zend_Form_Element_Radio':
                     $return->addMultiOptions($this->QuestionnaireElement->AnswerDomain->getAnswerOptionsArray());
                     break;
@@ -39,7 +39,7 @@ class Webenq_Model_QuestionnaireQuestionNode extends Webenq_Model_Base_Questionn
                 case 'Zend_Form_Element_Text':
                     //@todo check which options to add
                     //width of textbox
-                    if (isset($this->QuestionnaireElement->options['options']['presentationWidth'])){
+                    if (isset($this->QuestionnaireElement->options['options']['presentationWidth'])) {
                         $return->setAttrib('size',$this->QuestionnaireElement->options['options']['presentationWidth']);
                     }
                     break;

@@ -82,8 +82,14 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
         }
     }
 
-    public function adapt(array $data) {
-
+    /**
+     * Dynamically adapt the form based on data provided (e.g. the list of
+     * items for a choice domain, a different choice of answer domain, etc).
+     *
+     * @param array $data Typically questionnaireNode->toArray() or $this->getRequest()->getPost()
+     */
+    public function adapt(array $data)
+    {
     }
 
     public function _initDetermineFormName($tabName){
@@ -138,8 +144,6 @@ class Webenq_Form_QuestionnaireNode_Properties extends WebEnq4_Form
         }
         //process all forms, but don't use it to determin if current submission is valid
         parent::isValidPartial($data);
-
-
 
         return $isValid;
     }
