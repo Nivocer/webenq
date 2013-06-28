@@ -29,27 +29,16 @@ class Webenq_Test_Form_AnswerDomain_Tab_TextTest extends Webenq_Test_Case_Form
 {
     /**
      * Test to check setDefaults/getValues based on database info
-     * @todo use dataprovider
+     * @dataProvider providerSetDEfaultsGetValuesWork
      */
-    function testSetDefaultsGetValuesWork(){
-        $this->loadDatabase();
-        $cases=array();
-        foreach (Webenq_Model_AnswerDomain::getAll() as $answerDomain){
-            if ($answerDomain->type=='AnswerDomainText'){
-                $cases[]=$answerDomain->toArray();
-            }
-        }
-
-        foreach ($cases as $case) {
-        $this->loadDatabase();
+    function testSetDefaultsGetValuesWork($case){
             $form=New Webenq_Form_AnswerDomain_Tab_Text();
             $form->setDefaults($case);
             $model=new Webenq_Model_AnswerDomainText();
             $model->fromArray($form->getValues());
             //formArray doesn't set identifier)
             $model->assignIdentifier($model->id);
-            //add default answerDomainItem
-            $model->AnswerDomainItem;
+
             $dataForm=$model->toArray();
             //fixes for database (reset id's)
             $case['translation_id']=0;
@@ -57,6 +46,45 @@ class Webenq_Test_Form_AnswerDomain_Tab_TextTest extends Webenq_Test_Case_Form
                 $case['Translation'][$language]['id']=0;
             }
             $this->assertArrayContainedIn($case, $dataForm);
-        }
+        //}
     }
+      public function providerSetDefaultsGetValuesWork(){
+        return array(
+                array (
+                        0 =>
+                        array (
+                                'id' => 1,
+                                'validators' => NULL,
+                                'filters' => NULL,
+                                'options' => NULL,
+                                'answer_domain_item_id' => NULL,
+                                'type' => 'AnswerDomainText',
+                                'min_length' => NULL,
+                                'max_length' => NULL,
+                                'min' => NULL,
+                                'max' => NULL,
+                                'missing' => NULL,
+                                'min_choices' => NULL,
+                                'max_choices' => NULL,
+                                'translation_id' => '1372424100671358',
+                                'Translation' =>
+                                array (
+                                        'en' =>
+                                        array (
+                                                'id' => 1372424100671358,
+                                                'name' => 'Text',
+                                                'lang' => 'en',
+                                        ),
+                                        'nl' =>
+                                        array (
+                                                'id' => 1372424100671358,
+                                                'name' => 'Tekst',
+                                                'lang' => 'nl',
+                                        ),
+                                ),
+                        ),
+                )
+
+            );
+      }
 }

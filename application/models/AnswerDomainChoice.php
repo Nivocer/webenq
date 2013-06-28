@@ -131,10 +131,20 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
         if ($deep) {
             if (isset($array['items'])) {
                 // keep a local copy assuming
+                //hack Translation
+                foreach ($array['items'] as &$item) {
+
+                    if (isset($item) && isset($item['label'])){
+                        foreach ($item['label'] as $language=>$label){
+                            $item['Translation'][$language]=array('label'=>$label, 'lang'=>$language);
+                        }
+
+                    }
+
+                }
                 $this->_items = $array['items'];
             }
         }
-
         parent::fromArray($array, $deep);
     }
 
