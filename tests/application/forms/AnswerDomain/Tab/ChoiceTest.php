@@ -56,8 +56,7 @@ class Webenq_Test_Form_AnswerDomain_Tab_ChoiceTest extends Webenq_Test_Case_Form
             foreach ($case['Translation'] as $language=>$texts) {
                 $case['Translation'][$language]['id']=0;
             }
-            $this->assertTrue(
-                $this->arrayNestedElementsPresent($case, $dataForm), "failure with answer domain id:".$case["id"]);
+            $this->assertArrayContainedIn($case, $dataForm);
         }
     }
 }

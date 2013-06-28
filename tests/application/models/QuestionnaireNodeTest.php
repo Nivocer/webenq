@@ -52,8 +52,7 @@ class Webenq_Test_Model_QuestionnaireNodeTest extends Webenq_Test_Case_Model
         $node->fromArray($expectedArray);
         $actualArray = $node->toArray();
 
-        $this->assertTrue(
-            $this->arrayNestedElementsPresent($expectedArray, $actualArray));
+        $this->assertArrayContainedIn($expectedArray, $actualArray);
     }
 
     /**
@@ -71,8 +70,7 @@ class Webenq_Test_Model_QuestionnaireNodeTest extends Webenq_Test_Case_Model
         ->find($node->id)
         ->toArray();
 
-        $this->assertTrue(
-            $this->arrayNestedElementsPresent($expectedArray, $actualArray));
+        $this->assertArrayContainedIn($expectedArray, $actualArray);
     }
 
     public function testSaveChangedNodePropertiesWorks()

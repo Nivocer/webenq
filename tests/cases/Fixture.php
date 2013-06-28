@@ -78,37 +78,48 @@ abstract class Webenq_Test_Case_Fixture extends PHPUnit_Framework_TestCase
         $this->dropDatabase();
         parent::tearDown();
     }
+
     /**
-     * Verify that all elements expected in an array are actually present.
-     * Both arrays can contain nested levels.
+     * Walk through a haystack and return all array elements for which the
+     * key also exists in an array of expected values.
      *
      * @param array $expected
      * @param array $haystack
+     * @return array
      */
-    public function arrayNestedElementsPresent($expected, $haystack)
+    public function filterArrayKeys(array $expected, array $haystack)
     {
-        if (is_array($expected) && is_array($haystack)) {
-            foreach ($expected as $key=>$value) {
+        $diff = array();
+
+        foreach ($expected as $key=>$value) {
+            if (is_null($value)) {
+                if (isset($haystack[$key])) {
+                    $diff[$key] = $haystack[$key];
+                } else {
+                    $diff[$key] = null;
+                }
+            } else {
                 if (isset($haystack[$key])) {
                     if (is_array($value)) {
-                        if (!$this->arrayNestedElementsPresent($value, $haystack[$key])){
-                            return false;
+                        $subdiff = $this->filterArrayKeys($value, $haystack[$key]);
+                        if (count($subdiff) > 0) {
+                            $diff[$key] = $subdiff;
                         }
                     } else {
-                        if ($value !== $haystack[$key]) {
-                            return false;
-                        }
-                    }
-                } else {
-                    if (isset($value)) {
-                        return false;
+                        $diff[$key] = $haystack[$key];
                     }
                 }
-            };
-            return true;
-        } else {
-            return false;
-        }
+            }
+        };
+
+        return $diff;
     }
 
+    public function assertArrayContainedIn($expected, $haystack)
+    {
+        return $this->assertEquals(
+                $expected,
+                $this->filterArrayKeys($expected, $haystack)
+        );
+    }
 }

@@ -38,14 +38,13 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
         $answerdomain->fromArray($expectedArray);
         $actualArray = $answerdomain->toArray();
 
-        $this->assertTrue(
-            $this->arrayNestedElementsPresent($expectedArray, $actualArray));
+        $this->assertArrayContainedIn($expectedArray, $actualArray);
     }
 
     /**
      * @dataProvider casesSave
      */
-    public function testSaveWorks($expectedArray)
+    public function testSaveWithItemsWorks($expectedArray)
     {
         $this->createDatabase();
 
@@ -72,8 +71,7 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
         ->find($answerdomain->id);
         $actualArray = $record->toArray();
 
-        $this->assertTrue(
-            $this->arrayNestedElementsPresent($expectedArray, $actualArray));
+        $this->assertArrayContainedIn($expectedArray, $actualArray);
     }
 
     public function testSaveChangedPropertiesWorks()
@@ -103,7 +101,7 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
     public function testSaveChangesInSharedItemsShouldDuplicateItems()
     {
         /*
-        $this->createDatabase();
+         $this->createDatabase();
 
         $node1 = $this->setUpNode('Question');
         $node1->QuestionnaireElement->Translation->en->text = "Test first";
@@ -279,7 +277,7 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                     )
                 ),
                 'items' => array(
-                    'sortable' => array(3,0,1),
+                    'sortable' => array(2,0,1),
                     0 => array(
                         'value' => '1',
                         'isActive' => true,
@@ -303,6 +301,252 @@ class Webenq_Test_Model_AnswerDomainChoiceTest extends Webenq_Test_Case_Model
                     ),
                 )
             )),
+
+        );
+    }
+
+    /**
+     * @dataProvider casesSaveChanges
+     */
+    public function testSaveChangesInItemsShouldWork($expectedArray, $changesArray)
+    {
+        $this->createDatabase();
+
+        $answerdomain = new Webenq_Model_AnswerDomainChoice();
+
+        $answerdomain->fromArray($expectedArray);
+        $answerdomain->save();
+        $answerdomain->refresh(true);
+
+        // overwrite with new items info
+        $answerdomain->fromArray($changesArray);
+        $answerdomain->save();
+        $answerdomain->refresh(true);
+
+        // now we expect to see the new items
+        if (isset($changesArray['items'])) {
+            $expectedArray['items'] = $changesArray['items'];
+        }
+
+        /* we won't get a sortable field back from the database, but we do
+         * need to reaarange what we expect
+        */
+        if (isset($expectedArray['items']['sortable'])) {
+            $items = array();
+            foreach ($expectedArray['items']['sortable'] as $i) {
+                if (isset($expectedArray['items'][$i])) {
+                    $items[] = $expectedArray['items'][$i];
+                }
+            }
+            $expectedArray['items'] = $items;
+        }
+
+        $record = Doctrine_Core::getTable('Webenq_Model_AnswerDomainChoice')
+        ->find($answerdomain->id);
+        $actualArray = $record->toArray();
+
+        $this->assertArrayContainedIn($expectedArray, $actualArray);
+    }
+
+    /**
+     * Test cases for saving changes
+     */
+    public function casesSaveChanges() {
+        return array(
+            // with one item
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'AnswerDomainItem' => array(
+                    'Translation' => array(
+                        'en' => array('label' => 'Item list'),
+                        'nl' => array('label' => 'Itemlijst'),
+                    )
+                ),
+                'items' => array(
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Single item'
+                        )
+                    ),
+                )
+            // only change the item label
+            ), array(
+                'items' => array(
+                    0 => array(
+                        'label' => array(
+                            'en' => 'One item'
+                        )
+                    ),
+                )
+            )),
+
+            // with one item
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'AnswerDomainItem' => array(
+                    'Translation' => array(
+                        'en' => array('label' => 'Item list'),
+                        'nl' => array('label' => 'Itemlijst'),
+                    )
+                ),
+                'items' => array(
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Single item'
+                        )
+                    ),
+                )
+            // change the item label and add an item
+            ), array(
+                'items' => array(
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'One item'
+                        )
+                    ),
+                    1 => array(
+                        'value' => '2',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Second item'
+                        )
+                    ),
+                )
+            )),
+
+            // with multiple items
+            array(array(
+                'type' => 'AnswerDomainChoice',
+                'Translation' => array(
+                    'en' => array('name' => 'Choice domain'),
+                    'nl' => array('name' => 'Keuzedomein'),
+                ),
+                'items' => array(
+                    0 => array(
+                        'value' => '1',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'First item'
+                        )
+                    ),
+                    1 => array(
+                        'value' => '2',
+                        'isActive' => true,
+                        'label' => array(
+                            'en' => 'Second item'
+                        )
+                    )
+                )
+            ), array(
+            )),
+
+                // with multiple items and sortable but already sorted
+                array(array(
+                        'type' => 'AnswerDomainChoice',
+                        'Translation' => array(
+                                'en' => array('name' => 'Choice domain'),
+                                'nl' => array('name' => 'Keuzedomein'),
+                        ),
+                        'items' => array(
+                                'sortable' => array(0,1),
+                                0 => array(
+                                        'value' => '1',
+                                        'isActive' => true,
+                                        'label' => array(
+                                                'en' => 'First item'
+                                        )
+                                ),
+                                1 => array(
+                                        'value' => '2',
+                                        'isActive' => true,
+                                        'label' => array(
+                                                'en' => 'Second item'
+                                        )
+                                )
+                        )
+                ), array(
+                )),
+
+                // with multiple items and sortable in different order
+                array(array(
+                        'type' => 'AnswerDomainChoice',
+                        'Translation' => array(
+                                'en' => array('name' => 'Choice domain'),
+                                'nl' => array('name' => 'Keuzedomein'),
+                        ),
+                        'items' => array(
+                                'sortable' => array(1, 0),
+                                0 => array(
+                                        'value' => '2',
+                                        'isActive' => true,
+                                        'label' => array(
+                                                'en' => 'Second item'
+                                        )
+                                ),
+                                1 => array(
+                                        'value' => '1',
+                                        'isActive' => true,
+                                        'label' => array(
+                                                'en' => 'First item'
+                                        )
+                                )
+                        )
+                ), array(
+                )),
+
+                // with main item info, multiple items, new sorting
+                array(array(
+                        'type' => 'AnswerDomainChoice',
+                        'Translation' => array(
+                                'en' => array('name' => 'Choice domain'),
+                                'nl' => array('name' => 'Keuzedomein'),
+                        ),
+                        'AnswerDomainItem' => array(
+                                'Translation' => array(
+                                        'en' => array('label' => 'Item list'),
+                                        'nl' => array('label' => 'Itemlijst'),
+                                )
+                        ),
+                        'items' => array(
+                                'sortable' => array(2,0,1),
+                                0 => array(
+                                        'value' => '1',
+                                        'isActive' => true,
+                                        'label' => array(
+                                                'en' => 'Middle item'
+                                        )
+                                ),
+                                1 => array(
+                                        'value' => '2',
+                                        'isActive' => true,
+                                        'label' => array(
+                                                'en' => 'Last item'
+                                        )
+                                ),
+                                2 => array(
+                                        'value' => '0',
+                                        'isActive' => true,
+                                        'label' => array(
+                                                'en' => 'First item'
+                                        )
+                                ),
+                        )
+                ), array(
+                )),
 
         );
     }

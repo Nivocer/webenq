@@ -37,8 +37,7 @@ class Webenq_Test_Model_QuestionnaireTest extends Webenq_Test_Case_Model
         $questionnaire->fromArray($expectedArray);
         $actualArray = $questionnaire->toArray();
 
-        $this->assertTrue(
-            $this->arrayNestedElementsPresent($expectedArray, $actualArray));
+        $this->assertArrayContainedIn($expectedArray, $actualArray);
     }
 
     public function arrayTestCases() {
