@@ -34,9 +34,7 @@ class Webenq_Test_Form_QuestionnaireNode_Tab_NumericTest extends Webenq_Test_Cas
     function testSetDefaultsGetValuesWork($case){
         $form=New Webenq_Form_QuestionnaireNode_Tab_Options_Numeric();
         $form->setDefaults($case);
-        $this->assertTrue(
-            $this->arrayNestedElementsPresent($case, $form->getValues())
-        );
+        $this->assertEquals($case, $form->getValues());
     }
 
     /**
@@ -45,9 +43,7 @@ class Webenq_Test_Form_QuestionnaireNode_Tab_NumericTest extends Webenq_Test_Cas
      */
     function testIsValidGetValuesWork($case){
         $form=New Webenq_Form_QuestionnaireNode_Tab_Options_Numeric();
-        $this->assertTrue(
-                $this->arrayNestedElementsPresent($case, $form->getValidValues($case))
-        );
+        $this->assertEquals($case, $form->getValidValues($case));
     }
 
     public function getSetDefaults(){

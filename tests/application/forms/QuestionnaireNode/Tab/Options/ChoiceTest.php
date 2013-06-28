@@ -34,9 +34,7 @@ class Webenq_Test_Form_QuestionnaireNode_Tab_ChoiceTest extends Webenq_Test_Case
     function testSetDefaultsGetValuesWork($case){
         $form=New Webenq_Form_QuestionnaireNode_Tab_Options_Choice();
         $form->setDefaults($case);
-        $this->assertTrue(
-            $this->arrayNestedElementsPresent($case, $form->getValues())
-        );
+        $this->assertEquals($case, $form->getValues());
     }
     /**
     * Test to check if valid array is returned
@@ -44,9 +42,7 @@ class Webenq_Test_Form_QuestionnaireNode_Tab_ChoiceTest extends Webenq_Test_Case
      */
     function testIsValidGetValuesWork($case){
         $form=New Webenq_Form_QuestionnaireNode_Tab_Options_Choice();
-        $this->assertTrue(
-                $this->arrayNestedElementsPresent($case, $form->getValidValues($case))
-        );
+        $this->assertEquals($case, $form->getValidValues($case));
     }
     public function getSetDefaults(){
         return array(
