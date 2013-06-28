@@ -61,7 +61,10 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
                             ->find($data['question']['answer_domain_id']);
                         $this->_answerDomainType=$answerDomain->type;
                         // override with new info
-                        //@todo reset webenq_forms_Answerdomain_items->$_itemsAdded?
+                        //@todo reset webenq_forms_Answerdomain_items->$_itemsAdded?/remove subform
+                        $this->removeSubForm('answer');
+                        $this->initSubFormAsTab('answer');
+
                         $data['answer'] = $answerDomain->toArray();
                         break;
                     case 'newAnswerDomainChosen':
@@ -251,10 +254,6 @@ class Webenq_Form_QuestionnaireNode_Properties_QuestionNode extends Webenq_Form_
         if ($this->_submitInfo['name']=='done' ) {
             $this->situations[]='doneButtonPressed';
         }
-
-        //@todo submitbutton pressed
-
-
         return $this->situations;
     }
 
