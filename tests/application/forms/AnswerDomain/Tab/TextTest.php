@@ -31,24 +31,26 @@ class Webenq_Test_Form_AnswerDomain_Tab_TextTest extends Webenq_Test_Case_Form
      * Test to check setDefaults/getValues based on database info
      * @dataProvider providerSetDEfaultsGetValuesWork
      */
-    function testSetDefaultsGetValuesWork($case){
-            $form=New Webenq_Form_AnswerDomain_Tab_Text();
-            $form->setDefaults($case);
-            $model=new Webenq_Model_AnswerDomainText();
-            $model->fromArray($form->getValues());
-            //formArray doesn't set identifier)
-            $model->assignIdentifier($model->id);
+    function testSetDefaultsGetValuesWork($case)
+    {
+        $form=New Webenq_Form_AnswerDomain_Tab_Text();
+        $form->setDefaults($case);
+        $model=new Webenq_Model_AnswerDomainText();
+        $model->fromArray($form->getValues());
+        //formArray doesn't set identifier)
+        $model->assignIdentifier($model->id);
 
-            $dataForm=$model->toArray();
-            //fixes for database (reset id's)
-            $case['translation_id']=0;
-            foreach ($case['Translation'] as $language=>$texts) {
-                $case['Translation'][$language]['id']=0;
-            }
-            $this->assertArrayContainedIn($case, $dataForm);
+        $dataForm=$model->toArray();
+        //fixes for database (reset id's)
+        $case['translation_id']=0;
+        foreach ($case['Translation'] as $language=>$texts) {
+            $case['Translation'][$language]['id']=0;
+        }
+        $this->assertArrayContainedIn($case, $dataForm);
         //}
     }
-      public function providerSetDefaultsGetValuesWork(){
+      public function providerSetDefaultsGetValuesWork()
+      {
         return array(
                 array (
                         0 =>

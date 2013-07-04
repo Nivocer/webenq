@@ -31,7 +31,8 @@ class Webenq_Test_Form_AnswerDomain_Tab_ChoiceTest extends Webenq_Test_Case_Form
      * Test to check setDefaults/getValues based on database info
      * @dataProvider providerSetDefaultsGetValuesWork
      */
-    function testSetDefaultsGetValuesWork($case){
+    function testSetDefaultsGetValuesWork($case)
+    {
         $this->createDatabase();
         $form=New Webenq_Form_AnswerDomain_Tab_Choice();
         $form->getSubForm('items')->addItemRows($case);
@@ -69,13 +70,13 @@ class Webenq_Test_Form_AnswerDomain_Tab_ChoiceTest extends Webenq_Test_Case_Form
         $case['AnswerDomainItem']['translation_id']=0;
         $case['AnswerDomainItem']['level']=null;
 
-        foreach ($case['items'] as &$tempItem){
+        foreach ($case['items'] as &$tempItem) {
             unset($tempItem['lft']);
             unset($tempItem['rgt']);
             unset($tempItem['root_id']);
             unset($tempItem['translation_id']);
             unset($tempItem['level']);
-            foreach($tempItem['Translation'] as &$translation) {
+            foreach ($tempItem['Translation'] as &$translation) {
                 unset($translation['id']);
             }
 
@@ -87,9 +88,10 @@ class Webenq_Test_Form_AnswerDomain_Tab_ChoiceTest extends Webenq_Test_Case_Form
         //$dataForm['Translation']=$dataForm['label'];
         //var_dump(__FILE__,  __LINE__,$case,$dataForm);
         //$this->assertArrayContainedIn($case, $dataForm);
-        $this->assertEquals($case,$dataForm, "failure with answer domain id:".$case["id"] );
+        $this->assertEquals($case, $dataForm, "failure with answer domain id:".$case["id"]);
     }
-    public function providerSetDefaultsGetValuesWork(){
+    public function providerSetDefaultsGetValuesWork()
+    {
         return array(
 array (
   0 =>

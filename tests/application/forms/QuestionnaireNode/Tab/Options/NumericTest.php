@@ -31,7 +31,8 @@ class Webenq_Test_Form_QuestionnaireNode_Tab_NumericTest extends Webenq_Test_Cas
      * Test to check setDefaults/getValues based on database info
      * @dataProvider getSetDefaults
      */
-    function testSetDefaultsGetValuesWork($case){
+    function testSetDefaultsGetValuesWork($case)
+    {
         $form=New Webenq_Form_QuestionnaireNode_Tab_Options_Numeric();
         $form->setDefaults($case);
         $this->assertEquals($case, $form->getValues());
@@ -41,12 +42,14 @@ class Webenq_Test_Form_QuestionnaireNode_Tab_NumericTest extends Webenq_Test_Cas
      * Test to check if valid array is returned
      * @dataProvider getSetDefaults
      */
-    function testIsValidGetValuesWork($case){
+    function testIsValidGetValuesWork($case)
+    {
         $form=New Webenq_Form_QuestionnaireNode_Tab_Options_Numeric();
         $this->assertEquals($case, $form->getValidValues($case));
     }
 
-    public function getSetDefaults(){
+    public function getSetDefaults()
+    {
         return array(
                 array(array(
                         'presentation' => 'input',

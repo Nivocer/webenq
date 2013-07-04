@@ -9,8 +9,10 @@ defined('APPLICATION_PATH')
 
 //make sure override.ini exist
 if (!file_exists(APPLICATION_PATH . '/configs/override.ini')) {
-    copy(APPLICATION_PATH . '/configs/override.ini.sample',
-    APPLICATION_PATH . '/configs/override.ini');
+    copy(
+        APPLICATION_PATH . '/configs/override.ini.sample',
+        APPLICATION_PATH . '/configs/override.ini'
+    );
 }
 
 // initialize

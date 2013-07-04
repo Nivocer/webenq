@@ -37,7 +37,7 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
      */
     public $_items;
 
-//todo merge with getAvailablePresentations (not yet implemented in this class)
+    //todo merge with getAvailablePresentations (not yet implemented in this class)
     public static function getAvailablePresentations()
     {
         return array(
@@ -134,8 +134,8 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
                 //hack Translation
                 foreach ($array['items'] as &$item) {
 
-                    if (isset($item) && isset($item['label'])){
-                        foreach ($item['label'] as $language=>$label){
+                    if (isset($item) && isset($item['label'])) {
+                        foreach ($item['label'] as $language=>$label) {
                             $item['Translation'][$language]=array('label'=>$label, 'lang'=>$language);
                         }
 
@@ -157,7 +157,8 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
     {
         if (isset($this->_items)) {
             // gather the desired items in the list
-            // @todo just picking existing sorted items, not dealing with missing items or items that are not referenced in the sorting
+            // @todo just picking existing sorted items, not dealing with missing items
+            //    or items that are not referenced in the sorting
             if (isset($this->_items['sortable'])) {
                 $sortable = Zend_Json::decode($this->_items['sortable']);
 
@@ -222,7 +223,8 @@ class Webenq_Model_AnswerDomainChoice extends Webenq_Model_Base_AnswerDomainChoi
         parent::save($conn);
     }
 
-    public function getAnswerOptionsArray(){
+    public function getAnswerOptionsArray()
+    {
 
         foreach ($this->AnswerDomainItem->getNode()->getChildren() as $answerItem) {
             $return[$answerItem->id]=$answerItem->getTranslation('label');

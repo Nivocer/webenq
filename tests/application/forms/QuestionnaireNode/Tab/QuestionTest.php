@@ -41,7 +41,7 @@ class Webenq_Test_Form_QuestionnaireNode_Tab_QuestionTest extends Webenq_Test_Ca
         $this->assertEquals($data['isValid'], $isValid);
     }
 
-       public function formActionTests()
+    public function formActionTests()
     {
         return array(
             /*

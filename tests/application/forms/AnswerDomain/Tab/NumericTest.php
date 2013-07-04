@@ -31,24 +31,26 @@ class Webenq_Test_Form_AnswerDomain_Tab_NumericTest extends Webenq_Test_Case_For
      * Test to check setDefaults/getValues based on database info
      * @dataProvider providerSetDefaultsGetValuesWork
      */
-    function testSetDefaultsGetValuesWork(array $case){
-            $form=New Webenq_Form_AnswerDomain_Tab_Numeric();
-            $form->setDefaults($case);
-            $model=new Webenq_Model_AnswerDomainNumeric();
-            $model->fromArray($form->getValues());
-            //formArray doesn't set identifier)
-            $model->assignIdentifier($model->id);
+    function testSetDefaultsGetValuesWork(array $case)
+    {
+        $form=New Webenq_Form_AnswerDomain_Tab_Numeric();
+        $form->setDefaults($case);
+        $model=new Webenq_Model_AnswerDomainNumeric();
+        $model->fromArray($form->getValues());
+        //formArray doesn't set identifier)
+        $model->assignIdentifier($model->id);
 
-            $dataForm=$model->toArray();
-            //fixes for database (reset id's)
-            $case['translation_id']=0;
-            foreach ($case['Translation'] as $language=>$texts) {
-                $case['Translation'][$language]['id']=0;
-            }
+        $dataForm=$model->toArray();
+        //fixes for database (reset id's)
+        $case['translation_id']=0;
+        foreach ($case['Translation'] as $language=>$texts) {
+            $case['Translation'][$language]['id']=0;
+        }
 
-            $this->assertEquals($case,$dataForm, "failure with answer domain id:".$case["id"]);
+        $this->assertEquals($case, $dataForm, "failure with answer domain id:".$case["id"]);
     }
-    public function providerSetDefaultsGetValuesWork(){
+    public function providerSetDefaultsGetValuesWork()
+    {
         return array(
                 array (
                   array (
