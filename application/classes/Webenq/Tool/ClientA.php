@@ -209,7 +209,7 @@ class Webenq_Tool_ClientA extends Webenq_Tool
             }
         } else {
             //@todo throw error
-            var_dump(__FILE__,  __LINE__,'no third sheet', $this->_filename);
+            var_dump(__FILE__, __LINE__, 'no third sheet', $this->_filename);
             exit;
         }
         // copy headers from original data (all columns)
@@ -391,7 +391,10 @@ class Webenq_Tool_ClientA extends Webenq_Tool
             foreach ($this->_modules as $name) {
                 $nameQuote=preg_quote($name, '/');
                 $pattern = "/^(\d*):.*($nameQuote)/i";
+                $patternNew="/^(\d*)=.*($nameQuote)/i";
                 if (preg_match($pattern, $definition, $matches)) {
+                    $groups[$matches[1]] = $matches[2];
+                } elseif (preg_match($patternNew, $definition, $matches)) {
                     $groups[$matches[1]] = $matches[2];
                 }
             }

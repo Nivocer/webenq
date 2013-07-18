@@ -69,6 +69,8 @@ class Webenq_Import_Questback extends Webenq_Import_Default
         foreach ($questionsAndAnswers as $question => $answers) {
             if (preg_match("#^(\d+):(.*)$#", $question, $matches)) {
                 $groups[$matches[1]][] = $questionnaire->QuestionnaireQuestion[$i];
+            } elseif (preg_match("#^(\d+)=(.*)$#", $question, $matches)) {
+                $groups[$matches[1]][] = $questionnaire->QuestionnaireQuestion[$i];
             }
             $i++;
         }
@@ -76,8 +78,11 @@ class Webenq_Import_Questback extends Webenq_Import_Default
         // find group names
         $groupNames = array();
         foreach ($secondWorkSheet as $row) {
-            preg_match('#^(\d*):\s*=(.*)$#', $row[0], $matches);
-            $groupNames[$matches[1]] = trim($matches[2]);
+            if (preg_match('#^(\d*):\s*=(.*)$#', $row[0], $matches)) {
+                $groupNames[$matches[1]] = trim($matches[2]);
+            } elseif (preg_match('#^(\d*)=(.*)$#', $row[0], $matches)) {
+                $groupNames[$matches[1]] = trim($matches[2]);
+            }
         }
 
         // auto-create empty group names
