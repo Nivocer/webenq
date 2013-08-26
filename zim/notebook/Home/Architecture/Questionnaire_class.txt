@@ -1,0 +1,13 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-02-14T09:28:21+01:00
+
+====== Questionnaire class ======
+Created Thursday 14 February 2013
+
+abstract questionnaire element
+has method:
+render
+get
+
+$qq->getAnswerOptions ($questionText=null); -> answerDomain of questionnaireQuestion
