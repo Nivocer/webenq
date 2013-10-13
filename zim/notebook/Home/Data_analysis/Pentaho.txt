@@ -1,0 +1,83 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-13T13:32:03+02:00
+
+====== Pentaho ======
+
+===== Setup BI server CE version 5 daily build =====
+
+* Version 5 daily builds, http://ci.pentaho.com/job/BISERVER-CE/
+* Installing Pentaho Community Edition in Tomcat, http://ci.pentaho.com/job/BISERVER-CE/lastSuccessfulBuild/artifact/assembly/dist/Installing_Pentaho_Community_Edition_In_Tomcat.html
+
+==== Tomcat6 ====
+On Ubuntu with an existing Tomcat6 setup:
+* Download pentaho-solutions.zip and unpack under ''/opt/pentaho''
+* Change ownership to tomcat6: 
+	''chown -R tomcat6 /opt/pentaho/pentaho-solutions''
+* In Tomcat Manager, deploy pentaho.war and pentaho-style.war
+
+* In /var/lib/tomcat6/webapps/pentaho/WEB-INF, edit web.xml to include:
+'''
+<context-param>
+  <param-name>solution-path</param-name>
+  <param-value>/opt/pentaho/pentaho-solutions</param-value>
+</context-param>
+'''
+
+* In /etc/environment, add extra options for memory etc:
+	''CATALINA_OPTS="-Xms128m -Xmx512m -XX:MaxPermSize=256m -XX:+CMSClassUnloadingEnabled -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"''
+
+
+==== Using MySQL ====
+* Make sure the mysql-connector-java is available in Tomcat (the Ubuntu package libmysql-java installs this in /usr/share/java/)
+
+'''
+cd /usr/share/tomcat6/lib
+sudo ln -s ../../java/mysql-connector-java.jar
+'''
+
+* Extract the MySQL database scripts from pentaho-data.zip and set up the repository, quartz and jcr databases.
+
+* Edit /var/lib/tomcat6/webapps/pentaho/META-INF/context.xml to set the database URL to e.g. a MySQL database:
+	''<Resource name="jdbc/Hibernate"'' [...]
+	''username="<user>" password="<password>"'' [...] ''url="jdbc:mysql://localhost/hibernate"''
+	...
+	''<Resource name="jdbc/Quartz" ''[...]
+	''username="<user>" password="<password>"'' [...]
+	''url="jdbc:mysql://localhost/quartz"''
+* Make sure /etc/tomcat6/Catalina/localhost/pentaho.xml is the same (eg. copy context.xml there)
+
+* Adapt the settings under /opt/pentaho/pentaho-solutions
+	* system/hibernate/hibernate-settings.xml:
+'''
+mysql5.hibernate.cfg.xml</config-file>
+'''
+
+	* system/applicationContext-spring-security-hibernate.properties
+'''
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost/hibernate
+jdbc.username=<user>
+jdbc.password=<password>
+hibernate.dialect=org.hibernate.dialect.MySQLDialect
+'''
+
+	* applicationContext-spring-security-jdbc.properties
+'''
+datasource.driver.classname=com.mysql.jdbc.Driver
+datasource.username=<user>
+datasource.password=<password>
+'''
+
+
+==== Disable Quartz ====
+* in system/systemListeners.xml comment out:
+
+''<!--        <bean id="quartzSystemListener" class="org.pentaho.platform.scheduler2.quartz.EmbeddedQuartzSystemListener" /> -->''
+
+===== Content and logs =====
+
+Under /opt/pentaho/pentaho-solutions:
+* /system/logs: audit log
+* /system/jackrabbit/repository: content
+* /system/.orient/webdetails.db: database with users and roles
