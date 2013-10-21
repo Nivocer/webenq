@@ -1,0 +1,15 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-17T12:25:20+02:00
+
+====== Mondrian ======
+Created Thursday 17 October 2013
+
+=== Documentation: ===
+http://mondrian.pentaho.com/documentation/
+
+=== Logging ===
+To enable logging of sql & mdx queries:
+uncomment the mondrian logging entry in:
+/webapps/pentaho/WEB-INF/classes/log4j.xml 
+
