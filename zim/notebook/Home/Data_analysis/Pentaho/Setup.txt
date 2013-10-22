@@ -1,0 +1,36 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-22T15:29:06+02:00
+
+====== Setup ======
+
+===== BI Server =====
+All-in-one stack (includes a Tomcat server)
+
+==== mysql connector ====
+Pentaho community does not come with mysql connector jar.
+
+You need to download mysql-connector-java-5.1.20-bin. Alternatively, install the Ubuntu package libmysql-java and create symlinks:
+
+''ln -s /usr/share/java/mysql-connector-java.jar mysql-connector-java.jar''
+
+* BI server ''.../biserver-ce/tomcat/lib''
+* PDI suite ''.../data-integration/libext/JDBC''
+* Aggregation Designer ''.../design-tools/aggregation-designer/drivers''
+* Metadata Editor ''.../design-tools/metadata-editor/libext/JDBC''
+* Report Designer ''.../design-tools/report-designer/lib/jdbc''
+* Schema Workbench ''.../design-tools/schema-workbench/drivers''
+
+The database URLs are in the form ''jdbc:mysql://localhost:3306/databasename''
+
+==== start-up ====
+
+=== biserver-ce ===
+* start via ./start-pentaho.sh
+* available via http://localhost:8080/pentaho
+* "evaluation login" user/password: joe/password
+
+=== administration-console ===
+* start via ./start-pac.sh &
+* available via http://localhost:8099/
+* login: admin/password
