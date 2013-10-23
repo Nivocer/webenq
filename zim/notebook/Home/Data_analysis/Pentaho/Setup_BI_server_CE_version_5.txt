@@ -4,6 +4,8 @@ Creation-Date: 2013-10-22T15:28:03+02:00
 
 ====== Setup BI server CE version 5 ======
 
+**THIS IS WORK IN PROGRESS - DOESN'T WORK YET**
+
 * Version 5 daily builds, http://ci.pentaho.com/job/BISERVER-CE/
 * Installing Pentaho Community Edition in Tomcat, http://ci.pentaho.com/job/BISERVER-CE/lastSuccessfulBuild/artifact/assembly/dist/Installing_Pentaho_Community_Edition_In_Tomcat.html
 
@@ -68,7 +70,7 @@ Under /opt/pentaho/pentaho-solutions:
 * /system/jackrabbit/repository: content
 * /system/.orient/webdetails.db: database with users and roles
 
-====== TOCH NIET NODIG? ======
+====== Not needed? ======
 * Edit /var/lib/tomcat6/webapps/pentaho/META-INF/context.xml to set the database URL to e.g. a MySQL database. You can remove the validationQuery part, or set it to "select 1":
 	''<Resource name="jdbc/Hibernate"'' [...]
 	''driverClassName="com.mysql.jdbc.Driver"''

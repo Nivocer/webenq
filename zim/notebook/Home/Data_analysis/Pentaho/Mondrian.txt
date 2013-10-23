@@ -3,7 +3,6 @@ Wiki-Format: zim 0.4
 Creation-Date: 2013-10-17T12:25:20+02:00
 
 ====== Mondrian ======
-Created Thursday 17 October 2013
 
 === Documentation: ===
 http://mondrian.pentaho.com/documentation/
