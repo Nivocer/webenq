@@ -6,7 +6,7 @@ Creation-Date: 2013-10-23T16:05:06+02:00
 
 ===== BI server =====
 
-==== Enabling publishing of content ====
+==== Enable publishing of content ====
 You need to set a publisher password in order to allow upload of content:
 * go to pentaho_solutions/system/
 * edit publisher_config.xml
@@ -19,3 +19,13 @@ You need to set a publisher password in order to allow upload of content:
 mondrian.rolap.aggregates.Use=true
 mondrian.rolap.aggregates.Read=true
 '''
+
+
+===== Administration console =====
+
+==== Admin password ====
+The default admin password should be changed:
+* Generate a new password hash with
+	''java -cp lib/jetty-6.1.2.jar:lib/jetty-util-6.1.9.jar org.mortbay.jetty.security.Password admin <password>''
+* Put the OBF string and username in resource/config/login.properties:
+	''admin: OBF:1v2j1uum1xtv1zej1zer1xtn1uvk1v1v,admin''
