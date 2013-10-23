@@ -6,7 +6,7 @@ Creation-Date: 2013-10-13T13:32:03+02:00
 
 ===== Tools =====
 * BI-server
-* PDI (Kettle, Spoon)
+* PDI (Kettle: Spoon, Kitchen, Pan)
 * Aggregation Designer
 * Metadata Editor
 * Report Designer
