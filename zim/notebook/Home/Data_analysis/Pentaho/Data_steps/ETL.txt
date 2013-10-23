@@ -1,0 +1,79 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-23T12:51:43+02:00
+
+====== ETL ======
+Created Wednesday 23 October 2013
+
+* Spoon is the grafic interface for creating/changing transformations/jobs
+* pan is a command line tool to execute transformation files
+* kitchen is a command line tool to execute jobs.
+* Carte is a simple web server that allows you to execute transformations and jobs remotely (we don't use it)
+
+* A job is a collection of transformation executed in a certain order, each transformation is executed after each other (one transformation at the same time)
+* A transformation is a collection of steps, through which the data rows flows, steps are executed synchroon (all steps could be active at a certain moment).
+
+
+**Steps in initial extract webenq3 Job:**
+* readconfig file:
+	* if config-file parameter is set (kitchen) read config file with database parameters.
+* set answer label key: 
+	* used to set answer_label_key, 
+	* answer_label_key is used in dim_country, dim_project, dim_training, lookup_answer_label/stage_lookup_answer_label (they all store info to lookup_answer_labels)
+	* future adjustments: get last key from database
+* drop table/create tables: prepare database
+* dimension add null values: some dimensions (country, project, training) needs a not applicable row, because it is auto-increment it is the first row, key=1)
+* dim_country, project, training: get data from webenq3, country,project, training tables and store in dim_country, etc It also stores cpt in lookup_answer_labels for 'normal questions'. (dim_country etc, are also stage_lookup tables for 'normal' questions)
+* dim_questionnaire: get questionnaire 'meta' information (english or first available valid language)
+* dim_question/stage_lookup question: get questions, extend with question type , group info, store as dim_question & stage_lookup_question
+* lookup_answer_label/stage_lookup_answer_label: get answer possibilities, try to get label (english or first available) and store in stage_lookup_answer_label & output_lookup_answer_label
+* get all respondents and store in dim_respondent en stage_lookup_respondent (keys: respondent, questionnaire, date, country,project, training and date_import, respondent_id)
+* fact_answers: 
+	* process answers, get keys and other info from stage_lookup_* tables
+	* dependent on answer type (stage_lookup_question) get data from correct stage_lookup/dimension table.
+	* seperate steps to output to mysql tables for each answer type, makes it easier to create and debug the transformation. (if output to the same step, order and defenition of fields should be the same).
+
+
+
+=== Execute jobs via kitchen: ===
+to execute a job:
+1. ~/.kettle/repositories.xml with definition of repository, eg:
+'''
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories>
+<repository>
+    <id>KettleFileRepository</id>
+    <name>webenq4_reporting_etl</name>
+    <description>webenq4_reporting_etl</description>
+    <base_directory>&#47;staff&#47;jaapandre&#47;pentaho&#47;webenq4_reporting&#47;etl</base_directory>
+    <read_only>N</read_only>
+    <hides_hidden_files>N</hides_hidden_files>
+  </repository>
+ </repositories>
+'''
+
+check to see if it finds the repository with:
+	''pan.sh -listrep''
+	''pan.sh -rep webenq4_reporting_etl -listdir''
+
+2. config-file with database connection definitions and path to sql:
+'''
+SOURCE_HOST=localhost
+SOURCE_PORT=3306
+SOURCE_DB=
+SOURCE_USER=something
+SOURCE_PASSWORD=
+
+TARGET_HOST=localhost
+TARGET_PORT=3306
+TARGET_DB=
+TARGET_USER=
+TARGET_PASSWORD=
+
+PATH_TO_SQL=/staff/jaapandre/pentaho/webenq4_reporting/etl/webenq/
+'''
+
+
+3. execute kitchen, eg:
+ ''./kitchen.sh -rep webenq4_reporting_etl -dir webenq -job initial_extract_webenq3 -param:config-file=config-local.txt'' 
+where config-local.txt is the location of the config-file defined in step 2.

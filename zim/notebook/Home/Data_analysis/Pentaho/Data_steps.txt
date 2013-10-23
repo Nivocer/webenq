@@ -1,0 +1,24 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-23T11:13:31+02:00
+
+====== Data steps ======
+Created Wednesday 23 October 2013
+
+==== Steps & tools ====
+* Determin datamodel: paper en pencil/architect
+* [[./Define_database_model.txt|Define database model/setup target database:]] architect
+* [[Data steps:ETL|ETL]]: kettle
+* Define business model
+	* Mondrian 
+		* [[+Dimensions fact measures|dimensions/fact/measures]]: pentaho schema workbench
+		* [[Data steps: aggregates|Aggregates]]: pentaho aggregate-designer
+	* [[Data steps:pentaho metadata|pentaho metadata]]: pentaho metadata editor
+
+===== Determin datamodel =====
+* what is fact, smallest entitity
+* how do you want to report (average, count, sum)..
+* what dimensions are important
+* on what level do you want to report (eg date: year, quarter, month, day, custom?)
+
+

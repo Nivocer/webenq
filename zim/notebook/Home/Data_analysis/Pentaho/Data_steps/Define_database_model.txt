@@ -1,0 +1,48 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-23T12:42:39+02:00
+
+====== Define database model ======
+Created Wednesday 23 October 2013
+
+usefull tool: architect http://www.sqlpower.ca/page/architect
+* With architect you can define and create the target database scheme for several database system (mysql, postgresql, ....)
+* You can connect to the source database to map the source database fields to the target database fields and create the first kettle job/transformations as starting point.
+* it is also possible to define a olap schema, but I used the pentaho tool for this.
+* to generate the database/sql use tools -> forward engineer (or icon with sql and →)
+	* create in: select target database
+	* generate ddl for type: mysql
+	* database: target database
+	* ok
+	* save to save sql to use in kettle job
+	* execute to generate the new database (a drop table is executed as well)
+* the sql needed for etl is stored with the jobs/transformation (at this moment duplicate in repository)
+
+=== Prefixes of table names ===
+* stage_: tables only usefull during etl
+* lookup_: lookup table in analysis, eg, answer labels
+* dim_: dimension tables
+* fact_: fact table
+
+=== Relationships: ===
+* Type: non-identifying (don't know why)
+* cardinality: 
+	* dimension row has 0 or more facts rows, 
+	* fact row has exactly one dimension row (so a dimension has also a non applicable row if needed)
+	so:  pk dimension: exactly one, pk fact: zero or more
+* update rules/delete rules: Cascade
+
+==== know issues ====
+
+=== architect cannot find database class ===
+
+	* connections -> database connections -JDBC Drivers
+	* click mysql -> add jar
+	* browse to architect folder/jdbc
+	* select mysql-connector*.jar (one is enough)
+	* ok
+
+=== error when generating sql ===
+
+* Duplicate physical name "dim_questionnaire_questionnaire_key_seq".
+	* with quickfix a new physical name is created.
