@@ -19,12 +19,17 @@ All-in-one stack (includes a Tomcat server)
 * start via ./start-pentaho.sh
 * available via http://localhost:8080/pentaho
 * "evaluation login" user/password: joe/password
+* Admin features via  http://localhost:8080/pentaho/Admin
 
 === Install Saiku ===
 * within the Pentaho User Console, go to Tools > Marketplace
 * install the Saiku Analytics plugin
-* if needed, update other plugins
-* restart the BI server
+* following the plugin README, it is possible to let Saiku use the same Mondrian as the BI-Server:
+	* delete the following JAR files from pentaho-solutions/system/saiku/lib/
+		* mondrian*.jar, olap4j*.jar, eigenbase*.jar (should be 1 mondrian, 2 olap4j, 3 eigenbase jar files)
+		* open saiku/plugin.spring.xml and remove the following line (about line #33):
+		''<property name="datasourceResolverClass" value="org.saiku.plugin.PentahoDataSourceResolver" />''
+* restart your server or use the plugin adapter refresh in http://localhost:8080/pentaho/Admin
 
 ==== Pentaho Administration Console ====
 

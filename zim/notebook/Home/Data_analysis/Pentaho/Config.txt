@@ -21,6 +21,9 @@ mondrian.rolap.aggregates.Read=true
 '''
 
 
+==== Logging Mondrian OLAP queries ====
+To enable logging of sql & mdx queries, uncomment the mondrian logging entry (''<appender name="MONDRIAN" ...'') in tomcat/webapps/pentaho/WEB-INF/classes/log4j.xml
+
 ===== Administration console =====
 
 ==== Admin password ====
