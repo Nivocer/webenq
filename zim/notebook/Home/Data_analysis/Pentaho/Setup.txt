@@ -4,13 +4,40 @@ Creation-Date: 2013-10-22T15:29:06+02:00
 
 ====== Setup ======
 
-===== BI Server =====
+===== Installation =====
 All-in-one stack (includes a Tomcat server)
+* Download the BI Platform from http://wiki.pentaho.com/display/COM/Latest+Stable+Builds (Business Intelligence Server, 4.8.0-stable)
+* Unpack in destination location: this creates directories administration-console and biserver-ce
+	* enable group write permissions: chmod -R g+w administration-console/ biserver-ce/
+* Add the mysql connector java library (see below)
+* Make sure connections on localhost to various ports are allowed in the firewall (at least 8005, 8009, 8080, 9001)
 
-==== mysql connector ====
-Pentaho community does not come with mysql connector jar.
+==== BI Server ====
 
-You need to download mysql-connector-java-5.1.20-bin. Alternatively, install the Ubuntu package libmysql-java and create symlinks:
+=== Start-up ===
+* go to the directory biserver-ce
+* start via ./start-pentaho.sh
+* available via http://localhost:8080/pentaho
+* "evaluation login" user/password: joe/password
+
+=== Install Saiku ===
+* within the Pentaho User Console, go to Tools > Marketplace
+* install the Saiku Analytics plugin
+* if needed, update other plugins
+* restart the BI server
+
+==== Pentaho Administration Console ====
+
+=== Start-up ===
+* go to the directory administration-console
+* start via ./start-pac.sh &
+* available via http://localhost:8099/
+* login: admin/password
+
+===== mysql connector =====
+Pentaho community edition does not come with mysql connector jar.
+
+You need to download mysql-connector-java-5.1.20-bin. Alternatively, install the Ubuntu/Debian package libmysql-java and create symlinks:
 
 ''ln -s /usr/share/java/mysql-connector-java.jar mysql-connector-java.jar''
 
@@ -22,15 +49,3 @@ You need to download mysql-connector-java-5.1.20-bin. Alternatively, install the
 * Schema Workbench ''.../design-tools/schema-workbench/drivers''
 
 The database URLs are in the form ''jdbc:mysql://localhost:3306/databasename''
-
-==== start-up ====
-
-=== biserver-ce ===
-* start via ./start-pentaho.sh
-* available via http://localhost:8080/pentaho
-* "evaluation login" user/password: joe/password
-
-=== administration-console ===
-* start via ./start-pac.sh &
-* available via http://localhost:8099/
-* login: admin/password

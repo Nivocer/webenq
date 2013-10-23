@@ -1,0 +1,21 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-23T16:05:06+02:00
+
+====== Config ======
+
+===== BI server =====
+
+==== Enabling publishing of content ====
+You need to set a publisher password in order to allow upload of content:
+* go to pentaho_solutions/system/
+* edit publisher_config.xml
+
+==== Mondrian settings ====
+* in pentaho-solutions/system/mondrian/mondrian.properties:
+
+'''
+# Allow the use of aggregates
+mondrian.rolap.aggregates.Use=true
+mondrian.rolap.aggregates.Read=true
+'''
