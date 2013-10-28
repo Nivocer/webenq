@@ -53,8 +53,8 @@ to execute a job:
 '''
 
 check to see if it finds the repository with:
-	''pan.sh -listrep''
-	''pan.sh -rep webenq4_reporting_etl -listdir''
+	kitchen''.sh -listrep''
+	kitchen''.sh -rep webenq4_reporting_etl -listdir''
 
 2. config-file with database connection definitions and path to sql:
 '''
