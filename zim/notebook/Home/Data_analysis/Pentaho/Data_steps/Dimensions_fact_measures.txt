@@ -1,0 +1,45 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-10-24T09:19:15+02:00
+
+====== Dimensions fact measures ======
+Created Thursday 24 October 2013
+
+* tools:
+	* schema workbench: define basic mondrian schema
+	* aggregation designer: generate aggregates (performance improvements)
+* config in  mondrian.properties:
+''mondrian.rolap.aggregates.Read=true'' 
+
+==== Basic schema ====
+* schema workbench needs a recent java-connector 5.1.16 is too old, 5.1.26 seems ok.
+* if you set a connection for a cube, you can use the info from that connection to define the schema
+* there is no auto populate, so defining a scheme with PUC could be usefull, but it set the database name as schema, which is not correct according to schema workbench.
+* dimension can be added on schema level and on cube level. If added on schema level you can use the dimension in multiple cubes.
+* it is possible to join two tables for one dimension, at this moment two joins:
+	* starting at questionnaire category level and drill down to question
+	* starting at question group level and drill down to answer
+* you can also use/define a view, but did not succeed in using, yet
+* per dimension you can have multiple hierarchies, with fields. All fields are at the same level in saiku (column,rows, filter). You can not mix two hierarcies from one dimension in saiku. However you can use a (schema) dimension twice in a cube.
+* mondrian definitions are stored in git (webenq4_reporting/datamodel/mondrian) and published via schema workbench/aggregate-designer
+
+* when publicing set the database connection and check 'register xmla data source'
+* if a not existing connection is choosen, publishing won't succeed
+* at this moment publish to admin/resources/metadata
+
+==== Aggregates ====
+Schema workbench doesn't calculate aggregates/schema's. By using aggregates, Saiku doesn't need to calculate the measures on runtime, but they are stored in the database.
+* level names should be unique (or short): a mysql field like $table_$levelName is created. if a table has the level 'questionnaire_title_en and questionnaire_category_name, it is truncate to eg dim_questionnaire_questionn (which leads to duplicate field name), solution:
+	* alias table name (but aggregates, don't use alias name)
+		* a$i: anwer table with sequence number
+		* q$i: question table with sequence number
+		* $qe$i: questionnaire table with sequence number
+	* level names: $aliasName $name of level eg `qe2 title`
+	* level caption: Label of level for user: eg `Questionnaire title`
+* aggregate designer is able to generate sql to create tables, to fill tables and to publish the new mondrian model.
+* the sql files are saved to webenq4_reporting/etl/webenq/createAggregateTables.sql, fillAggregateTables.sql
+* createAggregateTables.sql sometimes contains varchart(66535), mysql doesn't like this, so change it to text
+* these sql-files are called in intial_extract_webenq-etl job after filling fact_answer, a transformation is added to drop the aggregate tables
+
+aggregates with hierachical tables seems not working properly yet.
+solution maybe at: http://mondrian.pentaho.com/documentation/aggregate_tables.php#Aggregate_tables_and_parent-child_hierarchies
