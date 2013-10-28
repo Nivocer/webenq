@@ -6,6 +6,24 @@ Creation-Date: 2013-10-23T16:05:06+02:00
 
 ===== BI server =====
 
+==== Session lifetime ====
+default session lifetime is 30 minutes, to adjust:
+ $BISERVER/tomcat/webapps/pentaho/WEB-INF/web.xml
+Look for the setting:
+<!-- insert additional servlet mappings -->
+<session-config>
+<session-timeout>30</session-timeout>
+</session-config>
+
+The number is the session-timeout in minutes.
+
+
+==== Start up ====
+Java7 is a bit more strict about custom sorts, this gives error with saiku answer label sorting, hack:
+in startPentaho.sh 
+add  -Djava.util.Arrays.useLegacyMergeSort=true 
+to export CATALINA_OPTS
+
 ==== Enable publishing of content ====
 You need to set a publisher password in order to allow upload of content:
 * go to pentaho_solutions/system/
