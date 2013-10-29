@@ -4,44 +4,50 @@ Creation-Date: 2013-10-13T13:32:03+02:00
 
 ====== Pentaho ======
 
-===== Tools =====
-* BI-server
-* PDI (Kettle: Spoon, Kitchen, Pan)
-* Aggregation Designer
-* Metadata Editor
+===== Components =====
+
+==== BI-server ====
+
+=== Core ===
+The all-in-one package contains its own Tomcat application server. It also has a solutions repository where schemas, reports etc are stored.
+* User console: web interface for analysis and reporting
+* Administration console: web application to manage users, roles and data connections
+* Mondrian: OLAP engine
+
+=== Plugins ===
+* Saiku analytics
+
+==== Design tools ====
+
+=== Pentaho design tools ===
+* Schema Workbench: used to define OLAP cubes.
+* Aggregate Designer: used to create aggregate tables to improve performance
 * Report Designer
-* Schema Workbench
+* Metadata Editor: connect schemas, databases, users, reports, dashboards (we currently don't use it)
 
-=== Design data model: ===
-http://www.sqlpower.ca/page/architect
+=== Others ===
+* SQL Power Architect: design data models and generate Kettle jobs (http://www.sqlpower.ca/page/architect)
 
-==== Pentaho ====
+==== Data transformation ====
+
+=== Pentaho Data Integration (PDI) ===
+Suite of Pentaho application for ETL, also known as Kettle ([[http://kettle.pentaho.com/|http://kettle.pentaho.com]])
+* Spoon: graphical interface to edit and run transformations and jobs
+* Pan: command-line tool to run transformations
+* Kitchen: command-line tool to run jobs
+* Carte: web application to execute transformations and jobs remotely (we don't use it)
+
+=== Others ===
+* DataCleaner: data quality and profiling tool that can work with Pentaho (http://datacleaner.org)
+{{./pentaho-components.png}}
+
+===== Pentaho info =====
 http://wiki.pentaho.com/display/COM/Latest+Stable+Builds
 http://wiki.pentaho.com/display/COM/Community+Wiki+Home
 http://ci.pentaho.com (snapshots downloads)
 
-=== ETL: ===
-tool: pentaho data integration
-http://kettle.pentaho.com/
-documentation: http://wiki.pentaho.com/display/EAI/Latest+Pentaho+Data+Integration+%28aka+Kettle%29+Documentation
-
-=== Meta data ===
-link between database and user (predefined report, dashboard)
-tool: pentaho metadata editor
-documentation: http://wiki.pentaho.com/display/COM/The+Pentaho+Metadata+Project
-
-=== Mondrian: ===
-link between database and user (olap)
-tool to define mondrian schema: pentaho schema workbench 
-tool to create aggregation: pentaho aggregate designer (not used yet)
-tool to build mdx queries: saiku
-documentation: http://mondrian.pentaho.com/documentation
-
-=== Olap/ad hoc analytics ===
-saiku
-http://docs.analytical-labs.com/
-
-=== Predefined reports ===
-tool: pentaho report designer
-documentation: http://wiki.pentaho.com/display/Reporting/Pentaho+Reporting+Community+Documentation
-can use table, jdbc, metadata or mdx as datasource
+Kettle: http://wiki.pentaho.com/display/EAI/Latest+Pentaho+Data+Integration+%28aka+Kettle%29+Documentation
+Metadata: http://wiki.pentaho.com/display/COM/The+Pentaho+Metadata+Project
+Mondrian: http://mondrian.pentaho.com/documentation
+Saiku: [[http://docs.analytical-labs.com/|http://docs.analytical-labs.com]]
+Reporting: http://wiki.pentaho.com/display/Reporting/Pentaho+Reporting+Community+Documentation

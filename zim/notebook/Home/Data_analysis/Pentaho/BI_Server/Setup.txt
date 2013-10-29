@@ -14,6 +14,11 @@ All-in-one stack (includes a Tomcat server)
 
 ==== BI Server ====
 
+=== Running in Java 7 ===
+Java 7 is a bit more strict about custom sorts. This gives an error with Saiku answer label sorting. Fix this in start-pentaho.sh by adding to export CATALINA_OPTS:
+	''-Djava.util.Arrays.useLegacyMergeSort=true''
+
+
 === Start-up ===
 * go to the directory biserver-ce
 * start via ./start-pentaho.sh
@@ -24,12 +29,7 @@ All-in-one stack (includes a Tomcat server)
 === Install Saiku ===
 * within the Pentaho User Console, go to Tools > Marketplace
 * install the Saiku Analytics plugin
-* following the plugin README, it is possible to let Saiku use the same Mondrian as the BI-Server:
-	* delete the following JAR files from pentaho-solutions/system/saiku/lib/
-		* mondrian*.jar, olap4j*.jar, eigenbase*.jar (should be 1 mondrian, 2 olap4j, 3 eigenbase jar files)
-		* open saiku/plugin.spring.xml and remove the following line (about line #33):
-		''<property name="datasourceResolverClass" value="org.saiku.plugin.PentahoDataSourceResolver" />''
-* restart your server or use the plugin adapter refresh in http://localhost:8080/pentaho/Admin
+* the Saiku plugin README says it is possible to let Saiku use the same Mondrian as the BI-Server, but it seems it already does this out-of-the-box?
 
 ==== Pentaho Administration Console ====
 

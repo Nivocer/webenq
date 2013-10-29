@@ -3,7 +3,6 @@ Wiki-Format: zim 0.4
 Creation-Date: 2013-10-23T12:51:43+02:00
 
 ====== ETL ======
-Created Wednesday 23 October 2013
 
 * Spoon is the grafic interface for creating/changing transformations/jobs
 * pan is a command line tool to execute transformation files

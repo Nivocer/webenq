@@ -2,7 +2,7 @@ Content-Type: text/x-zim-wiki
 Wiki-Format: zim 0.4
 Creation-Date: 2013-10-22T15:28:03+02:00
 
-====== Setup BI server CE version 5 ======
+====== Setup CE version 5 ======
 
 **THIS IS WORK IN PROGRESS - DOESN'T WORK YET**
 

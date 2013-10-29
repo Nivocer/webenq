@@ -3,7 +3,6 @@ Wiki-Format: zim 0.4
 Creation-Date: 2013-10-23T12:42:39+02:00
 
 ====== Define database model ======
-Created Wednesday 23 October 2013
 
 usefull tool: architect http://www.sqlpower.ca/page/architect
 * With architect you can define and create the target database scheme for several database system (mysql, postgresql, ....)
