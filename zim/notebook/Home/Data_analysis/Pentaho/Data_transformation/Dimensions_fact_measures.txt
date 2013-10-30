@@ -27,19 +27,43 @@ Created Thursday 24 October 2013
 * if a not existing connection is choosen, publishing won't succeed
 * at this moment publish to admin/resources/metadata
 
-==== Aggregates ====
+==== Aggregates (wip) ====
 Schema workbench doesn't calculate aggregates/schema's. By using aggregates, Saiku doesn't need to calculate the measures on runtime, but they are stored in the database.
 * level names should be unique (or short): a mysql field like $table_$levelName is created. if a table has the level 'questionnaire_title_en and questionnaire_category_name, it is truncate to eg dim_questionnaire_questionn (which leads to duplicate field name), solution:
-	* alias table name (but aggregates, don't use alias name)
-		* a$i: anwer table with sequence number
-		* q$i: question table with sequence number
-		* $qe$i: questionnaire table with sequence number
-	* level names: $aliasName $name of level eg `qe2 title`
+	* Don't use alias table name (aggregates designer, doesn't like it)
+	* level names: 
+		* shorten question, questionnaire, answer with sequence (multiple time used)
+			* a$i: anwer table with sequence number
+			* q$i: question table with sequence number
+			* $qe$i: questionnaire table with sequence number
+		* add  name of level 
+		* so it becomes something like `qe2 title`
 	* level caption: Label of level for user: eg `Questionnaire title`
 * aggregate designer is able to generate sql to create tables, to fill tables and to publish the new mondrian model.
-* the sql files are saved to webenq4_reporting/etl/webenq/createAggregateTables.sql, fillAggregateTables.sql
+* the sql files are saved to webenq4_reporting/etl/webenq/$schemeName.$cubeName/createAggregateTables.sql, fillAggregateTables.sql
 * createAggregateTables.sql sometimes contains varchart(66535), mysql doesn't like this, so change it to text
-* these sql-files are called in intial_extract_webenq-etl job after filling fact_answer, a transformation is added to drop the aggregate tables
+* these sql-files are called in create Aggregates.job (after a drop aggregateTables if exists)
 
 aggregates with hierachical tables seems not working properly yet.
 solution maybe at: http://mondrian.pentaho.com/documentation/aggregate_tables.php#Aggregate_tables_and_parent-child_hierarchies
+
+
+==== workflow (wip): ====
+$schemaName=base name (testing) with no-aggregates if they are not defined yet in this model
+* create: $client.$schemaName.no-aggregates.xml
+* copy to $client.$schema.aggregates.xml
+* adjust schema-name (remove no-aggregates)
+* use advisor to generate aggregates
+* store etl/webenq/$schemaName_$cubeName/createAggregateTables.sql 
+* store etl/webenq/$schemaName_$cubeName/fillAggregatesTables.sql
+* export mondrian schema
+* test mysql jobs
+	* adjust varchar(65535)
+* save aggregateDesigner /datamodel/mondrian/$schemaName_cubeName/.....
+* publish mondrian schema.
+
+==== Removing old schemes ====
+* remove entry in pentaho-solutions/system/olap/datasource.xml
+* remove mondrian schema
+* refresh  mondrian scheme cache : puc: tools->refresh-> mondrian scheme cache
+
