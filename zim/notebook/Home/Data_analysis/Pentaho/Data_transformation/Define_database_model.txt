@@ -14,8 +14,8 @@ usefull tool: architect http://www.sqlpower.ca/page/architect
 	* database: target database
 	* ok
 	* save to save sql to use in kettle job
-	* execute to generate the new database (a drop table is executed as well)
-* the sql needed for etl is stored with the jobs/transformation (at this moment duplicate in repository)
+	* adjust sql: add 'SET storage_engine=INNODB;' on top of file.
+* the sql needed for etl is stored with the jobs/transformation 
 
 === Prefixes of table names ===
 * stage_: tables only usefull during etl
