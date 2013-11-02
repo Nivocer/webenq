@@ -17,6 +17,14 @@ The default session lifetime is 30 minutes. To adjust, edit $BISERVER/tomcat/web
 '''
 
 
+==== Don't show user names in login window ====
+To remove the drop-down of evaluation logins, edit pentaho-solutions/system/pentaho.xml and set:
+'''
+<login-show-users-list>false</login-show-users-list>
+<login-show-sample-users-hint>false</login-show-sample-users-hint>
+'''
+
+
 ==== Enable publishing of content ====
 You need to set a publisher password in order to allow upload of content:
 * go to pentaho_solutions/system/
