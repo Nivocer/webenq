@@ -3,7 +3,6 @@ Wiki-Format: zim 0.4
 Creation-Date: 2013-10-23T11:13:31+02:00
 
 ====== Data transformation ======
-Created Wednesday 23 October 2013
 
 ==== Steps & tools ====
 * Determin datamodel: paper en pencil/architect

@@ -3,7 +3,6 @@ Wiki-Format: zim 0.4
 Creation-Date: 2013-10-24T09:19:15+02:00
 
 ====== Dimensions fact measures ======
-Created Thursday 24 October 2013
 
 * tools:
 	* schema workbench: define basic mondrian schema
@@ -12,7 +11,6 @@ Created Thursday 24 October 2013
 ''mondrian.rolap.aggregates.Read=true'' 
 
 ==== Basic schema ====
-* schema workbench needs a recent java-connector 5.1.16 is too old, 5.1.26 seems ok.
 * if you set a connection for a cube, you can use the info from that connection to define the schema
 * there is no auto populate, so defining a scheme with PUC could be usefull, but it set the database name as schema, which is not correct according to schema workbench.
 * dimension can be added on schema level and on cube level. If added on schema level you can use the dimension in multiple cubes.

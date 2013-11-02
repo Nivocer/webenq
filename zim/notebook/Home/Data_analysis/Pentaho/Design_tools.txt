@@ -1,0 +1,29 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-11-02T15:18:04+01:00
+
+====== Design tools ======
+
+===== Schema workbench =====
+
+==== Setup ====
+Schema workbench needs some additional files after unpacking:
+* a recent java-connector in the directory drivers: 5.1.16 is too old, use 5.1.25 (recent Ubuntu package) or 5.1.26 (can be downloaded from the MySQL website).
+
+* JBoss javassist.jar in the lib/ directory, can be downloaded from http://sourceforge.net/projects/jboss/files/Javassist/
+* Scannotation.jar in the lib/ directory, can be downloaded from http://sourceforge.net/projects/scannotation/files/scannotation/
+* Edit workbench.sh and add two lines at the end of setting the classpath variable (around line 48)
+'''
+CP="${CP}${PS}${MONDRIAN_HOME}/lib/scannotation.jar"
+CP="${CP}${PS}${MONDRIAN_HOME}/lib/javassist.jar"
+'''
+(see also http://forums.pentaho.com/showthread.php?147289-java-lang-ClassNotFoundException-org-scannotation-AnnotationDB)
+
+==== Config ====
+* To use aggregates, edit mondrian.properties:
+'''
+mondrian.rolap.aggregates.Use=true
+mondrian.rolap.aggregates.Read=true
+'''
+ 
+
