@@ -3,12 +3,13 @@ Wiki-Format: zim 0.4
 Creation-Date: 2013-11-02T15:18:04+01:00
 
 ====== Design tools ======
+Available via http://sourceforge.net/projects/pentaho/files
 
 ===== Schema workbench =====
 
 ==== Setup ====
 Schema workbench needs some additional files after unpacking:
-* a recent java-connector in the directory drivers: 5.1.16 is too old, use 5.1.25 (recent Ubuntu package) or 5.1.26 (can be downloaded from the MySQL website).
+* a recent MySQL java-connector in the directory drivers: 5.1.16 is too old, use 5.1.25 (package libmysql-java in a recent Ubuntu version) or 5.1.26 (can be downloaded from the MySQL website).
 
 * JBoss javassist.jar in the lib/ directory, can be downloaded from http://sourceforge.net/projects/jboss/files/Javassist/
 * Scannotation.jar in the lib/ directory, can be downloaded from http://sourceforge.net/projects/scannotation/files/scannotation/
@@ -20,6 +21,8 @@ CP="${CP}${PS}${MONDRIAN_HOME}/lib/javassist.jar"
 (see also http://forums.pentaho.com/showthread.php?147289-java-lang-ClassNotFoundException-org-scannotation-AnnotationDB)
 
 ==== Config ====
+Schema Workbench stores information on your local configuration in ''~/.schemaWorkbench''
+
 * To use aggregates, edit mondrian.properties:
 '''
 mondrian.rolap.aggregates.Use=true
@@ -27,3 +30,17 @@ mondrian.rolap.aggregates.Read=true
 '''
  
 
+===== Report Designer =====
+
+==== Config ====
+Local configuration is stored in ''~/.pentaho''
+
+===== Metadata Editor =====
+A metadata file (.xmi) in the root of a solution repository should be able to provide a lot of the information for various BI components.
+
+==== Config ====
+Local configuration is stored in ''~/.pentaho-meta'' (recovery versions of XMI files)
+The metadata repository is stored within the application directory (files ''mdr.*'')
+
+==== Docu ====
+http://wiki.pentaho.com/display/ServerDoc1x/00.+Metadata+Terminology

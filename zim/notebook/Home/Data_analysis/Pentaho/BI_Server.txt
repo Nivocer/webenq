@@ -4,3 +4,5 @@ Creation-Date: 2013-10-29T12:42:23+01:00
 
 ====== BI Server ======
 
+* [[+Setup|Setup]]
+* [[+Config|Configuration]]

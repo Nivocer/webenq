@@ -24,6 +24,7 @@ The all-in-one package contains its own Tomcat application server. It also has a
 * Aggregate Designer: used to create aggregate tables to improve performance
 * Report Designer
 * Metadata Editor: connect schemas, databases, users, reports, dashboards (we currently don't use it)
+* Pentaho Design Studio: Eclipse-based, creates .xaction files (deprecated, we don't use it)
 
 === Others ===
 * SQL Power Architect: design data models and generate Kettle jobs (http://www.sqlpower.ca/page/architect)
@@ -51,3 +52,26 @@ Metadata: http://wiki.pentaho.com/display/COM/The+Pentaho+Metadata+Project
 Mondrian: http://mondrian.pentaho.com/documentation
 Saiku: [[http://docs.analytical-labs.com/|http://docs.analytical-labs.com]]
 Reporting: http://wiki.pentaho.com/display/Reporting/Pentaho+Reporting+Community+Documentation
+
+===== MySQL =====
+
+==== Java connector ====
+Pentaho community edition does not come with mysql connector jar. You need to download a recent version from the MySQL website. Alternatively, install the Ubuntu/Debian package libmysql-java and create symlinks:
+
+''ln -s /usr/share/java/mysql-connector-java.jar mysql-connector-java.jar''
+
+* BI server ''.../biserver-ce/tomcat/lib''
+* PDI suite ''.../data-integration/libext/JDBC''
+* Aggregation Designer ''.../aggregation-designer/drivers''
+* Metadata Editor ''.../metadata-editor/libext/JDBC''
+* Report Designer ''.../report-designer/lib/jdbc''
+* Schema Workbench ''.../schema-workbench/drivers''
+
+The database URLs are in the form ''jdbc:mysql://localhost:3306/databasename''
+
+==== Tmp space ====
+MySQL normally uses /tmp for temporary storage, which often resides on a special tmpfs file system of 2GB.
+Analytical queries can require more space, which results in an "Errno 28" writing to a /tmp/... file.
+
+Either increase the size of the tmp partition, or change the location of the tmp files in /etc/mysql/my.cnf
+
