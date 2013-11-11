@@ -60,7 +60,7 @@ check to see if it finds the repository with:
 SOURCE_HOST=localhost
 SOURCE_PORT=3306
 SOURCE_DB=
-SOURCE_USER=something
+SOURCE_USER=
 SOURCE_PASSWORD=
 
 TARGET_HOST=localhost
@@ -69,10 +69,14 @@ TARGET_DB=
 TARGET_USER=
 TARGET_PASSWORD=
 
-PATH_TO_SQL=/staff/jaapandre/pentaho/webenq4_reporting/etl/webenq/
+PATH_TO_SQL=/staff/pentaho/webenq4_reporting/etl/webenq/
+PATH_TO_DATA=/staff/pentaho/webenq4_reporting/data/
+PATH_TO_LOG=/staff/pentaho/log/
+LOG_EMAIL=pietje@example.com
 '''
-
 
 3. execute kitchen, eg:
  ''./kitchen.sh -rep webenq4_reporting_etl -dir webenq -job initial_extract_webenq3 -param:config-file=config-local.txt'' 
 where config-local.txt is the location of the config-file defined in step 2.
+
+
