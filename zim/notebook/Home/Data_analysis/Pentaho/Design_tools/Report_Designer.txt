@@ -1,0 +1,26 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2013-11-13T15:08:36+01:00
+
+====== Report Designer ======
+
+===== Config =====
+Local configuration is stored in ''~/.pentaho''
+
+===== Datasets =====
+A report can have multiple datasets, and multiple queries per dataset. But there can only be one "selected query" that provides the data for the report.
+
+In order to use the other queries, you include subreports. They inherit the datasets and queries from the parent report, and can have their own "selected query".
+
+===== Tips & tricks =====
+
+==== Removing shadows in bar charts ====
+In the bar chart properties under Scripting, add a post-processing script: language ''javascript'', code:
+'''
+plot = chart.getPlot(); 
+renderer = plot.getRenderer(); 
+renderer.setShadowVisible(false);
+'''
+ 
+See for a Java alternative also http://blogs.walkingtree.in/2013/05/09/remove-shadows-in-bar-chart-of-pentaho-report-designer-3-9-1/ and the issue linked from there.
+
