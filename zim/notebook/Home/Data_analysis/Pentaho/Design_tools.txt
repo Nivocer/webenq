@@ -34,8 +34,9 @@ mondrian.rolap.aggregates.Read=true
 A metadata file (.xmi) in the root of a solution repository should be able to provide a lot of the information for various BI components.
 
 ==== Config ====
-Local configuration is stored in ''~/.pentaho-meta'' (recovery versions of XMI files)
-The metadata repository is stored within the application directory (files ''mdr.*'')
+* Local configuration is stored in ''~/.pentaho-meta'' (recovery versions of XMI files)
+* The metadata repository is stored within the application directory (files ''mdr.*'')
+* JNDI connections are defined in ''.../metadata-editor/simple-jndi/jdbc.properties''
 
 ==== Docu ====
 http://wiki.pentaho.com/display/ServerDoc1x/00.+Metadata+Terminology

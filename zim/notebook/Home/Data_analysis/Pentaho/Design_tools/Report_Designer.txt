@@ -5,7 +5,8 @@ Creation-Date: 2013-11-13T15:08:36+01:00
 ====== Report Designer ======
 
 ===== Config =====
-Local configuration is stored in ''~/.pentaho''
+* Local configuration is stored in ''~/.pentaho''
+* JNDI datasources are defined in ''~/.pentaho/simple-jndi/default.properties''
 
 ===== Datasets =====
 A report can have multiple datasets, and multiple queries per dataset. But there can only be one "selected query" that provides the data for the report.

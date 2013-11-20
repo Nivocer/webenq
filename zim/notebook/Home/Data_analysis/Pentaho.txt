@@ -75,3 +75,20 @@ Analytical queries can require more space, which results in an "Errno 28" writin
 
 Either increase the size of the tmp partition, or change the location of the tmp files in /etc/mysql/my.cnf
 
+===== JNDI database definition =====
+Using a JNDI database connection has advantages:
+* no database passwords in models
+* easy to use other database credentials on different servers
+
+To use this, a standardised name (e.g. webenq4) should be defined in the appropriate properties files:
+'''
+webenq4/type=javax.sql.DataSource
+webenq4/driver=org.gjt.mm.mysql.Driver
+webenq4/url=jdbc:mysql://localhost:3306/databaseName
+webenq4/user=webenq4
+webenq4/password=password
+'''
+
+* BI server/Pentaho Administration Console: define a JNDI datasource with this name
+* Metadata Editor ''.../metadata-editor/simple-jndi/jdbc.properties''
+* Report Designer ''~/.pentaho/simple-jndi/default.properties''

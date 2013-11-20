@@ -12,9 +12,9 @@ Creation-Date: 2013-10-23T11:13:31+02:00
 	* Mondrian 
 		* [[+Dimensions fact measures|dimensions/fact/measures]]: pentaho schema workbench
 		* [[Data steps: aggregates|Aggregates]]: pentaho aggregate-designer
-	* [[+pentaho metadata|pentaho metadata]]: pentaho metadata editor
+	* [[Design tools|pentaho metadata]]: pentaho metadata editor
 
-===== Determin datamodel =====
+===== Determine datamodel =====
 * what is fact, smallest entitity
 * how do you want to report (average, count, sum)..
 * what dimensions are important
