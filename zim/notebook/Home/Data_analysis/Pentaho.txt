@@ -54,6 +54,7 @@ Saiku: [[http://docs.analytical-labs.com/|http://docs.analytical-labs.com]]
 Reporting: http://wiki.pentaho.com/display/Reporting/Pentaho+Reporting+Community+Documentation
 
 ===== MySQL =====
+[ ] drivername voor deze connector? mogelijk ook aanpassen in de JNDI-info hieronder
 
 ==== Java connector ====
 Pentaho community edition does not come with mysql connector jar. You need to download a recent version from the MySQL website. Alternatively, install the Ubuntu/Debian package libmysql-java and create symlinks:
@@ -83,7 +84,7 @@ Using a JNDI database connection has advantages:
 To use this, a standardised name (e.g. webenq4) should be defined in the appropriate properties files:
 '''
 webenq4/type=javax.sql.DataSource
-webenq4/driver=org.gjt.mm.mysql.Driver
+webenq4/driver=com.mysql.jdbc.Driver
 webenq4/url=jdbc:mysql://localhost:3306/databaseName
 webenq4/user=webenq4
 webenq4/password=password
