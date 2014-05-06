@@ -70,7 +70,7 @@ class Webenq_Model_Report extends Webenq_Model_Base_Report
         if ($id) {
             $query->where('questionnaire_id = ?', $id);
         } else {
-            $query->orderBy('questionnaire_id');
+            $query->orderBy('questionnaire_id DESC, id ASC');
         }
 
         return $query->execute();
