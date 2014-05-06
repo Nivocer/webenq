@@ -27,7 +27,7 @@ class Webenq_Model_Question_Closed extends Webenq_Model_Base_Question_Closed
         }
 
         /* not too many different answers? */
-        if ($question->countUnique() > 50) {
+        if ($question->countUnique() > 10) {
             return false;
         }
 
