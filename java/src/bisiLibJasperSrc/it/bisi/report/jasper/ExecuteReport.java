@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.AccessControlException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -158,6 +159,7 @@ public class ExecuteReport {
 			prms.put("FORM_NAME", xformName);
 			prms.put("CUSTOMER", customer); //resource bundle and needed for hacks in jrxml
 			prms.put("SPLIT_QUESTION_ID", splitQuestionId ); //not yet implemented #5395
+			
 
 			//get map of colors of mean values
 			

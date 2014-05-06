@@ -183,7 +183,7 @@
 				</rowGroup>
 				<columnGroup name="col" height="10" totalPosition="End">
 					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{group_question_label}]]></bucketExpression>
+						<bucketExpression><![CDATA[$F{group_question_label}.toUpperCase()]]></bucketExpression>
 						<orderByExpression><![CDATA[$V{group_question_order}]]></orderByExpression>
 					</bucket>
 					<crosstabColumnHeader>
