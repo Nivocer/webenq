@@ -56,7 +56,7 @@
 		<band splitType="Immediate"/>
 	</columnHeader>
 	<detail>
-		<band height="12" splitType="Immediate">
+		<band height="13" splitType="Immediate">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="20" y="0" width="782" height="12" isRemoveLineWhenBlank="true"/>
 				<textElement markup="html">
