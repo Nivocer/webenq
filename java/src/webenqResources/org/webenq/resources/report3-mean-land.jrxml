@@ -109,7 +109,7 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="138" splitType="Stretch">
+		<band height="138" splitType="Prevent">
 			<crosstab ignoreWidth="false">
 				<reportElement positionType="Float" x="0" y="24" width="802" height="114" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
 				<crosstabParameter name="SCALE_QUESTION_INFO"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" pageWidth="555" pageHeight="80" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3new" printOrder="Horizontal" pageWidth="555" pageHeight="150" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Key">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="20"/>
 	<property name="ireport.y" value="0"/>
@@ -109,9 +109,9 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="56" splitType="Stretch">
+		<band height="138" splitType="Prevent">
 			<crosstab ignoreWidth="false">
-				<reportElement positionType="Float" x="0" y="24" width="555" height="30" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
+				<reportElement positionType="Float" x="0" y="24" width="555" height="110" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" backcolor="#FFFFFF"/>
 				<crosstabParameter name="SCALE_QUESTION_INFO"/>
 				<crosstabParameter name="SCALE_QUESTION_INFO_MAP" class="java.util.Map">
 					<parameterValueExpression><![CDATA[$P{SCALE_QUESTION_INFO_MAP}]]></parameterValueExpression>
@@ -181,9 +181,9 @@
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="col" height="10" totalPosition="End">
+				<columnGroup name="col" height="80" totalPosition="End">
 					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[$F{group_question_label}.toUpperCase()]]></bucketExpression>
+						<bucketExpression><![CDATA[$F{group_question_label}]]></bucketExpression>
 						<orderByExpression><![CDATA[$V{group_question_order}]]></orderByExpression>
 					</bucket>
 					<crosstabColumnHeader>
@@ -196,21 +196,21 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField isStretchWithOverflow="true">
-								<reportElement style="Crosstab Data Text" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="10">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="80">
 									<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
 									<property name="net.sf.jasperreports.text.truncate.suffix" value="..."/>
-									<property name="net.sf.jasperreports.export.html.wrap.break.word" value="true"/>
+									<property name="net.sf.jasperreports.export.html.wrap.break.word" value="false"/>
 									<property name="net.sf.jasperreports.export.pdf.force.linebreak.policy" value="true"/>
 									<property name="net.sf.jasperreports.export.xls.wrap.text" value="false"/>
 								</reportElement>
-								<box leftPadding="1" rightPadding="1">
+								<box topPadding="1" leftPadding="0" bottomPadding="1" rightPadding="0">
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement verticalAlignment="Top" markup="html">
-									<font size="5"/>
+								<textElement verticalAlignment="Middle" rotation="Left" markup="html">
+									<font size="7"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
     str($V{col}.replace("_",": ")):
@@ -228,17 +228,17 @@
 								<rightPen lineWidth="0.0"/>
 							</box>
 							<textField>
-								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="10" isRemoveLineWhenBlank="true">
+								<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="25" height="80" isRemoveLineWhenBlank="true">
 									<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 								</reportElement>
-								<box>
+								<box topPadding="1" bottomPadding="1">
 									<topPen lineWidth="0.5"/>
 									<leftPen lineWidth="0.5"/>
 									<bottomPen lineWidth="0.5"/>
 									<rightPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
-									<font size="6" isBold="false" isPdfEmbedded="false"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left" markup="html">
+									<font size="7" isBold="false" isPdfEmbedded="false"/>
 								</textElement>
 								<textFieldExpression><![CDATA[str("Total")]]></textFieldExpression>
 							</textField>
@@ -266,7 +266,7 @@
 				<measure name="N" class="java.lang.Integer" calculation="DistinctCount">
 					<measureExpression><![CDATA[$F{respondent_id}]]></measureExpression>
 				</measure>
-				<crosstabCell width="30" height="12">
+				<crosstabCell width="25" height="12">
 					<cellContents>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -276,7 +276,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0.0" isBlankWhenNull="true">
-							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isPrintWhenDetailOverflows="true">
+							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="25" height="12" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true">
 								<printWhenExpression><![CDATA[!$V{countMeasure}.equals(null)]]></printWhenExpression>
 							</reportElement>
 							<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -290,7 +290,7 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="30" height="12" rowTotalGroup="row">
+				<crosstabCell width="25" height="12" rowTotalGroup="row">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -300,7 +300,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true"/>
+							<reportElement style="Crosstab Data Text" positionType="Float" mode="Opaque" x="0" y="0" width="25" height="12" isRemoveLineWhenBlank="true"/>
 							<box>
 								<leftPen lineWidth="0.5"/>
 								<rightPen lineWidth="0.5"/>
@@ -312,7 +312,7 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="30" height="12" columnTotalGroup="col">
+				<crosstabCell width="25" height="12" columnTotalGroup="col">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -322,7 +322,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0.0">
-							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="30" height="12" isPrintWhenDetailOverflows="true">
+							<reportElement style="table_colored_cells" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="25" height="12" isPrintWhenDetailOverflows="true">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 							</reportElement>
 							<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -336,7 +336,7 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="30" height="12" rowTotalGroup="row" columnTotalGroup="col">
+				<crosstabCell width="25" height="12" rowTotalGroup="row" columnTotalGroup="col">
 					<cellContents mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -346,7 +346,7 @@
 							<rightPen lineWidth="0.0"/>
 						</box>
 						<textField pattern="###0">
-							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="30" height="12" isRemoveLineWhenBlank="true">
+							<reportElement style="Crosstab Data Text" positionType="Float" x="0" y="0" width="25" height="12" isRemoveLineWhenBlank="true">
 								<printWhenExpression><![CDATA[$V{COLUMN_COUNT} >1]]></printWhenExpression>
 							</reportElement>
 							<box>
