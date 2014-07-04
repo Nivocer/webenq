@@ -1,5 +1,6 @@
+<band height="20" splitType="Prevent">
 <subreport>
-	<reportElement positionType="Float" x="0" y="<?php echo $this->y; ?>" width="<?php echo $this->columnWidth; ?>" height="20" isRemoveLineWhenBlank="true" />
+	<reportElement positionType="Float" x="0" y="0" width="<?php echo $this->columnWidth; ?>" height="20" isRemoveLineWhenBlank="true" />
     <?php if (isset($this->data['report_qq_ids'])): ?>
     	<subreportParameter name="SUBREPORT_DIR">
         	<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
@@ -33,7 +34,7 @@
 			</subreportParameterExpression>
 		</subreportParameter>
 		<subreportParameter name="SCALE_QUESTION_INFO">
-			<subreportParameterExpression><![CDATA["<?php 
+			<subreportParameterExpression><![CDATA["<?php
 			$scaleQuestionInfo=Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids']);
 			foreach ($scaleQuestionInfo  as $id=>$scaleType){
 				$xpaths[$this->element->getXpath($id)]=$scaleType;
@@ -70,3 +71,4 @@
     	} ?>
 	<?php endif; ?>
 </subreport>
+</band>

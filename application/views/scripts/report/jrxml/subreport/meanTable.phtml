@@ -1,5 +1,6 @@
+<band height="20" splitType="Prevent">
 <subreport>
-	<reportElement positionType="Float" x="0" y="<?php echo $this->y; ?>" width="555" height="20" isRemoveLineWhenBlank="true" />
+	<reportElement positionType="Float" x="0" y="0" width="<?php echo $this->columnWidth; ?>" height="20" isRemoveLineWhenBlank="true" />
 	<?php if (isset($this->data['report_qq_ids'])): ?>
     	<subreportParameter name="CUSTOMER">
     		<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
@@ -33,7 +34,7 @@
 			</subreportParameterExpression>
 		</subreportParameter>
     	<subreportParameter name="SCALE_QUESTION_INFO">
-			<subreportParameterExpression><![CDATA["<?php 
+			<subreportParameterExpression><![CDATA["<?php
 			$scaleQuestionInfo=Webenq_Model_ReportElement::getScaleType($this->data['report_qq_ids']);
 			foreach ($scaleQuestionInfo  as $id=>$scaleType){
 				$xpaths[$this->element->getXpath($id)]=$scaleType;
@@ -60,9 +61,9 @@
     			false).getRecords()
     		]]>
     	</dataSourceExpression>
-    	<?php switch ($this->data['variant']){ 
+    	<?php switch ($this->data['variant']){
 case 'questionsInRows':
-	if ($this->pageOrientation =='Portrait') { 
+	if ($this->pageOrientation =='Portrait') {
     	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean.jasper"]]></subreportExpression>' ;
 	}else{
 		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-land.jasper"]]></subreportExpression>' ;
@@ -85,3 +86,4 @@ case 'grade':
 
 	<?php endif; ?>
 </subreport>
+</band>

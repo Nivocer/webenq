@@ -1,6 +1,5 @@
 <detail>
-	<band height="<?php echo 20 * count($this->report->ReportElement); ?>" splitType="Immediate">
-		<?php
+			<?php
 		    foreach ($this->report->ReportElement as $key => $element) {
 		        $this->y = 20 * $key;
 		        $this->element = $element;
@@ -12,5 +11,4 @@
 	            echo $this->render("report/jrxml/$template");
 		    }
 	    ?>
-	</band>
-</detail>
+	</detail>

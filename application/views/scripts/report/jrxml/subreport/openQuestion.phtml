@@ -1,5 +1,6 @@
+<band height="20" splitType="Prevent">
 <subreport>
-	<reportElement positionType="Float" x="0" y="<?php echo $this->y; ?>" width="555" height="20" isRemoveLineWhenBlank="true" />
+	<reportElement positionType="Float" x="0" y="0" width="<?php echo $this->columnWidth; ?>" height="20" isRemoveLineWhenBlank="true" />
 	<?php if (isset($this->data['report_qq_id'])): ?>
     	<subreportParameter name="CUSTOMER">
     		<subreportParameterExpression><![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
@@ -29,3 +30,4 @@
         }?>
     <?php endif; ?>
 </subreport>
+</band>

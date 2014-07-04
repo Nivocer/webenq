@@ -1,11 +1,12 @@
-<subreport isUsingCache="false"> 
-	<reportElement 	positionType="Float" x="0" y="<?php echo $this->y; ?>" width="802" height="20" 	isRemoveLineWhenBlank="true" />
+<band height="20" splitType="Prevent">
+<subreport isUsingCache="false">
+	<reportElement 	positionType="Float" x="0" y="0" width="<?php echo $this->columnWidth; ?>" height="20" 	isRemoveLineWhenBlank="true" />
 	<subreportParameter name="CUSTOMER">
 		<subreportParameterExpression>	<![CDATA[$P{CUSTOMER}]]></subreportParameterExpression>
 	</subreportParameter>
 	<subreportParameter name="DEFAULT_STYLE_FILE">
 		<subreportParameterExpression><![CDATA[$P{DEFAULT_STYLE_FILE}]]></subreportParameterExpression>
-	</subreportParameter> 
+	</subreportParameter>
 	<subreportParameter name="Q_TEXT">
 		<subreportParameterExpression><![CDATA[]]></subreportParameterExpression>
 	</subreportParameter>
@@ -18,3 +19,4 @@
 		<![CDATA["<?php echo $this->data['filename']; ?>"]]>
 	</subreportExpression>
 </subreport>
+</band>
