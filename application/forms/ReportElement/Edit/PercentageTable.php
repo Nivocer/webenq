@@ -58,6 +58,20 @@ class Webenq_Form_ReportElement_Edit_PercentageTable extends Webenq_Form_ReportE
             )
         );
         $this->addElement(
+        		$this->createElement(
+        				'radio',
+        				'variant',
+        				array(
+        						'label' => 'Variant of the table',
+        						'required' => true,
+        						'multiOptions' => array(
+        								'labelsRotated'=>'labelsRotated',
+        								'labelsNotRotated'=>'labelsNotRotated'
+        						),
+        				)
+        		)
+        );
+        $this->addElement(
             $this->createElement(
                 'submit',
                 'submit',
@@ -66,5 +80,6 @@ class Webenq_Form_ReportElement_Edit_PercentageTable extends Webenq_Form_ReportE
                 )
             )
         );
+
     }
 }

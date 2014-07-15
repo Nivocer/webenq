@@ -28,12 +28,28 @@
     			true).getRecords()
     		]]>
     	</dataSourceExpression>
-    	<?php if ($this->pageOrientation =='Portrait') {
-	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq.jasper"]]></subreportExpression>';
-    	}else{
-    		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq-land.jasper"]]></subreportExpression>';
-    	}
-    	?>
+    	<?php
+    	if (!isset($this->data['variant'])) {
+			$this->data['variant']="";
+		}
+    	switch ($this->data['variant']){
+		case 'labelsNotRotated':
+		default:
+    		if ($this->pageOrientation =='Portrait') {
+				echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq-notRotated.jasper"]]></subreportExpression>';
+    		}else{
+				echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq-land-notRotated.jasper"]]></subreportExpression>';
+			}
+			break;
+		case 'labelsRotated':
+			if ($this->pageOrientation =='Portrait') {
+				echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq-rotated.jasper"]]></subreportExpression>';
+			}else{
+				echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report2-freq-land-rotated.jasper"]]></subreportExpression>';
+			}
+		break;
+		}?>
+
 	<?php endif; ?>
 </subreport>
 </band>

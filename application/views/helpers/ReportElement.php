@@ -106,7 +106,12 @@ class Zend_View_Helper_ReportElement extends Zend_View_Helper_Abstract
                     $this->_data['display_group_question_text']=="no"
             ) {
                 $html .=' (hide this text above table)';
+                $html .= '<br/>';
             }
+        }
+        if (isset($this->_data['variant'])) {
+        	$html .= t('variant: ') . ' <strong>'. t($this->_data['variant']) . '</strong>';
+        	$html .= '<br/>';
         }
 
         return $html;

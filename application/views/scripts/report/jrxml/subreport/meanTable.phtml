@@ -69,6 +69,14 @@ case 'questionsInRows':
 		echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-land.jasper"]]></subreportExpression>' ;
 	}
     	break;
+	case 'questionsInRowsNotRotated':
+		if ($this->pageOrientation =='Portrait') {
+			echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-notRotated.jasper"]]></subreportExpression>' ;
+		}else{
+		// not yet implemented
+			echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-land.jasper"]]></subreportExpression>' ;
+		}
+		break;
 case 'questionsInColumns':
     	echo '<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"report3-mean-transpose.jasper"]]></subreportExpression>' ;
     	break;

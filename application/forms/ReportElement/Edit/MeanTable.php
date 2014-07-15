@@ -92,6 +92,7 @@ class Webenq_Form_ReportElement_Edit_MeanTable extends Webenq_Form_ReportElement
                     'required' => true,
                     'multiOptions' => array(
                         'questionsInRows'=>'questionsInRows',
+                    	'questionsInRowsNotRotated'=>'questionsInRowsNotRotated',
                         'questionsInColumns'=>'questionsInColumns',
                         'lowScores'=>'lowScores',
                         'lowScoresDepartmentC'=>'lowScoresDepartmentC',

@@ -155,7 +155,7 @@
 									<rightPen lineWidth="0.5"/>
 								</box>
 								<textElement verticalAlignment="Top" markup="html">
-									<font size="5"/>
+									<font size="6"/>
 								</textElement>
 								<textFieldExpression><![CDATA[($V{col} !=null?
 str($V{col}):
